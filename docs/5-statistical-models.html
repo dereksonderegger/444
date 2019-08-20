@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Statistical Models | STA 444/5 - Data wrangling using R</title>
+  <meta name="description" content="Chapter 5 Statistical Models | STA 444/5 - Data wrangling using R" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Statistical Models | STA 444/5 - Data wrangling using R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/Cover1.png" />
+  
+  <meta name="github-repo" content="dereksonderegger/444" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Statistical Models | STA 444/5 - Data wrangling using R" />
+  
+  
+  <meta name="twitter:image" content="images/Cover1.png" />
+
+<meta name="author" content="Derek L. Sonderegger" />
+
+
+<meta name="date" content="2019-07-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="4-data-wrangling.html">
+<link rel="next" href="6-graphing-data-and-model-results.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://dereksonderegger.github.io/444/Statistical_Methods_I.pdf" target="blank">PDF version</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="part"><span><b>Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="1-familiarization.html"><a href="1-familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-file-types"><i class="fa fa-check"></i><b>1.1</b> R file Types</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-scripts-.r-files"><i class="fa fa-check"></i><b>1.1.1</b> R Scripts (.R files)</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-markdown-.rmd-files"><i class="fa fa-check"></i><b>1.1.2</b> R Markdown (.Rmd files)</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#r-notebooks-.rmd-files"><i class="fa fa-check"></i><b>1.1.3</b> R Notebooks (.Rmd files)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.2</b> R as a simple calculator</a></li>
+<li class="chapter" data-level="1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#assignment"><i class="fa fa-check"></i><b>1.3</b> Assignment</a></li>
+<li class="chapter" data-level="1.4" data-path="1-familiarization.html"><a href="1-familiarization.html#vectors"><i class="fa fa-check"></i><b>1.4</b> Vectors</a></li>
+<li class="chapter" data-level="1.5" data-path="1-familiarization.html"><a href="1-familiarization.html#packages"><i class="fa fa-check"></i><b>1.5</b> Packages</a></li>
+<li class="chapter" data-level="1.6" data-path="1-familiarization.html"><a href="1-familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.6</b> Finding Help</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.6.1</b> How does this function work?</a></li>
+<li class="chapter" data-level="1.6.2" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.6.2</b> How does this package work?</a></li>
+<li class="chapter" data-level="1.6.3" data-path="1-familiarization.html"><a href="1-familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.6.3</b> How do I do XXX?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="1-familiarization.html"><a href="1-familiarization.html#exercises"><i class="fa fa-check"></i><b>1.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-data-frames.html"><a href="2-data-frames.html"><i class="fa fa-check"></i><b>2</b> Data Frames</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-data-frames.html"><a href="2-data-frames.html#introduction-to-importing-data"><i class="fa fa-check"></i><b>2.1</b> Introduction to Importing Data</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="2-data-frames.html"><a href="2-data-frames.html#from-a-package"><i class="fa fa-check"></i><b>2.1.1</b> From a Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-data-frames.html"><a href="2-data-frames.html#import-from-.csv-or-.xls-files"><i class="fa fa-check"></i><b>2.1.2</b> Import from <code>.csv</code> or <code>.xls</code> files</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-data-frames.html"><a href="2-data-frames.html#data-types"><i class="fa fa-check"></i><b>2.2</b> Data Types</a></li>
+<li class="chapter" data-level="2.3" data-path="2-data-frames.html"><a href="2-data-frames.html#basic-manipulation"><i class="fa fa-check"></i><b>2.3</b> Basic Manipulation</a></li>
+<li class="chapter" data-level="2.4" data-path="2-data-frames.html"><a href="2-data-frames.html#exercises-1"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-graphing.html"><a href="3-graphing.html"><i class="fa fa-check"></i><b>3</b> Graphing</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-graphing.html"><a href="3-graphing.html#basic-graphs"><i class="fa fa-check"></i><b>3.1</b> Basic Graphs</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="3-graphing.html"><a href="3-graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3-graphing.html"><a href="3-graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#labels"><i class="fa fa-check"></i><b>3.2</b> Labels</a></li>
+<li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.3</b> Faceting</a></li>
+<li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#subsetting"><i class="fa fa-check"></i><b>4.1.1</b> Subsetting</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#arrange"><i class="fa fa-check"></i><b>4.1.2</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#mutate"><i class="fa fa-check"></i><b>4.1.3</b> mutate()</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#summarise"><i class="fa fa-check"></i><b>4.1.4</b> summarise()</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#split-apply-combine"><i class="fa fa-check"></i><b>4.2</b> Split, apply, combine</a></li>
+<li class="chapter" data-level="4.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-statistical-models.html"><a href="5-statistical-models.html"><i class="fa fa-check"></i><b>5</b> Statistical Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-statistical-models.html"><a href="5-statistical-models.html#formula-notation"><i class="fa fa-check"></i><b>5.1</b> formula notation</a></li>
+<li class="chapter" data-level="5.2" data-path="5-statistical-models.html"><a href="5-statistical-models.html#building-models"><i class="fa fa-check"></i><b>5.2</b> Building models</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-statistical-models.html"><a href="5-statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5-statistical-models.html"><a href="5-statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5-statistical-models.html"><a href="5-statistical-models.html#accessor-function-using-traditional-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor function using traditional functions</a></li>
+<li class="chapter" data-level="5.4" data-path="5-statistical-models.html"><a href="5-statistical-models.html#accessing-model-results-using-broom"><i class="fa fa-check"></i><b>5.4</b> Accessing model results using <code>broom</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-graphing-data-and-model-results.html"><a href="6-graphing-data-and-model-results.html"><i class="fa fa-check"></i><b>6</b> Graphing data and model results</a><ul>
+<li class="chapter" data-level="6.1" data-path="6-graphing-data-and-model-results.html"><a href="6-graphing-data-and-model-results.html#process"><i class="fa fa-check"></i><b>6.1</b> Process</a></li>
+<li class="chapter" data-level="6.2" data-path="6-graphing-data-and-model-results.html"><a href="6-graphing-data-and-model-results.html#augmenting-data-with-model-output"><i class="fa fa-check"></i><b>6.2</b> Augmenting data with model output</a></li>
+<li class="chapter" data-level="6.3" data-path="6-graphing-data-and-model-results.html"><a href="6-graphing-data-and-model-results.html#plotting-using-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Plotting using <code>ggplot2</code></a></li>
+</ul></li>
+<li class="part"><span><b>Deeper Details</b></span></li>
+<li class="chapter" data-level="7" data-path="7-factors.html"><a href="7-factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a><ul>
+<li class="chapter" data-level="7.1" data-path="7-factors.html"><a href="7-factors.html#how-factors-are-stored"><i class="fa fa-check"></i><b>7.1</b> How factors are stored</a></li>
+<li class="chapter" data-level="7.2" data-path="7-factors.html"><a href="7-factors.html#using-forcats"><i class="fa fa-check"></i><b>7.2</b> Using <code>forcats</code></a></li>
+<li class="chapter" data-level="7.3" data-path="7-factors.html"><a href="7-factors.html#why-extend-the-data-frame"><i class="fa fa-check"></i><b>7.3</b> Why extend the data frame</a></li>
+<li class="chapter" data-level="7.4" data-path="7-factors.html"><a href="7-factors.html#reshaping"><i class="fa fa-check"></i><b>7.4</b> reshaping</a></li>
+<li class="chapter" data-level="7.5" data-path="7-factors.html"><a href="7-factors.html#merges"><i class="fa fa-check"></i><b>7.5</b> merges</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 444/5 - Data wrangling using R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistical-models" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Statistical Models</h1>
+<p>While R is a full programming language, it was first developed by statisticians for statisticians. There are several functions to do common statistical tests but because those functions were developed early in R’s history, there is some inconsistency in how those functions work. There have been some attempts to standardize modeling object interfaces, but there were always be a little weirdness.</p>
+<div id="formula-notation" class="section level2">
+<h2><span class="header-section-number">5.1</span> formula notation</h2>
+<p>Most statistical modeling functions rely on a formula based interface. The primary purpose is to provide a consistent way to designate which columns in a data frame are the response variable and which are the explanatory variables. In particular the notation is</p>
+<p><span class="math display">\[\underbrace{y}_{\textrm{response}} \;\;\; 
+\underbrace{\sim}_{\textrm{is a function of}} \;\;\; 
+\underbrace{x}_{\textrm{explanatory}}\]</span></p>
+<p>Mathematicians often refer to these terms as the <em>Left Hand Side</em> (LHS) and <em>Right Hand Side</em> (RHS). The LHS is always the response and the RHS contains the explanatory variables.</p>
+<p>In R, the LHS is usually just a single variable in the data. However the RHS can contain multiple variables and in complicated relationships.</p>
+<table>
+<colgroup>
+<col width="36%" />
+<col width="63%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Right Hand Side Terms</td>
+<td>Meaning</td>
+</tr>
+<tr class="even">
+<td><code>x1 + x2</code></td>
+<td>Both <code>x1</code> and <code>x2</code> are additive explanatory variables.
+In this format, we are adding only the <em>main effects</em>
+of the <code>x1</code> and <code>x2</code> variables.</td>
+</tr>
+<tr class="odd">
+<td><code>x1:x2</code></td>
+<td>This is the interaction term between <code>x1</code> and <code>x2</code></td>
+</tr>
+<tr class="even">
+<td><code>x1 * x2</code></td>
+<td>Because whenever we add an interaction term to a
+model, we want to also have the main effects. So this
+is a short cut for adding the main effect of <code>x1</code> and
+<code>x2</code> and also the interaction term <code>x1:x2</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>(x1 + x2 + x3)^2</code></td>
+<td>This is the main effects of <code>x1</code>, <code>x2</code>, and <code>x3</code> and
+also all of the second order interactions.</td>
+</tr>
+<tr class="even">
+<td><code>poly(x, degree=2)</code></td>
+<td>This fits the degree 2 polynomial. When fit like this,
+R produces an orthogonal basis for the polynomial,
+which is more computationally stable, but won’t be
+appropiate for interpreting the polynomial
+coefficients.</td>
+</tr>
+<tr class="odd">
+<td><code>poly(x, degree=2, raw=TRUE)</code></td>
+<td>This fits the degree 2 polynomial using
+<span class="math inline">\(\beta_0 + \beta_1 x + \beta_2 x^2\)</span> and the polynomial
+polynomial coefficients are suitable for
+interpretation.</td>
+</tr>
+<tr class="even">
+<td><code>I( x^2 )</code></td>
+<td><em>Ignore</em> the usual rules for interpreting formulas
+and do the mathematical calculation. This is not
+necessary for things like <code>sqrt(x)</code> or <code>log(x)</code> but
+required if there is a conflict between mathematics
+and the formula interpretation.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="building-models" class="section level2">
+<h2><span class="header-section-number">5.2</span> Building models</h2>
+<div id="t-tests" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> t-tests</h3>
+</div>
+<div id="lm-objects" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> lm objects</h3>
+</div>
+</div>
+<div id="accessor-function-using-traditional-functions" class="section level2">
+<h2><span class="header-section-number">5.3</span> Accessor function using traditional functions</h2>
+</div>
+<div id="accessing-model-results-using-broom" class="section level2">
+<h2><span class="header-section-number">5.4</span> Accessing model results using <code>broom</code></h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="4-data-wrangling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6-graphing-data-and-model-results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+"instapper": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dereksonderegger/570/raw/master/05_Model_Building.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": [["Statistical_Methods_I.pdf", "PDF"], ["Statistical_Methods_I.epub", "EPUB"]],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

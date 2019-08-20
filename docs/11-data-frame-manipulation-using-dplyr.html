@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 11 Data frame Manipulation using dplyr | STA 444/5 - Data wrangling using R</title>
+  <meta name="description" content="Chapter 11 Data frame Manipulation using dplyr | STA 444/5 - Data wrangling using R">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 11 Data frame Manipulation using dplyr | STA 444/5 - Data wrangling using R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/Cover1.png" />
+  
+  <meta name="github-repo" content="dereksonderegger/444" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Data frame Manipulation using dplyr | STA 444/5 - Data wrangling using R" />
+  
+  
+  <meta name="twitter:image" content="images/Cover1.png" />
+
+<meta name="author" content="Derek L. Sonderegger">
+
+
+<meta name="date" content="2019-07-02">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="10-data-import.html">
+<link rel="next" href="12-data-frame.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://dereksonderegger.github.io/444/Statistical_Methods_I.pdf" target="blank">PDF version</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="part"><span><b>Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="1-familiarization.html"><a href="1-familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-file-types"><i class="fa fa-check"></i><b>1.1</b> R file Types</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-scripts-.r-files"><i class="fa fa-check"></i><b>1.1.1</b> R Scripts (.R files)</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-markdown-.rmd-files"><i class="fa fa-check"></i><b>1.1.2</b> R Markdown (.Rmd files)</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#r-notebooks-.rmd-files"><i class="fa fa-check"></i><b>1.1.3</b> R Notebooks (.Rmd files)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.2</b> R as a simple calculator</a></li>
+<li class="chapter" data-level="1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#assignment"><i class="fa fa-check"></i><b>1.3</b> Assignment</a></li>
+<li class="chapter" data-level="1.4" data-path="1-familiarization.html"><a href="1-familiarization.html#packages"><i class="fa fa-check"></i><b>1.4</b> Packages</a></li>
+<li class="chapter" data-level="1.5" data-path="1-familiarization.html"><a href="1-familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.5</b> Finding Help</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.5.1</b> How does this function work?</a></li>
+<li class="chapter" data-level="1.5.2" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.5.2</b> How does this package work?</a></li>
+<li class="chapter" data-level="1.5.3" data-path="1-familiarization.html"><a href="1-familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.5.3</b> How do I do XXX?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="1-familiarization.html"><a href="1-familiarization.html#exercises"><i class="fa fa-check"></i><b>1.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-introduction-to-data-frames.html"><a href="2-introduction-to-data-frames.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Frames</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-introduction-to-data-frames.html"><a href="2-introduction-to-data-frames.html#introduction-to-importing-data"><i class="fa fa-check"></i><b>2.1</b> Introduction to Importing Data</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="2-introduction-to-data-frames.html"><a href="2-introduction-to-data-frames.html#from-a-package"><i class="fa fa-check"></i><b>2.1.1</b> From a Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-introduction-to-data-frames.html"><a href="2-introduction-to-data-frames.html#import-from-.csv-or-.xls-files"><i class="fa fa-check"></i><b>2.1.2</b> Import from <code>.csv</code> or <code>.xls</code> files</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-introduction-to-data-frames.html"><a href="2-introduction-to-data-frames.html#data-frame-manipulation"><i class="fa fa-check"></i><b>2.2</b> Data Frame Manipulation</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="2-introduction-to-data-frames.html"><a href="2-introduction-to-data-frames.html#verbs"><i class="fa fa-check"></i><b>2.2.1</b> Verbs</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-introduction-to-data-frames.html"><a href="2-introduction-to-data-frames.html#split-apply-combine"><i class="fa fa-check"></i><b>2.2.2</b> Split, apply, combine</a></li>
+<li class="chapter" data-level="2.2.3" data-path="2-introduction-to-data-frames.html"><a href="2-introduction-to-data-frames.html#chaining-commands-together"><i class="fa fa-check"></i><b>2.2.3</b> Chaining commands together</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-introduction-to-data-frames.html"><a href="2-introduction-to-data-frames.html#exercises-1"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-introduction-to-graphing-using-ggplot2.html"><a href="3-introduction-to-graphing-using-ggplot2.html"><i class="fa fa-check"></i><b>3</b> Introduction to Graphing using <code>ggplot2</code></a></li>
+<li class="chapter" data-level="4" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html"><i class="fa fa-check"></i><b>4</b> Graphing using <code>ggplot2</code></a><ul>
+<li class="chapter" data-level="4.1" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#basic-graphs"><i class="fa fa-check"></i><b>4.1</b> Basic Graphs</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#bar-charts"><i class="fa fa-check"></i><b>4.1.1</b> Bar Charts</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#histograms"><i class="fa fa-check"></i><b>4.1.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#scatterplots"><i class="fa fa-check"></i><b>4.1.3</b> Scatterplots</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#box-plots"><i class="fa fa-check"></i><b>4.1.4</b> Box Plots</a></li>
+<li class="chapter" data-level="4.1.5" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#labels"><i class="fa fa-check"></i><b>4.1.5</b> Labels</a></li>
+<li class="chapter" data-level="4.1.6" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#color-scales"><i class="fa fa-check"></i><b>4.1.6</b> Color Scales</a></li>
+<li class="chapter" data-level="4.1.7" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#adjusting-axes"><i class="fa fa-check"></i><b>4.1.7</b> Adjusting axes</a></li>
+<li class="chapter" data-level="4.1.8" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#zooming-inout"><i class="fa fa-check"></i><b>4.1.8</b> Zooming in/out</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#cookbook-examples"><i class="fa fa-check"></i><b>4.2</b> Cookbook Examples</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#scatterplot-with-prediction-ribbons"><i class="fa fa-check"></i><b>4.2.1</b> Scatterplot with prediction ribbons</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#bar-plot"><i class="fa fa-check"></i><b>4.2.2</b> Bar Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-graphing-using-ggplot2.html"><a href="4-graphing-using-ggplot2.html#exercises-2"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-introduction-to-data-wrangling-using-dplyr.html"><a href="5-introduction-to-data-wrangling-using-dplyr.html"><i class="fa fa-check"></i><b>5</b> Introduction to Data Wrangling using <code>dplyr</code></a><ul>
+<li class="chapter" data-level="5.1" data-path="5-introduction-to-data-wrangling-using-dplyr.html"><a href="5-introduction-to-data-wrangling-using-dplyr.html#mutate-1"><i class="fa fa-check"></i><b>5.1</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="5.2" data-path="5-introduction-to-data-wrangling-using-dplyr.html"><a href="5-introduction-to-data-wrangling-using-dplyr.html#group_by"><i class="fa fa-check"></i><b>5.2</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="5.3" data-path="5-introduction-to-data-wrangling-using-dplyr.html"><a href="5-introduction-to-data-wrangling-using-dplyr.html#summarize"><i class="fa fa-check"></i><b>5.3</b> <code>summarize</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-introduction-to-using-model-objects.html"><a href="6-introduction-to-using-model-objects.html"><i class="fa fa-check"></i><b>6</b> Introduction to using Model Objects</a><ul>
+<li class="chapter" data-level="6.1" data-path="6-introduction-to-using-model-objects.html"><a href="6-introduction-to-using-model-objects.html#formula-notation"><i class="fa fa-check"></i><b>6.1</b> formula notation</a></li>
+<li class="chapter" data-level="6.2" data-path="6-introduction-to-using-model-objects.html"><a href="6-introduction-to-using-model-objects.html#building-models"><i class="fa fa-check"></i><b>6.2</b> Building models</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="6-introduction-to-using-model-objects.html"><a href="6-introduction-to-using-model-objects.html#t-tests"><i class="fa fa-check"></i><b>6.2.1</b> t-tests</a></li>
+<li class="chapter" data-level="6.2.2" data-path="6-introduction-to-using-model-objects.html"><a href="6-introduction-to-using-model-objects.html#lm-objects"><i class="fa fa-check"></i><b>6.2.2</b> lm objects</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="6-introduction-to-using-model-objects.html"><a href="6-introduction-to-using-model-objects.html#accessor-function-using-traditional-functions"><i class="fa fa-check"></i><b>6.3</b> Accessor function using traditional functions</a></li>
+<li class="chapter" data-level="6.4" data-path="6-introduction-to-using-model-objects.html"><a href="6-introduction-to-using-model-objects.html#accessing-model-results-using-broom"><i class="fa fa-check"></i><b>6.4</b> Accessing model results using <code>broom</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-graphing-data-and-model-results.html"><a href="7-graphing-data-and-model-results.html"><i class="fa fa-check"></i><b>7</b> Graphing data and model results</a><ul>
+<li class="chapter" data-level="7.1" data-path="7-graphing-data-and-model-results.html"><a href="7-graphing-data-and-model-results.html#process"><i class="fa fa-check"></i><b>7.1</b> Process</a></li>
+<li class="chapter" data-level="7.2" data-path="7-graphing-data-and-model-results.html"><a href="7-graphing-data-and-model-results.html#augmenting-data-with-model-output"><i class="fa fa-check"></i><b>7.2</b> Augmenting data with model output</a></li>
+<li class="chapter" data-level="7.3" data-path="7-graphing-data-and-model-results.html"><a href="7-graphing-data-and-model-results.html#plotting-using-ggplot2"><i class="fa fa-check"></i><b>7.3</b> Plotting using <code>ggplot2</code></a></li>
+</ul></li>
+<li class="part"><span><b>Deeper Details</b></span></li>
+<li class="chapter" data-level="8" data-path="8-factors.html"><a href="8-factors.html"><i class="fa fa-check"></i><b>8</b> Factors</a><ul>
+<li class="chapter" data-level="8.1" data-path="8-factors.html"><a href="8-factors.html#how-factors-are-stored"><i class="fa fa-check"></i><b>8.1</b> How factors are stored</a></li>
+<li class="chapter" data-level="8.2" data-path="8-factors.html"><a href="8-factors.html#using-forcats"><i class="fa fa-check"></i><b>8.2</b> Using <code>forcats</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-data-frames-tibbles-oh-my.html"><a href="9-data-frames-tibbles-oh-my.html"><i class="fa fa-check"></i><b>9</b> Data Frames, tibbles, oh my!</a><ul>
+<li class="chapter" data-level="9.1" data-path="9-data-frames-tibbles-oh-my.html"><a href="9-data-frames-tibbles-oh-my.html#why-extend-the-data-frame"><i class="fa fa-check"></i><b>9.1</b> Why extend the data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="10-data-import.html"><a href="10-data-import.html"><i class="fa fa-check"></i><b>10</b> Data Import</a></li>
+<li class="chapter" data-level="11" data-path="11-data-frame-manipulation-using-dplyr.html"><a href="11-data-frame-manipulation-using-dplyr.html"><i class="fa fa-check"></i><b>11</b> Data frame Manipulation using dplyr</a></li>
+<li class="chapter" data-level="12" data-path="12-data-frame.html"><a href="12-data-frame.html"><i class="fa fa-check"></i><b>12</b> Data frame</a><ul>
+<li class="chapter" data-level="12.1" data-path="12-data-frame.html"><a href="12-data-frame.html#reshaping"><i class="fa fa-check"></i><b>12.1</b> reshaping</a></li>
+<li class="chapter" data-level="12.2" data-path="12-data-frame.html"><a href="12-data-frame.html#merges"><i class="fa fa-check"></i><b>12.2</b> merges</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="13-more-ggplot2.html"><a href="13-more-ggplot2.html"><i class="fa fa-check"></i><b>13</b> More ggplot2</a></li>
+<li class="chapter" data-level="14" data-path="14-flow-control.html"><a href="14-flow-control.html"><i class="fa fa-check"></i><b>14</b> Flow Control</a></li>
+<li class="chapter" data-level="15" data-path="15-functions.html"><a href="15-functions.html"><i class="fa fa-check"></i><b>15</b> Functions</a></li>
+<li class="chapter" data-level="16" data-path="16-strings.html"><a href="16-strings.html"><i class="fa fa-check"></i><b>16</b> Strings</a></li>
+<li class="chapter" data-level="17" data-path="17-dates.html"><a href="17-dates.html"><i class="fa fa-check"></i><b>17</b> Dates</a></li>
+<li class="chapter" data-level="18" data-path="18-performance-issues.html"><a href="18-performance-issues.html"><i class="fa fa-check"></i><b>18</b> Performance Issues</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 444/5 - Data wrangling using R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-frame-manipulation-using-dplyr" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Data frame Manipulation using dplyr</h1>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="10-data-import.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="12-data-frame.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+"instapper": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dereksonderegger/570/raw/master/20_Why_More_Detail.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": [["Statistical_Methods_I.pdf", "PDF"], ["Statistical_Methods_I.epub", "EPUB"]],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

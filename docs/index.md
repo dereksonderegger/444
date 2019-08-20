@@ -1,7 +1,7 @@
 --- 
 title: "STA 444/5 - Data wrangling using R"
 author: "Derek L. Sonderegger"
-date: "April 17, 2019"
+date: "July 02, 2019"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -9,19 +9,15 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: dereksonderegger/444
+cover-image: "images/Cover1.png"
 description: ""
 ---
 
 # Preface {-}
-These notes were originally written for an introductory statistics course for grad students in biological sciences. 
-
+This book is intended to provide students with a resource for learning R while using it during an introductory statistics course. The Introduction section covers common issues that students in a typical statistics course will encounter and provides a simple examples and does not attempt to be exhaustive. The Deeper Details section addresses issues that commonly arise in many data wrangling situations and is intended to give students a deep enough understanding of R that they will be able to use it as their primary computing resource to manipulate, graph and model data.
 
 
 ## Acknowledgements {-}
-I have had the pleasure of interacting with a great number of talented mathematicians and statisticians in my schooling.  In particular I am deeply indebted to Dr Robert Boik and Dr Warren Esty as well as my Ph.D. adviser Dr Jan Hannig. 
-
-As a professor at Northern Arizona University, I am grateful for the feedback and comradery of my fellow statisticans, particularly Dr St. Laurent.
-
 Finally, I am deeply appreciative of the support given to me by my wife, Aubrey.
 
 
