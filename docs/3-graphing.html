@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Graphing | STA 444/5 - Data wrangling using R</title>
-  <meta name="description" content="Chapter 3 Graphing | STA 444/5 - Data wrangling using R" />
+  <title>Chapter 3 Graphing | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 3 Graphing | STA 444/5 - Introductory Data Science using R" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Graphing | STA 444/5 - Data wrangling using R" />
+  <meta property="og:title" content="Chapter 3 Graphing | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Graphing | STA 444/5 - Data wrangling using R" />
+  <meta name="twitter:title" content="Chapter 3 Graphing | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-07-02" />
+<meta name="date" content="2019-08-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="2-data-frames.html">
-<link rel="next" href="4-introduction-to-data-wrangling-using-dplyr.html">
+<link rel="next" href="4-data-wrangling.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -125,10 +125,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="https://dereksonderegger.github.io/444/Statistical_Methods_I.pdf" target="blank">PDF version</a></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 </ul></li>
 <li class="part"><span><b>Introduction</b></span></li>
@@ -167,19 +165,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.3</b> Faceting</a></li>
 <li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-introduction-to-data-wrangling-using-dplyr.html"><a href="4-introduction-to-data-wrangling-using-dplyr.html"><i class="fa fa-check"></i><b>4</b> Introduction to Data Wrangling using <code>dplyr</code></a><ul>
-<li class="chapter" data-level="4.1" data-path="4-introduction-to-data-wrangling-using-dplyr.html"><a href="4-introduction-to-data-wrangling-using-dplyr.html#mutate"><i class="fa fa-check"></i><b>4.1</b> <code>mutate</code></a></li>
-<li class="chapter" data-level="4.2" data-path="4-introduction-to-data-wrangling-using-dplyr.html"><a href="4-introduction-to-data-wrangling-using-dplyr.html#group_by"><i class="fa fa-check"></i><b>4.2</b> <code>group_by</code></a></li>
-<li class="chapter" data-level="4.3" data-path="4-introduction-to-data-wrangling-using-dplyr.html"><a href="4-introduction-to-data-wrangling-using-dplyr.html#summarize"><i class="fa fa-check"></i><b>4.3</b> <code>summarize</code></a></li>
+<li class="chapter" data-level="4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#subsetting"><i class="fa fa-check"></i><b>4.1.1</b> Subsetting</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#arrange"><i class="fa fa-check"></i><b>4.1.2</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#mutate"><i class="fa fa-check"></i><b>4.1.3</b> mutate()</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#summarise"><i class="fa fa-check"></i><b>4.1.4</b> summarise()</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html"><i class="fa fa-check"></i><b>5</b> Introduction to using Model Objects</a><ul>
-<li class="chapter" data-level="5.1" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#formula-notation"><i class="fa fa-check"></i><b>5.1</b> formula notation</a></li>
-<li class="chapter" data-level="5.2" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#building-models"><i class="fa fa-check"></i><b>5.2</b> Building models</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
-<li class="chapter" data-level="5.2.2" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
+<li class="chapter" data-level="4.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#split-apply-combine"><i class="fa fa-check"></i><b>4.2</b> Split, apply, combine</a></li>
+<li class="chapter" data-level="4.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#accessor-function-using-traditional-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor function using traditional functions</a></li>
-<li class="chapter" data-level="5.4" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#accessing-model-results-using-broom"><i class="fa fa-check"></i><b>5.4</b> Accessing model results using <code>broom</code></a></li>
+<li class="chapter" data-level="5" data-path="5-statistical-models.html"><a href="5-statistical-models.html"><i class="fa fa-check"></i><b>5</b> Statistical Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-statistical-models.html"><a href="5-statistical-models.html#formula-notation"><i class="fa fa-check"></i><b>5.1</b> Formula Notation</a></li>
+<li class="chapter" data-level="5.2" data-path="5-statistical-models.html"><a href="5-statistical-models.html#basic-models"><i class="fa fa-check"></i><b>5.2</b> Basic Models</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-statistical-models.html"><a href="5-statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5-statistical-models.html"><a href="5-statistical-models.html#accessor-function-using-traditional-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor function using traditional functions</a></li>
+<li class="chapter" data-level="5.4" data-path="5-statistical-models.html"><a href="5-statistical-models.html#accessing-model-results-using-broom"><i class="fa fa-check"></i><b>5.4</b> Accessing model results using <code>broom</code></a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="6-graphing-data-and-model-results.html"><a href="6-graphing-data-and-model-results.html"><i class="fa fa-check"></i><b>6</b> Graphing data and model results</a><ul>
 <li class="chapter" data-level="6.1" data-path="6-graphing-data-and-model-results.html"><a href="6-graphing-data-and-model-results.html#process"><i class="fa fa-check"></i><b>6.1</b> Process</a></li>
@@ -190,10 +192,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="7-factors.html"><a href="7-factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-factors.html"><a href="7-factors.html#how-factors-are-stored"><i class="fa fa-check"></i><b>7.1</b> How factors are stored</a></li>
 <li class="chapter" data-level="7.2" data-path="7-factors.html"><a href="7-factors.html#using-forcats"><i class="fa fa-check"></i><b>7.2</b> Using <code>forcats</code></a></li>
-<li class="chapter" data-level="7.3" data-path="7-factors.html"><a href="7-factors.html#why-extend-the-data-frame"><i class="fa fa-check"></i><b>7.3</b> Why extend the data frame</a></li>
-<li class="chapter" data-level="7.4" data-path="7-factors.html"><a href="7-factors.html#reshaping"><i class="fa fa-check"></i><b>7.4</b> reshaping</a></li>
-<li class="chapter" data-level="7.5" data-path="7-factors.html"><a href="7-factors.html#merges"><i class="fa fa-check"></i><b>7.5</b> merges</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="8-data-frames-tibbles-oh-my.html"><a href="8-data-frames-tibbles-oh-my.html"><i class="fa fa-check"></i><b>8</b> Data Frames, tibbles, oh my!</a><ul>
+<li class="chapter" data-level="8.1" data-path="8-data-frames-tibbles-oh-my.html"><a href="8-data-frames-tibbles-oh-my.html#why-extend-the-data-frame"><i class="fa fa-check"></i><b>8.1</b> Why extend the data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-data-import.html"><a href="9-data-import.html"><i class="fa fa-check"></i><b>9</b> Data Import</a></li>
+<li class="chapter" data-level="10" data-path="10-data-frame-manipulation-using-dplyr.html"><a href="10-data-frame-manipulation-using-dplyr.html"><i class="fa fa-check"></i><b>10</b> Data frame Manipulation using dplyr</a></li>
+<li class="chapter" data-level="11" data-path="11-data-frame.html"><a href="11-data-frame.html"><i class="fa fa-check"></i><b>11</b> Data frame</a><ul>
+<li class="chapter" data-level="11.1" data-path="11-data-frame.html"><a href="11-data-frame.html#reshaping"><i class="fa fa-check"></i><b>11.1</b> reshaping</a></li>
+<li class="chapter" data-level="11.2" data-path="11-data-frame.html"><a href="11-data-frame.html#merges"><i class="fa fa-check"></i><b>11.2</b> merges</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="12-more-ggplot2.html"><a href="12-more-ggplot2.html"><i class="fa fa-check"></i><b>12</b> More ggplot2</a></li>
+<li class="chapter" data-level="13" data-path="13-flow-control.html"><a href="13-flow-control.html"><i class="fa fa-check"></i><b>13</b> Flow Control</a></li>
+<li class="chapter" data-level="14" data-path="14-functions.html"><a href="14-functions.html"><i class="fa fa-check"></i><b>14</b> Functions</a></li>
+<li class="chapter" data-level="15" data-path="15-strings.html"><a href="15-strings.html"><i class="fa fa-check"></i><b>15</b> Strings</a></li>
+<li class="chapter" data-level="16" data-path="16-dates.html"><a href="16-dates.html"><i class="fa fa-check"></i><b>16</b> Dates</a></li>
+<li class="chapter" data-level="17" data-path="17-performance-issues.html"><a href="17-performance-issues.html"><i class="fa fa-check"></i><b>17</b> Performance Issues</a></li>
 </ul>
 
       </nav>
@@ -203,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 444/5 - Data wrangling using R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 444/5 - Introductory Data Science using R</a>
           </h1>
         </div>
 
@@ -213,8 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="graphing" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Graphing</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(ggplot2)  <span class="co"># my favorite graphing system</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(dplyr)    <span class="co"># data frame manipulations</span></a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)   <span class="co"># loading ggplot2 and dplyr</span></a></code></pre></div>
 <p>There are three major “systems” of making graphs in R. The basic plotting commands in R are quite effective but the commands do not have a way of being combined in easy ways. Lattice graphics (which the <code>mosaic</code> package uses) makes it possible to create some quite complicated graphs but it is very difficult to do make non-standard graphs. The last package, <code>ggplot2</code> tries to not anticipate what the user wants to do, but rather provide the mechanisms for pulling together different graphical concepts and the user gets to decide which elements to combine.</p>
 <p>To make the most of <code>ggplot2</code> it is important to wrap your mind around “The Grammar of Graphics”. Briefly, the act of building a graph can be broken down into three steps.</p>
 <ol style="list-style-type: decimal">
@@ -315,16 +328,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="scatterplots" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Scatterplots</h3>
 <p>To start with, we’ll make a very simple scatterplot using the <code>iris</code> dataset. The <code>iris</code> dataset contains observations on three species of iris plants where we’ve measured the length and width of both the petals and sepals. We will make a scatterplot of <code>Sepal.Length</code> versus <code>Petal.Length</code>, which are two columns in the dataset.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">data</span>(iris)  <span class="co"># load the iris dataset that comes with R</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">str</span>(iris)   <span class="co"># what columns do we have to play with...</span></a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">data</span>(iris)  <span class="co"># load the iris dataset that comes with R</span></a>
+<a class="sourceLine" id="cb83-2" data-line-number="2"><span class="kw">str</span>(iris)   <span class="co"># what columns do we have to play with...</span></a></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
 ##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
 ##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length) ) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>(  )</a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length) ) <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb85-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>(  )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <ol style="list-style-type: decimal">
 <li><p>The data set we wish to use is specified using <code>data=iris</code>.</p></li>
@@ -332,12 +345,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>The way we want to display this relationship is through graphing 1 point for every observation.</p></li>
 </ol>
 <p>We can define other attributes that might reflect other aspects of the data. For example, we might want for the color of the data point to change dynamically based on the species of iris.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species) ) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>(  )</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species) ) <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb86-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>(  )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>The <code>aes()</code> command inside the previous section of code is quite mysterious. The way to think about the <code>aes()</code> is that it gives you a way to define relationships that are data dependent. In the previous graph, the x-value and y-value for each point was defined dynamically by the data, as was the color. If we just wanted all the data points to be colored blue and larger, then the following code would do that</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length) ) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>( <span class="dt">color=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">size=</span><span class="dv">4</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length) ) <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>( <span class="dt">color=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">size=</span><span class="dv">4</span> )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>The important part isn’t that color and size were defined in the <code>geom_point()</code> but that they were defined outside of an <code>aes()</code> function!</p>
 <ol style="list-style-type: decimal">
@@ -348,8 +361,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="box-plots" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Box Plots</h3>
 <p>Boxplots are a common way to show a categorical variable on the x-axis and continuous on the y-axis.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Species, <span class="dt">y=</span>Petal.Length)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Species, <span class="dt">y=</span>Petal.Length)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>The boxes show the <span class="math inline">\(25^{th}\)</span>, <span class="math inline">\(50^{th}\)</span>, and <span class="math inline">\(75^{th}\)</span> percentile and the lines coming off the box extend to the smallest and largest non-outlier observation.</p>
 </div>
@@ -357,27 +370,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="labels" class="section level2">
 <h2><span class="header-section-number">3.2</span> Labels</h2>
 <p>To make a graph more understandable, it is necessary to tweak labels for the axes and add a main title and such. Here we’ll adjust labels in a graph, including the legend labels.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># Treat the number of cylinders in a car as a categorical variable (4,6 or 8)</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species) ) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>(  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">title=</span><span class="st">&#39;Sepal Length vs Petal Length&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">x=</span><span class="st">&quot;Sepal Length (cm)&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Petal Length (cm)&quot;</span> ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">color=</span><span class="st">&quot;Species Name&quot;</span>)     </a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="co"># Treat the number of cylinders in a car as a categorical variable (4,6 or 8)</span></a>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species) ) <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>(  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb89-4" data-line-number="4"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">title=</span><span class="st">&#39;Sepal Length vs Petal Length&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb89-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">x=</span><span class="st">&quot;Sepal Length (cm)&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Petal Length (cm)&quot;</span> ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb89-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">color=</span><span class="st">&quot;Species Name&quot;</span>)     </a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>You could either call the <code>labs()</code> command repeatedly with each label, or you could provide multiple arguements to just one <code>labs()</code> call.</p>
 </div>
 <div id="faceting" class="section level2">
 <h2><span class="header-section-number">3.3</span> Faceting</h2>
 <p>The goal with faceting is to make many panels of graphics where each panel represents the same relationship between variables, but something changes between each panel. For example using the <code>iris</code> dataset we could look at the relationship between <code>Sepal.Length</code> and <code>Petal.Length</code> either with all the data in one graph, or one panel per species.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>( . <span class="op">~</span><span class="st"> </span>Species )</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb90-2" data-line-number="2"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb90-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb90-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>( . <span class="op">~</span><span class="st"> </span>Species )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>The line <code>facet_grid( formula )</code> tells <code>ggplot2</code> to make panels, and the formula tells how to orient the panels. In R formulas are always interpretated in the order <code>y ~ x</code>. Because I want the species to change as we go across the page, but don’t have anything I want to change vertically we use <code>. ~ Species</code> to represent that. If we had wanted three graphs stacked then we could use <code>Species ~ .</code>.</p>
 <p>For a second example, we look at a dataset that examines the amount a waiter was tipped by 244 parties. Covariates that were measured include the day of the week, size of the party, total amount of the bill, amount tipped, whether there were smokers in the group and the gender of the person paying the bill</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">data</span>(tips, <span class="dt">package=</span><span class="st">&#39;reshape&#39;</span>)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">head</span>(tips)</a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="kw">data</span>(tips, <span class="dt">package=</span><span class="st">&#39;reshape&#39;</span>)</a>
+<a class="sourceLine" id="cb91-2" data-line-number="2"><span class="kw">head</span>(tips)</a></code></pre></div>
 <pre><code>##   total_bill  tip    sex smoker day   time size
 ## 1      16.99 1.01 Female     No Sun Dinner    2
 ## 2      10.34 1.66   Male     No Sun Dinner    3
@@ -386,23 +399,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5      24.59 3.61 Female     No Sun Dinner    4
 ## 6      25.29 4.71   Male     No Sun Dinner    4</code></pre>
 <p>It is easy to look at the relationship between the size of the bill and the percent tipped.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
+<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Next we ask if there is a difference in tipping percent based on gender or day of the week by plotting this relationship for each combination of gender and day.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>( sex <span class="op">~</span><span class="st"> </span>day )</a></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
+<a class="sourceLine" id="cb94-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb94-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>( sex <span class="op">~</span><span class="st"> </span>day )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Sometimes we want multiple rows and columns of facets, but there is only one categorical variable with many levels. In that case we use facet_wrap which takes a one-sided formula.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>day )</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
+<a class="sourceLine" id="cb95-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb95-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>day )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Finally we can allow the x and y scales to vary between the panels by setting “free”, “free_x”, or “free_y”. In the following code, the y-axis scale changes between the gender groups.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>( sex <span class="op">~</span><span class="st"> </span>day, <span class="dt">scales=</span><span class="st">&quot;free_y&quot;</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
+<a class="sourceLine" id="cb96-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb96-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>( sex <span class="op">~</span><span class="st"> </span>day, <span class="dt">scales=</span><span class="st">&quot;free_y&quot;</span> )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
 <div id="exercises-2" class="section level2">
@@ -414,20 +427,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Add appropriate labels for the main title and the x and y axes.</li>
 </ol></li>
 <li><p>Consider the following small dataset that represents the number of times per day my wife played “Ring around the Rosy” with my daughter relative to the number of days since she has learned this game. The column <code>yhat</code> represents the best fitting line through the data, and <code>lwr</code> and <code>upr</code> represent a 95% confidence interval for the predicted value on that day.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">Rosy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2">  <span class="dt">times =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb16-3" data-line-number="3">  <span class="dt">day   =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>,</a>
-<a class="sourceLine" id="cb16-4" data-line-number="4">  <span class="dt">yhat  =</span> <span class="kw">c</span>(<span class="fl">14.36</span>, <span class="fl">12.29</span>, <span class="fl">10.21</span>, <span class="fl">8.14</span>, <span class="fl">6.07</span>, <span class="fl">4.00</span>,  <span class="fl">1.93</span>),</a>
-<a class="sourceLine" id="cb16-5" data-line-number="5">  <span class="dt">lwr   =</span> <span class="kw">c</span>( <span class="fl">9.54</span>,  <span class="fl">8.5</span>,   <span class="fl">7.22</span>, <span class="fl">5.47</span>, <span class="fl">3.08</span>, <span class="fl">0.22</span>, <span class="fl">-2.89</span>),</a>
-<a class="sourceLine" id="cb16-6" data-line-number="6">  <span class="dt">upr   =</span> <span class="kw">c</span>(<span class="fl">19.18</span>, <span class="fl">16.07</span>, <span class="fl">13.2</span>, <span class="fl">10.82</span>, <span class="fl">9.06</span>, <span class="fl">7.78</span>,  <span class="fl">6.75</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">Rosy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb97-2" data-line-number="2">  <span class="dt">times =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb97-3" data-line-number="3">  <span class="dt">day   =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb97-4" data-line-number="4">  <span class="dt">yhat  =</span> <span class="kw">c</span>(<span class="fl">14.36</span>, <span class="fl">12.29</span>, <span class="fl">10.21</span>, <span class="fl">8.14</span>, <span class="fl">6.07</span>, <span class="fl">4.00</span>,  <span class="fl">1.93</span>),</a>
+<a class="sourceLine" id="cb97-5" data-line-number="5">  <span class="dt">lwr   =</span> <span class="kw">c</span>( <span class="fl">9.54</span>,  <span class="fl">8.5</span>,   <span class="fl">7.22</span>, <span class="fl">5.47</span>, <span class="fl">3.08</span>, <span class="fl">0.22</span>, <span class="fl">-2.89</span>),</a>
+<a class="sourceLine" id="cb97-6" data-line-number="6">  <span class="dt">upr   =</span> <span class="kw">c</span>(<span class="fl">19.18</span>, <span class="fl">16.07</span>, <span class="fl">13.2</span>, <span class="fl">10.82</span>, <span class="fl">9.06</span>, <span class="fl">7.78</span>,  <span class="fl">6.75</span>))</a></code></pre></div>
 <ol style="list-style-type: lower-alpha">
 <li><p>Using <code>ggplot()</code> and <code>geom_point()</code>, create a scatterplot with <code>day</code> along the x-axis and <code>times</code> along the y-axis.</p></li>
 <li><p>Add a line to the graph where the x-values are the <code>day</code> values but now the y-values are the predicted values which we’ve called <code>yhat</code>. Notice that you have to set the aesthetic y=times for the points and y=yhat for the line. Because each <code>geom_</code> will accept an <code>aes()</code> command, you can specify the <code>y</code> attribute to be different for different layers of the graph.</p></li>
 <li><p>Add a ribbon that represents the confidence region of the regression line. The <code>geom_ribbon()</code> function requires an <code>x</code>, <code>ymin</code>, and <code>ymax</code> columns to be defined. For examples of using <code>geom_ribbon()</code> see the online documentation: <a href="http://docs.ggplot2.org/current/geom_ribbon.html">http://docs.ggplot2.org/current/geom_ribbon.html</a>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">ggplot</span>(Rosy, <span class="kw">aes</span>(<span class="dt">x=</span>day)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y=</span>times)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>yhat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>(<span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">fill=</span><span class="st">&#39;salmon&#39;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="kw">ggplot</span>(Rosy, <span class="kw">aes</span>(<span class="dt">x=</span>day)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb98-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y=</span>times)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb98-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>yhat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb98-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>(<span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">fill=</span><span class="st">&#39;salmon&#39;</span>)</a></code></pre></div></li>
 <li>What happened when you added the ribbon? Did some points get hidden? If so, why?</li>
 <li>Reorder the statements that created the graph so that the ribbon is on the bottom and the data points are on top and the regression line is visible.</li>
 <li>The color of the ribbon fill is ugly. Use Google to find a list of named colors available to <code>ggplot2</code>. For example, I googled “ggplot2 named colors” and found the following link: <a href="http://sape.inf.usi.ch/quick-reference/ggplot2/colour">http://sape.inf.usi.ch/quick-reference/ggplot2/colour</a>. Choose a color for the fill that is pleasing to you.</li>
@@ -437,11 +450,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: lower-alpha">
 <li>The <code>MASS</code> package contains a dataset called <code>birthwt</code> which contains information about 189 babies and their mothers. In particular there are columns for the mother’s race and smoking status during the pregnancy. Load the <code>birthwt</code> by either using the <code>data()</code> command or loading the <code>MASS</code> library.</li>
 <li><p>Read the help file for the dataset using <code>MASS::birthwt</code>. The covariates <code>race</code> and <code>smoke</code> are not stored in a user friendly manner. For example, smoking status is labeled using a 0 or a 1. Because it is not obvious which should represent that the mother smoked, we’ll add better labels to the <code>race</code> and <code>smoke</code> variables. For more information about dealing with factors and their levels, see the <code>Factors</code> chapter in these notes.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&#39;birthwt&#39;</span>, <span class="dt">package=</span><span class="st">&#39;MASS&#39;</span>)</a>
-<a class="sourceLine" id="cb18-3" data-line-number="3">birthwt &lt;-<span class="st"> </span>birthwt <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb18-4" data-line-number="4">  <span class="dt">race  =</span> <span class="kw">factor</span>(race,  <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;White&#39;</span>,<span class="st">&#39;Black&#39;</span>,<span class="st">&#39;Other&#39;</span>)),</a>
-<a class="sourceLine" id="cb18-5" data-line-number="5">  <span class="dt">smoke =</span> <span class="kw">factor</span>(smoke, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;No Smoke&#39;</span>, <span class="st">&#39;Smoke&#39;</span>)))</a></code></pre></div></li>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&#39;birthwt&#39;</span>, <span class="dt">package=</span><span class="st">&#39;MASS&#39;</span>)</a>
+<a class="sourceLine" id="cb99-3" data-line-number="3">birthwt &lt;-<span class="st"> </span>birthwt <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb99-4" data-line-number="4">  <span class="dt">race  =</span> <span class="kw">factor</span>(race,  <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;White&#39;</span>,<span class="st">&#39;Black&#39;</span>,<span class="st">&#39;Other&#39;</span>)),</a>
+<a class="sourceLine" id="cb99-5" data-line-number="5">  <span class="dt">smoke =</span> <span class="kw">factor</span>(smoke, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;No Smoke&#39;</span>, <span class="st">&#39;Smoke&#39;</span>)))</a></code></pre></div></li>
 <li>Graph a histogram of the birthweights <code>bwt</code> using <code>ggplot(birthwt, aes(x=bwt)) + geom_histogram()</code>.</li>
 <li>Make separate graphs that denote whether a mother smoked during pregnancy by appending <code>+ facet_grid()</code> command to your original graphing command.</li>
 <li>Perhaps race matters in relation to smoking. Make our grid of graphs vary with smoking status changing vertically, and race changing horizontally (that is the formula in <code>facet_grid()</code> should have smoking be the y variable and race as the x).</li>
@@ -455,10 +468,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: lower-alpha">
 <li>Produce a separate scatter plot of weight vs age for each chick. Use color to distinguish the four different <code>Diet</code> treatments.</li>
 <li><p>We could examine this data by producing a scatterplot for each diet. Most of the code below is readable, but if we don’t add the <code>group</code> aesthetic the lines would not connect the dots for each Chick but would instead connect the dots across different chicks.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">data</span>(ChickWeight)</a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw">ggplot</span>(ChickWeight, <span class="kw">aes</span>(<span class="dt">x=</span>Time, <span class="dt">y=</span>weight, <span class="dt">group=</span>Chick )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>( <span class="op">~</span><span class="st"> </span>Diet) </a></code></pre></div></li>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" data-line-number="1"><span class="kw">data</span>(ChickWeight)</a>
+<a class="sourceLine" id="cb100-2" data-line-number="2"><span class="kw">ggplot</span>(ChickWeight, <span class="kw">aes</span>(<span class="dt">x=</span>Time, <span class="dt">y=</span>weight, <span class="dt">group=</span>Chick )) <span class="op">+</span></a>
+<a class="sourceLine" id="cb100-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb100-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>( <span class="op">~</span><span class="st"> </span>Diet) </a></code></pre></div></li>
 </ol></li>
 </ol>
 
@@ -470,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="2-data-frames.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="4-introduction-to-data-wrangling-using-dplyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="4-data-wrangling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -501,14 +514,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/570/raw/master/03_Intro_to_Graphing.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/03_Intro_to_Graphing.Rmd",
 "text": "Edit"
 },
 "history": {
 "link": null,
 "text": null
 },
-"download": [["Statistical_Methods_I.pdf", "PDF"], ["Statistical_Methods_I.epub", "EPUB"]],
+"download": null,
 "toc": {
 "collapse": "section",
 "scroll_highlight": true

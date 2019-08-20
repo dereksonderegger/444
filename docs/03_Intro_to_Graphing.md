@@ -5,8 +5,7 @@
 
 
 ```r
-library(ggplot2)  # my favorite graphing system
-library(dplyr)    # data frame manipulations
+library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
 ```
 
 There are three major “systems” of making graphs in R. The basic plotting commands in R are quite effective but the commands do not have a way of being combined in easy ways. Lattice graphics (which the `mosaic` package uses) makes it possible to create some quite complicated graphs but it is very difficult to do make non-standard graphs. The last package, `ggplot2` tries to not anticipate what the user wants to do, but rather provide the mechanisms for pulling together different graphical concepts and the user gets to decide which elements to combine. 

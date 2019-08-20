@@ -2,19 +2,19 @@
 
 While R is a full programming language, it was first developed by statisticians for statisticians. There are several functions to do common statistical tests but because those functions were developed early in R's history, there is some inconsistency in how those functions work. There have been some attempts to standardize modeling object interfaces, but there were always be a little weirdness.
 
-## formula notation
+## Formula Notation
 Most statistical modeling functions rely on a formula based interface. The primary purpose is to provide a consistent way to designate which columns in a data frame are the response variable and which are the explanatory variables.  In particular the notation is
 
-$$\underbrace{y}_{\textrm{response}} \;\;\; 
+$$\underbrace{y}_{\textrm{LHS response}} \;\;\; 
 \underbrace{\sim}_{\textrm{is a function of}} \;\;\; 
-\underbrace{x}_{\textrm{explanatory}}$$
+\underbrace{x}_{\textrm{RHS explanatory}}$$
 
 Mathematicians often refer to these terms as the *Left Hand Side* (LHS) and *Right Hand Side* (RHS). The LHS is always the response and the RHS contains the explanatory variables.
 
 In R, the LHS is usually just a single variable in the data. However the RHS can contain multiple variables and in complicated relationships.
 
 +-------------------------------+-------------------------------------------------------+
-|  Right Hand Side Terms        |  Meaning                                              |
+|  **Right Hand Side Terms**    |  Meaning                                              |
 +-------------------------------+-------------------------------------------------------+
 |   `x1 + x2`                   | Both `x1` and `x2` are additive explanatory variables.|
 |                               | In this format, we are adding only the *main effects* |
@@ -48,8 +48,11 @@ In R, the LHS is usually just a single variable in the data. However the RHS can
 |                               | and the formula interpretation.                       |
 +-------------------------------+-------------------------------------------------------+
 
-## Building models
+## Basic Models
+The most common statistical models are generally referred to as *linear models* and the R function for creating a linear model is `lm()`. This section will introduce how to fit the model to data in a data frame as well as how to fit very specific t-test models.
+
 ###  t-tests
+In R, the historical function to fit both paired and unpaired t-tests is the function `t.test()`. 
 ###  lm objects
   
 ## Accessor function using traditional functions

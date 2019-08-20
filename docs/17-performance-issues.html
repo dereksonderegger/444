@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 17 Performance Issues | STA 444/5 - Data wrangling using R</title>
-  <meta name="description" content="Chapter 17 Performance Issues | STA 444/5 - Data wrangling using R">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 17 Performance Issues | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 17 Performance Issues | STA 444/5 - Introductory Data Science using R" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 17 Performance Issues | STA 444/5 - Data wrangling using R" />
+  <meta property="og:title" content="Chapter 17 Performance Issues | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -17,19 +16,19 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 17 Performance Issues | STA 444/5 - Data wrangling using R" />
+  <meta name="twitter:title" content="Chapter 17 Performance Issues | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
 
-<meta name="author" content="Derek L. Sonderegger">
+<meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-07-02">
+<meta name="date" content="2019-08-20" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="16-dates.html">
@@ -56,7 +55,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -127,10 +125,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="https://dereksonderegger.github.io/444/Statistical_Methods_I.pdf" target="blank">PDF version</a></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 </ul></li>
 <li class="part"><span><b>Introduction</b></span></li>
@@ -142,56 +138,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.2</b> R as a simple calculator</a></li>
 <li class="chapter" data-level="1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#assignment"><i class="fa fa-check"></i><b>1.3</b> Assignment</a></li>
-<li class="chapter" data-level="1.4" data-path="1-familiarization.html"><a href="1-familiarization.html#packages"><i class="fa fa-check"></i><b>1.4</b> Packages</a></li>
-<li class="chapter" data-level="1.5" data-path="1-familiarization.html"><a href="1-familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.5</b> Finding Help</a><ul>
-<li class="chapter" data-level="1.5.1" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.5.1</b> How does this function work?</a></li>
-<li class="chapter" data-level="1.5.2" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.5.2</b> How does this package work?</a></li>
-<li class="chapter" data-level="1.5.3" data-path="1-familiarization.html"><a href="1-familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.5.3</b> How do I do XXX?</a></li>
+<li class="chapter" data-level="1.4" data-path="1-familiarization.html"><a href="1-familiarization.html#vectors"><i class="fa fa-check"></i><b>1.4</b> Vectors</a></li>
+<li class="chapter" data-level="1.5" data-path="1-familiarization.html"><a href="1-familiarization.html#packages"><i class="fa fa-check"></i><b>1.5</b> Packages</a></li>
+<li class="chapter" data-level="1.6" data-path="1-familiarization.html"><a href="1-familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.6</b> Finding Help</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.6.1</b> How does this function work?</a></li>
+<li class="chapter" data-level="1.6.2" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.6.2</b> How does this package work?</a></li>
+<li class="chapter" data-level="1.6.3" data-path="1-familiarization.html"><a href="1-familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.6.3</b> How do I do XXX?</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="1-familiarization.html"><a href="1-familiarization.html#exercises"><i class="fa fa-check"></i><b>1.6</b> Exercises</a></li>
+<li class="chapter" data-level="1.7" data-path="1-familiarization.html"><a href="1-familiarization.html#exercises"><i class="fa fa-check"></i><b>1.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="2-data-frames.html"><a href="2-data-frames.html"><i class="fa fa-check"></i><b>2</b> Data Frames</a><ul>
 <li class="chapter" data-level="2.1" data-path="2-data-frames.html"><a href="2-data-frames.html#introduction-to-importing-data"><i class="fa fa-check"></i><b>2.1</b> Introduction to Importing Data</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="2-data-frames.html"><a href="2-data-frames.html#from-a-package"><i class="fa fa-check"></i><b>2.1.1</b> From a Package</a></li>
 <li class="chapter" data-level="2.1.2" data-path="2-data-frames.html"><a href="2-data-frames.html#import-from-.csv-or-.xls-files"><i class="fa fa-check"></i><b>2.1.2</b> Import from <code>.csv</code> or <code>.xls</code> files</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="2-data-frames.html"><a href="2-data-frames.html#data-frame-manipulation"><i class="fa fa-check"></i><b>2.2</b> Data Frame Manipulation</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="2-data-frames.html"><a href="2-data-frames.html#verbs"><i class="fa fa-check"></i><b>2.2.1</b> Verbs</a></li>
-<li class="chapter" data-level="2.2.2" data-path="2-data-frames.html"><a href="2-data-frames.html#split-apply-combine"><i class="fa fa-check"></i><b>2.2.2</b> Split, apply, combine</a></li>
-<li class="chapter" data-level="2.2.3" data-path="2-data-frames.html"><a href="2-data-frames.html#chaining-commands-together"><i class="fa fa-check"></i><b>2.2.3</b> Chaining commands together</a></li>
+<li class="chapter" data-level="2.2" data-path="2-data-frames.html"><a href="2-data-frames.html#data-types"><i class="fa fa-check"></i><b>2.2</b> Data Types</a></li>
+<li class="chapter" data-level="2.3" data-path="2-data-frames.html"><a href="2-data-frames.html#basic-manipulation"><i class="fa fa-check"></i><b>2.3</b> Basic Manipulation</a></li>
+<li class="chapter" data-level="2.4" data-path="2-data-frames.html"><a href="2-data-frames.html#exercises-1"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="2-data-frames.html"><a href="2-data-frames.html#exercises-1"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="3" data-path="3-graphing.html"><a href="3-graphing.html"><i class="fa fa-check"></i><b>3</b> Graphing</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-graphing.html"><a href="3-graphing.html#basic-graphs"><i class="fa fa-check"></i><b>3.1</b> Basic Graphs</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="3-graphing.html"><a href="3-graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3-graphing.html"><a href="3-graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html"><i class="fa fa-check"></i><b>3</b> Graphing using <code>ggplot2</code></a><ul>
-<li class="chapter" data-level="3.1" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#basic-graphs"><i class="fa fa-check"></i><b>3.1</b> Basic Graphs</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#bar-charts"><i class="fa fa-check"></i><b>3.1.1</b> Bar Charts</a></li>
-<li class="chapter" data-level="3.1.2" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#histograms"><i class="fa fa-check"></i><b>3.1.2</b> Histograms</a></li>
-<li class="chapter" data-level="3.1.3" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#scatterplots"><i class="fa fa-check"></i><b>3.1.3</b> Scatterplots</a></li>
-<li class="chapter" data-level="3.1.4" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#box-plots"><i class="fa fa-check"></i><b>3.1.4</b> Box Plots</a></li>
-<li class="chapter" data-level="3.1.5" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#labels"><i class="fa fa-check"></i><b>3.1.5</b> Labels</a></li>
-<li class="chapter" data-level="3.1.6" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#color-scales"><i class="fa fa-check"></i><b>3.1.6</b> Color Scales</a></li>
-<li class="chapter" data-level="3.1.7" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#adjusting-axes"><i class="fa fa-check"></i><b>3.1.7</b> Adjusting axes</a></li>
-<li class="chapter" data-level="3.1.8" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#zooming-inout"><i class="fa fa-check"></i><b>3.1.8</b> Zooming in/out</a></li>
+<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#labels"><i class="fa fa-check"></i><b>3.2</b> Labels</a></li>
+<li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.3</b> Faceting</a></li>
+<li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#cookbook-examples"><i class="fa fa-check"></i><b>3.2</b> Cookbook Examples</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#scatterplot-with-prediction-ribbons"><i class="fa fa-check"></i><b>3.2.1</b> Scatterplot with prediction ribbons</a></li>
-<li class="chapter" data-level="3.2.2" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#bar-plot"><i class="fa fa-check"></i><b>3.2.2</b> Bar Plot</a></li>
+<li class="chapter" data-level="4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#subsetting"><i class="fa fa-check"></i><b>4.1.1</b> Subsetting</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#arrange"><i class="fa fa-check"></i><b>4.1.2</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#mutate"><i class="fa fa-check"></i><b>4.1.3</b> mutate()</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#summarise"><i class="fa fa-check"></i><b>4.1.4</b> summarise()</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="3-graphing-using-ggplot2.html"><a href="3-graphing-using-ggplot2.html#exercises-2"><i class="fa fa-check"></i><b>3.3</b> Exercises</a></li>
+<li class="chapter" data-level="4.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#split-apply-combine"><i class="fa fa-check"></i><b>4.2</b> Split, apply, combine</a></li>
+<li class="chapter" data-level="4.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-introduction-to-data-wrangling-using-dplyr.html"><a href="4-introduction-to-data-wrangling-using-dplyr.html"><i class="fa fa-check"></i><b>4</b> Introduction to Data Wrangling using <code>dplyr</code></a><ul>
-<li class="chapter" data-level="4.1" data-path="4-introduction-to-data-wrangling-using-dplyr.html"><a href="4-introduction-to-data-wrangling-using-dplyr.html#mutate-1"><i class="fa fa-check"></i><b>4.1</b> <code>mutate</code></a></li>
-<li class="chapter" data-level="4.2" data-path="4-introduction-to-data-wrangling-using-dplyr.html"><a href="4-introduction-to-data-wrangling-using-dplyr.html#group_by"><i class="fa fa-check"></i><b>4.2</b> <code>group_by</code></a></li>
-<li class="chapter" data-level="4.3" data-path="4-introduction-to-data-wrangling-using-dplyr.html"><a href="4-introduction-to-data-wrangling-using-dplyr.html#summarize"><i class="fa fa-check"></i><b>4.3</b> <code>summarize</code></a></li>
+<li class="chapter" data-level="5" data-path="5-statistical-models.html"><a href="5-statistical-models.html"><i class="fa fa-check"></i><b>5</b> Statistical Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-statistical-models.html"><a href="5-statistical-models.html#formula-notation"><i class="fa fa-check"></i><b>5.1</b> Formula Notation</a></li>
+<li class="chapter" data-level="5.2" data-path="5-statistical-models.html"><a href="5-statistical-models.html#basic-models"><i class="fa fa-check"></i><b>5.2</b> Basic Models</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-statistical-models.html"><a href="5-statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html"><i class="fa fa-check"></i><b>5</b> Introduction to using Model Objects</a><ul>
-<li class="chapter" data-level="5.1" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#formula-notation"><i class="fa fa-check"></i><b>5.1</b> formula notation</a></li>
-<li class="chapter" data-level="5.2" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#building-models"><i class="fa fa-check"></i><b>5.2</b> Building models</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
-<li class="chapter" data-level="5.2.2" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#accessor-function-using-traditional-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor function using traditional functions</a></li>
-<li class="chapter" data-level="5.4" data-path="5-introduction-to-using-model-objects.html"><a href="5-introduction-to-using-model-objects.html#accessing-model-results-using-broom"><i class="fa fa-check"></i><b>5.4</b> Accessing model results using <code>broom</code></a></li>
+<li class="chapter" data-level="5.3" data-path="5-statistical-models.html"><a href="5-statistical-models.html#accessor-function-using-traditional-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor function using traditional functions</a></li>
+<li class="chapter" data-level="5.4" data-path="5-statistical-models.html"><a href="5-statistical-models.html#accessing-model-results-using-broom"><i class="fa fa-check"></i><b>5.4</b> Accessing model results using <code>broom</code></a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="6-graphing-data-and-model-results.html"><a href="6-graphing-data-and-model-results.html"><i class="fa fa-check"></i><b>6</b> Graphing data and model results</a><ul>
 <li class="chapter" data-level="6.1" data-path="6-graphing-data-and-model-results.html"><a href="6-graphing-data-and-model-results.html#process"><i class="fa fa-check"></i><b>6.1</b> Process</a></li>
@@ -227,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 444/5 - Data wrangling using R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 444/5 - Introductory Data Science using R</a>
           </h1>
         </div>
 
@@ -276,14 +266,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/570/raw/master/20_Why_More_Detail.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/20_Why_More_Detail.Rmd",
 "text": "Edit"
 },
 "history": {
 "link": null,
 "text": null
 },
-"download": [["Statistical_Methods_I.pdf", "PDF"], ["Statistical_Methods_I.epub", "EPUB"]],
+"download": null,
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
