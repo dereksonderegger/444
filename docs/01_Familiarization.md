@@ -342,8 +342,19 @@ devtools::install_github('dereksonderegger/SiZer')
 ```
 
 ```
-## Skipping install of 'SiZer' from a github remote, the SHA1 (8745f2e4) has not changed since last install.
-##   Use `force = TRUE` to force installation
+## Downloading GitHub repo dereksonderegger/SiZer@master
+```
+
+```
+##      checking for file ‘/private/var/folders/d1/drs_scp95wd_s6zsdksk312m0000gn/T/RtmpLkMepG/remotes146b740210d5/dereksonderegger-SiZer-8745f2e/DESCRIPTION’ ...  ✔  checking for file ‘/private/var/folders/d1/drs_scp95wd_s6zsdksk312m0000gn/T/RtmpLkMepG/remotes146b740210d5/dereksonderegger-SiZer-8745f2e/DESCRIPTION’ (567ms)
+##   ─  preparing ‘SiZer’:
+##      checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
+##   ─  checking for LF line-endings in source and make files and shell scripts
+##   ─  checking for empty or unneeded directories
+## ─  looking to see if a ‘data/datalist’ file should be added
+##   ─  building ‘SiZer_0.1-5.tar.gz’
+##      
+## 
 ```
 
 ## Finding Help
