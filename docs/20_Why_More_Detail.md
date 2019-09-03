@@ -1,30 +1,28 @@
 # (PART\*) Deeper Details {-}
 
+What happens if I put something here.
+
 # Factors
 ## How factors are stored
 ## Using `forcats` 
 
-# Data Frames, tibbles, oh my!
+# Data Import and Tibbles
 ## Why extend the data frame
-
-
-# Data Import
-
+## Consistency 
 
 # Data frame Manipulation using dplyr
-
-# Data frame 
+## conditional selection and mutation
 ## reshaping
 ## merges
 
-# More ggplot2
-
-# Flow Control
-
 # Functions
 
-# Strings
+# Strings via `stringr`
 
-# Dates
+# Dates via `lubridate`
+
+# More Graphing
+
+# Packages
 
 # Performance Issues

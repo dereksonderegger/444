@@ -171,7 +171,7 @@ annotation.data <- data.frame(
 # aes() options already defined.
 P +
   geom_text( data=annotation.data, aes(label=Text), size=2.5) +   # write the labels
-  theme( legend.position = 'none' )                     # remove the legend
+  theme( legend.position = 'none' )                               # remove the legend
 ```
 
 <img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-9-1.png" width="672" />

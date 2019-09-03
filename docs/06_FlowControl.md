@@ -104,7 +104,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -119,7 +119,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 
@@ -133,7 +133,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -148,7 +148,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] " in the if statement, got a Tail! "
+## [1] "In the else part!"
 ```
 
 ```r
@@ -156,7 +156,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -210,7 +210,7 @@ p.value
 ```
 
 ```
-## [1] 1.088654e-08
+## [1] 4.961812e-09
 ```
 
 
@@ -358,19 +358,40 @@ ggplot(SampDist, aes(x=xbar)) +
 
 1. I've created a dataset about presidential candidates for the 2020 US election and it is available on the github website for my STA 141 
 
-```r
-#prez <- readr::read_csv('')
-```
     
+    ```r
+    prez <- readr::read_csv('https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/Prez_Candidate_Birthdays')
+    prez
+    ```
+    
+    ```
+    ## # A tibble: 11 x 5
+    ##    Candidate        Gender Birthday   Party AgeOnElection
+    ##    <chr>            <chr>  <date>     <chr>         <dbl>
+    ##  1 Pete Buttigieg   M      1982-01-19 D                38
+    ##  2 Andrew Yang      M      1975-01-13 D                45
+    ##  3 Juilan Castro    M      1976-09-16 D                44
+    ##  4 Beto O'Rourke    M      1972-09-26 D                48
+    ##  5 Cory Booker      M      1969-04-27 D                51
+    ##  6 Kamala Harris    F      1964-10-20 D                56
+    ##  7 Amy Klobucher    F      1960-05-25 D                60
+    ##  8 Elizabeth Warren F      1949-06-22 D                71
+    ##  9 Donald Trump     M      1946-06-14 R                74
+    ## 10 Joe Biden        M      1942-11-20 D                77
+    ## 11 Bernie Sanders   M      1941-09-08 D                79
+    ```
+    
+    a) Recode the Gender column to have Male and Female levels. Similarly convert the party variable to be Democratic or Republican.
+    b) Bernie Sanders was registered as an Independent up until his 2016 presidential run. Change his political party value into 'Independent'.
 
-1. The $Uniform\left(a,b\right)$ distribution is defined on x $\in [a,b]$ and represents a random variable that takes on any value of between `a` and `b` with equal probability. Technically since there are an infinite number of values between `a` and `b`, each value has a probability of 0 of being selected and I should say each interval of width $d$ has equal probability. It has the density function 
+2. The $Uniform\left(a,b\right)$ distribution is defined on x $\in [a,b]$ and represents a random variable that takes on any value of between `a` and `b` with equal probability. Technically since there are an infinite number of values between `a` and `b`, each value has a probability of 0 of being selected and I should say each interval of width $d$ has equal probability. It has the density function 
     $$f\left(x\right)=\begin{cases}
     \frac{1}{b-a} & \;\;\;\;a\le x\le b\\
     0 & \;\;\;\;\textrm{otherwise}
     \end{cases}$$
 
-    The R function `dunif()`
-
+    The R function `dunif()` evaluates this density function for the above defined values of x, a, and b. Somewhere in that function, there is a chunk of code that evaluates the density for arbitrary values of $x$. Run this code a few times and notice sometimes the result is $0$ and sometimes it is $1/(10-4)=0.16666667$.
+    
     
     ```r
     a <- 4      # The min and max values we will use for this example
@@ -386,10 +407,8 @@ ggplot(SampDist, aes(x=xbar)) +
     ## [1] 0.1666667
     ```
 
-
-    evaluates this density function for the above defined values of x, a, and b. Somewhere in that function, there is a chunk of code that evaluates the density for arbitrary values of $x$. Run this code a few times and notice sometimes the result is $0$ and sometimes it is $1/(10-4)=0.16666667$.
     
-    Write a sequence of statements that utilizes an if statements to appropriately calculate the density of x assuming that `a`, `b` , and `x` are given to you, but your code won't know if `x` is between `a` and `b`. That is, your code needs to figure out if it is and give either `1/(b-a)` or `0`.
+    We will write a sequence of statements that utilizes an if statements to appropriately calculate the density of x assuming that `a`, `b` , and `x` are given to you, but your code won't know if `x` is between `a` and `b`. That is, your code needs to figure out if it is and give either `1/(b-a)` or `0`.
 
     a. We could write a set of if/else statements 
         
@@ -407,7 +426,8 @@ ggplot(SampDist, aes(x=xbar)) +
         }
         print(paste('x=',round(x,digits=3), '  result=', round(result,digits=3)))
         ```
-        Replace the `???` with the appropriate value, either 0 or $1/\left(b-a\right)$.
+        Replace the `???` with the appropriate value, either 0 or $1/\left(b-a\right)$. Run the code repeatedly until you are certain that it is calculating the correct density value.
+        
 
     b. We could perform the logical comparison all in one comparison. Recall that we can use `&` to mean “and” and `|` to mean “or”. In the following two code chunks, replace the `???` with either `&` or `|` to make the appropriate result.
 
@@ -442,7 +462,7 @@ ggplot(SampDist, aes(x=xbar)) +
             ```
 
 
-2. I often want to repeat some section of code some number of times. For example, I might want to create a bunch plots that compare the density of a t-distribution with specified degrees of freedom to a standard normal distribution. 
+3. I often want to repeat some section of code some number of times. For example, I might want to create a bunch plots that compare the density of a t-distribution with specified degrees of freedom to a standard normal distribution. 
 
     
     ```r
@@ -470,7 +490,7 @@ ggplot(SampDist, aes(x=xbar)) +
 
     b) In retrospect, perhaps we didn't need to produce all of those. Rewrite your loop so that we only produce graphs for $\left\{ 2,3,4,5,10,15,20,25,30\right\}$ degrees of freedom. *Hint: you can just modify the vector in the `for` statement to include the desired degrees of freedom.*
 
-3. The `for` loop usually is the most natural one to use, but occasionally we have occasions where it is too cumbersome and a different sort of loop is appropriate. One example is taking a random sample from a truncated distribution. For example, I might want to take a sample from a normal distribution with mean $\mu$ and standard deviation $\sigma$ but for some reason need the answer to be larger than zero. One solution is to just sample from the given normal distribution until I get a value that is bigger than zero. 
+4. The `for` loop usually is the most natural one to use, but occasionally we have occasions where it is too cumbersome and a different sort of loop is appropriate. One example is taking a random sample from a truncated distribution. For example, I might want to take a sample from a normal distribution with mean $\mu$ and standard deviation $\sigma$ but for some reason need the answer to be larger than zero. One solution is to just sample from the given normal distribution until I get a value that is bigger than zero. 
 
     
     ```r
