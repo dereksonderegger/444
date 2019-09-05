@@ -17,27 +17,20 @@ We will be interested in the following broad classes of manipulations:
 
 | Goal                             |  `forcats` function                                  |
 |:---------------------------------|:-----------------------------------------------------|
-| Set order manually               | `fct_relevel(f, c('b', 'a', 'c'))`                   |
-| Set order based on another vector | `fct_reorder(f, x)`                                 |
+| Set order manually                                  | `fct_relevel(f, c('b', 'a', 'c'))`  |
+| Set order based on another vector                        | `fct_reorder(f, x)`          |
 | Set order based on which category is most frequent       | `fct_infreq(f)`              |
-| Set order based on when they first appear                | `fct_inorder()`              |
-| Reverse factor order  | `fct_rev(f)`   |
-| Rotate order left or right      | `fct_shift(f, steps)` |
+| Set order based on when they first appear                | `fct_inorder(f)`             |
+| Reverse factor order                                     | `fct_rev(f)`                 |
+| Rotate order left or right                               | `fct_shift(f, steps)`        |
 
 
+#### Add or Subtract Levels {-}
 
-+----------------------+--------------------------------------------+--------------------------------+
-|  Goal                |  `forcats` functions                       |  Details                       |
-+======================+============================================+================================+
-| Edit Labels          | - `fct_recode(f, new_label = 'old_label')` | Manually set new label(s)      |
-|                      | - `fct_relabel(f, function)`               | Apply a function to all labels |
-+----------------------+--------------------------------------------+--------------------------------+
-| Reorder Levels       | - `fct_relevel(f, c('b','a','c'))`         | Manually set order             |
-|                      | - `fct_reorder(f, x)`                      | Set the order based on another |
-+----------------------+--------------------------------------------+--------------------------------+
-| Add/Subtract Levels  | - `fct_collapse()`                         | Manually collapse specified    |
-|                      | - `fct_lump()`                             | Collapse based on frequency    |
-+----------------------+--------------------------------------------+--------------------------------+
+| Goal                             |  `forcats` function                                    |
+|:---------------------------------|:-------------------------------------------------------|
+| Manually select categories to collapse into one |  `fct_collapse(f, other = c('a','b')) ` |
+| 
 
 
 

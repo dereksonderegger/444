@@ -90,8 +90,8 @@ We can define other attributes that might reflect other aspects of the data. For
 
 
 ```r
-ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length, color=Species) ) +  
-	geom_point(  )
+ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length) ) +  
+	geom_point( aes(color=Species) )
 ```
 
 <img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-5-1.png" width="672" />
@@ -122,7 +122,7 @@ Boxplots are a common way to show a categorical variable on the x-axis and conti
 
 ```r
 ggplot(iris, aes(x=Species, y=Petal.Length)) +
-  geom_boxplot()
+  geom_boxplot() 
 ```
 
 <img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-7-1.png" width="672" />
@@ -130,17 +130,18 @@ ggplot(iris, aes(x=Species, y=Petal.Length)) +
 The boxes show the $25^{th}$, $50^{th}$, and $75^{th}$ percentile and the lines coming off the box extend to the smallest and largest non-outlier observation.  
 
 
-## Labels
+## Title & Axis Labels 
 
-To make a graph more understandable, it is necessary to tweak labels for the axes and add a main title and such. Here we'll adjust labels in a graph, including the legend labels.
+To make a graph more understandable, it is necessary to tweak the axis labels and add a main title and such. Here we'll adjust labels in a graph, including the legend labels.
 
 ```r
 # Save the graph before I add more to it.
-P <- ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length, color=Species) ) +  
-	geom_point(  ) +
+P <- ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length) ) +  
+	geom_point( aes(color=Species)  ) +
   labs( title='Sepal Length vs Petal Length') +
   labs( x="Sepal Length (cm)", y="Petal Length (cm)" ) +
-  labs( color="Species Name")     
+  labs( color="Species Name")  +
+  labs( caption = "iris data from Edgar Anderson (1935)" )
 
 # Print out the plot
 P
@@ -153,6 +154,9 @@ You could either call the `labs()` command repeatedly with each label, or you co
 ## Annotation
 One way to improve the clarity of a graph is to remove the legend and label the points directly on the graph. For example, we could instead have the species names near the cloud of data points for the species. 
 
+Usually our annotations aren't stored in the `data.frame` that contains our data of interest. So we need to either create a new (usually small) `data.frame` that contains all the information needed to create the annotation or we need to set the necessary information in-place. Either way, we need to specify the `x` and `y` coordinates, the `label` to be printed as well as any other attribute that is set in the global `aes()` command. That means if `color` has been set globally, the annotation layer also needs to address the `color` attribute.
+
+### Using a `data.frame`
 To do this in ggplot, we need to make a data frame that has the columns `Sepal.Length` and `Petal.Length` so that we can specify where each label should go, as well as the label that we want to print. Also, because color is matched to the `Species` column, this small dataset should also have a the `Species` column.
 
 This step always requires a bit of fussing with the graph because the text size and location should be chosen based on the size of the output graphic and if I rescale the image it often looks awkward. Typically I leave this step until the figure is being prepared for final publication.
@@ -177,6 +181,32 @@ P +
 <img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 
+### Setting attributes in-line
+Instead of creating a new data frame, we could just add a new layer and just set all of the graph attributes manually. To do this, we have to have one layer for each text we want to add to the graph.
+
+```r
+P +
+  geom_text( x=4.5, y=2.25, size=2, label='SETOSA'     ) +
+  geom_text( x=6.5, y=3.75, size=2, label='VERSICOLOR' ) +
+  geom_text( x=7.0, y=6.50, size=2, label='VIRGINICA'  )
+```
+
+<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+
+
+Finally there is a `geom_label` layer that draws a nice box around what you want to print.
+
+
+```r
+P +
+  geom_label( x=4.5, y=2.25, size=2, label='SETOSA'     ) +
+  geom_label( x=6.5, y=3.75, size=2, label='VERSICOLOR' ) +
+  geom_label( x=7.0, y=6.50, size=2, label='VIRGINICA'  )
+```
+
+<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+
+My recommendation is to just set the `x`, `y`, and `label` attributes manually if you have one or two annotations to print on the graph. If you have many annotations to print, the create a data frame that contains all of them and use `data=` argument in the geom to use that created annotation data set.
 
 ## Faceting
 
@@ -190,7 +220,7 @@ ggplot(iris, aes(x=Sepal.Length, y=Petal.Length)) +
   facet_grid( . ~ Species )
 ```
 
-<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 The line `facet_grid( formula )` tells `ggplot2` to make panels, and the formula tells how to orient the panels. In R formulas are always interpretated in the order `y ~ x`. Because I want the species to change as we go across the page, but don't have anything I want to change vertically we use `. ~ Species` to represent that. If we had wanted three graphs stacked then we could use `Species ~ .`. 
 
@@ -220,7 +250,7 @@ ggplot(tips, aes(x = total_bill, y = tip / total_bill )) +
   geom_point()
 ```
 
-<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 Next we ask if there is a difference in tipping percent based on gender or day of the week by plotting this relationship for each combination of gender and day.
 
@@ -231,7 +261,7 @@ ggplot(tips, aes(x = total_bill, y = tip / total_bill )) +
   facet_grid( sex ~ day )
 ```
 
-<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 Sometimes we want multiple rows and columns of facets, but there is only one categorical variable with many levels. In that case we use facet_wrap which takes a one-sided formula.
 
@@ -241,7 +271,7 @@ ggplot(tips, aes(x = total_bill, y = tip / total_bill )) +
   facet_wrap( ~ day )
 ```
 
-<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 
 Finally we can allow the x and y scales to vary between the panels by setting “free”, “free_x”, or “free_y”. In the following code, the y-axis scale changes between the gender groups.
@@ -252,7 +282,7 @@ ggplot(tips, aes(x = total_bill, y = tip / total_bill )) +
   facet_grid( sex ~ day, scales="free_y" )
 ```
 
-<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 
 ## Exercises

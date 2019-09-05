@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-01" />
+<meta name="date" content="2019-09-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,8 +161,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.1" data-path="3-graphing.html"><a href="3-graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
 <li class="chapter" data-level="3.1.2" data-path="3-graphing.html"><a href="3-graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#labels"><i class="fa fa-check"></i><b>3.2</b> Labels</a></li>
-<li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a></li>
+<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#title-axis-labels"><i class="fa fa-check"></i><b>3.2</b> Title &amp; Axis Labels</a></li>
+<li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-graphing.html"><a href="3-graphing.html#using-a-data.frame"><i class="fa fa-check"></i><b>3.3.1</b> Using a <code>data.frame</code></a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-graphing.html"><a href="3-graphing.html#setting-attributes-in-line"><i class="fa fa-check"></i><b>3.3.2</b> Setting attributes in-line</a></li>
+</ul></li>
 <li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.4</b> Faceting</a></li>
 <li class="chapter" data-level="3.5" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.5</b> Exercises</a></li>
 </ul></li>
@@ -199,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="7-factors.html"><a href="7-factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-factors.html"><a href="7-factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
 <li class="chapter" data-level="7.2" data-path="7-factors.html"><a href="7-factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
-<li class="chapter" data-level="7.3" data-path="7-factors.html"><a href="7-factors.html#reorder-levels"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
+<li class="chapter" data-level="7.3" data-path="7-factors.html"><a href="7-factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
 <li class="chapter" data-level="7.4" data-path="7-factors.html"><a href="7-factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="8-importing-data.html"><a href="8-importing-data.html"><i class="fa fa-check"></i><b>8</b> Importing Data</a><ul>
@@ -442,8 +445,8 @@ shamelessly stolen from the Pandoc documentation.
 <p>One way to print a table is to just print in in R and have the table presented
 in the code chunk. For example, suppose I want to print out the first 4 rows
 of the trees dataset.</p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" data-line-number="1">data &lt;-<span class="st"> </span>trees[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, ]</a>
-<a class="sourceLine" id="cb479-2" data-line-number="2">data</a></code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb491-1" data-line-number="1">data &lt;-<span class="st"> </span>trees[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, ]</a>
+<a class="sourceLine" id="cb491-2" data-line-number="2">data</a></code></pre></div>
 <pre><code>##   Girth Height Volume
 ## 1   8.3     70   10.3
 ## 2   8.6     65   10.3
@@ -458,11 +461,11 @@ RMarkdown supports 3 of those.</p>
 <h3><span class="header-section-number">14.2.1</span> Simple Tables</h3>
 <p>Simple tables look like this (Notice I don’t wrap these dollar signs or anything,
 just a blank line above and below the table):</p>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" data-line-number="1">Right   Left     Center   Default </a>
-<a class="sourceLine" id="cb481-2" data-line-number="2"><span class="op">-------</span><span class="st"> </span><span class="op">------</span><span class="st"> </span><span class="op">----------</span><span class="st"> </span><span class="op">-------</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb481-3" data-line-number="3"><span class="st">     </span><span class="dv">12</span> <span class="dv">12</span>        hmmm        <span class="dv">12</span> </a>
-<a class="sourceLine" id="cb481-4" data-line-number="4">    <span class="dv">123</span> <span class="dv">123</span>        <span class="dv">123</span>       <span class="dv">123</span> </a>
-<a class="sourceLine" id="cb481-5" data-line-number="5">      <span class="dv">1</span> <span class="dv">1</span>            <span class="dv">1</span>         <span class="dv">1</span></a></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" data-line-number="1">Right   Left     Center   Default </a>
+<a class="sourceLine" id="cb493-2" data-line-number="2"><span class="op">-------</span><span class="st"> </span><span class="op">------</span><span class="st"> </span><span class="op">----------</span><span class="st"> </span><span class="op">-------</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb493-3" data-line-number="3"><span class="st">     </span><span class="dv">12</span> <span class="dv">12</span>        hmmm        <span class="dv">12</span> </a>
+<a class="sourceLine" id="cb493-4" data-line-number="4">    <span class="dv">123</span> <span class="dv">123</span>        <span class="dv">123</span>       <span class="dv">123</span> </a>
+<a class="sourceLine" id="cb493-5" data-line-number="5">      <span class="dv">1</span> <span class="dv">1</span>            <span class="dv">1</span>         <span class="dv">1</span></a></code></pre></div>
 <p>and would be rendered like this:</p>
 <table>
 <thead>
@@ -510,15 +513,15 @@ blank line.</p>
 <h3><span class="header-section-number">14.2.2</span> Grid Tables</h3>
 <p>Grid tables are a little more flexible and each cell can take an arbitrary
 Markdown block elements (such as lists).</p>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb482-1" data-line-number="1"><span class="op">+---------------+---------------+--------------------+</span></a>
-<a class="sourceLine" id="cb482-2" data-line-number="2"><span class="er">|</span><span class="st"> </span>Fruit         <span class="op">|</span><span class="st"> </span>Price         <span class="op">|</span><span class="st"> </span>Advantages         <span class="op">|</span></a>
-<a class="sourceLine" id="cb482-3" data-line-number="3"><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">====================</span><span class="op">+</span></a>
-<a class="sourceLine" id="cb482-4" data-line-number="4"><span class="er">|</span><span class="st"> </span>Bananas       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">1.34</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>built<span class="op">-</span><span class="cf">in</span> wrapper <span class="op">|</span></a>
-<a class="sourceLine" id="cb482-5" data-line-number="5"><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>bright color     <span class="op">|</span></a>
-<a class="sourceLine" id="cb482-6" data-line-number="6"><span class="op">+---------------+---------------+--------------------+</span></a>
-<a class="sourceLine" id="cb482-7" data-line-number="7"><span class="er">|</span><span class="st"> </span>Oranges       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">2.10</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>cures scurvy     <span class="op">|</span></a>
-<a class="sourceLine" id="cb482-8" data-line-number="8"><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>tasty            <span class="op">|</span></a>
-<a class="sourceLine" id="cb482-9" data-line-number="9"><span class="op">+---------------+---------------+--------------------+</span></a></code></pre></div>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb494-1" data-line-number="1"><span class="op">+---------------+---------------+--------------------+</span></a>
+<a class="sourceLine" id="cb494-2" data-line-number="2"><span class="er">|</span><span class="st"> </span>Fruit         <span class="op">|</span><span class="st"> </span>Price         <span class="op">|</span><span class="st"> </span>Advantages         <span class="op">|</span></a>
+<a class="sourceLine" id="cb494-3" data-line-number="3"><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">====================</span><span class="op">+</span></a>
+<a class="sourceLine" id="cb494-4" data-line-number="4"><span class="er">|</span><span class="st"> </span>Bananas       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">1.34</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>built<span class="op">-</span><span class="cf">in</span> wrapper <span class="op">|</span></a>
+<a class="sourceLine" id="cb494-5" data-line-number="5"><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>bright color     <span class="op">|</span></a>
+<a class="sourceLine" id="cb494-6" data-line-number="6"><span class="op">+---------------+---------------+--------------------+</span></a>
+<a class="sourceLine" id="cb494-7" data-line-number="7"><span class="er">|</span><span class="st"> </span>Oranges       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">2.10</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>cures scurvy     <span class="op">|</span></a>
+<a class="sourceLine" id="cb494-8" data-line-number="8"><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>tasty            <span class="op">|</span></a>
+<a class="sourceLine" id="cb494-9" data-line-number="9"><span class="op">+---------------+---------------+--------------------+</span></a></code></pre></div>
 <p>which is rendered as the following:</p>
 <table style="width:74%;">
 <colgroup>
@@ -562,11 +565,11 @@ in the rest of the table. Both Simple and Grid tables don’t require column hea
 <p>Pipe tables look quite similar to grid tables but Markdown isn’t as picky about the
 pipes lining up. However, it does require a header row (which you could leave
 the elements blank in).</p>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" data-line-number="1"><span class="op">|</span><span class="st"> </span>Right <span class="op">|</span><span class="st"> </span>Left <span class="op">|</span><span class="st"> </span>Default <span class="op">|</span><span class="st"> </span>Center <span class="op">|</span></a>
-<a class="sourceLine" id="cb483-2" data-line-number="2"><span class="er">|</span><span class="op">------</span><span class="er">:|:</span><span class="op">-----</span><span class="er">|</span><span class="op">---------</span><span class="er">|:</span><span class="op">------</span><span class="er">:|</span></a>
-<a class="sourceLine" id="cb483-3" data-line-number="3"><span class="er">|</span><span class="st">   </span><span class="dv">12</span>  <span class="op">|</span><span class="st">  </span><span class="dv">12</span>  <span class="op">|</span><span class="st">    </span><span class="dv">12</span>   <span class="op">|</span><span class="st">    </span><span class="dv">12</span>  <span class="op">|</span></a>
-<a class="sourceLine" id="cb483-4" data-line-number="4"><span class="er">|</span><span class="st">  </span><span class="dv">123</span>  <span class="op">|</span><span class="st">  </span><span class="dv">123</span> <span class="op">|</span><span class="st">   </span><span class="dv">123</span>   <span class="op">|</span><span class="st">   </span><span class="dv">123</span>  <span class="op">|</span></a>
-<a class="sourceLine" id="cb483-5" data-line-number="5"><span class="er">|</span><span class="st">    </span><span class="dv">1</span>  <span class="op">|</span><span class="st">    </span><span class="dv">1</span> <span class="op">|</span><span class="st">     </span><span class="dv">1</span>   <span class="op">|</span><span class="st">     </span><span class="dv">1</span>  <span class="op">|</span></a></code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb495-1" data-line-number="1"><span class="op">|</span><span class="st"> </span>Right <span class="op">|</span><span class="st"> </span>Left <span class="op">|</span><span class="st"> </span>Default <span class="op">|</span><span class="st"> </span>Center <span class="op">|</span></a>
+<a class="sourceLine" id="cb495-2" data-line-number="2"><span class="er">|</span><span class="op">------</span><span class="er">:|:</span><span class="op">-----</span><span class="er">|</span><span class="op">---------</span><span class="er">|:</span><span class="op">------</span><span class="er">:|</span></a>
+<a class="sourceLine" id="cb495-3" data-line-number="3"><span class="er">|</span><span class="st">   </span><span class="dv">12</span>  <span class="op">|</span><span class="st">  </span><span class="dv">12</span>  <span class="op">|</span><span class="st">    </span><span class="dv">12</span>   <span class="op">|</span><span class="st">    </span><span class="dv">12</span>  <span class="op">|</span></a>
+<a class="sourceLine" id="cb495-4" data-line-number="4"><span class="er">|</span><span class="st">  </span><span class="dv">123</span>  <span class="op">|</span><span class="st">  </span><span class="dv">123</span> <span class="op">|</span><span class="st">   </span><span class="dv">123</span>   <span class="op">|</span><span class="st">   </span><span class="dv">123</span>  <span class="op">|</span></a>
+<a class="sourceLine" id="cb495-5" data-line-number="5"><span class="er">|</span><span class="st">    </span><span class="dv">1</span>  <span class="op">|</span><span class="st">    </span><span class="dv">1</span> <span class="op">|</span><span class="st">     </span><span class="dv">1</span>   <span class="op">|</span><span class="st">     </span><span class="dv">1</span>  <span class="op">|</span></a></code></pre></div>
 <p>which will render as the following:</p>
 <table>
 <thead>
@@ -603,10 +606,10 @@ picky about getting everything correct. However it is still pretty
 annoying to get the table laid out correctly.</p>
 <p>In all of these tables, you can use the regular RMarkdown formatting tricks
 for italicizing and bolding. So I could have a table such as the following:</p>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" data-line-number="1"><span class="op">|</span><span class="st">   </span>Source    <span class="op">|</span><span class="st">  </span>df  <span class="op">|</span><span class="st">   </span>Sum of Sq   <span class="op">|</span><span class="st">    </span>Mean Sq    <span class="op">|</span><span class="st">    </span>F   <span class="op">|</span><span class="st">  </span><span class="er">$</span><span class="kw">Pr</span>(<span class="op">&gt;</span>F_{<span class="dv">1</span>,<span class="dv">29</span>})<span class="op">$</span><span class="st">    </span><span class="er">|</span></a>
-<a class="sourceLine" id="cb484-2" data-line-number="2"><span class="er">|:</span><span class="op">------------</span><span class="er">|</span><span class="op">-----</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">-------</span><span class="er">:|</span><span class="op">--------------------</span><span class="er">:|</span></a>
-<a class="sourceLine" id="cb484-3" data-line-number="3"><span class="er">|</span><span class="st">  </span>Girth      <span class="op">|</span><span class="st">  </span><span class="er">*</span><span class="dv">1</span><span class="op">*</span><span class="st"> </span><span class="er">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st"> </span><span class="fl">419.26</span> <span class="op">|</span><span class="st">  </span><span class="er">**&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span><span class="op">**</span><span class="st">      </span><span class="er">|</span></a>
-<a class="sourceLine" id="cb484-4" data-line-number="4"><span class="er">|</span><span class="st">  </span>Residual   <span class="op">|</span><span class="st">  </span><span class="dv">29</span>  <span class="op">|</span><span class="st">  </span><span class="fl">524.3</span>        <span class="op">|</span><span class="st">   </span><span class="fl">18.1</span>        <span class="op">|</span><span class="st">        </span><span class="er">|</span><span class="st">                     </span><span class="er">|</span></a></code></pre></div>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" data-line-number="1"><span class="op">|</span><span class="st">   </span>Source    <span class="op">|</span><span class="st">  </span>df  <span class="op">|</span><span class="st">   </span>Sum of Sq   <span class="op">|</span><span class="st">    </span>Mean Sq    <span class="op">|</span><span class="st">    </span>F   <span class="op">|</span><span class="st">  </span><span class="er">$</span><span class="kw">Pr</span>(<span class="op">&gt;</span>F_{<span class="dv">1</span>,<span class="dv">29</span>})<span class="op">$</span><span class="st">    </span><span class="er">|</span></a>
+<a class="sourceLine" id="cb496-2" data-line-number="2"><span class="er">|:</span><span class="op">------------</span><span class="er">|</span><span class="op">-----</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">-------</span><span class="er">:|</span><span class="op">--------------------</span><span class="er">:|</span></a>
+<a class="sourceLine" id="cb496-3" data-line-number="3"><span class="er">|</span><span class="st">  </span>Girth      <span class="op">|</span><span class="st">  </span><span class="er">*</span><span class="dv">1</span><span class="op">*</span><span class="st"> </span><span class="er">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st"> </span><span class="fl">419.26</span> <span class="op">|</span><span class="st">  </span><span class="er">**&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span><span class="op">**</span><span class="st">      </span><span class="er">|</span></a>
+<a class="sourceLine" id="cb496-4" data-line-number="4"><span class="er">|</span><span class="st">  </span>Residual   <span class="op">|</span><span class="st">  </span><span class="dv">29</span>  <span class="op">|</span><span class="st">  </span><span class="fl">524.3</span>        <span class="op">|</span><span class="st">   </span><span class="fl">18.1</span>        <span class="op">|</span><span class="st">        </span><span class="er">|</span><span class="st">                     </span><span class="er">|</span></a></code></pre></div>
 <p>and have it look like this:</p>
 <table>
 <thead>
@@ -654,7 +657,7 @@ knitted, then RMarkdown will turn our simple/grid/pipe table into something pret
 <h3><span class="header-section-number">14.3.1</span> <code>knitr::kable</code></h3>
 <p>The <code>knitr</code> package includes a function that produces simple tables. It doesn’t
 have much customizability, but it gets the job done.</p>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb485-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">kable</span>( data )</a></code></pre></div>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb497-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">kable</span>( data )</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -693,8 +696,8 @@ have much customizability, but it gets the job done.</p>
 and not having to learn too much. It is relatively powerful in that it will
 take <code>summary()</code> and <code>anova()</code> output and produce tables for them. By default
 <code>pander</code> will produce simple tables, but you can ask for Grid or Pipe tables.</p>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb486-1" data-line-number="1"><span class="kw">library</span>(pander)</a>
-<a class="sourceLine" id="cb486-2" data-line-number="2"><span class="kw">pander</span>( data, <span class="dt">style=</span><span class="st">&#39;rmarkdown&#39;</span> )   <span class="co"># style is pipe tables...</span></a></code></pre></div>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb498-1" data-line-number="1"><span class="kw">library</span>(pander)</a>
+<a class="sourceLine" id="cb498-2" data-line-number="2"><span class="kw">pander</span>( data, <span class="dt">style=</span><span class="st">&#39;rmarkdown&#39;</span> )   <span class="co"># style is pipe tables...</span></a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -729,9 +732,9 @@ take <code>summary()</code> and <code>anova()</code> output and produce tables f
 <p>The <code>pander</code> package deals with summary and anova tables from
 a variety of different analyses. So you can simply ask for a
 nice looking version using the following:</p>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )    <span class="co"># a simple regression</span></a>
-<a class="sourceLine" id="cb487-2" data-line-number="2"><span class="kw">pander</span>( <span class="kw">summary</span>(model) )    <span class="co"># my usual summary table</span></a>
-<a class="sourceLine" id="cb487-3" data-line-number="3"><span class="kw">pander</span>( <span class="kw">anova</span>( model ) )    <span class="co"># my usual anova table</span></a></code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb499-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )    <span class="co"># a simple regression</span></a>
+<a class="sourceLine" id="cb499-2" data-line-number="2"><span class="kw">pander</span>( <span class="kw">summary</span>(model) )    <span class="co"># my usual summary table</span></a>
+<a class="sourceLine" id="cb499-3" data-line-number="3"><span class="kw">pander</span>( <span class="kw">anova</span>( model ) )    <span class="co"># my usual anova table</span></a></code></pre></div>
 <table style="width:89%;">
 <colgroup>
 <col width="25%" />

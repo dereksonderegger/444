@@ -133,7 +133,7 @@ result
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 ```r
@@ -148,7 +148,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] "In the else part!"
+## [1] " in the if statement, got a Tail! "
 ```
 
 ```r
@@ -156,7 +156,7 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -180,7 +180,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "No more unfounded generalizations!"
+## [1] "The first child had more rules to follow"
 ```
 
 
@@ -210,7 +210,7 @@ p.value
 ```
 
 ```
-## [1] 4.961812e-09
+## [1] 6.761192e-11
 ```
 
 

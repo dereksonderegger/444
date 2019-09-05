@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-01" />
+<meta name="date" content="2019-09-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,8 +161,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.1" data-path="3-graphing.html"><a href="3-graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
 <li class="chapter" data-level="3.1.2" data-path="3-graphing.html"><a href="3-graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#labels"><i class="fa fa-check"></i><b>3.2</b> Labels</a></li>
-<li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a></li>
+<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#title-axis-labels"><i class="fa fa-check"></i><b>3.2</b> Title &amp; Axis Labels</a></li>
+<li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-graphing.html"><a href="3-graphing.html#using-a-data.frame"><i class="fa fa-check"></i><b>3.3.1</b> Using a <code>data.frame</code></a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-graphing.html"><a href="3-graphing.html#setting-attributes-in-line"><i class="fa fa-check"></i><b>3.3.2</b> Setting attributes in-line</a></li>
+</ul></li>
 <li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.4</b> Faceting</a></li>
 <li class="chapter" data-level="3.5" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.5</b> Exercises</a></li>
 </ul></li>
@@ -199,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="7-factors.html"><a href="7-factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-factors.html"><a href="7-factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
 <li class="chapter" data-level="7.2" data-path="7-factors.html"><a href="7-factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
-<li class="chapter" data-level="7.3" data-path="7-factors.html"><a href="7-factors.html#reorder-levels"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
+<li class="chapter" data-level="7.3" data-path="7-factors.html"><a href="7-factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
 <li class="chapter" data-level="7.4" data-path="7-factors.html"><a href="7-factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="8-importing-data.html"><a href="8-importing-data.html"><i class="fa fa-check"></i><b>8</b> Importing Data</a><ul>
@@ -411,8 +414,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>The way we want to display this relationship is through graphing 1 point for every observation.</p></li>
 </ol>
 <p>We can define other attributes that might reflect other aspects of the data. For example, we might want for the color of the data point to change dynamically based on the species of iris.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species) ) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb83-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>(  )</a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length) ) <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb83-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>( <span class="kw">aes</span>(<span class="dt">color=</span>Species) )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>The <code>aes()</code> command inside the previous section of code is quite mysterious. The way to think about the <code>aes()</code> is that it gives you a way to define relationships that are data dependent. In the previous graph, the x-value and y-value for each point was defined dynamically by the data, as was the color. If we just wanted all the data points to be colored blue and larger, then the following code would do that</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length) ) <span class="op">+</span><span class="st">  </span></a>
@@ -428,29 +431,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.1.2</span> Box Plots</h3>
 <p>Boxplots are a common way to show a categorical variable on the x-axis and continuous on the y-axis.</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Species, <span class="dt">y=</span>Petal.Length)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb85-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb85-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() </a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>The boxes show the <span class="math inline">\(25^{th}\)</span>, <span class="math inline">\(50^{th}\)</span>, and <span class="math inline">\(75^{th}\)</span> percentile and the lines coming off the box extend to the smallest and largest non-outlier observation.</p>
 </div>
 </div>
-<div id="labels" class="section level2">
-<h2><span class="header-section-number">3.2</span> Labels</h2>
-<p>To make a graph more understandable, it is necessary to tweak labels for the axes and add a main title and such. Here we’ll adjust labels in a graph, including the legend labels.</p>
+<div id="title-axis-labels" class="section level2">
+<h2><span class="header-section-number">3.2</span> Title &amp; Axis Labels</h2>
+<p>To make a graph more understandable, it is necessary to tweak the axis labels and add a main title and such. Here we’ll adjust labels in a graph, including the legend labels.</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="co"># Save the graph before I add more to it.</span></a>
-<a class="sourceLine" id="cb86-2" data-line-number="2">P &lt;-<span class="st"> </span><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species) ) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb86-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>(  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb86-2" data-line-number="2">P &lt;-<span class="st"> </span><span class="kw">ggplot</span>( <span class="dt">data=</span>iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length) ) <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb86-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>( <span class="kw">aes</span>(<span class="dt">color=</span>Species)  ) <span class="op">+</span></a>
 <a class="sourceLine" id="cb86-4" data-line-number="4"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">title=</span><span class="st">&#39;Sepal Length vs Petal Length&#39;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb86-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">x=</span><span class="st">&quot;Sepal Length (cm)&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Petal Length (cm)&quot;</span> ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb86-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">color=</span><span class="st">&quot;Species Name&quot;</span>)     </a>
-<a class="sourceLine" id="cb86-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb86-8" data-line-number="8"><span class="co"># Print out the plot</span></a>
-<a class="sourceLine" id="cb86-9" data-line-number="9">P</a></code></pre></div>
+<a class="sourceLine" id="cb86-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">color=</span><span class="st">&quot;Species Name&quot;</span>)  <span class="op">+</span></a>
+<a class="sourceLine" id="cb86-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">caption =</span> <span class="st">&quot;iris data from Edgar Anderson (1935)&quot;</span> )</a>
+<a class="sourceLine" id="cb86-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb86-9" data-line-number="9"><span class="co"># Print out the plot</span></a>
+<a class="sourceLine" id="cb86-10" data-line-number="10">P</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>You could either call the <code>labs()</code> command repeatedly with each label, or you could provide multiple arguements to just one <code>labs()</code> call.</p>
 </div>
 <div id="annotation" class="section level2">
 <h2><span class="header-section-number">3.3</span> Annotation</h2>
 <p>One way to improve the clarity of a graph is to remove the legend and label the points directly on the graph. For example, we could instead have the species names near the cloud of data points for the species.</p>
+<p>Usually our annotations aren’t stored in the <code>data.frame</code> that contains our data of interest. So we need to either create a new (usually small) <code>data.frame</code> that contains all the information needed to create the annotation or we need to set the necessary information in-place. Either way, we need to specify the <code>x</code> and <code>y</code> coordinates, the <code>label</code> to be printed as well as any other attribute that is set in the global <code>aes()</code> command. That means if <code>color</code> has been set globally, the annotation layer also needs to address the <code>color</code> attribute.</p>
+<div id="using-a-data.frame" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Using a <code>data.frame</code></h3>
 <p>To do this in ggplot, we need to make a data frame that has the columns <code>Sepal.Length</code> and <code>Petal.Length</code> so that we can specify where each label should go, as well as the label that we want to print. Also, because color is matched to the <code>Species</code> column, this small dataset should also have a the <code>Species</code> column.</p>
 <p>This step always requires a bit of fussing with the graph because the text size and location should be chosen based on the size of the output graphic and if I rescale the image it often looks awkward. Typically I leave this step until the figure is being prepared for final publication.</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="co"># create another data frame that has the text labels I want to add to the graph.</span></a>
@@ -468,18 +475,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb87-13" data-line-number="13"><span class="st">  </span><span class="kw">theme</span>( <span class="dt">legend.position =</span> <span class="st">&#39;none&#39;</span> )                               <span class="co"># remove the legend</span></a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
+<div id="setting-attributes-in-line" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Setting attributes in-line</h3>
+<p>Instead of creating a new data frame, we could just add a new layer and just set all of the graph attributes manually. To do this, we have to have one layer for each text we want to add to the graph.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1">P <span class="op">+</span></a>
+<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_text</span>( <span class="dt">x=</span><span class="fl">4.5</span>, <span class="dt">y=</span><span class="fl">2.25</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;SETOSA&#39;</span>     ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_text</span>( <span class="dt">x=</span><span class="fl">6.5</span>, <span class="dt">y=</span><span class="fl">3.75</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VERSICOLOR&#39;</span> ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb88-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_text</span>( <span class="dt">x=</span><span class="fl">7.0</span>, <span class="dt">y=</span><span class="fl">6.50</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VIRGINICA&#39;</span>  )</a></code></pre></div>
+<p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Finally there is a <code>geom_label</code> layer that draws a nice box around what you want to print.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">P <span class="op">+</span></a>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_label</span>( <span class="dt">x=</span><span class="fl">4.5</span>, <span class="dt">y=</span><span class="fl">2.25</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;SETOSA&#39;</span>     ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_label</span>( <span class="dt">x=</span><span class="fl">6.5</span>, <span class="dt">y=</span><span class="fl">3.75</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VERSICOLOR&#39;</span> ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb89-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_label</span>( <span class="dt">x=</span><span class="fl">7.0</span>, <span class="dt">y=</span><span class="fl">6.50</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VIRGINICA&#39;</span>  )</a></code></pre></div>
+<p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>My recommendation is to just set the <code>x</code>, <code>y</code>, and <code>label</code> attributes manually if you have one or two annotations to print on the graph. If you have many annotations to print, the create a data frame that contains all of them and use <code>data=</code> argument in the geom to use that created annotation data set.</p>
+</div>
+</div>
 <div id="faceting" class="section level2">
 <h2><span class="header-section-number">3.4</span> Faceting</h2>
 <p>The goal with faceting is to make many panels of graphics where each panel represents the same relationship between variables, but something changes between each panel. For example using the <code>iris</code> dataset we could look at the relationship between <code>Sepal.Length</code> and <code>Petal.Length</code> either with all the data in one graph, or one panel per species.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb88-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>( . <span class="op">~</span><span class="st"> </span>Species )</a></code></pre></div>
-<p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb90-2" data-line-number="2"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb90-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb90-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>( . <span class="op">~</span><span class="st"> </span>Species )</a></code></pre></div>
+<p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>The line <code>facet_grid( formula )</code> tells <code>ggplot2</code> to make panels, and the formula tells how to orient the panels. In R formulas are always interpretated in the order <code>y ~ x</code>. Because I want the species to change as we go across the page, but don’t have anything I want to change vertically we use <code>. ~ Species</code> to represent that. If we had wanted three graphs stacked then we could use <code>Species ~ .</code>.</p>
 <p>For a second example, we look at a dataset that examines the amount a waiter was tipped by 244 parties. Covariates that were measured include the day of the week, size of the party, total amount of the bill, amount tipped, whether there were smokers in the group and the gender of the person paying the bill</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">data</span>(tips, <span class="dt">package=</span><span class="st">&#39;reshape&#39;</span>)</a>
-<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="kw">head</span>(tips)</a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="kw">data</span>(tips, <span class="dt">package=</span><span class="st">&#39;reshape&#39;</span>)</a>
+<a class="sourceLine" id="cb91-2" data-line-number="2"><span class="kw">head</span>(tips)</a></code></pre></div>
 <pre><code>##   total_bill  tip    sex smoker day   time size
 ## 1      16.99 1.01 Female     No Sun Dinner    2
 ## 2      10.34 1.66   Male     No Sun Dinner    3
@@ -488,24 +512,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5      24.59 3.61 Female     No Sun Dinner    4
 ## 6      25.29 4.71   Male     No Sun Dinner    4</code></pre>
 <p>It is easy to look at the relationship between the size of the bill and the percent tipped.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb91-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p>Next we ask if there is a difference in tipping percent based on gender or day of the week by plotting this relationship for each combination of gender and day.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>( sex <span class="op">~</span><span class="st"> </span>day )</a></code></pre></div>
-<p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>Sometimes we want multiple rows and columns of facets, but there is only one categorical variable with many levels. In that case we use facet_wrap which takes a one-sided formula.</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb93-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>day )</a></code></pre></div>
+<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<p>Finally we can allow the x and y scales to vary between the panels by setting “free”, “free_x”, or “free_y”. In the following code, the y-axis scale changes between the gender groups.</p>
+<p>Next we ask if there is a difference in tipping percent based on gender or day of the week by plotting this relationship for each combination of gender and day.</p>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
 <a class="sourceLine" id="cb94-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb94-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>( sex <span class="op">~</span><span class="st"> </span>day, <span class="dt">scales=</span><span class="st">&quot;free_y&quot;</span> )</a></code></pre></div>
+<a class="sourceLine" id="cb94-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>( sex <span class="op">~</span><span class="st"> </span>day )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Sometimes we want multiple rows and columns of facets, but there is only one categorical variable with many levels. In that case we use facet_wrap which takes a one-sided formula.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
+<a class="sourceLine" id="cb95-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb95-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>day )</a></code></pre></div>
+<p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Finally we can allow the x and y scales to vary between the panels by setting “free”, “free_x”, or “free_y”. In the following code, the y-axis scale changes between the gender groups.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">ggplot</span>(tips, <span class="kw">aes</span>(<span class="dt">x =</span> total_bill, <span class="dt">y =</span> tip <span class="op">/</span><span class="st"> </span>total_bill )) <span class="op">+</span></a>
+<a class="sourceLine" id="cb96-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb96-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>( sex <span class="op">~</span><span class="st"> </span>day, <span class="dt">scales=</span><span class="st">&quot;free_y&quot;</span> )</a></code></pre></div>
+<p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
 <div id="exercises-2" class="section level2">
 <h2><span class="header-section-number">3.5</span> Exercises</h2>
@@ -517,20 +541,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The R-squared value for a regression through these points is 0.36 and the p-value for the statistical significance of height is 0.00038. Add text labels “R-squared = 0.36” and “p-value = 0.0004” somewhere on the graph.</li>
 </ol></li>
 <li><p>Consider the following small dataset that represents the number of times per day my wife played “Ring around the Rosy” with my daughter relative to the number of days since she has learned this game. The column <code>yhat</code> represents the best fitting line through the data, and <code>lwr</code> and <code>upr</code> represent a 95% confidence interval for the predicted value on that day.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">Rosy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb95-2" data-line-number="2">  <span class="dt">times =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb95-3" data-line-number="3">  <span class="dt">day   =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>,</a>
-<a class="sourceLine" id="cb95-4" data-line-number="4">  <span class="dt">yhat  =</span> <span class="kw">c</span>(<span class="fl">14.36</span>, <span class="fl">12.29</span>, <span class="fl">10.21</span>, <span class="fl">8.14</span>, <span class="fl">6.07</span>, <span class="fl">4.00</span>,  <span class="fl">1.93</span>),</a>
-<a class="sourceLine" id="cb95-5" data-line-number="5">  <span class="dt">lwr   =</span> <span class="kw">c</span>( <span class="fl">9.54</span>,  <span class="fl">8.5</span>,   <span class="fl">7.22</span>, <span class="fl">5.47</span>, <span class="fl">3.08</span>, <span class="fl">0.22</span>, <span class="fl">-2.89</span>),</a>
-<a class="sourceLine" id="cb95-6" data-line-number="6">  <span class="dt">upr   =</span> <span class="kw">c</span>(<span class="fl">19.18</span>, <span class="fl">16.07</span>, <span class="fl">13.2</span>, <span class="fl">10.82</span>, <span class="fl">9.06</span>, <span class="fl">7.78</span>,  <span class="fl">6.75</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">Rosy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb97-2" data-line-number="2">  <span class="dt">times =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb97-3" data-line-number="3">  <span class="dt">day   =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb97-4" data-line-number="4">  <span class="dt">yhat  =</span> <span class="kw">c</span>(<span class="fl">14.36</span>, <span class="fl">12.29</span>, <span class="fl">10.21</span>, <span class="fl">8.14</span>, <span class="fl">6.07</span>, <span class="fl">4.00</span>,  <span class="fl">1.93</span>),</a>
+<a class="sourceLine" id="cb97-5" data-line-number="5">  <span class="dt">lwr   =</span> <span class="kw">c</span>( <span class="fl">9.54</span>,  <span class="fl">8.5</span>,   <span class="fl">7.22</span>, <span class="fl">5.47</span>, <span class="fl">3.08</span>, <span class="fl">0.22</span>, <span class="fl">-2.89</span>),</a>
+<a class="sourceLine" id="cb97-6" data-line-number="6">  <span class="dt">upr   =</span> <span class="kw">c</span>(<span class="fl">19.18</span>, <span class="fl">16.07</span>, <span class="fl">13.2</span>, <span class="fl">10.82</span>, <span class="fl">9.06</span>, <span class="fl">7.78</span>,  <span class="fl">6.75</span>))</a></code></pre></div>
 <ol style="list-style-type: lower-alpha">
 <li><p>Using <code>ggplot()</code> and <code>geom_point()</code>, create a scatterplot with <code>day</code> along the x-axis and <code>times</code> along the y-axis.</p></li>
 <li><p>Add a line to the graph where the x-values are the <code>day</code> values but now the y-values are the predicted values which we’ve called <code>yhat</code>. Notice that you have to set the aesthetic y=times for the points and y=yhat for the line. Because each <code>geom_</code> will accept an <code>aes()</code> command, you can specify the <code>y</code> attribute to be different for different layers of the graph.</p></li>
 <li><p>Add a ribbon that represents the confidence region of the regression line. The <code>geom_ribbon()</code> function requires an <code>x</code>, <code>ymin</code>, and <code>ymax</code> columns to be defined. For examples of using <code>geom_ribbon()</code> see the online documentation: <a href="http://docs.ggplot2.org/current/geom_ribbon.html">http://docs.ggplot2.org/current/geom_ribbon.html</a>.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">ggplot</span>(Rosy, <span class="kw">aes</span>(<span class="dt">x=</span>day)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb96-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y=</span>times)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb96-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>yhat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb96-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>(<span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">fill=</span><span class="st">&#39;salmon&#39;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="kw">ggplot</span>(Rosy, <span class="kw">aes</span>(<span class="dt">x=</span>day)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb98-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y=</span>times)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb98-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>yhat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb98-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>(<span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">fill=</span><span class="st">&#39;salmon&#39;</span>)</a></code></pre></div></li>
 <li>What happened when you added the ribbon? Did some points get hidden? If so, why?</li>
 <li>Reorder the statements that created the graph so that the ribbon is on the bottom and the data points are on top and the regression line is visible.</li>
 <li>The color of the ribbon fill is ugly. Use Google to find a list of named colors available to <code>ggplot2</code>. For example, I googled “ggplot2 named colors” and found the following link: <a href="http://sape.inf.usi.ch/quick-reference/ggplot2/colour">http://sape.inf.usi.ch/quick-reference/ggplot2/colour</a>. Choose a color for the fill that is pleasing to you.</li>
@@ -540,11 +564,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: lower-alpha">
 <li>The <code>MASS</code> package contains a dataset called <code>birthwt</code> which contains information about 189 babies and their mothers. In particular there are columns for the mother’s race and smoking status during the pregnancy. Load the <code>birthwt</code> by either using the <code>data()</code> command or loading the <code>MASS</code> library.</li>
 <li><p>Read the help file for the dataset using <code>MASS::birthwt</code>. The covariates <code>race</code> and <code>smoke</code> are not stored in a user friendly manner. For example, smoking status is labeled using a 0 or a 1. Because it is not obvious which should represent that the mother smoked, we’ll add better labels to the <code>race</code> and <code>smoke</code> variables. For more information about dealing with factors and their levels, see the <code>Factors</code> chapter in these notes.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb97-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&#39;birthwt&#39;</span>, <span class="dt">package=</span><span class="st">&#39;MASS&#39;</span>)</a>
-<a class="sourceLine" id="cb97-3" data-line-number="3">birthwt &lt;-<span class="st"> </span>birthwt <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb97-4" data-line-number="4">  <span class="dt">race  =</span> <span class="kw">factor</span>(race,  <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;White&#39;</span>,<span class="st">&#39;Black&#39;</span>,<span class="st">&#39;Other&#39;</span>)),</a>
-<a class="sourceLine" id="cb97-5" data-line-number="5">  <span class="dt">smoke =</span> <span class="kw">factor</span>(smoke, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;No Smoke&#39;</span>, <span class="st">&#39;Smoke&#39;</span>)))</a></code></pre></div></li>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&#39;birthwt&#39;</span>, <span class="dt">package=</span><span class="st">&#39;MASS&#39;</span>)</a>
+<a class="sourceLine" id="cb99-3" data-line-number="3">birthwt &lt;-<span class="st"> </span>birthwt <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb99-4" data-line-number="4">  <span class="dt">race  =</span> <span class="kw">factor</span>(race,  <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;White&#39;</span>,<span class="st">&#39;Black&#39;</span>,<span class="st">&#39;Other&#39;</span>)),</a>
+<a class="sourceLine" id="cb99-5" data-line-number="5">  <span class="dt">smoke =</span> <span class="kw">factor</span>(smoke, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;No Smoke&#39;</span>, <span class="st">&#39;Smoke&#39;</span>)))</a></code></pre></div></li>
 <li>Graph a histogram of the birthweights <code>bwt</code> using <code>ggplot(birthwt, aes(x=bwt)) + geom_histogram()</code>.</li>
 <li>Make separate graphs that denote whether a mother smoked during pregnancy by appending <code>+ facet_grid()</code> command to your original graphing command.</li>
 <li>Perhaps race matters in relation to smoking. Make our grid of graphs vary with smoking status changing vertically, and race changing horizontally (that is the formula in <code>facet_grid()</code> should have smoking be the y variable and race as the x).</li>
@@ -558,10 +582,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: lower-alpha">
 <li>Produce a separate scatter plot of weight vs age for each chick. Use color to distinguish the four different <code>Diet</code> treatments.</li>
 <li><p>We could examine this data by producing a scatterplot for each diet. Most of the code below is readable, but if we don’t add the <code>group</code> aesthetic the lines would not connect the dots for each Chick but would instead connect the dots across different chicks.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="kw">data</span>(ChickWeight)</a>
-<a class="sourceLine" id="cb98-2" data-line-number="2"><span class="kw">ggplot</span>(ChickWeight, <span class="kw">aes</span>(<span class="dt">x=</span>Time, <span class="dt">y=</span>weight, <span class="dt">group=</span>Chick )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb98-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb98-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>( <span class="op">~</span><span class="st"> </span>Diet) </a></code></pre></div></li>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" data-line-number="1"><span class="kw">data</span>(ChickWeight)</a>
+<a class="sourceLine" id="cb100-2" data-line-number="2"><span class="kw">ggplot</span>(ChickWeight, <span class="kw">aes</span>(<span class="dt">x=</span>Time, <span class="dt">y=</span>weight, <span class="dt">group=</span>Chick )) <span class="op">+</span></a>
+<a class="sourceLine" id="cb100-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb100-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>( <span class="op">~</span><span class="st"> </span>Diet) </a></code></pre></div></li>
 </ol></li>
 </ol>
 
