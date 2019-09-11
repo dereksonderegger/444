@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-06" />
+<meta name="date" content="2019-09-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -268,19 +268,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html"><i class="fa fa-check"></i><b>14</b> Rmarkdown Tricks</a><ul>
 <li class="chapter" data-level="14.1" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#mathematical-expressions"><i class="fa fa-check"></i><b>14.1</b> Mathematical expressions</a></li>
-<li class="chapter" data-level="14.2" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#tables"><i class="fa fa-check"></i><b>14.2</b> Tables</a></li>
-<li class="chapter" data-level="14.3" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#girth-height-volume"><i class="fa fa-check"></i><b>14.3</b> Girth Height Volume</a></li>
-<li class="chapter" data-level="14.4" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#section"><i class="fa fa-check"></i><b>14.4</b> 1 8.3 70 10.3</a></li>
-<li class="chapter" data-level="14.5" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#section-1"><i class="fa fa-check"></i><b>14.5</b> 2 8.6 65 10.3</a></li>
-<li class="chapter" data-level="14.6" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#section-2"><i class="fa fa-check"></i><b>14.6</b> 3 8.8 63 10.2</a></li>
-<li class="chapter" data-level="14.7" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#section-3"><i class="fa fa-check"></i><b>14.7</b> 4 10.5 72 16.4</a><ul>
-<li class="chapter" data-level="14.7.1" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#simple-tables"><i class="fa fa-check"></i><b>14.7.1</b> Simple Tables</a></li>
-<li class="chapter" data-level="14.7.2" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#grid-tables"><i class="fa fa-check"></i><b>14.7.2</b> Grid Tables</a></li>
-<li class="chapter" data-level="14.7.3" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#pipe-tables"><i class="fa fa-check"></i><b>14.7.3</b> Pipe Tables</a></li>
+<li class="chapter" data-level="14.2" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#tables"><i class="fa fa-check"></i><b>14.2</b> Tables</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#simple-tables"><i class="fa fa-check"></i><b>14.2.1</b> Simple Tables</a></li>
+<li class="chapter" data-level="14.2.2" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#grid-tables"><i class="fa fa-check"></i><b>14.2.2</b> Grid Tables</a></li>
+<li class="chapter" data-level="14.2.3" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#pipe-tables"><i class="fa fa-check"></i><b>14.2.3</b> Pipe Tables</a></li>
 </ul></li>
-<li class="chapter" data-level="14.8" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#r-functions-to-produce-table-code."><i class="fa fa-check"></i><b>14.8</b> R functions to produce table code.</a><ul>
-<li class="chapter" data-level="14.8.1" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#knitrkable"><i class="fa fa-check"></i><b>14.8.1</b> <code>knitr::kable</code></a></li>
-<li class="chapter" data-level="14.8.2" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#package-pander"><i class="fa fa-check"></i><b>14.8.2</b> Package <code>pander</code></a></li>
+<li class="chapter" data-level="14.3" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#r-functions-to-produce-table-code."><i class="fa fa-check"></i><b>14.3</b> R functions to produce table code.</a><ul>
+<li class="chapter" data-level="14.3.1" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#knitrkable"><i class="fa fa-check"></i><b>14.3.1</b> <code>knitr::kable</code></a></li>
+<li class="chapter" data-level="14.3.2" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#package-pander"><i class="fa fa-check"></i><b>14.3.2</b> Package <code>pander</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -390,21 +385,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="creation-and-structure" class="section level2">
 <h2><span class="header-section-number">7.1</span> Creation and Structure</h2>
 <p>R stores factors as a combination of a vector of category labels and vector of integers representing which category a data value belongs to. For example, lets create a vector of data relating to what soft drinks my siblings prefer.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># A vector of character strings.</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">drinks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Sprite&#39;</span>, <span class="st">&#39;Pepsi&#39;</span>, <span class="st">&#39;DietCoke&#39;</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">str</span>(drinks)</a></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="co"># A vector of character strings.</span></a>
+<a class="sourceLine" id="cb227-2" data-line-number="2">drinks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Sprite&#39;</span>, <span class="st">&#39;Pepsi&#39;</span>, <span class="st">&#39;DietCoke&#39;</span>)</a>
+<a class="sourceLine" id="cb227-3" data-line-number="3"><span class="kw">str</span>(drinks)</a></code></pre></div>
 <pre><code>##  chr [1:5] &quot;Coke&quot; &quot;Coke&quot; &quot;Sprite&quot; &quot;Pepsi&quot; &quot;DietCoke&quot;</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># convert the vector of character strings into a factor vector</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">drinks &lt;-<span class="st"> </span><span class="kw">factor</span>(drinks)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">str</span>(drinks)        <span class="co"># Show the structure of the factor</span></a></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1"><span class="co"># convert the vector of character strings into a factor vector</span></a>
+<a class="sourceLine" id="cb229-2" data-line-number="2">drinks &lt;-<span class="st"> </span><span class="kw">factor</span>(drinks)</a>
+<a class="sourceLine" id="cb229-3" data-line-number="3"><span class="kw">str</span>(drinks)        <span class="co"># Show the structure of the factor</span></a></code></pre></div>
 <pre><code>##  Factor w/ 4 levels &quot;Coke&quot;,&quot;DietCoke&quot;,..: 1 1 4 3 2</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">levels</span>(drinks)     <span class="co"># Print out the categories, notice the order matters!</span></a></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1"><span class="kw">levels</span>(drinks)     <span class="co"># Print out the categories, notice the order matters!</span></a></code></pre></div>
 <pre><code>## [1] &quot;Coke&quot;     &quot;DietCoke&quot; &quot;Pepsi&quot;    &quot;Sprite&quot;</code></pre>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="kw">as.integer</span>(drinks) <span class="co"># Print the category assigments</span></a></code></pre></div>
+<pre><code>## [1] 1 1 4 3 2</code></pre>
 <p>Notice that the factor has levels “Coke”, “DietCoke”, “Pepsi”, and “Sprite” and that the order of these levels is very important because each observation is saved as an <em>integer</em> which denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of potentially very long character string, factors are much more space efficient than storing the same data as strings.</p>
 <p>Because the factor has both a character string representation as well as numeric value, we can convert a factor to either one.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">as.character</span>(drinks)</a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1"><span class="kw">as.character</span>(drinks)</a></code></pre></div>
 <pre><code>## [1] &quot;Coke&quot;     &quot;Coke&quot;     &quot;Sprite&quot;   &quot;Pepsi&quot;    &quot;DietCoke&quot;</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">as.integer</span>(drinks)</a></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1"><span class="kw">as.integer</span>(drinks)</a></code></pre></div>
 <pre><code>## [1] 1 1 4 3 2</code></pre>
 </div>
 <div id="change-labels" class="section level2">
@@ -472,6 +469,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

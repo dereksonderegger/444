@@ -65,6 +65,14 @@ levels(drinks)     # Print out the categories, notice the order matters!
 ## [1] "Coke"     "DietCoke" "Pepsi"    "Sprite"
 ```
 
+```r
+as.integer(drinks) # Print the category assigments
+```
+
+```
+## [1] 1 1 4 3 2
+```
+
 Notice that the factor has levels "Coke", "DietCoke", "Pepsi", and "Sprite" and that the order of these levels is very important because each observation is saved as an *integer* which denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of potentially very long character string, factors are much more space efficient than storing the same data as strings.
 
 Because the factor has both a character string representation as well as numeric value, we can convert a factor to either one.
@@ -84,7 +92,6 @@ as.integer(drinks)
 ```
 ## [1] 1 1 4 3 2
 ```
-
 
 ## Change Labels
 

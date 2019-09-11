@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-06" />
+<meta name="date" content="2019-09-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -307,33 +307,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.1</span> Base function</h2>
 <p>1.1.1 <code>paste()</code></p>
 <p>The most basic thing we will want to do is to combine two strings or to combine a string with a numerical value. The <code>paste()</code> command will take one or more R objects and converts them to character strings and then pastes them together to form one or more character strings. It has the form:</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" data-line-number="1"><span class="kw">paste</span>( ..., <span class="dt">sep =</span> <span class="st">&#39; &#39;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" data-line-number="1"><span class="kw">paste</span>( ..., <span class="dt">sep =</span> <span class="st">&#39; &#39;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span> )</a></code></pre></div>
 <p>The <code>...</code> piece means that we can pass any number of objects to be pasted together. The <code>sep</code> argument gives the string that separates the strings to be joined and the collapse argument that specifies if a simplification should be performed after being pasting together.</p>
 <p>Suppose we want to combine the strings “Peanut butter” and “Jelly” then we could execute:</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;PeanutButter&quot;</span>, <span class="st">&quot;Jelly&quot;</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;PeanutButter&quot;</span>, <span class="st">&quot;Jelly&quot;</span> )</a></code></pre></div>
 <pre><code>## [1] &quot;PeanutButter Jelly&quot;</code></pre>
 <p>Notice that without specifying the separator character, R chose to put a space between the two strings. We could specify whatever we wanted:</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;World&quot;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;World&quot;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span> )</a></code></pre></div>
 <pre><code>## [1] &quot;Hello_World&quot;</code></pre>
 <p>Also we can combine strings with numerical values</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;Pi is equal to&quot;</span>, pi )</a></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb377-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;Pi is equal to&quot;</span>, pi )</a></code></pre></div>
 <pre><code>## [1] &quot;Pi is equal to 3.14159265358979&quot;</code></pre>
 <p>We can combine vectors of similar or different lengths as well. By default R assumes that you want to produce a vector of character strings as output.</p>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )</a></code></pre></div>
 <pre><code>## [1] &quot;n = 5&quot;   &quot;n = 25&quot;  &quot;n = 100&quot;</code></pre>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" data-line-number="1">first.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Robb&#39;</span>,<span class="st">&#39;Stannis&#39;</span>,<span class="st">&#39;Daenerys&#39;</span>)</a>
-<a class="sourceLine" id="cb378-2" data-line-number="2">last.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Stark&#39;</span>,<span class="st">&#39;Baratheon&#39;</span>,<span class="st">&#39;Targaryen&#39;</span>)</a>
-<a class="sourceLine" id="cb378-3" data-line-number="3"><span class="kw">paste</span>( first.names, last.names)</a></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" data-line-number="1">first.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Robb&#39;</span>,<span class="st">&#39;Stannis&#39;</span>,<span class="st">&#39;Daenerys&#39;</span>)</a>
+<a class="sourceLine" id="cb381-2" data-line-number="2">last.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Stark&#39;</span>,<span class="st">&#39;Baratheon&#39;</span>,<span class="st">&#39;Targaryen&#39;</span>)</a>
+<a class="sourceLine" id="cb381-3" data-line-number="3"><span class="kw">paste</span>( first.names, last.names)</a></code></pre></div>
 <pre><code>## [1] &quot;Robb Stark&quot;         &quot;Stannis Baratheon&quot;  &quot;Daenerys Targaryen&quot;</code></pre>
 <p>If we want <code>paste()</code> produce just a single string of output, use the <code>collapse=</code> argument to paste together each of the output vectors (separated by the <code>collapse</code> character).</p>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )  <span class="co"># Produces 3 strings</span></a></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )  <span class="co"># Produces 3 strings</span></a></code></pre></div>
 <pre><code>## [1] &quot;n = 5&quot;   &quot;n = 25&quot;  &quot;n = 100&quot;</code></pre>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>), <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span> ) <span class="co"># collapses output into one string</span></a></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>), <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span> ) <span class="co"># collapses output into one string</span></a></code></pre></div>
 <pre><code>## [1] &quot;n = 5:n = 25:n = 100&quot;</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" data-line-number="1"><span class="kw">paste</span>(first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" data-line-number="1"><span class="kw">paste</span>(first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Robb.Stark : Stannis.Baratheon : Daenerys.Targaryen&quot;</code></pre>
 <p>Notice we could use the <code>paste()</code> command with the collapse option to combine a vector of character strings together.</p>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" data-line-number="1"><span class="kw">paste</span>(first.names, <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" data-line-number="1"><span class="kw">paste</span>(first.names, <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Robb:Stannis:Daenerys&quot;</code></pre>
 </div>
 <div id="package-stringr-basic-operations" class="section level2">
@@ -379,58 +379,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="concatenating-with-str_c-or-str_join" class="section level3">
 <h3><span class="header-section-number">11.2.1</span> Concatenating with <code>str_c()</code> or <code>str_join()</code></h3>
 <p>The first thing we do is to concatenate two strings or two vectors of strings similarly to the <code>paste()</code> command. The <code>str_c()</code> and <code>str_join()</code> functions are a synonym for the exact same function, but str_join() might be a more natural verb to use and remember. The syntax is:</p>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" data-line-number="1"><span class="kw">str_c</span>( ..., <span class="dt">sep=</span><span class="st">&#39;&#39;</span>, <span class="dt">collapse=</span><span class="ot">NULL</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" data-line-number="1"><span class="kw">str_c</span>( ..., <span class="dt">sep=</span><span class="st">&#39;&#39;</span>, <span class="dt">collapse=</span><span class="ot">NULL</span>)</a></code></pre></div>
 <p>You can think of the inputs building a matrix of strings, with each input creating a column of the matrix. For each row, <code>str_c()</code> first joins all the columns (using the separator character given in <code>sep</code>) into a single column of strings. If the collapse argument is non-NULL, the function takes the vector and joins each element together using collapse as the separator character.</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" data-line-number="1"><span class="co"># load the stringr library</span></a>
-<a class="sourceLine" id="cb389-2" data-line-number="2"><span class="kw">library</span>(stringr)</a>
-<a class="sourceLine" id="cb389-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb389-4" data-line-number="4"><span class="co"># envisioning the matrix of strings</span></a>
-<a class="sourceLine" id="cb389-5" data-line-number="5"><span class="kw">cbind</span>(first.names, last.names)</a></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" data-line-number="1"><span class="co"># load the stringr library</span></a>
+<a class="sourceLine" id="cb392-2" data-line-number="2"><span class="kw">library</span>(stringr)</a>
+<a class="sourceLine" id="cb392-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb392-4" data-line-number="4"><span class="co"># envisioning the matrix of strings</span></a>
+<a class="sourceLine" id="cb392-5" data-line-number="5"><span class="kw">cbind</span>(first.names, last.names)</a></code></pre></div>
 <pre><code>##      first.names last.names 
 ## [1,] &quot;Robb&quot;      &quot;Stark&quot;    
 ## [2,] &quot;Stannis&quot;   &quot;Baratheon&quot;
 ## [3,] &quot;Daenerys&quot;  &quot;Targaryen&quot;</code></pre>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" data-line-number="1"><span class="co"># join the columns together</span></a>
-<a class="sourceLine" id="cb391-2" data-line-number="2">full.names &lt;-<span class="st"> </span><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>)</a>
-<a class="sourceLine" id="cb391-3" data-line-number="3"><span class="kw">cbind</span>( first.names, last.names, full.names)</a></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" data-line-number="1"><span class="co"># join the columns together</span></a>
+<a class="sourceLine" id="cb394-2" data-line-number="2">full.names &lt;-<span class="st"> </span><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>)</a>
+<a class="sourceLine" id="cb394-3" data-line-number="3"><span class="kw">cbind</span>( first.names, last.names, full.names)</a></code></pre></div>
 <pre><code>##      first.names last.names  full.names          
 ## [1,] &quot;Robb&quot;      &quot;Stark&quot;     &quot;Robb.Stark&quot;        
 ## [2,] &quot;Stannis&quot;   &quot;Baratheon&quot; &quot;Stannis.Baratheon&quot; 
 ## [3,] &quot;Daenerys&quot;  &quot;Targaryen&quot; &quot;Daenerys.Targaryen&quot;</code></pre>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" data-line-number="1"><span class="co"># Join each of the rows together separated by collapse</span></a>
-<a class="sourceLine" id="cb393-2" data-line-number="2"><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" data-line-number="1"><span class="co"># Join each of the rows together separated by collapse</span></a>
+<a class="sourceLine" id="cb396-2" data-line-number="2"><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Robb.Stark : Stannis.Baratheon : Daenerys.Targaryen&quot;</code></pre>
 </div>
 <div id="calculating-string-length-with-str_length" class="section level3">
 <h3><span class="header-section-number">11.2.2</span> Calculating string length with <code>str_length()</code></h3>
 <p>The <code>str_length()</code> function calculates the length of each string in the vector of strings passed to it.</p>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb395-1" data-line-number="1">text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;WordTesting&#39;</span>, <span class="st">&#39;With a space&#39;</span>, <span class="ot">NA</span>, <span class="st">&#39;Night&#39;</span>)</a>
-<a class="sourceLine" id="cb395-2" data-line-number="2"><span class="kw">str_length</span>( text )</a></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" data-line-number="1">text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;WordTesting&#39;</span>, <span class="st">&#39;With a space&#39;</span>, <span class="ot">NA</span>, <span class="st">&#39;Night&#39;</span>)</a>
+<a class="sourceLine" id="cb398-2" data-line-number="2"><span class="kw">str_length</span>( text )</a></code></pre></div>
 <pre><code>## [1] 11 12 NA  5</code></pre>
 <p>Notice that <code>str_length()</code> correctly interprets the missing data as missing and that the length ought to also be missing.</p>
 </div>
 <div id="extracting-substrings-with-str_sub" class="section level3">
 <h3><span class="header-section-number">11.2.3</span> Extracting substrings with <code>str_sub()</code></h3>
 <p>If we know we want to extract the <span class="math inline">\(3^{rd}\)</span> through <span class="math inline">\(6^{th}\)</span> letters in a string, this function will grab them.</p>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb397-1" data-line-number="1"><span class="kw">str_sub</span>(text, <span class="dt">start=</span><span class="dv">3</span>, <span class="dt">end=</span><span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" data-line-number="1"><span class="kw">str_sub</span>(text, <span class="dt">start=</span><span class="dv">3</span>, <span class="dt">end=</span><span class="dv">6</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;rdTe&quot; &quot;th a&quot; NA     &quot;ght&quot;</code></pre>
 <p>If a given string isn’t long enough to contain all the necessary indices, <code>str_sub()</code> returns only the letters that where there (as in the above case for “Night”</p>
 </div>
 <div id="pad-a-string-with-str_pad" class="section level3">
 <h3><span class="header-section-number">11.2.4</span> Pad a string with <code>str_pad()</code></h3>
 <p>Sometimes we to make every string in a vector the same length to facilitate display or in the creation of a uniform system of assigning ID numbers. The <code>str_pad()</code> function will add spaces at either the beginning or end of the of every string appropriately.</p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb399-1" data-line-number="1"><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" data-line-number="1"><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;    Robb&quot; &quot; Stannis&quot; &quot;Daenerys&quot;</code></pre>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" data-line-number="1"><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>, <span class="dt">side=</span><span class="st">&#39;right&#39;</span>, <span class="dt">pad=</span><span class="st">&#39;*&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" data-line-number="1"><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>, <span class="dt">side=</span><span class="st">&#39;right&#39;</span>, <span class="dt">pad=</span><span class="st">&#39;*&#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Robb****&quot; &quot;Stannis*&quot; &quot;Daenerys&quot;</code></pre>
 </div>
 <div id="trim-a-string-with-str_trim" class="section level3">
 <h3><span class="header-section-number">11.2.5</span> Trim a string with <code>str_trim()</code></h3>
 <p>This removes any leading or trailing whitespace where whitespace is defined as spaces ’ ’, tabs <code>\t</code> or returns <code>\n</code>.</p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" data-line-number="1">text &lt;-<span class="st"> &#39; Some text. </span><span class="ch">\n</span><span class="st">  &#39;</span></a>
-<a class="sourceLine" id="cb403-2" data-line-number="2"><span class="kw">print</span>(text)</a></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" data-line-number="1">text &lt;-<span class="st"> &#39; Some text. </span><span class="ch">\n</span><span class="st">  &#39;</span></a>
+<a class="sourceLine" id="cb406-2" data-line-number="2"><span class="kw">print</span>(text)</a></code></pre></div>
 <pre><code>## [1] &quot; Some text. \n  &quot;</code></pre>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" data-line-number="1"><span class="kw">str_trim</span>(text)</a></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" data-line-number="1"><span class="kw">str_trim</span>(text)</a></code></pre></div>
 <pre><code>## [1] &quot;Some text.&quot;</code></pre>
 </div>
 </div>
@@ -481,25 +481,25 @@ inputed pattern</td>
 </table>
 <p>We will first examine these functions using a very simple pattern matching algorithm where we are matching a specific pattern. For most people, this is as complex as we need.</p>
 <p>Suppose that we have a vector of strings that contain a date in the form “2012-May-27” and we want to manipulate them to extract certain information.</p>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" data-line-number="1">test.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;2008-Feb-10&#39;</span>, <span class="st">&#39;2010-Sept-18&#39;</span>, <span class="st">&#39;2013-Jan-11&#39;</span>, <span class="st">&#39;2016-Jan-2&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" data-line-number="1">test.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;2008-Feb-10&#39;</span>, <span class="st">&#39;2010-Sept-18&#39;</span>, <span class="st">&#39;2013-Jan-11&#39;</span>, <span class="st">&#39;2016-Jan-2&#39;</span>)</a></code></pre></div>
 <div id="detecting-a-pattern-using-str_detect" class="section level3">
 <h3><span class="header-section-number">11.3.1</span> Detecting a pattern using str_detect()</h3>
 <p>Suppose we want to know which dates are in September. We want to detect if the pattern “Sept” occurs in the strings. It is important that I used fixed(“Sept”) in this code to “turn off” the complicated regular expression matching rules and just look for exactly what I specified.</p>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" data-line-number="1"><span class="kw">str_detect</span>( test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;Sept&#39;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" data-line-number="1"><span class="kw">str_detect</span>( test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;Sept&#39;</span>) )</a></code></pre></div>
 <pre><code>## [1] FALSE  TRUE FALSE FALSE</code></pre>
 <p>Here we see that the second string in the test vector included the substring “Sept” but none of the others did.</p>
 </div>
 <div id="locating-a-pattern-using-str_locate" class="section level3">
 <h3><span class="header-section-number">11.3.2</span> Locating a pattern using str_locate()</h3>
 <p>To figure out where the “-” characters are, we can use the <code>str_locate()</code> function.</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" data-line-number="1"><span class="kw">str_locate</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" data-line-number="1"><span class="kw">str_locate</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>) )</a></code></pre></div>
 <pre><code>##      start end
 ## [1,]     5   5
 ## [2,]     5   5
 ## [3,]     5   5
 ## [4,]     5   5</code></pre>
 <p>which shows that the first dash occurs as the <span class="math inline">\(5^{th}\)</span> character in each string. If we wanted all the dashes in the string the following works.</p>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" data-line-number="1"><span class="kw">str_locate_all</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" data-line-number="1"><span class="kw">str_locate_all</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>) )</a></code></pre></div>
 <pre><code>## [[1]]
 ##      start end
 ## [1,]     5   5
@@ -524,16 +524,16 @@ inputed pattern</td>
 <div id="replacing-substrings-using-str_replace" class="section level3">
 <h3><span class="header-section-number">11.3.3</span> Replacing substrings using <code>str_replace()</code></h3>
 <p>Suppose we didn’t like using “-” to separate the Year/Month/Day but preferred a space, or an underscore, or something else. This can be done by replacing all of the “-” with the desired character. The <code>str_replace()</code> function only replaces the first match, but <code>str_replace_all()</code> replaces all matches.</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" data-line-number="1"><span class="kw">str_replace</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">replacement=</span><span class="kw">fixed</span>(<span class="st">&#39;:&#39;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" data-line-number="1"><span class="kw">str_replace</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">replacement=</span><span class="kw">fixed</span>(<span class="st">&#39;:&#39;</span>) )</a></code></pre></div>
 <pre><code>## [1] &quot;2008:Feb-10&quot;  &quot;2010:Sept-18&quot; &quot;2013:Jan-11&quot;  &quot;2016:Jan-2&quot;</code></pre>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" data-line-number="1"><span class="kw">str_replace_all</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">replacement=</span><span class="kw">fixed</span>(<span class="st">&#39;:&#39;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" data-line-number="1"><span class="kw">str_replace_all</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">replacement=</span><span class="kw">fixed</span>(<span class="st">&#39;:&#39;</span>) )</a></code></pre></div>
 <pre><code>## [1] &quot;2008:Feb:10&quot;  &quot;2010:Sept:18&quot; &quot;2013:Jan:11&quot;  &quot;2016:Jan:2&quot;</code></pre>
 </div>
 <div id="splitting-into-substrings-using-str_split" class="section level3">
 <h3><span class="header-section-number">11.3.4</span> Splitting into substrings using <code>str_split()</code></h3>
 <p>We can split each of the dates into three smaller substrings using the <code>str_split()</code> command, which returns a list where each element of the list is a vector containing pieces of the original string (excluding the pattern we matched on).</p>
 <p>If we know that all the strings will be split into a known number of substrings (we have to specify how many substrings to match with the <code>n=</code> argument), we can use <code>str_split_fixed()</code> to get a matrix of substrings instead of list of substrings. It is somewhat unfortunate that the <code>_fixed</code> modifier to the function name is the same as what we use to specify to use simple pattern matching.</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" data-line-number="1"><span class="kw">str_split_fixed</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">n=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" data-line-number="1"><span class="kw">str_split_fixed</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">n=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>##      [,1]   [,2]   [,3]
 ## [1,] &quot;2008&quot; &quot;Feb&quot;  &quot;10&quot;
 ## [2,] &quot;2010&quot; &quot;Sept&quot; &quot;18&quot;
@@ -559,14 +559,14 @@ where the <code>Username</code> and <code>OrganizationName</code> can be pretty 
 <ol style="list-style-type: decimal">
 <li>The following file names were used in a camera trap study. The S number represents the site, P is the plot within a site, C is the camera number within the plot, the first string of numbers is the YearMonthDay and the second string of numbers is the HourMinuteSecond.</li>
 </ol>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" data-line-number="1">file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</a>
-<a class="sourceLine" id="cb420-2" data-line-number="2">                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</a>
-<a class="sourceLine" id="cb420-3" data-line-number="3">                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" data-line-number="1">file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</a>
+<a class="sourceLine" id="cb423-2" data-line-number="2">                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</a>
+<a class="sourceLine" id="cb423-3" data-line-number="3">                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</a></code></pre></div>
 <p>Use a combination of <code>str_sub()</code> and <code>str_split()</code> to produce a data frame with columns corresponding to the <code>site</code>, <code>plot</code>, <code>camera</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>, and <code>second</code> for these three file names. So we want to produce code that will create the data frame:</p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" data-line-number="1"> Site Plot Camera Year Month Day Hour Minute Second</a>
-<a class="sourceLine" id="cb421-2" data-line-number="2"> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></a>
-<a class="sourceLine" id="cb421-3" data-line-number="3">  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></a>
-<a class="sourceLine" id="cb421-4" data-line-number="4"> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></a></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" data-line-number="1"> Site Plot Camera Year Month Day Hour Minute Second</a>
+<a class="sourceLine" id="cb424-2" data-line-number="2"> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></a>
+<a class="sourceLine" id="cb424-3" data-line-number="3">  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></a>
+<a class="sourceLine" id="cb424-4" data-line-number="4"> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></a></code></pre></div>
 <p><em>Hint: Convert all the dashes to periods and then split on the dots. After that you’ll have to further tear apart the date and time columns using str_sub().</em></p>
 
 </div>

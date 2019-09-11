@@ -142,6 +142,18 @@ grades %>% select( starts_with('Exam') )   # Exam1 and Exam2
 ## 4    70    85
 ```
 
+```r
+grades %>% select( starts_with('Exam'), starts_with('F') )
+```
+
+```
+##   Exam1 Exam2 Final
+## 1    93    98    96
+## 2    89    70    85
+## 3    80    82    81
+## 4    70    85    92
+```
+
 The `dplyr::select` function is quite handy, but there are several other packages out there that have a `select` function and we can get into trouble with loading other packages with the same function names.  If I encounter the `select` function behaving in a weird manner or complaining about an input argument, my first remedy is to be explicit about it is the `dplyr::select()` function by appending the package name at the start. 
 
 #### `filter()`
@@ -420,7 +432,7 @@ warpbreaks %>%
         data(ChickWeight)
         ```
     b. Look at the help files for the description of the columns.
-    c) Remove all the observations except for observations from day 10 or day 20. The tough part in this instruction is disguishing between "and" and "or".  Obviously there are no observations that occur from both day 10 AND day 20. Either google 'R logical operators'
+    c) Remove all the observations except for observations from day 10 or day 20. The tough part in this instruction is disguishing between "and" and "or".  Obviously there are no observations that occur from both day 10 AND day 20.  Google 'R logical operators' to get an introducton to those.
     d) Calculate the mean and standard deviation of the chick weights for each diet group on days 10 and 20. 
 
 2. The OpenIntro textbook on statistics includes a data set on body dimensions. 

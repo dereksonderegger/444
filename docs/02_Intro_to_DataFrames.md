@@ -150,7 +150,6 @@ family <- data.frame(
   Age   = c(42, 39, 6, 3),
   Height.in = c(64, 66, 43, 39) 
 )
-
 family
 ```
 
@@ -223,7 +222,7 @@ family                                       # view our result!
 
 
 ## Exercises
-1. Create a data frame "by hand" with the names and heights of your own family.
+1. Create a data frame "by hand" with the names, ages, and heights of your own family. *If this feels odd, feel free to make up people or include pets.*
 
 2. Calculate the mean age amongst your family.
 

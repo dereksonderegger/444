@@ -386,13 +386,6 @@ ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
     f) Create a column for the residuals in the `phbirths` data set.
     g) Create a histogram of the residuals.
 
-  
 
-```r
-data('phbirths', package='faraway')
-ggplot(phbirths, aes(x=gestate, y=grams)) + geom_point() + facet_grid(. ~ smoke)
-```
-
-<img src="05_Model_Building_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 

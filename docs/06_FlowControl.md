@@ -180,7 +180,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The second child was ignored"
+## [1] "No more unfounded generalizations!"
 ```
 
 
@@ -210,7 +210,7 @@ p.value
 ```
 
 ```
-## [1] 2.036236e-10
+## [1] 6.914398e-06
 ```
 
 
