@@ -45,6 +45,7 @@ str(drinks)
 drinks <- factor(drinks)
 str(drinks)        # Show the structure of the factor
 levels(drinks)     # Print out the categories, notice the order matters!
+as.integer(drinks) # Print the category assigments
 ```
 
 Notice that the factor has levels "Coke", "DietCoke", "Pepsi", and "Sprite" and that the order of these levels is very important because each observation is saved as an *integer* which denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of potentially very long character string, factors are much more space efficient than storing the same data as strings.
@@ -54,7 +55,6 @@ Because the factor has both a character string representation as well as numeric
 as.character(drinks)
 as.integer(drinks)
 ```
-
 
 ## Change Labels
 

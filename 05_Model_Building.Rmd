@@ -14,6 +14,8 @@ if( length(pkgs > 0)){
 ```
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
+
+options(tibble.width = Inf)   # Print all the columns of a tibble (data.frame)
 ```
 
 
@@ -163,27 +165,36 @@ summary(model)
 
 But if we want to make a nice graph that includes the model's $R^2$ value on it, we need to code some way of grabbing particular bits of information from the model fit and wrestling into a format that we can easily manipulate it.
 
-|       Goal                     |      Base R command                     |     tidymodels version                |
+|       Goal                     |      Base R command                     |    `tidymodels` version               |
 |:------------------------------:|:----------------------------------------|:--------------------------------------| 
 | Summary table of Coefficients  | `summary(model)$coef`                   | `broom::tidy(model)`                  |
 | Parameter Confidence Intervals | `confint(model)`                        | `broom::tidy(model, conf.int=TRUE)`   |
 | Rsq and Adj-Rsq                | `summary(model)$r.squared`              | `broom::glance(model)`                | 
 | Model predictions              | `predict(model)`                        | `broom::augment(model)`               |
+| Model residuals                | `resid(model)`                          | `broom::augment(model)`               |
 | Model predictions w/ CI        | `predict(model, interval='confidence')` |                                       |
+| Model predictions w/ PI        | `predict(model, interval='prediction')` |                                       |
 | ANOVA table of model fit       | `anova(model)`                          |                                       |
 
 
-The package `broom` has three ways to interact with a model. First, the `tidy` command gives a nice table of the model coefficents. Second, the `glance` function gives information about how well the model fits the data overall. Finally the `augment` function adds the fitted values and other diagnostic information to the original data frame used to generate the model.
+The package `broom` has three ways to interact with a model. 
+
+* The `tidy` command gives a nice table of the model coefficents. 
+* The `glance` function gives information about how well the model fits the data overall. 
+* The `augment` function adds the fitted values, residuals, and other diagnostic information to the original data frame used to generate the model.
 
 Most of the time, I use the base R commands for accessing information from a model and only resort to the `broom` commands when I need to access very specific quantities.
 
 ```{r}
 head(iris)
 
+# Remove any previous model prediction values that I've added,
+# and then add the model predictions 
 iris <- iris %>%
-  cbind( predict(model, interval='confidence') )    # add the fitted and confidence intervals
+  select( -matches('fit'), -matches('lwr'), -matches('upr') ) %>%
+  cbind( predict(model, newdata=., interval='confidence') )       
 
-head(iris)
+head(iris, n=3)
 ```
 
 Now that the fitted values that define the regression lines and the associated confidence interval band information has been added to my `iris` data set, we can now plot the raw data and the regression model predictions.
@@ -210,6 +221,33 @@ ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
   geom_point(  ) +
   geom_line( aes(y=fit)  ) +
   geom_ribbon( aes( ymin=lwr, ymax=upr), alpha=.3 ) +   # alpha is the ribbon transparency
-  geom_text( data=Rsq_data, aes(label=r.squared, color=NULL) )
+  geom_label( data=Rsq_data, aes(label=r.squared, color=NULL) )
 ```
+
+## Exercises
+
+1. Using the `trees` data frame that comes pre-installed in R, fit the regression model that uses the tree `Height` to explain the `Volume` of wood harvested from the tree.
+    a) Graph the data
+    b) Fit a `lm` model using the command `model <- lm(Volume ~ Height, data=trees)`.
+    c) Print out a table with just the regression coefficients, standard error, and upper and lower 95% confidence intervals.
+    d) Add the model fitted values to the `trees` data frame along with the regression model confidence intervals.
+    e) Graph the data and model result.
+    f) Add the R-squared value as an annotation to the graph.
+  
+2. The data set `phbirths` from the `faraway` package contains information birth weight, gestational length, and smoking status of mother. We'll fit a quadratic model to predict infant birthweight using the gestational time.
+    a) Create scatterplots of gestational length and birthweight for each smoking status.
+    b) Remove all the observations that are premature (less than 36 weeks).
+    c) Fit the quadratic model `grams ~ poly(gestate,2) * smoke`.
+    d) Add the model fitted values to the `phbirths` data frame along with the regression model confidence intervals.
+    e) Graph the data and model result.
+    f) Create a column for the residuals in the `phbirths` data set.
+    g) Create a histogram of the residuals.
+
+  
+```{r}
+data('phbirths', package='faraway')
+ggplot(phbirths, aes(x=gestate, y=grams)) + geom_point() + facet_grid(. ~ smoke)
+
+```
+
 

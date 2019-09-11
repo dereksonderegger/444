@@ -180,7 +180,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The first child had more rules to follow"
+## [1] "The second child was ignored"
 ```
 
 
@@ -210,7 +210,7 @@ p.value
 ```
 
 ```
-## [1] 6.761192e-11
+## [1] 2.036236e-10
 ```
 
 
