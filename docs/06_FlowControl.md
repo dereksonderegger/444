@@ -11,15 +11,15 @@ Often it is necessary to write scripts that perform different action depending o
 
 ## Decision statements
 
-### In dplyr wrangling
+### In `dplyr` wrangling
 
 A very common task within a data wrangling pipeline is to create a new column that recodes information in another column.  Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we'ved coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
 
 
 ```r
 people <- data.frame(
-  name = c('Michelle', 'Barack', 'George', 'Laura', 'Bernie', 'Deborah'),
-  gender = c(0,1,1,0,1,0),
+  name = c('Barack','Michelle', 'George', 'Laura', 'Bernie', 'Deborah'),
+  gender = c(1,0,1,0,1,0),
   party = c(1,1,2,2,3,3)
 )
 people
@@ -27,8 +27,8 @@ people
 
 ```
 ##       name gender party
-## 1 Michelle      0     1
-## 2   Barack      1     1
+## 1   Barack      1     1
+## 2 Michelle      0     1
 ## 3   George      1     2
 ## 4    Laura      0     2
 ## 5   Bernie      1     3
@@ -39,40 +39,46 @@ The command `ifelse()` works quite well within a `dplyr::mutate()` command and i
 
 
 ```r
-people %>%
+people <- people %>%
   mutate( gender2 = ifelse( gender == 0, 'Female', 'Male') )
+people
 ```
 
 ```
 ##       name gender party gender2
-## 1 Michelle      0     1  Female
-## 2   Barack      1     1    Male
+## 1   Barack      1     1    Male
+## 2 Michelle      0     1  Female
 ## 3   George      1     2    Male
 ## 4    Laura      0     2  Female
 ## 5   Bernie      1     3    Male
 ## 6  Deborah      0     3  Female
 ```
 
-To do something similar for the case where we have 3 or more categories, we can use the `ifelse()` command repeatedly to address each category level seperately.
+To do something similar for the case where we have 3 or more categories, we could use the `ifelse()` command repeatedly to address each category level seperately. However because the `ifelse` command is limited to just two cases, it would be nice if there was a generalization to multiple categories. The  `dplyr::case_when` function is that generalization. The synax is `case_when( logicalExpression1~Value1, logicalExpression2~Value2, ... )`. We can have as many `LogicalExpression ~ Value` pairs as we want. 
 
 
 ```r
-people %>%
-  mutate( party2 = ifelse( party == 1, 'Democratic', party),
-          party2 = ifelse( party2 == 2, 'Republican', 'Independent') )
+people <- people %>%
+  mutate( party2 = case_when( party == 1 ~ 'Democratic', 
+                              party == 2 ~ 'Rebuplican', 
+                              party == 3 ~ 'Independent',
+                              TRUE       ~ 'None Stated' ) )
+people
 ```
 
 ```
-##       name gender party      party2
-## 1 Michelle      0     1 Independent
-## 2   Barack      1     1 Independent
-## 3   George      1     2  Republican
-## 4    Laura      0     2  Republican
-## 5   Bernie      1     3 Independent
-## 6  Deborah      0     3 Independent
+##       name gender party gender2      party2
+## 1   Barack      1     1    Male  Democratic
+## 2 Michelle      0     1  Female  Democratic
+## 3   George      1     2    Male  Rebuplican
+## 4    Laura      0     2  Female  Rebuplican
+## 5   Bernie      1     3    Male Independent
+## 6  Deborah      0     3  Female Independent
 ```
 
-The same results can be obtained more easily using the `forcats::fct_recode()` function.  See the Factors chapter in this book.
+Often the last case is a catch all case where the logical expression will ALWAYS evaluate to TRUE and this is the value for all other input.
+
+As another alternative to the problem of recoding factor levels, we could use the command `forcats::fct_recode()` function.  See the Factors chapter in this book for more information about factors.
 
 ### General `if else`
 While programming, I often need to perform expressions that are more complicated than what the `ifelse()` command can do. The general format of an `if` or and `if else` is presented here.
@@ -104,7 +110,7 @@ result
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 ```r
@@ -119,7 +125,7 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
 
@@ -180,7 +186,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "No more unfounded generalizations!"
+## [1] "The third child was spoiled"
 ```
 
 
@@ -210,7 +216,7 @@ p.value
 ```
 
 ```
-## [1] 6.914398e-06
+## [1] 3.575806e-12
 ```
 
 
@@ -229,7 +235,7 @@ The basic form of a `while` loop is as follows:
 
 ```r
 # while loop with multiple lines to be repeated
-while( logical ){
+while( logical.test ){
   expression1      # multiple lines of R code
   expression2
 }

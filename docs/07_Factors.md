@@ -1,4 +1,3 @@
-# (PART\*) Deeper Details {-}
 
 # Factors
 In R we can store categorical information as either strings or as factors. To a casual user, it often doesn't matter how the information is stored because the modeling and graphing programs happily convert strings into factors whenever necessary. However a deeper understanding of how factors are stored and manipulated allows a user much finer control in the modeling and graphing.
