@@ -110,7 +110,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -125,7 +125,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 
@@ -186,7 +186,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The third child was spoiled"
+## [1] "No more unfounded generalizations!"
 ```
 
 
@@ -216,7 +216,7 @@ p.value
 ```
 
 ```
-## [1] 3.575806e-12
+## [1] 5.417679e-09
 ```
 
 
