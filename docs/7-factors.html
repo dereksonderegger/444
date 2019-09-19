@@ -413,23 +413,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="creation-and-structure" class="section level2">
 <h2><span class="header-section-number">7.1</span> Creation and Structure</h2>
 <p>R stores factors as a combination of a vector of category labels and vector of integers representing which category a data value belongs to. For example, lets create a vector of data relating to what soft drinks my siblings prefer.</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="co"># A vector of character strings.</span></a>
-<a class="sourceLine" id="cb227-2" data-line-number="2">drinks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Sprite&#39;</span>, <span class="st">&#39;Pepsi&#39;</span>, <span class="st">&#39;DietCoke&#39;</span>)</a>
-<a class="sourceLine" id="cb227-3" data-line-number="3"><span class="kw">str</span>(drinks)</a></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="co"># A vector of character strings.</span></a>
+<a class="sourceLine" id="cb228-2" data-line-number="2">drinks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Sprite&#39;</span>, <span class="st">&#39;Pepsi&#39;</span>, <span class="st">&#39;DietCoke&#39;</span>)</a>
+<a class="sourceLine" id="cb228-3" data-line-number="3"><span class="kw">str</span>(drinks)</a></code></pre></div>
 <pre><code>##  chr [1:5] &quot;Coke&quot; &quot;Coke&quot; &quot;Sprite&quot; &quot;Pepsi&quot; &quot;DietCoke&quot;</code></pre>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1"><span class="co"># convert the vector of character strings into a factor vector</span></a>
-<a class="sourceLine" id="cb229-2" data-line-number="2">drinks &lt;-<span class="st"> </span><span class="kw">factor</span>(drinks)</a>
-<a class="sourceLine" id="cb229-3" data-line-number="3"><span class="kw">str</span>(drinks)        <span class="co"># Show the structure of the factor</span></a></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="co"># convert the vector of character strings into a factor vector</span></a>
+<a class="sourceLine" id="cb230-2" data-line-number="2">drinks &lt;-<span class="st"> </span><span class="kw">factor</span>(drinks)</a>
+<a class="sourceLine" id="cb230-3" data-line-number="3"><span class="kw">str</span>(drinks)        <span class="co"># Show the structure of the factor</span></a></code></pre></div>
 <pre><code>##  Factor w/ 4 levels &quot;Coke&quot;,&quot;DietCoke&quot;,..: 1 1 4 3 2</code></pre>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1"><span class="kw">levels</span>(drinks)     <span class="co"># Print out the categories, notice the order matters!</span></a></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="kw">levels</span>(drinks)     <span class="co"># Print out the categories, notice the order matters!</span></a></code></pre></div>
 <pre><code>## [1] &quot;Coke&quot;     &quot;DietCoke&quot; &quot;Pepsi&quot;    &quot;Sprite&quot;</code></pre>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="kw">as.integer</span>(drinks) <span class="co"># Print the category assigments</span></a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="kw">as.integer</span>(drinks) <span class="co"># Print the category assigments</span></a></code></pre></div>
 <pre><code>## [1] 1 1 4 3 2</code></pre>
 <p>Notice that the factor has levels “Coke”, “DietCoke”, “Pepsi”, and “Sprite” and that the order of these levels is very important because each observation is saved as an <em>integer</em> which denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of potentially very long character string, factors are much more space efficient than storing the same data as strings.</p>
 <p>Because the factor has both a character string representation as well as numeric value, we can convert a factor to either one.</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1"><span class="kw">as.character</span>(drinks)</a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1"><span class="kw">as.character</span>(drinks)</a></code></pre></div>
 <pre><code>## [1] &quot;Coke&quot;     &quot;Coke&quot;     &quot;Sprite&quot;   &quot;Pepsi&quot;    &quot;DietCoke&quot;</code></pre>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1"><span class="kw">as.integer</span>(drinks)</a></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1"><span class="kw">as.integer</span>(drinks)</a></code></pre></div>
 <pre><code>## [1] 1 1 4 3 2</code></pre>
 </div>
 <div id="change-labels" class="section level2">

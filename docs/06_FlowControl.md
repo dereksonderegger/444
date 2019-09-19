@@ -110,7 +110,7 @@ result
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 ```r
@@ -125,7 +125,7 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
 
@@ -186,7 +186,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The third child was spoiled"
+## [1] "The second child was ignored"
 ```
 
 
@@ -216,7 +216,7 @@ p.value
 ```
 
 ```
-## [1] 3.946438e-08
+## [1] 1.180898e-05
 ```
 
 

@@ -665,11 +665,12 @@ and the formula interpretation.</td>
 <ol style="list-style-type: lower-alpha">
 <li>Create scatterplots of gestational length and birthweight for each smoking status.</li>
 <li>Remove all the observations that are premature (less than 36 weeks).</li>
-<li>Fit the quadratic model <code>grams ~ poly(gestate,2) * smoke</code>.</li>
+<li><p>Fit the quadratic model</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(grams <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(gestate,<span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>smoke, <span class="dt">data=</span>phbirths)</a></code></pre></div></li>
 <li>Add the model fitted values to the <code>phbirths</code> data frame along with the regression model confidence intervals.</li>
 <li>Graph the data and model result.</li>
 <li>Create a column for the residuals in the <code>phbirths</code> data set.</li>
-<li>Create a histogram of the residuals.</li>
+<li><p>Create a histogram of the residuals.</p></li>
 </ol></li>
 </ol>
 

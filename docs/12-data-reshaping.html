@@ -325,19 +325,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-reshaping" class="section level1">
 <h1><span class="header-section-number">Chapter 12</span> Data Reshaping</h1>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" data-line-number="1"><span class="co"># library(tidyr)   # for the gather/spread commands</span></a>
-<a class="sourceLine" id="cb426-2" data-line-number="2"><span class="co"># library(dplyr)   # for the join stuff</span></a>
-<a class="sourceLine" id="cb426-3" data-line-number="3"><span class="kw">library</span>(tidyverse) <span class="co"># dplyr, tidyr, ggplot2, etc.</span></a></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" data-line-number="1"><span class="co"># library(tidyr)   # for the gather/spread commands</span></a>
+<a class="sourceLine" id="cb427-2" data-line-number="2"><span class="co"># library(dplyr)   # for the join stuff</span></a>
+<a class="sourceLine" id="cb427-3" data-line-number="3"><span class="kw">library</span>(tidyverse) <span class="co"># dplyr, tidyr, ggplot2, etc.</span></a></code></pre></div>
 <p>Most of the time, our data is in the form of a data frame and we are interested in exploring the relationships. However most procedures in R expect the data to show up in a ‘long’ format where each row is an observation and each column is a covariate. In practice, the data is often not stored like that and the data comes to us with repeated observations included on a single row. This is often done as a memory saving technique or because there is some structure in the data that makes the ‘wide’ format attractive. As a result, we need a way to convert data from ‘wide’ to ‘long’ and vice-versa.</p>
 <p>Next we need a way to squish two data frames together. It is often advantagous to store data that would be be repeated seperately in a different table so that a particular piece of information lives in only one location. This makes the data easier to modify, and more likely to maintain consistence. However, this practice requires that, when necessary, we can add information to a table, that might involve a lot of duplicated rows.</p>
 <div id="tidyr" class="section level2">
 <h2><span class="header-section-number">12.1</span> <code>tidyr</code></h2>
 <p>There is a common issue with obtaining data with many columns that you wish were organized as rows. For example, I might have data in a grade book that has several homework scores and I’d like to produce a nice graph that has assignment number on the x-axis and score on the y-axis. Unfortunately this is incredibly hard to do when the data is arranged in the following way:</p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" data-line-number="1">grade.book &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
-<a class="sourceLine" id="cb427-2" data-line-number="2">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Alison&#39;</span>,  <span class="dt">HW.1=</span><span class="dv">8</span>, <span class="dt">HW.2=</span><span class="dv">5</span>, <span class="dt">HW.3=</span><span class="dv">8</span>, <span class="dt">HW.4=</span><span class="dv">4</span>),</a>
-<a class="sourceLine" id="cb427-3" data-line-number="3">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Brandon&#39;</span>, <span class="dt">HW.1=</span><span class="dv">5</span>, <span class="dt">HW.2=</span><span class="dv">3</span>, <span class="dt">HW.3=</span><span class="dv">6</span>, <span class="dt">HW.4=</span><span class="dv">9</span>),</a>
-<a class="sourceLine" id="cb427-4" data-line-number="4">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Charles&#39;</span>, <span class="dt">HW.1=</span><span class="dv">9</span>, <span class="dt">HW.2=</span><span class="dv">7</span>, <span class="dt">HW.3=</span><span class="dv">9</span>, <span class="dt">HW.4=</span><span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb427-5" data-line-number="5">grade.book</a></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" data-line-number="1">grade.book &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
+<a class="sourceLine" id="cb428-2" data-line-number="2">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Alison&#39;</span>,  <span class="dt">HW.1=</span><span class="dv">8</span>, <span class="dt">HW.2=</span><span class="dv">5</span>, <span class="dt">HW.3=</span><span class="dv">8</span>, <span class="dt">HW.4=</span><span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb428-3" data-line-number="3">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Brandon&#39;</span>, <span class="dt">HW.1=</span><span class="dv">5</span>, <span class="dt">HW.2=</span><span class="dv">3</span>, <span class="dt">HW.3=</span><span class="dv">6</span>, <span class="dt">HW.4=</span><span class="dv">9</span>),</a>
+<a class="sourceLine" id="cb428-4" data-line-number="4">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Charles&#39;</span>, <span class="dt">HW.1=</span><span class="dv">9</span>, <span class="dt">HW.2=</span><span class="dv">7</span>, <span class="dt">HW.3=</span><span class="dv">9</span>, <span class="dt">HW.4=</span><span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb428-5" data-line-number="5">grade.book</a></code></pre></div>
 <pre><code>##      name HW.1 HW.2 HW.3 HW.4
 ## 1  Alison    8    5    8    4
 ## 2 Brandon    5    3    6    9
@@ -351,13 +351,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>gather</code> - Gather multiple columns that are related into two columns that contain the original column name and the value. For example for columns HW1, HW2, HW3 we would gather them into two column HomeworkNumber and Score. In this case, we refer to HomeworkNumber as the key column and Score as the value column. So for any key:value pair you know everything you need.</p></li>
 <li><p><code>spread</code> - This is the opposite of gather. This takes a key column (or columns) and a results column and forms a new column for each level of the key column(s).</p></li>
 </ol>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" data-line-number="1"><span class="co"># first we gather the score columns into columns we&#39;ll name Assesment and Score</span></a>
-<a class="sourceLine" id="cb429-2" data-line-number="2">tidy.scores &lt;-<span class="st"> </span>grade.book <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb429-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework,  <span class="co"># What should I call the key column</span></a>
-<a class="sourceLine" id="cb429-4" data-line-number="4">          <span class="dt">value=</span>Score,      <span class="co"># What should I call the values column</span></a>
-<a class="sourceLine" id="cb429-5" data-line-number="5">          HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span>         <span class="co"># which columns to apply this to</span></a>
-<a class="sourceLine" id="cb429-6" data-line-number="6">          )</a>
-<a class="sourceLine" id="cb429-7" data-line-number="7">tidy.scores</a></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" data-line-number="1"><span class="co"># first we gather the score columns into columns we&#39;ll name Assesment and Score</span></a>
+<a class="sourceLine" id="cb430-2" data-line-number="2">tidy.scores &lt;-<span class="st"> </span>grade.book <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb430-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework,  <span class="co"># What should I call the key column</span></a>
+<a class="sourceLine" id="cb430-4" data-line-number="4">          <span class="dt">value=</span>Score,      <span class="co"># What should I call the values column</span></a>
+<a class="sourceLine" id="cb430-5" data-line-number="5">          HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span>         <span class="co"># which columns to apply this to</span></a>
+<a class="sourceLine" id="cb430-6" data-line-number="6">          )</a>
+<a class="sourceLine" id="cb430-7" data-line-number="7">tidy.scores</a></code></pre></div>
 <pre><code>##       name Homework Score
 ## 1   Alison     HW.1     8
 ## 2  Brandon     HW.1     5
@@ -372,8 +372,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 11 Brandon     HW.4     9
 ## 12 Charles     HW.4    10</code></pre>
 <p>To spread the key:value pairs out into a matrix, we use the <code>spread()</code> command.</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" data-line-number="1"><span class="co"># Turn the Assessment/Score pair of columns into one column per factor level of Assessment</span></a>
-<a class="sourceLine" id="cb431-2" data-line-number="2">tidy.scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score )</a></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" data-line-number="1"><span class="co"># Turn the Assessment/Score pair of columns into one column per factor level of Assessment</span></a>
+<a class="sourceLine" id="cb432-2" data-line-number="2">tidy.scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score )</a></code></pre></div>
 <pre><code>##      name HW.1 HW.2 HW.3 HW.4
 ## 1  Alison    8    5    8    4
 ## 2 Brandon    5    3    6    9
@@ -389,29 +389,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 Derek       17.4      121        80
 ## 2  Jeff       16.9      145       101</code></pre>
 <p>But now we have to ask, what happens when we have a donor that has given blood multiple times? In this case we should just have multiple rows per person along with a date column to uniquely identify a particular donation.</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" data-line-number="1">donations</a></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" data-line-number="1">donations</a></code></pre></div>
 <pre><code>##   Donor       Date Hemoglobin Systolic Diastolic
 ## 1 Derek 2017-04-14       17.4      120        79
 ## 2 Derek 2017-06-20       16.5      121        80
 ## 3  Jeff 2017-08-14       16.9      145       101</code></pre>
 <p>I would like to include additional information about the donor where that infomation doesn’t change overtime. For example we might want to have information about the donar’s birthdate, sex, blood type. However, I don’t want that information in <em>every single donation line</em>. Otherwise if I mistype a birthday and have to correct it, I would have to correct it <em>everywhere</em>. For information about the donor, should live in a <code>donors</code> table, while information about a particular donation should live in the <code>donations</code> table.</p>
 <p>Furthermore, there are many Jeffs and Dereks in the world and to maintain a unique identifier (without using Social Security numbers) I will just create a <code>Donor_ID</code> code that will uniquely identify a person. Similarly I will create a <code>Donation_ID</code> that will uniquely identify a dontation.</p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" data-line-number="1">donors</a></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" data-line-number="1">donors</a></code></pre></div>
 <pre><code>##   Donor_ID F_Name L_Name B_Type      Birth       Street      City State
 ## 1  Donor_1  Derek    Lee     O+ 1976-09-17 7392 Willard Flagstaff    AZ
 ## 2  Donor_2   Jeff  Smith      A 1974-06-23     873 Vine   Bozeman    MT</code></pre>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" data-line-number="1">donations</a></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" data-line-number="1">donations</a></code></pre></div>
 <pre><code>##   Donation_ID Donor_ID       Date Hemoglobin Systolic Diastolic
 ## 1  Donation_1  Donor_1 2017-04-14       17.4      120        79
 ## 2  Donation_2  Donor_1 2017-06-20       16.5      121        80
 ## 3  Donation_3  Donor_2 2017-08-14       16.9      145       101</code></pre>
 <p>If we have a new donor walk in and give blood, then we’ll have to create a new entry in the <code>donors</code> table as well as a new entry in the <code>donations</code> table. If an experienced donor gives again, we just have to create a new entry in the donations table.</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" data-line-number="1">donors</a></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" data-line-number="1">donors</a></code></pre></div>
 <pre><code>##   Donor_ID F_Name L_Name B_Type      Birth       Street      City State
 ## 1  Donor_1  Derek    Lee     O+ 1976-09-17 7392 Willard Flagstaff    AZ
 ## 2  Donor_2   Jeff  Smith      A 1974-06-23     873 Vine   Bozeman    MT
 ## 3  Donor_3 Aubrey    Lee     O+ 1980-12-15 7392 Willard Flagstaff    AZ</code></pre>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" data-line-number="1">donations</a></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" data-line-number="1">donations</a></code></pre></div>
 <pre><code>##   Donation_ID Donor_ID       Date Hemoglobin Systolic Diastolic
 ## 1  Donation_1  Donor_1 2017-04-14       17.4      120        79
 ## 2  Donation_2  Donor_1 2017-06-20       16.5      121        80
@@ -419,7 +419,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4  Donation_4  Donor_1 2017-08-26       17.6      120        79
 ## 5  Donation_5  Donor_3 2017-08-26       16.1      137        90</code></pre>
 <p>This data storage set-up might be flexible enough for us. However what happens if somebody moves? If we don’t want to keep the historical information, then we could just change the person’s <code>Street_Address</code>, <code>City</code>, and <code>State</code> values. If we do want to keep that, then we could create <code>donor_addresses</code> table that contains a <code>Start_Date</code> and <code>End_Date</code> that denotes the period of time that the address was valid.</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" data-line-number="1">donor_addresses</a></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" data-line-number="1">donor_addresses</a></code></pre></div>
 <pre><code>##   Donor_ID       Street      City State Start_Date   End_Date
 ## 1  Donor_1 346 Treeline   Pullman    WA 2015-01-26 2016-06-27
 ## 2  Donor_1     645 Main Flagstsff    AZ 2016-06-28 2017-07-02
@@ -433,29 +433,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">12.3</span> Table Joins</h2>
 <p>Often we need to squish together two data frames but they do not have the same number of rows. Consider the case where we have a data frame of observations of fish and a separate data frame that contains information about lake (perhaps surface area, max depth, pH, etc). I want to store them as two separate tables so that when I have to record a lake level observation, I only input it <em>one</em> place. This decreases the chance that I make a copy/paste error.</p>
 <p>To illustrate the different types of table joins, we’ll consider two different tables.</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb446-1" data-line-number="1"><span class="co"># tibbles are just data.frames that print a bit nicer and don&#39;t automatically</span></a>
-<a class="sourceLine" id="cb446-2" data-line-number="2"><span class="co"># convert character columns into factors.  They behave a bit more consistently</span></a>
-<a class="sourceLine" id="cb446-3" data-line-number="3"><span class="co"># in a wide variety of situations compared to data.frames.</span></a>
-<a class="sourceLine" id="cb446-4" data-line-number="4">Fish.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb446-5" data-line-number="5">  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;C&#39;</span>), </a>
-<a class="sourceLine" id="cb446-6" data-line-number="6">  <span class="dt">Fish.Weight=</span><span class="kw">rnorm</span>(<span class="dv">6</span>, <span class="dt">mean=</span><span class="dv">260</span>, <span class="dt">sd=</span><span class="dv">25</span>) ) <span class="co"># make up some data</span></a>
-<a class="sourceLine" id="cb446-7" data-line-number="7">Lake.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb446-8" data-line-number="8">  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(    <span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>),   </a>
-<a class="sourceLine" id="cb446-9" data-line-number="9">  <span class="dt">Lake_Name =</span> <span class="kw">c</span>(<span class="st">&#39;Lake Elaine&#39;</span>, <span class="st">&#39;Mormon Lake&#39;</span>, <span class="st">&#39;Lake Mary&#39;</span>),   </a>
-<a class="sourceLine" id="cb446-10" data-line-number="10">  <span class="dt">pH=</span><span class="kw">c</span>(<span class="fl">6.5</span>, <span class="fl">6.3</span>, <span class="fl">6.1</span>),</a>
-<a class="sourceLine" id="cb446-11" data-line-number="11">  <span class="dt">area =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">210</span>, <span class="dv">240</span>),</a>
-<a class="sourceLine" id="cb446-12" data-line-number="12">  <span class="dt">avg_depth =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">38</span>))</a></code></pre></div>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" data-line-number="1">Fish.Data</a></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" data-line-number="1"><span class="co"># tibbles are just data.frames that print a bit nicer and don&#39;t automatically</span></a>
+<a class="sourceLine" id="cb447-2" data-line-number="2"><span class="co"># convert character columns into factors.  They behave a bit more consistently</span></a>
+<a class="sourceLine" id="cb447-3" data-line-number="3"><span class="co"># in a wide variety of situations compared to data.frames.</span></a>
+<a class="sourceLine" id="cb447-4" data-line-number="4">Fish.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb447-5" data-line-number="5">  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;C&#39;</span>), </a>
+<a class="sourceLine" id="cb447-6" data-line-number="6">  <span class="dt">Fish.Weight=</span><span class="kw">rnorm</span>(<span class="dv">6</span>, <span class="dt">mean=</span><span class="dv">260</span>, <span class="dt">sd=</span><span class="dv">25</span>) ) <span class="co"># make up some data</span></a>
+<a class="sourceLine" id="cb447-7" data-line-number="7">Lake.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb447-8" data-line-number="8">  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(    <span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>),   </a>
+<a class="sourceLine" id="cb447-9" data-line-number="9">  <span class="dt">Lake_Name =</span> <span class="kw">c</span>(<span class="st">&#39;Lake Elaine&#39;</span>, <span class="st">&#39;Mormon Lake&#39;</span>, <span class="st">&#39;Lake Mary&#39;</span>),   </a>
+<a class="sourceLine" id="cb447-10" data-line-number="10">  <span class="dt">pH=</span><span class="kw">c</span>(<span class="fl">6.5</span>, <span class="fl">6.3</span>, <span class="fl">6.1</span>),</a>
+<a class="sourceLine" id="cb447-11" data-line-number="11">  <span class="dt">area =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">210</span>, <span class="dv">240</span>),</a>
+<a class="sourceLine" id="cb447-12" data-line-number="12">  <span class="dt">avg_depth =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">38</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" data-line-number="1">Fish.Data</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 A              257.
-## 2 A              289.
-## 3 B              274.
-## 4 B              245.
-## 5 C              263.
-## 6 C              257.</code></pre>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" data-line-number="1">Lake.Data</a></code></pre></div>
+## 1 A              273.
+## 2 A              276.
+## 3 B              242.
+## 4 B              262.
+## 5 C              258.
+## 6 C              272.</code></pre>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" data-line-number="1">Lake.Data</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   Lake_ID Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
@@ -463,49 +463,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 C       Mormon Lake   6.3   210        10
 ## 3 D       Lake Mary     6.1   240        38</code></pre>
 <p>Notice that each of these tables has a column labled <code>Lake_ID</code>. When we join these two tables, the row that describes lake <code>A</code> should be duplicated for each row in the <code>Fish.Data</code> that corresponds with fish caught from lake <code>A</code>.</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" data-line-number="1"><span class="kw">full_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" data-line-number="1"><span class="kw">full_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              257. &lt;NA&gt;         NA      NA        NA
-## 2 A              289. &lt;NA&gt;         NA      NA        NA
-## 3 B              274. Lake Elaine   6.5    40         8
-## 4 B              245. Lake Elaine   6.5    40         8
-## 5 C              263. Mormon Lake   6.3   210        10
-## 6 C              257. Mormon Lake   6.3   210        10
+## 1 A              273. &lt;NA&gt;         NA      NA        NA
+## 2 A              276. &lt;NA&gt;         NA      NA        NA
+## 3 B              242. Lake Elaine   6.5    40         8
+## 4 B              262. Lake Elaine   6.5    40         8
+## 5 C              258. Mormon Lake   6.3   210        10
+## 6 C              272. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38</code></pre>
 <p>Notice that because we didn’t have any fish caught in lake <code>D</code> and we don’t have any Lake information about lake <code>A</code>, when we join these two tables, we end up introducing missing observations into the resulting data frame.</p>
 <p>The other types of joins govern the behavor or these missing data.</p>
 <p><strong><code>left_join(A, B)</code></strong> For each row in A, match with a row in B, but don’t create any more rows than what was already in A.</p>
 <p><strong><code>inner_join(A,B)</code></strong> Only match row values where both data frames have a value.</p>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" data-line-number="1"><span class="kw">left_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" data-line-number="1"><span class="kw">left_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              257. &lt;NA&gt;         NA      NA        NA
-## 2 A              289. &lt;NA&gt;         NA      NA        NA
-## 3 B              274. Lake Elaine   6.5    40         8
-## 4 B              245. Lake Elaine   6.5    40         8
-## 5 C              263. Mormon Lake   6.3   210        10
-## 6 C              257. Mormon Lake   6.3   210        10</code></pre>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" data-line-number="1"><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
+## 1 A              273. &lt;NA&gt;         NA      NA        NA
+## 2 A              276. &lt;NA&gt;         NA      NA        NA
+## 3 B              242. Lake Elaine   6.5    40         8
+## 4 B              262. Lake Elaine   6.5    40         8
+## 5 C              258. Mormon Lake   6.3   210        10
+## 6 C              272. Mormon Lake   6.3   210        10</code></pre>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" data-line-number="1"><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 B              274. Lake Elaine   6.5    40         8
-## 2 B              245. Lake Elaine   6.5    40         8
-## 3 C              263. Mormon Lake   6.3   210        10
-## 4 C              257. Mormon Lake   6.3   210        10</code></pre>
+## 1 B              242. Lake Elaine   6.5    40         8
+## 2 B              262. Lake Elaine   6.5    40         8
+## 3 C              258. Mormon Lake   6.3   210        10
+## 4 C              272. Mormon Lake   6.3   210        10</code></pre>
 <p>The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn’t the case. In that situation you can use the <code>by=c(&quot;ColName.A&quot;=&quot;ColName.B&quot;)</code> syntax where <code>ColName.A</code> represents the name of the column in the first data frame and <code>ColName.B</code> is the equivalent column in the second data frame.</p>
 <p>Finally, the combination of <code>gather</code> and <code>join</code> allows me to do some very complex calculations across many columns of a data set. For example, I might gather up a set of columns, calculate some summary statistics, and then join the result back to original data set.</p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" data-line-number="1">grade.book <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb460-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb460-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score, HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span> ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb460-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>( <span class="dt">HW.avg =</span> <span class="kw">mean</span>(Score) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb460-5" data-line-number="5"><span class="st">  </span><span class="kw">left_join</span>( grade.book, . )</a></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1">grade.book <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb461-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb461-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score, HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span> ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb461-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>( <span class="dt">HW.avg =</span> <span class="kw">mean</span>(Score) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb461-5" data-line-number="5"><span class="st">  </span><span class="kw">left_join</span>( grade.book, . )</a></code></pre></div>
 <pre><code>## Joining, by = &quot;name&quot;</code></pre>
 <pre><code>##      name HW.1 HW.2 HW.3 HW.4 HW.avg
 ## 1  Alison    8    5    8    4   6.25
@@ -516,9 +516,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">12.4</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li><p>Suppose we are given information about the maximum daily temperature from a weather station in Flagstaff, AZ. The file is available at the GitHub site that this book is hosted on.</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" data-line-number="1">FlagTemp &lt;-<span class="st">  </span><span class="kw">read.csv</span>(</a>
-<a class="sourceLine" id="cb463-2" data-line-number="2">  <span class="st">&#39;https://github.com/dereksonderegger/570L/raw/master/data-raw/FlagMaxTemp.csv&#39;</span>,</a>
-<a class="sourceLine" id="cb463-3" data-line-number="3">   <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;,&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" data-line-number="1">FlagTemp &lt;-<span class="st">  </span><span class="kw">read.csv</span>(</a>
+<a class="sourceLine" id="cb464-2" data-line-number="2">  <span class="st">&#39;https://github.com/dereksonderegger/570L/raw/master/data-raw/FlagMaxTemp.csv&#39;</span>,</a>
+<a class="sourceLine" id="cb464-3" data-line-number="3">   <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;,&#39;</span>)</a></code></pre></div>
 <p>This file is in a wide format, where each row represents a month and the columns X1, X2, …, X31 represent the day of the month the observation was made.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Convert data set to the long format where the data has only four columns: <code>Year</code>, <code>Month</code>, <code>Day</code>, <code>Tmax</code>.</p></li>
@@ -528,8 +528,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>A common task is to take a set of data that has multiple categorical variables and create a table of the number of cases for each combination. An introductory statistics textbook contains a dataset summarizing student surveys from several sections of an intro class. The two variables of interest for us are <code>Gender</code> and <code>Year</code> which are the students gender and year in college.
 <ol style="list-style-type: lower-alpha">
 <li><p>Download the dataset and correctly order the <code>Year</code> variable using the following:</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" data-line-number="1">Survey &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.lock5stat.com/datasets/StudentSurvey.csv&#39;</span>, <span class="dt">na.strings=</span><span class="kw">c</span>(<span class="st">&#39;&#39;</span>,<span class="st">&#39; &#39;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb464-2" data-line-number="2"><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">Year =</span> <span class="kw">factor</span>(Year, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;FirstYear&#39;</span>,<span class="st">&#39;Sophomore&#39;</span>,<span class="st">&#39;Junior&#39;</span>,<span class="st">&#39;Senior&#39;</span>)))</a></code></pre></div></li>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" data-line-number="1">Survey &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.lock5stat.com/datasets/StudentSurvey.csv&#39;</span>, <span class="dt">na.strings=</span><span class="kw">c</span>(<span class="st">&#39;&#39;</span>,<span class="st">&#39; &#39;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb465-2" data-line-number="2"><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">Year =</span> <span class="kw">factor</span>(Year, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;FirstYear&#39;</span>,<span class="st">&#39;Sophomore&#39;</span>,<span class="st">&#39;Junior&#39;</span>,<span class="st">&#39;Senior&#39;</span>)))</a></code></pre></div></li>
 <li>Using some combination of <code>dplyr</code> functions, produce a data set with eight rows that contains the number of responses for each gender:year combination. <em>Notice there are two females that neglected to give their Year and you should remove them first. The function <code>is.na(Year)</code> will return logical values indicating if the Year value was missing and you can flip those values using the negation operator <code>!</code>. So you might consider using <code>!is.na(Year)</code> as the argument to a <code>filter()</code> command. Alternatively you could sort on <code>Year</code> and remove the first two rows using <code>slice(-2:-1)</code>. Next you’ll want to summarize each Year/Gender group using the <code>n()</code> function which gives the number of rows in a data set.</em></li>
 <li><p>Using <code>tidyr</code> commands, produce a table of the number of responses in the following form:</p>
 <table>
