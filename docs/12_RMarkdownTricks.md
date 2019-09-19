@@ -122,7 +122,7 @@ So to keep ourselves in the nested list environment, we need to indent the R chu
         ```
         ## [1] 5
         ```
-
+        
     b) Part number b
 
 

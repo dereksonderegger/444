@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-17" />
+<meta name="date" content="2019-09-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="rmarkdown-tricks.html">
-<link rel="next" href="9-speeding-up-r.html">
+<link rel="next" href="9-user-defined-functions.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -238,15 +238,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3" data-path="8-importing-data.html"><a href="8-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>8.3</b> MS Excel</a></li>
 <li class="chapter" data-level="8.4" data-path="8-importing-data.html"><a href="8-importing-data.html#exercises-7"><i class="fa fa-check"></i><b>8.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="9-speeding-up-r.html"><a href="9-speeding-up-r.html"><i class="fa fa-check"></i><b>9</b> Speeding up R</a><ul>
-<li class="chapter" data-level="9.1" data-path="9-speeding-up-r.html"><a href="9-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>9.1</b> Faster for loops?</a></li>
-<li class="chapter" data-level="9.2" data-path="9-speeding-up-r.html"><a href="9-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>9.2</b> Vectorizing loops</a></li>
-<li class="chapter" data-level="9.3" data-path="9-speeding-up-r.html"><a href="9-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>9.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="9.4" data-path="9-speeding-up-r.html"><a href="9-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>9.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="9.5" data-path="9-speeding-up-r.html"><a href="9-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>9.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="9.5.1" data-path="9-speeding-up-r.html"><a href="9-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>9.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="9.5.2" data-path="9-speeding-up-r.html"><a href="9-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>9.5.2</b> <code>caret::train</code></a></li>
-</ul></li>
+<li class="chapter" data-level="9" data-path="9-user-defined-functions.html"><a href="9-user-defined-functions.html"><i class="fa fa-check"></i><b>9</b> User Defined Functions</a><ul>
+<li class="chapter" data-level="9.1" data-path="9-user-defined-functions.html"><a href="9-user-defined-functions.html#basic-function-definition"><i class="fa fa-check"></i><b>9.1</b> Basic function definition</a></li>
+<li class="chapter" data-level="9.2" data-path="9-user-defined-functions.html"><a href="9-user-defined-functions.html#parameter-defaults"><i class="fa fa-check"></i><b>9.2</b> Parameter Defaults</a></li>
+<li class="chapter" data-level="9.3" data-path="9-user-defined-functions.html"><a href="9-user-defined-functions.html#ellipses"><i class="fa fa-check"></i><b>9.3</b> Ellipses</a></li>
+<li class="chapter" data-level="9.4" data-path="9-user-defined-functions.html"><a href="9-user-defined-functions.html#function-overloading"><i class="fa fa-check"></i><b>9.4</b> Function Overloading</a></li>
+<li class="chapter" data-level="9.5" data-path="9-user-defined-functions.html"><a href="9-user-defined-functions.html#scope"><i class="fa fa-check"></i><b>9.5</b> Scope</a></li>
+<li class="chapter" data-level="9.6" data-path="9-user-defined-functions.html"><a href="9-user-defined-functions.html#exercises-8"><i class="fa fa-check"></i><b>9.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="10-string-manipulation.html"><a href="10-string-manipulation.html"><i class="fa fa-check"></i><b>10</b> String Manipulation</a><ul>
 <li class="chapter" data-level="10.1" data-path="10-string-manipulation.html"><a href="10-string-manipulation.html#base-function"><i class="fa fa-check"></i><b>10.1</b> Base function</a></li>
@@ -264,33 +262,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3.4" data-path="10-string-manipulation.html"><a href="10-string-manipulation.html#splitting-into-substrings-using-str_split"><i class="fa fa-check"></i><b>10.3.4</b> Splitting into substrings using <code>str_split()</code></a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="10-string-manipulation.html"><a href="10-string-manipulation.html#regular-expressions"><i class="fa fa-check"></i><b>10.4</b> Regular Expressions</a></li>
-<li class="chapter" data-level="10.5" data-path="10-string-manipulation.html"><a href="10-string-manipulation.html#exercises-8"><i class="fa fa-check"></i><b>10.5</b> Exercises</a></li>
+<li class="chapter" data-level="10.5" data-path="10-string-manipulation.html"><a href="10-string-manipulation.html#exercises-9"><i class="fa fa-check"></i><b>10.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="11-dates-and-times.html"><a href="11-dates-and-times.html"><i class="fa fa-check"></i><b>11</b> Dates and Times</a><ul>
 <li class="chapter" data-level="11.1" data-path="11-dates-and-times.html"><a href="11-dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>11.1</b> Creating Date and Time objects</a></li>
 <li class="chapter" data-level="11.2" data-path="11-dates-and-times.html"><a href="11-dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>11.2</b> Extracting information</a></li>
 <li class="chapter" data-level="11.3" data-path="11-dates-and-times.html"><a href="11-dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>11.3</b> Arithmetic on Dates</a></li>
-<li class="chapter" data-level="11.4" data-path="11-dates-and-times.html"><a href="11-dates-and-times.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+<li class="chapter" data-level="11.4" data-path="11-dates-and-times.html"><a href="11-dates-and-times.html#exercises-10"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="12-data-manipulation.html"><a href="12-data-manipulation.html"><i class="fa fa-check"></i><b>12</b> Data Manipulation</a><ul>
-<li class="chapter" data-level="12.1" data-path="12-data-manipulation.html"><a href="12-data-manipulation.html#classical-functions-for-summarizing-rows-and-columns"><i class="fa fa-check"></i><b>12.1</b> Classical functions for summarizing rows and columns</a><ul>
-<li class="chapter" data-level="12.1.1" data-path="12-data-manipulation.html"><a href="12-data-manipulation.html#summary"><i class="fa fa-check"></i><b>12.1.1</b> <code>summary()</code></a></li>
-<li class="chapter" data-level="12.1.2" data-path="12-data-manipulation.html"><a href="12-data-manipulation.html#apply"><i class="fa fa-check"></i><b>12.1.2</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="12" data-path="12-data-reshaping.html"><a href="12-data-reshaping.html"><i class="fa fa-check"></i><b>12</b> Data Reshaping</a><ul>
+<li class="chapter" data-level="12.1" data-path="12-data-reshaping.html"><a href="12-data-reshaping.html#tidyr"><i class="fa fa-check"></i><b>12.1</b> <code>tidyr</code></a><ul>
+<li class="chapter" data-level="12.1.1" data-path="12-data-reshaping.html"><a href="12-data-reshaping.html#verbs-1"><i class="fa fa-check"></i><b>12.1.1</b> Verbs</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="12-data-manipulation.html"><a href="12-data-manipulation.html#package-dplyr"><i class="fa fa-check"></i><b>12.2</b> Package <code>dplyr</code></a><ul>
-<li class="chapter" data-level="12.2.1" data-path="12-data-manipulation.html"><a href="12-data-manipulation.html#verbs-1"><i class="fa fa-check"></i><b>12.2.1</b> Verbs</a></li>
-<li class="chapter" data-level="12.2.2" data-path="12-data-manipulation.html"><a href="12-data-manipulation.html#split-apply-combine-1"><i class="fa fa-check"></i><b>12.2.2</b> Split, apply, combine</a></li>
-<li class="chapter" data-level="12.2.3" data-path="12-data-manipulation.html"><a href="12-data-manipulation.html#chaining-commands-together"><i class="fa fa-check"></i><b>12.2.3</b> Chaining commands together</a></li>
+<li class="chapter" data-level="12.2" data-path="12-data-reshaping.html"><a href="12-data-reshaping.html#storing-data-in-multiple-tables"><i class="fa fa-check"></i><b>12.2</b> Storing Data in Multiple Tables</a></li>
+<li class="chapter" data-level="12.3" data-path="12-data-reshaping.html"><a href="12-data-reshaping.html#table-joins"><i class="fa fa-check"></i><b>12.3</b> Table Joins</a></li>
+<li class="chapter" data-level="12.4" data-path="12-data-reshaping.html"><a href="12-data-reshaping.html#exercises-11"><i class="fa fa-check"></i><b>12.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="12-data-manipulation.html"><a href="12-data-manipulation.html#exercises-10"><i class="fa fa-check"></i><b>12.3</b> Exercises</a></li>
+<li class="chapter" data-level="13" data-path="13-r-packages.html"><a href="13-r-packages.html"><i class="fa fa-check"></i><b>13</b> R Packages</a><ul>
+<li class="chapter" data-level="13.1" data-path="13-r-packages.html"><a href="13-r-packages.html#introduction"><i class="fa fa-check"></i><b>13.1</b> Introduction</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="13-r-packages.html"><a href="13-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>13.1.1</b> Useful packages and books</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="13-user-defined-functions.html"><a href="13-user-defined-functions.html"><i class="fa fa-check"></i><b>13</b> User Defined Functions</a><ul>
-<li class="chapter" data-level="13.1" data-path="13-user-defined-functions.html"><a href="13-user-defined-functions.html#basic-function-definition"><i class="fa fa-check"></i><b>13.1</b> Basic function definition</a></li>
-<li class="chapter" data-level="13.2" data-path="13-user-defined-functions.html"><a href="13-user-defined-functions.html#parameter-defaults"><i class="fa fa-check"></i><b>13.2</b> Parameter Defaults</a></li>
-<li class="chapter" data-level="13.3" data-path="13-user-defined-functions.html"><a href="13-user-defined-functions.html#ellipses"><i class="fa fa-check"></i><b>13.3</b> Ellipses</a></li>
-<li class="chapter" data-level="13.4" data-path="13-user-defined-functions.html"><a href="13-user-defined-functions.html#function-overloading"><i class="fa fa-check"></i><b>13.4</b> Function Overloading</a></li>
-<li class="chapter" data-level="13.5" data-path="13-user-defined-functions.html"><a href="13-user-defined-functions.html#scope"><i class="fa fa-check"></i><b>13.5</b> Scope</a></li>
-<li class="chapter" data-level="13.6" data-path="13-user-defined-functions.html"><a href="13-user-defined-functions.html#exercises-11"><i class="fa fa-check"></i><b>13.6</b> Exercises</a></li>
+<li class="chapter" data-level="13.2" data-path="13-r-packages.html"><a href="13-r-packages.html#package-structure"><i class="fa fa-check"></i><b>13.2</b> Package Structure</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="13-r-packages.html"><a href="13-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>13.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="13.2.2" data-path="13-r-packages.html"><a href="13-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>13.2.2</b> Optional Files and Directories</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="13-r-packages.html"><a href="13-r-packages.html#documenting"><i class="fa fa-check"></i><b>13.3</b> Documenting</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="13-r-packages.html"><a href="13-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>13.3.1</b> Dataset Documentation</a></li>
+<li class="chapter" data-level="13.3.2" data-path="13-r-packages.html"><a href="13-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>13.3.2</b> Documenting Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="13-r-packages.html"><a href="13-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>13.4</b> The DESCRIPTION file</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="13-r-packages.html"><a href="13-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>13.4.1</b> A Simple Analysis Package</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="13-r-packages.html"><a href="13-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>13.5</b> Sharing your Package</a></li>
+<li class="chapter" data-level="13.6" data-path="13-r-packages.html"><a href="13-r-packages.html#exercises-12"><i class="fa fa-check"></i><b>13.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="14-speeding-up-r.html"><a href="14-speeding-up-r.html"><i class="fa fa-check"></i><b>14</b> Speeding up R</a><ul>
+<li class="chapter" data-level="14.1" data-path="14-speeding-up-r.html"><a href="14-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>14.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="14.2" data-path="14-speeding-up-r.html"><a href="14-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>14.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="14.3" data-path="14-speeding-up-r.html"><a href="14-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>14.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="14.4" data-path="14-speeding-up-r.html"><a href="14-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>14.4</b> Parallelizing for loops</a></li>
+<li class="chapter" data-level="14.5" data-path="14-speeding-up-r.html"><a href="14-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>14.5</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="14.5.1" data-path="14-speeding-up-r.html"><a href="14-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>14.5.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="14.5.2" data-path="14-speeding-up-r.html"><a href="14-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>14.5.2</b> <code>caret::train</code></a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -509,7 +523,7 @@ quotes.</td>
         </div>
       </div>
 <a href="rmarkdown-tricks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9-speeding-up-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="9-user-defined-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -540,7 +554,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/444/raw/master/21_Data_Import.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/20_Data_Import.Rmd",
 "text": "Edit"
 },
 "history": {
