@@ -149,7 +149,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -164,7 +164,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] " in the if statement, got a Tail! "
+## [1] "In the else part!"
 ```
 
 ```r
@@ -172,7 +172,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -226,7 +226,7 @@ p.value
 ```
 
 ```
-## [1] 3.303298e-07
+## [1] 1.762901e-09
 ```
 
 

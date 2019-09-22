@@ -51,6 +51,8 @@ People <- rbind( People, df3 )
 People
 ```
 
+Both `cbind` and `rbind` assume that the data frames are appropriatly sized and appropriately arranged. In general, this is annoying to have to worry about and it is safer to write code that relys on `joins` which will be discussed later in this chapter.
+
 
 ## `tidyr`
 
@@ -284,7 +286,10 @@ grade.book %>%
         |  **Male**   |              |            |           |           | 
     
 
-3. We often are given data in a table format that is easy for a human to parse, but annoying a program. In the following example we have [data](https://github.com/dereksonderegger/570L/raw/master/data-raw/US_Gov_Budget_1962_2020.xls) of US government expenditures from 1962 to 2020. (I downloaded this data from https://obamawhitehouse.archives.gov/omb/budget/Historicals (Table 3.2) on Sept 22, 2019.) Our goal is to end up with a data frame with columns for `Function`, `Subfunction`, `Year`, and `Amount`. We'll ignore the "On-budget" and "Off-budget" distinction.
+3. We often are given data in a table format that is easy for a human to parse, but annoying a program. In the following example we have 
+[data](https://github.com/dereksonderegger/444/raw/master/data-raw/US_Gov_Budget_1962_2020.xls) 
+of US government expenditures from 1962 to 2015. (I downloaded this data from https://obamawhitehouse.archives.gov/omb/budget/Historicals (Table 3.2) on Sept 22, 2019.) 
+Our goal is to end up with a data frame with columns for `Function`, `Subfunction`, `Year`, and `Amount`. We'll ignore the "On-budget" and "Off-budget" distinction.
     a) Download the data file, inspect it, and read in the data using the `readxl` package.
     b) Rename the `Function or subfunction` column to `Department`.
     b) Remove any row with Total, Subtotal, On-budget or Off-budget.

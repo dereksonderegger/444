@@ -58,6 +58,8 @@ People
 ## 4  4  Daniel Davidson
 ```
 
+Both `cbind` and `rbind` assume that the data frames are appropriatly sized and appropriately arranged. In general, this is annoying to have to worry about and it is safer to write code that relys on `joins` which will be discussed later in this chapter.
+
 
 ## `tidyr`
 
@@ -267,12 +269,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              244.
-## 2 A              312.
-## 3 B              287.
-## 4 B              323.
-## 5 C              282.
-## 6 C              282.
+## 1 A              326.
+## 2 A              276.
+## 3 B              303.
+## 4 B              257.
+## 5 C              277.
+## 6 C              253.
 ```
 
 ```r
@@ -303,12 +305,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              244. <NA>         NA      NA        NA
-## 2 A              312. <NA>         NA      NA        NA
-## 3 B              287. Lake Elaine   6.5    40         8
-## 4 B              323. Lake Elaine   6.5    40         8
-## 5 C              282. Mormon Lake   6.3   210        10
-## 6 C              282. Mormon Lake   6.3   210        10
+## 1 A              326. <NA>         NA      NA        NA
+## 2 A              276. <NA>         NA      NA        NA
+## 3 B              303. Lake Elaine   6.5    40         8
+## 4 B              257. Lake Elaine   6.5    40         8
+## 5 C              277. Mormon Lake   6.3   210        10
+## 6 C              253. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -333,12 +335,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              244. <NA>         NA      NA        NA
-## 2 A              312. <NA>         NA      NA        NA
-## 3 B              287. Lake Elaine   6.5    40         8
-## 4 B              323. Lake Elaine   6.5    40         8
-## 5 C              282. Mormon Lake   6.3   210        10
-## 6 C              282. Mormon Lake   6.3   210        10
+## 1 A              326. <NA>         NA      NA        NA
+## 2 A              276. <NA>         NA      NA        NA
+## 3 B              303. Lake Elaine   6.5    40         8
+## 4 B              257. Lake Elaine   6.5    40         8
+## 5 C              277. Mormon Lake   6.3   210        10
+## 6 C              253. Mormon Lake   6.3   210        10
 ```
 
 
@@ -354,10 +356,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              287. Lake Elaine   6.5    40         8
-## 2 B              323. Lake Elaine   6.5    40         8
-## 3 C              282. Mormon Lake   6.3   210        10
-## 4 C              282. Mormon Lake   6.3   210        10
+## 1 B              303. Lake Elaine   6.5    40         8
+## 2 B              257. Lake Elaine   6.5    40         8
+## 3 C              277. Mormon Lake   6.3   210        10
+## 4 C              253. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
@@ -416,7 +418,10 @@ grade.book %>%
         |  **Male**   |              |            |           |           | 
     
 
-3. We often are given data in a table format that is easy for a human to parse, but annoying a program. In the following example we have [data](https://github.com/dereksonderegger/570L/raw/master/data-raw/US_Gov_Budget_1962_2020.xls) of US government expenditures from 1962 to 2020. (I downloaded this data from https://obamawhitehouse.archives.gov/omb/budget/Historicals (Table 3.2) on Sept 22, 2019.) Our goal is to end up with a data frame with columns for `Function`, `Subfunction`, `Year`, and `Amount`. We'll ignore the "On-budget" and "Off-budget" distinction.
+3. We often are given data in a table format that is easy for a human to parse, but annoying a program. In the following example we have 
+[data](https://github.com/dereksonderegger/444/raw/master/data-raw/US_Gov_Budget_1962_2020.xls) 
+of US government expenditures from 1962 to 2015. (I downloaded this data from https://obamawhitehouse.archives.gov/omb/budget/Historicals (Table 3.2) on Sept 22, 2019.) 
+Our goal is to end up with a data frame with columns for `Function`, `Subfunction`, `Year`, and `Amount`. We'll ignore the "On-budget" and "Off-budget" distinction.
     a) Download the data file, inspect it, and read in the data using the `readxl` package.
     b) Rename the `Function or subfunction` column to `Department`.
     b) Remove any row with Total, Subtotal, On-budget or Off-budget.
