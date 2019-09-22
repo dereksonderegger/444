@@ -3,6 +3,27 @@
 
 
 
+```r
+library(tidyverse)  
+```
+
+```
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
+```
+
+```
+## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
+## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
+## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
+## ✔ readr   1.3.1     ✔ forcats 0.4.0
+```
+
+```
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+```
+
 
 It is very important to be able to define a piece of programing logic that is repeated often. For example, I don't want to have to always program the mathematical code for calculating the sample variance of a vector of data. Instead I just want to call a function that does everything for me and I don't have to worry about the details. 
 
@@ -72,7 +93,7 @@ one.sample.t.test <- function(input.data, mu0){
   # fashion, the following is ugly, but works...
   # Notice that this function returns a character string
   # with the necessary information in the string.
-  return( paste('t =', t, ' and p.value =', p.value) )
+  return( paste('t =', round(t, digits=3), ' and p.value =', round(p.value, 3)) )
 }
 ```
 
@@ -84,7 +105,7 @@ one.sample.t.test( test.data, mu0=2 )
 ```
 
 ```
-## [1] "t = 3.15682074900988  and p.value = 0.00826952416706961"
+## [1] "t = 3.157  and p.value = 0.008"
 ```
 
 Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something similar to the above function, but is a bit grander in scope. Even if you don't end up writing any of your own functions, knowing how to will help you understand why certain functions you use are designed the way they are. 
@@ -127,20 +148,22 @@ dnorm.alternate(1, mu=1)
 # Lets test the function a bit more by drawing the height
 # of the normal distribution a lots of different points
 # ... First the standard normal!
-x <- seq(-3, 3, length=601)
-plot( x, dnorm.alternate(x) )  # use default mu=0, sd=1
-```
-
-<img src="21_Functions_files/figure-html/unnamed-chunk-9-1.png" width="672" />
-
-
-```r
-# next a normal with mean 1, and standard deviation 1
-plot( x, dnorm.alternate(x, mu=1) ) # override mu, but use sd=1
+data.frame( x = seq(-3, 3, length=601) ) %>%
+  mutate( y = dnorm.alternate(x) )       %>% # use default mu=0, sd=1
+  ggplot( aes(x=x, y=y) ) + geom_line()
 ```
 
 <img src="21_Functions_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
+
+```r
+# next a normal with mean 1, and standard deviation 1
+data.frame( x = seq(-3, 3, length=601) ) %>%
+  mutate( y = dnorm.alternate(x, mu=1) )       %>% # use mu=1, sd=1
+  ggplot( aes(x=x, y=y) ) + geom_line()
+```
+
+<img src="21_Functions_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 Many functions that we use have defaults that we don't normally mess with. For example, the function `mean()` has an option the specifies what it should do if your vector of data has missing data. The common solution is to remove those observations, but we might have wanted to say that the mean is unknown one component of it was unknown. 
 
@@ -173,15 +196,17 @@ When writing functions, I occasionally have a situation where I call function `a
 # a function that draws the regression line and confidence interval
 # notice it doesn't return anything... all it does is draw a plot
 show.lm <- function(m, interval.type='confidence', fill.col='light grey', ...){
-  x <- m$model[,2]       # extract the predictor variable
-  y <- m$model[,1]       # extract the response
-  pred <- predict(m, interval=interval.type)
-  plot(x, y, ...)
-  polygon( c(x,rev(x)),                         # draw the ribbon defined
-           c(pred[,'lwr'], rev(pred[,'upr'])),  # by lwr and upr - polygon
-           col='light grey')                    # fills in the region defined by            
-  lines(x, pred[, 'fit'])                       # a set of vertices, need to reverse            
-  points(x, y)                                 # the uppers to make a nice figure
+  df <- data.frame(
+    x = m$model[,2],     # extract the predictor variable
+    y = m$model[,1]       # extract the response
+  )
+  df <- df %>% cbind( predict(m, interval=interval.type) )
+  P <- ggplot(df, aes(x=x) ) +
+    geom_ribbon( aes(ymin=lwr, ymax=upr), fill=fill.col ) +
+    geom_line( aes(y=fit), ... ) +
+    geom_point( aes(y=y), ... ) +
+    labs(...)
+  print(P)
 } 
 ```
 
@@ -196,17 +221,21 @@ m <- lm( Volume ~ Girth, data=trees )
 show.lm( m )
 ```
 
-<img src="21_Functions_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="21_Functions_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 
 ```r
-# Pass arguments that will just be passed along to the plot function
-show.lm( m, xlab='Girth', ylab='Volume', 
-         main='Relationship between Girth and Volume')
+# Pass arguments that will just be passed along to the geom layers 
+show.lm( m, color='Red', title='Relationship between Girth and Volume')
 ```
 
-<img src="21_Functions_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+```
+## Warning: Ignoring unknown parameters: title
 
+## Warning: Ignoring unknown parameters: title
+```
+
+<img src="21_Functions_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 This type of trick is done commonly. Look at the help files for `hist()` and `qqnorm()` and you'll see the ellipses used to pass graphical parameters along to sub-functions. Functions like `lm()` use the ellipses to pass arguments to the low level regression fitting functions that do the actual calculations. By only including these parameters via the ellipses, must users won't be tempted to mess with the parameters, but experts who know the nitty-gritty details can still modify those parameters. 
 
@@ -226,7 +255,7 @@ y <- 3+2*x+rnorm(10)
 h <- hist(y)  # h should be of class "Histogram"
 ```
 
-<img src="21_Functions_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="21_Functions_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ```r
 class(h)
@@ -349,9 +378,38 @@ When executing a function, R will have access to all the variables defined in th
     0 & \;\;\;\textrm{otherwise}
     \end{cases}$$
     which looks like this
-    
-    <img src="21_Functions_files/figure-html/unnamed-chunk-18-1.png" width="672" />
-
-    We want to write a function `duniform(x, a, b)` that takes an arbitrary value of `x` and parameters a and b and return the appropriate height of the density function. For various values of `x`, `a`, and `b`, demonstrate that your function returns the correct density value. Ideally, your function should be able to take a vector of values for `x` and return a vector of densities.
+    <img src="21_Functions_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+    We want to write a function `duniform(x, a, b)` that takes an arbitrary value of `x` and parameters a and b and return the appropriate height of the density function. For various values of `x`, `a`, and `b`, demonstrate that your function returns the correct density value. 
+    a) Write your function without regard for it working with vectors of data. Demonstrate that it works by calling the function three times, once where x< a, once where a < x and x < b, and finally once where b < x.
+    b) Next we force our function to work correctly for a vector of `x` values. Modify your function in part (a) so that the core logic is inside a `for` statement and the loop moves through each element of `x` in succession. Your function should look something like this:
+        
+        ```r
+        duniform <- function(x, a, b){
+          output <- NULL
+          for( i in ??? ){  # Set the for loop to look at each element of x
+            if( x[i] ??? ){  # What should this logical expression be?
+              # ???  Something ought to be saved in output[i]
+            }else{
+              # ???  Something else ought to be saved in output[i]
+            }
+          }
+          return(output)
+        }
+        ```
+        Verify that your function works correctly by running the following code:
+        
+        ```r
+        data.frame( x=seq(-1, 12, by=.001) ) %>%
+          mutate( y = duniform(x, 4, 8) ) %>%
+          ggplot( aes(x=x, y=y) ) +
+          geom_step()
+        ```
+    c) Install the R package `microbenchmark`. We will use this to discover the average duration your function takes.
+        
+        ```r
+        microbenchmark::microbenchmark( duniform( seq(-4,12,by=.0001), 4, 8) )
+        ```
+        In particular, look at the median time for evaluation.
+    d) Instead of using a `for` loop, it might have been easier to use our standard `dplyr::mutate` command with an `ifelse()` command. Rewrite your code to make a data frame, then run the `dplyr::mutate` command with an `ifelse()` command to produce a new results column and return that results column. Verify that your function works correctly by producing a plot, and also run the microbenchmark.  Which version of your function was easier to write? Which ran faster?
 
 2. I very often want to provide default values to a parameter that I pass to a function. For example, it is so common for me to use the `pnorm()` and `qnorm()` functions on the standard normal, that R will automatically use `mean=0` and `sd=1` parameters unless you tell R otherwise. To get that behavior, we just set the default parameter values in the definition. When the function is called, the user specified value is used, but if none is specified, the defaults are used. Look at the help page for the functions `dunif()`, and notice that there are a number of default parameters. For your `duniform()` function provide default values of `0` and `1` for `a` and `b`. Demonstrate that your function is appropriately using the given default values. 

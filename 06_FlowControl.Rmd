@@ -19,6 +19,16 @@ library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
 
 Often it is necessary to write scripts that perform different action depending on the data or to automate a task that must be repeated many times. To address these issues we will introduce the `if` statement and its closely related cousin `if else`. To address repeated tasks we will define two types of loops, a `while` loop and a `for` loop. 
 
+## Logical Expressions
+*This needs to filled in to show how logical expressions work.*
+
+* `&` and `|`
+* vectors of logicals
+    - `any()` - If any of these are true, the result is summarized to true.
+    - `which()` - Return the indices of all the TRUE values.
+* `%in%` - Test if the LHS is one of the RHS terms. E.g. `chr.string %in% c('foo', 'bar')`
+
+
 ## Decision statements
 
 ### In `dplyr` wrangling
@@ -47,7 +57,7 @@ To do something similar for the case where we have 3 or more categories, we coul
 ```{r}
 people <- people %>%
   mutate( party2 = case_when( party == 1 ~ 'Democratic', 
-                              party == 2 ~ 'Rebuplican', 
+                              party == 2 ~ 'Republican', 
                               party == 3 ~ 'Independent',
                               TRUE       ~ 'None Stated' ) )
 people

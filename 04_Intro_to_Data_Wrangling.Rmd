@@ -43,6 +43,8 @@ In `dplyr`, all the functions below take a _data set as its first argument_ and 
 
 The foundational operations to perform on a data set are:
 
+* `add_row` - Add an additional row of data.
+
 * Subsetting - Returns a  with only particular columns or rows
 
     – `select` - Selecting a subset of columns by name or column number.
@@ -59,6 +61,35 @@ The foundational operations to perform on a data set are:
 
 Each of these operations is a function in the package `dplyr`. These functions all have a similar calling syntax, the first argument is a data set, subsequent arguments describe what to do with the input data frame and you can refer to the columns without using the `df$column` notation. All of these functions will return a data set.
 
+
+To demonstrate all of these actions, we will consider a tiny dataset of a gradebook of doctors at a Sacred Heart Hospital.
+
+```{r}
+# Create a tiny data frame that is easy to see what is happening
+grades <- tribble(
+  ~l.name, ~Gender, ~Exam1, ~Exam2, ~Final,
+  'Cox',     'M',     93,     98,     96,
+  'Dorian',  'M',     89,     70,     85,
+  'Kelso',   'M',     80,     82,     81,
+  'Turk',    'M',     70,     85,     92)
+grades
+```
+
+
+### `add_row`
+Suppose that we want to add a row to our dataset. We can give it as much or as little information as we want and any missing information will be denoted as missing using a `NA` which stands for *N*ot *A*vailable.
+```{r}
+grades %>% add_row( l.name='Reid', Exam1=95, Exam2=92)
+```
+
+Because we didn't assign the result of our previous calculation to any object name, R just printed the result. Instead, lets add all of Dr Reid's information and save the result by *overwritting* the `grades` data.frame with the new version.
+```{r}
+grades <- grades %>%
+  add_row( l.name='Reid', Gender='F', Exam1=95, Exam2=92, Final=100)
+grades
+```
+
+
 ### Subsetting
 
 These function allows you select certain columns and rows of a data frame.
@@ -66,16 +97,6 @@ These function allows you select certain columns and rows of a data frame.
 #### `select()`
 
 Often you only want to work with a small number of columns of a data frame and want to be able to *select* a subset of columns or perhaps remove a subset. The function to do that is `dplyr::select()`  
-```{r}
-# Create a tiny data frame that is easy to see what is happening
-grades <- data.frame(
-  l.name = c('Cox', 'Dorian', 'Kelso', 'Turk'),
-  Exam1 = c(93, 89, 80, 70),
-  Exam2 = c(98, 70, 82, 85),
-  Final = c(96, 85, 81, 92) )
-
-grades
-```
 
 
 I could select the columns Exam columns by hand, or by using an extension of the `:` operator
@@ -148,23 +169,67 @@ dd %>% arrange(Trt, desc(y))
 
 ### mutate()
 
-I often need to create a new column that is some function of the old columns. In the `dplyr` package, this is a `mutate` command. To do ths, we give a `mutate( NewColumn = Function of Old Columns )` command.
+The mutate command either creates a *new* column in the data frame or *updates* an already existing column.
 
+I often need to create a new column that is some function of the old columns. In the `dplyr` package, this is a `mutate` command. To do ths, we give a `mutate( NewColumn = Function of Old Columns )` command. You can do multiple calculations within the same `mutate()` command, and you can even refer to columns that were created in the same `mutate()` command.
 ```{r}
-# Modify the grades data frame and replace the old version with the new 
-# that contains the newly created "average" column
-grades <- grades %>% 
-  mutate( average = (Exam1 + Exam2 + Final)/3 )
-```
-
-You can do multiple calculations within the same `mutate()` command, and you can even refer to columns that were created in the same `mutate()` command.
-```{r}
-grades %>% mutate( 
+grades <- grades %>% mutate( 
   average = (Exam1 + Exam2 + Final)/3,
   grade = cut(average, c(0, 60, 70, 80, 90, 100),  # cut takes numeric variable
                        c( 'F','D','C','B','A')) )  # and makes a factor
+grades
 ```
 
+If we want to update some column information we will also use the `mutate` command, but we need some mechanism to selct the rows to change, while keeping all the other row values the same. The functions `ifelse()` and `case_when()` are ideal for this task. 
+
+The `ifelse` syntax is `ifelse( logical.expression, TrueValue, FalseValue )`. We can use this to update a score in our gradebook.
+
+```{r}
+# Update Doctor Reids Final Exam score to be a 98, leave everybody elses the same.
+grades <- grades %>%
+  mutate( Final = ifelse(l.name == 'Reid', 98, Final ) )
+grades
+```
+
+We could also use this to modify all the rows. For example, perhaps we want to change the `gender` column information to have levels `Male` and `Female`.
+
+```{r}
+# Update the Gender column labels
+grades <- grades %>%
+  mutate( Gender = ifelse(Gender == 'M', 'Male', 'Female' ) )
+grades
+```
+
+
+To do something similar for the case where we have 3 or more categories, we could use the `ifelse()` command repeatedly to address each category level seperately. However because the `ifelse` command is limited to just two cases, it would be nice if there was a generalization to multiple categories. The  `dplyr::case_when` function is that generalization. The synax is `case_when( logicalExpression1~Value1, logicalExpression2~Value2, ... )`. We can have as many `LogicalExpression ~ Value` pairs as we want. 
+
+ Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we'ved coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
+
+```{r}
+people <- data.frame(
+  name = c('Barack','Michelle', 'George', 'Laura', 'Bernie', 'Deborah'),
+  gender = c(1,0,1,0,1,0),
+  party = c(1,1,2,2,3,3)
+)
+people
+```
+
+
+```{r}
+people <- people %>%
+  mutate( gender = ifelse( gender == 0, 'Female', 'Male') ) %>%
+  mutate( party = case_when( party == 1 ~ 'Democratic', 
+                             party == 2 ~ 'Republican', 
+                             party == 3 ~ 'Independent',
+                             TRUE       ~ 'None Stated' ) )
+people
+
+```
+
+Often the last case is a catch all case where the logical expression will ALWAYS evaluate to TRUE and this is the value for all other input.
+
+
+As another alternative to the problem of recoding factor levels, we could use the command `forcats::fct_recode()` function.  See the Factors chapter in this book for more information about factors.
 
 
 ### summarise()

@@ -33,6 +33,8 @@ In `dplyr`, all the functions below take a _data set as its first argument_ and 
 
 The foundational operations to perform on a data set are:
 
+* `add_row` - Add an additional row of data.
+
 * Subsetting - Returns a  with only particular columns or rows
 
     – `select` - Selecting a subset of columns by name or column number.
@@ -49,6 +51,70 @@ The foundational operations to perform on a data set are:
 
 Each of these operations is a function in the package `dplyr`. These functions all have a similar calling syntax, the first argument is a data set, subsequent arguments describe what to do with the input data frame and you can refer to the columns without using the `df$column` notation. All of these functions will return a data set.
 
+
+To demonstrate all of these actions, we will consider a tiny dataset of a gradebook of doctors at a Sacred Heart Hospital.
+
+
+```r
+# Create a tiny data frame that is easy to see what is happening
+grades <- tribble(
+  ~l.name, ~Gender, ~Exam1, ~Exam2, ~Final,
+  'Cox',     'M',     93,     98,     96,
+  'Dorian',  'M',     89,     70,     85,
+  'Kelso',   'M',     80,     82,     81,
+  'Turk',    'M',     70,     85,     92)
+grades
+```
+
+```
+## # A tibble: 4 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Cox    M         93    98    96
+## 2 Dorian M         89    70    85
+## 3 Kelso  M         80    82    81
+## 4 Turk   M         70    85    92
+```
+
+
+### `add_row`
+Suppose that we want to add a row to our dataset. We can give it as much or as little information as we want and any missing information will be denoted as missing using a `NA` which stands for *N*ot *A*vailable.
+
+```r
+grades %>% add_row( l.name='Reid', Exam1=95, Exam2=92)
+```
+
+```
+## # A tibble: 5 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Cox    M         93    98    96
+## 2 Dorian M         89    70    85
+## 3 Kelso  M         80    82    81
+## 4 Turk   M         70    85    92
+## 5 Reid   <NA>      95    92    NA
+```
+
+Because we didn't assign the result of our previous calculation to any object name, R just printed the result. Instead, lets add all of Dr Reid's information and save the result by *overwritting* the `grades` data.frame with the new version.
+
+```r
+grades <- grades %>%
+  add_row( l.name='Reid', Gender='F', Exam1=95, Exam2=92, Final=100)
+grades
+```
+
+```
+## # A tibble: 5 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Cox    M         93    98    96
+## 2 Dorian M         89    70    85
+## 3 Kelso  M         80    82    81
+## 4 Turk   M         70    85    92
+## 5 Reid   F         95    92   100
+```
+
+
 ### Subsetting
 
 These function allows you select certain columns and rows of a data frame.
@@ -56,25 +122,6 @@ These function allows you select certain columns and rows of a data frame.
 #### `select()`
 
 Often you only want to work with a small number of columns of a data frame and want to be able to *select* a subset of columns or perhaps remove a subset. The function to do that is `dplyr::select()`  
-
-```r
-# Create a tiny data frame that is easy to see what is happening
-grades <- data.frame(
-  l.name = c('Cox', 'Dorian', 'Kelso', 'Turk'),
-  Exam1 = c(93, 89, 80, 70),
-  Exam2 = c(98, 70, 82, 85),
-  Final = c(96, 85, 81, 92) )
-
-grades
-```
-
-```
-##   l.name Exam1 Exam2 Final
-## 1    Cox    93    98    96
-## 2 Dorian    89    70    85
-## 3  Kelso    80    82    81
-## 4   Turk    70    85    92
-```
 
 
 I could select the columns Exam columns by hand, or by using an extension of the `:` operator
@@ -85,11 +132,14 @@ grades %>% select( Exam1, Exam2 )   # Exam1 and Exam2
 ```
 
 ```
+## # A tibble: 5 x 2
 ##   Exam1 Exam2
+##   <dbl> <dbl>
 ## 1    93    98
 ## 2    89    70
 ## 3    80    82
 ## 4    70    85
+## 5    95    92
 ```
 
 ```r
@@ -97,11 +147,14 @@ grades %>% select( Exam1:Final )    # Columns Exam1 through Final
 ```
 
 ```
+## # A tibble: 5 x 3
 ##   Exam1 Exam2 Final
+##   <dbl> <dbl> <dbl>
 ## 1    93    98    96
 ## 2    89    70    85
 ## 3    80    82    81
 ## 4    70    85    92
+## 5    95    92   100
 ```
 
 ```r
@@ -109,11 +162,14 @@ grades %>% select( -Exam1 )         # Negative indexing by name drops a column
 ```
 
 ```
-##   l.name Exam2 Final
-## 1    Cox    98    96
-## 2 Dorian    70    85
-## 3  Kelso    82    81
-## 4   Turk    85    92
+## # A tibble: 5 x 4
+##   l.name Gender Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl>
+## 1 Cox    M         98    96
+## 2 Dorian M         70    85
+## 3 Kelso  M         82    81
+## 4 Turk   M         85    92
+## 5 Reid   F         92   100
 ```
 
 ```r
@@ -121,11 +177,14 @@ grades %>% select( 1:2 )            # Can select column by column position
 ```
 
 ```
-##   l.name Exam1
-## 1    Cox    93
-## 2 Dorian    89
-## 3  Kelso    80
-## 4   Turk    70
+## # A tibble: 5 x 2
+##   l.name Gender
+##   <chr>  <chr> 
+## 1 Cox    M     
+## 2 Dorian M     
+## 3 Kelso  M     
+## 4 Turk   M     
+## 5 Reid   F
 ```
 
 The `select()` command has a few other tricks. There are functional calls that describe the columns you wish to select that take advantage of pattern matching. I generally can get by with `starts_with()`, `ends_with()`, and `contains()`, but there is a final operator `matches()` that takes a regular expression.
@@ -135,11 +194,14 @@ grades %>% select( starts_with('Exam') )   # Exam1 and Exam2
 ```
 
 ```
+## # A tibble: 5 x 2
 ##   Exam1 Exam2
+##   <dbl> <dbl>
 ## 1    93    98
 ## 2    89    70
 ## 3    80    82
 ## 4    70    85
+## 5    95    92
 ```
 
 ```r
@@ -147,11 +209,14 @@ grades %>% select( starts_with('Exam'), starts_with('F') )
 ```
 
 ```
+## # A tibble: 5 x 3
 ##   Exam1 Exam2 Final
+##   <dbl> <dbl> <dbl>
 ## 1    93    98    96
 ## 2    89    70    85
 ## 3    80    82    81
 ## 4    70    85    92
+## 5    95    92   100
 ```
 
 The `dplyr::select` function is quite handy, but there are several other packages out there that have a `select` function and we can get into trouble with loading other packages with the same function names.  If I encounter the `select` function behaving in a weird manner or complaining about an input argument, my first remedy is to be explicit about it is the `dplyr::select()` function by appending the package name at the start. 
@@ -166,9 +231,12 @@ grades %>% filter(Final > 90)
 ```
 
 ```
-##   l.name Exam1 Exam2 Final
-## 1    Cox    93    98    96
-## 2   Turk    70    85    92
+## # A tibble: 3 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Cox    M         93    98    96
+## 2 Turk   M         70    85    92
+## 3 Reid   F         95    92   100
 ```
 
 You can have multiple logical expressions to select rows and they will be logically combined so that only rows that satisfy all of the conditions are selected. The logicals are joined together using `&` (and) operator or the `|` (or) operator and you may explicitly use other logicals. For example a factor column type might be used to select rows where type is either one or two via the following: `type==1 | type==2`.
@@ -180,8 +248,11 @@ grades %>% filter(Exam2 > 90, Final > 90)
 ```
 
 ```
-##   l.name Exam1 Exam2 Final
-## 1    Cox    93    98    96
+## # A tibble: 2 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Cox    M         93    98    96
+## 2 Reid   F         95    92   100
 ```
 
 ```r
@@ -190,8 +261,11 @@ grades %>% filter(Exam2 > 90 & Final > 90)
 ```
 
 ```
-##   l.name Exam1 Exam2 Final
-## 1    Cox    93    98    96
+## # A tibble: 2 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Cox    M         93    98    96
+## 2 Reid   F         95    92   100
 ```
 
 #### `slice()`
@@ -204,9 +278,11 @@ grades %>% slice(1:2)
 ```
 
 ```
-##   l.name Exam1 Exam2 Final
-## 1    Cox    93    98    96
-## 2 Dorian    89    70    85
+## # A tibble: 2 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Cox    M         93    98    96
+## 2 Dorian M         89    70    85
 ```
 
 ### `arrange()`
@@ -218,11 +294,14 @@ grades %>% arrange(l.name)
 ```
 
 ```
-##   l.name Exam1 Exam2 Final
-## 1    Cox    93    98    96
-## 2 Dorian    89    70    85
-## 3  Kelso    80    82    81
-## 4   Turk    70    85    92
+## # A tibble: 5 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Cox    M         93    98    96
+## 2 Dorian M         89    70    85
+## 3 Kelso  M         80    82    81
+## 4 Reid   F         95    92   100
+## 5 Turk   M         70    85    92
 ```
 
 The default sorting is in ascending order, so to sort the grades with the highest scoring person in the first row, we must tell arrange to do it in descending order using `desc(column.name)`.
@@ -232,11 +311,14 @@ grades %>% arrange(desc(Final))
 ```
 
 ```
-##   l.name Exam1 Exam2 Final
-## 1    Cox    93    98    96
-## 2   Turk    70    85    92
-## 3 Dorian    89    70    85
-## 4  Kelso    80    82    81
+## # A tibble: 5 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Reid   F         95    92   100
+## 2 Cox    M         93    98    96
+## 3 Turk   M         70    85    92
+## 4 Dorian M         89    70    85
+## 5 Kelso  M         80    82    81
 ```
 
 In a more complicated example, consider the following data and we want to order it first by Treatment Level and secondarily by the y-value. I want the Treatment level in the default ascending order (Low, Medium, High), but the y variable in descending order.
@@ -274,33 +356,124 @@ dd %>% arrange(Trt, desc(y))
 
 ### mutate()
 
-I often need to create a new column that is some function of the old columns. In the `dplyr` package, this is a `mutate` command. To do ths, we give a `mutate( NewColumn = Function of Old Columns )` command.
+The mutate command either creates a *new* column in the data frame or *updates* an already existing column.
 
-
-```r
-# Modify the grades data frame and replace the old version with the new 
-# that contains the newly created "average" column
-grades <- grades %>% 
-  mutate( average = (Exam1 + Exam2 + Final)/3 )
-```
-
-You can do multiple calculations within the same `mutate()` command, and you can even refer to columns that were created in the same `mutate()` command.
+I often need to create a new column that is some function of the old columns. In the `dplyr` package, this is a `mutate` command. To do ths, we give a `mutate( NewColumn = Function of Old Columns )` command. You can do multiple calculations within the same `mutate()` command, and you can even refer to columns that were created in the same `mutate()` command.
 
 ```r
-grades %>% mutate( 
+grades <- grades %>% mutate( 
   average = (Exam1 + Exam2 + Final)/3,
   grade = cut(average, c(0, 60, 70, 80, 90, 100),  # cut takes numeric variable
                        c( 'F','D','C','B','A')) )  # and makes a factor
+grades
 ```
 
 ```
-##   l.name Exam1 Exam2 Final  average grade
-## 1    Cox    93    98    96 95.66667     A
-## 2 Dorian    89    70    85 81.33333     B
-## 3  Kelso    80    82    81 81.00000     B
-## 4   Turk    70    85    92 82.33333     B
+## # A tibble: 5 x 7
+##   l.name Gender Exam1 Exam2 Final average grade
+##   <chr>  <chr>  <dbl> <dbl> <dbl>   <dbl> <fct>
+## 1 Cox    M         93    98    96    95.7 A    
+## 2 Dorian M         89    70    85    81.3 B    
+## 3 Kelso  M         80    82    81    81   B    
+## 4 Turk   M         70    85    92    82.3 B    
+## 5 Reid   F         95    92   100    95.7 A
 ```
 
+If we want to update some column information we will also use the `mutate` command, but we need some mechanism to selct the rows to change, while keeping all the other row values the same. The functions `ifelse()` and `case_when()` are ideal for this task. 
+
+The `ifelse` syntax is `ifelse( logical.expression, TrueValue, FalseValue )`. We can use this to update a score in our gradebook.
+
+
+```r
+# Update Doctor Reids Final Exam score to be a 98, leave everybody elses the same.
+grades <- grades %>%
+  mutate( Final = ifelse(l.name == 'Reid', 98, Final ) )
+grades
+```
+
+```
+## # A tibble: 5 x 7
+##   l.name Gender Exam1 Exam2 Final average grade
+##   <chr>  <chr>  <dbl> <dbl> <dbl>   <dbl> <fct>
+## 1 Cox    M         93    98    96    95.7 A    
+## 2 Dorian M         89    70    85    81.3 B    
+## 3 Kelso  M         80    82    81    81   B    
+## 4 Turk   M         70    85    92    82.3 B    
+## 5 Reid   F         95    92    98    95.7 A
+```
+
+We could also use this to modify all the rows. For example, perhaps we want to change the `gender` column information to have levels `Male` and `Female`.
+
+
+```r
+# Update the Gender column labels
+grades <- grades %>%
+  mutate( Gender = ifelse(Gender == 'M', 'Male', 'Female' ) )
+grades
+```
+
+```
+## # A tibble: 5 x 7
+##   l.name Gender Exam1 Exam2 Final average grade
+##   <chr>  <chr>  <dbl> <dbl> <dbl>   <dbl> <fct>
+## 1 Cox    Male      93    98    96    95.7 A    
+## 2 Dorian Male      89    70    85    81.3 B    
+## 3 Kelso  Male      80    82    81    81   B    
+## 4 Turk   Male      70    85    92    82.3 B    
+## 5 Reid   Female    95    92    98    95.7 A
+```
+
+
+To do something similar for the case where we have 3 or more categories, we could use the `ifelse()` command repeatedly to address each category level seperately. However because the `ifelse` command is limited to just two cases, it would be nice if there was a generalization to multiple categories. The  `dplyr::case_when` function is that generalization. The synax is `case_when( logicalExpression1~Value1, logicalExpression2~Value2, ... )`. We can have as many `LogicalExpression ~ Value` pairs as we want. 
+
+ Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we'ved coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
+
+
+```r
+people <- data.frame(
+  name = c('Barack','Michelle', 'George', 'Laura', 'Bernie', 'Deborah'),
+  gender = c(1,0,1,0,1,0),
+  party = c(1,1,2,2,3,3)
+)
+people
+```
+
+```
+##       name gender party
+## 1   Barack      1     1
+## 2 Michelle      0     1
+## 3   George      1     2
+## 4    Laura      0     2
+## 5   Bernie      1     3
+## 6  Deborah      0     3
+```
+
+
+
+```r
+people <- people %>%
+  mutate( gender = ifelse( gender == 0, 'Female', 'Male') ) %>%
+  mutate( party = case_when( party == 1 ~ 'Democratic', 
+                             party == 2 ~ 'Republican', 
+                             party == 3 ~ 'Independent',
+                             TRUE       ~ 'None Stated' ) )
+people
+```
+
+```
+##       name gender       party
+## 1   Barack   Male  Democratic
+## 2 Michelle Female  Democratic
+## 3   George   Male  Republican
+## 4    Laura Female  Republican
+## 5   Bernie   Male Independent
+## 6  Deborah Female Independent
+```
+
+Often the last case is a catch all case where the logical expression will ALWAYS evaluate to TRUE and this is the value for all other input.
+
+
+As another alternative to the problem of recoding factor levels, we could use the command `forcats::fct_recode()` function.  See the Factors chapter in this book for more information about factors.
 
 
 ### summarise()
@@ -313,8 +486,10 @@ grades %>% summarise( mean.E1=mean(Exam1) )
 ```
 
 ```
+## # A tibble: 1 x 1
 ##   mean.E1
-## 1      83
+##     <dbl>
+## 1    85.4
 ```
 
 We could calculate multiple summary statistics if we like.
@@ -325,8 +500,10 @@ grades %>% summarise( mean.E1=mean(Exam1), stddev.E1=sd(Exam1) )
 ```
 
 ```
+## # A tibble: 1 x 2
 ##   mean.E1 stddev.E1
-## 1      83  10.23067
+##     <dbl>     <dbl>
+## 1    85.4      10.4
 ```
 
 
@@ -347,7 +524,7 @@ str(warpbreaks)
 ##  $ tension: Factor w/ 3 levels "L","M","H": 1 1 1 1 1 1 1 1 1 2 ...
 ```
 
-<img src="04_Intro_to_Data_Wrangling_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="04_Intro_to_Data_Wrangling_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 The first we must do is to create a data frame with additional information about how to break the data into sub-data frames. In this case, I want to break the data up into the 6 wool-by-tension combinations. Initially we will just figure out how many rows are in each wool-by-tension combination.
 

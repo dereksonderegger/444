@@ -9,6 +9,16 @@ library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
 
 Often it is necessary to write scripts that perform different action depending on the data or to automate a task that must be repeated many times. To address these issues we will introduce the `if` statement and its closely related cousin `if else`. To address repeated tasks we will define two types of loops, a `while` loop and a `for` loop. 
 
+## Logical Expressions
+*This needs to filled in to show how logical expressions work.*
+
+* `&` and `|`
+* vectors of logicals
+    - `any()` - If any of these are true, the result is summarized to true.
+    - `which()` - Return the indices of all the TRUE values.
+* `%in%` - Test if the LHS is one of the RHS terms. E.g. `chr.string %in% c('foo', 'bar')`
+
+
 ## Decision statements
 
 ### In `dplyr` wrangling
@@ -60,7 +70,7 @@ To do something similar for the case where we have 3 or more categories, we coul
 ```r
 people <- people %>%
   mutate( party2 = case_when( party == 1 ~ 'Democratic', 
-                              party == 2 ~ 'Rebuplican', 
+                              party == 2 ~ 'Republican', 
                               party == 3 ~ 'Independent',
                               TRUE       ~ 'None Stated' ) )
 people
@@ -70,8 +80,8 @@ people
 ##       name gender party gender2      party2
 ## 1   Barack      1     1    Male  Democratic
 ## 2 Michelle      0     1  Female  Democratic
-## 3   George      1     2    Male  Rebuplican
-## 4    Laura      0     2  Female  Rebuplican
+## 3   George      1     2    Male  Republican
+## 4    Laura      0     2  Female  Republican
 ## 5   Bernie      1     3    Male Independent
 ## 6  Deborah      0     3  Female Independent
 ```
@@ -139,7 +149,7 @@ result
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 ```r
@@ -154,7 +164,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] "In the else part!"
+## [1] " in the if statement, got a Tail! "
 ```
 
 ```r
@@ -162,7 +172,7 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -186,7 +196,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The second child was ignored"
+## [1] "The first child had more rules to follow"
 ```
 
 
@@ -216,7 +226,7 @@ p.value
 ```
 
 ```
-## [1] 1.180898e-05
+## [1] 3.303298e-07
 ```
 
 
