@@ -10,13 +10,121 @@ library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
 Often it is necessary to write scripts that perform different action depending on the data or to automate a task that must be repeated many times. To address these issues we will introduce the `if` statement and its closely related cousin `if else`. To address repeated tasks we will define two types of loops, a `while` loop and a `for` loop. 
 
 ## Logical Expressions
-*This needs to filled in to show how logical expressions work.*
 
-* `&` and `|`
-* vectors of logicals
-    - `any()` - If any of these are true, the result is summarized to true.
-    - `which()` - Return the indices of all the TRUE values.
-* `%in%` - Test if the LHS is one of the RHS terms. E.g. `chr.string %in% c('foo', 'bar')`
+The most common logical expressions are the numerical expressions `<`, `<=`, `==`, `!=`, `>=`, `>`. These are the usual logical comparisons from mathematics, with `!=` being the *not equal* comparison. For any logical value or vector of values, the `!` flips the logical values.
+
+```r
+df <- data.frame(A=1:6, B=5:10)
+df
+```
+
+```
+##   A  B
+## 1 1  5
+## 2 2  6
+## 3 3  7
+## 4 4  8
+## 5 5  9
+## 6 6 10
+```
+
+```r
+df %>% mutate(`A==3?`         =  A == 3,
+              `A<=3?`         =  A <= 3,
+              `A!=3?`         =  A != 3,
+              `Flip Previous` = ! `A!=3?` )
+```
+
+```
+##   A  B A==3? A<=3? A!=3? Flip Previous
+## 1 1  5 FALSE  TRUE  TRUE         FALSE
+## 2 2  6 FALSE  TRUE  TRUE         FALSE
+## 3 3  7  TRUE  TRUE FALSE          TRUE
+## 4 4  8 FALSE FALSE  TRUE         FALSE
+## 5 5  9 FALSE FALSE  TRUE         FALSE
+## 6 6 10 FALSE FALSE  TRUE         FALSE
+```
+
+
+If we have two (or more) vectors of of logical values, we can do two *pairwise* operations. The "and" operator `&` will result in a TRUE value if all elements are TRUE.  The "or" operator will result in a TRUE value if either the left hand side or right hand side is TRUE. 
+
+```r
+df %>% mutate(C =  A==5,  D =  B==5) %>%
+  mutate( result1_and = C & D,          # C and D
+          result2_and =  A==5 & B==5,   #    directly
+          result1_or  = C | D,          # C or D
+          result2_or = A==5 | B==5)     #    directly
+```
+
+```
+##   A  B     C     D result1_and result2_and result1_or result2_or
+## 1 1  5 FALSE  TRUE       FALSE       FALSE       TRUE       TRUE
+## 2 2  6 FALSE FALSE       FALSE       FALSE      FALSE      FALSE
+## 3 3  7 FALSE FALSE       FALSE       FALSE      FALSE      FALSE
+## 4 4  8 FALSE FALSE       FALSE       FALSE      FALSE      FALSE
+## 5 5  9  TRUE FALSE       FALSE       FALSE       TRUE       TRUE
+## 6 6 10 FALSE FALSE       FALSE       FALSE      FALSE      FALSE
+```
+
+
+Next we can summarize a vector of logicals using `any()`, `all()`, and `which()`. These functions do exactly what you would expect them to do.
+
+```r
+any(6:10 <= 7 )   # Should return TRUE because there are two TRUE result
+```
+
+```
+## [1] TRUE
+```
+
+```r
+all(6:10 <= 7 )   # Should return FALSE because there is at least one FALSE result
+```
+
+```
+## [1] FALSE
+```
+
+```r
+which( 6:10 <= 7) # return the indices of the TRUE values
+```
+
+```
+## [1] 1 2
+```
+
+
+Finally, I often need to figure out if a character string is in some set of values.
+
+```r
+df <- data.frame( Type = rep(c('A','B','C','D'), each=2), Value=rnorm(8) )
+df
+```
+
+```
+##   Type        Value
+## 1    A  0.714446869
+## 2    A  0.422058139
+## 3    B -0.549018877
+## 4    B  0.045560884
+## 5    C -1.451422167
+## 6    C  0.006283268
+## 7    D -0.033663406
+## 8    D -0.138547358
+```
+
+```r
+df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='B'
+```
+
+```
+##   Type       Value
+## 1    A  0.71444687
+## 2    A  0.42205814
+## 3    B -0.54901888
+## 4    B  0.04556088
+```
+
 
 
 ## Decision statements
@@ -120,7 +228,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -135,7 +243,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 
@@ -149,7 +257,7 @@ result
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 ```r
@@ -164,7 +272,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] "In the else part!"
+## [1] " in the if statement, got a Tail! "
 ```
 
 ```r
@@ -172,7 +280,7 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -226,7 +334,7 @@ p.value
 ```
 
 ```
-## [1] 1.762901e-09
+## [1] 1.434843e-06
 ```
 
 
@@ -500,7 +608,7 @@ ggplot(SampDist, aes(x=xbar)) +
     print(myplot) 
     ```
     
-    <img src="06_FlowControl_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+    <img src="06_FlowControl_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
     a) Use a for loop to create similar graphs for degrees of freedom $2,3,4,\dots,29,30$. 
 

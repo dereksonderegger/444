@@ -20,13 +20,45 @@ library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
 Often it is necessary to write scripts that perform different action depending on the data or to automate a task that must be repeated many times. To address these issues we will introduce the `if` statement and its closely related cousin `if else`. To address repeated tasks we will define two types of loops, a `while` loop and a `for` loop. 
 
 ## Logical Expressions
-*This needs to filled in to show how logical expressions work.*
 
-* `&` and `|`
-* vectors of logicals
-    - `any()` - If any of these are true, the result is summarized to true.
-    - `which()` - Return the indices of all the TRUE values.
-* `%in%` - Test if the LHS is one of the RHS terms. E.g. `chr.string %in% c('foo', 'bar')`
+The most common logical expressions are the numerical expressions `<`, `<=`, `==`, `!=`, `>=`, `>`. These are the usual logical comparisons from mathematics, with `!=` being the *not equal* comparison. For any logical value or vector of values, the `!` flips the logical values.
+```{r}
+df <- data.frame(A=1:6, B=5:10)
+df
+
+df %>% mutate(`A==3?`         =  A == 3,
+              `A<=3?`         =  A <= 3,
+              `A!=3?`         =  A != 3,
+              `Flip Previous` = ! `A!=3?` )
+```
+
+
+If we have two (or more) vectors of of logical values, we can do two *pairwise* operations. The "and" operator `&` will result in a TRUE value if all elements are TRUE.  The "or" operator will result in a TRUE value if either the left hand side or right hand side is TRUE. 
+```{r}
+df %>% mutate(C =  A==5,  D =  B==5) %>%
+  mutate( result1_and = C & D,          # C and D
+          result2_and =  A==5 & B==5,   #    directly
+          result1_or  = C | D,          # C or D
+          result2_or = A==5 | B==5)     #    directly
+```
+
+
+Next we can summarize a vector of logicals using `any()`, `all()`, and `which()`. These functions do exactly what you would expect them to do.
+```{r}
+any(6:10 <= 7 )   # Should return TRUE because there are two TRUE result
+all(6:10 <= 7 )   # Should return FALSE because there is at least one FALSE result
+which( 6:10 <= 7) # return the indices of the TRUE values
+```
+
+
+Finally, I often need to figure out if a character string is in some set of values.
+```{r}
+df <- data.frame( Type = rep(c('A','B','C','D'), each=2), Value=rnorm(8) )
+df
+
+df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='B'
+```
+
 
 
 ## Decision statements
