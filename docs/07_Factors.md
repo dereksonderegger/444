@@ -24,7 +24,7 @@ We will be interested in the following broad classes of manipulations:
 
 | Goal                             |  `forcats` function                                  |
 |:---------------------------------|:-----------------------------------------------------|
-| Set order manually                                  | `fct_relevel(f, c('b', 'a', 'c'))`  |
+| Set order manually                                  | `fct_relevel(f, 'b', 'a', 'c')`   |
 | Set order based on another vector                        | `fct_reorder(f, x)`          |
 | Set order based on which category is most frequent       | `fct_infreq(f)`              |
 | Set order based on when they first appear                | `fct_inorder(f)`             |
