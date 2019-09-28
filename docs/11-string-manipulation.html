@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-11" />
+<meta name="date" content="2019-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,10 +171,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a><ul>
 <li class="chapter" data-level="4.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#subsetting"><i class="fa fa-check"></i><b>4.1.1</b> Subsetting</a></li>
-<li class="chapter" data-level="4.1.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#arrange"><i class="fa fa-check"></i><b>4.1.2</b> <code>arrange()</code></a></li>
-<li class="chapter" data-level="4.1.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#mutate"><i class="fa fa-check"></i><b>4.1.3</b> mutate()</a></li>
-<li class="chapter" data-level="4.1.4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#summarise"><i class="fa fa-check"></i><b>4.1.4</b> summarise()</a></li>
+<li class="chapter" data-level="4.1.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#add_row"><i class="fa fa-check"></i><b>4.1.1</b> <code>add_row</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#subsetting"><i class="fa fa-check"></i><b>4.1.2</b> Subsetting</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#arrange"><i class="fa fa-check"></i><b>4.1.3</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#mutate"><i class="fa fa-check"></i><b>4.1.4</b> mutate()</a></li>
+<li class="chapter" data-level="4.1.5" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#summarise"><i class="fa fa-check"></i><b>4.1.5</b> summarise()</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#split-apply-combine"><i class="fa fa-check"></i><b>4.2</b> Split, apply, combine</a></li>
 <li class="chapter" data-level="4.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
@@ -189,40 +190,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="5-statistical-models.html"><a href="5-statistical-models.html#exercises-4"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="6-flow-control.html"><a href="6-flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a><ul>
-<li class="chapter" data-level="6.1" data-path="6-flow-control.html"><a href="6-flow-control.html#decision-statements"><i class="fa fa-check"></i><b>6.1</b> Decision statements</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="6-flow-control.html"><a href="6-flow-control.html#in-dplyr-wrangling"><i class="fa fa-check"></i><b>6.1.1</b> In <code>dplyr</code> wrangling</a></li>
-<li class="chapter" data-level="6.1.2" data-path="6-flow-control.html"><a href="6-flow-control.html#general-if-else"><i class="fa fa-check"></i><b>6.1.2</b> General <code>if else</code></a></li>
+<li class="chapter" data-level="6.1" data-path="6-flow-control.html"><a href="6-flow-control.html#logical-expressions"><i class="fa fa-check"></i><b>6.1</b> Logical Expressions</a></li>
+<li class="chapter" data-level="6.2" data-path="6-flow-control.html"><a href="6-flow-control.html#decision-statements"><i class="fa fa-check"></i><b>6.2</b> Decision statements</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="6-flow-control.html"><a href="6-flow-control.html#in-dplyr-wrangling"><i class="fa fa-check"></i><b>6.2.1</b> In <code>dplyr</code> wrangling</a></li>
+<li class="chapter" data-level="6.2.2" data-path="6-flow-control.html"><a href="6-flow-control.html#general-if-else"><i class="fa fa-check"></i><b>6.2.2</b> General <code>if else</code></a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="6-flow-control.html"><a href="6-flow-control.html#loops"><i class="fa fa-check"></i><b>6.2</b> Loops</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="6-flow-control.html"><a href="6-flow-control.html#while-loops"><i class="fa fa-check"></i><b>6.2.1</b> <code>while</code> Loops</a></li>
-<li class="chapter" data-level="6.2.2" data-path="6-flow-control.html"><a href="6-flow-control.html#for-loops"><i class="fa fa-check"></i><b>6.2.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="6.3" data-path="6-flow-control.html"><a href="6-flow-control.html#loops"><i class="fa fa-check"></i><b>6.3</b> Loops</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="6-flow-control.html"><a href="6-flow-control.html#while-loops"><i class="fa fa-check"></i><b>6.3.1</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6-flow-control.html"><a href="6-flow-control.html#for-loops"><i class="fa fa-check"></i><b>6.3.2</b> <code>for</code> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="6-flow-control.html"><a href="6-flow-control.html#exercises-5"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+<li class="chapter" data-level="6.4" data-path="6-flow-control.html"><a href="6-flow-control.html#exercises-5"><i class="fa fa-check"></i><b>6.4</b> Exercises</a></li>
 </ul></li>
-<li class="part"><span><b>Deeper Details</b></span></li>
 <li class="chapter" data-level="7" data-path="7-factors.html"><a href="7-factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-factors.html"><a href="7-factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
 <li class="chapter" data-level="7.2" data-path="7-factors.html"><a href="7-factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
 <li class="chapter" data-level="7.3" data-path="7-factors.html"><a href="7-factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
 <li class="chapter" data-level="7.4" data-path="7-factors.html"><a href="7-factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.5" data-path="7-factors.html"><a href="7-factors.html#exercises-6"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="8-importing-data.html"><a href="8-importing-data.html"><i class="fa fa-check"></i><b>8</b> Importing Data</a><ul>
-<li class="chapter" data-level="8.1" data-path="8-importing-data.html"><a href="8-importing-data.html#working-directory"><i class="fa fa-check"></i><b>8.1</b> Working directory</a></li>
-<li class="chapter" data-level="8.2" data-path="8-importing-data.html"><a href="8-importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>8.2</b> Comma Separated Data</a></li>
-<li class="chapter" data-level="8.3" data-path="8-importing-data.html"><a href="8-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>8.3</b> MS Excel</a></li>
-<li class="chapter" data-level="8.4" data-path="8-importing-data.html"><a href="8-importing-data.html#exercises-6"><i class="fa fa-check"></i><b>8.4</b> Exercises</a></li>
+<li class="part"><span><b>Miscellanious</b></span></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html"><i class="fa fa-check"></i>Statistical Tables</a><ul>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#example-distributions"><i class="fa fa-check"></i>Example Distributions</a></li>
+<li><a href="statistical-tables.html#mosaicplotdist-function"><code>mosaic::plotDist()</code> function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#base-r-functions"><i class="fa fa-check"></i>Base R functions</a><ul>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#d-function"><i class="fa fa-check"></i>d-function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#p-function"><i class="fa fa-check"></i>p-function</a></li>
+<li><a href="statistical-tables.html#q-function"><code>q</code>-function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#r-function"><i class="fa fa-check"></i>r-function</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="9-data-manipulation.html"><a href="9-data-manipulation.html"><i class="fa fa-check"></i><b>9</b> Data Manipulation</a><ul>
-<li class="chapter" data-level="9.1" data-path="9-data-manipulation.html"><a href="9-data-manipulation.html#classical-functions-for-summarizing-rows-and-columns"><i class="fa fa-check"></i><b>9.1</b> Classical functions for summarizing rows and columns</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="9-data-manipulation.html"><a href="9-data-manipulation.html#summary"><i class="fa fa-check"></i><b>9.1.1</b> <code>summary()</code></a></li>
-<li class="chapter" data-level="9.1.2" data-path="9-data-manipulation.html"><a href="9-data-manipulation.html#apply"><i class="fa fa-check"></i><b>9.1.2</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#exercises-7"><i class="fa fa-check"></i>Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="9-data-manipulation.html"><a href="9-data-manipulation.html#package-dplyr"><i class="fa fa-check"></i><b>9.2</b> Package <code>dplyr</code></a><ul>
-<li class="chapter" data-level="9.2.1" data-path="9-data-manipulation.html"><a href="9-data-manipulation.html#verbs-1"><i class="fa fa-check"></i><b>9.2.1</b> Verbs</a></li>
-<li class="chapter" data-level="9.2.2" data-path="9-data-manipulation.html"><a href="9-data-manipulation.html#split-apply-combine-1"><i class="fa fa-check"></i><b>9.2.2</b> Split, apply, combine</a></li>
-<li class="chapter" data-level="9.2.3" data-path="9-data-manipulation.html"><a href="9-data-manipulation.html#chaining-commands-together"><i class="fa fa-check"></i><b>9.2.3</b> Chaining commands together</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html"><i class="fa fa-check"></i>Rmarkdown Tricks</a><ul>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#chunk-options"><i class="fa fa-check"></i>Chunk Options</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#verbatim-list-environments"><i class="fa fa-check"></i>Verbatim &amp; List Environments</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#mathematical-expressions"><i class="fa fa-check"></i>Mathematical expressions</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#tables"><i class="fa fa-check"></i>Tables</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#simple-tables"><i class="fa fa-check"></i><b>7.5.1</b> Simple Tables</a></li>
+<li class="chapter" data-level="7.5.2" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#grid-tables"><i class="fa fa-check"></i><b>7.5.2</b> Grid Tables</a></li>
+<li class="chapter" data-level="7.5.3" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#pipe-tables"><i class="fa fa-check"></i><b>7.5.3</b> Pipe Tables</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="9-data-manipulation.html"><a href="9-data-manipulation.html#exercises-7"><i class="fa fa-check"></i><b>9.3</b> Exercises</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#r-functions-to-produce-table-code."><i class="fa fa-check"></i>R functions to produce table code.</a><ul>
+<li class="chapter" data-level="7.5.4" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#knitrkable"><i class="fa fa-check"></i><b>7.5.4</b> <code class="unnumbered">knitr::kable</code></a></li>
+<li class="chapter" data-level="7.5.5" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#package-pander"><i class="fa fa-check"></i><b>7.5.5</b> Package <code class="unnumbered">pander</code></a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Deeper Details</b></span></li>
+<li class="chapter" data-level="8" data-path="8-data-structures.html"><a href="8-data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
+<li class="chapter" data-level="8.1" data-path="8-data-structures.html"><a href="8-data-structures.html#vectors-1"><i class="fa fa-check"></i><b>8.1</b> Vectors</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="8-data-structures.html"><a href="8-data-structures.html#accessing-vector-elements"><i class="fa fa-check"></i><b>8.1.1</b> Accessing Vector Elements</a></li>
+<li class="chapter" data-level="8.1.2" data-path="8-data-structures.html"><a href="8-data-structures.html#scalar-functions-applied-to-vectors"><i class="fa fa-check"></i><b>8.1.2</b> Scalar Functions Applied to Vectors</a></li>
+<li class="chapter" data-level="8.1.3" data-path="8-data-structures.html"><a href="8-data-structures.html#vector-algebra"><i class="fa fa-check"></i><b>8.1.3</b> Vector Algebra</a></li>
+<li class="chapter" data-level="8.1.4" data-path="8-data-structures.html"><a href="8-data-structures.html#commonly-used-vector-functions"><i class="fa fa-check"></i><b>8.1.4</b> Commonly Used Vector Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="8-data-structures.html"><a href="8-data-structures.html#matrices"><i class="fa fa-check"></i><b>8.2</b> Matrices</a></li>
+<li class="chapter" data-level="8.3" data-path="8-data-structures.html"><a href="8-data-structures.html#data-frames-1"><i class="fa fa-check"></i><b>8.3</b> Data Frames</a></li>
+<li class="chapter" data-level="8.4" data-path="8-data-structures.html"><a href="8-data-structures.html#lists"><i class="fa fa-check"></i><b>8.4</b> Lists</a></li>
+<li class="chapter" data-level="8.5" data-path="8-data-structures.html"><a href="8-data-structures.html#exercises-8"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-importing-data.html"><a href="9-importing-data.html"><i class="fa fa-check"></i><b>9</b> Importing Data</a><ul>
+<li class="chapter" data-level="9.1" data-path="9-importing-data.html"><a href="9-importing-data.html#working-directory"><i class="fa fa-check"></i><b>9.1</b> Working directory</a></li>
+<li class="chapter" data-level="9.2" data-path="9-importing-data.html"><a href="9-importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>9.2</b> Comma Separated Data</a></li>
+<li class="chapter" data-level="9.3" data-path="9-importing-data.html"><a href="9-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>9.3</b> MS Excel</a></li>
+<li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html"><i class="fa fa-check"></i><b>10</b> User Defined Functions</a><ul>
 <li class="chapter" data-level="10.1" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#basic-function-definition"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
@@ -230,7 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#ellipses"><i class="fa fa-check"></i><b>10.3</b> Ellipses</a></li>
 <li class="chapter" data-level="10.4" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#function-overloading"><i class="fa fa-check"></i><b>10.4</b> Function Overloading</a></li>
 <li class="chapter" data-level="10.5" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#scope"><i class="fa fa-check"></i><b>10.5</b> Scope</a></li>
-<li class="chapter" data-level="10.6" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#exercises-8"><i class="fa fa-check"></i><b>10.6</b> Exercises</a></li>
+<li class="chapter" data-level="10.6" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#exercises-10"><i class="fa fa-check"></i><b>10.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html"><i class="fa fa-check"></i><b>11</b> String Manipulation</a><ul>
 <li class="chapter" data-level="11.1" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#base-function"><i class="fa fa-check"></i><b>11.1</b> Base function</a></li>
@@ -248,34 +277,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3.4" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#splitting-into-substrings-using-str_split"><i class="fa fa-check"></i><b>11.3.4</b> Splitting into substrings using <code>str_split()</code></a></li>
 </ul></li>
 <li class="chapter" data-level="11.4" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#regular-expressions"><i class="fa fa-check"></i><b>11.4</b> Regular Expressions</a></li>
-<li class="chapter" data-level="11.5" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#exercises-9"><i class="fa fa-check"></i><b>11.5</b> Exercises</a></li>
+<li class="chapter" data-level="11.5" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#exercises-11"><i class="fa fa-check"></i><b>11.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
 <li class="chapter" data-level="12.1" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>12.1</b> Creating Date and Time objects</a></li>
 <li class="chapter" data-level="12.2" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.2</b> Extracting information</a></li>
 <li class="chapter" data-level="12.3" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.3</b> Arithmetic on Dates</a></li>
-<li class="chapter" data-level="12.4" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html#exercises-10"><i class="fa fa-check"></i><b>12.4</b> Exercises</a></li>
+<li class="chapter" data-level="12.4" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html#exercises-12"><i class="fa fa-check"></i><b>12.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="13-speeding-up-r.html"><a href="13-speeding-up-r.html"><i class="fa fa-check"></i><b>13</b> Speeding up R</a><ul>
-<li class="chapter" data-level="13.1" data-path="13-speeding-up-r.html"><a href="13-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>13.1</b> Faster for loops?</a></li>
-<li class="chapter" data-level="13.2" data-path="13-speeding-up-r.html"><a href="13-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>13.2</b> Vectorizing loops</a></li>
-<li class="chapter" data-level="13.3" data-path="13-speeding-up-r.html"><a href="13-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>13.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="13.4" data-path="13-speeding-up-r.html"><a href="13-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>13.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="13.5" data-path="13-speeding-up-r.html"><a href="13-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>13.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="13.5.1" data-path="13-speeding-up-r.html"><a href="13-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>13.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="13.5.2" data-path="13-speeding-up-r.html"><a href="13-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>13.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="13" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a><ul>
+<li class="chapter" data-level="13.1" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>13.1</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
+<li class="chapter" data-level="13.2" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#tidyr"><i class="fa fa-check"></i><b>13.2</b> <code>tidyr</code></a><ul>
+<li class="chapter" data-level="13.2.1" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#verbs-1"><i class="fa fa-check"></i><b>13.2.1</b> Verbs</a></li>
 </ul></li>
+<li class="chapter" data-level="13.3" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#storing-data-in-multiple-tables"><i class="fa fa-check"></i><b>13.3</b> Storing Data in Multiple Tables</a></li>
+<li class="chapter" data-level="13.4" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#table-joins"><i class="fa fa-check"></i><b>13.4</b> Table Joins</a></li>
+<li class="chapter" data-level="13.5" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#exercises-13"><i class="fa fa-check"></i><b>13.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html"><i class="fa fa-check"></i><b>14</b> Rmarkdown Tricks</a><ul>
-<li class="chapter" data-level="14.1" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#mathematical-expressions"><i class="fa fa-check"></i><b>14.1</b> Mathematical expressions</a></li>
-<li class="chapter" data-level="14.2" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#tables"><i class="fa fa-check"></i><b>14.2</b> Tables</a><ul>
-<li class="chapter" data-level="14.2.1" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#simple-tables"><i class="fa fa-check"></i><b>14.2.1</b> Simple Tables</a></li>
-<li class="chapter" data-level="14.2.2" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#grid-tables"><i class="fa fa-check"></i><b>14.2.2</b> Grid Tables</a></li>
-<li class="chapter" data-level="14.2.3" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#pipe-tables"><i class="fa fa-check"></i><b>14.2.3</b> Pipe Tables</a></li>
+<li class="chapter" data-level="14" data-path="14-data-scraping.html"><a href="14-data-scraping.html"><i class="fa fa-check"></i><b>14</b> Data Scraping</a><ul>
+<li class="chapter" data-level="14.1" data-path="14-data-scraping.html"><a href="14-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>14.1</b> Web Pages</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="14-data-scraping.html"><a href="14-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>14.1.1</b> Example Wikipedia Table</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#r-functions-to-produce-table-code."><i class="fa fa-check"></i><b>14.3</b> R functions to produce table code.</a><ul>
-<li class="chapter" data-level="14.3.1" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#knitrkable"><i class="fa fa-check"></i><b>14.3.1</b> <code>knitr::kable</code></a></li>
-<li class="chapter" data-level="14.3.2" data-path="14-rmarkdown-tricks.html"><a href="14-rmarkdown-tricks.html#package-pander"><i class="fa fa-check"></i><b>14.3.2</b> Package <code>pander</code></a></li>
+<li class="chapter" data-level="14.2" data-path="14-data-scraping.html"><a href="14-data-scraping.html#exercises-14"><i class="fa fa-check"></i><b>14.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="15-r-packages.html"><a href="15-r-packages.html"><i class="fa fa-check"></i><b>15</b> R Packages</a><ul>
+<li class="chapter" data-level="15.1" data-path="15-r-packages.html"><a href="15-r-packages.html#introduction"><i class="fa fa-check"></i><b>15.1</b> Introduction</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="15-r-packages.html"><a href="15-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>15.1.1</b> Useful packages and books</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="15-r-packages.html"><a href="15-r-packages.html#package-structure"><i class="fa fa-check"></i><b>15.2</b> Package Structure</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="15-r-packages.html"><a href="15-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>15.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="15.2.2" data-path="15-r-packages.html"><a href="15-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Dataset Documentation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.4</b> The DESCRIPTION file</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="15-r-packages.html"><a href="15-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>15.4.1</b> A Simple Analysis Package</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="15-r-packages.html"><a href="15-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.5</b> Sharing your Package</a></li>
+<li class="chapter" data-level="15.6" data-path="15-r-packages.html"><a href="15-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>15.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="16-speeding-up-r.html"><a href="16-speeding-up-r.html"><i class="fa fa-check"></i><b>16</b> Speeding up R</a><ul>
+<li class="chapter" data-level="16.1" data-path="16-speeding-up-r.html"><a href="16-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>16.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="16.2" data-path="16-speeding-up-r.html"><a href="16-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>16.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="16.3" data-path="16-speeding-up-r.html"><a href="16-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>16.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="16.4" data-path="16-speeding-up-r.html"><a href="16-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>16.4</b> Parallelizing for loops</a></li>
+<li class="chapter" data-level="16.5" data-path="16-speeding-up-r.html"><a href="16-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>16.5</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="16.5.1" data-path="16-speeding-up-r.html"><a href="16-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>16.5.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="16.5.2" data-path="16-speeding-up-r.html"><a href="16-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>16.5.2</b> <code>caret::train</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -307,33 +357,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.1</span> Base function</h2>
 <p>1.1.1 <code>paste()</code></p>
 <p>The most basic thing we will want to do is to combine two strings or to combine a string with a numerical value. The <code>paste()</code> command will take one or more R objects and converts them to character strings and then pastes them together to form one or more character strings. It has the form:</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" data-line-number="1"><span class="kw">paste</span>( ..., <span class="dt">sep =</span> <span class="st">&#39; &#39;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb501-1" data-line-number="1"><span class="kw">paste</span>( ..., <span class="dt">sep =</span> <span class="st">&#39; &#39;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span> )</a></code></pre></div>
 <p>The <code>...</code> piece means that we can pass any number of objects to be pasted together. The <code>sep</code> argument gives the string that separates the strings to be joined and the collapse argument that specifies if a simplification should be performed after being pasting together.</p>
 <p>Suppose we want to combine the strings “Peanut butter” and “Jelly” then we could execute:</p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;PeanutButter&quot;</span>, <span class="st">&quot;Jelly&quot;</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb502-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;PeanutButter&quot;</span>, <span class="st">&quot;Jelly&quot;</span> )</a></code></pre></div>
 <pre><code>## [1] &quot;PeanutButter Jelly&quot;</code></pre>
 <p>Notice that without specifying the separator character, R chose to put a space between the two strings. We could specify whatever we wanted:</p>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;World&quot;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb504-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;World&quot;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span> )</a></code></pre></div>
 <pre><code>## [1] &quot;Hello_World&quot;</code></pre>
 <p>Also we can combine strings with numerical values</p>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb377-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;Pi is equal to&quot;</span>, pi )</a></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb506-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;Pi is equal to&quot;</span>, pi )</a></code></pre></div>
 <pre><code>## [1] &quot;Pi is equal to 3.14159265358979&quot;</code></pre>
 <p>We can combine vectors of similar or different lengths as well. By default R assumes that you want to produce a vector of character strings as output.</p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb508-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )</a></code></pre></div>
 <pre><code>## [1] &quot;n = 5&quot;   &quot;n = 25&quot;  &quot;n = 100&quot;</code></pre>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" data-line-number="1">first.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Robb&#39;</span>,<span class="st">&#39;Stannis&#39;</span>,<span class="st">&#39;Daenerys&#39;</span>)</a>
-<a class="sourceLine" id="cb381-2" data-line-number="2">last.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Stark&#39;</span>,<span class="st">&#39;Baratheon&#39;</span>,<span class="st">&#39;Targaryen&#39;</span>)</a>
-<a class="sourceLine" id="cb381-3" data-line-number="3"><span class="kw">paste</span>( first.names, last.names)</a></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb510-1" data-line-number="1">first.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Robb&#39;</span>,<span class="st">&#39;Stannis&#39;</span>,<span class="st">&#39;Daenerys&#39;</span>)</a>
+<a class="sourceLine" id="cb510-2" data-line-number="2">last.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Stark&#39;</span>,<span class="st">&#39;Baratheon&#39;</span>,<span class="st">&#39;Targaryen&#39;</span>)</a>
+<a class="sourceLine" id="cb510-3" data-line-number="3"><span class="kw">paste</span>( first.names, last.names)</a></code></pre></div>
 <pre><code>## [1] &quot;Robb Stark&quot;         &quot;Stannis Baratheon&quot;  &quot;Daenerys Targaryen&quot;</code></pre>
 <p>If we want <code>paste()</code> produce just a single string of output, use the <code>collapse=</code> argument to paste together each of the output vectors (separated by the <code>collapse</code> character).</p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )  <span class="co"># Produces 3 strings</span></a></code></pre></div>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb512-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )  <span class="co"># Produces 3 strings</span></a></code></pre></div>
 <pre><code>## [1] &quot;n = 5&quot;   &quot;n = 25&quot;  &quot;n = 100&quot;</code></pre>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>), <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span> ) <span class="co"># collapses output into one string</span></a></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb514-1" data-line-number="1"><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>), <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span> ) <span class="co"># collapses output into one string</span></a></code></pre></div>
 <pre><code>## [1] &quot;n = 5:n = 25:n = 100&quot;</code></pre>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" data-line-number="1"><span class="kw">paste</span>(first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb516-1" data-line-number="1"><span class="kw">paste</span>(first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Robb.Stark : Stannis.Baratheon : Daenerys.Targaryen&quot;</code></pre>
 <p>Notice we could use the <code>paste()</code> command with the collapse option to combine a vector of character strings together.</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" data-line-number="1"><span class="kw">paste</span>(first.names, <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb518-1" data-line-number="1"><span class="kw">paste</span>(first.names, <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Robb:Stannis:Daenerys&quot;</code></pre>
 </div>
 <div id="package-stringr-basic-operations" class="section level2">
@@ -379,58 +429,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="concatenating-with-str_c-or-str_join" class="section level3">
 <h3><span class="header-section-number">11.2.1</span> Concatenating with <code>str_c()</code> or <code>str_join()</code></h3>
 <p>The first thing we do is to concatenate two strings or two vectors of strings similarly to the <code>paste()</code> command. The <code>str_c()</code> and <code>str_join()</code> functions are a synonym for the exact same function, but str_join() might be a more natural verb to use and remember. The syntax is:</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" data-line-number="1"><span class="kw">str_c</span>( ..., <span class="dt">sep=</span><span class="st">&#39;&#39;</span>, <span class="dt">collapse=</span><span class="ot">NULL</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb520-1" data-line-number="1"><span class="kw">str_c</span>( ..., <span class="dt">sep=</span><span class="st">&#39;&#39;</span>, <span class="dt">collapse=</span><span class="ot">NULL</span>)</a></code></pre></div>
 <p>You can think of the inputs building a matrix of strings, with each input creating a column of the matrix. For each row, <code>str_c()</code> first joins all the columns (using the separator character given in <code>sep</code>) into a single column of strings. If the collapse argument is non-NULL, the function takes the vector and joins each element together using collapse as the separator character.</p>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" data-line-number="1"><span class="co"># load the stringr library</span></a>
-<a class="sourceLine" id="cb392-2" data-line-number="2"><span class="kw">library</span>(stringr)</a>
-<a class="sourceLine" id="cb392-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb392-4" data-line-number="4"><span class="co"># envisioning the matrix of strings</span></a>
-<a class="sourceLine" id="cb392-5" data-line-number="5"><span class="kw">cbind</span>(first.names, last.names)</a></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb521-1" data-line-number="1"><span class="co"># load the stringr library</span></a>
+<a class="sourceLine" id="cb521-2" data-line-number="2"><span class="kw">library</span>(stringr)</a>
+<a class="sourceLine" id="cb521-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb521-4" data-line-number="4"><span class="co"># envisioning the matrix of strings</span></a>
+<a class="sourceLine" id="cb521-5" data-line-number="5"><span class="kw">cbind</span>(first.names, last.names)</a></code></pre></div>
 <pre><code>##      first.names last.names 
 ## [1,] &quot;Robb&quot;      &quot;Stark&quot;    
 ## [2,] &quot;Stannis&quot;   &quot;Baratheon&quot;
 ## [3,] &quot;Daenerys&quot;  &quot;Targaryen&quot;</code></pre>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" data-line-number="1"><span class="co"># join the columns together</span></a>
-<a class="sourceLine" id="cb394-2" data-line-number="2">full.names &lt;-<span class="st"> </span><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>)</a>
-<a class="sourceLine" id="cb394-3" data-line-number="3"><span class="kw">cbind</span>( first.names, last.names, full.names)</a></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb523-1" data-line-number="1"><span class="co"># join the columns together</span></a>
+<a class="sourceLine" id="cb523-2" data-line-number="2">full.names &lt;-<span class="st"> </span><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>)</a>
+<a class="sourceLine" id="cb523-3" data-line-number="3"><span class="kw">cbind</span>( first.names, last.names, full.names)</a></code></pre></div>
 <pre><code>##      first.names last.names  full.names          
 ## [1,] &quot;Robb&quot;      &quot;Stark&quot;     &quot;Robb.Stark&quot;        
 ## [2,] &quot;Stannis&quot;   &quot;Baratheon&quot; &quot;Stannis.Baratheon&quot; 
 ## [3,] &quot;Daenerys&quot;  &quot;Targaryen&quot; &quot;Daenerys.Targaryen&quot;</code></pre>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" data-line-number="1"><span class="co"># Join each of the rows together separated by collapse</span></a>
-<a class="sourceLine" id="cb396-2" data-line-number="2"><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb525-1" data-line-number="1"><span class="co"># Join each of the rows together separated by collapse</span></a>
+<a class="sourceLine" id="cb525-2" data-line-number="2"><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Robb.Stark : Stannis.Baratheon : Daenerys.Targaryen&quot;</code></pre>
 </div>
 <div id="calculating-string-length-with-str_length" class="section level3">
 <h3><span class="header-section-number">11.2.2</span> Calculating string length with <code>str_length()</code></h3>
 <p>The <code>str_length()</code> function calculates the length of each string in the vector of strings passed to it.</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" data-line-number="1">text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;WordTesting&#39;</span>, <span class="st">&#39;With a space&#39;</span>, <span class="ot">NA</span>, <span class="st">&#39;Night&#39;</span>)</a>
-<a class="sourceLine" id="cb398-2" data-line-number="2"><span class="kw">str_length</span>( text )</a></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb527-1" data-line-number="1">text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;WordTesting&#39;</span>, <span class="st">&#39;With a space&#39;</span>, <span class="ot">NA</span>, <span class="st">&#39;Night&#39;</span>)</a>
+<a class="sourceLine" id="cb527-2" data-line-number="2"><span class="kw">str_length</span>( text )</a></code></pre></div>
 <pre><code>## [1] 11 12 NA  5</code></pre>
 <p>Notice that <code>str_length()</code> correctly interprets the missing data as missing and that the length ought to also be missing.</p>
 </div>
 <div id="extracting-substrings-with-str_sub" class="section level3">
 <h3><span class="header-section-number">11.2.3</span> Extracting substrings with <code>str_sub()</code></h3>
 <p>If we know we want to extract the <span class="math inline">\(3^{rd}\)</span> through <span class="math inline">\(6^{th}\)</span> letters in a string, this function will grab them.</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" data-line-number="1"><span class="kw">str_sub</span>(text, <span class="dt">start=</span><span class="dv">3</span>, <span class="dt">end=</span><span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb529-1" data-line-number="1"><span class="kw">str_sub</span>(text, <span class="dt">start=</span><span class="dv">3</span>, <span class="dt">end=</span><span class="dv">6</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;rdTe&quot; &quot;th a&quot; NA     &quot;ght&quot;</code></pre>
 <p>If a given string isn’t long enough to contain all the necessary indices, <code>str_sub()</code> returns only the letters that where there (as in the above case for “Night”</p>
 </div>
 <div id="pad-a-string-with-str_pad" class="section level3">
 <h3><span class="header-section-number">11.2.4</span> Pad a string with <code>str_pad()</code></h3>
 <p>Sometimes we to make every string in a vector the same length to facilitate display or in the creation of a uniform system of assigning ID numbers. The <code>str_pad()</code> function will add spaces at either the beginning or end of the of every string appropriately.</p>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" data-line-number="1"><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb531-1" data-line-number="1"><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;    Robb&quot; &quot; Stannis&quot; &quot;Daenerys&quot;</code></pre>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" data-line-number="1"><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>, <span class="dt">side=</span><span class="st">&#39;right&#39;</span>, <span class="dt">pad=</span><span class="st">&#39;*&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb533-1" data-line-number="1"><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>, <span class="dt">side=</span><span class="st">&#39;right&#39;</span>, <span class="dt">pad=</span><span class="st">&#39;*&#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Robb****&quot; &quot;Stannis*&quot; &quot;Daenerys&quot;</code></pre>
 </div>
 <div id="trim-a-string-with-str_trim" class="section level3">
 <h3><span class="header-section-number">11.2.5</span> Trim a string with <code>str_trim()</code></h3>
 <p>This removes any leading or trailing whitespace where whitespace is defined as spaces ’ ’, tabs <code>\t</code> or returns <code>\n</code>.</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" data-line-number="1">text &lt;-<span class="st"> &#39; Some text. </span><span class="ch">\n</span><span class="st">  &#39;</span></a>
-<a class="sourceLine" id="cb406-2" data-line-number="2"><span class="kw">print</span>(text)</a></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb535-1" data-line-number="1">text &lt;-<span class="st"> &#39; Some text. </span><span class="ch">\n</span><span class="st">  &#39;</span></a>
+<a class="sourceLine" id="cb535-2" data-line-number="2"><span class="kw">print</span>(text)</a></code></pre></div>
 <pre><code>## [1] &quot; Some text. \n  &quot;</code></pre>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" data-line-number="1"><span class="kw">str_trim</span>(text)</a></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb537-1" data-line-number="1"><span class="kw">str_trim</span>(text)</a></code></pre></div>
 <pre><code>## [1] &quot;Some text.&quot;</code></pre>
 </div>
 </div>
@@ -481,25 +531,25 @@ inputed pattern</td>
 </table>
 <p>We will first examine these functions using a very simple pattern matching algorithm where we are matching a specific pattern. For most people, this is as complex as we need.</p>
 <p>Suppose that we have a vector of strings that contain a date in the form “2012-May-27” and we want to manipulate them to extract certain information.</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" data-line-number="1">test.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;2008-Feb-10&#39;</span>, <span class="st">&#39;2010-Sept-18&#39;</span>, <span class="st">&#39;2013-Jan-11&#39;</span>, <span class="st">&#39;2016-Jan-2&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb539-1" data-line-number="1">test.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;2008-Feb-10&#39;</span>, <span class="st">&#39;2010-Sept-18&#39;</span>, <span class="st">&#39;2013-Jan-11&#39;</span>, <span class="st">&#39;2016-Jan-2&#39;</span>)</a></code></pre></div>
 <div id="detecting-a-pattern-using-str_detect" class="section level3">
 <h3><span class="header-section-number">11.3.1</span> Detecting a pattern using str_detect()</h3>
 <p>Suppose we want to know which dates are in September. We want to detect if the pattern “Sept” occurs in the strings. It is important that I used fixed(“Sept”) in this code to “turn off” the complicated regular expression matching rules and just look for exactly what I specified.</p>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" data-line-number="1"><span class="kw">str_detect</span>( test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;Sept&#39;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" data-line-number="1"><span class="kw">str_detect</span>( test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;Sept&#39;</span>) )</a></code></pre></div>
 <pre><code>## [1] FALSE  TRUE FALSE FALSE</code></pre>
 <p>Here we see that the second string in the test vector included the substring “Sept” but none of the others did.</p>
 </div>
 <div id="locating-a-pattern-using-str_locate" class="section level3">
 <h3><span class="header-section-number">11.3.2</span> Locating a pattern using str_locate()</h3>
 <p>To figure out where the “-” characters are, we can use the <code>str_locate()</code> function.</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" data-line-number="1"><span class="kw">str_locate</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" data-line-number="1"><span class="kw">str_locate</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>) )</a></code></pre></div>
 <pre><code>##      start end
 ## [1,]     5   5
 ## [2,]     5   5
 ## [3,]     5   5
 ## [4,]     5   5</code></pre>
 <p>which shows that the first dash occurs as the <span class="math inline">\(5^{th}\)</span> character in each string. If we wanted all the dashes in the string the following works.</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" data-line-number="1"><span class="kw">str_locate_all</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb544-1" data-line-number="1"><span class="kw">str_locate_all</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>) )</a></code></pre></div>
 <pre><code>## [[1]]
 ##      start end
 ## [1,]     5   5
@@ -524,16 +574,16 @@ inputed pattern</td>
 <div id="replacing-substrings-using-str_replace" class="section level3">
 <h3><span class="header-section-number">11.3.3</span> Replacing substrings using <code>str_replace()</code></h3>
 <p>Suppose we didn’t like using “-” to separate the Year/Month/Day but preferred a space, or an underscore, or something else. This can be done by replacing all of the “-” with the desired character. The <code>str_replace()</code> function only replaces the first match, but <code>str_replace_all()</code> replaces all matches.</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" data-line-number="1"><span class="kw">str_replace</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">replacement=</span><span class="kw">fixed</span>(<span class="st">&#39;:&#39;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb546-1" data-line-number="1"><span class="kw">str_replace</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">replacement=</span><span class="kw">fixed</span>(<span class="st">&#39;:&#39;</span>) )</a></code></pre></div>
 <pre><code>## [1] &quot;2008:Feb-10&quot;  &quot;2010:Sept-18&quot; &quot;2013:Jan-11&quot;  &quot;2016:Jan-2&quot;</code></pre>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" data-line-number="1"><span class="kw">str_replace_all</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">replacement=</span><span class="kw">fixed</span>(<span class="st">&#39;:&#39;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb548-1" data-line-number="1"><span class="kw">str_replace_all</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">replacement=</span><span class="kw">fixed</span>(<span class="st">&#39;:&#39;</span>) )</a></code></pre></div>
 <pre><code>## [1] &quot;2008:Feb:10&quot;  &quot;2010:Sept:18&quot; &quot;2013:Jan:11&quot;  &quot;2016:Jan:2&quot;</code></pre>
 </div>
 <div id="splitting-into-substrings-using-str_split" class="section level3">
 <h3><span class="header-section-number">11.3.4</span> Splitting into substrings using <code>str_split()</code></h3>
 <p>We can split each of the dates into three smaller substrings using the <code>str_split()</code> command, which returns a list where each element of the list is a vector containing pieces of the original string (excluding the pattern we matched on).</p>
 <p>If we know that all the strings will be split into a known number of substrings (we have to specify how many substrings to match with the <code>n=</code> argument), we can use <code>str_split_fixed()</code> to get a matrix of substrings instead of list of substrings. It is somewhat unfortunate that the <code>_fixed</code> modifier to the function name is the same as what we use to specify to use simple pattern matching.</p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" data-line-number="1"><span class="kw">str_split_fixed</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">n=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" data-line-number="1"><span class="kw">str_split_fixed</span>(test.vector, <span class="dt">pattern=</span><span class="kw">fixed</span>(<span class="st">&#39;-&#39;</span>), <span class="dt">n=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>##      [,1]   [,2]   [,3]
 ## [1,] &quot;2008&quot; &quot;Feb&quot;  &quot;10&quot;
 ## [2,] &quot;2010&quot; &quot;Sept&quot; &quot;18&quot;
@@ -554,19 +604,19 @@ inputed pattern</td>
 where the <code>Username</code> and <code>OrganizationName</code> can be pretty much anything, but a valid email address looks like this. We might get even more creative and recognize that my list of possible endings could include country codes as well.</p>
 <p>For most people, I don’t recommend opening the regular expression can-of-worms, but it is good to know that these pattern matching utilities are available within R and you don’t need to export your pattern matching problems to Perl or Python.</p>
 </div>
-<div id="exercises-9" class="section level2">
+<div id="exercises-11" class="section level2">
 <h2><span class="header-section-number">11.5</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li>The following file names were used in a camera trap study. The S number represents the site, P is the plot within a site, C is the camera number within the plot, the first string of numbers is the YearMonthDay and the second string of numbers is the HourMinuteSecond.</li>
 </ol>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" data-line-number="1">file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</a>
-<a class="sourceLine" id="cb423-2" data-line-number="2">                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</a>
-<a class="sourceLine" id="cb423-3" data-line-number="3">                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb552-1" data-line-number="1">file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</a>
+<a class="sourceLine" id="cb552-2" data-line-number="2">                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</a>
+<a class="sourceLine" id="cb552-3" data-line-number="3">                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</a></code></pre></div>
 <p>Use a combination of <code>str_sub()</code> and <code>str_split()</code> to produce a data frame with columns corresponding to the <code>site</code>, <code>plot</code>, <code>camera</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>, and <code>second</code> for these three file names. So we want to produce code that will create the data frame:</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" data-line-number="1"> Site Plot Camera Year Month Day Hour Minute Second</a>
-<a class="sourceLine" id="cb424-2" data-line-number="2"> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></a>
-<a class="sourceLine" id="cb424-3" data-line-number="3">  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></a>
-<a class="sourceLine" id="cb424-4" data-line-number="4"> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></a></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" data-line-number="1"> Site Plot Camera Year Month Day Hour Minute Second</a>
+<a class="sourceLine" id="cb553-2" data-line-number="2"> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></a>
+<a class="sourceLine" id="cb553-3" data-line-number="3">  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></a>
+<a class="sourceLine" id="cb553-4" data-line-number="4"> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></a></code></pre></div>
 <p><em>Hint: Convert all the dashes to periods and then split on the dots. After that you’ll have to further tear apart the date and time columns using str_sub().</em></p>
 
 </div>
@@ -608,7 +658,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/444/raw/master/11_Strings.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/22_Strings.Rmd",
 "text": "Edit"
 },
 "history": {

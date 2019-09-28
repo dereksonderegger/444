@@ -602,7 +602,7 @@ warpbreaks %>%
 
 ## Exercises
 
-1. The dataset `ChickWeight` tracks the weights of 48 baby chickens (chicks) feed four different diets.
+1. The dataset `ChickWeight` tracks the weights of 48 baby chickens (chicks) feed four different diets. *Feel free to complete all parts of the exercise in a single R pipeline at the end of the problem.*
     a. Load the dataset using  
         
         ```r
@@ -618,7 +618,7 @@ warpbreaks %>%
         ```r
         Body <- read.csv('http://www.openintro.org/stat/data/bdims.csv')
         ```
-    b) The column sex is coded as a 1 if the individual is male and 0 if female. This is a non-intuitive labeling system. Create a new column `sex.MF` that uses labels Male and Female. _Hint: the ifelse() command will be very convenient here. The ifelse() command in R functions similarly to the same command in Excel._
+    b) The column sex is coded as a 1 if the individual is male and 0 if female. This is a non-intuitive labeling system. Create a new column `sex.MF` that uses labels Male and Female. _Hint: the ifelse() command will be very convenient here. The ifelse() command in R functions similarly to the same command in Excel. Feel free to complete all parts of the exercise in a single R pipeline at the end of the problem.*_
     c) The columns `wgt` and `hgt` measure weight and height in kilograms and centimeters (respectively). Use these to calculate the Body Mass Index (BMI) for each individual where 
     $$BMI=\frac{Weight\,(kg)}{\left[Height\,(m)\right]^{2}}$$ 
     d) Double check that your calculated BMI column is correct by examining the summary statistics of the column (e.g. `summary(Body)`). BMI values should be between 18 to 40 or so.  Did you make an error in your calculation?  
@@ -670,6 +670,6 @@ warpbreaks %>%
                                 breaks=c(10,20,30,40,50,60,70),
                                 right=FALSE))
         ```
-    f) Find the average BMI for each Sex-by-Age combination.
+    f) Find the average BMI for each `Sex` by `Age.Grp` combination.
     
     

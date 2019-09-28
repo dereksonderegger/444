@@ -378,7 +378,7 @@ ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
     f) Add the R-squared value as an annotation to the graph.
   
 2. The data set `phbirths` from the `faraway` package contains information birth weight, gestational length, and smoking status of mother. We'll fit a quadratic model to predict infant birthweight using the gestational time.
-    a) Create scatterplots of gestational length and birthweight for each smoking status.
+    a) Create two scatterplots of gestational length and birthweight, one for each smoking status.
     b) Remove all the observations that are premature (less than 36 weeks).
     c) Fit the quadratic model 
         
@@ -386,7 +386,7 @@ ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
         model <- lm(grams ~ poly(gestate,2) * smoke, data=phbirths)
         ```
     d) Add the model fitted values to the `phbirths` data frame along with the regression model confidence intervals.
-    e) Graph the data and model result for each smoking status.
+    e) On your two scatterplots from part (a), add layers for the model fits and ribbon of uncertainty for the model fits.
     f) Create a column for the residuals in the `phbirths` data set using any of the following:
       
       ```r

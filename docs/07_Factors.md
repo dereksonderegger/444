@@ -172,20 +172,20 @@ Students %>%
 <img src="07_Factors_files/figure-html/unnamed-chunk-7-3.png" width="672" />
 
 ```r
-# In the order of the most number of records
+# Sometimes it is useful to rotate using + or - the number of shift steps
+# positive values move the first to the end. Negative values move the end to the front.
 Students %>%
-  mutate( Year = fct_infreq(Year) ) %>%
+  mutate( Year = fct_relevel(Year, 'senior', 'junior','sophmore','first year') ) %>%
+  mutate( Year = fct_shift(Year, +1) ) %>%
   ggplot( aes(x=Year, fill=Gender)) + geom_bar() + coord_flip()
 ```
 
 <img src="07_Factors_files/figure-html/unnamed-chunk-7-4.png" width="672" />
 
 ```r
-# Sometimes it is useful to rotate using + or - the number of shift steps
-# positive values move the first to the end. Negative values move the end to the front.
+# In the order of the most number of records
 Students %>%
-  mutate( Year = fct_relevel(Year, 'senior', 'junior','sophmore','first year') ) %>%
-  mutate( Year = fct_shift(Year, +1) ) %>%
+  mutate( Year = fct_infreq(Year) ) %>%
   ggplot( aes(x=Year, fill=Gender)) + geom_bar() + coord_flip()
 ```
 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Importing Data | STA 444/5 - Introductory Data Science using R</title>
-  <meta name="description" content="Chapter 8 Importing Data | STA 444/5 - Introductory Data Science using R" />
+  <title>Chapter 13 Data Scraping | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 13 Data Scraping | STA 444/5 - Introductory Data Science using R" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Importing Data | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:title" content="Chapter 13 Data Scraping | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Importing Data | STA 444/5 - Introductory Data Science using R" />
+  <meta name="twitter:title" content="Chapter 13 Data Scraping | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="rmarkdown-tricks.html">
-<link rel="next" href="9-user-defined-functions.html">
+<link rel="prev" href="12-data-reshaping.html">
+<link rel="next" href="14-r-packages.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -333,196 +333,126 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="importing-data" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Importing Data</h1>
-<p>Reading data from external sources is necessary. It is most common for data to be in a data-frame like storage, such as a MS Excel workbook, so we will concentrate on reading data into a <code>data.frame</code>.</p>
-<p>In the typical way data is organized, we think of each column of data representing some trait or variable that we might be interested in. In general, we might wish to investigate the relationship between variables. In contrast, the rows of our data represent a single object on which the column traits are measured. For example, in a grade book for recording students scores throughout the semester, their is one row for every student and columns for each assignment. A greenhouse experiment dataset will have a row for every plant and columns for treatment type and biomass.</p>
-<div id="working-directory" class="section level2">
-<h2><span class="header-section-number">8.1</span> Working directory</h2>
-<p>One concept that will be important is to recognize that every time you start up RStudio, it picks an appropriate working directory. This is the directory where it will first look for script files or data files. By default when you double click on an R script or Rmarkdown file to launch RStudio, it will set the working directory to be the directory that the file was in. Similarly, when you knit an Rmarkdown file, the working directory will be set to the directory where the Rmarkdown file is. For both of these reasons, I always program my scripts assuming that paths to any data files will be relative to where where my Rmarkdown file is. To set the working directory explicitly, you can use the GUI tools <code>Session -&gt; Set Working Directory...</code>.</p>
-<p>The functions that we will use in this lab all accept a character string that denotes the location of the file. This location could be a web address, it could be an absolute path on your computer, or it could be a path relative to the location of your Rmarkdown file.</p>
-<table>
-<colgroup>
-<col width="32%" />
-<col width="67%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><code>'MyFile.csv'</code></td>
-<td>Look in the working directory for <code>MyFile.csv</code>.</td>
-</tr>
-<tr class="even">
-<td><code>'MyFolder/Myfile.csv'</code></td>
-<td>In the working directory, there is a subdirectory
-called <code>MyFolder</code> and inside that folder there is
-a filed called <code>MyFile.csv</code>.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="comma-separated-data" class="section level2">
-<h2><span class="header-section-number">8.2</span> Comma Separated Data</h2>
-<p>To consider how data might be stored, we first consider the simplest file format… the comma separated values file. In this file time, each of the “cells” of data are separated by a comma. For example, the data file storing scores for three students might be as follows:</p>
-<pre><code>Able, Dave, 98, 92, 94
-Bowles, Jason, 85, 89, 91
-Carr, Jasmine, 81, 96, 97</code></pre>
-<p>Typically when you open up such a file on a computer with Microsoft Excel installed, Excel will open up the file assuming it is a spreadsheet and put each element in its own cell. However, you can also open the file using a more primitive program (say Notepad in Windows, TextEdit on a Mac) you’ll see the raw form of the data.</p>
-<p>Having just the raw data without any sort of column header is problematic (which of the three exams was the final??). Ideally we would have column headers that store the name of the column.</p>
-<pre><code>LastName, FirstName, Exam1, Exam2, FinalExam
-Able, Dave, 98, 92, 94
-Bowles, Jason, 85, 89, 91
-Carr, Jasmine, 81, 96, 97</code></pre>
-<p>To see another example, open the “Body Fat” dataset from the Lock<span class="math inline">\(^{5}\)</span> introductory text book at the website [<a href="http://www.lock5stat.com/datasets/BodyFat.csv" class="uri">http://www.lock5stat.com/datasets/BodyFat.csv</a>].
-The first few rows of the file are as follows:</p>
-<pre><code>Bodyfat,Age,Weight,Height,Neck,Chest,Abdomen,Ankle,Biceps,Wrist
-32.3,41,247.25,73.5,42.1,117,115.6,26.3,37.3,19.7
-22.5,31,177.25,71.5,36.2,101.1,92.4,24.6,30.1,18.2
-22,42,156.25,69,35.5,97.8,86,24,31.2,17.4
-12.3,23,154.25,67.75,36.2,93.1,85.2,21.9,32,17.1
-20.5,46,177,70,37.2,99.7,95.6,22.5,29.1,17.7</code></pre>
-<p>To make R read in the data arranged in this format, we need to tell R three things:</p>
+<div id="data-scraping" class="section level1">
+<h1><span class="header-section-number">Chapter 13</span> Data Scraping</h1>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb516-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb516-2" data-line-number="2"><span class="kw">library</span>(rvest)     <span class="co"># rvest is not loaded in the tidyverse Metapackage</span></a></code></pre></div>
+<p>Getting data into R often involves accessing data that is available through non-convenient formats such as web pages or .pdf files. Fortunately those formats still have structure and we can import data from those sources. However to do this, we have to understand a little bit about those file formats.</p>
+<div id="web-pages" class="section level2">
+<h2><span class="header-section-number">13.1</span> Web Pages</h2>
+<p>Posting information on the web is incredibly common. As we first use google to find answers to our problems, it is inevitable that we’ll want to grab at least some of that information and import it as data into R. There are several ways to go about this:</p>
 <ol style="list-style-type: decimal">
-<li><p>Where does the data live? Often this will be the name of a file on your computer, but the file could just as easily live on the internet (provided your computer has internet access).</p></li>
-<li><p>Is the first row data or is it the column names?</p></li>
-<li><p>What character separates the data? Some programs store data using tabs to distinguish between elements, some others use white space. R’s mechanism for reading in data is flexible enough to allow you to specify what the separator is.</p></li>
+<li><p>Human Copy/Paste - Sometimes it is easy to copy/paste the information into a spreadsheet. This works for small datasets, but sometimes the HTML markup attributes get passed along and this suddenly becomes very cumbersome for more than a small amount of data. Furthermore, if the data is updated, we would have to redo all of the work instead of just re-running or tweaking a script.</p></li>
+<li><p>Download the page, parse the HTML, and select the information you want. The difficulty here is knowing what you want in the raw HTML tags.</p></li>
 </ol>
-<p>The primary function that we’ll use to read data from a file and into R is the function <code>read.table()</code>. This function has many optional arguments but the most commonly used ones are outlined in the table below.</p>
-<table>
-<colgroup>
-<col width="17%" />
-<col width="22%" />
-<col width="59%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Argument</th>
-<th>Default</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>file</code></td>
-<td></td>
-<td>A character string denoting the file location</td>
-</tr>
-<tr class="even">
-<td><code>header</code></td>
-<td>FALSE</td>
-<td>Is the first line column headers?</td>
-</tr>
-<tr class="odd">
-<td><code>sep</code></td>
-<td>&quot; &quot;</td>
-<td>What character separates columns.
-&quot; &quot; == any whitespace</td>
-</tr>
-<tr class="even">
-<td><code>skip</code></td>
-<td><pre><code>0</code></pre></td>
-<td>The number of lines to skip before reading data.
-This is useful when there are lines of text that
-describe the data or aren’t actual data</td>
-</tr>
-<tr class="odd">
-<td><code>na.strings</code></td>
-<td>‘NA’</td>
-<td>What values represent missing data. Can have
-multiple. E.g. <code>c('NA', -9999)</code></td>
-</tr>
-<tr class="even">
-<td><code>quote</code></td>
-<td>&quot; and ’</td>
-<td>For character strings, what characters represent
-quotes.</td>
-</tr>
-</tbody>
-</table>
-<p>To read in the “Body Fat” dataset we could run the R command:</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">BodyFat &lt;-<span class="st"> </span><span class="kw">read.table</span>( </a>
-<a class="sourceLine" id="cb336-2" data-line-number="2">  <span class="dt">file   =</span> <span class="st">&#39;http://www.lock5stat.com/datasets/BodyFat.csv&#39;</span>,  <span class="co"># where the data lives</span></a>
-<a class="sourceLine" id="cb336-3" data-line-number="3">  <span class="dt">header =</span> <span class="ot">TRUE</span>,                                             <span class="co"># first line is column names</span></a>
-<a class="sourceLine" id="cb336-4" data-line-number="4">  <span class="dt">sep    =</span> <span class="st">&#39;,&#39;</span> )                                             <span class="co"># Data is sparated by commas</span></a>
-<a class="sourceLine" id="cb336-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb336-6" data-line-number="6"><span class="kw">str</span>(BodyFat)</a></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    100 obs. of  10 variables:
-##  $ Bodyfat: num  32.3 22.5 22 12.3 20.5 22.6 28.7 21.3 29.9 21.3 ...
-##  $ Age    : int  41 31 42 23 46 54 43 42 37 41 ...
-##  $ Weight : num  247 177 156 154 177 ...
-##  $ Height : num  73.5 71.5 69 67.8 70 ...
-##  $ Neck   : num  42.1 36.2 35.5 36.2 37.2 39.9 37.9 35.3 42.1 39.8 ...
-##  $ Chest  : num  117 101.1 97.8 93.1 99.7 ...
-##  $ Abdomen: num  115.6 92.4 86 85.2 95.6 ...
-##  $ Ankle  : num  26.3 24.6 24 21.9 22.5 22 23.7 21.9 24.8 25.2 ...
-##  $ Biceps : num  37.3 30.1 31.2 32 29.1 35.9 32.1 30.7 34.4 37.5 ...
-##  $ Wrist  : num  19.7 18.2 17.4 17.1 17.7 18.9 18.7 17.4 18.4 18.7 ...</code></pre>
-<p>Looking at the help file for <code>read.table()</code> we see that there are variants such as <code>read.csv()</code> that sets the default arguments to header and sep more intelligently. Also, there are many options to customize how R responds to different input.</p>
-</div>
-<div id="ms-excel" class="section level2">
-<h2><span class="header-section-number">8.3</span> MS Excel</h2>
-<p>Commonly our data is stored as a MS Excel file. There are two approaches you could use to import the data into R.</p>
+<p>Knowing how web pages are generated is certainly extremely helpful in this endeavor, but isn’t absolutely necessary. It is sufficient to know that HTML has open and closing tags for things like tables and lists.</p>
+<pre class="text"><code># Example of HTML code that would generate a table
+# Table Rows    begin and end with &lt;tr&gt; and &lt;/tr&gt;
+# Table Data    begin and end with &lt;td&gt; and &lt;/td&gt;
+# Table Headers begin and end with &lt;th&gt; and &lt;/th&gt; 
+&lt;table style=&quot;width:100%&quot;&gt;
+  &lt;tr&gt; &lt;th&gt;Firstname&lt;/th&gt; &lt;th&gt;Lastname&lt;/th&gt;     &lt;th&gt;Age&lt;/th&gt;  &lt;/tr&gt;
+  &lt;tr&gt; &lt;td&gt;Derek&lt;/td&gt;     &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;43&lt;/td&gt;   &lt;/tr&gt;
+  &lt;tr&gt; &lt;td&gt;Aubrey&lt;/td&gt;    &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;39&lt;/td&gt;   &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb518-1" data-line-number="1"><span class="co"># Example of an unordered List, which starts and ends with &lt;ul&gt; and &lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb518-2" data-line-number="2"><span class="co"># Each list item is enclosed by &lt;li&gt; &lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb518-3" data-line-number="3"><span class="op">&lt;</span>ul<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb518-4" data-line-number="4"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Coffee<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb518-5" data-line-number="5"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Tea<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb518-6" data-line-number="6"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Milk<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb518-7" data-line-number="7"><span class="er">&lt;/</span>ul<span class="op">&gt;</span></a></code></pre></div>
+<p>Given this extremely clear structure it shouldn’t be too hard to grab tables and/or lists from a web page. However HTML has a heirarchical structure so that tables could be nested in lists. In order to control the way the page looks, there is often a <strong>lot</strong> of nesting. For example, we might be in a split pane page that has a side bar, and then a block that centers everything, and then some style blocks that control fonts and colors. Add to this, the need for modern web pages to display well on both mobile devices as well as desktops and the raw HTML typically is extremely complicated.
+In summary the workflow for scraping a web page will be:</p>
 <ol style="list-style-type: decimal">
-<li><p>From within Excel, export the worksheet that contains your data as a comma separated values (.csv) file and proceed using the tools in the previous section.</p></li>
-<li><p>Use functions within R that automatically convert the worksheet into a .csv file and read it in. One package that works nicely for this is the <code>readxl</code> package.</p></li>
+<li>Find the webpage you want to pull information from.</li>
+<li>Download the html file</li>
+<li>Parse it for tables or lists (this step could get ugly!)</li>
+<li>Convert the HTML text or table into R data objects.</li>
 </ol>
-<p>I generally prefer using option 2 because all of my collaborators can’t live without Excel and I’ve resigned myself to this. However if you have complicated formulas in your Excel file, it is often times safer to export it as a .csv file to guarantee the data imported into R is correct. Furthermore, other spreadsheet applications (such as Google sheets) requires you to export the data as a .csv file so it is good to know both paths.</p>
-<p>Because R can only import a complete worksheet, the desired data worksheet must be free of notes to yourself about how the data was collected, preliminary graphics, or other stuff that isn’t the data. I find it very helpful to have a worksheet in which I describe the sampling procedure and describe what each column means (and give the units!), then a second worksheet where the actual data is, and finally a third worksheet where my “Excel Only” collaborators have created whatever plots and summary statistics they need.</p>
-<p>The simplest package for importing Excel files seems to be the package <code>readxl</code>. Another package that does this is the XLConnect which does the Excel -&gt; .csv conversion using Java. Another package the works well is the <code>xlsx</code> package, but it also requires Java to be installed. The nice thing about these two packages is that they also allow you to write Excel files as well. The RODBC package allows R to connect to various databases and it is possible to make it consider an Excel file as an extremely crude database.</p>
-<p>The <code>readxl</code> package provides a function <code>read_exel()</code> that allows us to specify which sheet within the Excel file to read and what character specifies missing data (it assumes a blank cell is missing data if you don’t specifying anything). One annoying change between <code>read.table()</code> and <code>read_excel()</code> is that the argument for specifying where the file is is different (<code>path=</code> instead of <code>file=</code>). Another difference between the two is that <code>read_excel()</code> does not yet have the capability of handling a path that is a web address.</p>
-<p>From GitHub, download the files <code>Example_1.xls</code>, <code>Example_2.xls</code>, <code>Example_3.xls</code> and <code>Example_4.xls</code> from the directory [<a href="https://github.com/dereksonderegger/570L/tree/master/data-raw" class="uri">https://github.com/dereksonderegger/570L/tree/master/data-raw</a>]. Place these files in the same directory that you store your course work or make a subdirectory data to store the files in. Make sure that the working directory that RStudio is using is that same directory (Session -&gt; Set Working Directory).</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1"><span class="co"># load the library that has the read.xls function. </span></a>
-<a class="sourceLine" id="cb338-2" data-line-number="2"><span class="kw">library</span>(readxl)</a>
-<a class="sourceLine" id="cb338-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb338-4" data-line-number="4"><span class="co"># Where does the data live relative to my current working location? </span></a>
-<a class="sourceLine" id="cb338-5" data-line-number="5"><span class="co">#</span></a>
-<a class="sourceLine" id="cb338-6" data-line-number="6"><span class="co"># In my directory where this Rmarkdown file lives, I have made a subdirectory </span></a>
-<a class="sourceLine" id="cb338-7" data-line-number="7"><span class="co">#    named &#39;data-raw&#39; to store all the data files. So the path to my data</span></a>
-<a class="sourceLine" id="cb338-8" data-line-number="8"><span class="co">#    file will be &#39;data-raw/Example_1.xls&#39;.</span></a>
-<a class="sourceLine" id="cb338-9" data-line-number="9"><span class="co"># If you stored the files in the same directory as your RMarkdown script, you</span></a>
-<a class="sourceLine" id="cb338-10" data-line-number="10"><span class="co">#    don&#39;t have to add any additional information and you can just tell it the</span></a>
-<a class="sourceLine" id="cb338-11" data-line-number="11"><span class="co">#    file name &#39;Example_1.xls&#39;</span></a>
-<a class="sourceLine" id="cb338-12" data-line-number="12"><span class="co"># Alternatively I could give the full path to this file starting at the root</span></a>
-<a class="sourceLine" id="cb338-13" data-line-number="13"><span class="co">#    directory which, for me, is &#39;~/GitHub/STA570L_Book/data-raw/Example_1.xls&#39;</span></a>
-<a class="sourceLine" id="cb338-14" data-line-number="14"><span class="co">#    but for Windows users it might be &#39;Z:/570L/Lab7/Example_1.xls&#39;. This looks</span></a>
-<a class="sourceLine" id="cb338-15" data-line-number="15"><span class="co">#    odd because Windows usually uses a backslash to represent the directory</span></a>
-<a class="sourceLine" id="cb338-16" data-line-number="16"><span class="co">#    structure, but a backslash has special meaning in R and so it wants </span></a>
-<a class="sourceLine" id="cb338-17" data-line-number="17"><span class="co">#    to separate directories via forwardslashes.</span></a>
-<a class="sourceLine" id="cb338-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb338-19" data-line-number="19"><span class="co"># read the first worksheet of the Example_1 file</span></a>
-<a class="sourceLine" id="cb338-20" data-line-number="20">data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>( <span class="st">&#39;data-raw/Example_1.xls&#39;</span>  )   <span class="co"># relative to this Rmarkdown file</span></a>
-<a class="sourceLine" id="cb338-21" data-line-number="21">data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;~/GitHub/570L/data-raw/Example_1.xls&#39;</span>)  <span class="co"># absolute path</span></a>
-<a class="sourceLine" id="cb338-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb338-23" data-line-number="23"><span class="co"># read the second worksheet where the second worksheet is named &#39;data&#39;</span></a>
-<a class="sourceLine" id="cb338-24" data-line-number="24">data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="dv">2</span>     )   </a>
-<a class="sourceLine" id="cb338-25" data-line-number="25">data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   </a></code></pre></div>
-<p>There is one additional problem that shows up while reading in Excel files. Blank columns often show up in Excel files because at some point there was some text in a cell that got deleted but a space remains and Excel still thinks there is data in the column. To fix this, you could find the cell with the space in it, or you can select a bunch of columns at the edge and delete the entire columns. Alternatively, you could remove the column after it is read into R using tools we’ll learn when we get to the <em>Manipulating Data</em> chapter.</p>
-<p>Open up the file <code>Example_4.xls</code> in Excel and confirm that the data sheet has name columns out to carb. Read in the data frame using the following code:</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" data-line-number="1">data<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data-raw/Example_4.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   <span class="co"># Extra Column Example</span></a></code></pre></div>
-<pre><code>## New names:
-## * `` -&gt; ...13
-## * `` -&gt; ...14</code></pre>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" data-line-number="1"><span class="kw">str</span>(data<span class="fl">.4</span>)</a></code></pre></div>
-<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    34 obs. of  14 variables:
-##  $ model: chr  &quot;Mazda RX4&quot; &quot;Mazda RX4 Wag&quot; &quot;Datsun 710&quot; &quot;Hornet 4 Drive&quot; ...
-##  $ mpg  : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
-##  $ cyl  : num  6 6 4 6 8 6 8 4 4 6 ...
-##  $ disp : num  160 160 108 258 360 ...
-##  $ hp   : num  110 110 93 110 175 105 245 62 95 123 ...
-##  $ drat : num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
-##  $ wt   : num  2.62 2.88 2.32 3.21 3.44 ...
-##  $ qsec : num  16.5 17 18.6 19.4 17 ...
-##  $ vs   : num  0 0 1 1 0 1 0 1 1 1 ...
-##  $ am   : num  1 1 1 0 0 0 0 0 0 0 ...
-##  $ gear : num  4 4 4 3 3 3 3 4 4 4 ...
-##  $ carb : num  4 4 1 1 2 1 4 2 2 4 ...
-##  $ ...13: logi  NA NA NA NA NA NA ...
-##  $ ...14: logi  NA NA NA NA NA NA ...</code></pre>
-<p>We notice that after reading in the data, there is an additional column that just has missing data (the NA stands for not available which means that the data is missing) and a row with just a single blank. Go back to the Excel file and go to row 4 column N and notice that the cell isn’t actually blank, there is a space. Delete the space, save the file, and then reload the data into R. You should notice that the extra columns are now gone.</p>
+<p>Hadley Wickham wrote a package to address the need for web scraping functionality and it happily works with the usual <code>magrittr</code> pipes. The package <code>rvest</code> is intended to <em>harvest</em> data from the web and make working with html pages relatively simple.</p>
+<div id="example-wikipedia-table" class="section level3">
+<h3><span class="header-section-number">13.1.1</span> Example Wikipedia Table</h3>
+<p>Recently I needed to get information about U.S. state population sizes. I did a quick googling and found a
+<a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population">Wikipedia</a>
+page that has the information that I wanted.</p>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb519-1" data-line-number="1">url =<span class="st"> &#39;https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population&#39;</span></a>
+<a class="sourceLine" id="cb519-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb519-3" data-line-number="3"><span class="co"># Download the web page and save it. I like to do this within a single R Chunk</span></a>
+<a class="sourceLine" id="cb519-4" data-line-number="4"><span class="co"># so that I don&#39;t keep downloading a page repeatedly while I am fine tuning </span></a>
+<a class="sourceLine" id="cb519-5" data-line-number="5"><span class="co"># the subsequent data wrangling steps.</span></a>
+<a class="sourceLine" id="cb519-6" data-line-number="6">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb520-1" data-line-number="1"><span class="co"># Once the page is downloaded, we need to figure out which table to work with.</span></a>
+<a class="sourceLine" id="cb520-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb520-3" data-line-number="3"><span class="co"># There are 5 tables on the page.</span></a>
+<a class="sourceLine" id="cb520-4" data-line-number="4">page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb520-5" data-line-number="5"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) </a></code></pre></div>
+<pre><code>## {xml_nodeset (5)}
+## [1] &lt;table class=&quot;wikitable sortable&quot; style=&quot;width:100%; text-align:cent ...
+## [2] &lt;table class=&quot;wikitable&quot;&gt;&lt;tbody&gt;\n&lt;tr&gt;&lt;th style=&quot;text-align: left;&quot;&gt; ...
+## [3] &lt;table class=&quot;wikitable sortable&quot; style=&quot;text-align: right;&quot;&gt;\n&lt;capt ...
+## [4] &lt;table class=&quot;nowraplinks hlist mw-collapsible autocollapse navbox-i ...
+## [5] &lt;table class=&quot;nowraplinks hlist mw-collapsible mw-collapsed navbox-i ...</code></pre>
+<p>With five tables on the page, I need to go through each table individually and decide if it is the one that I want. To do this, we’ll take each table and convert it into a data.frame and view it to see what information it contains.</p>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb522-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb522-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb522-3" data-line-number="3"><span class="st">  </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">        </span><span class="co"># Grab the first table and </span></a>
+<a class="sourceLine" id="cb522-4" data-line-number="4"><span class="st">  </span><span class="kw">html_table</span>()      <span class="co"># convert it from HTML into a data.frame </span></a>
+<a class="sourceLine" id="cb522-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb522-6" data-line-number="6"><span class="co"># To view this table, we could use View() or print out just the first few</span></a>
+<a class="sourceLine" id="cb522-7" data-line-number="7"><span class="co"># rows and columns. Converting it to a tibble makes the printing turn out nice.</span></a>
+<a class="sourceLine" id="cb522-8" data-line-number="8">State_Pop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()  </a></code></pre></div>
+<pre><code>## # A tibble: 60 x 12
+##    `Rank in the fi… `Rank in states… Name  `Population est…
+##    &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;           
+##  1 1                1                Cali… 39,557,045      
+##  2 2                2                Texas 28,701,845      
+##  3 3                4                Flor… 21,299,325      
+##  4 4                3                New … 19,542,209      
+##  5 5                6                Penn… 12,807,060      
+##  6 6                5                Illi… 12,741,080      
+##  7 7                7                Ohio  11,689,442      
+##  8 8                9                Geor… 10,519,475      
+##  9 9                10               Nort… 10,383,620      
+## 10 10               8                Mich… 9,995,915       
+## # … with 50 more rows, and 8 more variables: `Census population, April 1,
+## #   2010[6]` &lt;chr&gt;, `Percent change, 2010–2018[note 1]` &lt;chr&gt;, `Absolute
+## #   change, 2010-2018` &lt;chr&gt;, `Total seats in the U.S. House of
+## #   Representatives, 2013–2023` &lt;chr&gt;, `Estimated population per electoral
+## #   vote, 2018[note 2]` &lt;chr&gt;, `Estimated population per House seat,
+## #   2018` &lt;chr&gt;, `Census population per House seat, 2010` &lt;chr&gt;, `Percent
+## #   of the total U.S. population, 2018[note 3]` &lt;chr&gt;</code></pre>
+<p>It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we’ll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings. We need to remove those as well.</p>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb524-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb524-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># First table on the page</span></a>
+<a class="sourceLine" id="cb524-3" data-line-number="3"><span class="st">  </span><span class="kw">html_table</span>()  <span class="op">%&gt;%</span><span class="st">                    </span><span class="co"># as a data.frame</span></a>
+<a class="sourceLine" id="cb524-4" data-line-number="4"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Population2018 =</span> <span class="st">`</span><span class="dt">Population estimate, July 1, 2018[5]</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb524-5" data-line-number="5">         <span class="dt">Population2010 =</span> <span class="st">`</span><span class="dt">Census population, April 1, 2010[6]</span><span class="st">`</span>)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb524-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(Name, Population2018, Population2010) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb524-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove_all, <span class="st">&#39;,&#39;</span>) <span class="op">%&gt;%</span><span class="st">           </span><span class="co"># remove all commas</span></a>
+<a class="sourceLine" id="cb524-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">[[0-9]+</span><span class="ch">\\</span><span class="st">]&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># remove [7] stuff</span></a>
+<a class="sourceLine" id="cb524-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>( <span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), as.numeric)                       <span class="co"># convert to numbers</span></a></code></pre></div>
+<p>And just to show off the data we’ve just imported from Wikipedia, we’ll make a nice graph.</p>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb525-1" data-line-number="1">State_Pop <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb525-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>( <span class="op">!</span>(Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Contiguous United States&#39;</span>, </a>
+<a class="sourceLine" id="cb525-3" data-line-number="3">                        <span class="st">&#39;The fifty states&#39;</span>,<span class="st">&#39;Fifty states + D.C.&#39;</span>,</a>
+<a class="sourceLine" id="cb525-4" data-line-number="4">                        <span class="st">&#39;Total U.S. (including D.C. and territories)&#39;</span>) ) )  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb525-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Percent_Change =</span> (Population2018 <span class="op">-</span><span class="st"> </span>Population2010)<span class="op">/</span>Population2010 ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb525-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Name =</span> <span class="kw">fct_reorder</span>(Name, Percent_Change) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb525-7" data-line-number="7"><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Name, <span class="dt">y=</span>Percent_Change) ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb525-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_col</span>( ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb525-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>, <span class="dt">y=</span><span class="st">&#39;% Change&#39;</span>, <span class="dt">title=</span><span class="st">&#39;State Population growth 2010-2018&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb525-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_flip</span>() </a></code></pre></div>
+<p><img src="29_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
-<div id="exercises-8" class="section level2">
-<h2><span class="header-section-number">8.4</span> Exercises</h2>
+</div>
+<div id="exercises-13" class="section level2">
+<h2><span class="header-section-number">13.2</span> Exercises</h2>
 <ol style="list-style-type: decimal">
-<li>Download from GitHub the data file <code>Example_5.xls</code>. Open it in Excel and figure out which sheet of data we should import into R. At the same time figure out how many initial rows need to be skipped. Import the data set into a data frame and show the structure of the imported data using the <code>str()</code> command. Make sure that your data has <span class="math inline">\(n=31\)</span> observations and the three columns are appropriately named.</li>
+<li><p>At the Insurance Institute for Highway Safety, they have
+<a href="https://www.iihs.org/topics/fatality-statistics/detail/state-by-state">data</a>
+about human fatalities in vehicle crashes. From this webpage, import the data from the Fatal Crash Totals data table and produce a bar graph gives the number of deaths per 100,000 individuals.</p></li>
+<li><p>From the same IIHS website, import the data about seatbelt use. Join the Fatality data with the seatbelt use and make a scatterplot of seatbelt use vs number of fatalities per 100,000 people.</p></li>
 </ol>
 
 </div>
@@ -532,8 +462,8 @@ quotes.</td>
           </div>
         </div>
       </div>
-<a href="rmarkdown-tricks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9-user-defined-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="12-data-reshaping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="14-r-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -564,7 +494,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/444/raw/master/20_Data_Import.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/29_Scraping.Rmd",
 "text": "Edit"
 },
 "history": {

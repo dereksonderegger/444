@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Factors | STA 444/5 - Introductory Data Science using R</title>
-  <meta name="description" content="Chapter 7 Factors | STA 444/5 - Introductory Data Science using R" />
+  <title>Chapter 15 R Packages | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 15 R Packages | STA 444/5 - Introductory Data Science using R" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Factors | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:title" content="Chapter 15 R Packages | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Factors | STA 444/5 - Introductory Data Science using R" />
+  <meta name="twitter:title" content="Chapter 15 R Packages | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="6-flow-control.html">
-<link rel="next" href="statistical-tables.html">
+<link rel="prev" href="14-data-scraping.html">
+<link rel="next" href="16-speeding-up-r.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -345,270 +345,368 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="factors" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Factors</h1>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1"><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)   <span class="co"># loading ggplot2 and dplyr</span></a></code></pre></div>
-<p>In R we can store categorical information as either strings or as factors. To a casual user, it often doesn’t matter how the information is stored because the modeling and graphing programs happily convert strings into factors whenever necessary. However a deeper understanding of how factors are stored and manipulated allows a user much finer control in the modeling and graphing.</p>
-<p>We will be interested in the following broad classes of manipulations:</p>
-<div id="edit-factor-labels" class="section level4 unnumbered">
-<h4>Edit Factor Labels</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Goal</th>
-<th align="left"><code>forcats</code> function</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Manually change the label(s)</td>
-<td align="left"><code>fct_recode(f, new_label = &quot;old_label&quot;)</code></td>
-</tr>
-<tr class="even">
-<td align="left">Systematically change all labels</td>
-<td align="left"><code>fct_relabel(f, function)</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="reorder-levels" class="section level4 unnumbered">
-<h4>Reorder Levels</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Goal</th>
-<th align="left"><code>forcats</code> function</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Set order manually</td>
-<td align="left"><code>fct_relevel(f, 'b', 'a', 'c')</code></td>
-</tr>
-<tr class="even">
-<td align="left">Set order based on another vector</td>
-<td align="left"><code>fct_reorder(f, x)</code></td>
-</tr>
-<tr class="odd">
-<td align="left">Set order based on which category is most frequent</td>
-<td align="left"><code>fct_infreq(f)</code></td>
-</tr>
-<tr class="even">
-<td align="left">Set order based on when they first appear</td>
-<td align="left"><code>fct_inorder(f)</code></td>
-</tr>
-<tr class="odd">
-<td align="left">Reverse factor order</td>
-<td align="left"><code>fct_rev(f)</code></td>
-</tr>
-<tr class="even">
-<td align="left">Rotate order left or right</td>
-<td align="left"><code>fct_shift(f, steps)</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="add-or-subtract-levels" class="section level4 unnumbered">
-<h4>Add or Subtract Levels</h4>
+<div id="r-packages" class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> R Packages</h1>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">15.1</span> Introduction</h2>
+<p>R packages are documented and consistent format for storing data, functions, documentation, and analysis. We use a consistent format so that other researchers (or ourselves in six months) know exactly where the raw data should be, where to find any functions that are written, and document the data cleaning process.</p>
+<p>In principle, all of these steps could be accomplished by a single data file and a single analysis Rmarkdown file. However as projects get larger in scope, the number of data files, the complexity of data cleaning, and the number of people working with the data will grow. With more complexity, the need to impose order on it becomes critical.</p>
+<p>Even if the project is small, organizing my work into a package structure provides a benefit. First, it forces me to keep my data wrangling code organized and encourages documenting any functions I create. Second, by separating the data wrangling step code from the analysis, I think more deeply about verification and initial exploration to understand how best to store the data. Finally, because all my subsequent analysis will depend on the same tidy dataset, I make few mistakes where I cleaned the data correctly in one analysis, but forgot a step in another analysis.</p>
+<p>I recommend using an R package for any analysis more complicated than a homework assignment because the start-up is relatively simple and if the project grows, you’ll appreciate that you started it in an organized fashion.</p>
+<div id="useful-packages-and-books" class="section level3">
+<h3><span class="header-section-number">15.1.1</span> Useful packages and books</h3>
+<p>There are several packages that make life easier.</p>
 <table>
 <colgroup>
-<col width="37%" />
-<col width="62%" />
+<col width="26%" />
+<col width="73%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Goal</th>
-<th align="left"><code>forcats</code> function</th>
+<th align="center">Package</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Manually select categories to collapse into one</td>
-<td align="left"><code>fct_collapse(f, other = c('a','b'))</code></td>
+<td align="center"><code>devtools</code></td>
+<td align="left">Tools by Hadley, for Hadley (and the rest of us).</td>
 </tr>
 <tr class="even">
-<td align="left">Add a new factor level</td>
-<td align="left"><code>fct_expand(f, 'new level')</code></td>
+<td align="center"><code>roxygen2</code></td>
+<td align="left">A coherent documentation syntax</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>testthat</code></td>
+<td align="left">Quality Assurance tools</td>
+</tr>
+<tr class="even">
+<td align="center"><code>usethis</code></td>
+<td align="left">Automates repetitive tasks that arise during project setup and development, both for R packages and non-package projects.</td>
+</tr>
+</tbody>
+</table>
+<p>Hadley Wickham has written a book on R packages that gives a lot more information than I’m giving here. The book is available <a href="http://r-pkgs.had.co.nz">online</a>.</p>
+</div>
+</div>
+<div id="package-structure" class="section level2">
+<h2><span class="header-section-number">15.2</span> Package Structure</h2>
+<div id="minimal-files-and-directories" class="section level3">
+<h3><span class="header-section-number">15.2.1</span> Minimal files and directories</h3>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">File/Directory</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>DESCRIPTION</code></td>
+<td align="left">A file describing your package. You <strong>should</strong> edit this at some point.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>NAMESPACE</code></td>
+<td align="left">A file that lists all the functions and datasets available to users after loading the package. You <strong>should not</strong> edit this by hand.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>.Rbuildignore</code></td>
+<td align="left">A list of files that shouldn’t be included when the package is built.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>R/</code></td>
+<td align="left">This directory contains documentation files for datasets. It also contains the R code and documention for functions you create. I generally recommend one documentation file for each dataset, and one file for each function, although if you have several related functions, you might keep them in the same file. This directory can be empty, but it does have to exist.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>man/</code></td>
+<td align="left">This contains the documentation (manual) files generated by <code>roxygen2</code>. You <strong>should not</strong> edit these as they will be rebuilt from the source R code in the <code>R/</code> directory.</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="creation-and-structure" class="section level2">
-<h2><span class="header-section-number">7.1</span> Creation and Structure</h2>
-<p>R stores factors as a combination of a vector of category labels and vector of integers representing which category a data value belongs to. For example, lets create a vector of data relating to what soft drinks my siblings prefer.</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" data-line-number="1"><span class="co"># A vector of character strings.</span></a>
-<a class="sourceLine" id="cb257-2" data-line-number="2">drinks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;DietCoke&#39;</span>, <span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Sprite&#39;</span>, <span class="st">&#39;Pepsi&#39;</span>)</a>
-<a class="sourceLine" id="cb257-3" data-line-number="3"><span class="kw">str</span>(drinks)</a></code></pre></div>
-<pre><code>##  chr [1:5] &quot;DietCoke&quot; &quot;Coke&quot; &quot;Coke&quot; &quot;Sprite&quot; &quot;Pepsi&quot;</code></pre>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" data-line-number="1"><span class="co"># convert the vector of character strings into a factor vector</span></a>
-<a class="sourceLine" id="cb259-2" data-line-number="2">drinks &lt;-<span class="st"> </span><span class="kw">factor</span>(drinks)</a>
-<a class="sourceLine" id="cb259-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb259-4" data-line-number="4"><span class="co"># Category and Label mapping table</span></a>
-<a class="sourceLine" id="cb259-5" data-line-number="5"><span class="kw">data.frame</span>( <span class="dt">Category=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">labels=</span><span class="kw">levels</span>(drinks))</a></code></pre></div>
-<pre><code>##   Category   labels
-## 1        1     Coke
-## 2        2 DietCoke
-## 3        3    Pepsi
-## 4        4   Sprite</code></pre>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" data-line-number="1"><span class="kw">as.integer</span>(drinks) <span class="co"># Print the category assigments</span></a></code></pre></div>
-<pre><code>## [1] 2 1 1 4 3</code></pre>
-<p>Notice that the factor has levels “Coke”, “DietCoke”, “Pepsi”, and “Sprite” and that the order of these levels is very important because each observation is saved as an <em>integer</em> which denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of potentially very long character string, factors are much more space efficient than storing the same data as strings.</p>
-<p>Whenever we do anything that sorts on this factor, the order of the labels in this mapping table determine the sort orders. In order to modify factor labels and levels, we basically need to modify this mapping table. We don’t do this directly, but rather using functions in the <code>forcats</code> package.</p>
+<div id="optional-files-and-directories" class="section level3">
+<h3><span class="header-section-number">15.2.2</span> Optional Files and Directories</h3>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">File/Directory</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>data/</code></td>
+<td align="left">A directory of datasets. Each file should be an <code>.RData</code> or <code>.Rda</code> file created by the <code>save()</code> containing a single object (with the same names as the file). Anything in this directory will be loaded and accessible to the user when the package is loaded. While it isn’t necessary for this directory to exist, it often does.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>data-raw/</code></td>
+<td align="left">A directory where we store data files that are not <code>.RData</code> format. Usually these are <code>.csv</code> or <code>.xls</code> files. Typically I’ll have R scripts in this directory that read in raw data, do whatever data wrangling and cleaning that needs to be done, and saves the result in the <code>data/</code> directory. Obnoxiously the documentation for the dataset does not live in this directory, but rather in the <code>R/</code> directory.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>docs/</code></td>
+<td align="left">A directory where any Rmarkdown analysis files that are especially time consuming and should not be executed each time the package is built. When I build a package for a data-analysis project, the reports I create go into this directory.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>vignettes/</code></td>
+<td align="left">A directory where Rmarkdown files should go that introduce how to use the package. When a package is built, then Rmarkdown files in this directory will also be rebuilt.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>tests/</code></td>
+<td align="left">A directory for code used for package testing functions you’ve written.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>inst/</code></td>
+<td align="left">Miscellaneous stuff. In particular <code>inst/extdata/</code> is where you might put data that is not in <code>.RData</code> format (Excel files and such) but you want it available to the users. Anything in the <code>inst/extdata</code> will be available to to user via <code>system.file('file.xls',package='MyAwesomePackage')</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>src/</code></td>
+<td align="left">A directory where C/C++, Fortran, Python, etc source code is stored.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>exec/</code></td>
+<td align="left">A directory where executables you might have created from the source code should go.</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="change-labels" class="section level2">
-<h2><span class="header-section-number">7.2</span> Change Labels</h2>
-<p>To demonstrate the <code>forcats</code> functions, we will consider two datasets. The first consists of a dataset of a small US highschool with observations for each student and we record their year and gender.</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" data-line-number="1">Students &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb263-2" data-line-number="2"><span class="st">  </span><span class="kw">expand.grid</span>(<span class="dt">Year=</span><span class="st">&#39;freshman&#39;</span>, <span class="dt">Gender=</span><span class="dv">1</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">23</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb263-3" data-line-number="3"><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;freshman&#39;</span>, <span class="dt">Gender=</span><span class="dv">0</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb263-4" data-line-number="4"><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;junior&#39;</span>,   <span class="dt">Gender=</span><span class="dv">1</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">30</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb263-5" data-line-number="5"><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;junior&#39;</span>,   <span class="dt">Gender=</span><span class="dv">0</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">32</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb263-6" data-line-number="6"><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;senior&#39;</span>,   <span class="dt">Gender=</span><span class="dv">1</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">18</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb263-7" data-line-number="7"><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;senior&#39;</span>,   <span class="dt">Gender=</span><span class="dv">0</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">19</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb263-8" data-line-number="8"><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;sophmore&#39;</span>, <span class="dt">Gender=</span><span class="dv">1</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb263-9" data-line-number="9"><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;sophmore&#39;</span>, <span class="dt">Gender=</span><span class="dv">0</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb263-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb263-11" data-line-number="11"><span class="co"># Variables that are character strings are coerced to factors.</span></a>
-<a class="sourceLine" id="cb263-12" data-line-number="12"><span class="co"># Variables that are numeric are not, and should be explicitly turned to factors.</span></a>
-<a class="sourceLine" id="cb263-13" data-line-number="13">Students &lt;-<span class="st"> </span>Students <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">factor</span>(Gender) )</a>
-<a class="sourceLine" id="cb263-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb263-15" data-line-number="15">Students <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb263-16" data-line-number="16"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>The first thing we ought to consider is how to change the factor labels for <code>Gender</code>. To do this we’ll use the <code>fct_recode()</code> function.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1"><span class="co"># Change Gender from 0/1  to Female/Male</span></a>
-<a class="sourceLine" id="cb264-2" data-line-number="2">Students &lt;-<span class="st"> </span>Students <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb264-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">fct_recode</span>(Gender, <span class="dt">Male=</span><span class="st">&#39;1&#39;</span>),</a>
-<a class="sourceLine" id="cb264-4" data-line-number="4">          <span class="dt">Gender =</span> <span class="kw">fct_recode</span>(Gender, <span class="dt">Female=</span><span class="st">&#39;0&#39;</span>) )</a>
-<a class="sourceLine" id="cb264-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb264-6" data-line-number="6"><span class="co"># Change &quot;Freshman&quot; to the gender neutral &quot;First Year&quot; </span></a>
-<a class="sourceLine" id="cb264-7" data-line-number="7">Students &lt;-<span class="st"> </span>Students <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb264-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_recode</span>(Year, <span class="st">`</span><span class="dt">first year</span><span class="st">`</span> =<span class="st"> &#39;freshman&#39;</span>))</a>
-<a class="sourceLine" id="cb264-9" data-line-number="9">  </a>
-<a class="sourceLine" id="cb264-10" data-line-number="10">Students <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb264-11" data-line-number="11"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>We might want to apply some function to all the functon labels. Perhaps we want to remove whitespace or perhaps we want to capitalize all the labels. To apply a function to each of the labels, we use the <code>fct_relabel()</code> function.</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" data-line-number="1">Students <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb265-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_relabel</span>(Year, stringr<span class="op">::</span>str_to_upper) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb265-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
-<div id="reorder-levels-1" class="section level2">
-<h2><span class="header-section-number">7.3</span> Reorder Levels</h2>
-<p>Once the factor labels are set, the next most common thing to do is to rearrange the factors. In our <code>Students</code> example, the order is messed up because it chose to order them in the same order that they appear in the data set. That is not appropriate and in this case, it makes sense to change the order to the chronological order First Year, Sophmore, Junior, Senior.</p>
-<p>To change the ordering manually, we use the <code>fct::relevel()</code> command. This function takes as many levels as you give it and leaves the unaccounted for levels in the same order as they were.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" data-line-number="1"><span class="co"># Seniors first, leave the rest in the order they already were</span></a>
-<a class="sourceLine" id="cb266-2" data-line-number="2">Students <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb266-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_relevel</span>(Year, <span class="st">&#39;senior&#39;</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb266-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" data-line-number="1"><span class="co"># reset all the levels orders</span></a>
-<a class="sourceLine" id="cb267-2" data-line-number="2">Students <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb267-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_relevel</span>(Year, <span class="st">&#39;senior&#39;</span>, <span class="st">&#39;junior&#39;</span>,<span class="st">&#39;sophmore&#39;</span>,<span class="st">&#39;first year&#39;</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb267-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" data-line-number="1"><span class="co"># Reverse order of what I already had</span></a>
-<a class="sourceLine" id="cb268-2" data-line-number="2">Students <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb268-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_relevel</span>(Year, <span class="st">&#39;senior&#39;</span>, <span class="st">&#39;junior&#39;</span>,<span class="st">&#39;sophmore&#39;</span>,<span class="st">&#39;first year&#39;</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb268-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_rev</span>(Year) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb268-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-7-3.png" width="672" /></p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" data-line-number="1"><span class="co"># Sometimes it is useful to rotate using + or - the number of shift steps</span></a>
-<a class="sourceLine" id="cb269-2" data-line-number="2"><span class="co"># positive values move the first to the end. Negative values move the end to the front.</span></a>
-<a class="sourceLine" id="cb269-3" data-line-number="3">Students <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb269-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_relevel</span>(Year, <span class="st">&#39;senior&#39;</span>, <span class="st">&#39;junior&#39;</span>,<span class="st">&#39;sophmore&#39;</span>,<span class="st">&#39;first year&#39;</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb269-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_shift</span>(Year, <span class="op">+</span><span class="dv">1</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb269-6" data-line-number="6"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-7-4.png" width="672" /></p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" data-line-number="1"><span class="co"># In the order of the most number of records</span></a>
-<a class="sourceLine" id="cb270-2" data-line-number="2">Students <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb270-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_infreq</span>(Year) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb270-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-7-5.png" width="672" /></p>
-<p>For a second example data set, consider a <a href="https://www.monmouth.edu/polling-institute/reports/monmouthpoll_NH_092419/">poll</a>
-from Monmouth University of New Hampshire Democrats and Independents.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" data-line-number="1">Dems &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb271-2" data-line-number="2">  <span class="op">~</span>Candidate, <span class="op">~</span>Percent, <span class="op">~</span>AgeOnElection,</a>
-<a class="sourceLine" id="cb271-3" data-line-number="3"><span class="st">&#39;Elizabeth Warren&#39;</span>, <span class="dv">27</span>, <span class="dv">71</span>,</a>
-<a class="sourceLine" id="cb271-4" data-line-number="4"><span class="st">&#39;Joe Biden&#39;</span>,    <span class="dv">25</span>, <span class="dv">77</span>,</a>
-<a class="sourceLine" id="cb271-5" data-line-number="5"><span class="st">&#39;Bernie Sanders&#39;</span>,   <span class="dv">12</span>, <span class="dv">79</span>,</a>
-<a class="sourceLine" id="cb271-6" data-line-number="6"><span class="st">&#39;Pete Buttigieg&#39;</span>,   <span class="dv">10</span>, <span class="dv">38</span>,</a>
-<a class="sourceLine" id="cb271-7" data-line-number="7"><span class="st">&#39;Kamala Harris&#39;</span>,    <span class="dv">3</span>, <span class="dv">56</span>,</a>
-<a class="sourceLine" id="cb271-8" data-line-number="8"><span class="st">&#39;Cory Booker&#39;</span>,  <span class="dv">2</span>, <span class="dv">51</span>,</a>
-<a class="sourceLine" id="cb271-9" data-line-number="9"><span class="st">&#39;Tulsi Gabbard&#39;</span>,    <span class="dv">2</span>, <span class="dv">39</span>,</a>
-<a class="sourceLine" id="cb271-10" data-line-number="10"><span class="st">&#39;Amy Klobuchar&#39;</span>,    <span class="dv">2</span>, <span class="dv">60</span>, </a>
-<a class="sourceLine" id="cb271-11" data-line-number="11"><span class="st">&#39;Tom Steyer&#39;</span>,   <span class="dv">2</span>, <span class="dv">63</span>,</a>
-<a class="sourceLine" id="cb271-12" data-line-number="12"><span class="st">&#39;Andrew Yang&#39;</span>,  <span class="dv">2</span>, <span class="dv">45</span>, </a>
-<a class="sourceLine" id="cb271-13" data-line-number="13"><span class="st">&#39;Other&#39;</span>,    <span class="dv">3</span>, <span class="ot">NA</span>,</a>
-<a class="sourceLine" id="cb271-14" data-line-number="14"><span class="st">&#39;No one&#39;</span>,   <span class="dv">1</span>, <span class="ot">NA</span>,</a>
-<a class="sourceLine" id="cb271-15" data-line-number="15"><span class="st">&#39;Undecided&#39;</span>,    <span class="dv">9</span>, <span class="ot">NA</span>)</a></code></pre></div>
-<p>We now want to first arrange the 2020 Democratic candidates for US president by their support.</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" data-line-number="1"><span class="co"># Reorder Candidates based on the polling percent. The order of Smallest to largest </span></a>
-<a class="sourceLine" id="cb272-2" data-line-number="2"><span class="co"># results in &#39;No one&#39; at the bottom and Elizabeth Warren at the top. </span></a>
-<a class="sourceLine" id="cb272-3" data-line-number="3">Dems <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb272-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_reorder</span>(Candidate, Percent) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb272-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Candidate, <span class="dt">y=</span>Percent)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>We might consider moving the <code>Other</code> and <code>Undecided</code> categories as the first categories before “No one”.</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" data-line-number="1">Dems <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb273-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_reorder</span>(Candidate, Percent) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb273-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_relevel</span>(Candidate, <span class="st">&#39;Other&#39;</span>, <span class="dt">after=</span><span class="dv">0</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb273-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_relevel</span>(Candidate, <span class="st">&#39;Undecided&#39;</span>, <span class="dt">after=</span><span class="dv">0</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb273-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Candidate, <span class="dt">y=</span>Percent)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div id="documenting" class="section level2">
+<h2><span class="header-section-number">15.3</span> Documenting</h2>
+<p>The <code>man/</code> directory is where the final documentation exists, but the format that was initially established is quite unwieldy. To address this, the <code>roxygen2</code> package uses a more robust and modern syntax and keeps the function documentation with the actual code in the <code>R\</code> directory. The results in a process where we write the documentation in files in the <code>R/</code> directory and then run a <code>roxygen2</code> command to build the actual documentation files in the <code>man/</code> directory. To run this, use the <code>Build</code> tab and then <code>More -&gt; Document</code>.</p>
+<p>Hadley Wickham has a more complete discussion of package documentation in a
+<a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html">vignette</a>
+for <code>roxygen2</code>. If/when the information in this chapter seems insufficient, that should be your next resource.</p>
+<p>The documentation information is built in comments and so documentation lines always start with a <code>#'</code>. For both datasets and functions, the first couple of lines give the short title and description.</p>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb642-1" data-line-number="1"><span class="co">#&#39; A short title</span></a>
+<a class="sourceLine" id="cb642-2" data-line-number="2"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb642-3" data-line-number="3"><span class="co">#&#39; A longer paragraph that describes the context of the dataset/function and </span></a>
+<a class="sourceLine" id="cb642-4" data-line-number="4"><span class="co">#&#39; discusses important aspects that will be necessary for somebody first seeing </span></a>
+<a class="sourceLine" id="cb642-5" data-line-number="5"><span class="co">#&#39; the data/function to know about. Any text in these initial paragraphs will be </span></a>
+<a class="sourceLine" id="cb642-6" data-line-number="6"><span class="co">#&#39; in the description section of the documentation file.</span></a>
+<a class="sourceLine" id="cb642-7" data-line-number="7"><span class="co">#&#39; </span></a></code></pre></div>
+<div id="dataset-documentation" class="section level3">
+<h3><span class="header-section-number">15.3.1</span> Dataset Documentation</h3>
+<p>Dataset documentation should contain both general information about the context of the data as well as detailed information about the data columns. Finally the documentation should also include information about where the data came from, if it is available. The title and description are given in the first paragraphs of the description, but the format and source need some indication starting the sections.</p>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb643-1" data-line-number="1"><span class="co">#&#39; @format A data frame with XXX observations with ZZ columns.</span></a>
+<a class="sourceLine" id="cb643-2" data-line-number="2"><span class="co">#&#39; \describe{</span></a>
+<a class="sourceLine" id="cb643-3" data-line-number="3"><span class="co">#&#39;    \item{Column1}{Description of column 1, including units if appropriate}</span></a>
+<a class="sourceLine" id="cb643-4" data-line-number="4"><span class="co">#&#39;    \item{Column2}{Description of column 2, including units if appropriate}</span></a>
+<a class="sourceLine" id="cb643-5" data-line-number="5"><span class="co">#&#39; }</span></a></code></pre></div>
+<p>There are a few other documentation sections that can be filled in. They will all be introduced using <code>@Section</code> notation.</p>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb644-1" data-line-number="1"><span class="co">#&#39; @source This describes where the data came from</span></a>
+<a class="sourceLine" id="cb644-2" data-line-number="2"><span class="co">#&#39; @references If we need to cite some book or journal article.</span></a></code></pre></div>
 </div>
-<div id="add-or-substract-levels" class="section level2">
-<h2><span class="header-section-number">7.4</span> Add or substract Levels</h2>
-<p>Often we find that it is necessary to collapse several categories into one. In the Democratic candidate example, we might want to collapse <code>No one</code>, <code>Other</code> and <code>Undecided</code> into a single <code>Other</code> category.</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" data-line-number="1"><span class="co"># This collapses the factor levels but I still have 3 rows of &quot;other&quot;</span></a>
-<a class="sourceLine" id="cb274-2" data-line-number="2">Dems <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb274-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_collapse</span>(Candidate, <span class="dt">other =</span> <span class="kw">c</span>(<span class="st">&#39;No one&#39;</span>, <span class="st">&#39;Other&#39;</span>, <span class="st">&#39;Undecided&#39;</span>)) )</a></code></pre></div>
-<pre><code>## # A tibble: 13 x 3
-##    Candidate        Percent AgeOnElection
-##    &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 Elizabeth Warren      27            71
-##  2 Joe Biden             25            77
-##  3 Bernie Sanders        12            79
-##  4 Pete Buttigieg        10            38
-##  5 Kamala Harris          3            56
-##  6 Cory Booker            2            51
-##  7 Tulsi Gabbard          2            39
-##  8 Amy Klobuchar          2            60
-##  9 Tom Steyer             2            63
-## 10 Andrew Yang            2            45
-## 11 other                  3            NA
-## 12 other                  1            NA
-## 13 other                  9            NA</code></pre>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" data-line-number="1"><span class="co"># Collopse the factor, then summarize by adding up the percentages  </span></a>
-<a class="sourceLine" id="cb276-2" data-line-number="2">Dems <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb276-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_collapse</span>(Candidate, <span class="dt">other =</span> <span class="kw">c</span>(<span class="st">&#39;No one&#39;</span>, <span class="st">&#39;Other&#39;</span>, <span class="st">&#39;Undecided&#39;</span>)) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb276-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(Candidate) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">Percent =</span> <span class="kw">sum</span>(Percent)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb276-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_reorder</span>(Candidate, Percent) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb276-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_relevel</span>(Candidate, <span class="st">&#39;other&#39;</span>, <span class="dt">after=</span><span class="dv">0</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb276-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Candidate, <span class="dt">y=</span>Percent)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="07_Factors_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div id="documenting-functions" class="section level3">
+<h3><span class="header-section-number">15.3.2</span> Documenting Functions</h3>
+<p>Functions that you want other people to use need to be documentated. In particular, we need a general description of what the function does, a list of all function arguments and what they do, and what type of object the function returns. Finally, it is nice to have some examples that demonstrate how the function can be used.</p>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb645-1" data-line-number="1"><span class="co">#&#39; Sum two numeric objects.</span></a>
+<a class="sourceLine" id="cb645-2" data-line-number="2"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb645-3" data-line-number="3"><span class="co">#&#39; Because this is a very simple function, my explanation is short. These</span></a>
+<a class="sourceLine" id="cb645-4" data-line-number="4"><span class="co">#&#39; paragraphs should explain everything you need to know.</span></a>
+<a class="sourceLine" id="cb645-5" data-line-number="5"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb645-6" data-line-number="6"><span class="co">#&#39; This is still in the description part of the documentation and and it </span></a>
+<a class="sourceLine" id="cb645-7" data-line-number="7"><span class="co">#&#39; will be until we see something that indicates a new section.</span></a>
+<a class="sourceLine" id="cb645-8" data-line-number="8"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb645-9" data-line-number="9"><span class="co">#&#39; @param a A real number</span></a>
+<a class="sourceLine" id="cb645-10" data-line-number="10"><span class="co">#&#39; @param b A real number</span></a>
+<a class="sourceLine" id="cb645-11" data-line-number="11"><span class="co">#&#39; @return The sum of \code{a} and \code{b}</span></a>
+<a class="sourceLine" id="cb645-12" data-line-number="12"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb645-13" data-line-number="13"><span class="co">#&#39; sum(12,5)</span></a>
+<a class="sourceLine" id="cb645-14" data-line-number="14"><span class="co">#&#39; sum(4,-2)</span></a>
+<a class="sourceLine" id="cb645-15" data-line-number="15"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb645-16" data-line-number="16">my.sum &lt;-<span class="st"> </span><span class="cf">function</span>( a, b ){</a>
+<a class="sourceLine" id="cb645-17" data-line-number="17">  <span class="kw">return</span>( a <span class="op">+</span><span class="st"> </span>b )</a>
+<a class="sourceLine" id="cb645-18" data-line-number="18">}</a></code></pre></div>
+<p>Each of the sections is self explanatory except for the <code>@export</code>. The purpose of this is to indicate that this function should be available to any user of the package. If a function is not exported, then it is available only to functions <em>within</em> the package. This can be convenient if there are multiple functions that help with the analysis but you don’t want the user to see them because it is too much work to explain that they shouldn’t use it</p>
+<p>Other regions that you might use:
+* <code>@seealso</code> allows you to point to other resources
++ on the web <code>\url{http://www.r-project.org}</code>
++ in your package <code>\code{\link{hello}}</code>
++ in another package <code>\code{\link[package]{function}}</code>
+* <code>@aliases alias_1 alias_2 ...</code> Other topics that when searched for will point to this documentation
+* <code>@author</code> This isn’t necessary if the author is the same as the package author.
+* <code>@references</code> This is a text area to point to the literature.</p>
+<p>A complete list is available via</p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb646-1" data-line-number="1"><span class="kw">names</span>(roxygen2<span class="op">:::</span><span class="kw">default_tags</span>())</a></code></pre></div>
+<pre><code>##  [1] &quot;evalNamespace&quot;     &quot;export&quot;            &quot;exportClass&quot;      
+##  [4] &quot;exportMethod&quot;      &quot;exportPattern&quot;     &quot;import&quot;           
+##  [7] &quot;importClassesFrom&quot; &quot;importFrom&quot;        &quot;importMethodsFrom&quot;
+## [10] &quot;rawNamespace&quot;      &quot;S3method&quot;          &quot;useDynLib&quot;        
+## [13] &quot;aliases&quot;           &quot;author&quot;            &quot;backref&quot;          
+## [16] &quot;concept&quot;           &quot;describeIn&quot;        &quot;description&quot;      
+## [19] &quot;details&quot;           &quot;docType&quot;           &quot;encoding&quot;         
+## [22] &quot;evalRd&quot;            &quot;example&quot;           &quot;examples&quot;         
+## [25] &quot;family&quot;            &quot;field&quot;             &quot;format&quot;           
+## [28] &quot;inherit&quot;           &quot;inheritParams&quot;     &quot;inheritDotParams&quot; 
+## [31] &quot;inheritSection&quot;    &quot;keywords&quot;          &quot;method&quot;           
+## [34] &quot;name&quot;              &quot;md&quot;                &quot;noMd&quot;             
+## [37] &quot;noRd&quot;              &quot;note&quot;              &quot;param&quot;            
+## [40] &quot;rdname&quot;            &quot;rawRd&quot;             &quot;references&quot;       
+## [43] &quot;return&quot;            &quot;section&quot;           &quot;seealso&quot;          
+## [46] &quot;slot&quot;              &quot;source&quot;            &quot;template&quot;         
+## [49] &quot;templateVar&quot;       &quot;title&quot;             &quot;usage&quot;</code></pre>
 </div>
-<div id="exercises-6" class="section level2">
-<h2><span class="header-section-number">7.5</span> Exercises</h2>
+</div>
+<div id="the-description-file" class="section level2">
+<h2><span class="header-section-number">15.4</span> The DESCRIPTION file</h2>
+<p>I never write the DESCRIPTION file myself, but rather it is generated it from a template when the package structure is initially created. It is useful to go into this file and edit it.</p>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb648-1" data-line-number="1">Package<span class="op">:</span><span class="st"> </span>MyAwesomePackage</a>
+<a class="sourceLine" id="cb648-2" data-line-number="2">Title<span class="op">:</span><span class="st"> </span>What the Package <span class="kw">Does</span> (One Line, Title Case)</a>
+<a class="sourceLine" id="cb648-3" data-line-number="3">Version<span class="op">:</span><span class="st"> </span><span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span></a>
+<a class="sourceLine" id="cb648-4" data-line-number="4">Authors<span class="op">@</span>R<span class="op">:</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb648-5" data-line-number="5"><span class="st">    </span><span class="kw">person</span>(<span class="dt">given =</span> <span class="st">&quot;First&quot;</span>,</a>
+<a class="sourceLine" id="cb648-6" data-line-number="6">           <span class="dt">family =</span> <span class="st">&quot;Last&quot;</span>,</a>
+<a class="sourceLine" id="cb648-7" data-line-number="7">           <span class="dt">role =</span> <span class="kw">c</span>(<span class="st">&quot;aut&quot;</span>, <span class="st">&quot;cre&quot;</span>),</a>
+<a class="sourceLine" id="cb648-8" data-line-number="8">           <span class="dt">email =</span> <span class="st">&quot;first.last@example.com&quot;</span>,</a>
+<a class="sourceLine" id="cb648-9" data-line-number="9">           <span class="dt">comment =</span> <span class="kw">c</span>(<span class="dt">ORCID =</span> <span class="st">&quot;YOUR-ORCID-ID&quot;</span>))</a>
+<a class="sourceLine" id="cb648-10" data-line-number="10">Description<span class="op">:</span><span class="st"> </span>What the package <span class="kw">does</span> (one paragraph).</a>
+<a class="sourceLine" id="cb648-11" data-line-number="11">License<span class="op">:</span><span class="st"> </span>What license it uses</a>
+<a class="sourceLine" id="cb648-12" data-line-number="12">Encoding<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></a>
+<a class="sourceLine" id="cb648-13" data-line-number="13">LazyData<span class="op">:</span><span class="st"> </span>true</a></code></pre></div>
+<p>Often you want to have your package include other libraries so that the packages are available to be used in any functions you use. To do this, you’ll add lines to the description file.</p>
+<pre><code>```r
+Depends: magrittr     
+Imports: dplyr, ggplot2, tidyr
+Suggests: lme4
+```</code></pre>
+<p>In this example, I’ve included a dependency on the <code>magrittr</code> package, which defines the <code>%&gt;%</code> operator, while <code>dplyr</code>, <code>ggplot2</code>, <code>tidyr</code>, and <code>lme4</code> packages are included in a slightly different manner.</p>
+<table>
+<colgroup>
+<col width="28%" />
+<col width="71%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Package Dependency Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>Depends</code></td>
+<td align="left">These packages are required to have been downloaded from CRAN and will be attached to the namespace when your package is loaded. If your package is going to be widely used, you want to keep this list as short as possible to avoid function name clashes.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>Imports</code></td>
+<td align="left">These packages are required be present on the computer, but will <strong>not</strong> be attached to the namespace. Whenever you want to use them you must use then in one of your functions, you’ll need to use <code>PackageName::FunctionName</code> syntax.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>Suggests</code></td>
+<td align="left">These packages are not required. Often these are packages of data that are only used in the examples, the unit tests, or in a vignette. These are not loaded/attached by default.</td>
+</tr>
+</tbody>
+</table>
+<p>For widely distributed packages, using <code>Imports</code> is preferred but that is annoying to be required to use the <code>PackageName::FunctionName()</code> syntax within all of the functions you write. The reason to avoid Depends is to avoid namespace problems. For example, because packages <code>MASS</code> and <code>dplyr</code> both have a <code>select()</code> function, it is advisable to avoid depending on <code>dplyr</code> just in case the user also has loaded the <code>MASS</code> package.</p>
+<p>For a data analysis package, I usually leave the Depends/Imports/Suggests blank and just load whatever analysis packages I need in an RMarkdown file that lives in the <code>docs/</code> directory.</p>
+<div id="a-simple-analysis-package" class="section level3">
+<h3><span class="header-section-number">15.4.1</span> A Simple Analysis Package</h3>
+<p>I find it is easiest to use RStudio to start a new package via <code>File -&gt; New Project ...</code> and then start a project in a <code>new directory</code> and finally select that we want a new <code>R package</code>.</p>
+<p>Alternatively we could use the <code>usethis::create_package()</code> function to build the minimal package.</p>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb650-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">create_package</span>(<span class="st">&#39;~/GitHub/TestPackage&#39;</span>)  <span class="co"># replace the path to where you want it...</span></a></code></pre></div>
+<p>Once the package is created:</p>
 <ol style="list-style-type: decimal">
-<li><p>In the package <code>Lock5Data</code> there is a dataset <code>FloridaLakes</code> which contains water sample measurements from 53 lakes in Florida, produce a bar graph shows the <code>Lake</code> and <code>AvgMercury</code> variables and make sure that the lakes are ordered by Average Murcury content.</p></li>
-<li><p>In the package <code>Lock5Data</code>, there is a dataset <code>FootballBrain</code> that has brain measurements for 75 individuals. The <code>Group</code> variable has three levels: <code>Control</code> is somebody that did not play football, <code>FBNoConcuss</code> is a football player with no history of concussions, or <code>FBConcuss</code> which is a football player with concussion history. The variable <code>Cognition</code> measures their testing composite reaction time score. Make a boxplot graph of the groups vs cognition, but change the <code>Group</code> labels to something that would make sense to a reader.</p></li>
-<li><p>In the package <code>Lock5Data</code>, there is a dataset <code>RestaurantTips</code> which gives tip data from the resturant First Crush Bistro in Potsdam, NY. Graph the <code>Bill</code> versus the <code>PctTip</code> for each <code>Day</code> of the week where we use <code>Day</code> as the variable to facet_grid or facet_wrap on. Make sure the <code>Day</code> variable has conventional days. Alo include information about if the bill was paid via credit card and also make sure the credit card labels are either <code>Credit Card</code> or <code>Cash</code>.</p></li>
+<li><p>Put any <code>.csv</code> or <code>.xls</code> data files you have in <code>data-raw/</code> subdirectory. In that same directory, create a R script or Rmarkdown file that reads the data in, cleans it up by renaming columns, or whatever. An example R script might look something like this:</p>
+<pre class="text"><code>library(tidyverse)
+
+# Read in the data.  Do some cleaning/verification
+MaxTemp &lt;- read.csv(&#39;data-raw/FlagMaxTemp.csv&#39;) %&gt;%
+  gather(&#39;DOM&#39;, &#39;MaxTemp&#39;, X1:X31) %&gt;%            
+  drop_na() %&gt;%
+  mutate(DOM = str_remove(DOM, fixed(&#39;X&#39;)) ) %&gt;%  
+  mutate(Date = lubridate::ymd( paste( Year, Month, DOM )) ) %&gt;%
+  select(Date, MaxTemp)
+
+# Save the data frame to the data/ directory as MaxTemp.rda
+usethis::use_data(MaxTemp)</code></pre></li>
+<li><p>In the <code>R/</code> directory, create file <code>MaxTemp.R</code> and when the package is built, this will document the dataset.</p>
+<pre class="text"><code>#&#39; A time series of daily maximum temperatures in Flagstaff, AZ. 
+#&#39; 
+#&#39; @format a data frame with 10882 observations 
+#&#39; \describe{
+#&#39;   \item{Date}{The date of observation as a POSIX date format.}
+#&#39;   \item{MaxTemp}{Daily maximum temperature in degrees Farhenheit.}
+#&#39; }
+#&#39; @source \url{www.ncdc.noaa.gov}
+&quot;MaxTemp&quot;</code></pre></li>
+<li>Build the package by going to <code>Build</code> tab.
+<ol style="list-style-type: lower-alpha">
+<li>Click the <code>More</code> and select <code>Document</code> to create the data frame documentation.</li>
+<li>Click the <code>Install and Restart</code> to build the package.</li>
+</ol></li>
+<li><p>Create the <code>docs/</code> directory and then create a RMarkdown file that does some analysis.</p>
+<pre class="text"><code>---
+title: &quot;My Awesome Analysis&quot;
+author: &quot;Derek Sonderegger&quot;
+date: &quot;9/18/2019&quot;
+output: html_document
+---
+
+This Rmarkdown file will do the analysis.
+
+```{r, eval=FALSE}
+library(TestPackage)   # load TestPackage, which includes MaxTemp data frame.
+library(ggplot2)
+
+ggplot(MaxTemp, aex(x=Date, y=MaxTemp)) +
+  geom_line()
+```
+
+We see that the daily max temperature in Flagstaff varies quite a lot.</code></pre></li>
+</ol>
+</div>
+</div>
+<div id="sharing-your-package" class="section level2">
+<h2><span class="header-section-number">15.5</span> Sharing your Package</h2>
+<p>The last step to a package is being able to share it with other people. We could either wrap up the package into a <code>.tar.gz</code> file or we could save the package to ssome version control platform like <code>GitHub</code>. For packages that are in a stable form and need to be available via <code>CRAN</code> or Bioconductor, then building a <code>.tar.gz</code> file is important. However when a package is just meant for yourself and your collaborators, I prefer to save the package to <code>GitHub</code>.</p>
+<p>I have several packages available on my <code>GitHub</code> account. I have a repository
+<a href="https://github.com/dereksonderegger/TestPackage">https://github.com/dereksonderegger/TestPackage</a> that demonstrates a very simple package. To install this package, we can install it directly using the following:</p>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb654-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;dereksonderegger/TestPackage&#39;</span>)</a></code></pre></div>
+<p>If you chose to share your package with others by sharing a <code>.tar.gz</code> file, then create the file using the <code>Build</code> tab and <code>More -&gt; Build Source Package</code>. Then to install the package, the user will run the R command</p>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb655-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;TestPackage_0.0.0.1.tar.gz&#39;</span>, <span class="dt">repos=</span><span class="ot">NULL</span>, <span class="dt">type=</span><span class="st">&#39;source&#39;</span>)</a></code></pre></div>
+</div>
+<div id="exercises-15" class="section level2">
+<h2><span class="header-section-number">15.6</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>Build a package that contains a dataset that gives weather information at Flagstaff’s Pulliam Airport from 1950 to 2019. I have the data and metadata on my GitHub site and I downloaded the data on 9-19-19 from <a href="https://www.ncdc.noaa.gov/cdo-web/search" class="uri">https://www.ncdc.noaa.gov/cdo-web/search</a>. In the data, there are a bunch of columns that contain attribute information about the preceding column. I don’t think those are helpful, or at least the metadata didn’t explain how to interpret them. So remove those. Many of the later columns have values that are exclusively ones or zeros. I believe those indicate if the weather phenomena was present that day. Presumably a <code>1</code> is a yes, but I don’t know that. When I downloaded the data, I asked for “standard” units, so precipitation and snow amounts should be in inches, and temperature should be in Farenheit.
+<ol style="list-style-type: lower-alpha">
+<li>Create a new package named <code>YourName_FlagWeather</code>. In the package, create the <code>data-raw/</code> directory and place the data and metadata there.</li>
+<li>Build an R-script that reads in the data, does any necessary cleaning. Call your resulting data frame <code>Flagstaff_Weather</code> and save a <code>.rda</code> file to the <code>data/</code> directory using the cammand <code>usethis::use_data(Flagstaff_Weather)</code></li>
+<li>In the <code>R/</code> directory, create a file <code>Flagstaff_Weather.R</code> that documents where the data came from and what each of the columns mean.</li>
+<li>Cause <code>roxygen2</code> to build the appropriate documentation files. Use the <code>Build</code> tab, then <code>More -&gt; Document</code>.</li>
+<li>Load your package and restart your session of R, again using the <code>Build tab</code>.</li>
+<li>Create a new directory in your package called <code>docs/</code>. In that directory create a RMarkdown file that loads your package and uses the weather data to make a few graphs of weather phenomena over time.</li>
+<li>Suppose that we decided to change something in the data and we need to rebuild the package.
+<ol style="list-style-type: lower-roman">
+<li>Changing the name of one of the columns in your cleaning script.<br />
+</li>
+<li>Re-run the cleaning script and the <code>usethis::use_data</code> command.</li>
+<li>Reinstall the package using the <code>Build</code> tab and <code>Install and Restart</code>.</li>
+<li>Verify that the <code>Flagstaff_Weather</code> object has changed.</li>
+<li>Verify that the documentation hasn’t changed yet.</li>
+<li>Update the documentation file for the dataset and re-run the documentation routine.</li>
+<li>Reinstall the package and check that the documentation is now correct.</li>
+</ol></li>
+<li>Now save the package as one file by building a source package using the <code>Build</code> tab, <code>More -&gt; Build Source Package</code>. This will create a <code>.tar.gz</code> file that you can easily upload to Bblearn.</li>
+</ol></li>
 </ol>
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="6-flow-control.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="statistical-tables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="14-data-scraping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="16-speeding-up-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -639,7 +737,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/444/raw/master/07_Factors.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/30_RPackages.Rmd",
 "text": "Edit"
 },
 "history": {

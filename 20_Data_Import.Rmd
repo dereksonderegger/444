@@ -1,4 +1,3 @@
-# (PART\*) Deeper Details {-}
 
 # Importing Data
 
