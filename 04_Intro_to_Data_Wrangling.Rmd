@@ -180,14 +180,14 @@ grades <- grades %>% mutate(
 grades
 ```
 
-If we want to update some column information we will also use the `mutate` command, but we need some mechanism to selct the rows to change, while keeping all the other row values the same. The functions `ifelse()` and `case_when()` are ideal for this task. 
+If we want to update some column information we will also use the `mutate` command, but we need some mechanism to selct the rows to change, while keeping all the other row values the same. The functions `if_else()` and `case_when()` are ideal for this task. 
 
-The `ifelse` syntax is `ifelse( logical.expression, TrueValue, FalseValue )`. We can use this to update a score in our gradebook.
+The `if_else` syntax is `if_else( logical.expression, TrueValue, FalseValue )`. We can use this to update a score in our gradebook.
 
 ```{r}
 # Update Doctor Reids Final Exam score to be a 98, leave everybody elses the same.
 grades <- grades %>%
-  mutate( Final = ifelse(l.name == 'Reid', 98, Final ) )
+  mutate( Final = if_else(l.name == 'Reid', 98, Final ) )
 grades
 ```
 
@@ -196,7 +196,7 @@ We could also use this to modify all the rows. For example, perhaps we want to c
 ```{r}
 # Update the Gender column labels
 grades <- grades %>%
-  mutate( Gender = ifelse(Gender == 'M', 'Male', 'Female' ) )
+  mutate( Gender = if_else(Gender == 'M', 'Male', 'Female' ) )
 grades
 ```
 
@@ -217,7 +217,7 @@ people
 
 ```{r}
 people <- people %>%
-  mutate( gender = ifelse( gender == 0, 'Female', 'Male') ) %>%
+  mutate( gender = if_else( gender == 0, 'Female', 'Male') ) %>%
   mutate( party = case_when( party == 1 ~ 'Democratic', 
                              party == 2 ~ 'Republican', 
                              party == 3 ~ 'Independent',
