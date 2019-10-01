@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-28" />
+<meta name="date" content="2019-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -347,36 +347,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-reshaping" class="section level1">
 <h1><span class="header-section-number">Chapter 13</span> Data Reshaping</h1>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb588-1" data-line-number="1"><span class="co"># library(tidyr)   # for the gather/spread commands</span></a>
-<a class="sourceLine" id="cb588-2" data-line-number="2"><span class="co"># library(dplyr)   # for the join stuff</span></a>
-<a class="sourceLine" id="cb588-3" data-line-number="3"><span class="kw">library</span>(tidyverse) <span class="co"># dplyr, tidyr, ggplot2, etc.</span></a></code></pre></div>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb592-1" data-line-number="1"><span class="co"># library(tidyr)   # for the gather/spread commands</span></a>
+<a class="sourceLine" id="cb592-2" data-line-number="2"><span class="co"># library(dplyr)   # for the join stuff</span></a>
+<a class="sourceLine" id="cb592-3" data-line-number="3"><span class="kw">library</span>(tidyverse) <span class="co"># dplyr, tidyr, ggplot2, etc.</span></a></code></pre></div>
 <p>Most of the time, our data is in the form of a data frame and we are interested in exploring the relationships. However most procedures in R expect the data to show up in a ‘long’ format where each row is an observation and each column is a covariate. In practice, the data is often not stored like that and the data comes to us with repeated observations included on a single row. This is often done as a memory saving technique or because there is some structure in the data that makes the ‘wide’ format attractive. As a result, we need a way to convert data from ‘wide’ to ‘long’ and vice-versa.</p>
 <p>Next we need a way to squish two data frames together. It is often advantagous to store data that would be be repeated seperately in a different table so that a particular piece of information lives in only one location. This makes the data easier to modify, and more likely to maintain consistence. However, this practice requires that, when necessary, we can add information to a table, that might involve a lot of duplicated rows.</p>
 <div id="cbind-rbind" class="section level2">
 <h2><span class="header-section-number">13.1</span> <code>cbind</code> &amp; <code>rbind</code></h2>
 <p>Base R has two functions for squishing two data frames together, but they assume that the data frames are aligned correctly. The <code>c</code> and <code>r</code> parts of <code>cbind</code> and <code>rbind</code> correspond to if we are pushing columns together or rows together.</p>
-<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb589-1" data-line-number="1"><span class="co"># Define a tibble using a rowwise layout.</span></a>
-<a class="sourceLine" id="cb589-2" data-line-number="2">df1 &lt;-<span class="st"> </span><span class="kw">tribble</span>(            </a>
-<a class="sourceLine" id="cb589-3" data-line-number="3">  <span class="op">~</span>ID,  <span class="op">~</span>First,</a>
-<a class="sourceLine" id="cb589-4" data-line-number="4">  <span class="dv">1</span>,   <span class="st">&#39;Alice&#39;</span>,</a>
-<a class="sourceLine" id="cb589-5" data-line-number="5">  <span class="dv">2</span>,   <span class="st">&#39;Bob&#39;</span>,</a>
-<a class="sourceLine" id="cb589-6" data-line-number="6">  <span class="dv">3</span>,   <span class="st">&#39;Charlie&#39;</span>)</a>
-<a class="sourceLine" id="cb589-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb589-8" data-line-number="8"><span class="co"># Define a tibble by columns</span></a>
-<a class="sourceLine" id="cb589-9" data-line-number="9">df2 &lt;-<span class="st"> </span><span class="kw">tibble</span>( <span class="dt">Last =</span> <span class="kw">c</span>(<span class="st">&#39;Anderson&#39;</span>, <span class="st">&#39;Barker&#39;</span>, <span class="st">&#39;Cooper&#39;</span>) )</a>
-<a class="sourceLine" id="cb589-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb589-11" data-line-number="11"><span class="co"># Squish the two tibbles together by columns</span></a>
-<a class="sourceLine" id="cb589-12" data-line-number="12">People &lt;-<span class="st"> </span><span class="kw">cbind</span>( df1, df2 )</a>
-<a class="sourceLine" id="cb589-13" data-line-number="13">People</a></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb593-1" data-line-number="1"><span class="co"># Define a tibble using a rowwise layout.</span></a>
+<a class="sourceLine" id="cb593-2" data-line-number="2">df1 &lt;-<span class="st"> </span><span class="kw">tribble</span>(            </a>
+<a class="sourceLine" id="cb593-3" data-line-number="3">  <span class="op">~</span>ID,  <span class="op">~</span>First,</a>
+<a class="sourceLine" id="cb593-4" data-line-number="4">  <span class="dv">1</span>,   <span class="st">&#39;Alice&#39;</span>,</a>
+<a class="sourceLine" id="cb593-5" data-line-number="5">  <span class="dv">2</span>,   <span class="st">&#39;Bob&#39;</span>,</a>
+<a class="sourceLine" id="cb593-6" data-line-number="6">  <span class="dv">3</span>,   <span class="st">&#39;Charlie&#39;</span>)</a>
+<a class="sourceLine" id="cb593-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb593-8" data-line-number="8"><span class="co"># Define a tibble by columns</span></a>
+<a class="sourceLine" id="cb593-9" data-line-number="9">df2 &lt;-<span class="st"> </span><span class="kw">tibble</span>( <span class="dt">Last =</span> <span class="kw">c</span>(<span class="st">&#39;Anderson&#39;</span>, <span class="st">&#39;Barker&#39;</span>, <span class="st">&#39;Cooper&#39;</span>) )</a>
+<a class="sourceLine" id="cb593-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb593-11" data-line-number="11"><span class="co"># Squish the two tibbles together by columns</span></a>
+<a class="sourceLine" id="cb593-12" data-line-number="12">People &lt;-<span class="st"> </span><span class="kw">cbind</span>( df1, df2 )</a>
+<a class="sourceLine" id="cb593-13" data-line-number="13">People</a></code></pre></div>
 <pre><code>##   ID   First     Last
 ## 1  1   Alice Anderson
 ## 2  2     Bob   Barker
 ## 3  3 Charlie   Cooper</code></pre>
 <p>Squishing together by rows is easy as well.</p>
-<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb591-1" data-line-number="1">df3 &lt;-<span class="st"> </span><span class="kw">tibble</span>( <span class="dt">ID=</span><span class="dv">4</span>, <span class="dt">First=</span><span class="st">&#39;Daniel&#39;</span>, <span class="dt">Last=</span><span class="st">&#39;Davidson&#39;</span> )</a>
-<a class="sourceLine" id="cb591-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb591-3" data-line-number="3">People &lt;-<span class="st"> </span><span class="kw">rbind</span>( People, df3 )</a>
-<a class="sourceLine" id="cb591-4" data-line-number="4">People</a></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb595-1" data-line-number="1">df3 &lt;-<span class="st"> </span><span class="kw">tibble</span>( <span class="dt">ID=</span><span class="dv">4</span>, <span class="dt">First=</span><span class="st">&#39;Daniel&#39;</span>, <span class="dt">Last=</span><span class="st">&#39;Davidson&#39;</span> )</a>
+<a class="sourceLine" id="cb595-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb595-3" data-line-number="3">People &lt;-<span class="st"> </span><span class="kw">rbind</span>( People, df3 )</a>
+<a class="sourceLine" id="cb595-4" data-line-number="4">People</a></code></pre></div>
 <pre><code>##   ID   First     Last
 ## 1  1   Alice Anderson
 ## 2  2     Bob   Barker
@@ -387,11 +387,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tidyr" class="section level2">
 <h2><span class="header-section-number">13.2</span> <code>tidyr</code></h2>
 <p>There is a common issue with obtaining data with many columns that you wish were organized as rows. For example, I might have data in a grade book that has several homework scores and I’d like to produce a nice graph that has assignment number on the x-axis and score on the y-axis. Unfortunately this is incredibly hard to do when the data is arranged in the following way:</p>
-<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb593-1" data-line-number="1">grade.book &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
-<a class="sourceLine" id="cb593-2" data-line-number="2">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Alison&#39;</span>,  <span class="dt">HW.1=</span><span class="dv">8</span>, <span class="dt">HW.2=</span><span class="dv">5</span>, <span class="dt">HW.3=</span><span class="dv">8</span>, <span class="dt">HW.4=</span><span class="dv">4</span>),</a>
-<a class="sourceLine" id="cb593-3" data-line-number="3">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Brandon&#39;</span>, <span class="dt">HW.1=</span><span class="dv">5</span>, <span class="dt">HW.2=</span><span class="dv">3</span>, <span class="dt">HW.3=</span><span class="dv">6</span>, <span class="dt">HW.4=</span><span class="dv">9</span>),</a>
-<a class="sourceLine" id="cb593-4" data-line-number="4">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Charles&#39;</span>, <span class="dt">HW.1=</span><span class="dv">9</span>, <span class="dt">HW.2=</span><span class="dv">7</span>, <span class="dt">HW.3=</span><span class="dv">9</span>, <span class="dt">HW.4=</span><span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb593-5" data-line-number="5">grade.book</a></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb597-1" data-line-number="1">grade.book &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
+<a class="sourceLine" id="cb597-2" data-line-number="2">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Alison&#39;</span>,  <span class="dt">HW.1=</span><span class="dv">8</span>, <span class="dt">HW.2=</span><span class="dv">5</span>, <span class="dt">HW.3=</span><span class="dv">8</span>, <span class="dt">HW.4=</span><span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb597-3" data-line-number="3">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Brandon&#39;</span>, <span class="dt">HW.1=</span><span class="dv">5</span>, <span class="dt">HW.2=</span><span class="dv">3</span>, <span class="dt">HW.3=</span><span class="dv">6</span>, <span class="dt">HW.4=</span><span class="dv">9</span>),</a>
+<a class="sourceLine" id="cb597-4" data-line-number="4">  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Charles&#39;</span>, <span class="dt">HW.1=</span><span class="dv">9</span>, <span class="dt">HW.2=</span><span class="dv">7</span>, <span class="dt">HW.3=</span><span class="dv">9</span>, <span class="dt">HW.4=</span><span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb597-5" data-line-number="5">grade.book</a></code></pre></div>
 <pre><code>##      name HW.1 HW.2 HW.3 HW.4
 ## 1  Alison    8    5    8    4
 ## 2 Brandon    5    3    6    9
@@ -405,12 +405,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>gather</code> - Gather multiple columns that are related into two columns that contain the original column name and the value. For example for columns HW1, HW2, HW3 we would gather them into two column HomeworkNumber and Score. In this case, we refer to HomeworkNumber as the key column and Score as the value column. So for any key:value pair you know everything you need.</p></li>
 <li><p><code>spread</code> - This is the opposite of gather. This takes a key column (or columns) and a results column and forms a new column for each level of the key column(s).</p></li>
 </ol>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb595-1" data-line-number="1"><span class="co"># first we gather the score columns into columns we&#39;ll name Assesment and Score</span></a>
-<a class="sourceLine" id="cb595-2" data-line-number="2">tidy.scores &lt;-<span class="st"> </span>grade.book <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb595-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework,     <span class="co"># What should I call the key column</span></a>
-<a class="sourceLine" id="cb595-4" data-line-number="4">          <span class="dt">value=</span>Score,      <span class="co"># What should I call the values column</span></a>
-<a class="sourceLine" id="cb595-5" data-line-number="5">          HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span>)        <span class="co"># which columns to apply this to</span></a>
-<a class="sourceLine" id="cb595-6" data-line-number="6">tidy.scores</a></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb599-1" data-line-number="1"><span class="co"># first we gather the score columns into columns we&#39;ll name Assesment and Score</span></a>
+<a class="sourceLine" id="cb599-2" data-line-number="2">tidy.scores &lt;-<span class="st"> </span>grade.book <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb599-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework,     <span class="co"># What should I call the key column</span></a>
+<a class="sourceLine" id="cb599-4" data-line-number="4">          <span class="dt">value=</span>Score,      <span class="co"># What should I call the values column</span></a>
+<a class="sourceLine" id="cb599-5" data-line-number="5">          HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span>)        <span class="co"># which columns to apply this to</span></a>
+<a class="sourceLine" id="cb599-6" data-line-number="6">tidy.scores</a></code></pre></div>
 <pre><code>##       name Homework Score
 ## 1   Alison     HW.1     8
 ## 2  Brandon     HW.1     5
@@ -425,8 +425,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 11 Brandon     HW.4     9
 ## 12 Charles     HW.4    10</code></pre>
 <p>To spread the key:value pairs out into a matrix, we use the <code>spread()</code> command.</p>
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb597-1" data-line-number="1"><span class="co"># Turn the Assessment/Score pair of columns into one column per factor level of Assessment</span></a>
-<a class="sourceLine" id="cb597-2" data-line-number="2">tidy.scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score )</a></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb601-1" data-line-number="1"><span class="co"># Turn the Assessment/Score pair of columns into one column per factor level of Assessment</span></a>
+<a class="sourceLine" id="cb601-2" data-line-number="2">tidy.scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score )</a></code></pre></div>
 <pre><code>##      name HW.1 HW.2 HW.3 HW.4
 ## 1  Alison    8    5    8    4
 ## 2 Brandon    5    3    6    9
@@ -442,29 +442,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 Derek       17.4      121        80
 ## 2  Jeff       16.9      145       101</code></pre>
 <p>But now we have to ask, what happens when we have a donor that has given blood multiple times? In this case we should just have multiple rows per person along with a date column to uniquely identify a particular donation.</p>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb600-1" data-line-number="1">donations</a></code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb604-1" data-line-number="1">donations</a></code></pre></div>
 <pre><code>##   Donor       Date Hemoglobin Systolic Diastolic
 ## 1 Derek 2017-04-14       17.4      120        79
 ## 2 Derek 2017-06-20       16.5      121        80
 ## 3  Jeff 2017-08-14       16.9      145       101</code></pre>
 <p>I would like to include additional information about the donor where that infomation doesn’t change overtime. For example we might want to have information about the donar’s birthdate, sex, blood type. However, I don’t want that information in <em>every single donation line</em>. Otherwise if I mistype a birthday and have to correct it, I would have to correct it <em>everywhere</em>. For information about the donor, should live in a <code>donors</code> table, while information about a particular donation should live in the <code>donations</code> table.</p>
 <p>Furthermore, there are many Jeffs and Dereks in the world and to maintain a unique identifier (without using Social Security numbers) I will just create a <code>Donor_ID</code> code that will uniquely identify a person. Similarly I will create a <code>Donation_ID</code> that will uniquely identify a dontation.</p>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb602-1" data-line-number="1">donors</a></code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb606-1" data-line-number="1">donors</a></code></pre></div>
 <pre><code>##   Donor_ID F_Name L_Name B_Type      Birth       Street      City State
 ## 1  Donor_1  Derek    Lee     O+ 1976-09-17 7392 Willard Flagstaff    AZ
 ## 2  Donor_2   Jeff  Smith      A 1974-06-23     873 Vine   Bozeman    MT</code></pre>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb604-1" data-line-number="1">donations</a></code></pre></div>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb608-1" data-line-number="1">donations</a></code></pre></div>
 <pre><code>##   Donation_ID Donor_ID       Date Hemoglobin Systolic Diastolic
 ## 1  Donation_1  Donor_1 2017-04-14       17.4      120        79
 ## 2  Donation_2  Donor_1 2017-06-20       16.5      121        80
 ## 3  Donation_3  Donor_2 2017-08-14       16.9      145       101</code></pre>
 <p>If we have a new donor walk in and give blood, then we’ll have to create a new entry in the <code>donors</code> table as well as a new entry in the <code>donations</code> table. If an experienced donor gives again, we just have to create a new entry in the donations table.</p>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb606-1" data-line-number="1">donors</a></code></pre></div>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb610-1" data-line-number="1">donors</a></code></pre></div>
 <pre><code>##   Donor_ID F_Name L_Name B_Type      Birth       Street      City State
 ## 1  Donor_1  Derek    Lee     O+ 1976-09-17 7392 Willard Flagstaff    AZ
 ## 2  Donor_2   Jeff  Smith      A 1974-06-23     873 Vine   Bozeman    MT
 ## 3  Donor_3 Aubrey    Lee     O+ 1980-12-15 7392 Willard Flagstaff    AZ</code></pre>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb608-1" data-line-number="1">donations</a></code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb612-1" data-line-number="1">donations</a></code></pre></div>
 <pre><code>##   Donation_ID Donor_ID       Date Hemoglobin Systolic Diastolic
 ## 1  Donation_1  Donor_1 2017-04-14       17.4      120        79
 ## 2  Donation_2  Donor_1 2017-06-20       16.5      121        80
@@ -472,7 +472,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4  Donation_4  Donor_1 2017-08-26       17.6      120        79
 ## 5  Donation_5  Donor_3 2017-08-26       16.1      137        90</code></pre>
 <p>This data storage set-up might be flexible enough for us. However what happens if somebody moves? If we don’t want to keep the historical information, then we could just change the person’s <code>Street_Address</code>, <code>City</code>, and <code>State</code> values. If we do want to keep that, then we could create <code>donor_addresses</code> table that contains a <code>Start_Date</code> and <code>End_Date</code> that denotes the period of time that the address was valid.</p>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb610-1" data-line-number="1">donor_addresses</a></code></pre></div>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb614-1" data-line-number="1">donor_addresses</a></code></pre></div>
 <pre><code>##   Donor_ID       Street      City State Start_Date   End_Date
 ## 1  Donor_1 346 Treeline   Pullman    WA 2015-01-26 2016-06-27
 ## 2  Donor_1     645 Main Flagstsff    AZ 2016-06-28 2017-07-02
@@ -486,29 +486,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">13.4</span> Table Joins</h2>
 <p>Often we need to squish together two data frames but they do not have the same number of rows. Consider the case where we have a data frame of observations of fish and a separate data frame that contains information about lake (perhaps surface area, max depth, pH, etc). I want to store them as two separate tables so that when I have to record a lake level observation, I only input it <em>one</em> place. This decreases the chance that I make a copy/paste error.</p>
 <p>To illustrate the different types of table joins, we’ll consider two different tables.</p>
-<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb612-1" data-line-number="1"><span class="co"># tibbles are just data.frames that print a bit nicer and don&#39;t automatically</span></a>
-<a class="sourceLine" id="cb612-2" data-line-number="2"><span class="co"># convert character columns into factors.  They behave a bit more consistently</span></a>
-<a class="sourceLine" id="cb612-3" data-line-number="3"><span class="co"># in a wide variety of situations compared to data.frames.</span></a>
-<a class="sourceLine" id="cb612-4" data-line-number="4">Fish.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb612-5" data-line-number="5">  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;C&#39;</span>), </a>
-<a class="sourceLine" id="cb612-6" data-line-number="6">  <span class="dt">Fish.Weight=</span><span class="kw">rnorm</span>(<span class="dv">6</span>, <span class="dt">mean=</span><span class="dv">260</span>, <span class="dt">sd=</span><span class="dv">25</span>) ) <span class="co"># make up some data</span></a>
-<a class="sourceLine" id="cb612-7" data-line-number="7">Lake.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb612-8" data-line-number="8">  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(    <span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>),   </a>
-<a class="sourceLine" id="cb612-9" data-line-number="9">  <span class="dt">Lake_Name =</span> <span class="kw">c</span>(<span class="st">&#39;Lake Elaine&#39;</span>, <span class="st">&#39;Mormon Lake&#39;</span>, <span class="st">&#39;Lake Mary&#39;</span>),   </a>
-<a class="sourceLine" id="cb612-10" data-line-number="10">  <span class="dt">pH=</span><span class="kw">c</span>(<span class="fl">6.5</span>, <span class="fl">6.3</span>, <span class="fl">6.1</span>),</a>
-<a class="sourceLine" id="cb612-11" data-line-number="11">  <span class="dt">area =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">210</span>, <span class="dv">240</span>),</a>
-<a class="sourceLine" id="cb612-12" data-line-number="12">  <span class="dt">avg_depth =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">38</span>))</a></code></pre></div>
-<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb613-1" data-line-number="1">Fish.Data</a></code></pre></div>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb616-1" data-line-number="1"><span class="co"># tibbles are just data.frames that print a bit nicer and don&#39;t automatically</span></a>
+<a class="sourceLine" id="cb616-2" data-line-number="2"><span class="co"># convert character columns into factors.  They behave a bit more consistently</span></a>
+<a class="sourceLine" id="cb616-3" data-line-number="3"><span class="co"># in a wide variety of situations compared to data.frames.</span></a>
+<a class="sourceLine" id="cb616-4" data-line-number="4">Fish.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb616-5" data-line-number="5">  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;C&#39;</span>), </a>
+<a class="sourceLine" id="cb616-6" data-line-number="6">  <span class="dt">Fish.Weight=</span><span class="kw">rnorm</span>(<span class="dv">6</span>, <span class="dt">mean=</span><span class="dv">260</span>, <span class="dt">sd=</span><span class="dv">25</span>) ) <span class="co"># make up some data</span></a>
+<a class="sourceLine" id="cb616-7" data-line-number="7">Lake.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb616-8" data-line-number="8">  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(    <span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>),   </a>
+<a class="sourceLine" id="cb616-9" data-line-number="9">  <span class="dt">Lake_Name =</span> <span class="kw">c</span>(<span class="st">&#39;Lake Elaine&#39;</span>, <span class="st">&#39;Mormon Lake&#39;</span>, <span class="st">&#39;Lake Mary&#39;</span>),   </a>
+<a class="sourceLine" id="cb616-10" data-line-number="10">  <span class="dt">pH=</span><span class="kw">c</span>(<span class="fl">6.5</span>, <span class="fl">6.3</span>, <span class="fl">6.1</span>),</a>
+<a class="sourceLine" id="cb616-11" data-line-number="11">  <span class="dt">area =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">210</span>, <span class="dv">240</span>),</a>
+<a class="sourceLine" id="cb616-12" data-line-number="12">  <span class="dt">avg_depth =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">38</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb617-1" data-line-number="1">Fish.Data</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 A              238.
-## 2 A              272.
-## 3 B              268.
-## 4 B              234.
-## 5 C              253.
-## 6 C              261.</code></pre>
-<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb615-1" data-line-number="1">Lake.Data</a></code></pre></div>
+## 1 A              268.
+## 2 A              291.
+## 3 B              277.
+## 4 B              287.
+## 5 C              308.
+## 6 C              248.</code></pre>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb619-1" data-line-number="1">Lake.Data</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   Lake_ID Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
@@ -516,49 +516,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 C       Mormon Lake   6.3   210        10
 ## 3 D       Lake Mary     6.1   240        38</code></pre>
 <p>Notice that each of these tables has a column labled <code>Lake_ID</code>. When we join these two tables, the row that describes lake <code>A</code> should be duplicated for each row in the <code>Fish.Data</code> that corresponds with fish caught from lake <code>A</code>.</p>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb617-1" data-line-number="1"><span class="kw">full_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb621-1" data-line-number="1"><span class="kw">full_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              238. &lt;NA&gt;         NA      NA        NA
-## 2 A              272. &lt;NA&gt;         NA      NA        NA
-## 3 B              268. Lake Elaine   6.5    40         8
-## 4 B              234. Lake Elaine   6.5    40         8
-## 5 C              253. Mormon Lake   6.3   210        10
-## 6 C              261. Mormon Lake   6.3   210        10
+## 1 A              268. &lt;NA&gt;         NA      NA        NA
+## 2 A              291. &lt;NA&gt;         NA      NA        NA
+## 3 B              277. Lake Elaine   6.5    40         8
+## 4 B              287. Lake Elaine   6.5    40         8
+## 5 C              308. Mormon Lake   6.3   210        10
+## 6 C              248. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38</code></pre>
 <p>Notice that because we didn’t have any fish caught in lake <code>D</code> and we don’t have any Lake information about lake <code>A</code>, when we join these two tables, we end up introducing missing observations into the resulting data frame.</p>
 <p>The other types of joins govern the behavor or these missing data.</p>
 <p><strong><code>left_join(A, B)</code></strong> For each row in A, match with a row in B, but don’t create any more rows than what was already in A.</p>
 <p><strong><code>inner_join(A,B)</code></strong> Only match row values where both data frames have a value.</p>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb620-1" data-line-number="1"><span class="kw">left_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb624-1" data-line-number="1"><span class="kw">left_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              238. &lt;NA&gt;         NA      NA        NA
-## 2 A              272. &lt;NA&gt;         NA      NA        NA
-## 3 B              268. Lake Elaine   6.5    40         8
-## 4 B              234. Lake Elaine   6.5    40         8
-## 5 C              253. Mormon Lake   6.3   210        10
-## 6 C              261. Mormon Lake   6.3   210        10</code></pre>
-<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb623-1" data-line-number="1"><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
+## 1 A              268. &lt;NA&gt;         NA      NA        NA
+## 2 A              291. &lt;NA&gt;         NA      NA        NA
+## 3 B              277. Lake Elaine   6.5    40         8
+## 4 B              287. Lake Elaine   6.5    40         8
+## 5 C              308. Mormon Lake   6.3   210        10
+## 6 C              248. Mormon Lake   6.3   210        10</code></pre>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb627-1" data-line-number="1"><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 B              268. Lake Elaine   6.5    40         8
-## 2 B              234. Lake Elaine   6.5    40         8
-## 3 C              253. Mormon Lake   6.3   210        10
-## 4 C              261. Mormon Lake   6.3   210        10</code></pre>
+## 1 B              277. Lake Elaine   6.5    40         8
+## 2 B              287. Lake Elaine   6.5    40         8
+## 3 C              308. Mormon Lake   6.3   210        10
+## 4 C              248. Mormon Lake   6.3   210        10</code></pre>
 <p>The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn’t the case. In that situation you can use the <code>by=c(&quot;ColName.A&quot;=&quot;ColName.B&quot;)</code> syntax where <code>ColName.A</code> represents the name of the column in the first data frame and <code>ColName.B</code> is the equivalent column in the second data frame.</p>
 <p>Finally, the combination of <code>gather</code> and <code>join</code> allows me to do some very complex calculations across many columns of a data set. For example, I might gather up a set of columns, calculate some summary statistics, and then join the result back to original data set.</p>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb626-1" data-line-number="1">grade.book <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb626-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb626-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score, HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span> ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb626-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>( <span class="dt">HW.avg =</span> <span class="kw">mean</span>(Score) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb626-5" data-line-number="5"><span class="st">  </span><span class="kw">left_join</span>( grade.book, . )</a></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb630-1" data-line-number="1">grade.book <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb630-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb630-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score, HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span> ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb630-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>( <span class="dt">HW.avg =</span> <span class="kw">mean</span>(Score) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb630-5" data-line-number="5"><span class="st">  </span><span class="kw">left_join</span>( grade.book, . )</a></code></pre></div>
 <pre><code>## Joining, by = &quot;name&quot;</code></pre>
 <pre><code>##      name HW.1 HW.2 HW.3 HW.4 HW.avg
 ## 1  Alison    8    5    8    4   6.25
@@ -569,9 +569,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">13.5</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li><p>Suppose we are given information about the maximum daily temperature from a weather station in Flagstaff, AZ. The file is available at the GitHub site that this book is hosted on.</p>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb629-1" data-line-number="1">FlagTemp &lt;-<span class="st">  </span><span class="kw">read.csv</span>(</a>
-<a class="sourceLine" id="cb629-2" data-line-number="2">  <span class="st">&#39;https://github.com/dereksonderegger/570L/raw/master/data-raw/FlagMaxTemp.csv&#39;</span>,</a>
-<a class="sourceLine" id="cb629-3" data-line-number="3">   <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;,&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb633-1" data-line-number="1">FlagTemp &lt;-<span class="st">  </span><span class="kw">read.csv</span>(</a>
+<a class="sourceLine" id="cb633-2" data-line-number="2">  <span class="st">&#39;https://github.com/dereksonderegger/570L/raw/master/data-raw/FlagMaxTemp.csv&#39;</span>,</a>
+<a class="sourceLine" id="cb633-3" data-line-number="3">   <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;,&#39;</span>)</a></code></pre></div>
 This file is in a wide format, where each row represents a month and the columns X1, X2, …, X31 represent the day of the month the observation was made.
 <ol style="list-style-type: lower-alpha">
 <li>Convert data set to the long format where the data has only four columns: <code>Year</code>, <code>Month</code>, <code>Day</code>, <code>Tmax</code>.</li>
@@ -581,7 +581,7 @@ This file is in a wide format, where each row represents a month and the columns
 <li>A common task is to take a set of data that has multiple categorical variables and create a table of the number of cases for each combination. An introductory statistics textbook contains a dataset summarizing student surveys from several sections of an intro class. The two variables of interest for us are <code>Gender</code> and <code>Year</code> which are the students gender and year in college.
 <ol style="list-style-type: lower-alpha">
 <li><p>Download the dataset and correctly order the <code>Year</code> variable using the following:</p>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb630-1" data-line-number="1">Survey &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.lock5stat.com/datasets/StudentSurvey.csv&#39;</span>, <span class="dt">na.strings=</span><span class="kw">c</span>(<span class="st">&#39;&#39;</span>,<span class="st">&#39; &#39;</span>)) </a></code></pre></div></li>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb634-1" data-line-number="1">Survey &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.lock5stat.com/datasets/StudentSurvey.csv&#39;</span>, <span class="dt">na.strings=</span><span class="kw">c</span>(<span class="st">&#39;&#39;</span>,<span class="st">&#39; &#39;</span>)) </a></code></pre></div></li>
 <li>Using some combination of <code>dplyr</code> functions, produce a data set with eight rows that contains the number of responses for each gender:year combination. Make sure your table orders the <code>Year</code> variable in the correct order of <code>First Year</code>, <code>Sophmore</code>, <code>Junior</code>, and then <code>Senior</code>. <em>You might want to look at the following functions: <code>dplyr::count</code> and <code>dplyr::drop_na</code>.</em></li>
 <li><p>Using <code>tidyr</code> commands, produce a table of the number of responses in the following form:</p>
 <table>
@@ -627,41 +627,41 @@ Our goal is to end up with a data frame with columns for <code>Function</code>, 
 <li>Make a bar chart that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for the years 2001 through 2015. <em>Notice you’ll have to sum up the subfunctions within each function.</em></li>
 </ol></li>
 <li><p>Data table joins are extremely common because effective database design almost always involves having multiple tables for different types of objects. To illustrate both the table joins and the usefulness of multiple tables we will develop a set of data frames that will represent a credit card company’s customer data base. We will have tables for Customers, Retailers, Cards, and Transactions. Below is code that will create and populate these tables.</p>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb631-1" data-line-number="1">Customers &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb631-2" data-line-number="2">  <span class="op">~</span>PersonID, <span class="op">~</span>Name, <span class="op">~</span>Street, <span class="op">~</span>City, <span class="op">~</span>State,</a>
-<a class="sourceLine" id="cb631-3" data-line-number="3">  <span class="dv">1</span>, <span class="st">&#39;Derek Sonderegger&#39;</span>,  <span class="st">&#39;231 River Run&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</a>
-<a class="sourceLine" id="cb631-4" data-line-number="4">  <span class="dv">2</span>, <span class="st">&#39;Aubrey Sonderegger&#39;</span>, <span class="st">&#39;231 River Run&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</a>
-<a class="sourceLine" id="cb631-5" data-line-number="5">  <span class="dv">3</span>, <span class="st">&#39;Robert Buscaglia&#39;</span>, <span class="st">&#39;754 Forest Heights&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</a>
-<a class="sourceLine" id="cb631-6" data-line-number="6">  <span class="dv">4</span>, <span class="st">&#39;Roy St Laurent&#39;</span>, <span class="st">&#39;845 Elk View&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>)</a>
-<a class="sourceLine" id="cb631-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb631-8" data-line-number="8">Retailers &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb631-9" data-line-number="9">  <span class="op">~</span>RetailID, <span class="op">~</span>Name, <span class="op">~</span>Street, <span class="op">~</span>City, <span class="op">~</span>State,</a>
-<a class="sourceLine" id="cb631-10" data-line-number="10">  <span class="dv">1</span>, <span class="st">&#39;Kickstand Kafe&#39;</span>, <span class="st">&#39;719 N Humphreys St&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</a>
-<a class="sourceLine" id="cb631-11" data-line-number="11">  <span class="dv">2</span>, <span class="st">&#39;MartAnnes&#39;</span>, <span class="st">&#39;112 E Route 66&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</a>
-<a class="sourceLine" id="cb631-12" data-line-number="12">  <span class="dv">3</span>, <span class="st">&#39;REI&#39;</span>, <span class="st">&#39;323 S Windsor Ln&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span> )</a>
-<a class="sourceLine" id="cb631-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb631-14" data-line-number="14">Cards &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb631-15" data-line-number="15">  <span class="op">~</span>CardID, <span class="op">~</span>PersonID, <span class="op">~</span>Issue_Date, <span class="op">~</span>Exp_Date,</a>
-<a class="sourceLine" id="cb631-16" data-line-number="16">  <span class="st">&#39;9876768717278723&#39;</span>,  <span class="dv">1</span>,  <span class="st">&#39;2019-9-20&#39;</span>, <span class="st">&#39;2022-9-20&#39;</span>,</a>
-<a class="sourceLine" id="cb631-17" data-line-number="17">  <span class="st">&#39;5628927579821287&#39;</span>,  <span class="dv">2</span>,  <span class="st">&#39;2019-9-20&#39;</span>, <span class="st">&#39;2022-9-20&#39;</span>,</a>
-<a class="sourceLine" id="cb631-18" data-line-number="18">  <span class="st">&#39;7295825498122734&#39;</span>,  <span class="dv">3</span>,  <span class="st">&#39;2019-9-28&#39;</span>, <span class="st">&#39;2022-9-28&#39;</span>,</a>
-<a class="sourceLine" id="cb631-19" data-line-number="19">  <span class="st">&#39;8723768965231926&#39;</span>,  <span class="dv">4</span>,  <span class="st">&#39;2019-9-30&#39;</span>, <span class="st">&#39;2022-9-30&#39;</span> ) </a>
-<a class="sourceLine" id="cb631-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb631-21" data-line-number="21">Transactions &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb631-22" data-line-number="22">  <span class="op">~</span>CardID, <span class="op">~</span>RetailID, <span class="op">~</span>Date, <span class="op">~</span>Amount,</a>
-<a class="sourceLine" id="cb631-23" data-line-number="23">  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-1&#39;</span>, <span class="fl">5.68</span>,</a>
-<a class="sourceLine" id="cb631-24" data-line-number="24">  <span class="st">&#39;7295825498122734&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-1&#39;</span>, <span class="fl">25.67</span>,</a>
-<a class="sourceLine" id="cb631-25" data-line-number="25">  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-2&#39;</span>, <span class="fl">5.68</span>,</a>
-<a class="sourceLine" id="cb631-26" data-line-number="26">  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-2&#39;</span>, <span class="fl">9.23</span>,</a>
-<a class="sourceLine" id="cb631-27" data-line-number="27">  <span class="st">&#39;5628927579821287&#39;</span>, <span class="dv">3</span>, <span class="st">&#39;2019-10-5&#39;</span>, <span class="fl">68.54</span>,</a>
-<a class="sourceLine" id="cb631-28" data-line-number="28">  <span class="st">&#39;7295825498122734&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-5&#39;</span>, <span class="fl">31.84</span>,</a>
-<a class="sourceLine" id="cb631-29" data-line-number="29">  <span class="st">&#39;8723768965231926&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-10&#39;</span>, <span class="fl">42.83</span>) </a>
-<a class="sourceLine" id="cb631-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb631-31" data-line-number="31">Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb631-32" data-line-number="32"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Issue_Date =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(Issue_Date),</a>
-<a class="sourceLine" id="cb631-33" data-line-number="33">          <span class="dt">Exp_Date   =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(Exp_Date) )</a>
-<a class="sourceLine" id="cb631-34" data-line-number="34">Transactions &lt;-<span class="st"> </span>Transactions <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb631-35" data-line-number="35"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Date =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(Date))</a></code></pre></div>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb635-1" data-line-number="1">Customers &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb635-2" data-line-number="2">  <span class="op">~</span>PersonID, <span class="op">~</span>Name, <span class="op">~</span>Street, <span class="op">~</span>City, <span class="op">~</span>State,</a>
+<a class="sourceLine" id="cb635-3" data-line-number="3">  <span class="dv">1</span>, <span class="st">&#39;Derek Sonderegger&#39;</span>,  <span class="st">&#39;231 River Run&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</a>
+<a class="sourceLine" id="cb635-4" data-line-number="4">  <span class="dv">2</span>, <span class="st">&#39;Aubrey Sonderegger&#39;</span>, <span class="st">&#39;231 River Run&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</a>
+<a class="sourceLine" id="cb635-5" data-line-number="5">  <span class="dv">3</span>, <span class="st">&#39;Robert Buscaglia&#39;</span>, <span class="st">&#39;754 Forest Heights&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</a>
+<a class="sourceLine" id="cb635-6" data-line-number="6">  <span class="dv">4</span>, <span class="st">&#39;Roy St Laurent&#39;</span>, <span class="st">&#39;845 Elk View&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>)</a>
+<a class="sourceLine" id="cb635-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb635-8" data-line-number="8">Retailers &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb635-9" data-line-number="9">  <span class="op">~</span>RetailID, <span class="op">~</span>Name, <span class="op">~</span>Street, <span class="op">~</span>City, <span class="op">~</span>State,</a>
+<a class="sourceLine" id="cb635-10" data-line-number="10">  <span class="dv">1</span>, <span class="st">&#39;Kickstand Kafe&#39;</span>, <span class="st">&#39;719 N Humphreys St&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</a>
+<a class="sourceLine" id="cb635-11" data-line-number="11">  <span class="dv">2</span>, <span class="st">&#39;MartAnnes&#39;</span>, <span class="st">&#39;112 E Route 66&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</a>
+<a class="sourceLine" id="cb635-12" data-line-number="12">  <span class="dv">3</span>, <span class="st">&#39;REI&#39;</span>, <span class="st">&#39;323 S Windsor Ln&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span> )</a>
+<a class="sourceLine" id="cb635-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb635-14" data-line-number="14">Cards &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb635-15" data-line-number="15">  <span class="op">~</span>CardID, <span class="op">~</span>PersonID, <span class="op">~</span>Issue_Date, <span class="op">~</span>Exp_Date,</a>
+<a class="sourceLine" id="cb635-16" data-line-number="16">  <span class="st">&#39;9876768717278723&#39;</span>,  <span class="dv">1</span>,  <span class="st">&#39;2019-9-20&#39;</span>, <span class="st">&#39;2022-9-20&#39;</span>,</a>
+<a class="sourceLine" id="cb635-17" data-line-number="17">  <span class="st">&#39;5628927579821287&#39;</span>,  <span class="dv">2</span>,  <span class="st">&#39;2019-9-20&#39;</span>, <span class="st">&#39;2022-9-20&#39;</span>,</a>
+<a class="sourceLine" id="cb635-18" data-line-number="18">  <span class="st">&#39;7295825498122734&#39;</span>,  <span class="dv">3</span>,  <span class="st">&#39;2019-9-28&#39;</span>, <span class="st">&#39;2022-9-28&#39;</span>,</a>
+<a class="sourceLine" id="cb635-19" data-line-number="19">  <span class="st">&#39;8723768965231926&#39;</span>,  <span class="dv">4</span>,  <span class="st">&#39;2019-9-30&#39;</span>, <span class="st">&#39;2022-9-30&#39;</span> ) </a>
+<a class="sourceLine" id="cb635-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb635-21" data-line-number="21">Transactions &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb635-22" data-line-number="22">  <span class="op">~</span>CardID, <span class="op">~</span>RetailID, <span class="op">~</span>Date, <span class="op">~</span>Amount,</a>
+<a class="sourceLine" id="cb635-23" data-line-number="23">  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-1&#39;</span>, <span class="fl">5.68</span>,</a>
+<a class="sourceLine" id="cb635-24" data-line-number="24">  <span class="st">&#39;7295825498122734&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-1&#39;</span>, <span class="fl">25.67</span>,</a>
+<a class="sourceLine" id="cb635-25" data-line-number="25">  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-2&#39;</span>, <span class="fl">5.68</span>,</a>
+<a class="sourceLine" id="cb635-26" data-line-number="26">  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-2&#39;</span>, <span class="fl">9.23</span>,</a>
+<a class="sourceLine" id="cb635-27" data-line-number="27">  <span class="st">&#39;5628927579821287&#39;</span>, <span class="dv">3</span>, <span class="st">&#39;2019-10-5&#39;</span>, <span class="fl">68.54</span>,</a>
+<a class="sourceLine" id="cb635-28" data-line-number="28">  <span class="st">&#39;7295825498122734&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-5&#39;</span>, <span class="fl">31.84</span>,</a>
+<a class="sourceLine" id="cb635-29" data-line-number="29">  <span class="st">&#39;8723768965231926&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-10&#39;</span>, <span class="fl">42.83</span>) </a>
+<a class="sourceLine" id="cb635-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb635-31" data-line-number="31">Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb635-32" data-line-number="32"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Issue_Date =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(Issue_Date),</a>
+<a class="sourceLine" id="cb635-33" data-line-number="33">          <span class="dt">Exp_Date   =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(Exp_Date) )</a>
+<a class="sourceLine" id="cb635-34" data-line-number="34">Transactions &lt;-<span class="st"> </span>Transactions <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb635-35" data-line-number="35"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Date =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(Date))</a></code></pre></div>
 <ol style="list-style-type: lower-alpha">
 <li>Create a table that gives the credit card statent for Derek. It should give all the transactions, the amounts, and the store name. Write your code as if the only initial information you have is the customer’s name.</li>
 <li>Aubrey has lost her credit card on Oct 15, 2019. Close her credit card and issue her a new credit card in the <code>Cards</code> table.</li>

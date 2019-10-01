@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-28" />
+<meta name="date" content="2019-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -451,12 +451,12 @@ quotes.</td>
 </tbody>
 </table>
 <p>To read in the “Body Fat” dataset we could run the R command:</p>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" data-line-number="1">BodyFat &lt;-<span class="st"> </span><span class="kw">read.table</span>( </a>
-<a class="sourceLine" id="cb452-2" data-line-number="2">  <span class="dt">file   =</span> <span class="st">&#39;http://www.lock5stat.com/datasets/BodyFat.csv&#39;</span>,  <span class="co"># where the data lives</span></a>
-<a class="sourceLine" id="cb452-3" data-line-number="3">  <span class="dt">header =</span> <span class="ot">TRUE</span>,                                             <span class="co"># first line is column names</span></a>
-<a class="sourceLine" id="cb452-4" data-line-number="4">  <span class="dt">sep    =</span> <span class="st">&#39;,&#39;</span> )                                             <span class="co"># Data is sparated by commas</span></a>
-<a class="sourceLine" id="cb452-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb452-6" data-line-number="6"><span class="kw">str</span>(BodyFat)</a></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb456-1" data-line-number="1">BodyFat &lt;-<span class="st"> </span><span class="kw">read.table</span>( </a>
+<a class="sourceLine" id="cb456-2" data-line-number="2">  <span class="dt">file   =</span> <span class="st">&#39;http://www.lock5stat.com/datasets/BodyFat.csv&#39;</span>,  <span class="co"># where the data lives</span></a>
+<a class="sourceLine" id="cb456-3" data-line-number="3">  <span class="dt">header =</span> <span class="ot">TRUE</span>,                                             <span class="co"># first line is column names</span></a>
+<a class="sourceLine" id="cb456-4" data-line-number="4">  <span class="dt">sep    =</span> <span class="st">&#39;,&#39;</span> )                                             <span class="co"># Data is sparated by commas</span></a>
+<a class="sourceLine" id="cb456-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb456-6" data-line-number="6"><span class="kw">str</span>(BodyFat)</a></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    100 obs. of  10 variables:
 ##  $ Bodyfat: num  32.3 22.5 22 12.3 20.5 22.6 28.7 21.3 29.9 21.3 ...
 ##  $ Age    : int  41 31 42 23 46 54 43 42 37 41 ...
@@ -482,38 +482,38 @@ quotes.</td>
 <p>The simplest package for importing Excel files seems to be the package <code>readxl</code>. Another package that does this is the XLConnect which does the Excel -&gt; .csv conversion using Java. Another package the works well is the <code>xlsx</code> package, but it also requires Java to be installed. The nice thing about these two packages is that they also allow you to write Excel files as well. The RODBC package allows R to connect to various databases and it is possible to make it consider an Excel file as an extremely crude database.</p>
 <p>The <code>readxl</code> package provides a function <code>read_exel()</code> that allows us to specify which sheet within the Excel file to read and what character specifies missing data (it assumes a blank cell is missing data if you don’t specifying anything). One annoying change between <code>read.table()</code> and <code>read_excel()</code> is that the argument for specifying where the file is is different (<code>path=</code> instead of <code>file=</code>). Another difference between the two is that <code>read_excel()</code> does not yet have the capability of handling a path that is a web address.</p>
 <p>From GitHub, download the files <code>Example_1.xls</code>, <code>Example_2.xls</code>, <code>Example_3.xls</code> and <code>Example_4.xls</code> from the directory [<a href="https://github.com/dereksonderegger/570L/tree/master/data-raw" class="uri">https://github.com/dereksonderegger/570L/tree/master/data-raw</a>]. Place these files in the same directory that you store your course work or make a subdirectory data to store the files in. Make sure that the working directory that RStudio is using is that same directory (Session -&gt; Set Working Directory).</p>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" data-line-number="1"><span class="co"># load the library that has the read.xls function. </span></a>
-<a class="sourceLine" id="cb454-2" data-line-number="2"><span class="kw">library</span>(readxl)</a>
-<a class="sourceLine" id="cb454-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb454-4" data-line-number="4"><span class="co"># Where does the data live relative to my current working location? </span></a>
-<a class="sourceLine" id="cb454-5" data-line-number="5"><span class="co">#</span></a>
-<a class="sourceLine" id="cb454-6" data-line-number="6"><span class="co"># In my directory where this Rmarkdown file lives, I have made a subdirectory </span></a>
-<a class="sourceLine" id="cb454-7" data-line-number="7"><span class="co">#    named &#39;data-raw&#39; to store all the data files. So the path to my data</span></a>
-<a class="sourceLine" id="cb454-8" data-line-number="8"><span class="co">#    file will be &#39;data-raw/Example_1.xls&#39;.</span></a>
-<a class="sourceLine" id="cb454-9" data-line-number="9"><span class="co"># If you stored the files in the same directory as your RMarkdown script, you</span></a>
-<a class="sourceLine" id="cb454-10" data-line-number="10"><span class="co">#    don&#39;t have to add any additional information and you can just tell it the</span></a>
-<a class="sourceLine" id="cb454-11" data-line-number="11"><span class="co">#    file name &#39;Example_1.xls&#39;</span></a>
-<a class="sourceLine" id="cb454-12" data-line-number="12"><span class="co"># Alternatively I could give the full path to this file starting at the root</span></a>
-<a class="sourceLine" id="cb454-13" data-line-number="13"><span class="co">#    directory which, for me, is &#39;~/GitHub/STA570L_Book/data-raw/Example_1.xls&#39;</span></a>
-<a class="sourceLine" id="cb454-14" data-line-number="14"><span class="co">#    but for Windows users it might be &#39;Z:/570L/Lab7/Example_1.xls&#39;. This looks</span></a>
-<a class="sourceLine" id="cb454-15" data-line-number="15"><span class="co">#    odd because Windows usually uses a backslash to represent the directory</span></a>
-<a class="sourceLine" id="cb454-16" data-line-number="16"><span class="co">#    structure, but a backslash has special meaning in R and so it wants </span></a>
-<a class="sourceLine" id="cb454-17" data-line-number="17"><span class="co">#    to separate directories via forwardslashes.</span></a>
-<a class="sourceLine" id="cb454-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb454-19" data-line-number="19"><span class="co"># read the first worksheet of the Example_1 file</span></a>
-<a class="sourceLine" id="cb454-20" data-line-number="20">data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>( <span class="st">&#39;data-raw/Example_1.xls&#39;</span>  )   <span class="co"># relative to this Rmarkdown file</span></a>
-<a class="sourceLine" id="cb454-21" data-line-number="21">data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;~/GitHub/570L/data-raw/Example_1.xls&#39;</span>)  <span class="co"># absolute path</span></a>
-<a class="sourceLine" id="cb454-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb454-23" data-line-number="23"><span class="co"># read the second worksheet where the second worksheet is named &#39;data&#39;</span></a>
-<a class="sourceLine" id="cb454-24" data-line-number="24">data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="dv">2</span>     )   </a>
-<a class="sourceLine" id="cb454-25" data-line-number="25">data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   </a></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" data-line-number="1"><span class="co"># load the library that has the read.xls function. </span></a>
+<a class="sourceLine" id="cb458-2" data-line-number="2"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb458-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb458-4" data-line-number="4"><span class="co"># Where does the data live relative to my current working location? </span></a>
+<a class="sourceLine" id="cb458-5" data-line-number="5"><span class="co">#</span></a>
+<a class="sourceLine" id="cb458-6" data-line-number="6"><span class="co"># In my directory where this Rmarkdown file lives, I have made a subdirectory </span></a>
+<a class="sourceLine" id="cb458-7" data-line-number="7"><span class="co">#    named &#39;data-raw&#39; to store all the data files. So the path to my data</span></a>
+<a class="sourceLine" id="cb458-8" data-line-number="8"><span class="co">#    file will be &#39;data-raw/Example_1.xls&#39;.</span></a>
+<a class="sourceLine" id="cb458-9" data-line-number="9"><span class="co"># If you stored the files in the same directory as your RMarkdown script, you</span></a>
+<a class="sourceLine" id="cb458-10" data-line-number="10"><span class="co">#    don&#39;t have to add any additional information and you can just tell it the</span></a>
+<a class="sourceLine" id="cb458-11" data-line-number="11"><span class="co">#    file name &#39;Example_1.xls&#39;</span></a>
+<a class="sourceLine" id="cb458-12" data-line-number="12"><span class="co"># Alternatively I could give the full path to this file starting at the root</span></a>
+<a class="sourceLine" id="cb458-13" data-line-number="13"><span class="co">#    directory which, for me, is &#39;~/GitHub/STA570L_Book/data-raw/Example_1.xls&#39;</span></a>
+<a class="sourceLine" id="cb458-14" data-line-number="14"><span class="co">#    but for Windows users it might be &#39;Z:/570L/Lab7/Example_1.xls&#39;. This looks</span></a>
+<a class="sourceLine" id="cb458-15" data-line-number="15"><span class="co">#    odd because Windows usually uses a backslash to represent the directory</span></a>
+<a class="sourceLine" id="cb458-16" data-line-number="16"><span class="co">#    structure, but a backslash has special meaning in R and so it wants </span></a>
+<a class="sourceLine" id="cb458-17" data-line-number="17"><span class="co">#    to separate directories via forwardslashes.</span></a>
+<a class="sourceLine" id="cb458-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb458-19" data-line-number="19"><span class="co"># read the first worksheet of the Example_1 file</span></a>
+<a class="sourceLine" id="cb458-20" data-line-number="20">data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>( <span class="st">&#39;data-raw/Example_1.xls&#39;</span>  )   <span class="co"># relative to this Rmarkdown file</span></a>
+<a class="sourceLine" id="cb458-21" data-line-number="21">data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;~/GitHub/570L/data-raw/Example_1.xls&#39;</span>)  <span class="co"># absolute path</span></a>
+<a class="sourceLine" id="cb458-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb458-23" data-line-number="23"><span class="co"># read the second worksheet where the second worksheet is named &#39;data&#39;</span></a>
+<a class="sourceLine" id="cb458-24" data-line-number="24">data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="dv">2</span>     )   </a>
+<a class="sourceLine" id="cb458-25" data-line-number="25">data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   </a></code></pre></div>
 <p>There is one additional problem that shows up while reading in Excel files. Blank columns often show up in Excel files because at some point there was some text in a cell that got deleted but a space remains and Excel still thinks there is data in the column. To fix this, you could find the cell with the space in it, or you can select a bunch of columns at the edge and delete the entire columns. Alternatively, you could remove the column after it is read into R using tools we’ll learn when we get to the <em>Manipulating Data</em> chapter.</p>
 <p>Open up the file <code>Example_4.xls</code> in Excel and confirm that the data sheet has name columns out to carb. Read in the data frame using the following code:</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" data-line-number="1">data<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data-raw/Example_4.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   <span class="co"># Extra Column Example</span></a></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" data-line-number="1">data<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data-raw/Example_4.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   <span class="co"># Extra Column Example</span></a></code></pre></div>
 <pre><code>## New names:
 ## * `` -&gt; ...13
 ## * `` -&gt; ...14</code></pre>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" data-line-number="1"><span class="kw">str</span>(data<span class="fl">.4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1"><span class="kw">str</span>(data<span class="fl">.4</span>)</a></code></pre></div>
 <pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    34 obs. of  14 variables:
 ##  $ model: chr  &quot;Mazda RX4&quot; &quot;Mazda RX4 Wag&quot; &quot;Datsun 710&quot; &quot;Hornet 4 Drive&quot; ...
 ##  $ mpg  : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...

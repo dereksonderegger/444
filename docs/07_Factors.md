@@ -281,6 +281,25 @@ Dems %>%
 <img src="07_Factors_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 
+*I need to add the case where we are updating a column of factors and I want to replace a single observations level with another.  To do this we do something like this:*
+
+```r
+data <- data.frame( Name=c('Alice','Bruce','Charlie'), Grade = c('A','B','B') ) %>%
+  mutate( Grade = factor(Grade) ) %>%
+  mutate( Grade = fct_expand(Grade, 'C')) %>%
+  mutate( Grade = if_else(Name == 'Charlie', factor('C', levels=levels(Grade)), Grade ) )
+data  
+```
+
+```
+##      Name Grade
+## 1   Alice     A
+## 2   Bruce     B
+## 3 Charlie     C
+```
+
+*The key idea is that both the TRUE and the FALSE outputs have to have the same type (which is a factor), and both factors have to have a compatible set of levels.*
+
 ## Exercises
 
 1. In the package `Lock5Data` there is a dataset `FloridaLakes` which contains water sample measurements from 53 lakes in Florida, produce a bar graph shows the `Lake` and `AvgMercury` variables and make sure that the lakes are ordered by Average Murcury content.

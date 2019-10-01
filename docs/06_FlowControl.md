@@ -103,14 +103,14 @@ df
 
 ```
 ##   Type      Value
-## 1    A -0.1670294
-## 2    A -1.5885829
-## 3    B -0.9369470
-## 4    B -0.9189910
-## 5    C  0.7448388
-## 6    C -0.3272954
-## 7    D  0.7631800
-## 8    D -1.5508634
+## 1    A  0.2415161
+## 2    A  0.7144093
+## 3    B  0.5782712
+## 4    B -1.2330048
+## 5    C -0.7444936
+## 6    C -0.0639514
+## 7    D  0.2871662
+## 8    D -0.4059695
 ```
 
 ```r
@@ -119,10 +119,10 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 
 ```
 ##   Type      Value
-## 1    A -0.1670294
-## 2    A -1.5885829
-## 3    B -0.9369470
-## 4    B -0.9189910
+## 1    A  0.2415161
+## 2    A  0.7144093
+## 3    B  0.5782712
+## 4    B -1.2330048
 ```
 
 
@@ -257,7 +257,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -272,7 +272,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] " in the if statement, got a Tail! "
+## [1] "In the else part!"
 ```
 
 ```r
@@ -280,7 +280,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -304,7 +304,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The first child had more rules to follow"
+## [1] "The third child was spoiled"
 ```
 
 
@@ -334,7 +334,7 @@ p.value
 ```
 
 ```
-## [1] 8.78271e-07
+## [1] 2.714726e-08
 ```
 
 

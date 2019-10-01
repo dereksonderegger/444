@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-28" />
+<meta name="date" content="2019-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -588,6 +588,17 @@ from Monmouth University of New Hampshire Democrats and Independents.</p>
 <a class="sourceLine" id="cb276-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_relevel</span>(Candidate, <span class="st">&#39;other&#39;</span>, <span class="dt">after=</span><span class="dv">0</span>) ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb276-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Candidate, <span class="dt">y=</span>Percent)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="07_Factors_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><em>I need to add the case where we are updating a column of factors and I want to replace a single observations level with another. To do this we do something like this:</em></p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Name=</span><span class="kw">c</span>(<span class="st">&#39;Alice&#39;</span>,<span class="st">&#39;Bruce&#39;</span>,<span class="st">&#39;Charlie&#39;</span>), <span class="dt">Grade =</span> <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Grade =</span> <span class="kw">factor</span>(Grade) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Grade =</span> <span class="kw">fct_expand</span>(Grade, <span class="st">&#39;C&#39;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Grade =</span> <span class="kw">if_else</span>(Name <span class="op">==</span><span class="st"> &#39;Charlie&#39;</span>, <span class="kw">factor</span>(<span class="st">&#39;C&#39;</span>, <span class="dt">levels=</span><span class="kw">levels</span>(Grade)), Grade ) )</a>
+<a class="sourceLine" id="cb277-5" data-line-number="5">data  </a></code></pre></div>
+<pre><code>##      Name Grade
+## 1   Alice     A
+## 2   Bruce     B
+## 3 Charlie     C</code></pre>
+<p><em>The key idea is that both the TRUE and the FALSE outputs have to have the same type (which is a factor), and both factors have to have a compatible set of levels.</em></p>
 </div>
 <div id="exercises-6" class="section level2">
 <h2><span class="header-section-number">7.5</span> Exercises</h2>

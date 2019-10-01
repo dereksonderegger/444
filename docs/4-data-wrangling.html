@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-28" />
+<meta name="date" content="2019-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -596,11 +596,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 Kelso  M         80    82    81    81   B    
 ## 4 Turk   M         70    85    92    82.3 B    
 ## 5 Reid   F         95    92   100    95.7 A</code></pre>
-<p>If we want to update some column information we will also use the <code>mutate</code> command, but we need some mechanism to selct the rows to change, while keeping all the other row values the same. The functions <code>ifelse()</code> and <code>case_when()</code> are ideal for this task.</p>
-<p>The <code>ifelse</code> syntax is <code>ifelse( logical.expression, TrueValue, FalseValue )</code>. We can use this to update a score in our gradebook.</p>
+<p>If we want to update some column information we will also use the <code>mutate</code> command, but we need some mechanism to selct the rows to change, while keeping all the other row values the same. The functions <code>if_else()</code> and <code>case_when()</code> are ideal for this task.</p>
+<p>The <code>if_else</code> syntax is <code>if_else( logical.expression, TrueValue, FalseValue )</code>. We can use this to update a score in our gradebook.</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1"><span class="co"># Update Doctor Reids Final Exam score to be a 98, leave everybody elses the same.</span></a>
 <a class="sourceLine" id="cb138-2" data-line-number="2">grades &lt;-<span class="st"> </span>grades <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb138-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Final =</span> <span class="kw">ifelse</span>(l.name <span class="op">==</span><span class="st"> &#39;Reid&#39;</span>, <span class="dv">98</span>, Final ) )</a>
+<a class="sourceLine" id="cb138-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Final =</span> <span class="kw">if_else</span>(l.name <span class="op">==</span><span class="st"> &#39;Reid&#39;</span>, <span class="dv">98</span>, Final ) )</a>
 <a class="sourceLine" id="cb138-4" data-line-number="4">grades</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   l.name Gender Exam1 Exam2 Final average grade
@@ -613,7 +613,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We could also use this to modify all the rows. For example, perhaps we want to change the <code>gender</code> column information to have levels <code>Male</code> and <code>Female</code>.</p>
 <div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1"><span class="co"># Update the Gender column labels</span></a>
 <a class="sourceLine" id="cb140-2" data-line-number="2">grades &lt;-<span class="st"> </span>grades <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb140-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">ifelse</span>(Gender <span class="op">==</span><span class="st"> &#39;M&#39;</span>, <span class="st">&#39;Male&#39;</span>, <span class="st">&#39;Female&#39;</span> ) )</a>
+<a class="sourceLine" id="cb140-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">if_else</span>(Gender <span class="op">==</span><span class="st"> &#39;M&#39;</span>, <span class="st">&#39;Male&#39;</span>, <span class="st">&#39;Female&#39;</span> ) )</a>
 <a class="sourceLine" id="cb140-4" data-line-number="4">grades</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   l.name Gender Exam1 Exam2 Final average grade
@@ -639,7 +639,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5   Bernie      1     3
 ## 6  Deborah      0     3</code></pre>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1">people &lt;-<span class="st"> </span>people <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb144-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">gender =</span> <span class="kw">ifelse</span>( gender <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&#39;Female&#39;</span>, <span class="st">&#39;Male&#39;</span>) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb144-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">gender =</span> <span class="kw">if_else</span>( gender <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&#39;Female&#39;</span>, <span class="st">&#39;Male&#39;</span>) ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb144-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">party =</span> <span class="kw">case_when</span>( party <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &#39;Democratic&#39;</span>, </a>
 <a class="sourceLine" id="cb144-4" data-line-number="4">                             party <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">~</span><span class="st"> &#39;Republican&#39;</span>, </a>
 <a class="sourceLine" id="cb144-5" data-line-number="5">                             party <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">~</span><span class="st"> &#39;Independent&#39;</span>,</a>

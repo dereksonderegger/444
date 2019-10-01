@@ -35,9 +35,9 @@ microbenchmark(
 
 ```
 ## Unit: microseconds
-##     expr   min    lq  mean median    uq   max neval cld
-##  sqrt(x)  2.41  3.19  3.97   3.46  3.85  22.8   100  a 
-##  x^(0.5) 27.19 30.53 33.73  30.71 31.37 104.3   100   b
+##     expr   min    lq  mean median    uq    max neval cld
+##  sqrt(x)  2.38  2.47  2.94   2.99  3.15   5.99   100  a 
+##  x^(0.5) 23.95 24.03 28.47  24.19 29.37 104.93   100   b
 ```
 
 What `microbenchmark` does is run the two expressions a number of times and then produces the 5-number summary of those times. By running it multiple times, we account for the randomness associated with a operating system that is also running at the same time.

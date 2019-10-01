@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-09-28" />
+<meta name="date" content="2019-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -396,20 +396,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Type =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">Value=</span><span class="kw">rnorm</span>(<span class="dv">8</span>) )</a>
 <a class="sourceLine" id="cb209-2" data-line-number="2">df</a></code></pre></div>
 <pre><code>##   Type      Value
-## 1    A -0.1670294
-## 2    A -1.5885829
-## 3    B -0.9369470
-## 4    B -0.9189910
-## 5    C  0.7448388
-## 6    C -0.3272954
-## 7    D  0.7631800
-## 8    D -1.5508634</code></pre>
+## 1    A  0.2415161
+## 2    A  0.7144093
+## 3    B  0.5782712
+## 4    B -1.2330048
+## 5    C -0.7444936
+## 6    C -0.0639514
+## 7    D  0.2871662
+## 8    D -0.4059695</code></pre>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) )   <span class="co"># Only rows with Type == &#39;A&#39; or Type ==&#39;B&#39;</span></a></code></pre></div>
 <pre><code>##   Type      Value
-## 1    A -0.1670294
-## 2    A -1.5885829
-## 3    B -0.9369470
-## 4    B -0.9189910</code></pre>
+## 1    A  0.2415161
+## 2    A  0.7144093
+## 3    B  0.5782712
+## 4    B -1.2330048</code></pre>
 </div>
 <div id="decision-statements" class="section level2">
 <h2><span class="header-section-number">6.2</span> Decision statements</h2>
@@ -490,7 +490,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="co"># Flip the coin, and we get a 0 or 1</span></a>
 <a class="sourceLine" id="cb224-2" data-line-number="2">result &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</a>
 <a class="sourceLine" id="cb224-3" data-line-number="3">result</a></code></pre></div>
-<pre><code>## [1] 0</code></pre>
+<pre><code>## [1] 1</code></pre>
 <div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1"><span class="co"># convert the 0/1 to Tail/Head</span></a>
 <a class="sourceLine" id="cb226-2" data-line-number="2"><span class="cf">if</span>( result <span class="op">==</span><span class="st"> </span><span class="dv">0</span> ){</a>
 <a class="sourceLine" id="cb226-3" data-line-number="3">  result &lt;-<span class="st"> &#39;Tail&#39;</span></a>
@@ -499,9 +499,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb226-6" data-line-number="6">  result &lt;-<span class="st"> &#39;Head&#39;</span></a>
 <a class="sourceLine" id="cb226-7" data-line-number="7">  <span class="kw">print</span>(<span class="st">&quot;In the else part!&quot;</span>) </a>
 <a class="sourceLine" id="cb226-8" data-line-number="8">}</a></code></pre></div>
-<pre><code>## [1] &quot; in the if statement, got a Tail! &quot;</code></pre>
+<pre><code>## [1] &quot;In the else part!&quot;</code></pre>
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1">result</a></code></pre></div>
-<pre><code>## [1] &quot;Tail&quot;</code></pre>
+<pre><code>## [1] &quot;Head&quot;</code></pre>
 <p>Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable <code>result</code> changes as you execute the code repeatedly.</p>
 <p>Finally we can nest if else statements together to allow you to write code that has many different execution routes.</p>
 <div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="co"># randomly grab a number between 0,5 and round it up to 1,2, ..., 5</span></a>
@@ -516,7 +516,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb230-10" data-line-number="10">  <span class="co"># if birth.order is anything other than 1, 2 or 3</span></a>
 <a class="sourceLine" id="cb230-11" data-line-number="11">  <span class="kw">print</span>(<span class="st">&#39;No more unfounded generalizations!&#39;</span>)</a>
 <a class="sourceLine" id="cb230-12" data-line-number="12">}</a></code></pre></div>
-<pre><code>## [1] &quot;The first child had more rules to follow&quot;</code></pre>
+<pre><code>## [1] &quot;The third child was spoiled&quot;</code></pre>
 <p>To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:</p>
 <ul>
 <li><p>If the test statistic t is negative, then p-value = <span class="math inline">\(2*P\left(T_{df} \le t \right)\)</span></p></li>
@@ -537,7 +537,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb232-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb232-14" data-line-number="14"><span class="co"># print the resulting p-value</span></a>
 <a class="sourceLine" id="cb232-15" data-line-number="15">p.value</a></code></pre></div>
-<pre><code>## [1] 8.78271e-07</code></pre>
+<pre><code>## [1] 2.714726e-08</code></pre>
 <p>This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the <code>t.test()</code> function.</p>
 </div>
 </div>
