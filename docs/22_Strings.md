@@ -606,7 +606,57 @@ str_extract_all(string, '<.+?>')
 
 ## Exercises
 
-1. The following file names were used in a camera trap study. The S number represents the site, P is the plot within a site, C is the camera number within the plot, the first string of numbers is the YearMonthDay and the second string of numbers is the HourMinuteSecond.
+1. For the following regular expression, explain in words what it matches on. Then add test strings to demonstrate that it in fact does match on the pattern you claim it does. Make sure that your test set of strings has several examples that match as well as several that do not. *If you copy the Rmarkdown code for these exercises directly from my source pages, make sure to remove the `eval=FALSE` from the R-chunk headers.*
+    a)
+        
+        ```r
+        # This regular expression matches:  Insert your answer here...
+        strings <- c()
+        data.frame( string = strings ) %>%
+          mutate( result = str_detect(string, 'a') )
+        ```
+    b)
+        
+        ```r
+        # This regular expression matches:  Insert your answer here...
+        strings <- c()
+        data.frame( string = strings ) %>%
+          mutate( result = str_detect(string, 'ab') )
+        ```
+    c)
+        
+        ```r
+        # This regular expression matches:  Insert your answer here...
+        strings <- c()
+        data.frame( string = strings ) %>%
+          mutate( result = str_detect(string, '[ab]') )
+        ```
+    d)
+        
+        ```r
+        # This regular expression matches:  Insert your answer here...
+        strings <- c()
+        data.frame( string = strings ) %>%
+          mutate( result = str_detect(string, '^[ab]') )
+        ```
+    e)
+        
+        ```r
+        # This regular expression matches:  Insert your answer here...
+        strings <- c()
+        data.frame( string = strings ) %>%
+          mutate( result = str_detect(string, '\\d+\\s[aA]') )
+        ```
+    f)
+        
+        ```r
+        # This regular expression matches:  Insert your answer here...
+        strings <- c()
+        data.frame( string = strings ) %>%
+          mutate( result = str_detect(string, '.*') )
+        ```
+
+2. The following file names were used in a camera trap study. The S number represents the site, P is the plot within a site, C is the camera number within the plot, the first string of numbers is the YearMonthDay and the second string of numbers is the HourMinuteSecond.
 
 ```r
 file.names <- c( 'S123.P2.C10_20120621_213422.jpg',
@@ -623,9 +673,8 @@ Use a combination of `str_sub()` and `str_split()` to produce a data frame with 
  S187   P2     C2 2012    07  02   02     35     01
 ```
 
-*Hint: Convert all the dashes to periods and then split on the dots. After that you'll have to further tear apart the date and time columns using str_sub().*
 
-2. Variable names in R may be and combination letters, digits, period, and underscore. However, they may not start with a digit and if they start with a period, they must not be followed by a digit.
+3. Variable names in R may be and combination letters, digits, period, and underscore. However, they may not start with a digit and if they start with a period, they must not be followed by a digit.
     
     ```r
     strings <- c('foo15', 'Bar', '.resid', '_14s', '99_Bottles', '.9Arggh', 'Foo!','HIV Rate')

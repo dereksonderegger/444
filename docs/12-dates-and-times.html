@@ -208,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.4" data-path="7-factors.html"><a href="7-factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
 <li class="chapter" data-level="7.5" data-path="7-factors.html"><a href="7-factors.html#exercises-6"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
 </ul></li>
-<li class="part"><span><b>Miscellanious</b></span></li>
+<li class="part"><span><b>Miscellaneous</b></span></li>
 <li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html"><i class="fa fa-check"></i>Statistical Tables</a><ul>
 <li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#example-distributions"><i class="fa fa-check"></i>Example Distributions</a></li>
 <li><a href="statistical-tables.html#mosaicplotdist-function"><code>mosaic::plotDist()</code> function</a></li>
@@ -352,7 +352,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="dates-and-times" class="section level1">
 <h1><span class="header-section-number">Chapter 12</span> Dates and Times</h1>
-<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb577-1" data-line-number="1"><span class="kw">library</span>( lubridate )</a></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb583-1" data-line-number="1"><span class="kw">library</span>( lubridate )</a></code></pre></div>
 <p>Dates within a computer require some special organization because there are several competing conventions for how to write a date (some of them more confusing than others) and because the sort order should be in the order that the dates occur in time.</p>
 <p>One useful tidbit of knowledge is that computer systems store a time point as the number of seconds from set point in time, called the epoch. So long as you always use the same epoch, you doesn’t have to worry about when the epoch is, but if you are switching between software systems, you might run into problems if they use different epochs. In R, we use midnight on Jan 1, 1970. In Microsoft Excel, they use Jan 0, 1900.</p>
 <p>For many years, R users hated dealing with dates because it was difficult to remember how to get R to take a string that represents a date (e.g. “June 26, 1997”) because users were required to specify how the format was arranged using a relatively complex set of rules. For example <code>%y</code> represents the two digit year, <code>%Y</code> represents the four digit year, <code>%m</code> represents the month, but <code>%b</code> represents the month written as Jan or Mar. Into this mess came Hadley Wickham (of <code>ggplot2</code> and <code>dplyr</code> fame) and his student Garrett Grolemund. The internal structure of R dates and times is quite robust, but the functions we use to manipulate them are horrible. To fix this, Dr Wickham and his then PhD student Dr Grolemund introduced the <code>lubridate</code> package.</p>
@@ -391,41 +391,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>The uncommon orders aren’t likely to be used, but the <code>lubridate</code> package includes them for completeness. Once the order has been specified, the <code>lubridate</code> package will try as many different ways to parse the date that make sense. As a result, so long as the order is consistent, all of the following will work:</p>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb578-1" data-line-number="1"><span class="kw">mdy</span>( <span class="st">&#39;June 26, 1997&#39;</span>, <span class="st">&#39;Jun 26 97&#39;</span>, <span class="st">&#39;6-26-97&#39;</span>, <span class="st">&#39;6-26-1997&#39;</span>, <span class="st">&#39;6/26/97&#39;</span>, <span class="st">&#39;6-26/97&#39;</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" data-line-number="1"><span class="kw">mdy</span>( <span class="st">&#39;June 26, 1997&#39;</span>, <span class="st">&#39;Jun 26 97&#39;</span>, <span class="st">&#39;6-26-97&#39;</span>, <span class="st">&#39;6-26-1997&#39;</span>, <span class="st">&#39;6/26/97&#39;</span>, <span class="st">&#39;6-26/97&#39;</span> )</a></code></pre></div>
 <pre><code>## [1] &quot;1997-06-26&quot; &quot;1997-06-26&quot; &quot;1997-06-26&quot; &quot;1997-06-26&quot; &quot;1997-06-26&quot;
 ## [6] &quot;1997-06-26&quot;</code></pre>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" data-line-number="1"><span class="kw">mdy</span>(<span class="st">&#39;June 26, 0097&#39;</span>, <span class="st">&#39;June 26, 97&#39;</span>,  <span class="st">&#39;June 26, 68&#39;</span>, <span class="st">&#39;June 26, 69&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb586-1" data-line-number="1"><span class="kw">mdy</span>(<span class="st">&#39;June 26, 0097&#39;</span>, <span class="st">&#39;June 26, 97&#39;</span>,  <span class="st">&#39;June 26, 68&#39;</span>, <span class="st">&#39;June 26, 69&#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;0097-06-26&quot; &quot;1997-06-26&quot; &quot;2068-06-26&quot; &quot;1969-06-26&quot;</code></pre>
 <p>This shows by default if you only specify the year using two digits, <code>lubridate()</code> will try to do something clever. It will default to either a 19XX or 20XX and it picks whichever is the closer date. This illustrates that you should ALWAYS fully specify the year using four digits.</p>
 <p>The lubridate functions will also accommodate if an integer representation of the date, but it has to have enough digits to uniquely identify the month and day.</p>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" data-line-number="1"><span class="kw">ymd</span>(<span class="dv">20090110</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb588-1" data-line-number="1"><span class="kw">ymd</span>(<span class="dv">20090110</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;2009-01-10&quot;</code></pre>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" data-line-number="1"><span class="kw">ymd</span>(<span class="dv">2009722</span>) <span class="co"># only one digit for month --- error!</span></a></code></pre></div>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb590-1" data-line-number="1"><span class="kw">ymd</span>(<span class="dv">2009722</span>) <span class="co"># only one digit for month --- error!</span></a></code></pre></div>
 <pre><code>## Warning: All formats failed to parse. No formats found.</code></pre>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb587-1" data-line-number="1"><span class="kw">ymd</span>(<span class="dv">2009116</span>) <span class="co"># this is ambiguous! 1-16 or 11-6?</span></a></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb593-1" data-line-number="1"><span class="kw">ymd</span>(<span class="dv">2009116</span>) <span class="co"># this is ambiguous! 1-16 or 11-6?</span></a></code></pre></div>
 <pre><code>## Warning: All formats failed to parse. No formats found.</code></pre>
 <pre><code>## [1] NA</code></pre>
 <p>If we want to add a time to a date, we will use a function with the suffix <code>_hm</code> or <code>_hms</code>. Suppose that we want to encode a date and time, for example, the date and time of my wedding ceremony</p>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb590-1" data-line-number="1"><span class="kw">mdy_hm</span>(<span class="st">&#39;Sept 18, 2010 5:30 PM&#39;</span>, <span class="st">&#39;9-18-2010 17:30&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb596-1" data-line-number="1"><span class="kw">mdy_hm</span>(<span class="st">&#39;Sept 18, 2010 5:30 PM&#39;</span>, <span class="st">&#39;9-18-2010 17:30&#39;</span>)</a></code></pre></div>
 <pre><code>## [1] NA                        &quot;2010-09-18 17:30:00 UTC&quot;</code></pre>
 <p>In the above case, <code>lubridate</code> is having trouble understanding AM/PM differences and it is better to always specify times using 24 hour notation and skip the AM/PM designations.</p>
 <p>By default, R codes the time of day using as if the event occurred in the UMT time zone (also known as Greenwich Mean Time GMT). To specify a different time zone, use the <code>tz=</code> option. For example:</p>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb592-1" data-line-number="1"><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;MST&#39;</span>) <span class="co"># Mountain Standard Time</span></a></code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb598-1" data-line-number="1"><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;MST&#39;</span>) <span class="co"># Mountain Standard Time</span></a></code></pre></div>
 <pre><code>## [1] &quot;2010-09-18 17:30:00 MST&quot;</code></pre>
 <p>This isn’t bad, but Loveland, Colorado is on MST in the winter and MDT in the summer because of daylight savings time. So to specify the time zone that could switch between standard time and daylight savings time, I should specify <code>tz='US/Mountain'</code></p>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb594-1" data-line-number="1"><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>) <span class="co"># US mountain time</span></a></code></pre></div>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb600-1" data-line-number="1"><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>) <span class="co"># US mountain time</span></a></code></pre></div>
 <pre><code>## [1] &quot;2010-09-18 17:30:00 MDT&quot;</code></pre>
 <p>As Arizonans, we recognize that Arizona is weird and doesn’t use daylight savings time. Fortunately R has a built-in time zone just for us.</p>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb596-1" data-line-number="1"><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Arizona&#39;</span>) <span class="co"># US Arizona time</span></a></code></pre></div>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb602-1" data-line-number="1"><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Arizona&#39;</span>) <span class="co"># US Arizona time</span></a></code></pre></div>
 <pre><code>## [1] &quot;2010-09-18 17:30:00 MST&quot;</code></pre>
 <p>R recognizes 582 different time zone locals and you can find these using the function <code>OlsonNames()</code>. To find out more about what these mean you can check out the Wikipedia page on timezones [<a href="http://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">http://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>||<a href="http://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">http://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>].</p>
 </div>
 <div id="extracting-information" class="section level2">
 <h2><span class="header-section-number">12.2</span> Extracting information</h2>
 <p>The <code>lubridate</code> package provides many functions for extracting information from the date. Suppose we have defined</p>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb598-1" data-line-number="1"><span class="co"># Derek&#39;s wedding!</span></a>
-<a class="sourceLine" id="cb598-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>) <span class="co"># US Mountain time</span></a></code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb604-1" data-line-number="1"><span class="co"># Derek&#39;s wedding!</span></a>
+<a class="sourceLine" id="cb604-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>) <span class="co"># US Mountain time</span></a></code></pre></div>
 <table style="width:96%;">
 <colgroup>
 <col width="22%" />
@@ -511,29 +511,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>All of these functions can also be used to update the value. For example, we could move the day of the wedding from September <span class="math inline">\(18^{th}\)</span> to October <span class="math inline">\(18^{th}\)</span> by changing the month.</p>
-<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb599-1" data-line-number="1"><span class="kw">month</span>(x) &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb599-2" data-line-number="2">x</a></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb605-1" data-line-number="1"><span class="kw">month</span>(x) &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb605-2" data-line-number="2">x</a></code></pre></div>
 <pre><code>## [1] &quot;2010-10-18 17:30:00 MDT&quot;</code></pre>
 <p>Often I want to consider some point in time, but need to convert the timezone the date was specified into another timezone. The function <code>with_tz()</code> will take a given moment in time and figure out when that same moment is in another timezone. For example, <em>Game of Thrones</em> is made available on HBO’s streaming service at 9pm on Sunday evenings Eastern time. I need to know when I can start watching it here in Arizona.</p>
-<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb601-1" data-line-number="1">GoT &lt;-<span class="st"> </span><span class="kw">ymd_hm</span>(<span class="st">&#39;2015-4-26 21:00&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Eastern&#39;</span>)</a>
-<a class="sourceLine" id="cb601-2" data-line-number="2"><span class="kw">with_tz</span>(GoT, <span class="dt">tz=</span><span class="st">&#39;US/Arizona&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb607-1" data-line-number="1">GoT &lt;-<span class="st"> </span><span class="kw">ymd_hm</span>(<span class="st">&#39;2015-4-26 21:00&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Eastern&#39;</span>)</a>
+<a class="sourceLine" id="cb607-2" data-line-number="2"><span class="kw">with_tz</span>(GoT, <span class="dt">tz=</span><span class="st">&#39;US/Arizona&#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;2015-04-26 18:00:00 MST&quot;</code></pre>
 <p>This means that Game of Thrones is available for streaming at 6 pm Arizona time.</p>
 </div>
 <div id="arithmetic-on-dates" class="section level2">
 <h2><span class="header-section-number">12.3</span> Arithmetic on Dates</h2>
 <p>Once we have two or more Date objects defined, we can perform appropriate mathematical operations. For example, we might want to the know the number of days there are between two dates.</p>
-<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb603-1" data-line-number="1">Wedding &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2010-Sep-18&#39;</span>)</a>
-<a class="sourceLine" id="cb603-2" data-line-number="2">Elise &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2013-Jan-11&#39;</span>)</a>
-<a class="sourceLine" id="cb603-3" data-line-number="3">Childless &lt;-<span class="st"> </span>Elise <span class="op">-</span><span class="st"> </span>Wedding</a>
-<a class="sourceLine" id="cb603-4" data-line-number="4">Childless</a></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb609-1" data-line-number="1">Wedding &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2010-Sep-18&#39;</span>)</a>
+<a class="sourceLine" id="cb609-2" data-line-number="2">Elise &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2013-Jan-11&#39;</span>)</a>
+<a class="sourceLine" id="cb609-3" data-line-number="3">Childless &lt;-<span class="st"> </span>Elise <span class="op">-</span><span class="st"> </span>Wedding</a>
+<a class="sourceLine" id="cb609-4" data-line-number="4">Childless</a></code></pre></div>
 <pre><code>## Time difference of 846 days</code></pre>
 <p>Because both dates were recorded without the hours or seconds, R defaults to just reporting the difference in number of days.</p>
 <p>Often I want to add two weeks, or 3 months, or one year to a date. However it is not completely obvious what I mean by “add 1 year”. Do we mean to increment the year number (eg Feb 2, 2011 -&gt; Feb 2, 2012) or do we mean to add 31,536,000 seconds? To get around this, <code>lubridate</code> includes functions of the form <code>dunits()</code> and <code>units()</code> where the “unit” portion could be year, month, week, etc. The “d” prefix will stand for duration when appropriate.</p>
-<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb605-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2011-Feb-21&quot;</span>)</a>
-<a class="sourceLine" id="cb605-2" data-line-number="2">x <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">2</span>)  <span class="co"># Just add two to the year</span></a></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb611-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2011-Feb-21&quot;</span>)</a>
+<a class="sourceLine" id="cb611-2" data-line-number="2">x <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">2</span>)  <span class="co"># Just add two to the year</span></a></code></pre></div>
 <pre><code>## [1] &quot;2013-02-21&quot;</code></pre>
-<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb607-1" data-line-number="1">x <span class="op">+</span><span class="st"> </span><span class="kw">dyears</span>(<span class="dv">2</span>) <span class="co"># Add 2*365 days; 2012 was a leap year</span></a></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb613-1" data-line-number="1">x <span class="op">+</span><span class="st"> </span><span class="kw">dyears</span>(<span class="dv">2</span>) <span class="co"># Add 2*365 days; 2012 was a leap year</span></a></code></pre></div>
 <pre><code>## [1] &quot;2013-02-20&quot;</code></pre>
 </div>
 <div id="exercises-12" class="section level2">
@@ -541,22 +541,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>For the following formats for a date, transform them into a date/time object. Which formats can be handled nicely and which are not?</li>
 </ol>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb609-1" data-line-number="1">birthday &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb609-2" data-line-number="2">  <span class="st">&#39;September 13, 1978&#39;</span>,</a>
-<a class="sourceLine" id="cb609-3" data-line-number="3">  <span class="st">&#39;Sept 13, 1978&#39;</span>,</a>
-<a class="sourceLine" id="cb609-4" data-line-number="4">  <span class="st">&#39;Sep 13, 1978&#39;</span>,</a>
-<a class="sourceLine" id="cb609-5" data-line-number="5">  <span class="st">&#39;9-13-78&#39;</span>,</a>
-<a class="sourceLine" id="cb609-6" data-line-number="6">  <span class="st">&#39;9/13/78&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb615-1" data-line-number="1">birthday &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb615-2" data-line-number="2">  <span class="st">&#39;September 13, 1978&#39;</span>,</a>
+<a class="sourceLine" id="cb615-3" data-line-number="3">  <span class="st">&#39;Sept 13, 1978&#39;</span>,</a>
+<a class="sourceLine" id="cb615-4" data-line-number="4">  <span class="st">&#39;Sep 13, 1978&#39;</span>,</a>
+<a class="sourceLine" id="cb615-5" data-line-number="5">  <span class="st">&#39;9-13-78&#39;</span>,</a>
+<a class="sourceLine" id="cb615-6" data-line-number="6">  <span class="st">&#39;9/13/78&#39;</span>)</a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Suppose you have arranged for a phone call to be at 3 pm on May 8, 2015 at Arizona time. However, the recipient will be in Auckland, NZ. What time will it be there?</p></li>
 <li><p>It turns out there is some interesting periodicity regarding the number of births on particular days of the year.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Using the <code>mosaicData</code> package, load the data set <code>Births78</code> which records the number of children born on each day in the United States in 1978.</p></li>
 <li><p>There is already a date column in the data set that is called, appropriately, date. Notice that <code>ggplot2</code> knows how to represent dates in a pretty fashion and the following chart looks nice.</p>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb610-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb610-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&#39;Births78&#39;</span>, <span class="dt">package=</span><span class="st">&quot;mosaicData&quot;</span>)</a>
-<a class="sourceLine" id="cb610-3" data-line-number="3"><span class="kw">ggplot</span>(Births78, <span class="kw">aes</span>(<span class="dt">x=</span>date, <span class="dt">y=</span>births)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb610-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb616-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb616-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&#39;Births78&#39;</span>, <span class="dt">package=</span><span class="st">&quot;mosaicData&quot;</span>)</a>
+<a class="sourceLine" id="cb616-3" data-line-number="3"><span class="kw">ggplot</span>(Births78, <span class="kw">aes</span>(<span class="dt">x=</span>date, <span class="dt">y=</span>births)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb616-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p>What stands out to you? Why do you think we have this trend?</p></li>
 <li><p>To test your assumption, we need to figure out the what day of the week each observation is. Use <code>dplyr::mutate</code> to add a new column named dow that is the day of the week (Monday, Tuesday, etc). This calculation will involve some function in the <code>lubridate</code> package.</p></li>
 <li><p>Plot the data with the point color being determined by the <code>dow</code> variable.</p></li>

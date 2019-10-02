@@ -208,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.4" data-path="7-factors.html"><a href="7-factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
 <li class="chapter" data-level="7.5" data-path="7-factors.html"><a href="7-factors.html#exercises-6"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
 </ul></li>
-<li class="part"><span><b>Miscellanious</b></span></li>
+<li class="part"><span><b>Miscellaneous</b></span></li>
 <li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html"><i class="fa fa-check"></i>Statistical Tables</a><ul>
 <li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#example-distributions"><i class="fa fa-check"></i>Example Distributions</a></li>
 <li><a href="statistical-tables.html#mosaicplotdist-function"><code>mosaic::plotDist()</code> function</a></li>
@@ -846,25 +846,51 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <div id="exercises-11" class="section level2">
 <h2><span class="header-section-number">11.5</span> Exercises</h2>
 <ol style="list-style-type: decimal">
+<li>For the following regular expression, explain in words what it matches on. Then add test strings to demonstrate that it in fact does match on the pattern you claim it does. Make sure that your test set of strings has several examples that match as well as several that do not. <em>If you copy the Rmarkdown code for these exercises directly from my source pages, make sure to remove the <code>eval=FALSE</code> from the R-chunk headers.</em>
+<ol style="list-style-type: lower-alpha">
+<li><div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb573-1" data-line-number="1"><span class="co"># This regular expression matches:  Insert your answer here...</span></a>
+<a class="sourceLine" id="cb573-2" data-line-number="2">strings &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb573-3" data-line-number="3"><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb573-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;a&#39;</span>) )</a></code></pre></div></li>
+<li><div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb574-1" data-line-number="1"><span class="co"># This regular expression matches:  Insert your answer here...</span></a>
+<a class="sourceLine" id="cb574-2" data-line-number="2">strings &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb574-3" data-line-number="3"><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb574-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;ab&#39;</span>) )</a></code></pre></div></li>
+<li><div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb575-1" data-line-number="1"><span class="co"># This regular expression matches:  Insert your answer here...</span></a>
+<a class="sourceLine" id="cb575-2" data-line-number="2">strings &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb575-3" data-line-number="3"><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb575-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;[ab]&#39;</span>) )</a></code></pre></div></li>
+<li><div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb576-1" data-line-number="1"><span class="co"># This regular expression matches:  Insert your answer here...</span></a>
+<a class="sourceLine" id="cb576-2" data-line-number="2">strings &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb576-3" data-line-number="3"><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb576-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^[ab]&#39;</span>) )</a></code></pre></div></li>
+<li><div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb577-1" data-line-number="1"><span class="co"># This regular expression matches:  Insert your answer here...</span></a>
+<a class="sourceLine" id="cb577-2" data-line-number="2">strings &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb577-3" data-line-number="3"><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb577-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">s[aA]&#39;</span>) )</a></code></pre></div></li>
+<li><div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb578-1" data-line-number="1"><span class="co"># This regular expression matches:  Insert your answer here...</span></a>
+<a class="sourceLine" id="cb578-2" data-line-number="2">strings &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb578-3" data-line-number="3"><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb578-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;.*&#39;</span>) )</a></code></pre></div></li>
+</ol></li>
 <li>The following file names were used in a camera trap study. The S number represents the site, P is the plot within a site, C is the camera number within the plot, the first string of numbers is the YearMonthDay and the second string of numbers is the HourMinuteSecond.</li>
 </ol>
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb573-1" data-line-number="1">file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</a>
-<a class="sourceLine" id="cb573-2" data-line-number="2">                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</a>
-<a class="sourceLine" id="cb573-3" data-line-number="3">                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb579-1" data-line-number="1">file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</a>
+<a class="sourceLine" id="cb579-2" data-line-number="2">                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</a>
+<a class="sourceLine" id="cb579-3" data-line-number="3">                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</a></code></pre></div>
 <p>Use a combination of <code>str_sub()</code> and <code>str_split()</code> to produce a data frame with columns corresponding to the <code>site</code>, <code>plot</code>, <code>camera</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>, and <code>second</code> for these three file names. So we want to produce code that will create the data frame:</p>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb574-1" data-line-number="1"> Site Plot Camera Year Month Day Hour Minute Second</a>
-<a class="sourceLine" id="cb574-2" data-line-number="2"> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></a>
-<a class="sourceLine" id="cb574-3" data-line-number="3">  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></a>
-<a class="sourceLine" id="cb574-4" data-line-number="4"> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></a></code></pre></div>
-<p><em>Hint: Convert all the dashes to periods and then split on the dots. After that you’ll have to further tear apart the date and time columns using str_sub().</em></p>
-<ol start="2" style="list-style-type: decimal">
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" data-line-number="1"> Site Plot Camera Year Month Day Hour Minute Second</a>
+<a class="sourceLine" id="cb580-2" data-line-number="2"> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></a>
+<a class="sourceLine" id="cb580-3" data-line-number="3">  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></a>
+<a class="sourceLine" id="cb580-4" data-line-number="4"> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></a></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
 <li><p>Variable names in R may be and combination letters, digits, period, and underscore. However, they may not start with a digit and if they start with a period, they must not be followed by a digit.</p>
-<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb575-1" data-line-number="1">strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;foo15&#39;</span>, <span class="st">&#39;Bar&#39;</span>, <span class="st">&#39;.resid&#39;</span>, <span class="st">&#39;_14s&#39;</span>, <span class="st">&#39;99_Bottles&#39;</span>, <span class="st">&#39;.9Arggh&#39;</span>, <span class="st">&#39;Foo!&#39;</span>,<span class="st">&#39;HIV Rate&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb581-1" data-line-number="1">strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;foo15&#39;</span>, <span class="st">&#39;Bar&#39;</span>, <span class="st">&#39;.resid&#39;</span>, <span class="st">&#39;_14s&#39;</span>, <span class="st">&#39;99_Bottles&#39;</span>, <span class="st">&#39;.9Arggh&#39;</span>, <span class="st">&#39;Foo!&#39;</span>,<span class="st">&#39;HIV Rate&#39;</span>)</a></code></pre></div>
 The first four are valid variable names, but the last four are not.
 <ol style="list-style-type: lower-alpha">
 <li><p>First write a regular expression that determines if the string starts with a character (upper or lower case) or underscore and then is followed by zero or more numbers, letters, periods or underscores. <em>Notice I use the start/end of string markers. This is important so that we don’t just match somewhere in the middle of the variable name.</em></p>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb576-1" data-line-number="1"><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb576-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^(???what goes here???)$&#39;</span> )) </a></code></pre></div></li>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" data-line-number="1"><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb582-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^(???what goes here???)$&#39;</span> )) </a></code></pre></div></li>
 <li><p>Modify your regular expression so that the first group could be either <code>[a-zA-Z_]</code> as before or it could be a period followed by letters or an underscore.</p></li>
 </ol></li>
 </ol>
