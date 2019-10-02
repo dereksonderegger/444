@@ -1,12 +1,23 @@
 # String Manipulation
 
+
+
+```r
+library(tidyverse)
+library(stringr)
+```
+
+
 Strings make up a very important class of data. Data being read into R often come in the form of character strings where different parts might mean different things. For example a sample ID of “R1_P2_C1_2012_05_28” might represent data from Region 1, Park 2, Camera 1, taken on May 28, 2012. It is important that we have a set of utilities that allow us to split and combine character strings in a easy and consistent fashion.
 
 Unfortunately, the utilities included in the base version of R are somewhat inconsistent and were not designed to work nicely together. Hadley Wickham, the developer of `ggplot2` and `dplyr` has this to say: 
 
 > "R provides a solid set of string operations, but because they have grown organically over time, they can be inconsistent and a little hard to learn. Additionally, they lag behind the string operations in other programming languages, so that some things that are easy to do in languages like Ruby or Python are rather hard to do in R." -- Hadley Wickham 
 
-For this chapter we will introduce the most commonly used functions from the base version of R that you might use or see in other people's code. Second, we introduce Dr Wickham's `stringr` package that provides many useful functions that operate in a consistent manner.
+For this chapter we will introduce the most commonly used functions from the base version of R that you might use or see in other people's code. Second, we introduce Dr Wickham's `stringr` package that provides many useful functions that operate in a consistent manner. In his *R for Data Science* he has a nice chapter on
+[strings](https://r4ds.had.co.nz/strings.html).
+
+There are several white space characters that need to be represented in character strings such as tabs and returns. Most programming languages, including R, represent these using the *escape character* combined with another. For example in a character string `\t` represents a tab and `\n` represents a newline. However, because the backslash is the escape character, in order to have a backslash in the character string, the backslash needs to be escaped as well.  
 
 ## Base function
 
@@ -111,9 +122,9 @@ paste(first.names, collapse=':')
 ## [1] "Robb:Stannis:Daenerys"
 ```
 
-## Package `stringr`: basic operations
+## `stringr`: Basic operations
 
-> The goal of stringr is to make a consistent user interface to a suite of functions to manipulate strings. “(stringr) is a set of simple wrappers that make R’s string functions more consistent, simpler and easier to use. It does this by ensuring that: function and argument names (and positions) are consistent, all functions deal with NA’s and zero length character appropriately, and the output data structures from each function matches the input data structures of other functions.” - Hadley Wickham
+> The goal of `stringr` is to make a consistent user interface to a suite of functions to manipulate strings. “(stringr) is a set of simple wrappers that make R’s string functions more consistent, simpler and easier to use. It does this by ensuring that: function and argument names (and positions) are consistent, all functions deal with NA’s and zero length character appropriately, and the output data structures from each function matches the input data structures of other functions.” - Hadley Wickham
 
 We'll investigate the most commonly used function but there are many we will ignore.
 
@@ -143,9 +154,6 @@ str_c( ..., sep='', collapse=NULL)
 You can think of the inputs building a matrix of strings, with each input creating a column of the matrix. For each row, `str_c()` first joins all the columns (using the separator character given in `sep`) into a single column of strings. If the collapse argument is non-NULL, the function takes the vector and joins each element together using collapse as the separator character. 
 
 ```r
-# load the stringr library
-library(stringr)
-
 # envisioning the matrix of strings
 cbind(first.names, last.names)
 ```
@@ -230,7 +238,7 @@ str_pad(first.names, width=8, side='right', pad='*')
 
 ### Trim a string with `str_trim()`
 
-This removes any leading or trailing whitespace where whitespace is defined as spaces ' ', tabs `\t` or returns `\n`.
+This removes any leading or trailing white space where white space is defined as spaces ' ', tabs `\t` or returns `\n`.
 
 ```r
 text <- ' Some text. \n  '
@@ -249,7 +257,7 @@ str_trim(text)
 ## [1] "Some text."
 ```
 
-## Package `stringr`: Pattern Matching
+## `stringr`: Pattern Matching Tools
 
 The previous commands are all quite useful but the most powerful string operation is take a string and match some pattern within it. The following commands are available within `stringr`.
 
@@ -261,14 +269,14 @@ The previous commands are all quite useful but the most powerful string operatio
 |  `str_locate()`       |  Locates the first (or all) positions of a     |
 |  `str_locate_all()`   |  pattern.                                      |
 +-----------------------+------------------------------------------------+
-|  `str_extract()`      |  Extracts the first (or all) substrings        |
+|  `str_extract()`      |  Extracts the first (or all) sub-strings       |
 |  `str_extract_all()`  |  corresponding to a pattern                    |
 +-----------------------+------------------------------------------------+
-|  `str_replace()`      |  Replaces the matched substring(s) with        |
+|  `str_replace()`      |  Replaces the matched sub-string(s) with       |
 |  `str_replace_all()`  |  a new pattern                                 |
 +-----------------------+------------------------------------------------+
 |  `str_split()`        |  Splits the input string based on the          |
-|  `str_split_fixed()`  |  inputed pattern                               |
+|  `str_split_fixed()`  |  input pattern                                 |
 +-----------------------+------------------------------------------------+
 
 We will first examine these functions using a very simple pattern matching algorithm where we are matching a specific pattern. For most people, this is as complex as we need. 
@@ -276,29 +284,34 @@ We will first examine these functions using a very simple pattern matching algor
 Suppose that we have a vector of strings that contain a date in the form “2012-May-27” and we want to manipulate them to extract certain information.
 
 ```r
-test.vector <- c('2008-Feb-10', '2010-Sept-18', '2013-Jan-11', '2016-Jan-2')
+strings <- c('2008-Feb-10', '2010-Sept-18', '2013-Jan-11', '2016-Jan-2')
 ```
 
 ### Detecting a pattern using str_detect()
 
-Suppose we want to know which dates are in September. We want to detect if the pattern “Sept” occurs in the strings. It is important that I used fixed(“Sept”) in this code to “turn off” the complicated regular expression matching rules and just look for exactly what I specified.
+Suppose we want to know which dates are in September. We want to detect if the pattern “Sept” occurs in the strings. 
 
 ```r
-str_detect( test.vector, pattern=fixed('Sept') )
+data.frame( string = strings ) %>%
+  mutate( result = str_detect( string, pattern='Sept' ) )
 ```
 
 ```
-## [1] FALSE  TRUE FALSE FALSE
+##         string result
+## 1  2008-Feb-10  FALSE
+## 2 2010-Sept-18   TRUE
+## 3  2013-Jan-11  FALSE
+## 4   2016-Jan-2  FALSE
 ```
 
-Here we see that the second string in the test vector included the substring “Sept” but none of the others did.
+Here we see that the second string in the test vector included the sub-string “Sept” but none of the others did.
 
 ### Locating a pattern using str_locate()
 
 To figure out where the “-” characters are, we can use the `str_locate()` function.
 
 ```r
-str_locate(test.vector, pattern=fixed('-') )
+str_locate(strings, pattern='-' )
 ```
 
 ```
@@ -311,7 +324,7 @@ str_locate(test.vector, pattern=fixed('-') )
 which shows that the first dash occurs as the $5^{th}$ character in each string. If we wanted all the dashes in the string the following works.
 
 ```r
-str_locate_all(test.vector, pattern=fixed('-') )
+str_locate_all(strings, pattern='-' )
 ```
 
 ```
@@ -338,51 +351,62 @@ str_locate_all(test.vector, pattern=fixed('-') )
 
 The output of `str_locate_all()` is a list of matrices that gives the start and end of each matrix. Using this information, we could grab the Year/Month/Day information out of each of the dates. We won't do that here because it will be easier to do this using `str_split()`.
 
-### Replacing substrings using `str_replace()`
+### Replacing sub-strings using `str_replace()`
 
 Suppose we didn't like using “-” to separate the Year/Month/Day but preferred a space, or an underscore, or something else. This can be done by replacing all of the “-” with the desired character. The `str_replace()` function only replaces the first match, but `str_replace_all()` replaces all matches.
 
 ```r
-str_replace(test.vector, pattern=fixed('-'), replacement=fixed(':') )
+data.frame( string = strings ) %>%
+  mutate(result = str_replace(string, pattern='-', replacement=':'))
 ```
 
 ```
-## [1] "2008:Feb-10"  "2010:Sept-18" "2013:Jan-11"  "2016:Jan-2"
+##         string       result
+## 1  2008-Feb-10  2008:Feb-10
+## 2 2010-Sept-18 2010:Sept-18
+## 3  2013-Jan-11  2013:Jan-11
+## 4   2016-Jan-2   2016:Jan-2
 ```
 
 ```r
-str_replace_all(test.vector, pattern=fixed('-'), replacement=fixed(':') )
+data.frame( string = strings ) %>%
+  mutate(result = str_replace_all(string, pattern='-', replacement=':'))
 ```
 
 ```
-## [1] "2008:Feb:10"  "2010:Sept:18" "2013:Jan:11"  "2016:Jan:2"
+##         string       result
+## 1  2008-Feb-10  2008:Feb:10
+## 2 2010-Sept-18 2010:Sept:18
+## 3  2013-Jan-11  2013:Jan:11
+## 4   2016-Jan-2   2016:Jan:2
 ```
 
-### Splitting into substrings using `str_split()`
+### Splitting into sub-strings using `str_split()`
 
-We can split each of the dates into three smaller substrings using the `str_split()` command, which returns a list where each element of the list is a vector containing pieces of the original string (excluding the pattern we matched on).
+We can split each of the dates into three smaller sub-strings using the `str_split()` command, which returns a list where each element of the list is a vector containing pieces of the original string (excluding the pattern we matched on).
 
-If we know that all the strings will be split into a known number of substrings (we have to specify how many substrings to match with the `n=` argument), we can use `str_split_fixed()` to get a matrix of substrings instead of list of substrings. It is somewhat unfortunate that the `_fixed` modifier to the function name is the same as what we use to specify to use simple pattern matching.
+If we know that all the strings will be split into a known number of sub-strings (we have to specify how many sub-strings to match with the `n=` argument), we can use `str_split_fixed()` to get a matrix of sub-strings instead of list of sub-strings. 
 
 ```r
-str_split_fixed(test.vector, pattern=fixed('-'), n=3)
+data.frame( string = strings ) %>%
+  cbind( str_split_fixed(.$string, pattern='-', n=3) )
 ```
 
 ```
-##      [,1]   [,2]   [,3]
-## [1,] "2008" "Feb"  "10"
-## [2,] "2010" "Sept" "18"
-## [3,] "2013" "Jan"  "11"
-## [4,] "2016" "Jan"  "2"
+##         string    1    2  3
+## 1  2008-Feb-10 2008  Feb 10
+## 2 2010-Sept-18 2010 Sept 18
+## 3  2013-Jan-11 2013  Jan 11
+## 4   2016-Jan-2 2016  Jan  2
 ```
 
 ## Regular Expressions
 
 The next section will introduce using regular expressions. Regular expressions are a way to specify very complicated patterns. Go look at https://xkcd.com/208/ to gain insight into just how geeky regular expressions are. 
 
-Regular expressions are a way of precisely writing out patterns that are very complicated. The stringr package pattern arguments can be given using standard regular expressions (not perl-style!) instead of using fixed strings.
+Regular expressions are a way of precisely writing out patterns that are very complicated. The `stringr` package pattern arguments can be given using standard regular expressions (not perl-style!) instead of using fixed strings.
 
-Regular expressions are extremely powerful for sifting through large amounts of text. For example, we might want to extract all of the 4 digit substrings (the years) out of our dates vector, or I might want to find all cases in a paragraph of text of words that begin with a capital letter and are at least 5 letters long. In another, somewhat nefarious example, spammers might have downloaded a bunch of text from webpages and want to be able to look for email addresses. So as a first pass, they want to match a pattern:
+Regular expressions are extremely powerful for sifting through large amounts of text. For example, we might want to extract all of the 4 digit sub-strings (the years) out of our dates vector, or I might want to find all cases in a paragraph of text of words that begin with a capital letter and are at least 5 letters long. In another, somewhat nefarious example, spammers might have downloaded a bunch of text from web pages and want to be able to look for email addresses. So as a first pass, they want to match a pattern:
 $$\underset{\textrm{1 or more letters}}{\underbrace{\texttt{Username}}}\texttt{@}\;\;\underset{\textrm{1 or more letter}}{\underbrace{\texttt{OrganizationName}}}\;\texttt{.\;}\begin{cases}
 \texttt{com}\\
 \texttt{org}\\
@@ -391,6 +415,194 @@ $$\underset{\textrm{1 or more letters}}{\underbrace{\texttt{Username}}}\texttt{@
 where the `Username` and `OrganizationName` can be pretty much anything, but a valid email address looks like this. We might get even more creative and recognize that my list of possible endings could include country codes as well. 
 
 For most people, I don't recommend opening the regular expression can-of-worms, but it is good to know that these pattern matching utilities are available within R and you don't need to export your pattern matching problems to Perl or Python.
+
+### Regular Expression Ingredients
+
+Regular expressions use a select number of characters to signify further meaning in order to create recipes that might be matched within a character string. 
+The special characters are  `[ \ ^ $ . | ? * + ()`. 
+
+|  Character Types   |   Interpretation                                |
+|:------------------:|:------------------------------------------------|
+| `abc` 	           | Letters `abc` *exactly*                           |
+| `123` 	           | Digits  `123` *exactly*                           |
+| `\d`	             | Any Digit                                         |
+| `\D`	             | Any Non-digit character                           |
+| `\w`		           | Any Alphanumeric character                        |
+| `\W`		           | Any Non-alphanumeric character                    |
+| `\s`		           | Any White space                                   |
+| `\S`		           | Any Non-white space character                     |
+| `.`		             | Any Character (The wildcard!)                     |
+| `^`                | Beginning of input string                         |
+| `$`                | End of input string                               |
+
+
+
+|  Grouping          |   Interpretation                                |
+|:------------------:|:------------------------------------------------|
+| `[abc]`		         | Only a, b, or c                                   |
+| `[^abc]`	         | 	Not a, b, nor c                                  |
+| `[a-z]`       	   | Characters a to z                                 |
+| `[A-Z]`       	   | Characters A to Z                                 |
+| `[0-9]`		         | Numbers 0 to 9                                    |
+| `[a-zA-Z]`		     | Characters a to z or A to Z                       |
+| `()`		           | Capture Group                                     |
+| `(a(bc))`		       | Capture Sub-group                                 |
+| `(abc|def)`		     | Matches `abc` or `def`                           |
+
+
+
+|  Group Modifiers   |   Interpretation                                |
+|:------------------:|:------------------------------------------------|
+| `*`		             | Zero or more repetitions of previous            |
+| `+`		             | One or more repetitions of previous             |
+| `?`		             | Previous group is optional                      |
+| `{m}`              | m repetitions of the previous                   |
+| `{m,n}`            | Between m and n repetitions of the previous     |
+
+
+The general idea is to make a recipe that combines one or more groups and add modifiers on the groups for how often the group is repeated.
+
+### Matching a specific string
+I might have a set of strings and I want to remove a specific string from them, or perhaps detect if a specific string is present. So long as the string of interest doesn't contain any special characters, you can just type out the string to be detected.
+
+
+```r
+# Replace 'John' from all of the strings with '****'
+# The regular expression interpretation only comes in evaluating 'John'
+strings <- c('John Sanderson', 'Johnathan Wilkes', 'Brendan Johnson', 'Bigjohn Smith')
+
+data.frame( string=strings ) %>%
+  mutate( result = str_replace(string, 'John', '****') )
+```
+
+```
+##             string           result
+## 1   John Sanderson   **** Sanderson
+## 2 Johnathan Wilkes ****athan Wilkes
+## 3  Brendan Johnson  Brendan ****son
+## 4    Bigjohn Smith    Bigjohn Smith
+```
+
+Notice that this is case sensitive and we didn't replace the 'john'.
+
+I might have special characters in my string that I want to replace. 
+
+```r
+# Remove the commas and the $ sign and convert to integers.
+# Because $ is a special character, we need to use the escape character, \.
+# However, because R uses the escape character as well, we have to use TWO
+# escape characters. The first to escape R usual interpretation of the backslash,
+# and the second to cause the regular expression to not use the usual 
+# interpretation of the $ sign.
+# 
+strings <- c('$1,000,873', '$4.53', '$672')
+
+data.frame( string=strings ) %>%
+  mutate( result = str_remove_all(string, '\\$') )
+```
+
+```
+##       string    result
+## 1 $1,000,873 1,000,873
+## 2      $4.53      4.53
+## 3       $672       672
+```
+
+```r
+# We can use the Or clause built into regular expressions to grab the 
+# dollar signs and the commas using (Pattern1|Pattern2) notation
+data.frame( string=strings ) %>%
+  mutate( result = str_remove_all(string, '(\\$|,)') ) 
+```
+
+```
+##       string  result
+## 1 $1,000,873 1000873
+## 2      $4.53    4.53
+## 3       $672     672
+```
+
+### Matching arbitrary numbers
+We might need to extract the numbers from a string. To do this, we want to grab 1 or more digits.
+
+```r
+strings <- c('I need 653 to fix the car', 
+             'But I only have 432.34 in the bank', 
+             'I could get .53 from the piggy bank') 
+
+data.frame( string=strings ) %>%
+  mutate( result = str_extract(string, '\\d+') ) 
+```
+
+```
+##                                string result
+## 1           I need 653 to fix the car    653
+## 2  But I only have 432.34 in the bank    432
+## 3 I could get .53 from the piggy bank     53
+```
+
+That isn't exactly what we wanted.  Instead of extracting the whole number, we left off the decimals. To fix this, we could have an optional part of the recipe for decimals. The way to enter into an optional section of the recipe is to use a `()?` and enclose the optional part inside the parentheses. 
+
+
+```r
+data.frame( string=strings ) %>%
+  mutate( result = str_extract(string, '\\d+(\\.\\d+)?' )) 
+```
+
+```
+##                                string result
+## 1           I need 653 to fix the car    653
+## 2  But I only have 432.34 in the bank 432.34
+## 3 I could get .53 from the piggy bank     53
+```
+
+That fixed the issue for the second row, but still misses the third line. Lets have 3 different recipes and then 'or' them together. 
+
+
+```r
+data.frame( string=strings ) %>%
+  mutate( result = str_extract(string, '(\\d+\\.\\d+|\\.\\d+|\\d+)' )) 
+```
+
+```
+##                                string result
+## 1           I need 653 to fix the car    653
+## 2  But I only have 432.34 in the bank 432.34
+## 3 I could get .53 from the piggy bank    .53
+```
+
+
+### Greedy matching
+Regular expressions tries to match as much as it can. The modifiers `*` and `+` try to match as many characters as possible. While often this is what we want, it sometimes is not.  Consider the case where we are scanning HTML code and looking for markup tags which are of the form `<blah blah>`. The information inside the angled brackets will be important, but for now we just want to search the string for all instances of HTML tags.
+
+
+```r
+string <- 'A web page has <b>MANY</b> types of <em>awesome</em> tags!'
+```
+
+For now, we want to extract `<b>`, `</b>`, `<em>` and `</em>`. To do this, we might first consider the following:
+
+```r
+str_extract_all(string, '<.+>')
+```
+
+```
+## [[1]]
+## [1] "<b>MANY</b> types of <em>awesome</em>"
+```
+
+What the regular expression engine did was matched as many characters in the `.+` until it got to the very last ending angled bracket it could find. We can force the `+` and `*` modifiers to be lazy and match as few characters as possible to complete the match by adding a `?` suffix to the `+` or `*` modifier.
+
+
+```r
+str_extract_all(string, '<.+?>')
+```
+
+```
+## [[1]]
+## [1] "<b>"   "</b>"  "<em>"  "</em>"
+```
+
 
 ## Exercises
 
@@ -412,3 +624,18 @@ Use a combination of `str_sub()` and `str_split()` to produce a data frame with 
 ```
 
 *Hint: Convert all the dashes to periods and then split on the dots. After that you'll have to further tear apart the date and time columns using str_sub().*
+
+2. Variable names in R may be and combination letters, digits, period, and underscore. However, they may not start with a digit and if they start with a period, they must not be followed by a digit.
+    
+    ```r
+    strings <- c('foo15', 'Bar', '.resid', '_14s', '99_Bottles', '.9Arggh', 'Foo!','HIV Rate')
+    ```
+    The first four are valid variable names, but the last four are not. 
+    a) First write a regular expression that determines if the string starts with a character (upper or lower case) or underscore and then is followed by zero or more numbers, letters, periods or underscores. *Notice I use the start/end of string markers. This is important so that we don't just match somewhere in the middle of the variable name.*
+        
+        ```r
+        data.frame( string=strings ) %>%
+          mutate( result = str_detect(string, '^(???what goes here???)$' )) 
+        ```
+    b)  Modify your regular expression so that the first group could be either `[a-zA-Z_]` as before or it could be a period followed by letters or an underscore.
+    

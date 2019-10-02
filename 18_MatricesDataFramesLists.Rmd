@@ -393,16 +393,7 @@ results
     ```{r, eval=FALSE}
     expand.grid( F1=c('A','B'), F2=c('x','w','z'), replicate=1:2 )
     ```
-    
     A fun example of using this function is making several graphs of the standard normal distribution versus the t-distribution. Use the `expand.grid` function to create a `data.frame` with all combinations of `x=seq(-4,4,by=.01)`, `dist=c('Normal','t')`, and `df=c(2,3,4,5,10,15,20,30)`. Use the `dplyr::mutate` command with the `if_else` command to generate the function heights `y` using either `dt(x,df)` or `dnorm(x)` depending on what is in the distribution column.
-    ```{r, message=FALSE, warning=FALSE}
-    library(tidyverse)
-    expand.grid( x=seq(-4,4,by=.01), dist=c('Normal','t'), df=c(2,3,4,5,10,15,20,30) ) %>%
-      mutate( y = if_else(dist=='t', dt(x,df), dnorm(x)) ) %>%
-    ggplot( aes(x=x, y=y, color=dist) ) + 
-      geom_line() + facet_wrap(~df, ncol=4) +
-      theme(legend.position="bottom")
-    ```
 
     
 13. Create and manipulate a list.
