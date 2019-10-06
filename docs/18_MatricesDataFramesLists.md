@@ -2,8 +2,15 @@
 
 # Data Structures
 
-In the introduction section of these notes, we concentrated on `data.frame`s created and manipulated using `dplyr`. There are other data structures that are used in R and it is useful to learn how to manipulate those other data structures. Furthermore, it is also useful to be able to use base R functionality to do certain manipulations on `data.frame`s.
 
+
+
+```r
+library(tidyverse)
+library(rvest)     # rvest is not loaded in the tidyverse Metapackage
+```
+
+In the introduction section of these notes, we concentrated on `data.frame`s created and manipulated using `dplyr`. There are other data structures that are used in R and it is useful to learn how to manipulate those other data structures. Furthermore, it is also useful to be able to use base R functionality to do certain manipulations on `data.frame`s.
 
 
 ## Vectors
@@ -482,7 +489,7 @@ Because a data frame feels like a matrix, R also allows matrix notation for acce
 `[a,]`    |  All of row `a`
 `[,b]`    |  All of column `b`
 
-Because the columns have meaning and we have given them column names, it is desirable to want to access an element by the name of the column as opposed to the column number.In large Excel spreadsheets I often get annoyed trying to remember which column something was in and muttering “Was total biomass in column P or Q?” A system where I could just name the column Total.Biomass and be done with it is much nicer to work with and I make fewer dumb mistakes.
+Because the columns have meaning and we have given them column names, it is desirable to want to access an element by the name of the column as opposed to the column number.In large Excel spreadsheets I often get annoyed trying to remember which column something was in and muttering “Was total biomass in column P or Q?” A system where I could just name the column `Total.Biomass` and be done with it is much nicer to work with and I make fewer dumb mistakes.
 
 
 ```r
@@ -782,6 +789,19 @@ results
     expand.grid( F1=c('A','B'), F2=c('x','w','z'), replicate=1:2 )
     ```
     A fun example of using this function is making several graphs of the standard normal distribution versus the t-distribution. Use the `expand.grid` function to create a `data.frame` with all combinations of `x=seq(-4,4,by=.01)`, `dist=c('Normal','t')`, and `df=c(2,3,4,5,10,15,20,30)`. Use the `dplyr::mutate` command with the `if_else` command to generate the function heights `y` using either `dt(x,df)` or `dnorm(x)` depending on what is in the distribution column.
+
+```r
+expand.grid( x=seq(-4,4,by=.01), 
+             dist=c('Normal','t'), 
+             df=c(2,3,4,5,10,15,20,30) ) %>%
+  mutate( y = if_else(dist == 't', dt(x, df), dnorm(x) ) ) %>%
+  ggplot( aes( x=x, y=y, color=dist) ) + 
+  geom_line() + 
+  facet_wrap(~df)
+```
+
+<img src="18_MatricesDataFramesLists_files/figure-html/unnamed-chunk-39-1.png" width="672" />
+    
 
     
 13. Create and manipulate a list.

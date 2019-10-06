@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Familiarization | STA 444/5 - Introductory Data Science using R</title>
-  <meta name="description" content="Chapter 1 Familiarization | STA 444/5 - Introductory Data Science using R" />
+  <title>Chapter 16 R Packages | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 16 R Packages | STA 444/5 - Introductory Data Science using R" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Familiarization | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:title" content="Chapter 16 R Packages | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Familiarization | STA 444/5 - Introductory Data Science using R" />
+  <meta name="twitter:title" content="Chapter 16 R Packages | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="2-data-frames.html">
+<link rel="prev" href="15-data-scraping.html">
+<link rel="next" href="17-speeding-up-r.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -366,184 +366,356 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="familiarization" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Familiarization</h1>
-<p>R is a open-source program that is commonly used in statistics and machine learning. It runs on almost every platform and is completely free and is available at <a href="www.r-project.org">www.r-project.org</a>. Most cutting-edge statistical research is first available on R.</p>
-<p>The basic editor that comes with R works fairly well, but you should consider running R through the program RStudio which is located at <a href="http://www.rstudio.org">rstudio.com</a>. This is a completely free Integrated Developement Environment that works on Macs, Windows and a couple of flavors of Linux. It simplifies a bunch of more annoying aspects of the standard R GUI and supports things like tab completion.</p>
-<p>R is a script based language, and there isn’t a point-and-click interface for data wrangling and statistical modeling. While the initial learning curve will be steeper, understanding how to write scripts will be valuable because scripts leave a clear description of what steps were performed. This is a critical aspect of what is known as <em>reproducable research</em> and a good practice.</p>
-<p>While it may seem tempting to type commands into the console directly, but because the goal is to create a script that contains all of the necessary commands to perform an analysis, users should get into the habit of always writing their commands into their R script (or Rmarkdown file) and executing the command from there.</p>
-<div id="r-file-types" class="section level2">
-<h2><span class="header-section-number">1.1</span> R file Types</h2>
-<p>One of the worst things about a pocket calculator is there is no good way to go several steps and easily see what you did or fix a mistake (there is nothing more annoying than re-typing something because of a typo. To avoid these issues I always work with RMarkdown (or script) files instead of typing directly into the console. You will quickly learn that it is impossible to write R code correctly the first time and you’ll save yourself a huge amount of work by just embracing this from the beginning. Furthermore, having an R file fully documents how you did your analysis, which can help when writing the methods section of a paper. Finally, having a file makes it easy to re-run an analysis after a change in the data (additional data values, transformed data, or removal of outliers).</p>
-<p>There are three common ways to store R commands in some file: scripts, notebooks, and Rmarkdown files. The distinction between the R scripts and the other two is substantial as R scripts just store R commands, but don’t make any attampt to save the results in any distinct format. Both notebooks and Rmarkdown files save the results of an analysis and present the results in a nice readable fashion. I encourage people to use Rmarkdown files over notebooks because the Rmarkdown knitting enforces a reproducable workflow whereas notebooks can be run out of order. Rmarkdown files are written in a way to combine the R commands, commentary, and the command outputs all together into one coherent document. For most people that use R to advance their research, using Rmarkdown is the most useful.</p>
-<div id="r-scripts-.r-files" class="section level3">
-<h3><span class="header-section-number">1.1.1</span> R Scripts (.R files)</h3>
-<p>The first type of file that we’ll discuss is a traditional script file. To create a new .R script in RStudio go to <code>File -&gt; New File -&gt; R Script</code>. This opens a new window in RStudio where you can type commands and functions as a common text editor. Type whatever you like in the script window and then you can execute the code line by line (using the run button or its keyboard shortcut to run the highlighted region or whatever line the curser is on) or the entire script (using the source button). Other options for what piece of code to run are available under the Code dropdown box.</p>
-<p>It often makes your R files more readable if you break a single command up into multiple lines. R scripts will disregard all whitespace (including line breaks) so you can safely spread your command over as multiple lines. Finally, it is useful to leave comments in the script for things such as explaining a tricky step, who wrote the code and when, or why you chose a particular name for a variable. The <code>#</code> sign will denote that the rest of the line is a comment and R will ignore it.</p>
-<p>An R script for a homework assignment might look something like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Problem 1 </span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"># Calculate the log of a couple of values and make a plot</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># of the log function from 0 to 3</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">log</span>(<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">log</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">log</span>(<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">x &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">1</span>,<span class="dv">3</span>, <span class="dt">length=</span><span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">plot</span>(x, <span class="kw">log</span>(x))</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co"># Problem 2</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co"># Calculate the exponential function of a couple of values</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co"># and make a plot of the function from -2 to 2</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw">exp</span>(<span class="op">-</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="kw">exp</span>(<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="kw">exp</span>(<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">length=</span><span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="kw">plot</span>(x, <span class="kw">exp</span>(x))</a></code></pre></div>
-<p>This looks perfectly acceptable as a way of documenting what you did, but this script file doesn’t contain the actual results of commands I ran, nor does it show you the plots. Also anytime I want to comment on some output, it needs to be offset with the commenting character <code>#</code>. It would be nice to have both the commands and the results merged into one document. This is what the R Markdown file does for us.</p>
-</div>
-<div id="r-markdown-.rmd-files" class="section level3">
-<h3><span class="header-section-number">1.1.2</span> R Markdown (.Rmd files)</h3>
-<p>When I was a graduate student, I had to tediously copy and past tables of output from the R console and figures I had made into my Microsoft Word document. Far too often I would realize I had made a small mistake in part (b) of a problem and would have to go back, correct my mistake, and then redo all the laborious copying. I often wished that I could write both the code for my statistical analysis and the long discussion about the interpretation all in the same document so that I could just re-run the analysis with a click of a button and all the tables and figures would be updated by magic. Fortunately that magic now exists.</p>
-<p>To create a new R Markdown document, we use the <code>File -&gt; New File -&gt; R Markdown...</code> dropdown option and a menu will appear asking you for the document title, author, and preferred output type. In order to create a PDF, you’ll need to have LaTeX installed, but the HTML output nearly always works and I’ve had good luck with the MS Word output as well.</p>
-<p>The R Markdown is an implementation of the Markdown syntax that makes it extremely easy to write webpages and give instructions for how to do typesetting sorts of things. This syntax was extended to allow use to embed R commands directly into the document. Perhaps the easiest way to understand the syntax is to look at an at the <a href="http://rmarkdown.rstudio.com">RMarkdown website</a>.</p>
-<p>The R code in my document is nicely separated from my regular text using the three backticks and an instruction that it is R code that needs to be evaluated. The output of this document looks good as a HTML, PDF, or MS Word document. I have actually created this entire book using RMarkdown. To see what the the Rmarkdown file looks like for any chapter, just click on the pencil icon at the top of the online notes.</p>
-<p>While writing an Rmarkdown file, each of the code chunks can be executed in a couple of different ways.</p>
-<pre><code>1. Press the green arrow at the top of the code chunk to run the entire chunk.
-2. The run button has several options has several options.
-3. There are keyboard shortcuts, on the Mac it is Cmd-Return.</code></pre>
-<p>To insert a new code chunk, a user can type it in directly, use the green Insert button, or the keyboard shortcut.</p>
-<p>To produce a final output document that you’ll present to your boss/collegues/client where you want to combine the code, output, and commentary you’ll “knit” the document which causes all of the R code to be run in a new R session, and then weave together the output into your document. This can be done using the knit button at the top of the Editor Window.</p>
-</div>
-<div id="r-notebooks-.rmd-files" class="section level3">
-<h3><span class="header-section-number">1.1.3</span> R Notebooks (.Rmd files)</h3>
-<p>Notebooks are just very specialized types of Rmarkdown file. Here, the result of each code chunk that is run manually is saved, but when previewing the output, all of the R code is NOT re-run. Therefore it is possible to run the code, then modify the code, and then produce a document where the written code and output do not match up. As a result of this “feature” I strongly discourage the use of notebooks in favor of the standard Rmarkdown files.</p>
+<div id="r-packages" class="section level1">
+<h1><span class="header-section-number">Chapter 16</span> R Packages</h1>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">16.1</span> Introduction</h2>
+<p>R packages are documented and consistent format for storing data, functions, documentation, and analysis. We use a consistent format so that other researchers (or ourselves in six months) know exactly where the raw data should be, where to find any functions that are written, and document the data cleaning process.</p>
+<p>In principle, all of these steps could be accomplished by a single data file and a single analysis Rmarkdown file. However as projects get larger in scope, the number of data files, the complexity of data cleaning, and the number of people working with the data will grow. With more complexity, the need to impose order on it becomes critical.</p>
+<p>Even if the project is small, organizing my work into a package structure provides a benefit. First, it forces me to keep my data wrangling code organized and encourages documenting any functions I create. Second, by separating the data wrangling step code from the analysis, I think more deeply about verification and initial exploration to understand how best to store the data. Finally, because all my subsequent analysis will depend on the same tidy dataset, I make few mistakes where I cleaned the data correctly in one analysis, but forgot a step in another analysis.</p>
+<p>I recommend using an R package for any analysis more complicated than a homework assignment because the start-up is relatively simple and if the project grows, you’ll appreciate that you started it in an organized fashion.</p>
+<div id="useful-packages-and-books" class="section level3">
+<h3><span class="header-section-number">16.1.1</span> Useful packages and books</h3>
+<p>There are several packages that make life easier.</p>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Package</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>devtools</code></td>
+<td align="left">Tools by Hadley, for Hadley (and the rest of us).</td>
+</tr>
+<tr class="even">
+<td align="center"><code>roxygen2</code></td>
+<td align="left">A coherent documentation syntax</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>testthat</code></td>
+<td align="left">Quality Assurance tools</td>
+</tr>
+<tr class="even">
+<td align="center"><code>usethis</code></td>
+<td align="left">Automates repetitive tasks that arise during project setup and development, both for R packages and non-package projects.</td>
+</tr>
+</tbody>
+</table>
+<p>Hadley Wickham has written a book on R packages that gives a lot more information than I’m giving here. The book is available <a href="http://r-pkgs.had.co.nz">online</a>.</p>
 </div>
 </div>
-<div id="r-as-a-simple-calculator" class="section level2">
-<h2><span class="header-section-number">1.2</span> R as a simple calculator</h2>
-<p>Assuming that you have started R on whatever platform you like, you can use R as a simple calculator. In either your Rmarkdown file code chunk (or just run this in the console), run the following</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Some simple addition</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="dv">2</span><span class="op">+</span><span class="dv">3</span></a></code></pre></div>
-<pre><code>## [1] 5</code></pre>
-<p>In this fashion you can use R as a very capable calculator.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dv">6</span><span class="op">*</span><span class="dv">8</span></a></code></pre></div>
-<pre><code>## [1] 48</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="dv">4</span><span class="op">^</span><span class="dv">3</span></a></code></pre></div>
-<pre><code>## [1] 64</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">exp</span>(<span class="dv">1</span>)   <span class="co"># exp() is the exponential function</span></a></code></pre></div>
-<pre><code>## [1] 2.718282</code></pre>
-<p>R has most constants and common mathematical functions you could ever want. <code>sin()</code>, <code>cos()</code>, and other trigonometry functions are available, as are the exponential and log functions <code>exp()</code>, <code>log()</code>. The absolute value is given by <code>abs()</code>, and <code>round()</code> will round a value to the nearest integer.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">pi     <span class="co"># the constant 3.14159265...</span></a></code></pre></div>
-<pre><code>## [1] 3.141593</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">sin</span>(<span class="dv">0</span>)</a></code></pre></div>
-<pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">log</span>(<span class="dv">5</span>) <span class="co"># unless you specify the base, R will assume base e</span></a></code></pre></div>
-<pre><code>## [1] 1.609438</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">log</span>(<span class="dv">5</span>, <span class="dt">base=</span><span class="dv">10</span>)  <span class="co"># base 10</span></a></code></pre></div>
-<pre><code>## [1] 0.69897</code></pre>
-<p>Whenever I call a function, there will be some arguments that are mandatory, and some that are optional and the arguments are separated by a comma. In the above statements the function <code>log()</code> requires at least one argument, and that is the number(s) to take the log of. However, the base argument is optional. If you do not specify what base to use, R will use a default value. You can see that R will default to using base <span class="math inline">\(e\)</span> by looking at the help page (by typing <code>help(log)</code> or <code>?log</code> at the command prompt).</p>
-<p>Arguments can be specified via the order in which they are passed or by naming the arguments. So for the <code>log()</code> function which has arguments <code>log(x, base=exp(1))</code>. If I specify which arguments are which using the named values, then order doesn’t matter.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># Demonstrating order does not matter if you specify</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co"># which argument is which</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="kw">log</span>(<span class="dt">x=</span><span class="dv">5</span>, <span class="dt">base=</span><span class="dv">10</span>)   </a></code></pre></div>
-<pre><code>## [1] 0.69897</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">log</span>(<span class="dt">base=</span><span class="dv">10</span>, <span class="dt">x=</span><span class="dv">5</span>)</a></code></pre></div>
-<pre><code>## [1] 0.69897</code></pre>
-<p>But if we don’t specify which argument is which, R will decide that <code>x</code> is the first argument, and <code>base</code> is the second.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># If not specified, R will assume the second value is the base...</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">log</span>(<span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
-<pre><code>## [1] 0.69897</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">log</span>(<span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>## [1] 1.430677</code></pre>
-<p>When I specify the arguments, I have been using the <code>name=value</code> notation and a student might be tempted to use the <code>&lt;-</code> notation here. Don’t do that as the <code>name=value</code> notation is making an association mapping and not a permanent assignment.</p>
+<div id="package-structure" class="section level2">
+<h2><span class="header-section-number">16.2</span> Package Structure</h2>
+<div id="minimal-files-and-directories" class="section level3">
+<h3><span class="header-section-number">16.2.1</span> Minimal files and directories</h3>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">File/Directory</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>DESCRIPTION</code></td>
+<td align="left">A file describing your package. You <strong>should</strong> edit this at some point.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>NAMESPACE</code></td>
+<td align="left">A file that lists all the functions and datasets available to users after loading the package. You <strong>should not</strong> edit this by hand.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>.Rbuildignore</code></td>
+<td align="left">A list of files that shouldn’t be included when the package is built.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>R/</code></td>
+<td align="left">This directory contains documentation files for datasets. It also contains the R code and documention for functions you create. I generally recommend one documentation file for each dataset, and one file for each function, although if you have several related functions, you might keep them in the same file. This directory can be empty, but it does have to exist.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>man/</code></td>
+<td align="left">This contains the documentation (manual) files generated by <code>roxygen2</code>. You <strong>should not</strong> edit these as they will be rebuilt from the source R code in the <code>R/</code> directory.</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="assignment" class="section level2">
-<h2><span class="header-section-number">1.3</span> Assignment</h2>
-<p>We need to be able to assign a value to a variable to be able to use it later. R does this by using an arrow <code>&lt;-</code> or an equal sign <code>=</code>. While R supports either, for readability, I suggest people pick one assignment operator and stick with it. I personally prefer to use the arrow. Variable names cannot start with a number, may not include spaces, and are case sensitive.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">tau &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>pi       <span class="co"># create two variables</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">my.test.var =<span class="st"> </span><span class="dv">5</span>   <span class="co"># notice they show up in &#39;Environment&#39; tab in RStudio!</span></a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">tau</a></code></pre></div>
-<pre><code>## [1] 6.283185</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">my.test.var</a></code></pre></div>
-<pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">tau <span class="op">*</span><span class="st"> </span>my.test.var</a></code></pre></div>
-<pre><code>## [1] 31.41593</code></pre>
-<p>As your analysis gets more complicated, you’ll want to save the results to a variable so that you can access the results later. <em>If you don’t assign the result to a variable, you have no way of accessing the result.</em></p>
-</div>
-<div id="vectors" class="section level2">
-<h2><span class="header-section-number">1.4</span> Vectors</h2>
-<p>While single values are useful, it is very important that we are able to make groups of values. The most fundamental aggregation of values is called a <em>vector</em>. In R, we will require vectors to always be of the same type (e.g. all integers or all character strings). To create a vector, we just need to use the <em>collection</em> function <code>c()</code>.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>)</a>
-<a class="sourceLine" id="cb33-2" data-line-number="2">x</a></code></pre></div>
-<pre><code>## [1] &quot;A&quot; &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">y &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">10</span> )</a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">y</a></code></pre></div>
-<pre><code>## [1]  4  3  8 10</code></pre>
-<p>It is very common to have to make sequences of integers, and R has a shortcut to do this. The notation <code>A:B</code> will produce a vector starting with A and incrementing by one until we get to B.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="dv">2</span><span class="op">:</span><span class="dv">6</span></a></code></pre></div>
-<pre><code>## [1] 2 3 4 5 6</code></pre>
-</div>
-<div id="packages" class="section level2">
-<h2><span class="header-section-number">1.5</span> Packages</h2>
-<p>One of the greatest strengths about R is that so many people have devloped add-on packages to do some additional function. For example, plant community ecologists have a large number of multivariate methods that are useful but were not part of R. So Jari Oksanen got together with some other folks and put together a package of functions that they found useful. The result is the package <code>vegan</code>.</p>
-<p>To download and install the package from the Comprehensive R Archive Network (CRAN), you just need to ask RStudio it to install it via the menu <code>Tools</code> -&gt; <code>Install Packages...</code>. Once there, you just need to give the name of the package and RStudio will download and install the package on your computer.</p>
-<p>Many major analysis types are available via downloaded packages as well as problem sets from various books (e.g. <code>Sleuth3</code> or <code>faraway</code>) and can be easily downloaded and installed from CRAN via the menu.</p>
-<p>Once a package is downloaded and installed on your computer, it is available, but it is not loaded into your current R session by default. The reason it isn’t loaded is that there are thousands of packages, some of which are quite large and only used occasionally. So to improve overall performance only a few packages are loaded by default and the you must explicitly load packages whenever you want to use them. You only need to load them once per session/script.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">library</span>(vegan)   <span class="co"># load the vegan library</span></a></code></pre></div>
-<p>For a similar performance reason, many packages do not automatically load their datasets unless explicitly asked. Therefore when loading datasets from a package, you might need to do a <em>two-step</em> process of loading the package and then loading the dataset.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">library</span>(faraway)       <span class="co"># load the package into memory</span></a></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;faraway&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:lattice&#39;:
-## 
-##     melanoma</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;butterfat&quot;</span>)      <span class="co"># load the dataset into memory</span></a></code></pre></div>
-<p>If you don’t need to load any functions from a package and you just want the datasets, you can do it in one step.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&#39;butterfat&#39;</span>, <span class="dt">package=</span><span class="st">&#39;faraway&#39;</span>)   <span class="co"># just load the dataset, not anything else</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">butterfat[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, ]                       <span class="co"># print out the first 6 rows of the data</span></a></code></pre></div>
-<pre><code>##   Butterfat    Breed    Age
-## 1      3.74 Ayrshire Mature
-## 2      4.01 Ayrshire  2year
-## 3      3.77 Ayrshire Mature
-## 4      3.78 Ayrshire  2year
-## 5      4.10 Ayrshire Mature
-## 6      4.06 Ayrshire  2year</code></pre>
-<p>Similarly, if I am not using many functions from a package, I might choose call the functions using the notation <code>package::function()</code>. This is particularly important when two packages both have functions with the same name and it gets confusing which function you want to use. For example the packages <code>mosaic</code> and <code>dplyr</code> both have a function <code>tally</code>. So if I’ve already loaded the <code>dplyr</code> package but want to use the <code>mosaic::tally()</code> function I would use the following:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">mosaic<span class="op">::</span><span class="kw">tally</span>( <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>) )</a></code></pre></div>
-<pre><code>## X
-## 0 1 2 
-## 3 4 1</code></pre>
-<p>Finally, many researchers and programmers host their packages on GitHub (or equivalent site) and those packages can easily downloaded using tools from the <code>devtools</code> pacakge, which can be downloaded from CRAN.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;dereksonderegger/SiZer&#39;</span>)</a></code></pre></div>
-<pre><code>## Skipping install of &#39;SiZer&#39; from a github remote, the SHA1 (8745f2e4) has not changed since last install.
-##   Use `force = TRUE` to force installation</code></pre>
-</div>
-<div id="finding-help" class="section level2">
-<h2><span class="header-section-number">1.6</span> Finding Help</h2>
-<p>There are many complicated details about R and nobody knows everything about how each individual package works. As a result, a robust collection of resources has been developed and you are undoubtably not the first person to wonder how to do something.</p>
-<div id="how-does-this-function-work" class="section level3">
-<h3><span class="header-section-number">1.6.1</span> How does this function work?</h3>
-<p>If you know the function you need, but just don’t know how to use it, the built-in documentation is really quite good. Suppose I am interested in how the <code>rep</code> function works. We could access the <code>rep</code> help page by searching in the help window or from the console via <code>help(rep)</code>. The document that is displayed shows what arguments the function expects and what it will return. At the bottom of the help page is often a set of examples demonstrating different ways to use the function. As you get more proficient in R, these help files become quite handy, but initially they feel quite overwhelming.</p>
-</div>
-<div id="how-does-this-package-work" class="section level3">
-<h3><span class="header-section-number">1.6.2</span> How does this package work?</h3>
-<p>If a package author really wants their package to be used by a wide audience, they will provide a “vignette”. These are a set of notes that explain enough of how a package works to get a user able to utilize the package effectively. This documentation is targetted towards people the know some R, but deep technical knowledge is not expected. Whenever I encounter a new package that might be applicable to me, the first thing I do is see if it has a vignette, and if so, I start reading it. If a package doesn’t have a vignette, I’ll google “R package XXXX” and that will lead to documentation on CRAN that gives a list of functions in the package.</p>
-</div>
-<div id="how-do-i-do-xxx" class="section level3">
-<h3><span class="header-section-number">1.6.3</span> How do I do XXX?</h3>
-<p>Often I find myself asking how to do something but I don’t know the function or package to use. In those cases, I will use the coding question and answer site <a href="http://stackoverflow.com">stackoverflow</a>. This is particularly effective and I encourage students to spend some time to understand the solutions presented instead of just copying working code. By digging into why a particular code chunk works, you’ll learn all sorts of neat tricks and you’ll find yourself utilizing the site less frequently.</p>
+<div id="optional-files-and-directories" class="section level3">
+<h3><span class="header-section-number">16.2.2</span> Optional Files and Directories</h3>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">File/Directory</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>data/</code></td>
+<td align="left">A directory of datasets. Each file should be an <code>.RData</code> or <code>.Rda</code> file created by the <code>save()</code> containing a single object (with the same names as the file). Anything in this directory will be loaded and accessible to the user when the package is loaded. While it isn’t necessary for this directory to exist, it often does.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>data-raw/</code></td>
+<td align="left">A directory where we store data files that are not <code>.RData</code> format. Usually these are <code>.csv</code> or <code>.xls</code> files. Typically I’ll have R scripts in this directory that read in raw data, do whatever data wrangling and cleaning that needs to be done, and saves the result in the <code>data/</code> directory. Obnoxiously the documentation for the dataset does not live in this directory, but rather in the <code>R/</code> directory.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>docs/</code></td>
+<td align="left">A directory where any Rmarkdown analysis files that are especially time consuming and should not be executed each time the package is built. When I build a package for a data-analysis project, the reports I create go into this directory.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>vignettes/</code></td>
+<td align="left">A directory where Rmarkdown files should go that introduce how to use the package. When a package is built, then Rmarkdown files in this directory will also be rebuilt.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>tests/</code></td>
+<td align="left">A directory for code used for package testing functions you’ve written.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>inst/</code></td>
+<td align="left">Miscellaneous stuff. In particular <code>inst/extdata/</code> is where you might put data that is not in <code>.RData</code> format (Excel files and such) but you want it available to the users. Anything in the <code>inst/extdata</code> will be available to to user via <code>system.file('file.xls',package='MyAwesomePackage')</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>src/</code></td>
+<td align="left">A directory where C/C++, Fortran, Python, etc source code is stored.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>exec/</code></td>
+<td align="left">A directory where executables you might have created from the source code should go.</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div id="exercises" class="section level2">
-<h2><span class="header-section-number">1.7</span> Exercises</h2>
-<p>Create an RMarkdown file that solves the following exercises.</p>
+<div id="documenting" class="section level2">
+<h2><span class="header-section-number">16.3</span> Documenting</h2>
+<p>The <code>man/</code> directory is where the final documentation exists, but the format that was initially established is quite unwieldy. To address this, the <code>roxygen2</code> package uses a more robust and modern syntax and keeps the function documentation with the actual code in the <code>R\</code> directory. The results in a process where we write the documentation in files in the <code>R/</code> directory and then run a <code>roxygen2</code> command to build the actual documentation files in the <code>man/</code> directory. To run this, use the <code>Build</code> tab and then <code>More -&gt; Document</code>.</p>
+<p>Hadley Wickham has a more complete discussion of package documentation in a
+<a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html">vignette</a>
+for <code>roxygen2</code>. If/when the information in this chapter seems insufficient, that should be your next resource.</p>
+<p>The documentation information is built in comments and so documentation lines always start with a <code>#'</code>. For both datasets and functions, the first couple of lines give the short title and description.</p>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb684-1" data-line-number="1"><span class="co">#&#39; A short title</span></a>
+<a class="sourceLine" id="cb684-2" data-line-number="2"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb684-3" data-line-number="3"><span class="co">#&#39; A longer paragraph that describes the context of the dataset/function and </span></a>
+<a class="sourceLine" id="cb684-4" data-line-number="4"><span class="co">#&#39; discusses important aspects that will be necessary for somebody first seeing </span></a>
+<a class="sourceLine" id="cb684-5" data-line-number="5"><span class="co">#&#39; the data/function to know about. Any text in these initial paragraphs will be </span></a>
+<a class="sourceLine" id="cb684-6" data-line-number="6"><span class="co">#&#39; in the description section of the documentation file.</span></a>
+<a class="sourceLine" id="cb684-7" data-line-number="7"><span class="co">#&#39; </span></a></code></pre></div>
+<div id="dataset-documentation" class="section level3">
+<h3><span class="header-section-number">16.3.1</span> Dataset Documentation</h3>
+<p>Dataset documentation should contain both general information about the context of the data as well as detailed information about the data columns. Finally the documentation should also include information about where the data came from, if it is available. The title and description are given in the first paragraphs of the description, but the format and source need some indication starting the sections.</p>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb685-1" data-line-number="1"><span class="co">#&#39; @format A data frame with XXX observations with ZZ columns.</span></a>
+<a class="sourceLine" id="cb685-2" data-line-number="2"><span class="co">#&#39; \describe{</span></a>
+<a class="sourceLine" id="cb685-3" data-line-number="3"><span class="co">#&#39;    \item{Column1}{Description of column 1, including units if appropriate}</span></a>
+<a class="sourceLine" id="cb685-4" data-line-number="4"><span class="co">#&#39;    \item{Column2}{Description of column 2, including units if appropriate}</span></a>
+<a class="sourceLine" id="cb685-5" data-line-number="5"><span class="co">#&#39; }</span></a></code></pre></div>
+<p>There are a few other documentation sections that can be filled in. They will all be introduced using <code>@Section</code> notation.</p>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb686-1" data-line-number="1"><span class="co">#&#39; @source This describes where the data came from</span></a>
+<a class="sourceLine" id="cb686-2" data-line-number="2"><span class="co">#&#39; @references If we need to cite some book or journal article.</span></a></code></pre></div>
+</div>
+<div id="documenting-functions" class="section level3">
+<h3><span class="header-section-number">16.3.2</span> Documenting Functions</h3>
+<p>Functions that you want other people to use need to be documentated. In particular, we need a general description of what the function does, a list of all function arguments and what they do, and what type of object the function returns. Finally, it is nice to have some examples that demonstrate how the function can be used.</p>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb687-1" data-line-number="1"><span class="co">#&#39; Sum two numeric objects.</span></a>
+<a class="sourceLine" id="cb687-2" data-line-number="2"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb687-3" data-line-number="3"><span class="co">#&#39; Because this is a very simple function, my explanation is short. These</span></a>
+<a class="sourceLine" id="cb687-4" data-line-number="4"><span class="co">#&#39; paragraphs should explain everything you need to know.</span></a>
+<a class="sourceLine" id="cb687-5" data-line-number="5"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb687-6" data-line-number="6"><span class="co">#&#39; This is still in the description part of the documentation and and it </span></a>
+<a class="sourceLine" id="cb687-7" data-line-number="7"><span class="co">#&#39; will be until we see something that indicates a new section.</span></a>
+<a class="sourceLine" id="cb687-8" data-line-number="8"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb687-9" data-line-number="9"><span class="co">#&#39; @param a A real number</span></a>
+<a class="sourceLine" id="cb687-10" data-line-number="10"><span class="co">#&#39; @param b A real number</span></a>
+<a class="sourceLine" id="cb687-11" data-line-number="11"><span class="co">#&#39; @return The sum of \code{a} and \code{b}</span></a>
+<a class="sourceLine" id="cb687-12" data-line-number="12"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb687-13" data-line-number="13"><span class="co">#&#39; sum(12,5)</span></a>
+<a class="sourceLine" id="cb687-14" data-line-number="14"><span class="co">#&#39; sum(4,-2)</span></a>
+<a class="sourceLine" id="cb687-15" data-line-number="15"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb687-16" data-line-number="16">my.sum &lt;-<span class="st"> </span><span class="cf">function</span>( a, b ){</a>
+<a class="sourceLine" id="cb687-17" data-line-number="17">  <span class="kw">return</span>( a <span class="op">+</span><span class="st"> </span>b )</a>
+<a class="sourceLine" id="cb687-18" data-line-number="18">}</a></code></pre></div>
+<p>Each of the sections is self explanatory except for the <code>@export</code>. The purpose of this is to indicate that this function should be available to any user of the package. If a function is not exported, then it is available only to functions <em>within</em> the package. This can be convenient if there are multiple functions that help with the analysis but you don’t want the user to see them because it is too much work to explain that they shouldn’t use it</p>
+<p>Other regions that you might use:
+* <code>@seealso</code> allows you to point to other resources
++ on the web <code>\url{http://www.r-project.org}</code>
++ in your package <code>\code{\link{hello}}</code>
++ in another package <code>\code{\link[package]{function}}</code>
+* <code>@aliases alias_1 alias_2 ...</code> Other topics that when searched for will point to this documentation
+* <code>@author</code> This isn’t necessary if the author is the same as the package author.
+* <code>@references</code> This is a text area to point to the literature.</p>
+<p>A complete list is available via</p>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb688-1" data-line-number="1"><span class="kw">names</span>(roxygen2<span class="op">:::</span><span class="kw">default_tags</span>())</a></code></pre></div>
+<pre><code>##  [1] &quot;evalNamespace&quot;     &quot;export&quot;            &quot;exportClass&quot;      
+##  [4] &quot;exportMethod&quot;      &quot;exportPattern&quot;     &quot;import&quot;           
+##  [7] &quot;importClassesFrom&quot; &quot;importFrom&quot;        &quot;importMethodsFrom&quot;
+## [10] &quot;rawNamespace&quot;      &quot;S3method&quot;          &quot;useDynLib&quot;        
+## [13] &quot;aliases&quot;           &quot;author&quot;            &quot;backref&quot;          
+## [16] &quot;concept&quot;           &quot;describeIn&quot;        &quot;description&quot;      
+## [19] &quot;details&quot;           &quot;docType&quot;           &quot;encoding&quot;         
+## [22] &quot;evalRd&quot;            &quot;example&quot;           &quot;examples&quot;         
+## [25] &quot;family&quot;            &quot;field&quot;             &quot;format&quot;           
+## [28] &quot;inherit&quot;           &quot;inheritParams&quot;     &quot;inheritDotParams&quot; 
+## [31] &quot;inheritSection&quot;    &quot;keywords&quot;          &quot;method&quot;           
+## [34] &quot;name&quot;              &quot;md&quot;                &quot;noMd&quot;             
+## [37] &quot;noRd&quot;              &quot;note&quot;              &quot;param&quot;            
+## [40] &quot;rdname&quot;            &quot;rawRd&quot;             &quot;references&quot;       
+## [43] &quot;return&quot;            &quot;section&quot;           &quot;seealso&quot;          
+## [46] &quot;slot&quot;              &quot;source&quot;            &quot;template&quot;         
+## [49] &quot;templateVar&quot;       &quot;title&quot;             &quot;usage&quot;</code></pre>
+</div>
+</div>
+<div id="the-description-file" class="section level2">
+<h2><span class="header-section-number">16.4</span> The DESCRIPTION file</h2>
+<p>I never write the DESCRIPTION file myself, but rather it is generated it from a template when the package structure is initially created. It is useful to go into this file and edit it.</p>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb690-1" data-line-number="1">Package<span class="op">:</span><span class="st"> </span>MyAwesomePackage</a>
+<a class="sourceLine" id="cb690-2" data-line-number="2">Title<span class="op">:</span><span class="st"> </span>What the Package <span class="kw">Does</span> (One Line, Title Case)</a>
+<a class="sourceLine" id="cb690-3" data-line-number="3">Version<span class="op">:</span><span class="st"> </span><span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span></a>
+<a class="sourceLine" id="cb690-4" data-line-number="4">Authors<span class="op">@</span>R<span class="op">:</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb690-5" data-line-number="5"><span class="st">    </span><span class="kw">person</span>(<span class="dt">given =</span> <span class="st">&quot;First&quot;</span>,</a>
+<a class="sourceLine" id="cb690-6" data-line-number="6">           <span class="dt">family =</span> <span class="st">&quot;Last&quot;</span>,</a>
+<a class="sourceLine" id="cb690-7" data-line-number="7">           <span class="dt">role =</span> <span class="kw">c</span>(<span class="st">&quot;aut&quot;</span>, <span class="st">&quot;cre&quot;</span>),</a>
+<a class="sourceLine" id="cb690-8" data-line-number="8">           <span class="dt">email =</span> <span class="st">&quot;first.last@example.com&quot;</span>,</a>
+<a class="sourceLine" id="cb690-9" data-line-number="9">           <span class="dt">comment =</span> <span class="kw">c</span>(<span class="dt">ORCID =</span> <span class="st">&quot;YOUR-ORCID-ID&quot;</span>))</a>
+<a class="sourceLine" id="cb690-10" data-line-number="10">Description<span class="op">:</span><span class="st"> </span>What the package <span class="kw">does</span> (one paragraph).</a>
+<a class="sourceLine" id="cb690-11" data-line-number="11">License<span class="op">:</span><span class="st"> </span>What license it uses</a>
+<a class="sourceLine" id="cb690-12" data-line-number="12">Encoding<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></a>
+<a class="sourceLine" id="cb690-13" data-line-number="13">LazyData<span class="op">:</span><span class="st"> </span>true</a></code></pre></div>
+<p>Often you want to have your package include other libraries so that the packages are available to be used in any functions you use. To do this, you’ll add lines to the description file.</p>
+<pre><code>```r
+Depends: magrittr     
+Imports: dplyr, ggplot2, tidyr
+Suggests: lme4
+```</code></pre>
+<p>In this example, I’ve included a dependency on the <code>magrittr</code> package, which defines the <code>%&gt;%</code> operator, while <code>dplyr</code>, <code>ggplot2</code>, <code>tidyr</code>, and <code>lme4</code> packages are included in a slightly different manner.</p>
+<table>
+<colgroup>
+<col width="28%" />
+<col width="71%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Package Dependency Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>Depends</code></td>
+<td align="left">These packages are required to have been downloaded from CRAN and will be attached to the namespace when your package is loaded. If your package is going to be widely used, you want to keep this list as short as possible to avoid function name clashes.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>Imports</code></td>
+<td align="left">These packages are required be present on the computer, but will <strong>not</strong> be attached to the namespace. Whenever you want to use them you must use then in one of your functions, you’ll need to use <code>PackageName::FunctionName</code> syntax.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>Suggests</code></td>
+<td align="left">These packages are not required. Often these are packages of data that are only used in the examples, the unit tests, or in a vignette. These are not loaded/attached by default.</td>
+</tr>
+</tbody>
+</table>
+<p>For widely distributed packages, using <code>Imports</code> is preferred but that is annoying to be required to use the <code>PackageName::FunctionName()</code> syntax within all of the functions you write. The reason to avoid Depends is to avoid namespace problems. For example, because packages <code>MASS</code> and <code>dplyr</code> both have a <code>select()</code> function, it is advisable to avoid depending on <code>dplyr</code> just in case the user also has loaded the <code>MASS</code> package.</p>
+<p>For a data analysis package, I usually leave the Depends/Imports/Suggests blank and just load whatever analysis packages I need in an RMarkdown file that lives in the <code>docs/</code> directory.</p>
+<div id="a-simple-analysis-package" class="section level3">
+<h3><span class="header-section-number">16.4.1</span> A Simple Analysis Package</h3>
+<p>I find it is easiest to use RStudio to start a new package via <code>File -&gt; New Project ...</code> and then start a project in a <code>new directory</code> and finally select that we want a new <code>R package</code>.</p>
+<p>Alternatively we could use the <code>usethis::create_package()</code> function to build the minimal package.</p>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb692-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">create_package</span>(<span class="st">&#39;~/GitHub/TestPackage&#39;</span>)  <span class="co"># replace the path to where you want it...</span></a></code></pre></div>
+<p>Once the package is created:</p>
 <ol style="list-style-type: decimal">
-<li><p>Calculate <span class="math inline">\(\log\left(6.2\right)\)</span> first using base <span class="math inline">\(e\)</span> and second using base <span class="math inline">\(10\)</span>. To figure out how to do different bases, it might be helpful to look at the help page for the <code>log</code> function.</p></li>
-<li><p>Calculate the square root of 2 and save the result as the variable named sqrt2. Have R display the decimal value of sqrt2. <em>Hint: use Google to find the square root function. Perhaps search on the keywords “R square root function”.</em></p></li>
-<li>This exercise walks you through installing a package with all the datasets used in the textbook <em>The Statistical Sleuth</em>.
+<li><p>Put any <code>.csv</code> or <code>.xls</code> data files you have in <code>data-raw/</code> subdirectory. In that same directory, create a R script or Rmarkdown file that reads the data in, cleans it up by renaming columns, or whatever. An example R script might look something like this:</p>
+<pre class="text"><code>library(tidyverse)
+
+# Read in the data.  Do some cleaning/verification
+MaxTemp &lt;- read.csv(&#39;data-raw/FlagMaxTemp.csv&#39;) %&gt;%
+  gather(&#39;DOM&#39;, &#39;MaxTemp&#39;, X1:X31) %&gt;%            
+  drop_na() %&gt;%
+  mutate(DOM = str_remove(DOM, fixed(&#39;X&#39;)) ) %&gt;%  
+  mutate(Date = lubridate::ymd( paste( Year, Month, DOM )) ) %&gt;%
+  select(Date, MaxTemp)
+
+# Save the data frame to the data/ directory as MaxTemp.rda
+usethis::use_data(MaxTemp)</code></pre></li>
+<li><p>In the <code>R/</code> directory, create file <code>MaxTemp.R</code> and when the package is built, this will document the dataset.</p>
+<pre class="text"><code>#&#39; A time series of daily maximum temperatures in Flagstaff, AZ. 
+#&#39; 
+#&#39; @format a data frame with 10882 observations 
+#&#39; \describe{
+#&#39;   \item{Date}{The date of observation as a POSIX date format.}
+#&#39;   \item{MaxTemp}{Daily maximum temperature in degrees Farhenheit.}
+#&#39; }
+#&#39; @source \url{www.ncdc.noaa.gov}
+&quot;MaxTemp&quot;</code></pre></li>
+<li>Build the package by going to <code>Build</code> tab.
 <ol style="list-style-type: lower-alpha">
-<li>Install the package <code>Sleuth3</code> on your computer using RStudio.</li>
-<li>Load the package using the <code>library()</code> command.</li>
-<li>Print out the dataset <code>case0101</code></li>
+<li>Click the <code>More</code> and select <code>Document</code> to create the data frame documentation.</li>
+<li>Click the <code>Install and Restart</code> to build the package.</li>
+</ol></li>
+<li><p>Create the <code>docs/</code> directory and then create a RMarkdown file that does some analysis.</p>
+<pre class="text"><code>---
+title: &quot;My Awesome Analysis&quot;
+author: &quot;Derek Sonderegger&quot;
+date: &quot;9/18/2019&quot;
+output: html_document
+---
+
+This Rmarkdown file will do the analysis.
+
+```{r, eval=FALSE}
+library(TestPackage)   # load TestPackage, which includes MaxTemp data frame.
+library(ggplot2)
+
+ggplot(MaxTemp, aex(x=Date, y=MaxTemp)) +
+  geom_line()
+```
+
+We see that the daily max temperature in Flagstaff varies quite a lot.</code></pre></li>
+</ol>
+</div>
+</div>
+<div id="sharing-your-package" class="section level2">
+<h2><span class="header-section-number">16.5</span> Sharing your Package</h2>
+<p>The last step to a package is being able to share it with other people. We could either wrap up the package into a <code>.tar.gz</code> file or we could save the package to ssome version control platform like <code>GitHub</code>. For packages that are in a stable form and need to be available via <code>CRAN</code> or Bioconductor, then building a <code>.tar.gz</code> file is important. However when a package is just meant for yourself and your collaborators, I prefer to save the package to <code>GitHub</code>.</p>
+<p>I have several packages available on my <code>GitHub</code> account. I have a repository
+<a href="https://github.com/dereksonderegger/TestPackage">https://github.com/dereksonderegger/TestPackage</a> that demonstrates a very simple package. To install this package, we can install it directly using the following:</p>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb696-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;dereksonderegger/TestPackage&#39;</span>)</a></code></pre></div>
+<p>If you chose to share your package with others by sharing a <code>.tar.gz</code> file, then create the file using the <code>Build</code> tab and <code>More -&gt; Build Source Package</code>. Then to install the package, the user will run the R command</p>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb697-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;TestPackage_0.0.0.1.tar.gz&#39;</span>, <span class="dt">repos=</span><span class="ot">NULL</span>, <span class="dt">type=</span><span class="st">&#39;source&#39;</span>)</a></code></pre></div>
+</div>
+<div id="exercises-16" class="section level2">
+<h2><span class="header-section-number">16.6</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>Build a package that contains a dataset that gives weather information at Flagstaff’s Pulliam Airport from 1950 to 2019. I have the data and metadata on my GitHub site and I downloaded the data on 9-19-19 from <a href="https://www.ncdc.noaa.gov/cdo-web/search" class="uri">https://www.ncdc.noaa.gov/cdo-web/search</a>. In the data, there are a bunch of columns that contain attribute information about the preceding column. I don’t think those are helpful, or at least the metadata didn’t explain how to interpret them. So remove those. Many of the later columns have values that are exclusively ones or zeros. I believe those indicate if the weather phenomena was present that day. Presumably a <code>1</code> is a yes, but I don’t know that. When I downloaded the data, I asked for “standard” units, so precipitation and snow amounts should be in inches, and temperature should be in Farenheit.
+<ol style="list-style-type: lower-alpha">
+<li>Create a new package named <code>YourName_FlagWeather</code>. In the package, create the <code>data-raw/</code> directory and place the data and metadata there.</li>
+<li>Build an R-script that reads in the data, does any necessary cleaning. Call your resulting data frame <code>Flagstaff_Weather</code> and save a <code>.rda</code> file to the <code>data/</code> directory using the cammand <code>usethis::use_data(Flagstaff_Weather)</code></li>
+<li>In the <code>R/</code> directory, create a file <code>Flagstaff_Weather.R</code> that documents where the data came from and what each of the columns mean.</li>
+<li>Cause <code>roxygen2</code> to build the appropriate documentation files. Use the <code>Build</code> tab, then <code>More -&gt; Document</code>.</li>
+<li>Load your package and restart your session of R, again using the <code>Build tab</code>.</li>
+<li>Create a new directory in your package called <code>docs/</code>. In that directory create a RMarkdown file that loads your package and uses the weather data to make a few graphs of weather phenomena over time.</li>
+<li>Suppose that we decided to change something in the data and we need to rebuild the package.
+<ol style="list-style-type: lower-roman">
+<li>Changing the name of one of the columns in your cleaning script.<br />
+</li>
+<li>Re-run the cleaning script and the <code>usethis::use_data</code> command.</li>
+<li>Reinstall the package using the <code>Build</code> tab and <code>Install and Restart</code>.</li>
+<li>Verify that the <code>Flagstaff_Weather</code> object has changed.</li>
+<li>Verify that the documentation hasn’t changed yet.</li>
+<li>Update the documentation file for the dataset and re-run the documentation routine.</li>
+<li>Reinstall the package and check that the documentation is now correct.</li>
+</ol></li>
+<li>Now save the package as one file by building a source package using the <code>Build</code> tab, <code>More -&gt; Build Source Package</code>. This will create a <code>.tar.gz</code> file that you can easily upload to Bblearn.</li>
 </ol></li>
 </ol>
 
@@ -554,8 +726,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="2-data-frames.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="15-data-scraping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="17-speeding-up-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -586,7 +758,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/444/raw/master/01_Familiarization.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/30_RPackages.Rmd",
 "text": "Edit"
 },
 "history": {

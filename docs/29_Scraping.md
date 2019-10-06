@@ -159,9 +159,71 @@ ggplot( aes(x=Name, y=Percent_Change) ) +
 <img src="29_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 
+### Lists
+Unfortunately, we don't always want to get information from a webpage that is nicely organized into a table. Suppose we want to gather the most recent threads on [Digg](www.digg.com).
+
+We could sift through the HTML tags to find something that will match, but that will be challenging.  Instead we will use a CSS selector named [SelectorGadget](https://selectorgadget.com). Install the bookmarklet by dragging this [bookmarklet](javascript:(function(){var%20s=document.createElement('div');s.innerHTML='Loading...';s.style.color='black';s.style.padding='20px';s.style.position='fixed';s.style.zIndex='9999';s.style.fontSize='3.0em';s.style.border='2px%20solid%20black';s.style.right='40px';s.style.top='40px';s.setAttribute('class','selector_gadget_loading');s.style.background='white';document.body.appendChild(s);s=document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('src','https://dv0akt2986vzh.cloudfront.net/unstable/lib/selectorgadget.js');document.body.appendChild(s);})();) 
+up to your browsers bookmark bar.  When you are at the site you are interested in, just click on the bookmarklet to engage the CSS engine. Click on something you want to capture. This will highlight a whole bunch of things that match the HTML tag listed at the bottom of the screen. Select or deselect items by clicking on them and the search string used to refine the selection will be updated. Once you are happy with the items being selected, copy the HTML node selector.
+
+
+```r
+url <- 'http://digg.com'
+page <- read_html(url)
+```
+
+
+```r
+# Once the page is downloaded, we use the SelectorGadget Parse string
+# To just give the headlines, we'll use html_text()
+HeadLines <- page %>%
+  html_nodes('.headline a') %>%    # Grab just the headlines
+  html_text()                      # Convert the <a>Text</a> to just Text
+HeadLines %>%
+  head()
+```
+
+```
+## [1] "\nHow Michael Kors Became An Empire\n"                                                          
+## [2] "\nFox Runs Loose At Moscow Airport To The Amusement Of Travelers\n"                             
+## [3] "\nThe Shape Of (Housing) Things To Come\n"                                                      
+## [4] "\nAn Insane Credit Card Offering 0% Interest Until Nearly 2021\n"                               
+## [5] "\nBiker Spots A Fire In His Neighborhood, Snaps Into Action To Save A House From Burning Down\n"
+## [6] "\nThe Birth Of The Pastoral Corporation\n"
+```
+
+
+
+```r
+# Each headline is also a link.  I might want to harvest those as well
+Links <- page %>%
+  html_nodes('.headline a') %>%
+  html_attr('href')  
+Links %>%
+  head()
+```
+
+```
+## [1] "https://www.gq.com/story/michael-kors-profile?utm_source=digg"                                                                    
+## [2] "/video/fox-runs-loose-at-moscow-airport-to-the-amusement-of-travelers"                                                            
+## [3] "https://nextcity.org/features/view/the-shape-of-housing-things-to-come?utm_source=digg"                                           
+## [4] "//srv.buysellads.com/ads/click/x/GTND42QUCTBD6KQNCAA4YKQMCAYDPK3UCAYDEZ3JCWSIT2QLCABDL2JKC6BI5K3IFTADVK3EHJNCLSIZ?utm_source=digg"
+## [5] "/video/biker-spots-a-fire-in-his-neighborhood-snaps-into-action-to-save-a-house-from-burning-down"                                
+## [6] "https://thereader.mitpress.mit.edu/birth-of-pastoral-corporation/?utm_source=digg"
+```
+
+
+## Scraping .pdf files
+PDF documents can either be created with software that produce text that is readable, or it can be scanned and everything is effectively an image. The work flow presented in this section assumes that the text is readable as text and is not an image.
+
+
+
+
 ## Exercises
 1. At the Insurance Institute for Highway Safety, they have
 [data](https://www.iihs.org/topics/fatality-statistics/detail/state-by-state) 
-about human fatalities in vehicle crashes. From this webpage, import the data from the Fatal Crash Totals data table and produce a bar graph gives the number of deaths per 100,000 individuals.  
+about human fatalities in vehicle crashes. From this web page, import the data from the Fatal Crash Totals data table and produce a bar graph gives the number of deaths per 100,000 individuals.  
 
-2. From the same IIHS website, import the data about seatbelt use. Join the Fatality data with the seatbelt use and make a scatterplot of seatbelt use vs number of fatalities per 100,000 people.
+2. From the same IIHS website, import the data about seat belt use. Join the Fatality data with the seat belt use and make a scatter plot of seat belt use vs number of fatalities per 100,000 people.
+
+3. From the [NAU sub-reddit](https://www.reddit.com/r/NAU), extract the most recent threads.
+

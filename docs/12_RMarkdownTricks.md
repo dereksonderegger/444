@@ -128,7 +128,7 @@ So to keep ourselves in the nested list environment, we need to indent the R chu
 
 I really like the code indented from the a) header, but then the code editor doesn't do highlighting because on first blush, it looks like the verbatim environment and RStudio isn't smart enough to realize that we aren't in the verbatim.  So my solution is to get the R code working and *then* indent it the 8 spaces. 
 
-Finally, I often leave a blank line separating my response in part (a) to the problem definition for part (b). Again the RStudio editor isn't To keep the RStudio editor from coloring the problem definition as a verbatim environment. Unfortunately I don't have a clever hack to keep the editor for thinking that you are in the verbatim environment. Fortunately, when we knit, it will all be fine.
+Finally, I often leave a blank line separating my response in part (a) to the problem definition for part (b). Again the RStudio editor isn't smart enough to realize that we are writing an R chunk.  Unfortunately I don't have a clever hack to keep the editor from thinking that you are in the verbatim environment. Fortunately, when we knit, it will all be fine.
 
 
 ## Mathematical expressions{-}

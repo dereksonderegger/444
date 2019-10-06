@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Familiarization | STA 444/5 - Introductory Data Science using R</title>
-  <meta name="description" content="Chapter 1 Familiarization | STA 444/5 - Introductory Data Science using R" />
+  <title>Chapter 15 Data Scraping | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 15 Data Scraping | STA 444/5 - Introductory Data Science using R" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Familiarization | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:title" content="Chapter 15 Data Scraping | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Familiarization | STA 444/5 - Introductory Data Science using R" />
+  <meta name="twitter:title" content="Chapter 15 Data Scraping | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="2-data-frames.html">
+<link rel="prev" href="14-data-reshaping.html">
+<link rel="next" href="16-r-packages.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -366,185 +366,164 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="familiarization" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Familiarization</h1>
-<p>R is a open-source program that is commonly used in statistics and machine learning. It runs on almost every platform and is completely free and is available at <a href="www.r-project.org">www.r-project.org</a>. Most cutting-edge statistical research is first available on R.</p>
-<p>The basic editor that comes with R works fairly well, but you should consider running R through the program RStudio which is located at <a href="http://www.rstudio.org">rstudio.com</a>. This is a completely free Integrated Developement Environment that works on Macs, Windows and a couple of flavors of Linux. It simplifies a bunch of more annoying aspects of the standard R GUI and supports things like tab completion.</p>
-<p>R is a script based language, and there isn’t a point-and-click interface for data wrangling and statistical modeling. While the initial learning curve will be steeper, understanding how to write scripts will be valuable because scripts leave a clear description of what steps were performed. This is a critical aspect of what is known as <em>reproducable research</em> and a good practice.</p>
-<p>While it may seem tempting to type commands into the console directly, but because the goal is to create a script that contains all of the necessary commands to perform an analysis, users should get into the habit of always writing their commands into their R script (or Rmarkdown file) and executing the command from there.</p>
-<div id="r-file-types" class="section level2">
-<h2><span class="header-section-number">1.1</span> R file Types</h2>
-<p>One of the worst things about a pocket calculator is there is no good way to go several steps and easily see what you did or fix a mistake (there is nothing more annoying than re-typing something because of a typo. To avoid these issues I always work with RMarkdown (or script) files instead of typing directly into the console. You will quickly learn that it is impossible to write R code correctly the first time and you’ll save yourself a huge amount of work by just embracing this from the beginning. Furthermore, having an R file fully documents how you did your analysis, which can help when writing the methods section of a paper. Finally, having a file makes it easy to re-run an analysis after a change in the data (additional data values, transformed data, or removal of outliers).</p>
-<p>There are three common ways to store R commands in some file: scripts, notebooks, and Rmarkdown files. The distinction between the R scripts and the other two is substantial as R scripts just store R commands, but don’t make any attampt to save the results in any distinct format. Both notebooks and Rmarkdown files save the results of an analysis and present the results in a nice readable fashion. I encourage people to use Rmarkdown files over notebooks because the Rmarkdown knitting enforces a reproducable workflow whereas notebooks can be run out of order. Rmarkdown files are written in a way to combine the R commands, commentary, and the command outputs all together into one coherent document. For most people that use R to advance their research, using Rmarkdown is the most useful.</p>
-<div id="r-scripts-.r-files" class="section level3">
-<h3><span class="header-section-number">1.1.1</span> R Scripts (.R files)</h3>
-<p>The first type of file that we’ll discuss is a traditional script file. To create a new .R script in RStudio go to <code>File -&gt; New File -&gt; R Script</code>. This opens a new window in RStudio where you can type commands and functions as a common text editor. Type whatever you like in the script window and then you can execute the code line by line (using the run button or its keyboard shortcut to run the highlighted region or whatever line the curser is on) or the entire script (using the source button). Other options for what piece of code to run are available under the Code dropdown box.</p>
-<p>It often makes your R files more readable if you break a single command up into multiple lines. R scripts will disregard all whitespace (including line breaks) so you can safely spread your command over as multiple lines. Finally, it is useful to leave comments in the script for things such as explaining a tricky step, who wrote the code and when, or why you chose a particular name for a variable. The <code>#</code> sign will denote that the rest of the line is a comment and R will ignore it.</p>
-<p>An R script for a homework assignment might look something like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Problem 1 </span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"># Calculate the log of a couple of values and make a plot</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># of the log function from 0 to 3</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">log</span>(<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">log</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">log</span>(<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">x &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">1</span>,<span class="dv">3</span>, <span class="dt">length=</span><span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">plot</span>(x, <span class="kw">log</span>(x))</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co"># Problem 2</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co"># Calculate the exponential function of a couple of values</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co"># and make a plot of the function from -2 to 2</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw">exp</span>(<span class="op">-</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="kw">exp</span>(<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="kw">exp</span>(<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">length=</span><span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="kw">plot</span>(x, <span class="kw">exp</span>(x))</a></code></pre></div>
-<p>This looks perfectly acceptable as a way of documenting what you did, but this script file doesn’t contain the actual results of commands I ran, nor does it show you the plots. Also anytime I want to comment on some output, it needs to be offset with the commenting character <code>#</code>. It would be nice to have both the commands and the results merged into one document. This is what the R Markdown file does for us.</p>
-</div>
-<div id="r-markdown-.rmd-files" class="section level3">
-<h3><span class="header-section-number">1.1.2</span> R Markdown (.Rmd files)</h3>
-<p>When I was a graduate student, I had to tediously copy and past tables of output from the R console and figures I had made into my Microsoft Word document. Far too often I would realize I had made a small mistake in part (b) of a problem and would have to go back, correct my mistake, and then redo all the laborious copying. I often wished that I could write both the code for my statistical analysis and the long discussion about the interpretation all in the same document so that I could just re-run the analysis with a click of a button and all the tables and figures would be updated by magic. Fortunately that magic now exists.</p>
-<p>To create a new R Markdown document, we use the <code>File -&gt; New File -&gt; R Markdown...</code> dropdown option and a menu will appear asking you for the document title, author, and preferred output type. In order to create a PDF, you’ll need to have LaTeX installed, but the HTML output nearly always works and I’ve had good luck with the MS Word output as well.</p>
-<p>The R Markdown is an implementation of the Markdown syntax that makes it extremely easy to write webpages and give instructions for how to do typesetting sorts of things. This syntax was extended to allow use to embed R commands directly into the document. Perhaps the easiest way to understand the syntax is to look at an at the <a href="http://rmarkdown.rstudio.com">RMarkdown website</a>.</p>
-<p>The R code in my document is nicely separated from my regular text using the three backticks and an instruction that it is R code that needs to be evaluated. The output of this document looks good as a HTML, PDF, or MS Word document. I have actually created this entire book using RMarkdown. To see what the the Rmarkdown file looks like for any chapter, just click on the pencil icon at the top of the online notes.</p>
-<p>While writing an Rmarkdown file, each of the code chunks can be executed in a couple of different ways.</p>
-<pre><code>1. Press the green arrow at the top of the code chunk to run the entire chunk.
-2. The run button has several options has several options.
-3. There are keyboard shortcuts, on the Mac it is Cmd-Return.</code></pre>
-<p>To insert a new code chunk, a user can type it in directly, use the green Insert button, or the keyboard shortcut.</p>
-<p>To produce a final output document that you’ll present to your boss/collegues/client where you want to combine the code, output, and commentary you’ll “knit” the document which causes all of the R code to be run in a new R session, and then weave together the output into your document. This can be done using the knit button at the top of the Editor Window.</p>
-</div>
-<div id="r-notebooks-.rmd-files" class="section level3">
-<h3><span class="header-section-number">1.1.3</span> R Notebooks (.Rmd files)</h3>
-<p>Notebooks are just very specialized types of Rmarkdown file. Here, the result of each code chunk that is run manually is saved, but when previewing the output, all of the R code is NOT re-run. Therefore it is possible to run the code, then modify the code, and then produce a document where the written code and output do not match up. As a result of this “feature” I strongly discourage the use of notebooks in favor of the standard Rmarkdown files.</p>
-</div>
-</div>
-<div id="r-as-a-simple-calculator" class="section level2">
-<h2><span class="header-section-number">1.2</span> R as a simple calculator</h2>
-<p>Assuming that you have started R on whatever platform you like, you can use R as a simple calculator. In either your Rmarkdown file code chunk (or just run this in the console), run the following</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Some simple addition</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="dv">2</span><span class="op">+</span><span class="dv">3</span></a></code></pre></div>
-<pre><code>## [1] 5</code></pre>
-<p>In this fashion you can use R as a very capable calculator.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dv">6</span><span class="op">*</span><span class="dv">8</span></a></code></pre></div>
-<pre><code>## [1] 48</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="dv">4</span><span class="op">^</span><span class="dv">3</span></a></code></pre></div>
-<pre><code>## [1] 64</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">exp</span>(<span class="dv">1</span>)   <span class="co"># exp() is the exponential function</span></a></code></pre></div>
-<pre><code>## [1] 2.718282</code></pre>
-<p>R has most constants and common mathematical functions you could ever want. <code>sin()</code>, <code>cos()</code>, and other trigonometry functions are available, as are the exponential and log functions <code>exp()</code>, <code>log()</code>. The absolute value is given by <code>abs()</code>, and <code>round()</code> will round a value to the nearest integer.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">pi     <span class="co"># the constant 3.14159265...</span></a></code></pre></div>
-<pre><code>## [1] 3.141593</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">sin</span>(<span class="dv">0</span>)</a></code></pre></div>
-<pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">log</span>(<span class="dv">5</span>) <span class="co"># unless you specify the base, R will assume base e</span></a></code></pre></div>
-<pre><code>## [1] 1.609438</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">log</span>(<span class="dv">5</span>, <span class="dt">base=</span><span class="dv">10</span>)  <span class="co"># base 10</span></a></code></pre></div>
-<pre><code>## [1] 0.69897</code></pre>
-<p>Whenever I call a function, there will be some arguments that are mandatory, and some that are optional and the arguments are separated by a comma. In the above statements the function <code>log()</code> requires at least one argument, and that is the number(s) to take the log of. However, the base argument is optional. If you do not specify what base to use, R will use a default value. You can see that R will default to using base <span class="math inline">\(e\)</span> by looking at the help page (by typing <code>help(log)</code> or <code>?log</code> at the command prompt).</p>
-<p>Arguments can be specified via the order in which they are passed or by naming the arguments. So for the <code>log()</code> function which has arguments <code>log(x, base=exp(1))</code>. If I specify which arguments are which using the named values, then order doesn’t matter.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># Demonstrating order does not matter if you specify</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co"># which argument is which</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="kw">log</span>(<span class="dt">x=</span><span class="dv">5</span>, <span class="dt">base=</span><span class="dv">10</span>)   </a></code></pre></div>
-<pre><code>## [1] 0.69897</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">log</span>(<span class="dt">base=</span><span class="dv">10</span>, <span class="dt">x=</span><span class="dv">5</span>)</a></code></pre></div>
-<pre><code>## [1] 0.69897</code></pre>
-<p>But if we don’t specify which argument is which, R will decide that <code>x</code> is the first argument, and <code>base</code> is the second.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># If not specified, R will assume the second value is the base...</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">log</span>(<span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
-<pre><code>## [1] 0.69897</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">log</span>(<span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>## [1] 1.430677</code></pre>
-<p>When I specify the arguments, I have been using the <code>name=value</code> notation and a student might be tempted to use the <code>&lt;-</code> notation here. Don’t do that as the <code>name=value</code> notation is making an association mapping and not a permanent assignment.</p>
-</div>
-<div id="assignment" class="section level2">
-<h2><span class="header-section-number">1.3</span> Assignment</h2>
-<p>We need to be able to assign a value to a variable to be able to use it later. R does this by using an arrow <code>&lt;-</code> or an equal sign <code>=</code>. While R supports either, for readability, I suggest people pick one assignment operator and stick with it. I personally prefer to use the arrow. Variable names cannot start with a number, may not include spaces, and are case sensitive.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">tau &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>pi       <span class="co"># create two variables</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">my.test.var =<span class="st"> </span><span class="dv">5</span>   <span class="co"># notice they show up in &#39;Environment&#39; tab in RStudio!</span></a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">tau</a></code></pre></div>
-<pre><code>## [1] 6.283185</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">my.test.var</a></code></pre></div>
-<pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">tau <span class="op">*</span><span class="st"> </span>my.test.var</a></code></pre></div>
-<pre><code>## [1] 31.41593</code></pre>
-<p>As your analysis gets more complicated, you’ll want to save the results to a variable so that you can access the results later. <em>If you don’t assign the result to a variable, you have no way of accessing the result.</em></p>
-</div>
-<div id="vectors" class="section level2">
-<h2><span class="header-section-number">1.4</span> Vectors</h2>
-<p>While single values are useful, it is very important that we are able to make groups of values. The most fundamental aggregation of values is called a <em>vector</em>. In R, we will require vectors to always be of the same type (e.g. all integers or all character strings). To create a vector, we just need to use the <em>collection</em> function <code>c()</code>.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>)</a>
-<a class="sourceLine" id="cb33-2" data-line-number="2">x</a></code></pre></div>
-<pre><code>## [1] &quot;A&quot; &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">y &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">10</span> )</a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">y</a></code></pre></div>
-<pre><code>## [1]  4  3  8 10</code></pre>
-<p>It is very common to have to make sequences of integers, and R has a shortcut to do this. The notation <code>A:B</code> will produce a vector starting with A and incrementing by one until we get to B.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="dv">2</span><span class="op">:</span><span class="dv">6</span></a></code></pre></div>
-<pre><code>## [1] 2 3 4 5 6</code></pre>
-</div>
-<div id="packages" class="section level2">
-<h2><span class="header-section-number">1.5</span> Packages</h2>
-<p>One of the greatest strengths about R is that so many people have devloped add-on packages to do some additional function. For example, plant community ecologists have a large number of multivariate methods that are useful but were not part of R. So Jari Oksanen got together with some other folks and put together a package of functions that they found useful. The result is the package <code>vegan</code>.</p>
-<p>To download and install the package from the Comprehensive R Archive Network (CRAN), you just need to ask RStudio it to install it via the menu <code>Tools</code> -&gt; <code>Install Packages...</code>. Once there, you just need to give the name of the package and RStudio will download and install the package on your computer.</p>
-<p>Many major analysis types are available via downloaded packages as well as problem sets from various books (e.g. <code>Sleuth3</code> or <code>faraway</code>) and can be easily downloaded and installed from CRAN via the menu.</p>
-<p>Once a package is downloaded and installed on your computer, it is available, but it is not loaded into your current R session by default. The reason it isn’t loaded is that there are thousands of packages, some of which are quite large and only used occasionally. So to improve overall performance only a few packages are loaded by default and the you must explicitly load packages whenever you want to use them. You only need to load them once per session/script.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">library</span>(vegan)   <span class="co"># load the vegan library</span></a></code></pre></div>
-<p>For a similar performance reason, many packages do not automatically load their datasets unless explicitly asked. Therefore when loading datasets from a package, you might need to do a <em>two-step</em> process of loading the package and then loading the dataset.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">library</span>(faraway)       <span class="co"># load the package into memory</span></a></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;faraway&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:lattice&#39;:
-## 
-##     melanoma</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;butterfat&quot;</span>)      <span class="co"># load the dataset into memory</span></a></code></pre></div>
-<p>If you don’t need to load any functions from a package and you just want the datasets, you can do it in one step.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&#39;butterfat&#39;</span>, <span class="dt">package=</span><span class="st">&#39;faraway&#39;</span>)   <span class="co"># just load the dataset, not anything else</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">butterfat[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, ]                       <span class="co"># print out the first 6 rows of the data</span></a></code></pre></div>
-<pre><code>##   Butterfat    Breed    Age
-## 1      3.74 Ayrshire Mature
-## 2      4.01 Ayrshire  2year
-## 3      3.77 Ayrshire Mature
-## 4      3.78 Ayrshire  2year
-## 5      4.10 Ayrshire Mature
-## 6      4.06 Ayrshire  2year</code></pre>
-<p>Similarly, if I am not using many functions from a package, I might choose call the functions using the notation <code>package::function()</code>. This is particularly important when two packages both have functions with the same name and it gets confusing which function you want to use. For example the packages <code>mosaic</code> and <code>dplyr</code> both have a function <code>tally</code>. So if I’ve already loaded the <code>dplyr</code> package but want to use the <code>mosaic::tally()</code> function I would use the following:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">mosaic<span class="op">::</span><span class="kw">tally</span>( <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>) )</a></code></pre></div>
-<pre><code>## X
-## 0 1 2 
-## 3 4 1</code></pre>
-<p>Finally, many researchers and programmers host their packages on GitHub (or equivalent site) and those packages can easily downloaded using tools from the <code>devtools</code> pacakge, which can be downloaded from CRAN.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;dereksonderegger/SiZer&#39;</span>)</a></code></pre></div>
-<pre><code>## Skipping install of &#39;SiZer&#39; from a github remote, the SHA1 (8745f2e4) has not changed since last install.
-##   Use `force = TRUE` to force installation</code></pre>
-</div>
-<div id="finding-help" class="section level2">
-<h2><span class="header-section-number">1.6</span> Finding Help</h2>
-<p>There are many complicated details about R and nobody knows everything about how each individual package works. As a result, a robust collection of resources has been developed and you are undoubtably not the first person to wonder how to do something.</p>
-<div id="how-does-this-function-work" class="section level3">
-<h3><span class="header-section-number">1.6.1</span> How does this function work?</h3>
-<p>If you know the function you need, but just don’t know how to use it, the built-in documentation is really quite good. Suppose I am interested in how the <code>rep</code> function works. We could access the <code>rep</code> help page by searching in the help window or from the console via <code>help(rep)</code>. The document that is displayed shows what arguments the function expects and what it will return. At the bottom of the help page is often a set of examples demonstrating different ways to use the function. As you get more proficient in R, these help files become quite handy, but initially they feel quite overwhelming.</p>
-</div>
-<div id="how-does-this-package-work" class="section level3">
-<h3><span class="header-section-number">1.6.2</span> How does this package work?</h3>
-<p>If a package author really wants their package to be used by a wide audience, they will provide a “vignette”. These are a set of notes that explain enough of how a package works to get a user able to utilize the package effectively. This documentation is targetted towards people the know some R, but deep technical knowledge is not expected. Whenever I encounter a new package that might be applicable to me, the first thing I do is see if it has a vignette, and if so, I start reading it. If a package doesn’t have a vignette, I’ll google “R package XXXX” and that will lead to documentation on CRAN that gives a list of functions in the package.</p>
-</div>
-<div id="how-do-i-do-xxx" class="section level3">
-<h3><span class="header-section-number">1.6.3</span> How do I do XXX?</h3>
-<p>Often I find myself asking how to do something but I don’t know the function or package to use. In those cases, I will use the coding question and answer site <a href="http://stackoverflow.com">stackoverflow</a>. This is particularly effective and I encourage students to spend some time to understand the solutions presented instead of just copying working code. By digging into why a particular code chunk works, you’ll learn all sorts of neat tricks and you’ll find yourself utilizing the site less frequently.</p>
-</div>
-</div>
-<div id="exercises" class="section level2">
-<h2><span class="header-section-number">1.7</span> Exercises</h2>
-<p>Create an RMarkdown file that solves the following exercises.</p>
+<div id="data-scraping" class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> Data Scraping</h1>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb669-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb669-2" data-line-number="2"><span class="kw">library</span>(rvest)     <span class="co"># rvest is not loaded in the tidyverse Metapackage</span></a></code></pre></div>
+<p>Getting data into R often involves accessing data that is available through non-convenient formats such as web pages or .pdf files. Fortunately those formats still have structure and we can import data from those sources. However to do this, we have to understand a little bit about those file formats.</p>
+<div id="web-pages" class="section level2">
+<h2><span class="header-section-number">15.1</span> Web Pages</h2>
+<p>Posting information on the web is incredibly common. As we first use google to find answers to our problems, it is inevitable that we’ll want to grab at least some of that information and import it as data into R. There are several ways to go about this:</p>
 <ol style="list-style-type: decimal">
-<li><p>Calculate <span class="math inline">\(\log\left(6.2\right)\)</span> first using base <span class="math inline">\(e\)</span> and second using base <span class="math inline">\(10\)</span>. To figure out how to do different bases, it might be helpful to look at the help page for the <code>log</code> function.</p></li>
-<li><p>Calculate the square root of 2 and save the result as the variable named sqrt2. Have R display the decimal value of sqrt2. <em>Hint: use Google to find the square root function. Perhaps search on the keywords “R square root function”.</em></p></li>
-<li>This exercise walks you through installing a package with all the datasets used in the textbook <em>The Statistical Sleuth</em>.
-<ol style="list-style-type: lower-alpha">
-<li>Install the package <code>Sleuth3</code> on your computer using RStudio.</li>
-<li>Load the package using the <code>library()</code> command.</li>
-<li>Print out the dataset <code>case0101</code></li>
-</ol></li>
+<li><p>Human Copy/Paste - Sometimes it is easy to copy/paste the information into a spreadsheet. This works for small datasets, but sometimes the HTML markup attributes get passed along and this suddenly becomes very cumbersome for more than a small amount of data. Furthermore, if the data is updated, we would have to redo all of the work instead of just re-running or tweaking a script.</p></li>
+<li><p>Download the page, parse the HTML, and select the information you want. The difficulty here is knowing what you want in the raw HTML tags.</p></li>
+</ol>
+<p>Knowing how web pages are generated is certainly extremely helpful in this endeavor, but isn’t absolutely necessary. It is sufficient to know that HTML has open and closing tags for things like tables and lists.</p>
+<pre class="text"><code># Example of HTML code that would generate a table
+# Table Rows    begin and end with &lt;tr&gt; and &lt;/tr&gt;
+# Table Data    begin and end with &lt;td&gt; and &lt;/td&gt;
+# Table Headers begin and end with &lt;th&gt; and &lt;/th&gt; 
+&lt;table style=&quot;width:100%&quot;&gt;
+  &lt;tr&gt; &lt;th&gt;Firstname&lt;/th&gt; &lt;th&gt;Lastname&lt;/th&gt;     &lt;th&gt;Age&lt;/th&gt;  &lt;/tr&gt;
+  &lt;tr&gt; &lt;td&gt;Derek&lt;/td&gt;     &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;43&lt;/td&gt;   &lt;/tr&gt;
+  &lt;tr&gt; &lt;td&gt;Aubrey&lt;/td&gt;    &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;39&lt;/td&gt;   &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb671-1" data-line-number="1"><span class="co"># Example of an unordered List, which starts and ends with &lt;ul&gt; and &lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb671-2" data-line-number="2"><span class="co"># Each list item is enclosed by &lt;li&gt; &lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb671-3" data-line-number="3"><span class="op">&lt;</span>ul<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb671-4" data-line-number="4"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Coffee<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb671-5" data-line-number="5"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Tea<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb671-6" data-line-number="6"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Milk<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb671-7" data-line-number="7"><span class="er">&lt;/</span>ul<span class="op">&gt;</span></a></code></pre></div>
+<p>Given this extremely clear structure it shouldn’t be too hard to grab tables and/or lists from a web page. However HTML has a heirarchical structure so that tables could be nested in lists. In order to control the way the page looks, there is often a <strong>lot</strong> of nesting. For example, we might be in a split pane page that has a side bar, and then a block that centers everything, and then some style blocks that control fonts and colors. Add to this, the need for modern web pages to display well on both mobile devices as well as desktops and the raw HTML typically is extremely complicated.
+In summary the workflow for scraping a web page will be:</p>
+<ol style="list-style-type: decimal">
+<li>Find the webpage you want to pull information from.</li>
+<li>Download the html file</li>
+<li>Parse it for tables or lists (this step could get ugly!)</li>
+<li>Convert the HTML text or table into R data objects.</li>
+</ol>
+<p>Hadley Wickham wrote a package to address the need for web scraping functionality and it happily works with the usual <code>magrittr</code> pipes. The package <code>rvest</code> is intended to <em>harvest</em> data from the web and make working with html pages relatively simple.</p>
+<div id="example-wikipedia-table" class="section level3">
+<h3><span class="header-section-number">15.1.1</span> Example Wikipedia Table</h3>
+<p>Recently I needed to get information about U.S. state population sizes. I did a quick googling and found a
+<a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population">Wikipedia</a>
+page that has the information that I wanted.</p>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb672-1" data-line-number="1">url =<span class="st"> &#39;https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population&#39;</span></a>
+<a class="sourceLine" id="cb672-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb672-3" data-line-number="3"><span class="co"># Download the web page and save it. I like to do this within a single R Chunk</span></a>
+<a class="sourceLine" id="cb672-4" data-line-number="4"><span class="co"># so that I don&#39;t keep downloading a page repeatedly while I am fine tuning </span></a>
+<a class="sourceLine" id="cb672-5" data-line-number="5"><span class="co"># the subsequent data wrangling steps.</span></a>
+<a class="sourceLine" id="cb672-6" data-line-number="6">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb673-1" data-line-number="1"><span class="co"># Once the page is downloaded, we need to figure out which table to work with.</span></a>
+<a class="sourceLine" id="cb673-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb673-3" data-line-number="3"><span class="co"># There are 5 tables on the page.</span></a>
+<a class="sourceLine" id="cb673-4" data-line-number="4">page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb673-5" data-line-number="5"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) </a></code></pre></div>
+<pre><code>## {xml_nodeset (5)}
+## [1] &lt;table class=&quot;wikitable sortable&quot; style=&quot;width:100%; text-align:cent ...
+## [2] &lt;table class=&quot;wikitable&quot;&gt;&lt;tbody&gt;\n&lt;tr&gt;&lt;th style=&quot;text-align: left;&quot;&gt; ...
+## [3] &lt;table class=&quot;wikitable sortable&quot; style=&quot;text-align: right;&quot;&gt;\n&lt;capt ...
+## [4] &lt;table class=&quot;nowraplinks hlist mw-collapsible autocollapse navbox-i ...
+## [5] &lt;table class=&quot;nowraplinks hlist mw-collapsible mw-collapsed navbox-i ...</code></pre>
+<p>With five tables on the page, I need to go through each table individually and decide if it is the one that I want. To do this, we’ll take each table and convert it into a data.frame and view it to see what information it contains.</p>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb675-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb675-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb675-3" data-line-number="3"><span class="st">  </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">        </span><span class="co"># Grab the first table and </span></a>
+<a class="sourceLine" id="cb675-4" data-line-number="4"><span class="st">  </span><span class="kw">html_table</span>()      <span class="co"># convert it from HTML into a data.frame </span></a>
+<a class="sourceLine" id="cb675-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb675-6" data-line-number="6"><span class="co"># To view this table, we could use View() or print out just the first few</span></a>
+<a class="sourceLine" id="cb675-7" data-line-number="7"><span class="co"># rows and columns. Converting it to a tibble makes the printing turn out nice.</span></a>
+<a class="sourceLine" id="cb675-8" data-line-number="8">State_Pop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()  </a></code></pre></div>
+<pre><code>## # A tibble: 60 x 12
+##    `Rank in the fi… `Rank in states… Name  `Population est…
+##    &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;           
+##  1 1                1                Cali… 39,557,045      
+##  2 2                2                Texas 28,701,845      
+##  3 3                4                Flor… 21,299,325      
+##  4 4                3                New … 19,542,209      
+##  5 5                6                Penn… 12,807,060      
+##  6 6                5                Illi… 12,741,080      
+##  7 7                7                Ohio  11,689,442      
+##  8 8                9                Geor… 10,519,475      
+##  9 9                10               Nort… 10,383,620      
+## 10 10               8                Mich… 9,995,915       
+## # … with 50 more rows, and 8 more variables: `Census population, April 1,
+## #   2010[6]` &lt;chr&gt;, `Percent change, 2010–2018[note 1]` &lt;chr&gt;, `Absolute
+## #   change, 2010-2018` &lt;chr&gt;, `Total seats in the U.S. House of
+## #   Representatives, 2013–2023` &lt;chr&gt;, `Estimated population per electoral
+## #   vote, 2018[note 2]` &lt;chr&gt;, `Estimated population per House seat,
+## #   2018` &lt;chr&gt;, `Census population per House seat, 2010` &lt;chr&gt;, `Percent
+## #   of the total U.S. population, 2018[note 3]` &lt;chr&gt;</code></pre>
+<p>It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we’ll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings. We need to remove those as well.</p>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb677-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb677-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># First table on the page</span></a>
+<a class="sourceLine" id="cb677-3" data-line-number="3"><span class="st">  </span><span class="kw">html_table</span>()  <span class="op">%&gt;%</span><span class="st">                    </span><span class="co"># as a data.frame</span></a>
+<a class="sourceLine" id="cb677-4" data-line-number="4"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Population2018 =</span> <span class="st">`</span><span class="dt">Population estimate, July 1, 2018[5]</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb677-5" data-line-number="5">         <span class="dt">Population2010 =</span> <span class="st">`</span><span class="dt">Census population, April 1, 2010[6]</span><span class="st">`</span>)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb677-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(Name, Population2018, Population2010) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb677-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove_all, <span class="st">&#39;,&#39;</span>) <span class="op">%&gt;%</span><span class="st">           </span><span class="co"># remove all commas</span></a>
+<a class="sourceLine" id="cb677-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">[[0-9]+</span><span class="ch">\\</span><span class="st">]&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># remove [7] stuff</span></a>
+<a class="sourceLine" id="cb677-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>( <span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), as.numeric)                       <span class="co"># convert to numbers</span></a></code></pre></div>
+<p>And just to show off the data we’ve just imported from Wikipedia, we’ll make a nice graph.</p>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb678-1" data-line-number="1">State_Pop <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb678-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>( <span class="op">!</span>(Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Contiguous United States&#39;</span>, </a>
+<a class="sourceLine" id="cb678-3" data-line-number="3">                        <span class="st">&#39;The fifty states&#39;</span>,<span class="st">&#39;Fifty states + D.C.&#39;</span>,</a>
+<a class="sourceLine" id="cb678-4" data-line-number="4">                        <span class="st">&#39;Total U.S. (including D.C. and territories)&#39;</span>) ) )  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb678-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Percent_Change =</span> (Population2018 <span class="op">-</span><span class="st"> </span>Population2010)<span class="op">/</span>Population2010 ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb678-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Name =</span> <span class="kw">fct_reorder</span>(Name, Percent_Change) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb678-7" data-line-number="7"><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Name, <span class="dt">y=</span>Percent_Change) ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb678-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_col</span>( ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb678-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>, <span class="dt">y=</span><span class="st">&#39;% Change&#39;</span>, <span class="dt">title=</span><span class="st">&#39;State Population growth 2010-2018&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb678-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_flip</span>() </a></code></pre></div>
+<p><img src="29_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="lists-1" class="section level3">
+<h3><span class="header-section-number">15.1.2</span> Lists</h3>
+<p>Unfortunately, we don’t always want to get information from a webpage that is nicely organized into a table. Suppose we want to gather the most recent threads on <a href="www.digg.com">Digg</a>.</p>
+<p>We could sift through the HTML tags to find something that will match, but that will be challenging. Instead we will use a CSS selector named <a href="https://selectorgadget.com">SelectorGadget</a>. Install the bookmarklet by dragging this <a href="javascript:(function()%7Bvar%20s=document.createElement(&#39;div&#39;);s.innerHTML=&#39;Loading...&#39;;s.style.color=&#39;black&#39;;s.style.padding=&#39;20px&#39;;s.style.position=&#39;fixed&#39;;s.style.zIndex=&#39;9999&#39;;s.style.fontSize=&#39;3.0em&#39;;s.style.border=&#39;2px%20solid%20black&#39;;s.style.right=&#39;40px&#39;;s.style.top=&#39;40px&#39;;s.setAttribute(&#39;class&#39;,&#39;selector_gadget_loading&#39;);s.style.background=&#39;white&#39;;document.body.appendChild(s);s=document.createElement(&#39;script&#39;);s.setAttribute(&#39;type&#39;,&#39;text/javascript&#39;);s.setAttribute(&#39;src&#39;,&#39;https://dv0akt2986vzh.cloudfront.net/unstable/lib/selectorgadget.js&#39;);document.body.appendChild(s);%7D)();">bookmarklet</a>
+up to your browsers bookmark bar. When you are at the site you are interested in, just click on the bookmarklet to engage the CSS engine. Click on something you want to capture. This will highlight a whole bunch of things that match the HTML tag listed at the bottom of the screen. Select or deselect items by clicking on them and the search string used to refine the selection will be updated. Once you are happy with the items being selected, copy the HTML node selector.</p>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb679-1" data-line-number="1">url &lt;-<span class="st"> &#39;http://digg.com&#39;</span></a>
+<a class="sourceLine" id="cb679-2" data-line-number="2">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb680-1" data-line-number="1"><span class="co"># Once the page is downloaded, we use the SelectorGadget Parse string</span></a>
+<a class="sourceLine" id="cb680-2" data-line-number="2"><span class="co"># To just give the headlines, we&#39;ll use html_text()</span></a>
+<a class="sourceLine" id="cb680-3" data-line-number="3">HeadLines &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb680-4" data-line-number="4"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># Grab just the headlines</span></a>
+<a class="sourceLine" id="cb680-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></a>
+<a class="sourceLine" id="cb680-6" data-line-number="6">HeadLines <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb680-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;\nHow Michael Kors Became An Empire\n&quot;                                                          
+## [2] &quot;\nFox Runs Loose At Moscow Airport To The Amusement Of Travelers\n&quot;                             
+## [3] &quot;\nThe Shape Of (Housing) Things To Come\n&quot;                                                      
+## [4] &quot;\nAn Insane Credit Card Offering 0% Interest Until Nearly 2021\n&quot;                               
+## [5] &quot;\nBiker Spots A Fire In His Neighborhood, Snaps Into Action To Save A House From Burning Down\n&quot;
+## [6] &quot;\nThe Birth Of The Pastoral Corporation\n&quot;</code></pre>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb682-1" data-line-number="1"><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></a>
+<a class="sourceLine" id="cb682-2" data-line-number="2">Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb682-3" data-line-number="3"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb682-4" data-line-number="4"><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </a>
+<a class="sourceLine" id="cb682-5" data-line-number="5">Links <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb682-6" data-line-number="6"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;https://www.gq.com/story/michael-kors-profile?utm_source=digg&quot;                                                                    
+## [2] &quot;/video/fox-runs-loose-at-moscow-airport-to-the-amusement-of-travelers&quot;                                                            
+## [3] &quot;https://nextcity.org/features/view/the-shape-of-housing-things-to-come?utm_source=digg&quot;                                           
+## [4] &quot;//srv.buysellads.com/ads/click/x/GTND42QUCTBD6KQNCAA4YKQMCAYDPK3UCAYDEZ3JCWSIT2QLCABDL2JKC6BI5K3IFTADVK3EHJNCLSIZ?utm_source=digg&quot;
+## [5] &quot;/video/biker-spots-a-fire-in-his-neighborhood-snaps-into-action-to-save-a-house-from-burning-down&quot;                                
+## [6] &quot;https://thereader.mitpress.mit.edu/birth-of-pastoral-corporation/?utm_source=digg&quot;</code></pre>
+</div>
+</div>
+<div id="scraping-.pdf-files" class="section level2">
+<h2><span class="header-section-number">15.2</span> Scraping .pdf files</h2>
+<p>PDF documents can either be created with software that produce text that is readable, or it can be scanned and everything is effectively an image. The work flow presented in this section assumes that the text is readable as text and is not an image.</p>
+</div>
+<div id="exercises-15" class="section level2">
+<h2><span class="header-section-number">15.3</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><p>At the Insurance Institute for Highway Safety, they have
+<a href="https://www.iihs.org/topics/fatality-statistics/detail/state-by-state">data</a>
+about human fatalities in vehicle crashes. From this web page, import the data from the Fatal Crash Totals data table and produce a bar graph gives the number of deaths per 100,000 individuals.</p></li>
+<li><p>From the same IIHS website, import the data about seat belt use. Join the Fatality data with the seat belt use and make a scatter plot of seat belt use vs number of fatalities per 100,000 people.</p></li>
+<li><p>From the <a href="https://www.reddit.com/r/NAU">NAU sub-reddit</a>, extract the most recent threads.</p></li>
 </ol>
 
 </div>
@@ -554,8 +533,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="2-data-frames.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="14-data-reshaping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="16-r-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -586,7 +565,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/444/raw/master/01_Familiarization.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/29_Scraping.Rmd",
 "text": "Edit"
 },
 "history": {
