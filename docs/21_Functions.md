@@ -7,25 +7,8 @@
 library(tidyverse)  
 ```
 
-```
-## ── Attaching packages ───────────────────────────────────────────────── tidyverse 1.2.1 ──
-```
 
-```
-## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
-## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
-## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
-## ✔ readr   1.3.1     ✔ forcats 0.4.0
-```
-
-```
-## ── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
-
-
-It is very important to be able to define a piece of programing logic that is repeated often. For example, I don't want to have to always program the mathematical code for calculating the sample variance of a vector of data. Instead I just want to call a function that does everything for me and I don't have to worry about the details. 
+It is very important to be able to define a piece of programming logic that is repeated often. For example, I don't want to have to always program the mathematical code for calculating the sample variance of a vector of data. Instead I just want to call a function that does everything for me and I don't have to worry about the details. 
 
 While hiding the computational details is nice, fundamentally writing functions allows us to think about our problems at a higher layer of abstraction. For example, most scientists just want to run a t-test on their data and get the appropriate p-value out; they want to focus on their problem and not how to calculate what the appropriate degrees of freedom are. Functions let us do that. 
 
@@ -293,15 +276,124 @@ Many common functions such as `plot()` are overloaded so that when I call the pl
   
 For the residual function, there exists a `resid.lm()` function, and `resid.gam()` and it is these functions are called when we run the command `resid( obj )`. 
 
+
+## Debugging
+
+When writing code, it is often necessary to figure out why the written code does not behave in the manner the writer expects. This process can be extremely challenging. Various types of tools have been developed and are incorporated in any reasonable integrated development environment (including RStudio!). All of the techniques we'll discuss are intended to help the developer understand exactly what the variable environment is like during the code execution.
+
+RStudio has a [support article](https://support.rstudio.com/hc/en-us/articles/200713843) about using the debugger mode in a variety of situations so these notes won't go into extreme detail about different scenarios. Instead we'll focus on *how* to debug.
+
+### Rmarkdown Recommendations
+Because Rmarkdown documents are knitted using completely a completely fresh instance of R, I recommend that whenever you start up RStudio, it starts with a completely fresh instance of R. This means that it shouldn't load any history or previously created objects. To make this the default behavior, go to the `RStudio -> Preferences` on a Mac or `Tools -> Global Options` on a PC. On the `R General` section un-select all of the `Workspace` and `History` options. 
+
+### Step-wise Execution
+Often we can understand where an error is being introduced by simply running each step individually and inspecting the result. This is where the `Evironment` tab in the top right panel (unless you've moved it...) becomes helpful. By watching how the objects of interest change as we step through the code, we can more easily see where errors have occurred. For complicated objects such as `data.frames`, I find it helpful to have them opened in a `View` tab. 
+
+
+```r
+iris.summary <- iris %>%
+  mutate(Sepal.Area = Sepal.Width * Sepal.Length,
+         Petal.Area = Petal.Width * Petal.Length) %>%
+  select(Species, Sepal.Area, Petal.Area) %>%
+  group_by(Speces) %>%
+  summarize( Mean.Sepal.Area = mean(Sepal.Area),
+             Mean.Petal.Area = mean(Petal.Area) )
+```
+
+In this case, I would execute the `iris %>% ...` section of code and add one command after another until I finally found the line of code that produces the error. Once the line containing the error has been identified, I look for misspellings, misplaced parentheses, or a disconnect between what the input structure is versus what the code expects.
+
+
+### Print Statements
+Once we start writing code with loops and functions, a simple step-by-step evaluation won't suffice. An easy way to quickly see what the state of a variable is at some point in the code is to add a `print()` command that outputs some useful information about the environment.
+
+
+```r
+#' Compute a Factorial. e.g. 5! = 5*4*3*2*1 
+#' @param n A positive integer
+#' @return The value of n!
+factorial <- function(n){
+  output <- NULL
+  for( i in 1:n ){
+    output <- output*i
+  }
+  return(output)
+}
+
+factorial(5)
+```
+
+```
+## integer(0)
+```
+
+In this case, I would add a few print statements such as the following:
+
+```r
+#' Compute a Factorial. e.g. 5! = 5*4*3*2*1 
+#' @param n A positive integer
+#' @return The value of n!
+factorial <- function(n){
+  output <- NULL
+  print(paste('At Start and output = ', output))
+  for( i in 1:n ){
+    output <- output*i
+    print(paste('In Loop and i = ', i,' and output = ', output))
+  }
+  return(output)
+}
+
+factorial(5)
+```
+
+```
+## [1] "At Start and output =  "
+## [1] "In Loop and i =  1  and output =  "
+## [1] "In Loop and i =  2  and output =  "
+## [1] "In Loop and i =  3  and output =  "
+## [1] "In Loop and i =  4  and output =  "
+## [1] "In Loop and i =  5  and output =  "
+```
+
+```
+## integer(0)
+```
+Hopefully we can now see that multiplying a `NULL` value by anything else continues to result in NULL values. 
+
+### `browser`
+Debugging is best done by stepping through the code while paying attention to the current values of all the variables of interest. Modern developer environments include a debugger which allows you to step through your code, one command at a time, while simultaneously showing you the variables of interest. To get into this environment, we need to set a *breakpoint*. This can be done in R-scripts by clicking on the line number, but in Rmarkdown files, it is done by including the command `browser()` into your code.
+
+In our factorial function, we can set a breakpoint via the following
+
+```r
+#' Compute a Factorial. e.g. 5! = 5*4*3*2*1 
+#' @param n A positive integer
+#' @return The value of n!
+factorial <- function(n){
+  browser()
+  output <- NULL
+  for( i in 1:n ){
+    output <- output*i
+  }
+  return(output)
+}
+
+# Now run the function
+factorial(5)
+```
+
+This allows us to step through the function while simultaneously keeping track of all the variables we are interested in.
+
+
 ## Scope
 
 Consider the case where we make a function that calculates the trimmed mean. A good implementation of the function is given here.
 
 
 ```r
-# Define a function for the trimmed mean
-# x: vector of values to be averaged
-# k: the number of elements to trim on either side
+#' Define a function for the trimmed mean
+#' @param x A vector of values to be averaged
+#' @param k The number of elements to trim on either side
+#' @return A scalar
 trimmed.mean <- function(x, k=0){
   x <- sort(x)      # arrange the input according magnitude
   n <- length(x)    # n = how many observations
@@ -322,33 +414,46 @@ output
 ```
 
 ```r
-x                                # x is unchanged
+x                                # notice x is unchanged
 ```
 
 ```
 ##  [1] 10  9  8  7  6  5  4  3  2  1 50
 ```
 
-Notice that even though I passed `x` into the function and then sorted it, `x` remained unsorted outside the function. When I modified `x`, R made a copy of `x` and sorted the *copy* that belonged to the function so that I didn't modify a variable that was defined outside of the scope of my function. But what if I didn't bother with passing x and k. If I don't pass in the values of x and k, then R will try to find them in my current workspace.
+Notice that even though I passed `x` into the function and then sorted it, `x` remained unsorted outside the function. When I modified `x`, R made a copy of `x` and sorted the *copy* that belonged to the function so that I didn't modify a variable that was defined outside of the scope of my function. But what if I didn't bother with passing x and k. If I don't pass in the values of x and k, then R will try to find them in my current work space.
 
 
 ```r
 # a horribly defined function that has no parameters
 # but still accesses something called "x"
 trimmed.mean <- function(){
-  x <- sort(x)
+  browser()
+  x <- sort(x)              # Access global x, sort and save in local environment
   n <- length(x)
-  if( k > 0){
+  if( k > 0){               # Accessing the Global k
     x <- x[c(-1*(1:k), -1*((n-k+1):n))]
   }
   tm <- sum(x)/length(x)
   return( tm )
 } 
 
-x <- c( 1:10, 50 )    # data to trim
+x <- c( 50, 10:1 )    # data to trim
 k <- 2
 
 trimmed.mean()  # amazingly this still works
+```
+
+```
+## Called from: trimmed.mean()
+## debug at <text>#5: x <- sort(x)
+## debug at <text>#6: n <- length(x)
+## debug at <text>#7: if (k > 0) {
+##     x <- x[c(-1 * (1:k), -1 * ((n - k + 1):n))]
+## }
+## debug at <text>#8: x <- x[c(-1 * (1:k), -1 * ((n - k + 1):n))]
+## debug at <text>#10: tm <- sum(x)/length(x)
+## debug at <text>#11: return(tm)
 ```
 
 ```
@@ -362,13 +467,23 @@ trimmed.mean()  # now the function can't find anything named k and throws and er
 ```
 
 ```
+## Called from: trimmed.mean()
+## debug at <text>#5: x <- sort(x)
+## debug at <text>#6: n <- length(x)
+## debug at <text>#7: if (k > 0) {
+##     x <- x[c(-1 * (1:k), -1 * ((n - k + 1):n))]
+## }
+```
+
+```
 ## Error in trimmed.mean(): object 'k' not found
 ```
 
 
-So if I forget to pass some variable into a function, but it happens to be defined outside the function, R will find it. It is not good practice to rely on that because how do I take the trimmed mean of a vector named z? Worse yet, what if the variable x changes between runs of your function? What should be consistently giving the same result keeps changing. This is especially insidious when you have defined most of the arguments the function uses, but missed one. Your function happily goes to the next higher scope and sometimes finds it. 
+So if I forget to pass some variable into a function, but it happens to be defined outside the function, R will find it. It is not good practice to rely on that because how do I take the trimmed mean of a vector named `z`? Worse yet, what if the variable `x` changes between runs of your function? What should be consistently giving the same result keeps changing. This is especially insidious when you have defined most of the arguments the function uses, but missed one. Your function happily goes to the next higher scope and sometimes finds it. 
 
-When executing a function, R will have access to all the variables defined in the function, all the variables defined in the function that called your function and so on until the base workspace. However, you should never let your function refer to something that is not either created in your function or passed in via a parameter.
+When executing a function, R will have access to all the variables defined in the function, all the variables defined in the function that called your function and so on until the base work space. However, you should never let your function refer to something that is not either created in your function or passed in via a parameter.
+
 
 ## Exercises
 
@@ -378,7 +493,7 @@ When executing a function, R will have access to all the variables defined in th
     0 & \;\;\;\textrm{otherwise}
     \end{cases}$$
     which looks like this
-    <img src="21_Functions_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+    <img src="21_Functions_files/figure-html/unnamed-chunk-23-1.png" width="672" />
     We want to write a function `duniform(x, a, b)` that takes an arbitrary value of `x` and parameters a and b and return the appropriate height of the density function. For various values of `x`, `a`, and `b`, demonstrate that your function returns the correct density value. 
     a) Write your function without regard for it working with vectors of data. Demonstrate that it works by calling the function three times, once where x< a, once where a < x and x < b, and finally once where b < x.
     b) Next we force our function to work correctly for a vector of `x` values. Modify your function in part (a) so that the core logic is inside a `for` statement and the loop moves through each element of `x` in succession. Your function should look something like this:
@@ -410,6 +525,71 @@ When executing a function, R will have access to all the variables defined in th
         microbenchmark::microbenchmark( duniform( seq(-4,12,by=.0001), 4, 8) )
         ```
         In particular, look at the median time for evaluation.
-    d) Instead of using a `for` loop, it might have been easier to use our standard `dplyr::mutate` command with an `ifelse()` command. Rewrite your code to make a data frame, then run the `dplyr::mutate` command with an `ifelse()` command to produce a new results column and return that results column. Verify that your function works correctly by producing a plot, and also run the `microbenchmark()`.  Which version of your function was easier to write? Which ran faster?
+    d) Instead of using a `for` loop, it might have been easier to use our standard `dplyr::mutate` command with an `ifelse()` command. Rewrite your function to run the `dplyr::mutate` command with an `ifelse()` command to produce a new results column and return that results column. Verify that your function works correctly by producing a plot, and also run the `microbenchmark()`.  Which version of your function was easier to write? Which ran faster?
 
 2. I very often want to provide default values to a parameter that I pass to a function. For example, it is so common for me to use the `pnorm()` and `qnorm()` functions on the standard normal, that R will automatically use `mean=0` and `sd=1` parameters unless you tell R otherwise. To get that behavior, we just set the default parameter values in the definition. When the function is called, the user specified value is used, but if none is specified, the defaults are used. Look at the help page for the functions `dunif()`, and notice that there are a number of default parameters. For your `duniform()` function provide default values of `0` and `1` for `a` and `b`. Demonstrate that your function is appropriately using the given default values. 
+
+3. A common data processing step is to *standardize* numeric variables by subtracting the mean and dividing by the standard deviation.  Create a function that takes a vector of numerical values and produces an output vector of the standardized values. We will then apply this function to each numeric column in a data frame using the `dplyr::mutate_if()` command. *This is often done in model algorithms that rely on numerical optimization methods to find a solution. By keeping the scales of different predictor covariates the same, the numerical optimization routines generally work better.*
+    
+    ```r
+    standardize <- function(x){
+      ## What goes here?
+    }
+    
+    data( 'iris' )
+    # Graph the pre-transformed data.
+    ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
+      geom_point() +
+      labs(title='Pre-Transformation')
+    
+    # Standardize the numeric columns
+    iris.z <- iris %>% mutate_if( is.numeric, standardize )
+    
+    # Graph the post-transformed data.
+    ggplot(iris.z, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
+      geom_point() +
+      labs(title='Post-Transformation')
+    ```
+    
+4. A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis, and saving the statistic of interest. Below is a function `boot.lm` that bootstraps the linear model using case re-sampling.
+    
+    ```r
+    #' Calculate bootstrap CI for an lm object
+    #' 
+    #' @param model
+    #' @param N
+    boot.lm <- function(model, N=1000){
+      data    <- model$model  # Extract the original data
+      formula <- model$terms  # and model formula used
+    
+      # Start the output data frame with the full sample statistic
+      output <- broom::tidy(model) %>% 
+        select(term, estimate) %>% 
+        spread(term, estimate)
+    
+      for( i in 1:N ){
+        data <- data %>% sample_frac( replace=TRUE )
+        model.boot <- lm( formula, data=data)
+        coefs <- broom::tidy(model.boot) %>% 
+          select(term, estimate) %>% 
+          spread(term, estimate)
+        output <- output %>% rbind( coefs )
+      }  
+      
+      return(output)
+    }
+    
+    # Run the function on a model
+    m <- lm( Volume ~ Girth, data=trees )
+    boot.dist <- boot.lm(m)
+    
+    # If boot.lm() works, then the following produces a nice graph
+    boot.dist %>% gather('term','estimate') %>% 
+      ggplot( aes(x=estimate) ) + 
+      geom_histogram()
+    ```
+    
+    This code does not correctly calculate a bootstrap sample for the model coefficients. Figure out where the mistake is.  *Hint: Even if you haven't studied the bootstrap, my description above gives enough information about the bootstrap algorithm to figure this out.*
+
+
+    

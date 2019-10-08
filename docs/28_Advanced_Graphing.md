@@ -99,5 +99,7 @@ ggplot2::map_data('state', regions='arizona') %>%
 
 <img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-5-1.png" width="480" />
 
+### Package `sf`
 
+There is a nice [tutorial](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html) I found. 
 ## Exercises

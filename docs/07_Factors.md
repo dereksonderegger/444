@@ -5,7 +5,7 @@
 
 
 ```r
-library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
+library(tidyverse)   # loading ggplot2 and dplyr
 ```
 
 In R we can store categorical information as either strings or as factors. To a casual user, it often doesn't matter how the information is stored because the modeling and graphing programs happily convert strings into factors whenever necessary. However a deeper understanding of how factors are stored and manipulated allows a user much finer control in the modeling and graphing.
@@ -71,7 +71,7 @@ data.frame( Category=1:4, labels=levels(drinks))
 ```
 
 ```r
-as.integer(drinks) # Print the category assigments
+as.integer(drinks) # Print the category assignments
 ```
 
 ```
@@ -94,15 +94,17 @@ Students <-
   add_row(Year='junior',   Gender=0, rep=1:32) %>%
   add_row(Year='senior',   Gender=1, rep=1:18) %>%
   add_row(Year='senior',   Gender=0, rep=1:19) %>%
-  add_row(Year='sophmore', Gender=1, rep=1:10) %>%
-  add_row(Year='sophmore', Gender=0, rep=1:12)
+  add_row(Year='sophomore', Gender=1, rep=1:10) %>%
+  add_row(Year='sophomore', Gender=0, rep=1:12)
 
 # Variables that are character strings are coerced to factors.
 # Variables that are numeric are not, and should be explicitly turned to factors.
-Students <- Students %>% mutate( Gender = factor(Gender) )
+Students <- Students %>% 
+  mutate( Gender = factor(Gender) )
 
 Students %>%
-  ggplot( aes(x=Year, fill=Gender)) + geom_bar() + coord_flip()
+  ggplot( aes(x=Year, fill=Gender)) + 
+  geom_bar() + coord_flip()
 ```
 
 <img src="07_Factors_files/figure-html/unnamed-chunk-4-1.png" width="672" />
@@ -125,7 +127,7 @@ Students %>%
 
 <img src="07_Factors_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
-We might want to apply some function to all the functon labels. Perhaps we want to remove whitespace or perhaps we want to capitalize all the labels. To apply a function to each of the labels, we use the `fct_relabel()` function. 
+We might want to apply some function to all the labels. Perhaps we want to remove white space or perhaps we want to capitalize all the labels. To apply a function to each of the labels, we use the `fct_relabel()` function. 
 
 
 ```r
@@ -159,6 +161,10 @@ Students %>%
   ggplot( aes(x=Year, fill=Gender)) + geom_bar() + coord_flip()
 ```
 
+```
+## Warning: Unknown levels in `f`: sophmore
+```
+
 <img src="07_Factors_files/figure-html/unnamed-chunk-7-2.png" width="672" />
 
 ```r
@@ -167,6 +173,10 @@ Students %>%
   mutate( Year = fct_relevel(Year, 'senior', 'junior','sophmore','first year') ) %>%
   mutate( Year = fct_rev(Year) ) %>%
   ggplot( aes(x=Year, fill=Gender)) + geom_bar() + coord_flip()
+```
+
+```
+## Warning: Unknown levels in `f`: sophmore
 ```
 
 <img src="07_Factors_files/figure-html/unnamed-chunk-7-3.png" width="672" />
@@ -178,6 +188,10 @@ Students %>%
   mutate( Year = fct_relevel(Year, 'senior', 'junior','sophmore','first year') ) %>%
   mutate( Year = fct_shift(Year, +1) ) %>%
   ggplot( aes(x=Year, fill=Gender)) + geom_bar() + coord_flip()
+```
+
+```
+## Warning: Unknown levels in `f`: sophmore
 ```
 
 <img src="07_Factors_files/figure-html/unnamed-chunk-7-4.png" width="672" />
@@ -302,8 +316,8 @@ data
 
 ## Exercises
 
-1. In the package `Lock5Data` there is a dataset `FloridaLakes` which contains water sample measurements from 53 lakes in Florida, produce a bar graph shows the `Lake` and `AvgMercury` variables and make sure that the lakes are ordered by Average Murcury content.
+1. In the package `Lock5Data` there is a dataset `FloridaLakes` which contains water sample measurements from 53 lakes in Florida, produce a bar graph shows the `Lake` and `AvgMercury` variables and make sure that the lakes are ordered by Average Mercury content.
 
-2. In the package `Lock5Data`, there is a dataset `FootballBrain` that has brain measurements for 75 individuals. The `Group` variable has three levels: `Control` is somebody that did not play football, `FBNoConcuss` is a football player with no history of concussions, or `FBConcuss` which is a football player with concussion history. The variable `Cognition` measures their testing composite reaction time score. Make a boxplot graph of the groups vs cognition, but change the `Group` labels to something that would make sense to a reader.
+2. In the package `Lock5Data`, there is a dataset `FootballBrain` that has brain measurements for 75 individuals. The `Group` variable has three levels: `Control` is somebody that did not play football, `FBNoConcuss` is a football player with no history of concussions, or `FBConcuss` which is a football player with concussion history. The variable `Cogniton` measures their testing composite reaction time score. Make a box-plot graph of the groups vs cognition, but change the `Group` labels to something that would make sense to a reader. *Because there is no data for the `Control` group, don't show it on your resulting graph. Also notice that the original data set column name misspells "cognition".*
 
-3. In the package `Lock5Data`, there is a dataset `RestaurantTips` which gives tip data from the resturant First Crush Bistro in Potsdam, NY. Graph the `Bill` versus the `PctTip` for each `Day` of the week where we use `Day` as the variable to facet_grid or facet_wrap on. Make sure the `Day` variable has conventional days. Alo include information about if the bill was paid via credit card and also make sure the credit card labels are either `Credit Card` or `Cash`.
+3. In the package `Lock5Data`, there is a dataset `RestaurantTips` which gives tip data from the restaurant First Crush Bistro in Potsdam, NY. Graph the `Bill` versus the `PctTip` for each `Day` of the week where we use `Day` as the variable to facet_grid or facet_wrap on. Make sure the `Day` variable has conventional days. Also include information about if the bill was paid via credit card and also make sure the credit card labels are either `Credit Card` or `Cash`.

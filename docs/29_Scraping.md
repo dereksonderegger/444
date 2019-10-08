@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nHow Michael Kors Became An Empire\n"                                                          
-## [2] "\nFox Runs Loose At Moscow Airport To The Amusement Of Travelers\n"                             
-## [3] "\nThe Shape Of (Housing) Things To Come\n"                                                      
-## [4] "\nAn Insane Credit Card Offering 0% Interest Until Nearly 2021\n"                               
-## [5] "\nBiker Spots A Fire In His Neighborhood, Snaps Into Action To Save A House From Burning Down\n"
-## [6] "\nThe Birth Of The Pastoral Corporation\n"
+## [1] "\nAn Oral History Of Lizzo’s Rise To Fame\n"                                           
+## [2] "\nThe Amount Of Money You’d Have If You Invested $100 In These 2019 IPOs, Visualized\n"
+## [3] "\nMan Catches Job Interviewee Cheating During Skype Interview\n"                       
+## [4] "\nNot All CBD Is Created Equal. Try Medterra's Premium 99%+ Pure CBD Today\n"          
+## [5] "\nHow A Man Fell From 47,000 Feet And Lived To Tell The Tale\n"                        
+## [6] "\nThis Dog Gently Petting A Kitten Is The Sweetest Thing You’ll See Today\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.gq.com/story/michael-kors-profile?utm_source=digg"                                                                    
-## [2] "/video/fox-runs-loose-at-moscow-airport-to-the-amusement-of-travelers"                                                            
-## [3] "https://nextcity.org/features/view/the-shape-of-housing-things-to-come?utm_source=digg"                                           
-## [4] "//srv.buysellads.com/ads/click/x/GTND42QUCTBD6KQNCAA4YKQMCAYDPK3UCAYDEZ3JCWSIT2QLCABDL2JKC6BI5K3IFTADVK3EHJNCLSIZ?utm_source=digg"
-## [5] "/video/biker-spots-a-fire-in-his-neighborhood-snaps-into-action-to-save-a-house-from-burning-down"                                
-## [6] "https://thereader.mitpress.mit.edu/birth-of-pastoral-corporation/?utm_source=digg"
+## [1] "http://mspmag.com/arts-and-culture/oral-history-lizzo-minneapolis/?utm_source=digg"                                               
+## [2] "/2019/how-much-money-youd-make-if-you-invested-100-in-2019-ipo-uber-slack-lyft-zoom"                                              
+## [3] "/video/man-cheats-skype-job-interview"                                                                                            
+## [4] "//srv.buysellads.com/ads/click/x/GTND42QUCTBIC2JJCE74YKQMCAYDVKJMCVSIVZ3JCWSIT23JCY7DP2QKC6BI5K3MCYADVK3EHJNCLSIZ?utm_source=digg"
+## [5] "/video/how-a-man-fell-from-47000-feet-and-lived-to-tell-to-tale"                                                                  
+## [6] "/video/this-dog-gently-petting-a-kitten-is-the-sweetest-thing-youll-see-today"
 ```
 
 
