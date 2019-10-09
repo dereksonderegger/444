@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-08" />
+<meta name="date" content="2019-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -498,24 +498,24 @@ up to your browsers bookmark bar. When you are at the site you are interested in
 <a class="sourceLine" id="cb691-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></a>
 <a class="sourceLine" id="cb691-6" data-line-number="6">HeadLines <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb691-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;\nAn Oral History Of Lizzo’s Rise To Fame\n&quot;                                           
-## [2] &quot;\nThe Amount Of Money You’d Have If You Invested $100 In These 2019 IPOs, Visualized\n&quot;
-## [3] &quot;\nMan Catches Job Interviewee Cheating During Skype Interview\n&quot;                       
-## [4] &quot;\nNot All CBD Is Created Equal. Try Medterra&#39;s Premium 99%+ Pure CBD Today\n&quot;          
-## [5] &quot;\nHow A Man Fell From 47,000 Feet And Lived To Tell The Tale\n&quot;                        
-## [6] &quot;\nThis Dog Gently Petting A Kitten Is The Sweetest Thing You’ll See Today\n&quot;</code></pre>
+<pre><code>## [1] &quot;\nThe Last True Sticker Factory In America\n&quot;                                   
+## [2] &quot;\nThe 20 Firms Behind One Third Of All Carbon Emissions\n&quot;                      
+## [3] &quot;\nGuy Goes On Cliff, Thinking The Waves Wouldn’t Touch Him. Guy Was Wrong\n&quot;    
+## [4] &quot;\nEasily Monitor And Cancel Subscriptions With This App\n&quot;                      
+## [5] &quot;\nFerrari Tries To Overtake Car On Wet Road, Fails, Um, Spectacularly\n&quot;        
+## [6] &quot;\nStuffed With Sockeye Salmon, ‘Holly’ Wins ‘Fat Bear Week’ Heavyweight Title\n&quot;</code></pre>
 <div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb693-1" data-line-number="1"><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></a>
 <a class="sourceLine" id="cb693-2" data-line-number="2">Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb693-3" data-line-number="3"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb693-4" data-line-number="4"><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </a>
 <a class="sourceLine" id="cb693-5" data-line-number="5">Links <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb693-6" data-line-number="6"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;http://mspmag.com/arts-and-culture/oral-history-lizzo-minneapolis/?utm_source=digg&quot;                                               
-## [2] &quot;/2019/how-much-money-youd-make-if-you-invested-100-in-2019-ipo-uber-slack-lyft-zoom&quot;                                              
-## [3] &quot;/video/man-cheats-skype-job-interview&quot;                                                                                            
-## [4] &quot;//srv.buysellads.com/ads/click/x/GTND42QUCTBIC2JJCE74YKQMCAYDVKJMCVSIVZ3JCWSIT23JCY7DP2QKC6BI5K3MCYADVK3EHJNCLSIZ?utm_source=digg&quot;
-## [5] &quot;/video/how-a-man-fell-from-47000-feet-and-lived-to-tell-to-tale&quot;                                                                  
-## [6] &quot;/video/this-dog-gently-petting-a-kitten-is-the-sweetest-thing-youll-see-today&quot;</code></pre>
+<pre><code>## [1] &quot;https://onezero.medium.com/the-last-true-sticker-factory-in-america-69e42f7e97e4?utm_source=digg&quot;                                 
+## [2] &quot;https://www.theguardian.com/environment/2019/oct/09/revealed-20-firms-third-carbon-emissions?utm_source=digg&quot;                     
+## [3] &quot;/video/man-hit-by-wave-on-cliff-iceland-beach&quot;                                                                                    
+## [4] &quot;//srv.buysellads.com/ads/click/x/GTND42QUCTSDE23MC6Y4YKQMCAYD623NC6SI4Z3JCWSITKJNCYBI6KQKC6BI5K3NCWYI6K3EHJNCLSIZ?utm_source=digg&quot;
+## [5] &quot;/2019/ferrari-tries-to-overtake-car-on-wet-road&quot;                                                                                  
+## [6] &quot;https://www.npr.org/2019/10/09/768475870/stuffed-with-sockeye-salmon-holly-wins-fat-bear-week-heavyweight-title?utm_source=digg&quot;</code></pre>
 </div>
 </div>
 <div id="scraping-.pdf-files" class="section level2">

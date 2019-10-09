@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-08" />
+<meta name="date" content="2019-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -561,27 +561,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="exercises-12" class="section level2">
 <h2><span class="header-section-number">12.4</span> Exercises</h2>
 <ol style="list-style-type: decimal">
-<li>For the following formats for a date, transform them into a date/time object. Which formats can be handled nicely and which are not?</li>
-</ol>
+<li>For the following formats for a date, transform them into a date/time object. Which formats can be handled nicely and which are not? <em>The lubridate package has gotten smarter over time and a couple of these used to fail.</em>
+<ol style="list-style-type: lower-alpha">
+<li><p>For September 13</p>
 <div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb628-1" data-line-number="1">birthday &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
 <a class="sourceLine" id="cb628-2" data-line-number="2">  <span class="st">&#39;September 13, 1978&#39;</span>,</a>
 <a class="sourceLine" id="cb628-3" data-line-number="3">  <span class="st">&#39;Sept 13, 1978&#39;</span>,</a>
 <a class="sourceLine" id="cb628-4" data-line-number="4">  <span class="st">&#39;Sep 13, 1978&#39;</span>,</a>
-<a class="sourceLine" id="cb628-5" data-line-number="5">  <span class="st">&#39;9-13-78&#39;</span>,</a>
-<a class="sourceLine" id="cb628-6" data-line-number="6">  <span class="st">&#39;9/13/78&#39;</span>)</a></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
+<a class="sourceLine" id="cb628-5" data-line-number="5">  <span class="st">&#39;S 13, 1978&#39;</span>,</a>
+<a class="sourceLine" id="cb628-6" data-line-number="6">  <span class="st">&#39;9-13-78&#39;</span>,</a>
+<a class="sourceLine" id="cb628-7" data-line-number="7">  <span class="st">&#39;9-13/78&#39;</span>,</a>
+<a class="sourceLine" id="cb628-8" data-line-number="8">  <span class="st">&#39;9/13/78&#39;</span>)</a></code></pre></div></li>
+<li><p>For June 15, 1978 we should have a problem.</p>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb629-1" data-line-number="1">birthday &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb629-2" data-line-number="2">  <span class="st">&#39;June 13, 1978&#39;</span>,</a>
+<a class="sourceLine" id="cb629-3" data-line-number="3">  <span class="st">&#39;J 13, 1978&#39;</span>)</a></code></pre></div></li>
+</ol></li>
 <li><p>Suppose you have arranged for a phone call to be at 3 pm on May 8, 2015 at Arizona time. However, the recipient will be in Auckland, NZ. What time will it be there?</p></li>
+<li><p>From this book’s <a href="https://github.com/dereksonderegger/444/data-raw">data-raw</a> directory on GitHub, download the <code>Pulliam_Airport_Weather_Station.csv</code> data file. There is a <code>DATE</code> column as well as the Maximum and Minimum temperature. For the last 10 years of data, plot the daily maximum temperature.</p></li>
 <li><p>It turns out there is some interesting periodicity regarding the number of births on particular days of the year.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Using the <code>mosaicData</code> package, load the data set <code>Births78</code> which records the number of children born on each day in the United States in 1978.</p></li>
-<li><p>There is already a date column in the data set that is called, appropriately, date. Notice that <code>ggplot2</code> knows how to represent dates in a pretty fashion and the following chart looks nice.</p>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb629-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb629-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&#39;Births78&#39;</span>, <span class="dt">package=</span><span class="st">&quot;mosaicData&quot;</span>)</a>
-<a class="sourceLine" id="cb629-3" data-line-number="3"><span class="kw">ggplot</span>(Births78, <span class="kw">aes</span>(<span class="dt">x=</span>date, <span class="dt">y=</span>births)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb629-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p>What stands out to you? Why do you think we have this trend?</p></li>
-<li><p>To test your assumption, we need to figure out the what day of the week each observation is. Use <code>dplyr::mutate</code> to add a new column named dow that is the day of the week (Monday, Tuesday, etc). This calculation will involve some function in the <code>lubridate</code> package.</p></li>
-<li><p>Plot the data with the point color being determined by the <code>dow</code> variable.</p></li>
+<li><p>Using the <code>mosaicData</code> package, load the data set <code>Births78</code> which records the number of children born on each day in the United States in 1978. Because this problem is intended to show how to calculate the information using the <code>date</code>, remove the columns of <code>month</code>, <code>day_of_year</code>, <code>day_of_month</code> and <code>day_of_week</code>.</p></li>
+<li><p>There is already a date column in the data set that is called, appropriately, date. Graph the number of <code>births</code> vs the <code>date</code> with date on the x-axis. What stands out to you? Why do you think we have this trend?</p></li>
+<li><p>To test your assumption, we need to figure out the what day of the week each observation is. Use <code>dplyr::mutate</code> to add a new column named <code>dow</code> that is the day of the week (Monday, Tuesday, etc). This calculation will involve some function in the <code>lubridate</code> package and the <code>date</code> column.</p></li>
+<li><p>Plot the data with the point color being determined by the day of the week variable.</p></li>
 </ol></li>
 </ol>
 

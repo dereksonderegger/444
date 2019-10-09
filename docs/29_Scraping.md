@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nAn Oral History Of Lizzo’s Rise To Fame\n"                                           
-## [2] "\nThe Amount Of Money You’d Have If You Invested $100 In These 2019 IPOs, Visualized\n"
-## [3] "\nMan Catches Job Interviewee Cheating During Skype Interview\n"                       
-## [4] "\nNot All CBD Is Created Equal. Try Medterra's Premium 99%+ Pure CBD Today\n"          
-## [5] "\nHow A Man Fell From 47,000 Feet And Lived To Tell The Tale\n"                        
-## [6] "\nThis Dog Gently Petting A Kitten Is The Sweetest Thing You’ll See Today\n"
+## [1] "\nThe Last True Sticker Factory In America\n"                                   
+## [2] "\nThe 20 Firms Behind One Third Of All Carbon Emissions\n"                      
+## [3] "\nGuy Goes On Cliff, Thinking The Waves Wouldn’t Touch Him. Guy Was Wrong\n"    
+## [4] "\nEasily Monitor And Cancel Subscriptions With This App\n"                      
+## [5] "\nFerrari Tries To Overtake Car On Wet Road, Fails, Um, Spectacularly\n"        
+## [6] "\nStuffed With Sockeye Salmon, ‘Holly’ Wins ‘Fat Bear Week’ Heavyweight Title\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "http://mspmag.com/arts-and-culture/oral-history-lizzo-minneapolis/?utm_source=digg"                                               
-## [2] "/2019/how-much-money-youd-make-if-you-invested-100-in-2019-ipo-uber-slack-lyft-zoom"                                              
-## [3] "/video/man-cheats-skype-job-interview"                                                                                            
-## [4] "//srv.buysellads.com/ads/click/x/GTND42QUCTBIC2JJCE74YKQMCAYDVKJMCVSIVZ3JCWSIT23JCY7DP2QKC6BI5K3MCYADVK3EHJNCLSIZ?utm_source=digg"
-## [5] "/video/how-a-man-fell-from-47000-feet-and-lived-to-tell-to-tale"                                                                  
-## [6] "/video/this-dog-gently-petting-a-kitten-is-the-sweetest-thing-youll-see-today"
+## [1] "https://onezero.medium.com/the-last-true-sticker-factory-in-america-69e42f7e97e4?utm_source=digg"                                 
+## [2] "https://www.theguardian.com/environment/2019/oct/09/revealed-20-firms-third-carbon-emissions?utm_source=digg"                     
+## [3] "/video/man-hit-by-wave-on-cliff-iceland-beach"                                                                                    
+## [4] "//srv.buysellads.com/ads/click/x/GTND42QUCTSDE23MC6Y4YKQMCAYD623NC6SI4Z3JCWSITKJNCYBI6KQKC6BI5K3NCWYI6K3EHJNCLSIZ?utm_source=digg"
+## [5] "/2019/ferrari-tries-to-overtake-car-on-wet-road"                                                                                  
+## [6] "https://www.npr.org/2019/10/09/768475870/stuffed-with-sockeye-salmon-holly-wins-fat-bear-week-heavyweight-title?utm_source=digg"
 ```
 
 

@@ -429,7 +429,7 @@ When executing a function, R will have access to all the variables defined in th
       labs(title='Post-Transformation')
     ```
     
-4. A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis, and saving the statistic of interest. Below is a function `boot.lm` that bootstraps the linear model using case re-sampling.
+4. A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest. Below is a function `boot.lm` that bootstraps the linear model using case re-sampling.
     ```{r, eval=FALSE}
     #' Calculate bootstrap CI for an lm object
     #' 
@@ -463,7 +463,8 @@ When executing a function, R will have access to all the variables defined in th
     # If boot.lm() works, then the following produces a nice graph
     boot.dist %>% gather('term','estimate') %>% 
       ggplot( aes(x=estimate) ) + 
-      geom_histogram()
+      geom_histogram() + 
+      facet_grid(.~term, scales='free')
     ```
     
     This code does not correctly calculate a bootstrap sample for the model coefficients. Figure out where the mistake is.  *Hint: Even if you haven't studied the bootstrap, my description above gives enough information about the bootstrap algorithm to figure this out.*

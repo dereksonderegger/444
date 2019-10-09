@@ -162,34 +162,38 @@ x + dyears(2) # Add 2*365 days; 2012 was a leap year
 ```
 
 
+
 ## Exercises
 
-1. For the following formats for a date, transform them into a date/time object. Which formats can be handled nicely and which are not?
-```{r}
-birthday <- c(
-  'September 13, 1978',
-  'Sept 13, 1978',
-  'Sep 13, 1978',
-  '9-13-78',
-  '9/13/78')
-```
+1. For the following formats for a date, transform them into a date/time object. Which formats can be handled nicely and which are not? *The lubridate package has gotten smarter over time and a couple of these used to fail.*
+    a) For September 13
+        ```{r}
+        birthday <- c(
+          'September 13, 1978',
+          'Sept 13, 1978',
+          'Sep 13, 1978',
+          'S 13, 1978',
+          '9-13-78',
+          '9-13/78',
+          '9/13/78')
+        ```
+    b) For June 15, 1978 we should have a problem.
+        ```{r}
+        birthday <- c(
+          'June 13, 1978',
+          'J 13, 1978')
+        ```
 
 2. Suppose you have arranged for a phone call to be at 3 pm on May 8, 2015 at Arizona time. However, the recipient will be in Auckland, NZ. What time will it be there? 
 
-3. It turns out there is some interesting periodicity regarding the number of births on particular days of the year.
+3. From this book's [data-raw](https://github.com/dereksonderegger/444/data-raw) directory on GitHub, download the `Pulliam_Airport_Weather_Station.csv` data file. There is a `DATE` column as well as the Maximum and Minimum temperature. For the last 10 years of data, plot the daily maximum temperature.
 
-    a. Using the `mosaicData` package, load the data set `Births78` which records the number of children born on each day in the United States in 1978.
+4. It turns out there is some interesting periodicity regarding the number of births on particular days of the year.
+
+    a. Using the `mosaicData` package, load the data set `Births78` which records the number of children born on each day in the United States in 1978. Because this problem is intended to show how to calculate the information using the `date`, remove the columns of `month`, `day_of_year`, `day_of_month` and `day_of_week`.
     
-    b. There is already a date column in the data set that is called, appropriately, date. Notice that `ggplot2` knows how to represent dates in a pretty fashion and the following chart looks nice.
-        ```{r, fig.height=3, eval=FALSE}
-        library(ggplot2)
-        data('Births78', package="mosaicData")
-        ggplot(Births78, aes(x=date, y=births)) +
-          geom_point()
-        ```
-        What stands out to you? Why do you think we have this trend?
+    b. There is already a date column in the data set that is called, appropriately, date. Graph the number of `births` vs the `date` with date on the x-axis. What stands out to you? Why do you think we have this trend?
 
+    c. To test your assumption, we need to figure out the what day of the week each observation is. Use `dplyr::mutate` to add a new column named `dow` that is the day of the week (Monday, Tuesday, etc). This calculation will involve some function in the `lubridate` package and the `date` column. 
 
-    c. To test your assumption, we need to figure out the what day of the week each observation is. Use `dplyr::mutate` to add a new column named dow that is the day of the week (Monday, Tuesday, etc). This calculation will involve some function in the `lubridate` package.
-
-    d. Plot the data with the point color being determined by the `dow` variable.
+    d. Plot the data with the point color being determined by the day of the week variable.
