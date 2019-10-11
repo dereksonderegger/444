@@ -408,6 +408,7 @@ When executing a function, R will have access to all the variables defined in th
 
 2. I very often want to provide default values to a parameter that I pass to a function. For example, it is so common for me to use the `pnorm()` and `qnorm()` functions on the standard normal, that R will automatically use `mean=0` and `sd=1` parameters unless you tell R otherwise. To get that behavior, we just set the default parameter values in the definition. When the function is called, the user specified value is used, but if none is specified, the defaults are used. Look at the help page for the functions `dunif()`, and notice that there are a number of default parameters. For your `duniform()` function provide default values of `0` and `1` for `a` and `b`. Demonstrate that your function is appropriately using the given default values. 
 
+
 3. A common data processing step is to *standardize* numeric variables by subtracting the mean and dividing by the standard deviation.  Create a function that takes a vector of numerical values and produces an output vector of the standardized values. We will then apply this function to each numeric column in a data frame using the `dplyr::mutate_if()` command. *This is often done in model algorithms that rely on numerical optimization methods to find a solution. By keeping the scales of different predictor covariates the same, the numerical optimization routines generally work better.*
     ```{r, eval=FALSE}
     standardize <- function(x){
@@ -428,8 +429,33 @@ When executing a function, R will have access to all the variables defined in th
       geom_point() +
       labs(title='Post-Transformation')
     ```
-    
-4. A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest. Below is a function `boot.lm` that bootstraps the linear model using case re-sampling.
+
+
+4. In this example, we'll write a function that will output the first n terms in the child's game *Fizz Buzz*. The goal is to count as high as you can, but for any number evenly divisible by 3, substitute "Fizz" and any number evenly divisible by 5, substitute "Buzz", and if it is divisible by both, substitute "Fizz Buzz". I recently saw a wonderful YouTube [video](https://www.youtube.com/watch?v=QPZ0pIK_wsc) describing how to write an appropriate loop to do this in JavaScript, but it should be easy enough to interpret what to do in R. *Hint: The `paste()` function will squish strings together, the remainder operator is `%%` where it is used as `9 %% 3 = 0`.*
+```{r}
+# Because I added this problem late in the Fall 2019 semester, I just want you to 
+# watch the videa about how to think about writing a for loop.
+library(tidyverse)
+FizzBuzz <- function(n){
+  output <- tibble(i = 1:n, result='')
+  for(i in 1:n){
+    if( i %% 3 == 0 ){
+      output[i,'result'] <- paste(output[i,'result'], 'Fizz')
+    }
+    if( i %% 5 == 0) {
+      output[i,'result'] <- paste(output[i,'result'], 'Buzz')
+    }
+  }
+  output <- output %>% 
+    mutate( result = ifelse(result == '', i, result) ) %>%
+    mutate( result = str_trim(result) )  # Remove the spaces at the beginning
+  return(output)
+}
+FizzBuzz(15)
+```
+
+
+5. A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest. Below is a function `boot.lm` that bootstraps the linear model using case re-sampling.
     ```{r, eval=FALSE}
     #' Calculate bootstrap CI for an lm object
     #' 

@@ -102,15 +102,15 @@ df
 ```
 
 ```
-##   Type      Value
-## 1    A -0.2564185
-## 2    A  1.3580859
-## 3    B -0.4278643
-## 4    B -0.7178690
-## 5    C  0.6326708
-## 6    C  0.1825581
-## 7    D  0.3807772
-## 8    D -0.2404868
+##   Type       Value
+## 1    A  0.04889458
+## 2    A -0.79421577
+## 3    B  0.35489895
+## 4    B  1.28571708
+## 5    C  0.12809072
+## 6    C -1.70106754
+## 7    D -0.29519520
+## 8    D  0.32855293
 ```
 
 ```r
@@ -118,11 +118,11 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 ```
 
 ```
-##   Type      Value
-## 1    A -0.2564185
-## 2    A  1.3580859
-## 3    B -0.4278643
-## 4    B -0.7178690
+##   Type       Value
+## 1    A  0.04889458
+## 2    A -0.79421577
+## 3    B  0.35489895
+## 4    B  1.28571708
 ```
 
 
@@ -304,7 +304,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The first child had more rules to follow"
+## [1] "No more unfounded generalizations!"
 ```
 
 
@@ -334,7 +334,7 @@ p.value
 ```
 
 ```
-## [1] 7.286816e-11
+## [1] 3.353939e-11
 ```
 
 
@@ -629,3 +629,4 @@ ggplot(SampDist, aes(x=xbar)) +
     ```
 
     Replace the comments in the above code so that x is a random observation from the truncated normal distribution.
+    

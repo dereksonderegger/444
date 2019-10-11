@@ -201,13 +201,16 @@ This means that Game of Thrones is available for streaming at 6 pm Arizona time.
 
 ## Arithmetic on Dates
 
+Lubridate provides three different ways of dealing with arithmatic on dates. Until I get the chance to write a longer explanation, you should read [Hadley's](https://r4ds.had.co.nz/dates-and-times.html).
+
+
 Once we have two or more Date objects defined, we can perform appropriate mathematical operations. For example, we might want to the know the number of days there are between two dates.
 
 
 ```r
 Wedding <- ymd('2010-Sep-18')
 Elise <- ymd('2013-Jan-11')
-Childless <- Elise - Wedding
+Childless = Elise - Wedding
 Childless
 ```
 
@@ -216,6 +219,16 @@ Childless
 ```
 
 Because both dates were recorded without the hours or seconds, R defaults to just reporting the difference in number of days. 
+
+
+```r
+# lubridate duration object
+as.duration(Childless)
+```
+
+```
+## [1] "73094400s (~2.32 years)"
+```
 
 Often I want to add two weeks, or 3 months, or one year to a date. However it is not completely obvious what I mean by “add 1 year”. Do we mean to increment the year number (eg Feb 2, 2011 -> Feb 2, 2012) or do we mean to add 31,536,000 seconds? To get around this, `lubridate` includes functions of the form `dunits()` and `units()` where the “unit” portion could be year, month, week, etc. The “d” prefix will stand for duration when appropriate.
 
@@ -237,6 +250,14 @@ x + dyears(2) # Add 2*365 days; 2012 was a leap year
 ## [1] "2013-02-20"
 ```
 
+
+```r
+as.duration(Childless)
+```
+
+```
+## [1] "73094400s (~2.32 years)"
+```
 
 
 ## Exercises
@@ -267,11 +288,8 @@ x + dyears(2) # Add 2*365 days; 2012 was a leap year
 3. From this book's [data-raw](https://github.com/dereksonderegger/444/data-raw) directory on GitHub, download the `Pulliam_Airport_Weather_Station.csv` data file. There is a `DATE` column as well as the Maximum and Minimum temperature. For the last 10 years of data, plot the daily maximum temperature.
 
 4. It turns out there is some interesting periodicity regarding the number of births on particular days of the year.
-
     a. Using the `mosaicData` package, load the data set `Births78` which records the number of children born on each day in the United States in 1978. Because this problem is intended to show how to calculate the information using the `date`, remove the columns of `month`, `day_of_year`, `day_of_month` and `day_of_week`.
-    
     b. There is already a date column in the data set that is called, appropriately, date. Graph the number of `births` vs the `date` with date on the x-axis. What stands out to you? Why do you think we have this trend?
-
     c. To test your assumption, we need to figure out the what day of the week each observation is. Use `dplyr::mutate` to add a new column named `dow` that is the day of the week (Monday, Tuesday, etc). This calculation will involve some function in the `lubridate` package and the `date` column. 
-
     d. Plot the data with the point color being determined by the day of the week variable.
+    
