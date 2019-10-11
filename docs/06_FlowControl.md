@@ -102,15 +102,15 @@ df
 ```
 
 ```
-##   Type       Value
-## 1    A  0.04889458
-## 2    A -0.79421577
-## 3    B  0.35489895
-## 4    B  1.28571708
-## 5    C  0.12809072
-## 6    C -1.70106754
-## 7    D -0.29519520
-## 8    D  0.32855293
+##   Type      Value
+## 1    A -0.9390810
+## 2    A  1.8116989
+## 3    B -1.7429767
+## 4    B -0.5514072
+## 5    C  0.2539463
+## 6    C -1.1286245
+## 7    D -0.6293049
+## 8    D -0.4448430
 ```
 
 ```r
@@ -118,11 +118,11 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 ```
 
 ```
-##   Type       Value
-## 1    A  0.04889458
-## 2    A -0.79421577
-## 3    B  0.35489895
-## 4    B  1.28571708
+##   Type      Value
+## 1    A -0.9390810
+## 2    A  1.8116989
+## 3    B -1.7429767
+## 4    B -0.5514072
 ```
 
 
@@ -228,7 +228,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -243,7 +243,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 
@@ -257,7 +257,7 @@ result
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 ```r
@@ -272,7 +272,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] "In the else part!"
+## [1] " in the if statement, got a Tail! "
 ```
 
 ```r
@@ -280,7 +280,7 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -304,7 +304,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "No more unfounded generalizations!"
+## [1] "The first child had more rules to follow"
 ```
 
 
@@ -334,7 +334,7 @@ p.value
 ```
 
 ```
-## [1] 3.353939e-11
+## [1] 2.746291e-08
 ```
 
 
@@ -424,11 +424,25 @@ for( i in 1:5 ){
 
 What is happening is that `i` starts out as the first element of the vector `c(1,2,3,4,5)`, in this case, `i` starts out as 1. After `i` is assigned, the statements in the curly brackets are then evaluated. Once we get to the end of those statements, i is reassigned to the next element of the vector `c(1,2,3,4,5)`. This process is repeated until `i` has been assigned to each element of the given vector. It is somewhat traditional to use `i` and `j` and the index variables, but they could be anything.
 
+While the recipe above is the minimal definition of a `for` loop, there is often a bit more set up to create a result vector or data frame that will store the steps of the `for` loop.
+
+
+```r
+N <- 10 
+result <- NULL     # Make a place to store each step of the for loop
+for( i in 1:N ){
+  # Perhaps some code that calculates something
+  result[i] <-  # something 
+}
+```
+
+
 We can use this loop to calculate the first $10$ elements of the Fibonacci sequence. Recall that the Fibonacci sequence is defined by $F_{n}=F_{n-1}+F_{n-2}$ where $F_{1}=0$ and $F_{2}=1$.
 
 
 ```r
-F <- rep(0, 10)        # initialize a vector of zeros
+N <- 10                # How many Fibonacci numbers to create
+F <- rep(0, N)         # initialize a vector of zeros
 F[1] <- 0              # F[1]  should be zero
 F[2] <- 1              # F[2]  should be 1
 print(F)               # Show the value of F before the loop 
@@ -439,7 +453,7 @@ print(F)               # Show the value of F before the loop
 ```
 
 ```r
-for( n in 3:10 ){
+for( n in 3:N ){
   F[n] <- F[n-1] + F[n-2] # define based on the prior two values
   print(F)                # show F at each step of the loop
 }
@@ -456,23 +470,24 @@ for( n in 3:10 ){
 ##  [1]  0  1  1  2  3  5  8 13 21 34
 ```
 
-For a more statistical case where we might want to perform a loop, we can consider the creation of the bootstrap estimate of a sampling distribution. 
+For a more statistical case where we might want to perform a loop, we can consider the creation of the bootstrap estimate of a sampling distribution. The bootstrap distribution is created by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest.
 
 
 ```r
 library(dplyr)
 library(ggplot2)
 
+# bootstrap from the trees dataset.
 SampDist <- data.frame() # Make a data frame to store the means 
 for( i in 1:1000 ){
-  SampDist <- trees %>%
-    dplyr::sample_frac(replace=TRUE) %>% 
-    dplyr::summarise(xbar=mean(Height)) %>% # 1x1 data frame
-    rbind( SampDist )
+  boot.data <- trees %>% dplyr::sample_frac(replace=TRUE)  
+  boot.stat <- boot.data %>% dplyr::summarise(xbar=mean(Height)) # 1x1 data frame
+  SampDist <- rbind( SampDist, boot.stat )
 }
 
 ggplot(SampDist, aes(x=xbar)) + 
-  geom_histogram( binwidth=0.25)
+  geom_histogram( binwidth=0.25) +
+  labs(title='Trees Data: Bootstrap distribution of xbar')
 ```
 
 <img src="06_FlowControl_files/figure-html/ForLoopExample-1.png" width="672" />
@@ -608,7 +623,7 @@ ggplot(SampDist, aes(x=xbar)) +
     print(myplot) 
     ```
     
-    <img src="06_FlowControl_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+    <img src="06_FlowControl_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
     a) Use a for loop to create similar graphs for degrees of freedom $2,3,4,\dots,29,30$. 
 

@@ -553,11 +553,11 @@ When executing a function, R will have access to all the variables defined in th
     ```
 
 
-4. In this example, we'll write a function that will output the first n terms in the child's game *Fizz Buzz*. The goal is to count as high as you can, but for any number evenly divisible by 3, substitute "Fizz" and any number evenly divisible by 5, substitute "Buzz", and if it is divisible by both, substitute "Fizz Buzz". I recently saw a wonderful YouTube [video](https://www.youtube.com/watch?v=QPZ0pIK_wsc) describing how to write an appropriate loop to do this in JavaScript, but it should be easy enough to interpret what to do in R. *Hint: The `paste()` function will squish strings together, the remainder operator is `%%` where it is used as `9 %% 3 = 0`.*
+4. In this example, we'll write a function that will output the first $n$ terms in the child's game *Fizz Buzz*. The goal is to count as high as you can, but for any number evenly divisible by 3, substitute "Fizz" and any number evenly divisible by 5, substitute "Buzz", and if it is divisible by both, substitute "Fizz Buzz". So the sequence will look like 1,2,Fizz,4,Buzz,Fizz,7,8,Fizz, ... *Hint: The `paste()` function will squish strings together, the remainder operator is `%%` where it is used as `9 %% 3 = 0`. This problem was inspired by a wonderful YouTube [video](https://www.youtube.com/watch?v=QPZ0pIK_wsc) that describes how to write an appropriate loop to do this in JavaScript, but it should be easy enough to interpret what to do in R. I encourage you to try to write your function first before watching the video.*
 
 ```r
 # Because I added this problem late in the Fall 2019 semester, I just want you to 
-# watch the videa about how to think about writing a for loop.
+# watch the video about how to think about writing a for loop.
 library(tidyverse)
 FizzBuzz <- function(n){
   output <- tibble(i = 1:n, result='')

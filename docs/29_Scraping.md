@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nEpidemic, Economic Collapse, War: How Members Of A Survivalist Camp In West Virginia Are Preparing\n"
-## [2] "\nIs It Worth It To Be Loyal To One Airline?\n"                                                        
-## [3] "\nElizabeth Warren Gives Brilliant, Savage Response To Marriage Equality Question\n"                   
-## [4] "\nThe Watch Brand Everyone Is Talking About\n"                                                         
-## [5] "\nHelicopter Flies Too Low During Indonesian Military Parade, Ends Up Destroying VIP Podium\n"         
-## [6] "\nThe Navy’s Patent For A Compact Nuclear Fusion Reactor Is Wild\n"
+## [1] "\nBeverly Hills’ Billion-Dollar Fire Sale: Inside The Implosion Of A Historic Hilltop Real Estate Deal\n"   
+## [2] "\nThe Navy’s Patent For A Compact Nuclear Fusion Reactor Is Wild\n"                                         
+## [3] "\nElizabeth Warren Gives Brilliant, Savage Response To Marriage Equality Question\n"                        
+## [4] "\nEasily Monitor And Cancel Subscriptions With This App\n"                                                  
+## [5] "\nStephen Colbert Has Amazingly Touching Answer To Which Friendship Has Impacted Him The Most In His Life\n"
+## [6] "\nThe Wildfire Risk In California, Mapped\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.washingtonpost.com/local/at-fortitude-ranch-the-cabin-is-for-vacationing-the-shelters-are-for-surviving/2019/10/08/643bff30-d597-11e9-9610-fb56c5522e1c_story.html?utm_source=digg"
-## [2] "https://melmagazine.com/en-us/story/is-it-worth-it-to-be-loyal-to-one-airline?utm_source=digg"                                                                                                 
-## [3] "/2019/elizabeth-warren-funny-response-marriage-equality"                                                                                                                                       
-## [4] "//srv.buysellads.com/ads/click/x/GTND42QUCTSIK5QJCWY4YKQMCAYI6K3UCK7DCZ3JCWSI4KJJF6SDKKQKC6BI5K3YCT7DVK3EHJNCLSIZ?utm_source=digg"                                                             
-## [5] "/video/helicopter-indonesia-military-parade-podium-wrecked-fail"                                                                                                                               
-## [6] "https://www.popularmechanics.com/science/energy/a29427713/navy-compact-fusion-reactor/?utm_source=digg"
+## [1] "https://www.hollywoodreporter.com/features/how-greed-derailed-a-billion-dollar-real-estate-deal-mountain-1246029?utm_source=digg" 
+## [2] "https://www.popularmechanics.com/science/energy/a29427713/navy-compact-fusion-reactor/?utm_source=digg"                           
+## [3] "/2019/elizabeth-warren-funny-response-marriage-equality"                                                                          
+## [4] "//srv.buysellads.com/ads/click/x/GTND42QUCTSI52JICWY4YKQMCAYI45QYCVAILZ3JCWSI4KJJCTAIK5QKC6BI5K3YCTAIKK3EHJNCLSIZ?utm_source=digg"
+## [5] "/video/john-oliver-interviews-stephen-colbert"                                                                                    
+## [6] "https://medium.com/@defensibleapp/wildfire-risk-in-california-mapped-1f47e6640b6b?utm_source=digg"
 ```
 
 
