@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-11" />
+<meta name="date" content="2019-10-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -419,8 +419,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [6] &quot;1997-06-26&quot;</code></pre>
 <div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb602-1" data-line-number="1"><span class="kw">mdy</span>(<span class="st">&#39;June 26, 0097&#39;</span>, <span class="st">&#39;June 26, 97&#39;</span>,  <span class="st">&#39;June 26, 68&#39;</span>, <span class="st">&#39;June 26, 69&#39;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;0097-06-26&quot; &quot;1997-06-26&quot; &quot;2068-06-26&quot; &quot;1969-06-26&quot;</code></pre>
-<p>This shows by default if you only specify the year using two digits, <code>lubridate()</code> will try to do something clever. It will default to either a 19XX or 20XX and it picks whichever is the closer date. This illustrates that you should ALWAYS fully specify the year using four digits.</p>
-<p>The lubridate functions will also accommodate if an integer representation of the date, but it has to have enough digits to uniquely identify the month and day.</p>
+<p>This shows by default if you only specify the year using two digits, <code>lubridate</code> will try to do something clever. It will default to either a 19XX or 20XX and it picks whichever is the closer date. This illustrates that you should ALWAYS fully specify the year using four digits.</p>
+<p>The <code>lubridate</code> functions will also accommodate if an integer representation of the date, but it has to have enough digits to uniquely identify the month and day.</p>
 <div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb604-1" data-line-number="1"><span class="kw">ymd</span>(<span class="dv">20090110</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;2009-01-10&quot;</code></pre>
 <div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb606-1" data-line-number="1"><span class="kw">ymd</span>(<span class="dv">2009722</span>) <span class="co"># only one digit for month --- error!</span></a></code></pre></div>
@@ -439,7 +439,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This isn’t bad, but Loveland, Colorado is on MST in the winter and MDT in the summer because of daylight savings time. So to specify the time zone that could switch between standard time and daylight savings time, I should specify <code>tz='US/Mountain'</code></p>
 <div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb616-1" data-line-number="1"><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>) <span class="co"># US mountain time</span></a></code></pre></div>
 <pre><code>## [1] &quot;2010-09-18 17:30:00 MDT&quot;</code></pre>
-<p>As Arizonans, we recognize that Arizona is weird and doesn’t use daylight savings time. Fortunately R has a built-in time zone just for us.</p>
+<p>Arizona is weird and doesn’t use daylight savings time. Fortunately R has a built-in time zone just for us.</p>
 <div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb618-1" data-line-number="1"><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Arizona&#39;</span>) <span class="co"># US Arizona time</span></a></code></pre></div>
 <pre><code>## [1] &quot;2010-09-18 17:30:00 MST&quot;</code></pre>
 <p>R recognizes 582 different time zone locals and you can find these using the function <code>OlsonNames()</code>. To find out more about what these mean you can check out the Wikipedia page on timezones [<a href="http://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">http://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>||<a href="http://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">http://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>].</p>
@@ -449,93 +449,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>lubridate</code> package provides many functions for extracting information from the date. Suppose we have defined</p>
 <div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb620-1" data-line-number="1"><span class="co"># Derek&#39;s wedding!</span></a>
 <a class="sourceLine" id="cb620-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>) <span class="co"># US Mountain time</span></a></code></pre></div>
-<table style="width:96%;">
-<colgroup>
-<col width="22%" />
-<col width="23%" />
-<col width="50%" />
-</colgroup>
+<table>
 <thead>
 <tr class="header">
-<th>Command</th>
-<th>Ouput</th>
-<th>Description</th>
+<th align="center">Command</th>
+<th align="center">Output</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>year(x)</code></td>
-<td>2010</td>
-<td>Year</td>
+<td align="center"><code>year(x)</code></td>
+<td align="center">2010</td>
+<td align="left">Year</td>
 </tr>
 <tr class="even">
-<td><code>month(x)</code></td>
-<td>9</td>
-<td>Month</td>
+<td align="center"><code>month(x)</code></td>
+<td align="center">9</td>
+<td align="left">Month</td>
 </tr>
 <tr class="odd">
-<td><code>day(x)</code></td>
-<td>18</td>
-<td>Day</td>
+<td align="center"><code>day(x)</code></td>
+<td align="center">18</td>
+<td align="left">Day</td>
 </tr>
 <tr class="even">
-<td><code>hour(x)</code></td>
-<td>17</td>
-<td>Hour of the day</td>
+<td align="center"><code>hour(x)</code></td>
+<td align="center">17</td>
+<td align="left">Hour of the day</td>
 </tr>
 <tr class="odd">
-<td><code>minute(x)</code></td>
-<td>30</td>
-<td>Minute of the hour</td>
+<td align="center"><code>minute(x)</code></td>
+<td align="center">30</td>
+<td align="left">Minute of the hour</td>
 </tr>
 <tr class="even">
-<td><code>second(x)</code></td>
-<td>0</td>
-<td>Seconds</td>
+<td align="center"><code>second(x)</code></td>
+<td align="center">0</td>
+<td align="left">Seconds</td>
 </tr>
 <tr class="odd">
-<td><code>wday(x)</code></td>
-<td>7</td>
-<td>Day of the week (Sunday = 1)</td>
+<td align="center"><code>wday(x)</code></td>
+<td align="center">7</td>
+<td align="left">Day of the week (Sunday = 1)</td>
 </tr>
 <tr class="even">
-<td><code>mday(x)</code></td>
-<td>18</td>
-<td>Day of the month</td>
+<td align="center"><code>mday(x)</code></td>
+<td align="center">18</td>
+<td align="left">Day of the month</td>
 </tr>
 <tr class="odd">
-<td><code>yday(x)</code></td>
-<td>261</td>
-<td>Day of the year</td>
+<td align="center"><code>yday(x)</code></td>
+<td align="center">261</td>
+<td align="left">Day of the year</td>
 </tr>
 </tbody>
 </table>
 <p>Here we get the output as digits, where September is represented as a 9 and the day of the week is a number between 1-7. To get nicer labels, we can use <code>label=TRUE</code> for some commands.</p>
-<table style="width:74%;">
-<colgroup>
-<col width="34%" />
-<col width="38%" />
-</colgroup>
+<table>
 <thead>
 <tr class="header">
-<th>Command</th>
-<th>Ouput</th>
+<th align="center">Command</th>
+<th align="left">Ouput</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>wday(x, label=TRUE)</code></td>
-<td>Sat</td>
+<td align="center"><code>wday(x, label=TRUE)</code></td>
+<td align="left">Sat</td>
 </tr>
 <tr class="even">
-<td><code>month(x, label=TRUE)</code></td>
-<td>Sep</td>
+<td align="center"><code>month(x, label=TRUE)</code></td>
+<td align="left">Sep</td>
 </tr>
 </tbody>
 </table>
 <p>All of these functions can also be used to update the value. For example, we could move the day of the wedding from September <span class="math inline">\(18^{th}\)</span> to October <span class="math inline">\(18^{th}\)</span> by changing the month.</p>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb621-1" data-line-number="1"><span class="kw">month</span>(x) &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb621-2" data-line-number="2">x</a></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb621-1" data-line-number="1"><span class="co"># I really don&#39;t like this method of changing the month</span></a>
+<a class="sourceLine" id="cb621-2" data-line-number="2"><span class="kw">month</span>(x) &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb621-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb621-4" data-line-number="4"><span class="co"># update feels a little better to me</span></a>
+<a class="sourceLine" id="cb621-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="kw">update</span>(x, <span class="dt">month=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb621-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb621-7" data-line-number="7">x</a></code></pre></div>
 <pre><code>## [1] &quot;2010-10-18 17:30:00 MDT&quot;</code></pre>
 <p>Often I want to consider some point in time, but need to convert the timezone the date was specified into another timezone. The function <code>with_tz()</code> will take a given moment in time and figure out when that same moment is in another timezone. For example, <em>Game of Thrones</em> is made available on HBO’s streaming service at 9pm on Sunday evenings Eastern time. I need to know when I can start watching it here in Arizona.</p>
 <div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb623-1" data-line-number="1">GoT &lt;-<span class="st"> </span><span class="kw">ymd_hm</span>(<span class="st">&#39;2015-4-26 21:00&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Eastern&#39;</span>)</a>
@@ -545,25 +541,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="arithmetic-on-dates" class="section level2">
 <h2><span class="header-section-number">12.3</span> Arithmetic on Dates</h2>
-<p>Lubridate provides three different ways of dealing with arithmatic on dates. Until I get the chance to write a longer explanation, you should read <a href="https://r4ds.had.co.nz/dates-and-times.html">Hadley’s</a>.</p>
-<p>Once we have two or more Date objects defined, we can perform appropriate mathematical operations. For example, we might want to the know the number of days there are between two dates.</p>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb625-1" data-line-number="1">Wedding &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2010-Sep-18&#39;</span>)</a>
-<a class="sourceLine" id="cb625-2" data-line-number="2">Elise &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2013-Jan-11&#39;</span>)</a>
-<a class="sourceLine" id="cb625-3" data-line-number="3">Childless =<span class="st"> </span>Elise <span class="op">-</span><span class="st"> </span>Wedding</a>
-<a class="sourceLine" id="cb625-4" data-line-number="4">Childless</a></code></pre></div>
-<pre><code>## Time difference of 846 days</code></pre>
-<p>Because both dates were recorded without the hours or seconds, R defaults to just reporting the difference in number of days.</p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb627-1" data-line-number="1"><span class="co"># lubridate duration object</span></a>
-<a class="sourceLine" id="cb627-2" data-line-number="2"><span class="kw">as.duration</span>(Childless)</a></code></pre></div>
+<p><code>lubridate</code> provides two different ways of dealing with arithmetic on dates, and Hadley’s chapter on Date/Times in
+<a href="https://r4ds.had.co.nz/dates-and-times.html">R for Data Science</a>
+is a good reference.</p>
+<p>Recall that dates are stored as the number of seconds since 0:00:00 January 1, 1970 UTC. This fundamental idea that a date is just some number of seconds introduces the idea that a minute is just 60 seconds, an hour is 3600 seconds, a day is <span class="math inline">\(24*3600=86,400\)</span> seconds, and finally a year is <span class="math inline">\(365*86,400=31,536,000\)</span> seconds. But what about leap years! Years are not always 365 days and days are not always 24 hours (think about daylight savings times).</p>
+<p>With this in mind, we need to be able to do arithmetic using conventional ideas of year/month/day that ignores any clock discontinuities as well as using precise ideas of exactly how many seconds elapsed between two time points.</p>
+<table>
+<colgroup>
+<col width="22%" />
+<col width="77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Object Class</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Periods</strong></td>
+<td align="left">Lubridate periods correspond to a <em>person’s</em> natural inclination of adding a year or month and ignores any clock discontinuities.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Durations</strong></td>
+<td align="left">Lubridate duration correspond to the exact number of seconds between two points in time and adding some number of seconds. I remember that durations are the <em>dorky</em> number of seconds definition.</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Intervals</strong></td>
+<td align="left">Lubridate allows us to create an object that stores a beginning and ending time point.</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb625-1" data-line-number="1">current &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&#39;2019-10-12 10:25:00&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;MST&#39;</span>)</a>
+<a class="sourceLine" id="cb625-2" data-line-number="2">current <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>)  <span class="co"># period. There are also minutes, hours, days, months functions.</span></a></code></pre></div>
+<pre><code>## [1] &quot;2020-10-12 10:25:00 MST&quot;</code></pre>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb627-1" data-line-number="1">current <span class="op">+</span><span class="st"> </span><span class="kw">dyears</span>(<span class="dv">1</span>) <span class="co"># duration. There are also dminutes, dhours, ddays, dmonths</span></a></code></pre></div>
+<pre><code>## [1] &quot;2020-10-11 10:25:00 MST&quot;</code></pre>
+<p>Notice that <code>dyears(1)</code> didn’t just increment the years from 2019 to 2020, but rather added <span class="math inline">\(60*60*24*365\)</span> seconds, and because 2020 is a leap year and therefore February 29 will exist. Thus adding <span class="math inline">\(31,536,000\)</span> seconds ended up with a result of October 11<span class="math inline">\(^{th}\)</span> instead of October 12<span class="math inline">\(^{th}\)</span>.</p>
+<p>Once we have two or more Date objects defined, we can calculate the amount of time between the two dates. We’ll first create an <code>interval</code> that defines the exact start and stop of the time interval we care about and then convert that to either a <code>period</code> (person convention) or a <code>duration</code> (# of seconds).</p>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb629-1" data-line-number="1">Wedding &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2010-Sep-18&#39;</span>)</a>
+<a class="sourceLine" id="cb629-2" data-line-number="2">Elise &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2013-Jan-11&#39;</span>)</a>
+<a class="sourceLine" id="cb629-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb629-4" data-line-number="4">Childless =<span class="st">  </span><span class="kw">interval</span>(Wedding, Elise)  <span class="co"># Two different ways to </span></a>
+<a class="sourceLine" id="cb629-5" data-line-number="5">Childless =<span class="st">  </span>Wedding <span class="op">%--%</span><span class="st"> </span>Elise        <span class="co"># create a time interval</span></a>
+<a class="sourceLine" id="cb629-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb629-7" data-line-number="7"><span class="kw">as.period</span>( Childless )                 <span class="co"># Turn it into person readable</span></a></code></pre></div>
+<pre><code>## [1] &quot;2y 3m 24d 0H 0M 0S&quot;</code></pre>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb631-1" data-line-number="1"><span class="kw">as.period</span>(Childless, <span class="dt">unit =</span> <span class="st">&#39;days&#39;</span>)    <span class="co"># Person readable version of days</span></a></code></pre></div>
+<pre><code>## [1] &quot;846d 0H 0M 0S&quot;</code></pre>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb633-1" data-line-number="1"><span class="kw">as.duration</span>( Childless )               <span class="co"># dorky number of seconds answer</span></a></code></pre></div>
 <pre><code>## [1] &quot;73094400s (~2.32 years)&quot;</code></pre>
-<p>Often I want to add two weeks, or 3 months, or one year to a date. However it is not completely obvious what I mean by “add 1 year”. Do we mean to increment the year number (eg Feb 2, 2011 -&gt; Feb 2, 2012) or do we mean to add 31,536,000 seconds? To get around this, <code>lubridate</code> includes functions of the form <code>dunits()</code> and <code>units()</code> where the “unit” portion could be year, month, week, etc. The “d” prefix will stand for duration when appropriate.</p>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb629-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2011-Feb-21&quot;</span>)</a>
-<a class="sourceLine" id="cb629-2" data-line-number="2">x <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">2</span>)  <span class="co"># Just add two to the year</span></a></code></pre></div>
-<pre><code>## [1] &quot;2013-02-21&quot;</code></pre>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb631-1" data-line-number="1">x <span class="op">+</span><span class="st"> </span><span class="kw">dyears</span>(<span class="dv">2</span>) <span class="co"># Add 2*365 days; 2012 was a leap year</span></a></code></pre></div>
-<pre><code>## [1] &quot;2013-02-20&quot;</code></pre>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb633-1" data-line-number="1"><span class="kw">as.duration</span>(Childless)</a></code></pre></div>
-<pre><code>## [1] &quot;73094400s (~2.32 years)&quot;</code></pre>
+<p>While working with dates, I like creating intervals whenever possible and try to NEVER just subtract two data/time objects because that will always just return the number of seconds (aka the <code>duration</code> answer).</p>
 </div>
 <div id="exercises-12" class="section level2">
 <h2><span class="header-section-number">12.4</span> Exercises</h2>
@@ -585,11 +613,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb636-3" data-line-number="3">  <span class="st">&#39;J 13, 1978&#39;</span>)</a></code></pre></div></li>
 </ol></li>
 <li><p>Suppose you have arranged for a phone call to be at 3 pm on May 8, 2015 at Arizona time. However, the recipient will be in Auckland, NZ. What time will it be there?</p></li>
-<li><p>From this book’s <a href="https://github.com/dereksonderegger/444/data-raw">data-raw</a> directory on GitHub, download the <code>Pulliam_Airport_Weather_Station.csv</code> data file. There is a <code>DATE</code> column as well as the Maximum and Minimum temperature. For the last 10 years of data, plot the daily maximum temperature.</p></li>
+<li><p>From this book’s <a href="https://github.com/dereksonderegger/444/data-raw">data-raw</a> directory on GitHub, download the <code>Pulliam_Airport_Weather_Station.csv</code> data file. There is a <code>DATE</code> column (is it of type <code>date</code> when you import the data?) as well as the Maximum and Minimum temperature. For the last 10 years of data we have (exactly, not just starting at Jan 1, 2009!), plot the daily maximum temperature. <em>Hint: Find the maximum date in the data set and then subtract 10 years. Will there be a difference if you use <code>dyears(10)</code> vs <code>years(10)</code>? Which seems more appropriate here?</em></p></li>
 <li>It turns out there is some interesting periodicity regarding the number of births on particular days of the year.
 <ol style="list-style-type: lower-alpha">
-<li>Using the <code>mosaicData</code> package, load the data set <code>Births78</code> which records the number of children born on each day in the United States in 1978. Because this problem is intended to show how to calculate the information using the <code>date</code>, remove the columns of <code>month</code>, <code>day_of_year</code>, <code>day_of_month</code> and <code>day_of_week</code>.</li>
-<li>There is already a date column in the data set that is called, appropriately, date. Graph the number of <code>births</code> vs the <code>date</code> with date on the x-axis. What stands out to you? Why do you think we have this trend?</li>
+<li>Using the <code>mosaicData</code> package, load the data set <code>Births78</code> which records the number of children born on each day in the United States in 1978. Because this problem is intended to show how to calculate the information using the <code>date</code>, remove all the columns <em>except</em> <code>date</code> and <code>births</code>.</li>
+<li>Graph the number of <code>births</code> vs the <code>date</code> with date on the x-axis. What stands out to you? Why do you think we have this trend?</li>
 <li>To test your assumption, we need to figure out the what day of the week each observation is. Use <code>dplyr::mutate</code> to add a new column named <code>dow</code> that is the day of the week (Monday, Tuesday, etc). This calculation will involve some function in the <code>lubridate</code> package and the <code>date</code> column.</li>
 <li>Plot the data with the point color being determined by the day of the week variable.</li>
 </ol></li>

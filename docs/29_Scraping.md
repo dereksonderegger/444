@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nBeverly Hills’ Billion-Dollar Fire Sale: Inside The Implosion Of A Historic Hilltop Real Estate Deal\n"   
-## [2] "\nThe Navy’s Patent For A Compact Nuclear Fusion Reactor Is Wild\n"                                         
-## [3] "\nElizabeth Warren Gives Brilliant, Savage Response To Marriage Equality Question\n"                        
-## [4] "\nEasily Monitor And Cancel Subscriptions With This App\n"                                                  
-## [5] "\nStephen Colbert Has Amazingly Touching Answer To Which Friendship Has Impacted Him The Most In His Life\n"
-## [6] "\nThe Wildfire Risk In California, Mapped\n"
+## [1] "\nThe Secret Life Of Nuns, And More Of The Best Photography Of The Week\n"                                                  
+## [2] "\nWatch The Terrifying Moment The Hard Rock Hotel Collapsed In New Orleans\n"                                               
+## [3] "\nAnatomy Of The Phone Call Now Imperiling Trump’s Presidency\n"                                                            
+## [4] "\nThe Watch Brand Everyone Is Talking About\n"                                                                              
+## [5] "\nThis Aaron Carter Interview Will Make You Feel A Bit Uncomfortable\n"                                                     
+## [6] "\nThis Interview With Secretary Of State Mike Pompeo Goes Off The Rails When He Gets Asked A Question About Rudy Giuliani\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.hollywoodreporter.com/features/how-greed-derailed-a-billion-dollar-real-estate-deal-mountain-1246029?utm_source=digg" 
-## [2] "https://www.popularmechanics.com/science/energy/a29427713/navy-compact-fusion-reactor/?utm_source=digg"                           
-## [3] "/2019/elizabeth-warren-funny-response-marriage-equality"                                                                          
-## [4] "//srv.buysellads.com/ads/click/x/GTND42QUCTSI52JICWY4YKQMCAYI45QYCVAILZ3JCWSI4KJJCTAIK5QKC6BI5K3YCTAIKK3EHJNCLSIZ?utm_source=digg"
-## [5] "/video/john-oliver-interviews-stephen-colbert"                                                                                    
-## [6] "https://medium.com/@defensibleapp/wildfire-risk-in-california-mapped-1f47e6640b6b?utm_source=digg"
+## [1] "/2019/best-photos-10-12"                                                                                                          
+## [2] "/video/heres-the-terrifying-moment-the-hard-rock-hotel-collapsed-in-new-orleans"                                                  
+## [3] "https://apnews.com/ab67c31d9b3c4acdada93a624052ddc4?utm_source=digg"                                                              
+## [4] "//srv.buysellads.com/ads/click/x/GTND42QUCTAIV2JLCWB4YKQMCAYITK7LCV7IPZ3JCWSI4K3MCVSIL5QKC6BI5K37C6BDTK3EHJNCLSIZ?utm_source=digg"
+## [5] "/video/this-aaron-carter-interview-will-make-you-feel-a-bit-uncomfortable"                                                        
+## [6] "/video/this-interview-with-secretary-of-state-mike-pompeo-goes-off-the-rails-when-he-gets-asked-a-question-about-rudy-giuliani"
 ```
 
 

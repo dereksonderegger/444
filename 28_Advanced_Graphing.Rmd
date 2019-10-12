@@ -252,15 +252,19 @@ ggplot2::map_data('world', regions='ghana') %>%
 The `maps` package also has a `data.frame` of major US cities.  
 
 ```{r, fig.height=5, fig.width=5}
-az.cities <- maps::us.cities %>%             # Lat/Long of major US cities
-  filter(country.etc == 'AZ') %>%            # Only the Arizona Cities
-  mutate(name = str_remove(name, '\\sAZ') )  # remove ' AZ' from the city name
+az.cities <- maps::us.cities %>%              # Lat/Long of major US cities
+  filter(country.etc == 'AZ') %>%             # Only the Arizona Cities
+  mutate(name = str_remove(name, '\\sAZ') )   # remove ' AZ' from the city name
+  
+small.az.cities <- az.cities %>%
+  filter(name %in% c('Flagstaff','Prescott','Lake Havasu City','Yuma','Tucson',
+                     'Sierra Vista','Phoenix','Tempe','Scottsdale'))
 
 ggplot2::map_data('state', regions='arizona') %>%
   ggplot( aes(x=long, y=lat)) +
   geom_polygon( aes(group=group), color = 'white', fill='grey40') +
   geom_point(data=az.cities) +
-  ggrepel::geom_text_repel(data=az.cities, aes(label=name))
+  ggrepel::geom_label_repel(data=small.az.cities, aes(label=name))
 ```
 
 The `maps` package is fairly primitive in the data it has as well as the manner in which it stores the data. Another alternative is to use the *spatial features* package `sf` along with an on-line data base of GIS information from [Natural Earth](https://www.naturalearthdata.com).
@@ -268,7 +272,18 @@ The `maps` package is fairly primitive in the data it has as well as the manner 
 There is a nice [tutorial](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html) for the `sf` package. 
 
 
-
 ## Exercises
+
+1. The `infmort` data set from the package `faraway` gives the infant mortality rate for a variety of countries. The information is relatively out of date, but will be fun to graph. T
+    a) The `rownames()` of the dataset give the country names and you should create a new column that contains the country names. 
+    b) Compare the country names to the `region` names in the `geo.data` data set and do whatever is necessary to get the country names to concur. 
+    c) Join the `geo.data` with the `infmort` data.
+    d) Make a map of the world where we shade in countries based on the country income. Set the color fill scale to be anything other than the default.
+    e) Make a map of the world where we shade in the countries based on if they are oil exports. Color the map black if the country is an oil exporter, and a light gray if it is not.
+
+2. The `infmort` data set can also be visualized using by faceting using `region` and `oil` export status. 
+    a) Create scatter plots the countries income and infant mortality using a $log_{10}$ transformation for both axes.
+    b) The package `ggrepel` contains functions `geom_text_repel()` and `geom_label_repel()` that mimic the basic `geom_text()` and `geom_label()` functions in `ggplot2`, but work to make sure the labels don't overlap. Select 10-15 countries to label and do so using the `geom_text_repel()` function.
+
 
 

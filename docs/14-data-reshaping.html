@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-11" />
+<meta name="date" content="2019-10-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -530,12 +530,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 A              272.
-## 2 A              274.
-## 3 B              277.
-## 4 B              288.
-## 5 C              265.
-## 6 C              227.</code></pre>
+## 1 A              259.
+## 2 A              262.
+## 3 B              280.
+## 4 B              261.
+## 5 C              230.
+## 6 C              260.</code></pre>
 <div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb680-1" data-line-number="1">Lake.Data</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   Lake_ID Lake_Name      pH  area avg_depth
@@ -549,12 +549,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              272. &lt;NA&gt;         NA      NA        NA
-## 2 A              274. &lt;NA&gt;         NA      NA        NA
-## 3 B              277. Lake Elaine   6.5    40         8
-## 4 B              288. Lake Elaine   6.5    40         8
-## 5 C              265. Mormon Lake   6.3   210        10
-## 6 C              227. Mormon Lake   6.3   210        10
+## 1 A              259. &lt;NA&gt;         NA      NA        NA
+## 2 A              262. &lt;NA&gt;         NA      NA        NA
+## 3 B              280. Lake Elaine   6.5    40         8
+## 4 B              261. Lake Elaine   6.5    40         8
+## 5 C              230. Mormon Lake   6.3   210        10
+## 6 C              260. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38</code></pre>
 <p>Notice that because we didn’t have any fish caught in lake <code>D</code> and we don’t have any Lake information about lake <code>A</code>, when we join these two tables, we end up introducing missing observations into the resulting data frame.</p>
 <p>The other types of joins govern the behavor or these missing data.</p>
@@ -565,21 +565,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              272. &lt;NA&gt;         NA      NA        NA
-## 2 A              274. &lt;NA&gt;         NA      NA        NA
-## 3 B              277. Lake Elaine   6.5    40         8
-## 4 B              288. Lake Elaine   6.5    40         8
-## 5 C              265. Mormon Lake   6.3   210        10
-## 6 C              227. Mormon Lake   6.3   210        10</code></pre>
+## 1 A              259. &lt;NA&gt;         NA      NA        NA
+## 2 A              262. &lt;NA&gt;         NA      NA        NA
+## 3 B              280. Lake Elaine   6.5    40         8
+## 4 B              261. Lake Elaine   6.5    40         8
+## 5 C              230. Mormon Lake   6.3   210        10
+## 6 C              260. Mormon Lake   6.3   210        10</code></pre>
 <div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb688-1" data-line-number="1"><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 B              277. Lake Elaine   6.5    40         8
-## 2 B              288. Lake Elaine   6.5    40         8
-## 3 C              265. Mormon Lake   6.3   210        10
-## 4 C              227. Mormon Lake   6.3   210        10</code></pre>
+## 1 B              280. Lake Elaine   6.5    40         8
+## 2 B              261. Lake Elaine   6.5    40         8
+## 3 C              230. Mormon Lake   6.3   210        10
+## 4 C              260. Mormon Lake   6.3   210        10</code></pre>
 <p>The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn’t the case. In that situation you can use the <code>by=c(&quot;ColName.A&quot;=&quot;ColName.B&quot;)</code> syntax where <code>ColName.A</code> represents the name of the column in the first data frame and <code>ColName.B</code> is the equivalent column in the second data frame.</p>
 <p>Finally, the combination of <code>gather</code> and <code>join</code> allows me to do some very complex calculations across many columns of a data set. For example, I might gather up a set of columns, calculate some summary statistics, and then join the result back to original data set.</p>
 <div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb691-1" data-line-number="1">grade.book <span class="op">%&gt;%</span></a>

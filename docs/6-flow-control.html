@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-11" />
+<meta name="date" content="2019-10-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -424,20 +424,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Type =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">Value=</span><span class="kw">rnorm</span>(<span class="dv">8</span>) )</a>
 <a class="sourceLine" id="cb209-2" data-line-number="2">df</a></code></pre></div>
 <pre><code>##   Type      Value
-## 1    A -0.9390810
-## 2    A  1.8116989
-## 3    B -1.7429767
-## 4    B -0.5514072
-## 5    C  0.2539463
-## 6    C -1.1286245
-## 7    D -0.6293049
-## 8    D -0.4448430</code></pre>
+## 1    A  0.1174559
+## 2    A  0.4267021
+## 3    B -0.7547826
+## 4    B  0.1853531
+## 5    C  0.8684442
+## 6    C -2.3997057
+## 7    D  0.7403101
+## 8    D  0.4755632</code></pre>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) )   <span class="co"># Only rows with Type == &#39;A&#39; or Type ==&#39;B&#39;</span></a></code></pre></div>
 <pre><code>##   Type      Value
-## 1    A -0.9390810
-## 2    A  1.8116989
-## 3    B -1.7429767
-## 4    B -0.5514072</code></pre>
+## 1    A  0.1174559
+## 2    A  0.4267021
+## 3    B -0.7547826
+## 4    B  0.1853531</code></pre>
 </div>
 <div id="decision-statements" class="section level2">
 <h2><span class="header-section-number">6.2</span> Decision statements</h2>
@@ -544,7 +544,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb230-10" data-line-number="10">  <span class="co"># if birth.order is anything other than 1, 2 or 3</span></a>
 <a class="sourceLine" id="cb230-11" data-line-number="11">  <span class="kw">print</span>(<span class="st">&#39;No more unfounded generalizations!&#39;</span>)</a>
 <a class="sourceLine" id="cb230-12" data-line-number="12">}</a></code></pre></div>
-<pre><code>## [1] &quot;The first child had more rules to follow&quot;</code></pre>
+<pre><code>## [1] &quot;The third child was spoiled&quot;</code></pre>
 <p>To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:</p>
 <ul>
 <li><p>If the test statistic t is negative, then p-value = <span class="math inline">\(2*P\left(T_{df} \le t \right)\)</span></p></li>
@@ -565,7 +565,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb232-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb232-14" data-line-number="14"><span class="co"># print the resulting p-value</span></a>
 <a class="sourceLine" id="cb232-15" data-line-number="15">p.value</a></code></pre></div>
-<pre><code>## [1] 2.746291e-08</code></pre>
+<pre><code>## [1] 1.481536e-09</code></pre>
 <p>This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the <code>t.test()</code> function.</p>
 </div>
 </div>

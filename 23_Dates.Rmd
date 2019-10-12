@@ -42,13 +42,14 @@ The uncommon orders aren't likely to be used, but the `lubridate` package includ
 mdy( 'June 26, 1997', 'Jun 26 97', '6-26-97', '6-26-1997', '6/26/97', '6-26/97' )
 ```
 
+
 ```{r}
 mdy('June 26, 0097', 'June 26, 97',  'June 26, 68', 'June 26, 69')
 ```
 
-This shows by default if you only specify the year using two digits, `lubridate()` will try to do something clever. It will default to either a 19XX or 20XX and it picks whichever is the closer date. This illustrates that you should ALWAYS fully specify the year using four digits.
+This shows by default if you only specify the year using two digits, `lubridate` will try to do something clever. It will default to either a 19XX or 20XX and it picks whichever is the closer date. This illustrates that you should ALWAYS fully specify the year using four digits.
 
-The lubridate functions will also accommodate if an integer representation of the date, but it has to have enough digits to uniquely identify the month and day.
+The `lubridate` functions will also accommodate if an integer representation of the date, but it has to have enough digits to uniquely identify the month and day.
 
 ```{r}
 ymd(20090110)
@@ -74,8 +75,7 @@ This isn't bad, but Loveland, Colorado is on MST in the winter and MDT in the su
 mdy_hm('9-18-2010 17:30', tz='US/Mountain') # US mountain time
 ```
 
-
-As Arizonans, we recognize that Arizona is weird and doesn't use daylight savings time. Fortunately R has a built-in time zone just for us.
+Arizona is weird and doesn't use daylight savings time. Fortunately R has a built-in time zone just for us.
 
 ```{r}
 mdy_hm('9-18-2010 17:30', tz='US/Arizona') # US Arizona time
@@ -91,43 +91,36 @@ The `lubridate` package provides many functions for extracting information from 
 x <- mdy_hm('9-18-2010 17:30', tz='US/Mountain') # US Mountain time
 ```
 
-+---------------+----------------+-----------------------------------+
-|    Command    |      Ouput     | Description                       |
-+===============+================+===================================+
+
+|    Command    |      Output    | Description                       |
+|:-------------:|:--------------:|:----------------------------------|
 | `year(x)`     | 2010           |  Year                             |
-+---------------+----------------+-----------------------------------+
 | `month(x)`    | 9              |  Month                            |
-+---------------+----------------+-----------------------------------+
 | `day(x)`      | 18             |  Day                              |
-+---------------+----------------+-----------------------------------+
 | `hour(x)`     | 17             |  Hour of the day                  |
-+---------------+----------------+-----------------------------------+
 | `minute(x)`   | 30             |  Minute of the hour               |
-+---------------+----------------+-----------------------------------+
 | `second(x)`   | 0              |  Seconds                          |
-+---------------+----------------+-----------------------------------+
 | `wday(x)`     | 7              |  Day of the week (Sunday = 1)     |
-+---------------+----------------+-----------------------------------+
 | `mday(x)`     | 18             |  Day of the month                 |
-+---------------+----------------+-----------------------------------+
 | `yday(x)`     | 261            |  Day of the year                  |
-+---------------+----------------+-----------------------------------+
 
 Here we get the output as digits, where September is represented as a 9 and the day of the week is a number between 1-7. To get nicer labels, we can use `label=TRUE` for some commands. 
 
-+------------------------+---------------------------+
-|   Command              | Ouput                     | 
-+========================+===========================+
+|   Command              |     Ouput                | 
+|:----------------------:|:--------------------------|
 | `wday(x, label=TRUE)`  | `r wday(x, label=TRUE)`   |
-+------------------------+---------------------------+
 | `month(x, label=TRUE)` | `r month(x, label=TRUE)`  |
-+------------------------+---------------------------+
 
 
 All of these functions can also be used to update the value. For example, we could move the day of the wedding from September $18^{th}$ to October $18^{th}$ by changing the month.
 
 ```{r}
+# I really don't like this method of changing the month
 month(x) <- 10
+
+# update feels a little better to me
+x <- update(x, month=10)
+
 x
 ```
 
@@ -142,36 +135,44 @@ This means that Game of Thrones is available for streaming at 6 pm Arizona time.
 
 ## Arithmetic on Dates
 
-Lubridate provides three different ways of dealing with arithmatic on dates. Until I get the chance to write a longer explanation, you should read [Hadley's](https://r4ds.had.co.nz/dates-and-times.html).
+`lubridate` provides two different ways of dealing with arithmetic on dates, and Hadley's chapter on Date/Times in 
+[R for Data Science](https://r4ds.had.co.nz/dates-and-times.html) 
+is a good reference. 
 
+Recall that dates are stored as the number of seconds since 0:00:00 January 1, 1970 UTC. This fundamental idea that a date is just some number of seconds introduces the idea that a minute is just 60 seconds, an hour is 3600 seconds, a day is $24*3600=86,400$ seconds, and finally a year is $365*86,400=31,536,000$ seconds. But what about leap years! Years are not always 365 days and days are not always 24 hours (think about daylight savings times). 
 
-Once we have two or more Date objects defined, we can perform appropriate mathematical operations. For example, we might want to the know the number of days there are between two dates.
+With this in mind, we need to be able to do arithmetic using conventional ideas of year/month/day that ignores any clock discontinuities as well as using precise ideas of exactly how many seconds elapsed between two time points.
+
+|  Object Class   |   Description                                            |
+|:---------------:|:---------------------------------------------------------|
+|  **Periods**    | Lubridate periods correspond to a *person's* natural inclination of adding a year or month and ignores any clock discontinuities. |
+| **Durations**   | Lubridate duration correspond to the exact number of seconds between two points in time and adding some number of seconds. I remember that durations are the *dorky* number of seconds definition. |
+| **Intervals**   | Lubridate allows us to create an object that stores a beginning and ending time point. |
+
+```{r}
+current <- ymd_hms('2019-10-12 10:25:00', tz='MST')
+current + years(1)  # period. There are also minutes, hours, days, months functions.
+current + dyears(1) # duration. There are also dminutes, dhours, ddays, dmonths
+```
+
+Notice that `dyears(1)` didn't just increment the years from 2019 to 2020, but rather added $60*60*24*365$ seconds, and because 2020 is a leap year and therefore February 29 will exist. Thus adding $31,536,000$ seconds ended up with a result of October 11$^{th}$ instead of October 12$^{th}$.
+
+Once we have two or more Date objects defined, we can calculate the amount of time between the two dates. We'll first create an `interval` that defines the exact start and stop of the time interval we care about and then convert that to either a `period` (person convention) or a `duration` (# of seconds).
 
 ```{r}
 Wedding <- ymd('2010-Sep-18')
 Elise <- ymd('2013-Jan-11')
-Childless = Elise - Wedding
-Childless
+
+Childless =  interval(Wedding, Elise)  # Two different ways to 
+Childless =  Wedding %--% Elise        # create a time interval
+
+as.period( Childless )                 # Turn it into person readable
+as.period(Childless, unit = 'days')    # Person readable version of days
+
+as.duration( Childless )               # dorky number of seconds answer
 ```
 
-Because both dates were recorded without the hours or seconds, R defaults to just reporting the difference in number of days. 
-
-```{r}
-# lubridate duration object
-as.duration(Childless)
-```
-
-Often I want to add two weeks, or 3 months, or one year to a date. However it is not completely obvious what I mean by “add 1 year”. Do we mean to increment the year number (eg Feb 2, 2011 -> Feb 2, 2012) or do we mean to add 31,536,000 seconds? To get around this, `lubridate` includes functions of the form `dunits()` and `units()` where the “unit” portion could be year, month, week, etc. The “d” prefix will stand for duration when appropriate.
-
-```{r}
-x <- ymd("2011-Feb-21")
-x + years(2)  # Just add two to the year
-x + dyears(2) # Add 2*365 days; 2012 was a leap year
-```
-
-```{r}
-as.duration(Childless)
-```
+While working with dates, I like creating intervals whenever possible and try to NEVER just subtract two data/time objects because that will always just return the number of seconds (aka the `duration` answer). 
 
 
 ## Exercises
@@ -197,11 +198,12 @@ as.duration(Childless)
 
 2. Suppose you have arranged for a phone call to be at 3 pm on May 8, 2015 at Arizona time. However, the recipient will be in Auckland, NZ. What time will it be there? 
 
-3. From this book's [data-raw](https://github.com/dereksonderegger/444/data-raw) directory on GitHub, download the `Pulliam_Airport_Weather_Station.csv` data file. There is a `DATE` column as well as the Maximum and Minimum temperature. For the last 10 years of data, plot the daily maximum temperature.
+3. From this book's [data-raw](https://github.com/dereksonderegger/444/data-raw) directory on GitHub, download the `Pulliam_Airport_Weather_Station.csv` data file. There is a `DATE` column (is it of type `date` when you import the data?) as well as the Maximum and Minimum temperature. For the last 10 years of data we have (exactly, not just starting at Jan 1, 2009!), plot the daily maximum temperature. *Hint: Find the maximum date in the data set and then subtract 10 years. Will there be a difference if you use `dyears(10)` vs `years(10)`? Which seems more appropriate here?*
 
 4. It turns out there is some interesting periodicity regarding the number of births on particular days of the year.
-    a. Using the `mosaicData` package, load the data set `Births78` which records the number of children born on each day in the United States in 1978. Because this problem is intended to show how to calculate the information using the `date`, remove the columns of `month`, `day_of_year`, `day_of_month` and `day_of_week`.
-    b. There is already a date column in the data set that is called, appropriately, date. Graph the number of `births` vs the `date` with date on the x-axis. What stands out to you? Why do you think we have this trend?
+    a. Using the `mosaicData` package, load the data set `Births78` which records the number of children born on each day in the United States in 1978. Because this problem is intended to show how to calculate the information using the `date`, remove all the columns *except* `date` and `births`. 
+    b. Graph the number of `births` vs the `date` with date on the x-axis. What stands out to you? Why do you think we have this trend?
     c. To test your assumption, we need to figure out the what day of the week each observation is. Use `dplyr::mutate` to add a new column named `dow` that is the day of the week (Monday, Tuesday, etc). This calculation will involve some function in the `lubridate` package and the `date` column. 
     d. Plot the data with the point color being determined by the day of the week variable.
     
+

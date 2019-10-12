@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-11" />
+<meta name="date" content="2019-10-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -580,15 +580,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb651-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_polygon</span>( <span class="dt">color =</span> <span class="st">&#39;white&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;grey40&#39;</span>)</a></code></pre></div>
 <p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-18-1.png" width="288" /></p>
 <p>The <code>maps</code> package also has a <code>data.frame</code> of major US cities.</p>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb652-1" data-line-number="1">az.cities &lt;-<span class="st"> </span>maps<span class="op">::</span>us.cities <span class="op">%&gt;%</span><span class="st">             </span><span class="co"># Lat/Long of major US cities</span></a>
-<a class="sourceLine" id="cb652-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(country.etc <span class="op">==</span><span class="st"> &#39;AZ&#39;</span>) <span class="op">%&gt;%</span><span class="st">            </span><span class="co"># Only the Arizona Cities</span></a>
-<a class="sourceLine" id="cb652-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">str_remove</span>(name, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">sAZ&#39;</span>) )  <span class="co"># remove &#39; AZ&#39; from the city name</span></a>
-<a class="sourceLine" id="cb652-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb652-5" data-line-number="5">ggplot2<span class="op">::</span><span class="kw">map_data</span>(<span class="st">&#39;state&#39;</span>, <span class="dt">regions=</span><span class="st">&#39;arizona&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb652-6" data-line-number="6"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y=</span>lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb652-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_polygon</span>( <span class="kw">aes</span>(<span class="dt">group=</span>group), <span class="dt">color =</span> <span class="st">&#39;white&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;grey40&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb652-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>az.cities) <span class="op">+</span></a>
-<a class="sourceLine" id="cb652-9" data-line-number="9"><span class="st">  </span>ggrepel<span class="op">::</span><span class="kw">geom_text_repel</span>(<span class="dt">data=</span>az.cities, <span class="kw">aes</span>(<span class="dt">label=</span>name))</a></code></pre></div>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb652-1" data-line-number="1">az.cities &lt;-<span class="st"> </span>maps<span class="op">::</span>us.cities <span class="op">%&gt;%</span><span class="st">              </span><span class="co"># Lat/Long of major US cities</span></a>
+<a class="sourceLine" id="cb652-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(country.etc <span class="op">==</span><span class="st"> &#39;AZ&#39;</span>) <span class="op">%&gt;%</span><span class="st">             </span><span class="co"># Only the Arizona Cities</span></a>
+<a class="sourceLine" id="cb652-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">str_remove</span>(name, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">sAZ&#39;</span>) )   <span class="co"># remove &#39; AZ&#39; from the city name</span></a>
+<a class="sourceLine" id="cb652-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb652-5" data-line-number="5">small.az.cities &lt;-<span class="st"> </span>az.cities <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb652-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Flagstaff&#39;</span>,<span class="st">&#39;Prescott&#39;</span>,<span class="st">&#39;Lake Havasu City&#39;</span>,<span class="st">&#39;Yuma&#39;</span>,<span class="st">&#39;Tucson&#39;</span>,</a>
+<a class="sourceLine" id="cb652-7" data-line-number="7">                     <span class="st">&#39;Sierra Vista&#39;</span>,<span class="st">&#39;Phoenix&#39;</span>,<span class="st">&#39;Tempe&#39;</span>,<span class="st">&#39;Scottsdale&#39;</span>))</a>
+<a class="sourceLine" id="cb652-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb652-9" data-line-number="9">ggplot2<span class="op">::</span><span class="kw">map_data</span>(<span class="st">&#39;state&#39;</span>, <span class="dt">regions=</span><span class="st">&#39;arizona&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb652-10" data-line-number="10"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y=</span>lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb652-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_polygon</span>( <span class="kw">aes</span>(<span class="dt">group=</span>group), <span class="dt">color =</span> <span class="st">&#39;white&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;grey40&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb652-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>az.cities) <span class="op">+</span></a>
+<a class="sourceLine" id="cb652-13" data-line-number="13"><span class="st">  </span>ggrepel<span class="op">::</span><span class="kw">geom_label_repel</span>(<span class="dt">data=</span>small.az.cities, <span class="kw">aes</span>(<span class="dt">label=</span>name))</a></code></pre></div>
 <p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-19-1.png" width="480" /></p>
 <p>The <code>maps</code> package is fairly primitive in the data it has as well as the manner in which it stores the data. Another alternative is to use the <em>spatial features</em> package <code>sf</code> along with an on-line data base of GIS information from <a href="https://www.naturalearthdata.com">Natural Earth</a>.</p>
 <p>There is a nice <a href="https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html">tutorial</a> for the <code>sf</code> package.</p>
@@ -596,6 +600,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="exercises-13" class="section level2">
 <h2><span class="header-section-number">13.4</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>The <code>infmort</code> data set from the package <code>faraway</code> gives the infant mortality rate for a variety of countries. The information is relatively out of date, but will be fun to graph. T
+<ol style="list-style-type: lower-alpha">
+<li>The <code>rownames()</code> of the dataset give the country names and you should create a new column that contains the country names.</li>
+<li>Compare the country names to the <code>region</code> names in the <code>geo.data</code> data set and do whatever is necessary to get the country names to concur.</li>
+<li>Join the <code>geo.data</code> with the <code>infmort</code> data.</li>
+<li>Make a map of the world where we shade in countries based on the country income. Set the color fill scale to be anything other than the default.</li>
+<li>Make a map of the world where we shade in the countries based on if they are oil exports. Color the map black if the country is an oil exporter, and a light gray if it is not.</li>
+</ol></li>
+<li>The <code>infmort</code> data set can also be visualized using by faceting using <code>region</code> and <code>oil</code> export status.
+<ol style="list-style-type: lower-alpha">
+<li>Create scatter plots the countries income and infant mortality using a <span class="math inline">\(log_{10}\)</span> transformation for both axes.</li>
+<li>The package <code>ggrepel</code> contains functions <code>geom_text_repel()</code> and <code>geom_label_repel()</code> that mimic the basic <code>geom_text()</code> and <code>geom_label()</code> functions in <code>ggplot2</code>, but work to make sure the labels don’t overlap. Select 10-15 countries to label and do so using the <code>geom_text_repel()</code> function.</li>
+</ol></li>
+</ol>
 
 </div>
 </div>

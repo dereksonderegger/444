@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-11" />
+<meta name="date" content="2019-10-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -499,24 +499,24 @@ up to your browsers bookmark bar. When you are at the site you are interested in
 <a class="sourceLine" id="cb708-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></a>
 <a class="sourceLine" id="cb708-6" data-line-number="6">HeadLines <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb708-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;\nBeverly Hills’ Billion-Dollar Fire Sale: Inside The Implosion Of A Historic Hilltop Real Estate Deal\n&quot;   
-## [2] &quot;\nThe Navy’s Patent For A Compact Nuclear Fusion Reactor Is Wild\n&quot;                                         
-## [3] &quot;\nElizabeth Warren Gives Brilliant, Savage Response To Marriage Equality Question\n&quot;                        
-## [4] &quot;\nEasily Monitor And Cancel Subscriptions With This App\n&quot;                                                  
-## [5] &quot;\nStephen Colbert Has Amazingly Touching Answer To Which Friendship Has Impacted Him The Most In His Life\n&quot;
-## [6] &quot;\nThe Wildfire Risk In California, Mapped\n&quot;</code></pre>
+<pre><code>## [1] &quot;\nThe Secret Life Of Nuns, And More Of The Best Photography Of The Week\n&quot;                                                  
+## [2] &quot;\nWatch The Terrifying Moment The Hard Rock Hotel Collapsed In New Orleans\n&quot;                                               
+## [3] &quot;\nAnatomy Of The Phone Call Now Imperiling Trump’s Presidency\n&quot;                                                            
+## [4] &quot;\nThe Watch Brand Everyone Is Talking About\n&quot;                                                                              
+## [5] &quot;\nThis Aaron Carter Interview Will Make You Feel A Bit Uncomfortable\n&quot;                                                     
+## [6] &quot;\nThis Interview With Secretary Of State Mike Pompeo Goes Off The Rails When He Gets Asked A Question About Rudy Giuliani\n&quot;</code></pre>
 <div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb710-1" data-line-number="1"><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></a>
 <a class="sourceLine" id="cb710-2" data-line-number="2">Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb710-3" data-line-number="3"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb710-4" data-line-number="4"><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </a>
 <a class="sourceLine" id="cb710-5" data-line-number="5">Links <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb710-6" data-line-number="6"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;https://www.hollywoodreporter.com/features/how-greed-derailed-a-billion-dollar-real-estate-deal-mountain-1246029?utm_source=digg&quot; 
-## [2] &quot;https://www.popularmechanics.com/science/energy/a29427713/navy-compact-fusion-reactor/?utm_source=digg&quot;                           
-## [3] &quot;/2019/elizabeth-warren-funny-response-marriage-equality&quot;                                                                          
-## [4] &quot;//srv.buysellads.com/ads/click/x/GTND42QUCTSI52JICWY4YKQMCAYI45QYCVAILZ3JCWSI4KJJCTAIK5QKC6BI5K3YCTAIKK3EHJNCLSIZ?utm_source=digg&quot;
-## [5] &quot;/video/john-oliver-interviews-stephen-colbert&quot;                                                                                    
-## [6] &quot;https://medium.com/@defensibleapp/wildfire-risk-in-california-mapped-1f47e6640b6b?utm_source=digg&quot;</code></pre>
+<pre><code>## [1] &quot;/2019/best-photos-10-12&quot;                                                                                                          
+## [2] &quot;/video/heres-the-terrifying-moment-the-hard-rock-hotel-collapsed-in-new-orleans&quot;                                                  
+## [3] &quot;https://apnews.com/ab67c31d9b3c4acdada93a624052ddc4?utm_source=digg&quot;                                                              
+## [4] &quot;//srv.buysellads.com/ads/click/x/GTND42QUCTAIV2JLCWB4YKQMCAYITK7LCV7IPZ3JCWSI4K3MCVSIL5QKC6BI5K37C6BDTK3EHJNCLSIZ?utm_source=digg&quot;
+## [5] &quot;/video/this-aaron-carter-interview-will-make-you-feel-a-bit-uncomfortable&quot;                                                        
+## [6] &quot;/video/this-interview-with-secretary-of-state-mike-pompeo-goes-off-the-rails-when-he-gets-asked-a-question-about-rudy-giuliani&quot;</code></pre>
 </div>
 </div>
 <div id="scraping-.pdf-files" class="section level2">
