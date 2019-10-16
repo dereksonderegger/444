@@ -165,12 +165,12 @@ P +
 
 
 ### Setting attributes in-line
-Instead of creating a new data frame, we could just add a new layer and just set all of the graph attributes manually. To do this, we have to have one layer for each text we want to add to the graph.
+Instead of creating a new data frame, we could just add a new layer and just set all of the graph attributes manually. To do this, we have to have one layer for each text we want to add to the graph. The `annotate` function takes a geom layer type and the necessary inputs an allows us to avoid the annoyance of building a labels data frame.
 ```{r}
 P +
-  geom_text( x=4.5, y=2.25, size=2, label='SETOSA'     ) +
-  geom_text( x=6.5, y=3.75, size=2, label='VERSICOLOR' ) +
-  geom_text( x=7.0, y=6.50, size=2, label='VIRGINICA'  )
+  annotate('text', x=4.5, y=2.25, size=2, label='SETOSA'     ) +
+  annotate('text', x=6.5, y=3.75, size=2, label='VERSICOLOR' ) +
+  annotate('text', x=7.0, y=6.50, size=2, label='VIRGINICA'  )
 ```
 
 
@@ -178,12 +178,12 @@ Finally there is a `geom_label` layer that draws a nice box around what you want
 
 ```{r}
 P +
-  geom_label( x=4.5, y=2.25, size=2, label='SETOSA'     ) +
-  geom_label( x=6.5, y=3.75, size=2, label='VERSICOLOR' ) +
-  geom_label( x=7.0, y=6.50, size=2, label='VIRGINICA'  )
+  annotate('label', x=4.5, y=2.25, size=2, label='SETOSA'     ) +
+  annotate('label', x=6.5, y=3.75, size=2, label='VERSICOLOR' ) +
+  annotate('label', x=7.0, y=6.50, size=2, label='VIRGINICA'  )
 ```
 
-My recommendation is to just set the `x`, `y`, and `label` attributes manually if you have one or two annotations to print on the graph. If you have many annotations to print, the create a data frame that contains all of them and use `data=` argument in the geom to use that created annotation data set.
+My recommendation is to just set the `x`, `y`, and `label` attributes manually inside an `annotate()` call if you have one or two annotations to print on the graph. If you have many annotations to print, the create a data frame that contains all of them and use `data=` argument in the geom to use that created annotation data set.
 
 ## Faceting
 

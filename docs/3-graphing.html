@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-12" />
+<meta name="date" content="2019-10-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -306,10 +306,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.2.2" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#setting-major-minor-ticks"><i class="fa fa-check"></i><b>13.2.2</b> Setting major &amp; minor ticks</a></li>
 <li class="chapter" data-level="13.2.3" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#log-scales"><i class="fa fa-check"></i><b>13.2.3</b> Log Scales</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>13.3</b> Geographic Maps</a><ul>
-<li class="chapter" data-level="13.3.1" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>13.3.1</b> Package <code>maps</code></a></li>
+<li class="chapter" data-level="13.3" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#themes"><i class="fa fa-check"></i><b>13.3</b> Themes</a></li>
+<li class="chapter" data-level="13.4" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>13.4</b> Mathematical Notation</a></li>
+<li class="chapter" data-level="13.5" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>13.5</b> Geographic Maps</a><ul>
+<li class="chapter" data-level="13.5.1" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>13.5.1</b> Package <code>maps</code></a></li>
 </ul></li>
-<li class="chapter" data-level="13.4" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#exercises-13"><i class="fa fa-check"></i><b>13.4</b> Exercises</a></li>
+<li class="chapter" data-level="13.6" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#exercises-13"><i class="fa fa-check"></i><b>13.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html"><i class="fa fa-check"></i><b>14</b> Data Reshaping</a><ul>
 <li class="chapter" data-level="14.1" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>14.1</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
@@ -556,19 +558,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="setting-attributes-in-line" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> Setting attributes in-line</h3>
-<p>Instead of creating a new data frame, we could just add a new layer and just set all of the graph attributes manually. To do this, we have to have one layer for each text we want to add to the graph.</p>
+<p>Instead of creating a new data frame, we could just add a new layer and just set all of the graph attributes manually. To do this, we have to have one layer for each text we want to add to the graph. The <code>annotate</code> function takes a geom layer type and the necessary inputs an allows us to avoid the annoyance of building a labels data frame.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1">P <span class="op">+</span></a>
-<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_text</span>( <span class="dt">x=</span><span class="fl">4.5</span>, <span class="dt">y=</span><span class="fl">2.25</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;SETOSA&#39;</span>     ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_text</span>( <span class="dt">x=</span><span class="fl">6.5</span>, <span class="dt">y=</span><span class="fl">3.75</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VERSICOLOR&#39;</span> ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb88-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_text</span>( <span class="dt">x=</span><span class="fl">7.0</span>, <span class="dt">y=</span><span class="fl">6.50</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VIRGINICA&#39;</span>  )</a></code></pre></div>
+<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&#39;text&#39;</span>, <span class="dt">x=</span><span class="fl">4.5</span>, <span class="dt">y=</span><span class="fl">2.25</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;SETOSA&#39;</span>     ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&#39;text&#39;</span>, <span class="dt">x=</span><span class="fl">6.5</span>, <span class="dt">y=</span><span class="fl">3.75</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VERSICOLOR&#39;</span> ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb88-4" data-line-number="4"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&#39;text&#39;</span>, <span class="dt">x=</span><span class="fl">7.0</span>, <span class="dt">y=</span><span class="fl">6.50</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VIRGINICA&#39;</span>  )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Finally there is a <code>geom_label</code> layer that draws a nice box around what you want to print.</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">P <span class="op">+</span></a>
-<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_label</span>( <span class="dt">x=</span><span class="fl">4.5</span>, <span class="dt">y=</span><span class="fl">2.25</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;SETOSA&#39;</span>     ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb89-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_label</span>( <span class="dt">x=</span><span class="fl">6.5</span>, <span class="dt">y=</span><span class="fl">3.75</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VERSICOLOR&#39;</span> ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb89-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_label</span>( <span class="dt">x=</span><span class="fl">7.0</span>, <span class="dt">y=</span><span class="fl">6.50</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VIRGINICA&#39;</span>  )</a></code></pre></div>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&#39;label&#39;</span>, <span class="dt">x=</span><span class="fl">4.5</span>, <span class="dt">y=</span><span class="fl">2.25</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;SETOSA&#39;</span>     ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&#39;label&#39;</span>, <span class="dt">x=</span><span class="fl">6.5</span>, <span class="dt">y=</span><span class="fl">3.75</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VERSICOLOR&#39;</span> ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb89-4" data-line-number="4"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&#39;label&#39;</span>, <span class="dt">x=</span><span class="fl">7.0</span>, <span class="dt">y=</span><span class="fl">6.50</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">label=</span><span class="st">&#39;VIRGINICA&#39;</span>  )</a></code></pre></div>
 <p><img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>My recommendation is to just set the <code>x</code>, <code>y</code>, and <code>label</code> attributes manually if you have one or two annotations to print on the graph. If you have many annotations to print, the create a data frame that contains all of them and use <code>data=</code> argument in the geom to use that created annotation data set.</p>
+<p>My recommendation is to just set the <code>x</code>, <code>y</code>, and <code>label</code> attributes manually inside an <code>annotate()</code> call if you have one or two annotations to print on the graph. If you have many annotations to print, the create a data frame that contains all of them and use <code>data=</code> argument in the geom to use that created annotation data set.</p>
 </div>
 </div>
 <div id="faceting" class="section level2">

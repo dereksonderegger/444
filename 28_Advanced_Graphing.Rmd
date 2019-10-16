@@ -1,8 +1,8 @@
 # Graphing Part II
 
 ```{r, echo=FALSE}
-# Unattach any packages that happen to already be loaded. In general this is unecessary
-# but is important for the creation of the book to not have package namespaces
+# Un-attach any packages that happen to already be loaded. In general this is unnecessary
+# but is important for the creation of the book to not have package name spaces
 # fighting unexpectedly.
 pkgs = names(sessionInfo()$otherPkgs)
 if( length(pkgs > 0)){
@@ -12,9 +12,12 @@ if( length(pkgs > 0)){
   }
 }
 ```
+
+
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 library(tidyverse)   # loading ggplot2 and dplyr
-library(viridis)
+library(viridis)     # The viridis color schemes
+library(latex2exp)   # For plotting math notation
 ```
 
 We have already seen how to create many basic graphs using the `ggplot2` package. However we haven't addressed many common scenarios. In this chapter we cover many graphing tasks that occur.
@@ -57,7 +60,7 @@ my.layout <- matrix(c(1, 2, 2,
 Rmisc::multiplot(P2, P3, P4, layout = my.layout )
 ```
 
-Unfortunately, `Rmisc::multiplot` doesn't have a label option, so if you want to refer to "Panel A", you need to insert the label into each plot seperately.
+Unfortunately, `Rmisc::multiplot` doesn't have a label option, so if you want to refer to "Panel A", you need to insert the label into each plot separately.
 
 
 ## Customized Scales
@@ -203,6 +206,83 @@ cowplot::plot_grid(
 Now the y-axis is in the original units (thousands of dollars) but obnoxiously we only have two labeled values. Lets define the major break points (the white lines that have numerical labels) to be at 1,10,100 thousand dollars in salary. Likewise we will tell `ggplot2` to set minor break points at 1 to 10 thousand dollars (with steps of 1 thousand dollars) and then 10 thousand to 100 thousand but with step sizes of 10 thousand, and finally minor breaks above 100 thousand being in steps of 100 thousand.
 
 
+## Themes
+
+Many fine-tuning settings in `ggplot2` can be manipulated using the `theme()` function. I've used it previously to move the legend position, but there are many other options. 
+```{r}
+p1 <- ggplot(ChickWeight, aes(x=Time, y=weight, colour=Diet, group=Chick)) +
+    geom_line() + labs(title='Chick Weight: Birth to 21 days')
+
+# Two common examples of things to change
+cowplot::plot_grid(nrow=2,
+  p1 + theme(plot.title = element_text(hjust = 0.5, size=25)),  
+  p1 + theme(legend.position = 'bottom')                 # legend to bottom
+)
+```
+
+There are many things to tweak using the `theme()` command and to get a better idea of what is possible, I recommend visiting the ggplot2 web page documentation and [examples](https://ggplot2.tidyverse.org/reference/theme.html#examples). Notably, one thing that is NOT changed using the `theme` command is the color scales.  
+
+
+A great deal of thought went into the default settings of ggplot2 to maximize the visual clarity of the graphs. However some people believe the defaults for many of the tiny graphical settings are poor. You can modify each of these but it is often easier to modify them all at once by selecting a different theme. The ggplot2 package includes several, `theme_bw()`, and `theme_minimal()` being the two that I use most often. Other packages, such as `cowplot` and `ggthemes`, have a bunch of other themes that you can select from. Below are a few  examples:
+```{r, fig.height=6}
+Rmisc::multiplot( cols = 2,
+  p1 + theme_bw()      + labs(title='theme_bw'), # Black and white
+  p1 + theme_minimal() + labs(title='theme_minimal'),   
+  p1 + theme_dark()    + labs(title='theme_dark'),        
+  p1 + theme_light()   + labs(title='theme_light')
+)
+```
+
+```{r, fig.height=6}
+Rmisc::multiplot( cols = 2,
+  p1 + cowplot::theme_cowplot() + labs(title='cowplot::theme_cowplot()'),
+  p1 + cowplot::theme_minimal_grid() + labs(title='cowplot::theme_minimial_grid'),
+  p1 + ggthemes::theme_stata() + labs(title='ggthemes::theme_stata()'),
+  p1 + ggthemes::theme_tufte() + labs(title='ggthemes::theme_tufte()'),
+  p1 + ggthemes::theme_economist() + labs(title='ggthemes::theme_economist()'),
+  p1 + ggthemes::theme_fivethirtyeight() + labs(title='ggthemes::theme_fivethirtyeight()'),
+  p1 + ggthemes::theme_excel_new() + labs(title='ggthemes::theme_excel_new()'),
+  p1 + ggthemes::theme_gdocs() + labs(title='ggthemes::theme_gdocs()')
+  )
+```
+
+
+
+
+Finally, we might want to select a theme for all subsequent plots or modify a specific aspect of the theme.
+
+|   Command                  |     Result            |
+|:--------------------------:|:----------------------|
+| `theme_set( theme_bw() )`  | Set the default theme to be the `theme_bw()` theme. |
+| `theme_update( ... )`      | Update the current default them.  |
+
+This will allow you to set the graphing options at the start of your Rmarkdown/R-script document. However the one thing it does not do is allow you to change the default color themes (we still have to do for each graph).
+
+
+## Mathematical Notation
+
+It would be nice to be able to include mathematical formula and notation on plot axes, titles, and text annotation. R plotting has a notation scheme similar to Latex to do this, but it is much easier for me to remember the Latex command.  Fortunately there is a package, `latex2exp` that allows us to just use Latex. It works by using the `latex2exp::TeX` function to take an input latex string and convert it into R's plotmath notation. 
+
+```{r}
+seed <- 7867
+N <- 20
+data <- data.frame(x=runif(N, 1, 10)) %>%
+  mutate(y = 12 - 1*x + rnorm(N, sd=1))
+
+model <- lm( y ~ x, data=data)
+data <- data %>%
+  mutate(fit=fitted(model))
+
+ggplot(data, aes(x=x)) +
+  geom_point(aes(y=y)) +
+  geom_line(aes(y=fit), color='blue') +
+  annotate('text', x=9, y=9.5, label=TeX('$\\hat{\\rho}$ = 0.916') ) +
+  labs( x=TeX('X-axis $\\alpha$'), 
+        y=TeX('Y: \\log_{10}(Income)'),
+        title=TeX('$\\hat{\\beta} = (X^TX)^{-1}X^Ty$'))
+  
+```
+
 
 ## Geographic Maps
 
@@ -285,5 +365,24 @@ There is a nice [tutorial](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.htm
     a) Create scatter plots the countries income and infant mortality using a $log_{10}$ transformation for both axes.
     b) The package `ggrepel` contains functions `geom_text_repel()` and `geom_label_repel()` that mimic the basic `geom_text()` and `geom_label()` functions in `ggplot2`, but work to make sure the labels don't overlap. Select 10-15 countries to label and do so using the `geom_text_repel()` function.
 
-
-
+3. Using the `datasets::trees` data, complete the following:
+    a) Create a regression model for Volume as a function of Height.
+    b) Using the `summary` command, get the y-intercept and slope of the regression line.
+    c) Using `ggplot2`, graph the data.
+    d) Create a nice white filled rectangle to add text information to using by adding the following annotation layer.
+        ```{r, eval=FALSE}
+          + annotate('rect', xmin=7, xmax=14.5, ymin=64, ymax=70,
+                   fill='white', color='black')
+        ```
+    e) Add some annotation text to write the equation of the line $\hat{y}_i = -36.94 + 5.1 * x_i$ in the text area.
+    f) Add annotation to add $R^2 = 0.934$
+    
+4. Using the `datasets::Titanic` data set, create a bar graph showing the number of individuals that survived or not. Make sure to include the passenger `Class`, `Sex`, and `Age` variable information. *Unfortunately, the data is stored as a `table` and to expand it to a data frame, the following code can be used.*
+    ```{r}
+    Titanic <- Titanic %>% as.data.frame()
+    ```
+    a) Make this graph using the default theme.
+    b) Make this graph using the `theme_bw()` theme.
+    c) Make this graph using the `cowplot::theme_minimal_hgrid()` theme.
+    d) Why would it be beneficial to drop the vertical grid lines?
+    

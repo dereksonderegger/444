@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Secret Life Of Nuns, And More Of The Best Photography Of The Week\n"                                                  
-## [2] "\nWatch The Terrifying Moment The Hard Rock Hotel Collapsed In New Orleans\n"                                               
-## [3] "\nAnatomy Of The Phone Call Now Imperiling Trump’s Presidency\n"                                                            
-## [4] "\nThe Watch Brand Everyone Is Talking About\n"                                                                              
-## [5] "\nThis Aaron Carter Interview Will Make You Feel A Bit Uncomfortable\n"                                                     
-## [6] "\nThis Interview With Secretary Of State Mike Pompeo Goes Off The Rails When He Gets Asked A Question About Rudy Giuliani\n"
+## [1] "\nA Predator At Mount Sinai Hospital\n"                                                                                
+## [2] "\nLive Updates And Analysis From The Fourth Democratic Primary Debate\n"                                               
+## [3] "\nZach Galifianakis Will Never Forget What Tina Fey Did To Him After A Skit He Wrote Bombed On ‘Saturday Night Live’\n"
+## [4] "\nNot All CBD Is Created Equal. Try Medterra's Premium 99%+ Pure CBD Today\n"                                          
+## [5] "\nCharlize Theron, Nicole Kidman And Margot Robbie’s Game Of ‘Who Would You Rather’ Takes Unexpected, Awkward Turn\n"  
+## [6] "\nThe FBI Lost Our Son\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2019/best-photos-10-12"                                                                                                          
-## [2] "/video/heres-the-terrifying-moment-the-hard-rock-hotel-collapsed-in-new-orleans"                                                  
-## [3] "https://apnews.com/ab67c31d9b3c4acdada93a624052ddc4?utm_source=digg"                                                              
-## [4] "//srv.buysellads.com/ads/click/x/GTND42QUCTAIV2JLCWB4YKQMCAYITK7LCV7IPZ3JCWSI4K3MCVSIL5QKC6BI5K37C6BDTK3EHJNCLSIZ?utm_source=digg"
-## [5] "/video/this-aaron-carter-interview-will-make-you-feel-a-bit-uncomfortable"                                                        
-## [6] "/video/this-interview-with-secretary-of-state-mike-pompeo-goes-off-the-rails-when-he-gets-asked-a-question-about-rudy-giuliani"
+## [1] "https://www.thecut.com/2019/10/mount-sinai-david-newman.html?utm_source=digg"                                                     
+## [2] "https://fivethirtyeight.com/live-blog/fourth-democratic-primary-debate/?utm_source=digg"                                          
+## [3] "/video/zach-galifianakis-will-never-forget-what-tina-fey-did-to-him-after-a-skit-he-wrote-bombed-on-saturday-night-live"          
+## [4] "//srv.buysellads.com/ads/click/x/GTND42QUC6YIKKQMC6A4YKQMCAYDEKQICYBIEZ3JCWSIT53LCVBDCKQKC6BI5KQJF6BDEK3EHJNCLSIZ?utm_source=digg"
+## [5] "/video/charlize-theron-nicole-kidman-margot-robbie-who-would-you-rather-ellen-show"                                               
+## [6] "https://www.wsj.com/articles/the-fbi-lost-our-son-11570806358?utm_source=digg"
 ```
 
 

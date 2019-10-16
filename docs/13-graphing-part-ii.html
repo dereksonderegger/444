@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-12" />
+<meta name="date" content="2019-10-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -306,10 +306,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.2.2" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#setting-major-minor-ticks"><i class="fa fa-check"></i><b>13.2.2</b> Setting major &amp; minor ticks</a></li>
 <li class="chapter" data-level="13.2.3" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#log-scales"><i class="fa fa-check"></i><b>13.2.3</b> Log Scales</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>13.3</b> Geographic Maps</a><ul>
-<li class="chapter" data-level="13.3.1" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>13.3.1</b> Package <code>maps</code></a></li>
+<li class="chapter" data-level="13.3" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#themes"><i class="fa fa-check"></i><b>13.3</b> Themes</a></li>
+<li class="chapter" data-level="13.4" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>13.4</b> Mathematical Notation</a></li>
+<li class="chapter" data-level="13.5" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>13.5</b> Geographic Maps</a><ul>
+<li class="chapter" data-level="13.5.1" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>13.5.1</b> Package <code>maps</code></a></li>
 </ul></li>
-<li class="chapter" data-level="13.4" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#exercises-13"><i class="fa fa-check"></i><b>13.4</b> Exercises</a></li>
+<li class="chapter" data-level="13.6" data-path="13-graphing-part-ii.html"><a href="13-graphing-part-ii.html#exercises-13"><i class="fa fa-check"></i><b>13.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html"><i class="fa fa-check"></i><b>14</b> Data Reshaping</a><ul>
 <li class="chapter" data-level="14.1" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>14.1</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
@@ -376,7 +378,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="graphing-part-ii" class="section level1">
 <h1><span class="header-section-number">Chapter 13</span> Graphing Part II</h1>
 <div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb637-1" data-line-number="1"><span class="kw">library</span>(tidyverse)   <span class="co"># loading ggplot2 and dplyr</span></a>
-<a class="sourceLine" id="cb637-2" data-line-number="2"><span class="kw">library</span>(viridis)</a></code></pre></div>
+<a class="sourceLine" id="cb637-2" data-line-number="2"><span class="kw">library</span>(viridis)     <span class="co"># The viridis color schemes</span></a>
+<a class="sourceLine" id="cb637-3" data-line-number="3"><span class="kw">library</span>(latex2exp)   <span class="co"># For plotting math notation</span></a></code></pre></div>
 <p>We have already seen how to create many basic graphs using the <code>ggplot2</code> package. However we haven’t addressed many common scenarios. In this chapter we cover many graphing tasks that occur.</p>
 <div id="multi-plots" class="section level2">
 <h2><span class="header-section-number">13.1</span> Multi-plots</h2>
@@ -409,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb640-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb640-6" data-line-number="6">Rmisc<span class="op">::</span><span class="kw">multiplot</span>(P2, P3, P4, <span class="dt">layout =</span> my.layout )</a></code></pre></div>
 <p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>Unfortunately, <code>Rmisc::multiplot</code> doesn’t have a label option, so if you want to refer to “Panel A”, you need to insert the label into each plot seperately.</p>
+<p>Unfortunately, <code>Rmisc::multiplot</code> doesn’t have a label option, so if you want to refer to “Panel A”, you need to insert the label into each plot separately.</p>
 </div>
 </div>
 <div id="customized-scales" class="section level2">
@@ -504,22 +507,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now the y-axis is in the original units (thousands of dollars) but obnoxiously we only have two labeled values. Lets define the major break points (the white lines that have numerical labels) to be at 1,10,100 thousand dollars in salary. Likewise we will tell <code>ggplot2</code> to set minor break points at 1 to 10 thousand dollars (with steps of 1 thousand dollars) and then 10 thousand to 100 thousand but with step sizes of 10 thousand, and finally minor breaks above 100 thousand being in steps of 100 thousand.</p>
 </div>
 </div>
+<div id="themes" class="section level2">
+<h2><span class="header-section-number">13.3</span> Themes</h2>
+<p>Many fine-tuning settings in <code>ggplot2</code> can be manipulated using the <code>theme()</code> function. I’ve used it previously to move the legend position, but there are many other options.</p>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb648-1" data-line-number="1">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(ChickWeight, <span class="kw">aes</span>(<span class="dt">x=</span>Time, <span class="dt">y=</span>weight, <span class="dt">colour=</span>Diet, <span class="dt">group=</span>Chick)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb648-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Chick Weight: Birth to 21 days&#39;</span>)</a>
+<a class="sourceLine" id="cb648-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb648-4" data-line-number="4"><span class="co"># Two common examples of things to change</span></a>
+<a class="sourceLine" id="cb648-5" data-line-number="5">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(<span class="dt">nrow=</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb648-6" data-line-number="6">  p1 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>, <span class="dt">size=</span><span class="dv">25</span>)),  </a>
+<a class="sourceLine" id="cb648-7" data-line-number="7">  p1 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&#39;bottom&#39;</span>)                 <span class="co"># legend to bottom</span></a>
+<a class="sourceLine" id="cb648-8" data-line-number="8">)</a></code></pre></div>
+<p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>There are many things to tweak using the <code>theme()</code> command and to get a better idea of what is possible, I recommend visiting the ggplot2 web page documentation and <a href="https://ggplot2.tidyverse.org/reference/theme.html#examples">examples</a>. Notably, one thing that is NOT changed using the <code>theme</code> command is the color scales.</p>
+<p>A great deal of thought went into the default settings of ggplot2 to maximize the visual clarity of the graphs. However some people believe the defaults for many of the tiny graphical settings are poor. You can modify each of these but it is often easier to modify them all at once by selecting a different theme. The ggplot2 package includes several, <code>theme_bw()</code>, and <code>theme_minimal()</code> being the two that I use most often. Other packages, such as <code>cowplot</code> and <code>ggthemes</code>, have a bunch of other themes that you can select from. Below are a few examples:</p>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb649-1" data-line-number="1">Rmisc<span class="op">::</span><span class="kw">multiplot</span>( <span class="dt">cols =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb649-2" data-line-number="2">  p1 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()      <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;theme_bw&#39;</span>), <span class="co"># Black and white</span></a>
+<a class="sourceLine" id="cb649-3" data-line-number="3">  p1 <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;theme_minimal&#39;</span>),   </a>
+<a class="sourceLine" id="cb649-4" data-line-number="4">  p1 <span class="op">+</span><span class="st"> </span><span class="kw">theme_dark</span>()    <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;theme_dark&#39;</span>),        </a>
+<a class="sourceLine" id="cb649-5" data-line-number="5">  p1 <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()   <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;theme_light&#39;</span>)</a>
+<a class="sourceLine" id="cb649-6" data-line-number="6">)</a></code></pre></div>
+<p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb650-1" data-line-number="1">Rmisc<span class="op">::</span><span class="kw">multiplot</span>( <span class="dt">cols =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb650-2" data-line-number="2">  p1 <span class="op">+</span><span class="st"> </span>cowplot<span class="op">::</span><span class="kw">theme_cowplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;cowplot::theme_cowplot()&#39;</span>),</a>
+<a class="sourceLine" id="cb650-3" data-line-number="3">  p1 <span class="op">+</span><span class="st"> </span>cowplot<span class="op">::</span><span class="kw">theme_minimal_grid</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;cowplot::theme_minimial_grid&#39;</span>),</a>
+<a class="sourceLine" id="cb650-4" data-line-number="4">  p1 <span class="op">+</span><span class="st"> </span>ggthemes<span class="op">::</span><span class="kw">theme_stata</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;ggthemes::theme_stata()&#39;</span>),</a>
+<a class="sourceLine" id="cb650-5" data-line-number="5">  p1 <span class="op">+</span><span class="st"> </span>ggthemes<span class="op">::</span><span class="kw">theme_tufte</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;ggthemes::theme_tufte()&#39;</span>),</a>
+<a class="sourceLine" id="cb650-6" data-line-number="6">  p1 <span class="op">+</span><span class="st"> </span>ggthemes<span class="op">::</span><span class="kw">theme_economist</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;ggthemes::theme_economist()&#39;</span>),</a>
+<a class="sourceLine" id="cb650-7" data-line-number="7">  p1 <span class="op">+</span><span class="st"> </span>ggthemes<span class="op">::</span><span class="kw">theme_fivethirtyeight</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;ggthemes::theme_fivethirtyeight()&#39;</span>),</a>
+<a class="sourceLine" id="cb650-8" data-line-number="8">  p1 <span class="op">+</span><span class="st"> </span>ggthemes<span class="op">::</span><span class="kw">theme_excel_new</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;ggthemes::theme_excel_new()&#39;</span>),</a>
+<a class="sourceLine" id="cb650-9" data-line-number="9">  p1 <span class="op">+</span><span class="st"> </span>ggthemes<span class="op">::</span><span class="kw">theme_gdocs</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;ggthemes::theme_gdocs()&#39;</span>)</a>
+<a class="sourceLine" id="cb650-10" data-line-number="10">  )</a></code></pre></div>
+<p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Finally, we might want to select a theme for all subsequent plots or modify a specific aspect of the theme.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Command</th>
+<th align="left">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>theme_set( theme_bw() )</code></td>
+<td align="left">Set the default theme to be the <code>theme_bw()</code> theme.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>theme_update( ... )</code></td>
+<td align="left">Update the current default them.</td>
+</tr>
+</tbody>
+</table>
+<p>This will allow you to set the graphing options at the start of your Rmarkdown/R-script document. However the one thing it does not do is allow you to change the default color themes (we still have to do for each graph).</p>
+</div>
+<div id="mathematical-notation" class="section level2">
+<h2><span class="header-section-number">13.4</span> Mathematical Notation</h2>
+<p>It would be nice to be able to include mathematical formula and notation on plot axes, titles, and text annotation. R plotting has a notation scheme similar to Latex to do this, but it is much easier for me to remember the Latex command. Fortunately there is a package, <code>latex2exp</code> that allows us to just use Latex. It works by using the <code>latex2exp::TeX</code> function to take an input latex string and convert it into R’s plotmath notation.</p>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb651-1" data-line-number="1">seed &lt;-<span class="st"> </span><span class="dv">7867</span></a>
+<a class="sourceLine" id="cb651-2" data-line-number="2">N &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb651-3" data-line-number="3">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">runif</span>(N, <span class="dv">1</span>, <span class="dv">10</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb651-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">y =</span> <span class="dv">12</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dt">sd=</span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb651-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb651-6" data-line-number="6">model &lt;-<span class="st"> </span><span class="kw">lm</span>( y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>data)</a>
+<a class="sourceLine" id="cb651-7" data-line-number="7">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb651-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fit=</span><span class="kw">fitted</span>(model))</a>
+<a class="sourceLine" id="cb651-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb651-10" data-line-number="10"><span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x=</span>x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb651-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y=</span>y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb651-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y=</span>fit), <span class="dt">color=</span><span class="st">&#39;blue&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb651-13" data-line-number="13"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&#39;text&#39;</span>, <span class="dt">x=</span><span class="dv">9</span>, <span class="dt">y=</span><span class="fl">9.5</span>, <span class="dt">label=</span><span class="kw">TeX</span>(<span class="st">&#39;$</span><span class="ch">\\</span><span class="st">hat{</span><span class="ch">\\</span><span class="st">rho}$ = 0.916&#39;</span>) ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb651-14" data-line-number="14"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">x=</span><span class="kw">TeX</span>(<span class="st">&#39;X-axis $</span><span class="ch">\\</span><span class="st">alpha$&#39;</span>), </a>
+<a class="sourceLine" id="cb651-15" data-line-number="15">        <span class="dt">y=</span><span class="kw">TeX</span>(<span class="st">&#39;Y: </span><span class="ch">\\</span><span class="st">log_{10}(Income)&#39;</span>),</a>
+<a class="sourceLine" id="cb651-16" data-line-number="16">        <span class="dt">title=</span><span class="kw">TeX</span>(<span class="st">&#39;$</span><span class="ch">\\</span><span class="st">hat{</span><span class="ch">\\</span><span class="st">beta} = (X^TX)^{-1}X^Ty$&#39;</span>))</a></code></pre></div>
+<pre><code>## Warning in is.na(x): is.na() applied to non-(list or vector) of type
+## &#39;expression&#39;</code></pre>
+<p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
 <div id="geographic-maps" class="section level2">
-<h2><span class="header-section-number">13.3</span> Geographic Maps</h2>
+<h2><span class="header-section-number">13.5</span> Geographic Maps</h2>
 <p>We often need to graph countries or U.S. States. We might then fill the color of the state or countries by some variable. To do this, we need information about the shape and location of each country within some geographic coordinate system. The easiest system to work from is Latitude (how far north or south of the equator) and Longitude (how far east or west the prime meridian).</p>
 <div id="package-maps" class="section level3">
-<h3><span class="header-section-number">13.3.1</span> Package <code>maps</code></h3>
+<h3><span class="header-section-number">13.5.1</span> Package <code>maps</code></h3>
 <p>The R package <code>maps</code> is one of the easiest way to draw a country or state map. I tend to use this package first because I can access world and regional maps fairly easily and I don’t have to worry about map projections or coordinate systems or any fancy GIS encoding. Unfortunately it is fairly US specific.</p>
 <p>Because we might be interested in continents, countries, states/provinces, or counties, in the following discussion we’ll refer to the geographic area of interest as a <em>region</em>. For <code>ggplot2</code> to interact with GIS type objects, we need a way to convert a GIS database of regions into a <code>data.frame</code> of a bunch of data points about the region’s borders, where each data point is a Lat/Long coordinate and the region and sub-region identifiers. Then, to produce a map, we just draw a path through the data points. For regions like Hawaii’s, which are composed of several non-contiguous areas, we include sub-regions so that the boundary lines don’t jump from island to island.</p>
 <p>Once we have the <code>data.frame</code> of regions that we are interested in selected, all we need to do is draw polygons in <code>ggplot2</code>.</p>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb648-1" data-line-number="1"><span class="co"># ggplot2 function to create a data.frame with world level information</span></a>
-<a class="sourceLine" id="cb648-2" data-line-number="2">geo.data &lt;-<span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">map_data</span>(<span class="st">&#39;world&#39;</span>) <span class="co"># Using maps::world database. </span></a>
-<a class="sourceLine" id="cb648-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb648-4" data-line-number="4"><span class="co"># group: which set of points are contiguous and should be connected</span></a>
-<a class="sourceLine" id="cb648-5" data-line-number="5"><span class="co"># order: what order should the dots be connected</span></a>
-<a class="sourceLine" id="cb648-6" data-line-number="6"><span class="co"># region: The name of the region of interest</span></a>
-<a class="sourceLine" id="cb648-7" data-line-number="7"><span class="co"># subregion: If there are sub-regions with greater region</span></a>
-<a class="sourceLine" id="cb648-8" data-line-number="8"><span class="kw">head</span>(geo.data)</a></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb653-1" data-line-number="1"><span class="co"># ggplot2 function to create a data.frame with world level information</span></a>
+<a class="sourceLine" id="cb653-2" data-line-number="2">geo.data &lt;-<span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">map_data</span>(<span class="st">&#39;world&#39;</span>) <span class="co"># Using maps::world database. </span></a>
+<a class="sourceLine" id="cb653-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb653-4" data-line-number="4"><span class="co"># group: which set of points are contiguous and should be connected</span></a>
+<a class="sourceLine" id="cb653-5" data-line-number="5"><span class="co"># order: what order should the dots be connected</span></a>
+<a class="sourceLine" id="cb653-6" data-line-number="6"><span class="co"># region: The name of the region of interest</span></a>
+<a class="sourceLine" id="cb653-7" data-line-number="7"><span class="co"># subregion: If there are sub-regions with greater region</span></a>
+<a class="sourceLine" id="cb653-8" data-line-number="8"><span class="kw">head</span>(geo.data)</a></code></pre></div>
 <pre><code>##        long      lat group order region subregion
 ## 1 -69.89912 12.45200     1     1  Aruba      &lt;NA&gt;
 ## 2 -69.89571 12.42300     1     2  Aruba      &lt;NA&gt;
@@ -527,10 +606,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 -70.00415 12.50049     1     4  Aruba      &lt;NA&gt;
 ## 5 -70.06612 12.54697     1     5  Aruba      &lt;NA&gt;
 ## 6 -70.05088 12.59707     1     6  Aruba      &lt;NA&gt;</code></pre>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb650-1" data-line-number="1"><span class="co"># Now draw a nice world map, </span></a>
-<a class="sourceLine" id="cb650-2" data-line-number="2"><span class="kw">ggplot</span>(geo.data, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb650-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_polygon</span>( <span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&#39;grey50&#39;</span>) </a></code></pre></div>
-<p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-17-1.png" width="576" /></p>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb655-1" data-line-number="1"><span class="co"># Now draw a nice world map, </span></a>
+<a class="sourceLine" id="cb655-2" data-line-number="2"><span class="kw">ggplot</span>(geo.data, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb655-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_polygon</span>( <span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&#39;grey50&#39;</span>) </a></code></pre></div>
+<p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-21-1.png" width="576" /></p>
 <p>The <code>maps</code> package has several data bases of geographical regions.</p>
 <table>
 <thead>
@@ -575,31 +654,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>From within each of these databases, we can select to just return a particular region. So for example, we can get all the information we have about Ghana using the following:</p>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb651-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw">map_data</span>(<span class="st">&#39;world&#39;</span>, <span class="dt">regions=</span><span class="st">&#39;ghana&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb651-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y=</span>lat, <span class="dt">group=</span>group)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb651-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_polygon</span>( <span class="dt">color =</span> <span class="st">&#39;white&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;grey40&#39;</span>)</a></code></pre></div>
-<p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-18-1.png" width="288" /></p>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb656-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw">map_data</span>(<span class="st">&#39;world&#39;</span>, <span class="dt">regions=</span><span class="st">&#39;ghana&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb656-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y=</span>lat, <span class="dt">group=</span>group)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb656-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_polygon</span>( <span class="dt">color =</span> <span class="st">&#39;white&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;grey40&#39;</span>)</a></code></pre></div>
+<p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-22-1.png" width="288" /></p>
 <p>The <code>maps</code> package also has a <code>data.frame</code> of major US cities.</p>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb652-1" data-line-number="1">az.cities &lt;-<span class="st"> </span>maps<span class="op">::</span>us.cities <span class="op">%&gt;%</span><span class="st">              </span><span class="co"># Lat/Long of major US cities</span></a>
-<a class="sourceLine" id="cb652-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(country.etc <span class="op">==</span><span class="st"> &#39;AZ&#39;</span>) <span class="op">%&gt;%</span><span class="st">             </span><span class="co"># Only the Arizona Cities</span></a>
-<a class="sourceLine" id="cb652-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">str_remove</span>(name, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">sAZ&#39;</span>) )   <span class="co"># remove &#39; AZ&#39; from the city name</span></a>
-<a class="sourceLine" id="cb652-4" data-line-number="4">  </a>
-<a class="sourceLine" id="cb652-5" data-line-number="5">small.az.cities &lt;-<span class="st"> </span>az.cities <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb652-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Flagstaff&#39;</span>,<span class="st">&#39;Prescott&#39;</span>,<span class="st">&#39;Lake Havasu City&#39;</span>,<span class="st">&#39;Yuma&#39;</span>,<span class="st">&#39;Tucson&#39;</span>,</a>
-<a class="sourceLine" id="cb652-7" data-line-number="7">                     <span class="st">&#39;Sierra Vista&#39;</span>,<span class="st">&#39;Phoenix&#39;</span>,<span class="st">&#39;Tempe&#39;</span>,<span class="st">&#39;Scottsdale&#39;</span>))</a>
-<a class="sourceLine" id="cb652-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb652-9" data-line-number="9">ggplot2<span class="op">::</span><span class="kw">map_data</span>(<span class="st">&#39;state&#39;</span>, <span class="dt">regions=</span><span class="st">&#39;arizona&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb652-10" data-line-number="10"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y=</span>lat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb652-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_polygon</span>( <span class="kw">aes</span>(<span class="dt">group=</span>group), <span class="dt">color =</span> <span class="st">&#39;white&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;grey40&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb652-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>az.cities) <span class="op">+</span></a>
-<a class="sourceLine" id="cb652-13" data-line-number="13"><span class="st">  </span>ggrepel<span class="op">::</span><span class="kw">geom_label_repel</span>(<span class="dt">data=</span>small.az.cities, <span class="kw">aes</span>(<span class="dt">label=</span>name))</a></code></pre></div>
-<p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-19-1.png" width="480" /></p>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb657-1" data-line-number="1">az.cities &lt;-<span class="st"> </span>maps<span class="op">::</span>us.cities <span class="op">%&gt;%</span><span class="st">              </span><span class="co"># Lat/Long of major US cities</span></a>
+<a class="sourceLine" id="cb657-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(country.etc <span class="op">==</span><span class="st"> &#39;AZ&#39;</span>) <span class="op">%&gt;%</span><span class="st">             </span><span class="co"># Only the Arizona Cities</span></a>
+<a class="sourceLine" id="cb657-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">str_remove</span>(name, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">sAZ&#39;</span>) )   <span class="co"># remove &#39; AZ&#39; from the city name</span></a>
+<a class="sourceLine" id="cb657-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb657-5" data-line-number="5">small.az.cities &lt;-<span class="st"> </span>az.cities <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb657-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Flagstaff&#39;</span>,<span class="st">&#39;Prescott&#39;</span>,<span class="st">&#39;Lake Havasu City&#39;</span>,<span class="st">&#39;Yuma&#39;</span>,<span class="st">&#39;Tucson&#39;</span>,</a>
+<a class="sourceLine" id="cb657-7" data-line-number="7">                     <span class="st">&#39;Sierra Vista&#39;</span>,<span class="st">&#39;Phoenix&#39;</span>,<span class="st">&#39;Tempe&#39;</span>,<span class="st">&#39;Scottsdale&#39;</span>))</a>
+<a class="sourceLine" id="cb657-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb657-9" data-line-number="9">ggplot2<span class="op">::</span><span class="kw">map_data</span>(<span class="st">&#39;state&#39;</span>, <span class="dt">regions=</span><span class="st">&#39;arizona&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb657-10" data-line-number="10"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y=</span>lat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb657-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_polygon</span>( <span class="kw">aes</span>(<span class="dt">group=</span>group), <span class="dt">color =</span> <span class="st">&#39;white&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;grey40&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb657-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>az.cities) <span class="op">+</span></a>
+<a class="sourceLine" id="cb657-13" data-line-number="13"><span class="st">  </span>ggrepel<span class="op">::</span><span class="kw">geom_label_repel</span>(<span class="dt">data=</span>small.az.cities, <span class="kw">aes</span>(<span class="dt">label=</span>name))</a></code></pre></div>
+<p><img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-23-1.png" width="480" /></p>
 <p>The <code>maps</code> package is fairly primitive in the data it has as well as the manner in which it stores the data. Another alternative is to use the <em>spatial features</em> package <code>sf</code> along with an on-line data base of GIS information from <a href="https://www.naturalearthdata.com">Natural Earth</a>.</p>
 <p>There is a nice <a href="https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html">tutorial</a> for the <code>sf</code> package.</p>
 </div>
 </div>
 <div id="exercises-13" class="section level2">
-<h2><span class="header-section-number">13.4</span> Exercises</h2>
+<h2><span class="header-section-number">13.6</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li>The <code>infmort</code> data set from the package <code>faraway</code> gives the infant mortality rate for a variety of countries. The information is relatively out of date, but will be fun to graph. T
 <ol style="list-style-type: lower-alpha">
@@ -613,6 +692,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: lower-alpha">
 <li>Create scatter plots the countries income and infant mortality using a <span class="math inline">\(log_{10}\)</span> transformation for both axes.</li>
 <li>The package <code>ggrepel</code> contains functions <code>geom_text_repel()</code> and <code>geom_label_repel()</code> that mimic the basic <code>geom_text()</code> and <code>geom_label()</code> functions in <code>ggplot2</code>, but work to make sure the labels don’t overlap. Select 10-15 countries to label and do so using the <code>geom_text_repel()</code> function.</li>
+</ol></li>
+<li>Using the <code>datasets::trees</code> data, complete the following:
+<ol style="list-style-type: lower-alpha">
+<li>Create a regression model for Volume as a function of Height.</li>
+<li>Using the <code>summary</code> command, get the y-intercept and slope of the regression line.</li>
+<li>Using <code>ggplot2</code>, graph the data.</li>
+<li><p>Create a nice white filled rectangle to add text information to using by adding the following annotation layer.</p>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb658-1" data-line-number="1">  <span class="op">+</span><span class="st"> </span><span class="kw">annotate</span>(<span class="st">&#39;rect&#39;</span>, <span class="dt">xmin=</span><span class="dv">7</span>, <span class="dt">xmax=</span><span class="fl">14.5</span>, <span class="dt">ymin=</span><span class="dv">64</span>, <span class="dt">ymax=</span><span class="dv">70</span>,</a>
+<a class="sourceLine" id="cb658-2" data-line-number="2">           <span class="dt">fill=</span><span class="st">&#39;white&#39;</span>, <span class="dt">color=</span><span class="st">&#39;black&#39;</span>)</a></code></pre></div></li>
+<li>Add some annotation text to write the equation of the line <span class="math inline">\(\hat{y}_i = -36.94 + 5.1 * x_i\)</span> in the text area.</li>
+<li><p>Add annotation to add <span class="math inline">\(R^2 = 0.934\)</span></p></li>
+</ol></li>
+<li><p>Using the <code>datasets::Titanic</code> data set, create a bar graph showing the number of individuals that survived or not. Make sure to include the passenger <code>Class</code>, <code>Sex</code>, and <code>Age</code> variable information. <em>Unfortunately, the data is stored as a <code>table</code> and to expand it to a data frame, the following code can be used.</em></p>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb659-1" data-line-number="1">Titanic &lt;-<span class="st"> </span>Titanic <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</a></code></pre></div>
+<ol style="list-style-type: lower-alpha">
+<li>Make this graph using the default theme.</li>
+<li>Make this graph using the <code>theme_bw()</code> theme.</li>
+<li>Make this graph using the <code>cowplot::theme_minimal_hgrid()</code> theme.</li>
+<li>Why would it be beneficial to drop the vertical grid lines?</li>
 </ol></li>
 </ol>
 
