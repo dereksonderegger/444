@@ -607,15 +607,14 @@ str_extract_all(string, '<.+?>')
 ## Exercises
 
 1. For the following regular expression, explain in words what it matches on. Then add test strings to demonstrate that it in fact does match on the pattern you claim it does. Make sure that your test set of strings has several examples that match as well as several that do not. *If you copy the Rmarkdown code for these exercises directly from my source pages, make sure to remove the `eval=FALSE` from the R-chunk headers.*
-    a)
+    a) This regular expression matches:  *Insert your answer here...*
         
         ```r
-        # This regular expression matches:  Insert your answer here...
         strings <- c()
         data.frame( string = strings ) %>%
           mutate( result = str_detect(string, 'a') )
         ```
-    b)
+    b) This regular expression matches:  *Insert your answer here...*
         
         ```r
         # This regular expression matches:  Insert your answer here...
@@ -623,61 +622,58 @@ str_extract_all(string, '<.+?>')
         data.frame( string = strings ) %>%
           mutate( result = str_detect(string, 'ab') )
         ```
-    c)
+    c)  This regular expression matches:  *Insert your answer here...*
         
         ```r
-        # This regular expression matches:  Insert your answer here...
         strings <- c()
         data.frame( string = strings ) %>%
           mutate( result = str_detect(string, '[ab]') )
         ```
-    d)
+    d)  This regular expression matches:  *Insert your answer here...*
         
         ```r
-        # This regular expression matches:  Insert your answer here...
         strings <- c()
         data.frame( string = strings ) %>%
           mutate( result = str_detect(string, '^[ab]') )
         ```
-    e)
+    e)  This regular expression matches:  *Insert your answer here...*
         
         ```r
-        # This regular expression matches:  Insert your answer here...
         strings <- c()
         data.frame( string = strings ) %>%
           mutate( result = str_detect(string, '\\d+\\s[aA]') )
         ```
-    f)
+    f)  This regular expression matches:  *Insert your answer here...*
         
         ```r
-        # This regular expression matches:  Insert your answer here...
         strings <- c()
         data.frame( string = strings ) %>%
           mutate( result = str_detect(string, '.*') )
         ```
 
 2. The following file names were used in a camera trap study. The S number represents the site, P is the plot within a site, C is the camera number within the plot, the first string of numbers is the YearMonthDay and the second string of numbers is the HourMinuteSecond.
-
-```r
-file.names <- c( 'S123.P2.C10_20120621_213422.jpg',
-                 'S10.P1.C1_20120622_050148.jpg',
-                 'S187.P2.C2_20120702_023501.jpg')
-```
-Use a combination of `str_sub()` and `str_split()` to produce a data frame with columns corresponding to the `site`, `plot`, `camera`, `year`, `month`, `day`, `hour`, `minute`, and `second` for these three file names. So we want to produce code that will create the data frame:
-
-
-```r
- Site Plot Camera Year Month Day Hour Minute Second
- S123   P2    C10 2012    06  21   21     34     22
-  S10   P1     C1 2012    06  22   05     01     48
- S187   P2     C2 2012    07  02   02     35     01
-```
+    
+    ```r
+    file.names <- c( 'S123.P2.C10_20120621_213422.jpg',
+                     'S10.P1.C1_20120622_050148.jpg',
+                     'S187.P2.C2_20120702_023501.jpg')
+    ```
+    Use a combination of `str_sub()` and `str_split()` to produce a data frame with columns corresponding to the `site`, `plot`, `camera`, `year`, `month`, `day`, `hour`, `minute`, and `second` for these three file names. So we want to produce code that will create the data frame:
+    
+    
+    ```r
+     Site Plot Camera Year Month Day Hour Minute Second
+     S123   P2    C10 2012    06  21   21     34     22
+      S10   P1     C1 2012    06  22   05     01     48
+     S187   P2     C2 2012    07  02   02     35     01
+    ```
 
 
 3. Variable names in R may be and combination letters, digits, period, and underscore. However, they may not start with a digit and if they start with a period, they must not be followed by a digit.
     
     ```r
-    strings <- c('foo15', 'Bar', '.resid', '_14s', '99_Bottles', '.9Arggh', 'Foo!','HIV Rate')
+    strings <- c('foo15', 'Bar', '.resid', '_14s', 
+                 '99_Bottles', '.9Arggh', 'Foo!','HIV Rate')
     ```
     The first four are valid variable names, but the last four are not. 
     a) First write a regular expression that determines if the string starts with a character (upper or lower case) or underscore and then is followed by zero or more numbers, letters, periods or underscores. *Notice I use the start/end of string markers. This is important so that we don't just match somewhere in the middle of the variable name.*
