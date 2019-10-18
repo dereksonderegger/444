@@ -13,8 +13,9 @@ if( length(pkgs > 0)){
 }
 ```
 ```{r, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(stringr)
+library(tidyverse) 
+library(stringr)   # tidyverse string functions, not loaded with tidyverse 
+library(refinr)    # fuzzy string matching
 ```
 
 
@@ -370,6 +371,107 @@ What the regular expression engine did was matched as many characters in the `.+
 
 ```{r}
 str_extract_all(string, '<.+?>')
+```
+
+
+## Fuzzy Pattern Matching
+
+A common data wrangling task is to take a vector of strings that might be subtly different, but those differences aren't important. For example the address *321 S. Milton* should be the same as the address *321 South Milton*. These are easy for humans to recognize as being the same, but it is much harder for a computer.
+
+The open source project [OpenRefine](http://openrefine.org) has a tool that does a very nice job doing fuzzy pattern grouping and several of the algorithms they created have been implemented in the R package `refinr`. In this section we will utilize these tools identify which strings represent the same items.
+
+Much of the information (and examples) we present here are taken from the OpenRefine GitHub page on 
+[Clustering in Depth](https://github.com/OpenRefine/OpenRefine/wiki/Clustering-In-Depth).
+
+
+### Key Collision Merge
+
+1. Remove leading and trailing white space
+2. Change all characters to their lowercase representation
+3. Remove all punctuation and control characters
+4. Normalize extended western characters to their ASCII representation (for example "gödel" → "godel")
+5. Split the string into white space separated tokens
+6. Sort the tokens and remove duplicates
+7. Join the tokens back together
+
+From this algorithm, upper-case vs lower-case won't matter, nor will any punctuation. Furthermore, because we split the string into tokens on the internal white space, then the order of the words won't matter either. This algorithm is available from `refinr::key_collision_merge()`.
+
+```{r}
+strings <- c("Acme Pizza", "AcMe PiZzA", "   ACME PIZZA", 'Pizza, ACME')
+data.frame(Input = strings, stringsAsFactors = FALSE) %>%
+  mutate( Result = key_collision_merge(Input) )
+```
+
+The function `refinr::key_collision_merge()` also includes two options for ignoring tokens. First, the `ignore_strings` argument allows us to set up strings that should be ignored.  For example  the words `the`, `of` often are filler words that should be ignored.
+
+```{r}
+strings <- c("Northern Arizona University", "University of Northern Arizona", "The University of Northern Arizona")
+data.frame(Input = strings, stringsAsFactors = FALSE) %>%
+  mutate( Result = key_collision_merge(Input, ignore_strings = c('the','of') ) ) 
+```
+
+Finally, there are common business suffixes that should be ignored. For example `company`, `inc.`, `LLC` all mean similar things. The `key_collision_merge()` function has an `bus_suffix=TRUE` argument that indicates if the merging should be insensitive to these business suffixes.
+
+### String Distances
+Non-exact pattern matching requires some notion of *distance* between any two strings. One measure of this (called Optimal String Alignment distance)  is the number of changes it takes to transform one string to the other where the valid types of changes are deletion, insertion, substitution, and transposition. For example, the distance between `sarah` and `sara` is 1 because we only need to delete one character. But the distance between `sarah` and `syria` is 3 `sarah` -> `syrah` -> `syraa` -> `syria`.
+
+There are other distance metrics to use and the full list available to the `stringdist` package is available in the documentation `help("stringdist-metrics")` 
+
+```{r}
+# Compare two strings
+stringdist::stringdist('sarah', 'syria')
+```
+
+With the idea of string distance, we could then match strings with small distances. 
+
+### N-gram Merge
+The `refinr::n_gram_merge` function will perform a similar algorithm as the `key_collision_merge` but will also match strings with small distances,  
+
+1. Change all characters to their lowercase representation
+2. Remove all punctuation, white space, and control characters
+3. Obtain all the string n-grams
+4. Sort the n-grams and remove duplicates
+5. Join the sorted n-grams back together
+6. Normalize extended western characters to their ASCII representation
+7. Match strings with distance less than `edit_threshold` (defaults to 2)
+
+Instead of creating tokens using white space, `n-grams` tokenize *every* collection of sequential n-letters. For example the 3-gram of "Frank" is:
+1. frank
+3. fra, ran, ank
+4. ank, fra, ran
+5. ankfraran
+
+
+```{r}
+strings <- c("Derek Sonderegger", "Derek L Sonderegger", "Derek Sondereger")
+data.frame(Input = strings, stringsAsFactors = FALSE) %>%
+  mutate( Result = n_gram_merge(Input, numgram = 2, edit_threshold = 100) )
+
+```
+
+
+```{r}
+unis <- read.csv("https://goo.gl/EJxa20", header=T, stringsAsFactors=F)
+
+foo <- unis %>% pull(university) %>% unique()
+
+data.frame(Input = foo, stringsAsFactors = FALSE) %>%
+  arrange(Input) %>%
+  mutate( Result = key_collision_merge(Input, ignore_strings = c('the','of') ) ) %>% 
+  mutate( Result = n_gram_merge(Result, numgram = 2, edit_threshold = 2) ) %>%
+  View()
+
+
+strings <- c( ggplot2::map_data('world') %>% pull(region) %>% unique(),
+              rownames( faraway::infmort ) ) %>%
+  stringr::str_trim() %>%
+  unique()
+
+data.frame(Input = strings, stringsAsFactors = FALSE) %>%
+  mutate( Result = n_gram_merge(Input, numgram = 2, edit_threshold = 2) ) %>%
+  arrange(Result)
+
+  
 ```
 
 

@@ -270,7 +270,7 @@ grade.book %>%
     This file is in a wide format, where each row represents a month and the columns X1, X2, ..., X31 represent the day of the month the observation was made. 
     a. Convert data set to the long format where the data has only four columns: `Year`, `Month`, `Day`, `Tmax`.
     b. Calculate the average monthly maximum temperature for each Month in the dataset (So there will be 365 mean maximum temperatures). *You'll probably have some issues taking the mean because there are a number of values that are missing and by default R refuses to take means and sums when there is missing data. The argument `na.rm=TRUE` to `mean()` allows you to force R to remove the missing observations before calculating the mean. Alternatively at some point in your workflow, you could remove rows that include a missing values using `dplyr::drop_na`.* 
-    c. Convert the average month maximums back to a wide data format where each line represents a year and there are 12 columns of temperature data (one for each month) along with a column for the year. *There will be a couple of months that still have missing data because the weather station was out of commision for those months and there was NO data for the entire month.*
+    c. Convert the average month maximums back to a wide data format where each line represents a year and there are 12 columns of temperature data (one for each month) along with a column for the year. *There will be a couple of months that still have missing data because the weather station was out of commission for those months and there was NO data for the entire month.*
     
 2. A common task is to take a set of data that has multiple categorical variables and create a table of the number of cases for each combination. An introductory statistics textbook contains a dataset summarizing student surveys from several sections of an intro class. The two variables of interest for us are `Gender` and `Year` which are the students gender and year in college.
     a. Download the dataset and correctly order the `Year` variable using the following:
@@ -297,7 +297,7 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
     d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Perhaps the easiest way to create the `Function` and `Subfunction` columns is to write a `for` loop that steps through the data row-by-row. Alternatively, the `tidyr::fill` function might be useful.
     e) Reshape the data into four columns for Function, Subfunction, Year, and Amount.
     f) Replace any Amount value of `..........` with an NA.
-    g) Make a bar chart that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for the years 2001 through 2015. *Notice you'll have to sum up the subfunctions within each function.*
+    g) Make a bar chart that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for the years 2001 through 2015. *Notice you'll have to sum up the sub-functions within each function.*
 
 
 4. Data table joins are extremely common because effective database design almost always involves having multiple tables for different types of objects. To illustrate both the table joins and the usefulness of multiple tables we will develop a set of data frames that will represent a credit card company's customer data base. We will have tables for Customers, Retailers, Cards, and Transactions.  Below is code that will create and populate these tables.
@@ -338,10 +338,10 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
     Transactions <- Transactions %>% 
       mutate( Date = lubridate::ymd(Date))
     ```
-    a) Create a table that gives the credit card statent for Derek. It should give all the transactions, the amounts, and the store name. Write your code as if the only initial information you have is the customer's name.
+    a) Create a table that gives the credit card statement for Derek. It should give all the transactions, the amounts, and the store name. Write your code as if the only initial information you have is the customer's name.
     b) Aubrey has lost her credit card on Oct 15, 2019. Close her credit card and issue her a new credit card in the `Cards` table.
     c) Aubrey is using her card at Kickstand Kafe on Oct 16, 2019 for coffee with a charge of $4.98. Generate a new transaction for this action. 
-    d) On Oct 17, 2019, some nefarious person is trying to use her credit card at REI. Make sure your code in part (c) first checks to see if the credit card is active before creating a new transaction. Using the same code, verify that this transaction is denied.
+    d) On Oct 17, 2019, some nefarious person is trying to use her OLD credit card at REI. Make sure your code in part (c) first checks to see if the credit card is active before creating a new transaction. Using the same code, verify that the nefarious transaction at REI is denied.
     e) Generate a table that gives the credit card statement for Aubrey. It should give all the transactions, amounts, and retailer name for both credit cards she had during this period.
     
   

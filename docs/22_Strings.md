@@ -3,8 +3,9 @@
 
 
 ```r
-library(tidyverse)
-library(stringr)
+library(tidyverse) 
+library(stringr)   # tidyverse string functions, not loaded with tidyverse 
+library(refinr)    # fuzzy string matching
 ```
 
 
@@ -601,6 +602,696 @@ str_extract_all(string, '<.+?>')
 ```
 ## [[1]]
 ## [1] "<b>"   "</b>"  "<em>"  "</em>"
+```
+
+
+## Fuzzy Pattern Matching
+
+A common data wrangling task is to take a vector of strings that might be subtly different, but those differences aren't important. For example the address *321 S. Milton* should be the same as the address *321 South Milton*. These are easy for humans to recognize as being the same, but it is much harder for a computer.
+
+The open source project [OpenRefine](http://openrefine.org) has a tool that does a very nice job doing fuzzy pattern grouping and several of the algorithms they created have been implemented in the R package `refinr`. In this section we will utilize these tools identify which strings represent the same items.
+
+Much of the information (and examples) we present here are taken from the OpenRefine GitHub page on 
+[Clustering in Depth](https://github.com/OpenRefine/OpenRefine/wiki/Clustering-In-Depth).
+
+
+### Key Collision Merge
+
+1. Remove leading and trailing white space
+2. Change all characters to their lowercase representation
+3. Remove all punctuation and control characters
+4. Normalize extended western characters to their ASCII representation (for example "gödel" → "godel")
+5. Split the string into white space separated tokens
+6. Sort the tokens and remove duplicates
+7. Join the tokens back together
+
+From this algorithm, upper-case vs lower-case won't matter, nor will any punctuation. Furthermore, because we split the string into tokens on the internal white space, then the order of the words won't matter either. This algorithm is available from `refinr::key_collision_merge()`.
+
+
+```r
+strings <- c("Acme Pizza", "AcMe PiZzA", "   ACME PIZZA", 'Pizza, ACME')
+data.frame(Input = strings, stringsAsFactors = FALSE) %>%
+  mutate( Result = key_collision_merge(Input) )
+```
+
+```
+##           Input        Result
+## 1    Acme Pizza    ACME PIZZA
+## 2    AcMe PiZzA    ACME PIZZA
+## 3    ACME PIZZA    ACME PIZZA
+## 4   Pizza, ACME    ACME PIZZA
+```
+
+The function `refinr::key_collision_merge()` also includes two options for ignoring tokens. First, the `ignore_strings` argument allows us to set up strings that should be ignored.  For example  the words `the`, `of` often are filler words that should be ignored.
+
+
+```r
+strings <- c("Northern Arizona University", "University of Northern Arizona", "The University of Northern Arizona")
+data.frame(Input = strings, stringsAsFactors = FALSE) %>%
+  mutate( Result = key_collision_merge(Input, ignore_strings = c('the','of') ) ) 
+```
+
+```
+##                                Input                      Result
+## 1        Northern Arizona University Northern Arizona University
+## 2     University of Northern Arizona Northern Arizona University
+## 3 The University of Northern Arizona Northern Arizona University
+```
+
+Finally, there are common business suffixes that should be ignored. For example `company`, `inc.`, `LLC` all mean similar things. The `key_collision_merge()` function has an `bus_suffix=TRUE` argument that indicates if the merging should be insensitive to these business suffixes.
+
+### String Distances
+Non-exact pattern matching requires some notion of *distance* between any two strings. One measure of this (called Optimal String Alignment distance)  is the number of changes it takes to transform one string to the other where the valid types of changes are deletion, insertion, substitution, and transposition. For example, the distance between `sarah` and `sara` is 1 because we only need to delete one character. But the distance between `sarah` and `syria` is 3 `sarah` -> `syrah` -> `syraa` -> `syria`.
+
+There are other distance metrics to use and the full list available to the `stringdist` package is available in the documentation `help("stringdist-metrics")` 
+
+
+```r
+# Compare two strings
+stringdist::stringdist('sarah', 'syria')
+```
+
+```
+## [1] 3
+```
+
+With the idea of string distance, we could then match strings with small distances. 
+
+### N-gram Merge
+The `refinr::n_gram_merge` function will perform a similar algorithm as the `key_collision_merge` but will also match strings with small distances,  
+
+1. Change all characters to their lowercase representation
+2. Remove all punctuation, white space, and control characters
+3. Obtain all the string n-grams
+4. Sort the n-grams and remove duplicates
+5. Join the sorted n-grams back together
+6. Normalize extended western characters to their ASCII representation
+7. Match strings with distance less than `edit_threshold` (defaults to 2)
+
+Instead of creating tokens using white space, `n-grams` tokenize *every* collection of sequential n-letters. For example the 3-gram of "Frank" is:
+1. frank
+3. fra, ran, ank
+4. ank, fra, ran
+5. ankfraran
+
+
+
+```r
+strings <- c("Derek Sonderegger", "Derek L Sonderegger", "Derek Sondereger")
+data.frame(Input = strings, stringsAsFactors = FALSE) %>%
+  mutate( Result = n_gram_merge(Input, numgram = 2, edit_threshold = 100) )
+```
+
+```
+##                 Input              Result
+## 1   Derek Sonderegger    Derek Sondereger
+## 2 Derek L Sonderegger Derek L Sonderegger
+## 3    Derek Sondereger    Derek Sondereger
+```
+
+
+
+```r
+unis <- read.csv("https://goo.gl/EJxa20", header=T, stringsAsFactors=F)
+
+foo <- unis %>% pull(university) %>% unique()
+
+data.frame(Input = foo, stringsAsFactors = FALSE) %>%
+  arrange(Input) %>%
+  mutate( Result = key_collision_merge(Input, ignore_strings = c('the','of') ) ) %>% 
+  mutate( Result = n_gram_merge(Result, numgram = 2, edit_threshold = 2) ) %>%
+  View()
+
+
+strings <- c( ggplot2::map_data('world') %>% pull(region) %>% unique(),
+              rownames( faraway::infmort ) ) %>%
+  stringr::str_trim() %>%
+  unique()
+
+data.frame(Input = strings, stringsAsFactors = FALSE) %>%
+  mutate( Result = n_gram_merge(Input, numgram = 2, edit_threshold = 2) ) %>%
+  arrange(Result)
+```
+
+```
+##                                   Input
+## 1                            Afganistan
+## 2                           Afghanistan
+## 3                               Albania
+## 4                               Algeria
+## 5                        American Samoa
+## 6                               Andorra
+## 7                                Angola
+## 8                              Anguilla
+## 9                            Antarctica
+## 10                              Antigua
+## 11                            Argentina
+## 12                              Armenia
+## 13                                Aruba
+## 14                     Ascension Island
+## 15                            Australia
+## 16                              Austria
+## 17                           Azerbaijan
+## 18                               Azores
+## 19                              Bahamas
+## 20                              Bahrain
+## 21                           Bangladesh
+## 22                             Barbados
+## 23                              Barbuda
+## 24                              Belarus
+## 25                              Belgium
+## 26                               Belize
+## 27                                Benin
+## 28                              Bermuda
+## 29                               Bhutan
+## 30                              Bolivia
+## 31                              Bonaire
+## 32               Bosnia and Herzegovina
+## 33                             Botswana
+## 34                               Brazil
+## 35                              Britain
+## 36                               Brunei
+## 37                             Bulgaria
+## 38                         Burkina Faso
+## 39                                Burma
+## 40                              Burundi
+## 41                             Cambodia
+## 42                             Cameroon
+## 43                               Canada
+## 44                       Canary Islands
+## 45                           Cape Verde
+## 46                       Cayman Islands
+## 47             Central African Republic
+## 48                  Central_African_Rep
+## 49                                 Chad
+## 50                   Chagos Archipelago
+## 51                                Chile
+## 52                                China
+## 53                     Christmas Island
+## 54                        Cocos Islands
+## 55                             Colombia
+## 56                              Comoros
+## 57                                Congo
+## 58                         Cook Islands
+## 59                           Costa Rica
+## 60                           Costa_Rica
+## 61                              Croatia
+## 62                                 Cuba
+## 63                              Curacao
+## 64                               Cyprus
+## 65                       Czech Republic
+## 66                              Dahomey
+## 67     Democratic Republic of the Congo
+## 68                              Denmark
+## 69                             Djibouti
+## 70                             Dominica
+## 71                   Dominican Republic
+## 72                   Dominican_Republic
+## 73                              Ecuador
+## 74                                Egypt
+## 75                          El Salvador
+## 76                          El_Salvador
+## 77                    Equatorial Guinea
+## 78                              Eritrea
+## 79                              Estonia
+## 80                             Ethiopia
+## 81                     Falkland Islands
+## 82                        Faroe Islands
+## 83                                 Fiji
+## 84                              Finland
+## 85                               France
+## 86                        French Guiana
+## 87                     French Polynesia
+## 88  French Southern and Antarctic Lands
+## 89                                Gabon
+## 90                               Gambia
+## 91                              Georgia
+## 92                              Germany
+## 93                                Ghana
+## 94                               Greece
+## 95                            Greenland
+## 96                              Grenada
+## 97                           Grenadines
+## 98                           Guadeloupe
+## 99                                 Guam
+## 100                           Guatemala
+## 101                            Guernsey
+## 102                              Guinea
+## 103                       Guinea-Bissau
+## 104                              Guyana
+## 105                               Haiti
+## 106                        Heard Island
+## 107                            Honduras
+## 108                             Hungary
+## 109                             Iceland
+## 110                               India
+## 111                           Indonesia
+## 112                                Iran
+## 113                                Iraq
+## 114                             Ireland
+## 115                         Isle of Man
+## 116                              Israel
+## 117                               Italy
+## 118                         Ivory Coast
+## 119                         Ivory_Coast
+## 120                             Jamaica
+## 121                               Japan
+## 122                              Jersey
+## 123                              Jordan
+## 124                          Kazakhstan
+## 125                               Kenya
+## 126                            Kiribati
+## 127                              Kosovo
+## 128                              Kuwait
+## 129                          Kyrgyzstan
+## 130                                Laos
+## 131                              Latvia
+## 132                             Lebanon
+## 133                             Lesotho
+## 134                             Liberia
+## 135                               Libya
+## 136                       Liechtenstein
+## 137                           Lithuania
+## 138                          Luxembourg
+## 139                           Macedonia
+## 140                          Madagascar
+## 141                     Madeira Islands
+## 142                              Malawi
+## 143                            Malaysia
+## 144                            Maldives
+## 145                                Mali
+## 146                               Malta
+## 147                    Marshall Islands
+## 148                          Martinique
+## 149                          Mauritania
+## 150                           Mauritius
+## 151                             Mayotte
+## 152                              Mexico
+## 153                          Micronesia
+## 154                             Moldova
+## 155                              Monaco
+## 156                            Mongolia
+## 157                          Montenegro
+## 158                          Montserrat
+## 159                             Morocco
+## 160                              Moroco
+## 161                          Mozambique
+## 162                             Myanmar
+## 163                             Namibia
+## 164                               Nauru
+## 165                               Nepal
+## 166                         Netherlands
+## 167                               Nevis
+## 168                       New Caledonia
+## 169                         New Zealand
+## 170                         New_Zealand
+## 171                           Nicaragua
+## 172                               Niger
+## 173                             Nigeria
+## 174                                Niue
+## 175                      Norfolk Island
+## 176                         North Korea
+## 177            Northern Mariana Islands
+## 178                              Norway
+## 179                                Oman
+## 180                            Pakistan
+## 181                               Palau
+## 182                           Palestine
+## 183                              Panama
+## 184                    Papua New Guinea
+## 185                    Papua_New_Guinea
+## 186                            Paraguay
+## 187                                Peru
+## 188                         Philippines
+## 189                    Pitcairn Islands
+## 190                              Poland
+## 191                            Portugal
+## 192                         Puerto Rico
+## 193                               Qatar
+## 194                   Republic of Congo
+## 195                             Reunion
+## 196                             Romania
+## 197                              Russia
+## 198                              Rwanda
+## 199                                Saba
+## 200                    Saint Barthelemy
+## 201                        Saint Helena
+## 202                         Saint Kitts
+## 203                         Saint Lucia
+## 204                        Saint Martin
+## 205           Saint Pierre and Miquelon
+## 206                       Saint Vincent
+## 207                               Samoa
+## 208                          San Marino
+## 209               Sao Tome and Principe
+## 210                        Saudi Arabia
+## 211                        Saudi_Arabia
+## 212                             Senegal
+## 213                              Serbia
+## 214                          Seychelles
+## 215                     Siachen Glacier
+## 216                        Sierra Leone
+## 217                        Sierra_Leone
+## 218                           Singapore
+## 219                      Sint Eustatius
+## 220                        Sint Maarten
+## 221                            Slovakia
+## 222                            Slovenia
+## 223                     Solomon Islands
+## 224                             Somalia
+## 225                        South Africa
+## 226                        South_Africa
+## 227                       South Georgia
+## 228                         South Korea
+## 229                         South_Korea
+## 230              South Sandwich Islands
+## 231                         South Sudan
+## 232                       South_Vietnam
+## 233                      Southern_Yemen
+## 234                               Spain
+## 235                           Sri Lanka
+## 236                           Sri_Lanka
+## 237                               Sudan
+## 238                            Suriname
+## 239                           Swaziland
+## 240                              Sweden
+## 241                         Switzerland
+## 242                               Syria
+## 243                              Taiwan
+## 244                          Tajikistan
+## 245                            Tanzania
+## 246                            Thailand
+## 247                         Timor-Leste
+## 248                              Tobago
+## 249                                Togo
+## 250                               Tonga
+## 251                            Trinidad
+## 252                 Trinidad_and_Tobago
+## 253                             Tunisia
+## 254                              Turkey
+## 255                        Turkmenistan
+## 256            Turks and Caicos Islands
+## 257                              Uganda
+## 258                                  UK
+## 259                             Ukraine
+## 260                United Arab Emirates
+## 261                       United_States
+## 262                         Upper_Volta
+## 263                             Uruguay
+## 264                                 USA
+## 265                          Uzbekistan
+## 266                             Vanuatu
+## 267                             Vatican
+## 268                           Venezuela
+## 269                             Vietnam
+## 270                      Virgin Islands
+## 271                   Wallis and Futuna
+## 272                        West_Germany
+## 273                      Western Sahara
+## 274                               Yemen
+## 275                          Yugoslavia
+## 276                               Zaire
+## 277                              Zambia
+## 278                            Zimbabwe
+##                                  Result
+## 1                            Afganistan
+## 2                           Afghanistan
+## 3                               Albania
+## 4                               Algeria
+## 5                        American Samoa
+## 6                               Andorra
+## 7                                Angola
+## 8                              Anguilla
+## 9                            Antarctica
+## 10                              Antigua
+## 11                            Argentina
+## 12                              Armenia
+## 13                                Aruba
+## 14                     Ascension Island
+## 15                            Australia
+## 16                              Austria
+## 17                           Azerbaijan
+## 18                               Azores
+## 19                              Bahamas
+## 20                              Bahrain
+## 21                           Bangladesh
+## 22                             Barbados
+## 23                              Barbuda
+## 24                              Belarus
+## 25                              Belgium
+## 26                               Belize
+## 27                                Benin
+## 28                              Bermuda
+## 29                               Bhutan
+## 30                              Bolivia
+## 31                              Bonaire
+## 32               Bosnia and Herzegovina
+## 33                             Botswana
+## 34                               Brazil
+## 35                              Britain
+## 36                               Brunei
+## 37                             Bulgaria
+## 38                         Burkina Faso
+## 39                                Burma
+## 40                              Burundi
+## 41                             Cambodia
+## 42                             Cameroon
+## 43                               Canada
+## 44                       Canary Islands
+## 45                           Cape Verde
+## 46                       Cayman Islands
+## 47             Central African Republic
+## 48                  Central_African_Rep
+## 49                                 Chad
+## 50                   Chagos Archipelago
+## 51                                Chile
+## 52                                China
+## 53                     Christmas Island
+## 54                        Cocos Islands
+## 55                             Colombia
+## 56                              Comoros
+## 57                                Congo
+## 58                         Cook Islands
+## 59                           Costa Rica
+## 60                           Costa Rica
+## 61                              Croatia
+## 62                                 Cuba
+## 63                              Curacao
+## 64                               Cyprus
+## 65                       Czech Republic
+## 66                              Dahomey
+## 67     Democratic Republic of the Congo
+## 68                              Denmark
+## 69                             Djibouti
+## 70                             Dominica
+## 71                   Dominican Republic
+## 72                   Dominican Republic
+## 73                              Ecuador
+## 74                                Egypt
+## 75                          El Salvador
+## 76                          El Salvador
+## 77                    Equatorial Guinea
+## 78                              Eritrea
+## 79                              Estonia
+## 80                             Ethiopia
+## 81                     Falkland Islands
+## 82                        Faroe Islands
+## 83                                 Fiji
+## 84                              Finland
+## 85                               France
+## 86                        French Guiana
+## 87                     French Polynesia
+## 88  French Southern and Antarctic Lands
+## 89                                Gabon
+## 90                               Gambia
+## 91                              Georgia
+## 92                              Germany
+## 93                                Ghana
+## 94                               Greece
+## 95                            Greenland
+## 96                              Grenada
+## 97                           Grenadines
+## 98                           Guadeloupe
+## 99                                 Guam
+## 100                           Guatemala
+## 101                            Guernsey
+## 102                              Guinea
+## 103                       Guinea-Bissau
+## 104                              Guyana
+## 105                               Haiti
+## 106                        Heard Island
+## 107                            Honduras
+## 108                             Hungary
+## 109                             Iceland
+## 110                               India
+## 111                           Indonesia
+## 112                                Iran
+## 113                                Iraq
+## 114                             Ireland
+## 115                         Isle of Man
+## 116                              Israel
+## 117                               Italy
+## 118                         Ivory Coast
+## 119                         Ivory Coast
+## 120                             Jamaica
+## 121                               Japan
+## 122                              Jersey
+## 123                              Jordan
+## 124                          Kazakhstan
+## 125                               Kenya
+## 126                            Kiribati
+## 127                              Kosovo
+## 128                              Kuwait
+## 129                          Kyrgyzstan
+## 130                                Laos
+## 131                              Latvia
+## 132                             Lebanon
+## 133                             Lesotho
+## 134                             Liberia
+## 135                               Libya
+## 136                       Liechtenstein
+## 137                           Lithuania
+## 138                          Luxembourg
+## 139                           Macedonia
+## 140                          Madagascar
+## 141                     Madeira Islands
+## 142                              Malawi
+## 143                            Malaysia
+## 144                            Maldives
+## 145                                Mali
+## 146                               Malta
+## 147                    Marshall Islands
+## 148                          Martinique
+## 149                          Mauritania
+## 150                           Mauritius
+## 151                             Mayotte
+## 152                              Mexico
+## 153                          Micronesia
+## 154                             Moldova
+## 155                              Monaco
+## 156                            Mongolia
+## 157                          Montenegro
+## 158                          Montserrat
+## 159                             Morocco
+## 160                             Morocco
+## 161                          Mozambique
+## 162                             Myanmar
+## 163                             Namibia
+## 164                               Nauru
+## 165                               Nepal
+## 166                         Netherlands
+## 167                               Nevis
+## 168                       New Caledonia
+## 169                         New Zealand
+## 170                         New Zealand
+## 171                           Nicaragua
+## 172                               Niger
+## 173                             Nigeria
+## 174                                Niue
+## 175                      Norfolk Island
+## 176                         North Korea
+## 177            Northern Mariana Islands
+## 178                              Norway
+## 179                                Oman
+## 180                            Pakistan
+## 181                               Palau
+## 182                           Palestine
+## 183                              Panama
+## 184                    Papua New Guinea
+## 185                    Papua New Guinea
+## 186                            Paraguay
+## 187                                Peru
+## 188                         Philippines
+## 189                    Pitcairn Islands
+## 190                              Poland
+## 191                            Portugal
+## 192                         Puerto Rico
+## 193                               Qatar
+## 194                   Republic of Congo
+## 195                             Reunion
+## 196                             Romania
+## 197                              Russia
+## 198                              Rwanda
+## 199                                Saba
+## 200                    Saint Barthelemy
+## 201                        Saint Helena
+## 202                         Saint Kitts
+## 203                         Saint Lucia
+## 204                        Saint Martin
+## 205           Saint Pierre and Miquelon
+## 206                       Saint Vincent
+## 207                               Samoa
+## 208                          San Marino
+## 209               Sao Tome and Principe
+## 210                        Saudi Arabia
+## 211                        Saudi Arabia
+## 212                             Senegal
+## 213                              Serbia
+## 214                          Seychelles
+## 215                     Siachen Glacier
+## 216                        Sierra Leone
+## 217                        Sierra Leone
+## 218                           Singapore
+## 219                      Sint Eustatius
+## 220                        Sint Maarten
+## 221                            Slovakia
+## 222                            Slovenia
+## 223                     Solomon Islands
+## 224                             Somalia
+## 225                        South Africa
+## 226                        South Africa
+## 227                       South Georgia
+## 228                         South Korea
+## 229                         South Korea
+## 230              South Sandwich Islands
+## 231                         South Sudan
+## 232                       South_Vietnam
+## 233                      Southern_Yemen
+## 234                               Spain
+## 235                           Sri Lanka
+## 236                           Sri Lanka
+## 237                               Sudan
+## 238                            Suriname
+## 239                           Swaziland
+## 240                              Sweden
+## 241                         Switzerland
+## 242                               Syria
+## 243                              Taiwan
+## 244                          Tajikistan
+## 245                            Tanzania
+## 246                            Thailand
+## 247                         Timor-Leste
+## 248                              Tobago
+## 249                                Togo
+## 250                               Tonga
+## 251                            Trinidad
+## 252                 Trinidad_and_Tobago
+## 253                             Tunisia
+## 254                              Turkey
+## 255                        Turkmenistan
+## 256            Turks and Caicos Islands
+## 257                              Uganda
+## 258                                  UK
+## 259                             Ukraine
+## 260                United Arab Emirates
+## 261                       United_States
+## 262                         Upper_Volta
+## 263                             Uruguay
+## 264                                 USA
+## 265                          Uzbekistan
+## 266                             Vanuatu
+## 267                             Vatican
+## 268                           Venezuela
+## 269                             Vietnam
+## 270                      Virgin Islands
+## 271                   Wallis and Futuna
+## 272                        West_Germany
+## 273                      Western Sahara
+## 274                               Yemen
+## 275                          Yugoslavia
+## 276                               Zaire
+## 277                              Zambia
+## 278                            Zimbabwe
 ```
 
 

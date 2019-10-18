@@ -387,7 +387,7 @@ There is a nice [tutorial](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.htm
 
 1. The `infmort` data set from the package `faraway` gives the infant mortality rate for a variety of countries. The information is relatively out of date, but will be fun to graph. T
     a) The `rownames()` of the dataset give the country names and you should create a new column that contains the country names. 
-    b) Compare the country names to the `region` names in the `geo.data` data set and do whatever is necessary to get the country names to concur. 
+    b) Save the `ggplot2::map_data('world')` result as `geo.data`. Compare the `infmort` country names to the `region` names in the `geo.data` data set and do whatever is necessary to get the country names to concur. *Hint: `unique(x)` will return the unique items in a vector, `intersect(x,y)`returns the elements common to `x` and `y`, and `setdiff(x,y)`  returns the elements of `x` that are not in `y`.*
     c) Join the `geo.data` with the `infmort` data.
     d) Make a map of the world where we shade in countries based on the country income. Set the color fill scale to be anything other than the default.
     e) Make a map of the world where we shade in the countries based on if they are oil exports. Color the map black if the country is an oil exporter, and a light gray if it is not.

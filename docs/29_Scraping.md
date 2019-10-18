@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nA Predator At Mount Sinai Hospital\n"                                                                                
-## [2] "\nLive Updates And Analysis From The Fourth Democratic Primary Debate\n"                                               
-## [3] "\nZach Galifianakis Will Never Forget What Tina Fey Did To Him After A Skit He Wrote Bombed On ‘Saturday Night Live’\n"
-## [4] "\nNot All CBD Is Created Equal. Try Medterra's Premium 99%+ Pure CBD Today\n"                                          
-## [5] "\nCharlize Theron, Nicole Kidman And Margot Robbie’s Game Of ‘Who Would You Rather’ Takes Unexpected, Awkward Turn\n"  
-## [6] "\nThe FBI Lost Our Son\n"
+## [1] "\nCan Peloton Turn A Fitness Cult Into A Business?\n"                       
+## [2] "\nThe Ghost Towers Of Iran\n"                                               
+## [3] "\n125-Foot Luxury Yacht Plows Into A Marina Full Of Boats\n"                
+## [4] "\nThis App Gives You Financial Control At Your Fingertips\n"                
+## [5] "\nSoccer Player Scores, Catches Beer Hurtling Out Of The Stands, Chugs It\n"
+## [6] "\nA Bitcoin-Powered Child Porn Site Was Undone By A Right-Click\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.thecut.com/2019/10/mount-sinai-david-newman.html?utm_source=digg"                                                     
-## [2] "https://fivethirtyeight.com/live-blog/fourth-democratic-primary-debate/?utm_source=digg"                                          
-## [3] "/video/zach-galifianakis-will-never-forget-what-tina-fey-did-to-him-after-a-skit-he-wrote-bombed-on-saturday-night-live"          
-## [4] "//srv.buysellads.com/ads/click/x/GTND42QUC6YIKKQMC6A4YKQMCAYDEKQICYBIEZ3JCWSIT53LCVBDCKQKC6BI5KQJF6BDEK3EHJNCLSIZ?utm_source=digg"
-## [5] "/video/charlize-theron-nicole-kidman-margot-robbie-who-would-you-rather-ellen-show"                                               
-## [6] "https://www.wsj.com/articles/the-fbi-lost-our-son-11570806358?utm_source=digg"
+## [1] "https://www.thecut.com/2019/10/peloton-is-spinning-faster-than-ever.html#_ga=2.99668190.1117077127.1571316071-1358886950.1571055016?utm_source=digg"
+## [2] "https://www.newyorker.com/magazine/2019/10/21/ghost-towers?utm_source=digg"                                                                         
+## [3] "/video/watch-this-125-foot-luxury-yacht-plow-into-a-marina-full-of-boats"                                                                           
+## [4] "//srv.buysellads.com/ads/click/x/GTND42QUC67ILK3JC6Y4YKQMCAYI52JLF6YD5Z3JCWSI427UCWBDT53KC6BI5KQICWSDEK3EHJNCLSIZ?utm_source=digg"                  
+## [5] "/video/soccer-player-scores-catches-beer-hurtling-out-of-the-stands-chugs-it"                                                                       
+## [6] "https://qz.com/1730209/a-bitcoin-powered-child-porn-site-was-undone-by-a-right-click/?utm_source=digg"
 ```
 
 
