@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-17" />
+<meta name="date" content="2019-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -347,10 +347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.3.1" data-path="16-r-packages.html"><a href="16-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>16.3.1</b> Dataset Documentation</a></li>
 <li class="chapter" data-level="16.3.2" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>16.3.2</b> Documenting Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a><ul>
-<li class="chapter" data-level="16.4.1" data-path="16-r-packages.html"><a href="16-r-packages.html#expectations"><i class="fa fa-check"></i><b>16.4.1</b> Expectations</a></li>
-<li class="chapter" data-level="16.4.2" data-path="16-r-packages.html"><a href="16-r-packages.html#tests"><i class="fa fa-check"></i><b>16.4.2</b> Tests</a></li>
-</ul></li>
+<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a></li>
 <li class="chapter" data-level="16.5" data-path="16-r-packages.html"><a href="16-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>16.5</b> The DESCRIPTION file</a><ul>
 <li class="chapter" data-level="16.5.1" data-path="16-r-packages.html"><a href="16-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>16.5.1</b> A Simple Analysis Package</a></li>
 </ul></li>
@@ -434,21 +431,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Finally, I often need to figure out if a character string is in some set of values.</p>
 <div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Type =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">Value=</span><span class="kw">rnorm</span>(<span class="dv">8</span>) )</a>
 <a class="sourceLine" id="cb209-2" data-line-number="2">df</a></code></pre></div>
-<pre><code>##   Type      Value
-## 1    A -0.8291589
-## 2    A  0.1452075
-## 3    B -0.5469024
-## 4    B -1.2829943
-## 5    C  0.1521630
-## 6    C -0.7467172
-## 7    D -1.1851717
-## 8    D -0.4718621</code></pre>
+<pre><code>##   Type       Value
+## 1    A -0.92734071
+## 2    A -0.57976297
+## 3    B -0.50203769
+## 4    B  0.26105308
+## 5    C  0.08038373
+## 6    C -1.06925728
+## 7    D  1.29488758
+## 8    D  0.53510764</code></pre>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) )   <span class="co"># Only rows with Type == &#39;A&#39; or Type ==&#39;B&#39;</span></a></code></pre></div>
 <pre><code>##   Type      Value
-## 1    A -0.8291589
-## 2    A  0.1452075
-## 3    B -0.5469024
-## 4    B -1.2829943</code></pre>
+## 1    A -0.9273407
+## 2    A -0.5797630
+## 3    B -0.5020377
+## 4    B  0.2610531</code></pre>
 </div>
 <div id="decision-statements" class="section level2">
 <h2><span class="header-section-number">6.2</span> Decision statements</h2>
@@ -555,7 +552,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb230-10" data-line-number="10">  <span class="co"># if birth.order is anything other than 1, 2 or 3</span></a>
 <a class="sourceLine" id="cb230-11" data-line-number="11">  <span class="kw">print</span>(<span class="st">&#39;No more unfounded generalizations!&#39;</span>)</a>
 <a class="sourceLine" id="cb230-12" data-line-number="12">}</a></code></pre></div>
-<pre><code>## [1] &quot;No more unfounded generalizations!&quot;</code></pre>
+<pre><code>## [1] &quot;The first child had more rules to follow&quot;</code></pre>
 <p>To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:</p>
 <ul>
 <li><p>If the test statistic t is negative, then p-value = <span class="math inline">\(2*P\left(T_{df} \le t \right)\)</span></p></li>
@@ -576,7 +573,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb232-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb232-14" data-line-number="14"><span class="co"># print the resulting p-value</span></a>
 <a class="sourceLine" id="cb232-15" data-line-number="15">p.value</a></code></pre></div>
-<pre><code>## [1] 9.495613e-08</code></pre>
+<pre><code>## [1] 6.38285e-11</code></pre>
 <p>This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the <code>t.test()</code> function.</p>
 </div>
 </div>
@@ -709,7 +706,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb249-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb249-6" data-line-number="6"><span class="co"># what is value of f(x) at the randomly selected x value?  </span></a>
 <a class="sourceLine" id="cb249-7" data-line-number="7"><span class="kw">dunif</span>(x, a, b)</a></code></pre></div>
-<pre><code>## [1] 0</code></pre>
+<pre><code>## [1] 0.1666667</code></pre>
 <p>We will write a sequence of statements that utilizes an if statements to appropriately calculate the density of x assuming that <code>a</code>, <code>b</code> , and <code>x</code> are given to you, but your code won’t know if <code>x</code> is between <code>a</code> and <code>b</code>. That is, your code needs to figure out if it is and give either <code>1/(b-a)</code> or <code>0</code>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>We could write a set of if/else statements</p>

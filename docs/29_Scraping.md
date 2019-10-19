@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nCan Peloton Turn A Fitness Cult Into A Business?\n"                       
-## [2] "\nThe Ghost Towers Of Iran\n"                                               
-## [3] "\n125-Foot Luxury Yacht Plows Into A Marina Full Of Boats\n"                
-## [4] "\nThis App Gives You Financial Control At Your Fingertips\n"                
-## [5] "\nSoccer Player Scores, Catches Beer Hurtling Out Of The Stands, Chugs It\n"
-## [6] "\nA Bitcoin-Powered Child Porn Site Was Undone By A Right-Click\n"
+## [1] "\nHow A Band Of Surfer Dudes Pulled Off The Biggest Jewel Heist In NY History\n"      
+## [2] "\nAmerica's Northernmost Town, In Photos\n"                                           
+## [3] "\nThis 'Invisibility Cloak' Technology Is Mind-Boggling\n"                            
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                          
+## [5] "\nThese Ants That Travel Up To 120 Miles Per Hour Might Give You The Heebie Jeebies\n"
+## [6] "\nA Cougar Was Stalking Her, So She Played Metallica\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.thecut.com/2019/10/peloton-is-spinning-faster-than-ever.html#_ga=2.99668190.1117077127.1571316071-1358886950.1571055016?utm_source=digg"
-## [2] "https://www.newyorker.com/magazine/2019/10/21/ghost-towers?utm_source=digg"                                                                         
-## [3] "/video/watch-this-125-foot-luxury-yacht-plow-into-a-marina-full-of-boats"                                                                           
-## [4] "//srv.buysellads.com/ads/click/x/GTND42QUC67ILK3JC6Y4YKQMCAYI52JLF6YD5Z3JCWSI427UCWBDT53KC6BI5KQICWSDEK3EHJNCLSIZ?utm_source=digg"                  
-## [5] "/video/soccer-player-scores-catches-beer-hurtling-out-of-the-stands-chugs-it"                                                                       
-## [6] "https://qz.com/1730209/a-bitcoin-powered-child-porn-site-was-undone-by-a-right-click/?utm_source=digg"
+## [1] "https://www.nytimes.com/2019/10/17/nyregion/natural-history-museum-jewelry-heist.html?utm_source=digg"
+## [2] "https://www.booooooom.com/2019/10/17/polar-night-by-photographer-mark-mahaney/?utm_source=digg"       
+## [3] "/video/invisibility-cloak-technology"                                                                 
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"          
+## [5] "/video/scientists-discover-worlds-fastest-ants"                                                       
+## [6] "https://www.outsideonline.com/2402922/mountain-lion-heavy-metal-music?utm_source=digg"
 ```
 
 

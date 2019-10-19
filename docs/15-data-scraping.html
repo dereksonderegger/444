@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-17" />
+<meta name="date" content="2019-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -347,10 +347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.3.1" data-path="16-r-packages.html"><a href="16-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>16.3.1</b> Dataset Documentation</a></li>
 <li class="chapter" data-level="16.3.2" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>16.3.2</b> Documenting Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a><ul>
-<li class="chapter" data-level="16.4.1" data-path="16-r-packages.html"><a href="16-r-packages.html#expectations"><i class="fa fa-check"></i><b>16.4.1</b> Expectations</a></li>
-<li class="chapter" data-level="16.4.2" data-path="16-r-packages.html"><a href="16-r-packages.html#tests"><i class="fa fa-check"></i><b>16.4.2</b> Tests</a></li>
-</ul></li>
+<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a></li>
 <li class="chapter" data-level="16.5" data-path="16-r-packages.html"><a href="16-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>16.5</b> The DESCRIPTION file</a><ul>
 <li class="chapter" data-level="16.5.1" data-path="16-r-packages.html"><a href="16-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>16.5.1</b> A Simple Analysis Package</a></li>
 </ul></li>
@@ -510,24 +507,24 @@ up to your browsers bookmark bar. When you are at the site you are interested in
 <a class="sourceLine" id="cb725-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></a>
 <a class="sourceLine" id="cb725-6" data-line-number="6">HeadLines <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb725-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;\nCan Peloton Turn A Fitness Cult Into A Business?\n&quot;                       
-## [2] &quot;\nThe Ghost Towers Of Iran\n&quot;                                               
-## [3] &quot;\n125-Foot Luxury Yacht Plows Into A Marina Full Of Boats\n&quot;                
-## [4] &quot;\nThis App Gives You Financial Control At Your Fingertips\n&quot;                
-## [5] &quot;\nSoccer Player Scores, Catches Beer Hurtling Out Of The Stands, Chugs It\n&quot;
-## [6] &quot;\nA Bitcoin-Powered Child Porn Site Was Undone By A Right-Click\n&quot;</code></pre>
+<pre><code>## [1] &quot;\nHow A Band Of Surfer Dudes Pulled Off The Biggest Jewel Heist In NY History\n&quot;      
+## [2] &quot;\nAmerica&#39;s Northernmost Town, In Photos\n&quot;                                           
+## [3] &quot;\nThis &#39;Invisibility Cloak&#39; Technology Is Mind-Boggling\n&quot;                            
+## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                          
+## [5] &quot;\nThese Ants That Travel Up To 120 Miles Per Hour Might Give You The Heebie Jeebies\n&quot;
+## [6] &quot;\nA Cougar Was Stalking Her, So She Played Metallica\n&quot;</code></pre>
 <div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb727-1" data-line-number="1"><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></a>
 <a class="sourceLine" id="cb727-2" data-line-number="2">Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb727-3" data-line-number="3"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb727-4" data-line-number="4"><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </a>
 <a class="sourceLine" id="cb727-5" data-line-number="5">Links <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb727-6" data-line-number="6"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;https://www.thecut.com/2019/10/peloton-is-spinning-faster-than-ever.html#_ga=2.99668190.1117077127.1571316071-1358886950.1571055016?utm_source=digg&quot;
-## [2] &quot;https://www.newyorker.com/magazine/2019/10/21/ghost-towers?utm_source=digg&quot;                                                                         
-## [3] &quot;/video/watch-this-125-foot-luxury-yacht-plow-into-a-marina-full-of-boats&quot;                                                                           
-## [4] &quot;//srv.buysellads.com/ads/click/x/GTND42QUC67ILK3JC6Y4YKQMCAYI52JLF6YD5Z3JCWSI427UCWBDT53KC6BI5KQICWSDEK3EHJNCLSIZ?utm_source=digg&quot;                  
-## [5] &quot;/video/soccer-player-scores-catches-beer-hurtling-out-of-the-stands-chugs-it&quot;                                                                       
-## [6] &quot;https://qz.com/1730209/a-bitcoin-powered-child-porn-site-was-undone-by-a-right-click/?utm_source=digg&quot;</code></pre>
+<pre><code>## [1] &quot;https://www.nytimes.com/2019/10/17/nyregion/natural-history-museum-jewelry-heist.html?utm_source=digg&quot;
+## [2] &quot;https://www.booooooom.com/2019/10/17/polar-night-by-photographer-mark-mahaney/?utm_source=digg&quot;       
+## [3] &quot;/video/invisibility-cloak-technology&quot;                                                                 
+## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;          
+## [5] &quot;/video/scientists-discover-worlds-fastest-ants&quot;                                                       
+## [6] &quot;https://www.outsideonline.com/2402922/mountain-lion-heavy-metal-music?utm_source=digg&quot;</code></pre>
 </div>
 </div>
 <div id="scraping-.pdf-files" class="section level2">

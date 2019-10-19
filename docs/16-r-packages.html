@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-17" />
+<meta name="date" content="2019-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -347,10 +347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.3.1" data-path="16-r-packages.html"><a href="16-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>16.3.1</b> Dataset Documentation</a></li>
 <li class="chapter" data-level="16.3.2" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>16.3.2</b> Documenting Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a><ul>
-<li class="chapter" data-level="16.4.1" data-path="16-r-packages.html"><a href="16-r-packages.html#expectations"><i class="fa fa-check"></i><b>16.4.1</b> Expectations</a></li>
-<li class="chapter" data-level="16.4.2" data-path="16-r-packages.html"><a href="16-r-packages.html#tests"><i class="fa fa-check"></i><b>16.4.2</b> Tests</a></li>
-</ul></li>
+<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a></li>
 <li class="chapter" data-level="16.5" data-path="16-r-packages.html"><a href="16-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>16.5</b> The DESCRIPTION file</a><ul>
 <li class="chapter" data-level="16.5.1" data-path="16-r-packages.html"><a href="16-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>16.5.1</b> A Simple Analysis Package</a></li>
 </ul></li>
@@ -564,16 +561,20 @@ for <code>roxygen2</code>. If/when the information in this chapter seems insuffi
 <a class="sourceLine" id="cb732-16" data-line-number="16">my.sum &lt;-<span class="st"> </span><span class="cf">function</span>( a, b ){</a>
 <a class="sourceLine" id="cb732-17" data-line-number="17">  <span class="kw">return</span>( a <span class="op">+</span><span class="st"> </span>b )</a>
 <a class="sourceLine" id="cb732-18" data-line-number="18">}</a></code></pre></div>
-<p>Each of the sections is self explanatory except for the <code>@export</code>. The purpose of this is to indicate that this function should be available to any user of the package. If a function is not exported, then it is available only to functions <em>within</em> the package. This can be convenient if there are multiple functions that help with the analysis but you don’t want the user to see them because it is too much work to explain that they shouldn’t use it</p>
-<p>Other regions that you might use:
-* <code>@seealso</code> allows you to point to other resources
-+ on the web <code>\url{http://www.r-project.org}</code>
-+ in your package <code>\code{\link{hello}}</code>
-+ in another package <code>\code{\link[package]{function}}</code>
-* <code>@aliases alias_1 alias_2 ...</code> Other topics that when searched for will point to this documentation
-* <code>@author</code> This isn’t necessary if the author is the same as the package author.
-* <code>@references</code> This is a text area to point to the literature.</p>
-<p>A complete list is available via</p>
+<p>Each of the sections is self explanatory except for the <code>@export</code>. The purpose of this is to indicate that this function should be available to any user of the package. If a function is not exported, then it is available only to functions <em>within</em> the package. This can be convenient if there are multiple functions that help with the analysis but you don’t want the user to see them because it is too much work to explain that they shouldn’t be used.</p>
+<p>Other regions that you might use:</p>
+<ul>
+<li><code>@seealso</code> allows you to point to other resources
+<ul>
+<li>on the web <code>\url{http://www.r-project.org}</code></li>
+<li>in your package <code>\code{\link{hello}}</code></li>
+<li>in another package <code>\code{\link[package]{function}}</code></li>
+</ul></li>
+<li><code>@aliases alias_1 alias_2 ...</code> Other topics that when searched for will point to this documentation</li>
+<li><code>@author</code> This isn’t necessary if the author is the same as the package author.</li>
+<li><code>@references</code> This is a text area to point to journal articles or other literature sources.</li>
+</ul>
+<p>A complete list is available via:</p>
 <div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb733-1" data-line-number="1"><span class="kw">names</span>(roxygen2<span class="op">:::</span><span class="kw">default_tags</span>())</a></code></pre></div>
 <pre><code>##  [1] &quot;evalNamespace&quot;     &quot;export&quot;            &quot;exportClass&quot;      
 ##  [4] &quot;exportMethod&quot;      &quot;exportPattern&quot;     &quot;import&quot;           
@@ -602,7 +603,6 @@ for <code>roxygen2</code>. If/when the information in this chapter seems insuffi
 <li><p>Cleaner functionality. Because unit testing requires you to think about how your code should respond in different instances, you think more clearly about what the appropriate inputs and outputs should be and as a result, you are less likely to have functions that do <em>WAY</em> too much and are difficult to test. Separate smaller functions are easier to write, easier to test, and ultimately more reliable.</p></li>
 <li><p>Robust code. With unit testing, it is easier to make changes and feel confident that you haven’t broken previously working code. In particular, it allows us to capture weird edge cases and make sure they are always tested for.</p></li>
 </ol>
-<p>Hadley Wickham wrote the package <code>testthat</code> because he “… was spending too much time fixing bugs he had already fixed before.”</p>
 <div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb735-1" data-line-number="1"><span class="co"># To set up your package to use the testthat package run:</span></a>
 <a class="sourceLine" id="cb735-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">uses_testthat</span>()</a></code></pre></div>
 <p>What this command does is:</p>
@@ -614,23 +614,21 @@ for <code>roxygen2</code>. If/when the information in this chapter seems insuffi
 <p>Next you create .R files in the <code>tests/testthat/</code> directory named <code>test_XXX.r</code>. In those files, you’ll input your test code.</p>
 <p>Recently, I had to utilize a truncated distribution and the <code>trunc</code> package didn’t work for the distribution I needed, so I had to create my own version of the <code>trunc</code> package. So I made my own <a href="https://github.com/dereksonderegger/truncdist2">trunc2</a>
 package. However, I wanted to be absolutely certain that I was getting the correct answers, so I made some unit tests.</p>
-<pre><code># Check to see if I get the same values in Poisson distribution
-test_that(&#39;Unrestricted Poisson values correct&#39;, {
-  expect_equal(dpois( 2, lambda=3 ),  dtrunc(2, &#39;pois&#39;, lambda=3) )
-  expect_equal(ppois( 2, lambda=3 ),  ptrunc(2, &#39;pois&#39;, lambda=3) )
-  expect_equal(qpois( .8, lambda=3 ), qtrunc(.8, &#39;pois&#39;, lambda=3) )
-})
-
-# Check to see if I get the same values in Exponential distribution
-test_that(&#39;Unrestricted Exponential values correct&#39;, {
-  expect_equal(dexp( 2, rate=3 ),  dtrunc(2, &#39;exp&#39;, rate=3) )
-  expect_equal(pexp( 2, rate=3 ),  ptrunc(2, &#39;exp&#39;, rate=3) )
-  expect_equal(qexp( .8, rate=3 ), qtrunc(.8, &#39;exp&#39;, rate=3) )
-})</code></pre>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" data-line-number="1"><span class="co"># Check to see if I get the same values in Poisson distribution</span></a>
+<a class="sourceLine" id="cb736-2" data-line-number="2"><span class="kw">test_that</span>(<span class="st">&#39;Unrestricted Poisson values correct&#39;</span>, {</a>
+<a class="sourceLine" id="cb736-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="kw">dpois</span>( <span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">3</span> ),  <span class="kw">dtrunc</span>(<span class="dv">2</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb736-4" data-line-number="4">  <span class="kw">expect_equal</span>(<span class="kw">ppois</span>( <span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">3</span> ),  <span class="kw">ptrunc</span>(<span class="dv">2</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb736-5" data-line-number="5">  <span class="kw">expect_equal</span>(<span class="kw">qpois</span>( <span class="fl">.8</span>, <span class="dt">lambda=</span><span class="dv">3</span> ), <span class="kw">qtrunc</span>(.<span class="dv">8</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb736-6" data-line-number="6">})</a>
+<a class="sourceLine" id="cb736-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb736-8" data-line-number="8"><span class="co"># Check to see if I get the same values in Exponential distribution</span></a>
+<a class="sourceLine" id="cb736-9" data-line-number="9"><span class="kw">test_that</span>(<span class="st">&#39;Unrestricted Exponential values correct&#39;</span>, {</a>
+<a class="sourceLine" id="cb736-10" data-line-number="10">  <span class="kw">expect_equal</span>(<span class="kw">dexp</span>( <span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">3</span> ),  <span class="kw">dtrunc</span>(<span class="dv">2</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb736-11" data-line-number="11">  <span class="kw">expect_equal</span>(<span class="kw">pexp</span>( <span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">3</span> ),  <span class="kw">ptrunc</span>(<span class="dv">2</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb736-12" data-line-number="12">  <span class="kw">expect_equal</span>(<span class="kw">qexp</span>( <span class="fl">.8</span>, <span class="dt">rate=</span><span class="dv">3</span> ), <span class="kw">qtrunc</span>(.<span class="dv">8</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb736-13" data-line-number="13">})</a></code></pre></div>
 <p>The idea is that each <code>test_that()</code> command tests some functionality and each <code>expect_XXX()</code> tests some atomic unit of computing. I would then have multiple files, where each file is named <code>test_XXX</code> and has some organizational rational.</p>
-<div id="expectations" class="section level3">
-<h3><span class="header-section-number">16.4.1</span> Expectations</h3>
-<p>The expectation functions give you a way to have your function calculate something and compare it to what you think should be the output. These functions start with <code>expect_</code> and throw an error if the expectation is not met.</p>
+<p>The expectation functions give you a way to have your function calculate something and compare it to what you think should be the output. These functions start with <code>expect_</code> and throw an error if the expectation is not met. In the table below, the <code>a</code> and <code>b</code> represent expressions to be evaluated.</p>
 <table>
 <colgroup>
 <col width="29%" />
@@ -652,24 +650,26 @@ test_that(&#39;Unrestricted Exponential values correct&#39;, {
 <td align="left">Does the character string <code>a</code> match the regular expression <code>b</code></td>
 </tr>
 <tr class="odd">
+<td align="center"><code>expect_error(a)</code></td>
+<td align="left">Does expression <code>a</code> cause an error?</td>
+</tr>
+<tr class="even">
 <td align="center"><code>expect_is(a,b)</code></td>
 <td align="left">Does the object <code>a</code> have the class listed in character string <code>b</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center"><code>expect_true(a)</code></td>
 <td align="left">Does <code>a</code> evaluate to TRUE?</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center"><code>expect_false(a)</code></td>
 <td align="left">Does <code>a</code> evaluate to FALSE?</td>
 </tr>
 </tbody>
 </table>
 <p>The <code>expect_true</code> and <code>expect_false</code> functions are intended as a catch-all for cases that couldn’t be captured using one of the other expect functions.</p>
-</div>
-<div id="tests" class="section level3">
-<h3><span class="header-section-number">16.4.2</span> Tests</h3>
-<p>Each test should cover a single unit of functionality and if the test fails, you should easily know the underlying cause and know where/how to find/fix the issue. Each test name should complete the sentence “Test that …”</p>
+<p>There are a few more <code>expect_XXX</code> functions and you can see more detail in Hadley’s chapter on <a href="http://r-pkgs.had.co.nz/tests.html">testing</a> in his R-packages book.</p>
+<p>Each test should cover a single unit of functionality and if the test fails, you should easily know the underlying cause and know where/how to find/fix the issue. Each test name should complete the sentence “Test that …” so that when we run the unit testing and something fails, we know exactly which test failed and what the underlying problem is.</p>
 <p>Now that we have the testing setup built, the work flow is simple:</p>
 <ol style="list-style-type: decimal">
 <li>Edit/modify your code or test definitions.</li>
@@ -677,10 +677,9 @@ test_that(&#39;Unrestricted Exponential values correct&#39;, {
 <li>Repeat until all tests pass and there are no new test cases to implement.</li>
 </ol>
 </div>
-</div>
 <div id="the-description-file" class="section level2">
 <h2><span class="header-section-number">16.5</span> The DESCRIPTION file</h2>
-<p>I never write the DESCRIPTION file myself, but rather it is generated it from a template when the package structure is initially created. It is useful to go into this file and edit it.</p>
+<p>I never write the DESCRIPTION file from scratch, but rather it is generated it from a template when the package structure is initially created. It is useful to go into this file and edit it.</p>
 <div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb737-1" data-line-number="1">Package<span class="op">:</span><span class="st"> </span>MyAwesomePackage</a>
 <a class="sourceLine" id="cb737-2" data-line-number="2">Title<span class="op">:</span><span class="st"> </span>What the Package <span class="kw">Does</span> (One Line, Title Case)</a>
 <a class="sourceLine" id="cb737-3" data-line-number="3">Version<span class="op">:</span><span class="st"> </span><span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span></a>
@@ -693,13 +692,11 @@ test_that(&#39;Unrestricted Exponential values correct&#39;, {
 <a class="sourceLine" id="cb737-10" data-line-number="10">Description<span class="op">:</span><span class="st"> </span>What the package <span class="kw">does</span> (one paragraph).</a>
 <a class="sourceLine" id="cb737-11" data-line-number="11">License<span class="op">:</span><span class="st"> </span>What license it uses</a>
 <a class="sourceLine" id="cb737-12" data-line-number="12">Encoding<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></a>
-<a class="sourceLine" id="cb737-13" data-line-number="13">LazyData<span class="op">:</span><span class="st"> </span>true</a></code></pre></div>
+<a class="sourceLine" id="cb737-13" data-line-number="13">LazyData<span class="op">:</span><span class="st"> </span>true  </a></code></pre></div>
 <p>Often you want to have your package include other libraries so that the packages are available to be used in any functions you use. To do this, you’ll add lines to the description file.</p>
-<pre><code>```r
-Depends: magrittr     
-Imports: dplyr, ggplot2, tidyr
-Suggests: lme4
-```</code></pre>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" data-line-number="1">Depends<span class="op">:</span><span class="st"> </span>magrittr     </a>
+<a class="sourceLine" id="cb738-2" data-line-number="2">Imports<span class="op">:</span><span class="st"> </span>dplyr, ggplot2, tidyr</a>
+<a class="sourceLine" id="cb738-3" data-line-number="3">Suggests<span class="op">:</span><span class="st"> </span>lme4</a></code></pre></div>
 <p>In this example, I’ve included a dependency on the <code>magrittr</code> package, which defines the <code>%&gt;%</code> operator, while <code>dplyr</code>, <code>ggplot2</code>, <code>tidyr</code>, and <code>lme4</code> packages are included in a slightly different manner.</p>
 <table>
 <colgroup>
@@ -727,7 +724,7 @@ Suggests: lme4
 </tr>
 </tbody>
 </table>
-<p>For widely distributed packages, using <code>Imports</code> is preferred but that is annoying to be required to use the <code>PackageName::FunctionName()</code> syntax within all of the functions you write. The reason to avoid Depends is to avoid namespace problems. For example, because packages <code>MASS</code> and <code>dplyr</code> both have a <code>select()</code> function, it is advisable to avoid depending on <code>dplyr</code> just in case the user also has loaded the <code>MASS</code> package.</p>
+<p>For widely distributed packages, using <code>Imports</code> is the preferred way to utilize other packages in your code to avoid namespace problems. For example, because packages <code>MASS</code> and <code>dplyr</code> both have a <code>select()</code> function, it is advisable to avoid depending on <code>dplyr</code> just in case the user also has loaded the <code>MASS</code> package. However, this choice is annoying because I then have to use <code>PackageName::FunctionName()</code> syntax within all of the functions within your package.</p>
 <p>For a data analysis package, I usually leave the Depends/Imports/Suggests blank and just load whatever analysis packages I need in the RMarkdown files that live in the <code>docs/</code> directory.</p>
 <div id="a-simple-analysis-package" class="section level3">
 <h3><span class="header-section-number">16.5.1</span> A Simple Analysis Package</h3>
@@ -736,7 +733,7 @@ Suggests: lme4
 <div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb739-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">create_package</span>(<span class="st">&#39;~/GitHub/TestPackage&#39;</span>)  <span class="co"># replace the path to where you want it...</span></a></code></pre></div>
 <p>Once the package is created:</p>
 <ol style="list-style-type: decimal">
-<li><p>Put any <code>.csv</code> or <code>.xls</code> data files you have in <code>data-raw/</code> subdirectory. In that same directory, create a R script or Rmarkdown file that reads the data in, cleans it up by renaming columns, or whatever. An example R script might look something like this:</p>
+<li><p>Put any <code>.csv</code> or <code>.xls</code> data files you have in <code>data-raw/</code> sub-directory. In that same directory, create a R script or Rmarkdown file that reads the data in, cleans it up by renaming columns, or whatever. An example R script might look something like this:</p>
 <pre class="text"><code>library(tidyverse)
 
 # Read in the data.  Do some cleaning/verification
@@ -824,7 +821,7 @@ We see that the daily max temperature in Flagstaff varies quite a lot.</code></p
 <li>Document what the function does, what its arguments are, and what its result should be.</li>
 <li>Add unit tests for testing that the length of the output is the same as the input <code>n</code>.</li>
 <li>Add unit tests that address what should happen if the user inputs a negative, zero, or ininite value for <code>n</code>.</li>
-<li>Modify your function so that if the user inputs a negative, zero, or infinite value for <code>n</code>, that the function throws and error using the command <code>stop('Error Message')</code>. Modify the error message appropriately for the input <code>n</code>.</li>
+<li>Modify your function so that if the user inputs a negative, zero, or infinite value for <code>n</code>, that the function throws and error using the command <code>stop('Error Message')</code>. Modify the error message appropriately for the input <code>n</code>. <em>Hint: there is a family of functions <code>is.XXX()</code> which test a variety of conditions. In particular there is a <code>is.infinite()</code> function.</em></li>
 <li>Update your unit tests and make sure that the unit tests all pass.</li>
 </ol></li>
 <li>Now save the package as one file by building a source package using the <code>Build</code> tab, <code>More -&gt; Build Source Package</code>. This will create a <code>.tar.gz</code> file that you can easily upload to Bblearn.</li>
