@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Statistical Models | STA 444/5 - Introductory Data Science using R</title>
-  <meta name="description" content="Chapter 5 Statistical Models | STA 444/5 - Introductory Data Science using R" />
+  <title>Chapter 18 Databases | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 18 Databases | STA 444/5 - Introductory Data Science using R" />
   <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Statistical Models | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:title" content="Chapter 18 Databases | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Statistical Models | STA 444/5 - Introductory Data Science using R" />
+  <meta name="twitter:title" content="Chapter 18 Databases | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="4-data-wrangling.html"/>
-<link rel="next" href="6-flow-control.html"/>
+<link rel="prev" href="17-web-api-data-queries.html"/>
+<link rel="next" href="19-speeding-up-r.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -396,361 +396,317 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="statistical-models" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Statistical Models</h1>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)   <span class="co"># loading ggplot2 and dplyr</span></a>
-<a class="sourceLine" id="cb168-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb168-3" data-line-number="3"><span class="kw">options</span>(<span class="dt">tibble.width =</span> <span class="ot">Inf</span>)   <span class="co"># Print all the columns of a tibble (data.frame)</span></a></code></pre></div>
-<p>While R is a full programming language, it was first developed by statisticians for statisticians. There are several functions to do common statistical tests but because those functions were developed early in R’s history, there is some inconsistency in how those functions work. There have been some attempts to standardize modeling object interfaces, but there were always be a little weirdness.</p>
-<div id="formula-notation" class="section level2">
-<h2><span class="header-section-number">5.1</span> Formula Notation</h2>
-<p>Most statistical modeling functions rely on a formula based interface. The primary purpose is to provide a consistent way to designate which columns in a data frame are the response variable and which are the explanatory variables. In particular the notation is</p>
-<p><span class="math display">\[\underbrace{y}_{\textrm{LHS response}} \;\;\; 
-\underbrace{\sim}_{\textrm{is a function of}} \;\;\; 
-\underbrace{x}_{\textrm{RHS explanatory}}\]</span></p>
-<p>Mathematicians often refer to these terms as the <em>Left Hand Side</em> (LHS) and <em>Right Hand Side</em> (RHS). The LHS is always the response and the RHS contains the explanatory variables.</p>
-<p>In R, the LHS is usually just a single variable in the data. However the RHS can contain multiple variables and in complicated relationships.</p>
-<table>
-<colgroup>
-<col width="36%" />
-<col width="63%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Right Hand Side Terms</strong></td>
-<td>Meaning</td>
-</tr>
-<tr class="even">
-<td><code>x1 + x2</code></td>
-<td>Both <code>x1</code> and <code>x2</code> are additive explanatory variables.
-In this format, we are adding only the <em>main effects</em>
-of the <code>x1</code> and <code>x2</code> variables.</td>
-</tr>
-<tr class="odd">
-<td><code>x1:x2</code></td>
-<td>This is the interaction term between <code>x1</code> and <code>x2</code></td>
-</tr>
-<tr class="even">
-<td><code>x1 * x2</code></td>
-<td>Because whenever we add an interaction term to a
-model, we want to also have the main effects. So this
-is a short cut for adding the main effect of <code>x1</code> and
-<code>x2</code> and also the interaction term <code>x1:x2</code>.</td>
-</tr>
-<tr class="odd">
-<td><code>(x1 + x2 + x3)^2</code></td>
-<td>This is the main effects of <code>x1</code>, <code>x2</code>, and <code>x3</code> and
-also all of the second order interactions.</td>
-</tr>
-<tr class="even">
-<td><code>poly(x, degree=2)</code></td>
-<td>This fits the degree 2 polynomial. When fit like this,
-R produces an orthogonal basis for the polynomial,
-which is more computationally stable, but won’t be
-appropiate for interpreting the polynomial
-coefficients.</td>
-</tr>
-<tr class="odd">
-<td><code>poly(x, degree=2, raw=TRUE)</code></td>
-<td>This fits the degree 2 polynomial using
-<span class="math inline">\(\beta_0 + \beta_1 x + \beta_2 x^2\)</span> and the polynomial
-polynomial coefficients are suitable for
-interpretation.</td>
-</tr>
-<tr class="even">
-<td><code>I( x^2 )</code></td>
-<td><em>Ignore</em> the usual rules for interpreting formulas
-and do the mathematical calculation. This is not
-necessary for things like <code>sqrt(x)</code> or <code>log(x)</code> but
-required if there is a conflict between mathematics
-and the formula interpretation.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="basic-models" class="section level2">
-<h2><span class="header-section-number">5.2</span> Basic Models</h2>
-<p>The most common statistical models are generally referred to as <em>linear models</em> and the R function for creating a linear model is <code>lm()</code>. This section will introduce how to fit the model to data in a data frame as well as how to fit very specific t-test models.</p>
-<div id="t-tests" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> t-tests</h3>
-<p>There are several varients on T-tests depending on the question of interest, but they all require a continuous response and a categorical explanatory variable with two levels. If there is an obvious pairing between an observation in the first level of the explanatory variable with an observation in the second level, then it is a <em>paired</em> t-test, otherwise it is a <em>two-sample</em> t-test.</p>
-<div id="two-sample-t-tests" class="section level4">
-<h4><span class="header-section-number">5.2.1.1</span> Two Sample t-tests</h4>
-<p>First we’ll import data from the <code>Lock5Data</code> package that gives SAT scores and gender from 343 students in an introductory statistics class. We’ll also recode the <code>GenderCode</code> column to be more descriptive than 0 or 1. We’ll do a t-test to examine if there is evidence that males and females have a different SAT score at the college these data were take.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&#39;GPAGender&#39;</span>, <span class="dt">package=</span><span class="st">&#39;Lock5Data&#39;</span>)</a>
-<a class="sourceLine" id="cb169-2" data-line-number="2">GPAGender &lt;-<span class="st"> </span>GPAGender <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb169-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">ifelse</span>(GenderCode <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&#39;Male&#39;</span>, <span class="st">&#39;Female&#39;</span>))</a>
-<a class="sourceLine" id="cb169-4" data-line-number="4"><span class="kw">ggplot</span>(GPAGender, <span class="kw">aes</span>(<span class="dt">x=</span>Gender, <span class="dt">y=</span>SAT)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb169-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
-<p><img src="05_Model_Building_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>We’ll use the function <code>t.test()</code> using the formula interface for specifying the response and the explantory variables. The usual practice should be to save the output of the <code>t.test</code> function call (typically as an object named <code>model</code> or <code>model_1</code> or similar). Once the model has been fit, all of the important quantities have been calculated and saved and we just need to ask for them. Unfortunately, the base functions in R don’t make this particularly easy, but the <code>tidymodels</code> group of packages for building statistical models allows us to wrap all of the important information into a data frame with one row. In this case we will use the <code>broom::tidy()</code> function to extract all the important model results information.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">t.test</span>(SAT <span class="op">~</span><span class="st"> </span>Gender, <span class="dt">data=</span>GPAGender)</a>
-<a class="sourceLine" id="cb170-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb170-3" data-line-number="3"><span class="kw">print</span>(model) <span class="co"># print the summary information to the screen</span></a></code></pre></div>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  SAT by Gender
-## t = -1.4135, df = 323.26, p-value = 0.1585
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -44.382840   7.270083
-## sample estimates:
-## mean in group Female   mean in group Male 
-##             1195.702             1214.258</code></pre>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1">broom<span class="op">::</span><span class="kw">tidy</span>(model) <span class="co"># all that information as a data frame</span></a></code></pre></div>
-<pre><code>## # A tibble: 1 x 10
-##   estimate estimate1 estimate2 statistic p.value parameter conf.low
-##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1    -18.6     1196.     1214.     -1.41   0.158      323.    -44.4
-##   conf.high method                  alternative
-##       &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;      
-## 1      7.27 Welch Two Sample t-test two.sided</code></pre>
-<p>In the <code>t.test</code> function, the default behavior is to perform a test with a two-sided alternative and to calculate a 95% confidence interval. Those can be adjusted using the <code>alternative</code> and <code>conf.level</code> arguments. See the help documentation for <code>t.test()</code> function to see how to adust those.</p>
-<p>The <code>t.test</code> function can also be used without using a formula by inputing a vector of response variables for the first group and a vector of response variables for the second. The following results in the same model as the formula based interface.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1">male_SATs   &lt;-<span class="st"> </span>GPAGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Gender <span class="op">==</span><span class="st">   &#39;Male&#39;</span> ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(SAT)</a>
-<a class="sourceLine" id="cb174-2" data-line-number="2">female_SATs &lt;-<span class="st"> </span>GPAGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Gender <span class="op">==</span><span class="st"> &#39;Female&#39;</span> ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(SAT)</a>
-<a class="sourceLine" id="cb174-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb174-4" data-line-number="4">model &lt;-<span class="st"> </span><span class="kw">t.test</span>( male_SATs, female_SATs )</a>
-<a class="sourceLine" id="cb174-5" data-line-number="5">broom<span class="op">::</span><span class="kw">tidy</span>(model) <span class="co"># all that information as a data frame</span></a></code></pre></div>
-<pre><code>## # A tibble: 1 x 10
-##   estimate estimate1 estimate2 statistic p.value parameter conf.low
-##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1     18.6     1214.     1196.      1.41   0.158      323.    -7.27
-##   conf.high method                  alternative
-##       &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;      
-## 1      44.4 Welch Two Sample t-test two.sided</code></pre>
-</div>
-<div id="paired-t-tests" class="section level4">
-<h4><span class="header-section-number">5.2.1.2</span> Paired t-tests</h4>
-<p>In a paired t-test, there is some mechanism for pairing observations in the two categories. For example, perhaps we observe the maximum weight lifted by a strongman competitor while wearing a weight belt vs not wearing the belt. Then we look at the difference between the weights lifted for each athlete. In the example we’ll look at here, we have the ages of 100 randomly selected married heterosexual couples from St. Lawerence County, NY. For any given man in the study, the obvious woman to compare his age to is his wife’s. So a paired test makes sense to perform.</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&#39;MarriageAges&#39;</span>, <span class="dt">package=</span><span class="st">&#39;Lock5Data&#39;</span>)</a>
-<a class="sourceLine" id="cb176-2" data-line-number="2"><span class="kw">str</span>(MarriageAges)</a></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    105 obs. of  2 variables:
-##  $ Husband: int  53 38 46 30 31 26 29 48 65 29 ...
-##  $ Wife   : int  50 34 44 36 23 31 25 51 46 26 ...</code></pre>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">ggplot</span>(MarriageAges, <span class="kw">aes</span>(<span class="dt">x=</span>Husband, <span class="dt">y=</span>Wife)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Husband&#39;s Age&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Wife&#39;s Age&quot;</span>)</a></code></pre></div>
-<p><img src="05_Model_Building_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>To do a paired t-test, all we need to do is calculate the difference in age for each couple and pass that into the <code>t.test()</code> function.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1">MarriageAges &lt;-<span class="st"> </span>MarriageAges <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb179-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Age_Diff =</span> Husband <span class="op">-</span><span class="st"> </span>Wife)</a>
-<a class="sourceLine" id="cb179-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb179-4" data-line-number="4"><span class="kw">t.test</span>( MarriageAges<span class="op">$</span>Age_Diff)</a></code></pre></div>
-<pre><code>## 
-##  One Sample t-test
-## 
-## data:  MarriageAges$Age_Diff
-## t = 5.8025, df = 104, p-value = 7.121e-08
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  1.861895 3.795248
-## sample estimates:
-## mean of x 
-##  2.828571</code></pre>
-<p>Alternatively, we could pass the vector of Husband ages and the vector of Wife ages into the <code>t.test()</code> function and tell it that the data is paired so that the first husband is paired with the first wife.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1"><span class="kw">t.test</span>( MarriageAges<span class="op">$</span>Husband, MarriageAges<span class="op">$</span>Wife, <span class="dt">paired=</span><span class="ot">TRUE</span> )</a></code></pre></div>
-<pre><code>## 
-##  Paired t-test
-## 
-## data:  MarriageAges$Husband and MarriageAges$Wife
-## t = 5.8025, df = 104, p-value = 7.121e-08
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  1.861895 3.795248
-## sample estimates:
-## mean of the differences 
-##                2.828571</code></pre>
-<p>Either way that the function is called, the <code>broom::tidy()</code> function could convert the printed output into a nice data frame which can then be used in further analysis.</p>
-</div>
-</div>
-<div id="lm-objects" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> lm objects</h3>
-<p>The general linear model function <code>lm</code> is more widely used than <code>t.test</code> because <code>lm</code> can be made to perform a t-test and the general linear model allows for fitting more than one explanatory variable and those variables could be either categorical or continuous.</p>
-<p>The general workflow will be to:</p>
+<div id="databases" class="section level1">
+<h1><span class="header-section-number">Chapter 18</span> Databases</h1>
+<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb757-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb757-2" data-line-number="2"><span class="kw">library</span>(DBI)         <span class="co"># DataBase Interface Package</span></a>
+<a class="sourceLine" id="cb757-3" data-line-number="3"><span class="kw">library</span>(dbplyr)      <span class="co"># dplyr with databases!</span></a></code></pre></div>
+<p>As our data grows larger and is being updated more frequently, we need to stop using static input files and instead learn to interact with databases. There are a many reasons for using a database, but these are my favorite:</p>
 <ol style="list-style-type: decimal">
-<li>Visualize the data</li>
-<li>Call <code>lm()</code> using a formula to specify the model to fit.</li>
-<li>Save the results of the <code>lm()</code> call to some object (usually I name it <code>model</code>)</li>
-<li>Use accessor functions to ask for pertainent quantities that have already been calculated.</li>
-<li>Store prediction values and model confidence intervals for each data point in the original data frame.</li>
-<li>Graph the original data along with prediction values and model confidence intervals.</li>
+<li>Data Freshness. Because the database holds the definitive copy of the data, there isn’t a problem of using a .csv file that is months (or years) old. That means my results are constantly being updated with new data.</li>
+<li>No Local Storage. Because the data lives on the database, I don’t have to occupy gigabytes of space on my laptop to hold an out-of-date copy of the data.</li>
+<li>Database actions are atomic. Whenever I update the database, the action either happens or it doesn’t and the database should never be left in an inconsistent state. This extremely important when processing financial transactions, for example.</li>
 </ol>
-<p>To explore this topic we’ll use the <code>iris</code> data set to fit a regression model to predict petal length using sepal length.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb183-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() </a></code></pre></div>
-<p><img src="05_Model_Building_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>Now suppose we want to fit a regression model to these data and allow each species to have its own slope. We would fit the interaction model</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>( Petal.Length <span class="op">~</span><span class="st"> </span>Sepal.Length <span class="op">*</span><span class="st"> </span>Species, <span class="dt">data =</span> iris ) </a></code></pre></div>
+<p>Fortunately, reading information from a database instead of an in-memory table won’t change our current work flow and superficially the change is trivial. However, the impact can be quite profound in the timeliness and re-usability of our work. However, the package <code>dbplyr</code> is really only intended for <em>reading</em> from the data base and does not support <em>writing</em> to the data base.</p>
+<div id="tutorial-set-up" class="section level2">
+<h2><span class="header-section-number">18.1</span> Tutorial Set-Up</h2>
+<p>To demonstrate how a database works, we unfortunately need to have a live database to connect to. In real situations this would already be done (probably by somebody else) and you would just need to install some DataBase Interface (DBI) package that will negotiate creating a connection between your R-session and the database.</p>
+<p>However for this example, we need to start up a data base before we can start working with.</p>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb758-1" data-line-number="1"><span class="co"># Normally, a database connection looks something like this:</span></a>
+<a class="sourceLine" id="cb758-2" data-line-number="2">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RMariaDB<span class="op">::</span><span class="kw">MariaDB</span>(), </a>
+<a class="sourceLine" id="cb758-3" data-line-number="3">  <span class="dt">host =</span> <span class="st">&quot;database.rstudio.com&quot;</span>,</a>
+<a class="sourceLine" id="cb758-4" data-line-number="4">  <span class="dt">user =</span> <span class="st">&quot;hadley&quot;</span>,</a>
+<a class="sourceLine" id="cb758-5" data-line-number="5">  <span class="dt">password =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;Database password&quot;</span>)</a>
+<a class="sourceLine" id="cb758-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb758-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb758-8" data-line-number="8"><span class="co"># For a Postgres database, it might look like this:</span></a>
+<a class="sourceLine" id="cb758-9" data-line-number="9">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(<span class="kw">dbDriver</span>(<span class="st">&quot;PostgresSQL&quot;</span>), <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb758-10" data-line-number="10">  <span class="dt">host =</span> <span class="st">&quot;database.nau.edu&quot;</span>, <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb758-11" data-line-number="11">  <span class="dt">user =</span> <span class="st">&quot;dls354&quot;</span>, </a>
+<a class="sourceLine" id="cb758-12" data-line-number="12">  <span class="dt">password =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;Database password&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb759-1" data-line-number="1"><span class="co"># For our little toy example, we&#39;ll use a database I&#39;ll create right now.</span></a>
+<a class="sourceLine" id="cb759-2" data-line-number="2"><span class="co"># Establish a connection</span></a>
+<a class="sourceLine" id="cb759-3" data-line-number="3">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;:memory:&quot;</span>)</a></code></pre></div>
+<p>Our final step involves populating our new database with some data so that we can play with it. For this example, we’ll go back to the credit card data example from the data reshaping chapter. I have it available on the book’s GitHub data-raw directory.</p>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" data-line-number="1"><span class="co"># Read in some data for the Credit Card example</span></a>
+<a class="sourceLine" id="cb760-2" data-line-number="2">stem &lt;-<span class="st"> &#39;https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/CreditCard&#39;</span></a>
+<a class="sourceLine" id="cb760-3" data-line-number="3">stem &lt;-<span class="st"> &#39;~/GitHub/444/data-raw/CreditCard&#39;</span></a>
+<a class="sourceLine" id="cb760-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb760-5" data-line-number="5">Cards        &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Cards.csv&#39;</span>,        <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>), </a>
+<a class="sourceLine" id="cb760-6" data-line-number="6">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">CardID=</span><span class="kw">col_character</span>(),</a>
+<a class="sourceLine" id="cb760-7" data-line-number="7">                                          <span class="dt">PersonID=</span><span class="kw">col_character</span>()))</a>
+<a class="sourceLine" id="cb760-8" data-line-number="8">Customers    &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Customers.csv&#39;</span>,    <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</a>
+<a class="sourceLine" id="cb760-9" data-line-number="9">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">PersonID=</span><span class="kw">col_character</span>()))</a>
+<a class="sourceLine" id="cb760-10" data-line-number="10">Retailers    &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Retailers.csv&#39;</span>,    <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</a>
+<a class="sourceLine" id="cb760-11" data-line-number="11">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">RetailID=</span><span class="kw">col_character</span>()))</a>
+<a class="sourceLine" id="cb760-12" data-line-number="12">Transactions &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Transactions.csv&#39;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</a>
+<a class="sourceLine" id="cb760-13" data-line-number="13">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">CardID=</span><span class="kw">col_character</span>(),</a>
+<a class="sourceLine" id="cb760-14" data-line-number="14">                                          <span class="dt">RetailID=</span><span class="kw">col_character</span>()))</a>
+<a class="sourceLine" id="cb760-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb760-16" data-line-number="16"><span class="co"># Because the EXTREMELY simple RSQLite database doesn&#39;t support dates natively,</span></a>
+<a class="sourceLine" id="cb760-17" data-line-number="17"><span class="co"># we need to convert all the Date/Time values to be character strings. Notice</span></a>
+<a class="sourceLine" id="cb760-18" data-line-number="18"><span class="co"># because they are sorted as Year-Month-Day Hour:Minute:Second, sorting will</span></a>
+<a class="sourceLine" id="cb760-19" data-line-number="19"><span class="co"># still work.</span></a>
+<a class="sourceLine" id="cb760-20" data-line-number="20"><span class="co"># convert the Dates to character strings </span></a>
+<a class="sourceLine" id="cb760-21" data-line-number="21">Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb760-22" data-line-number="22"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Issue_DateTime =</span> <span class="kw">as.character</span>(Issue_DateTime),</a>
+<a class="sourceLine" id="cb760-23" data-line-number="23">         <span class="dt">Exp_DateTime   =</span> <span class="kw">as.character</span>(Exp_DateTime))</a>
+<a class="sourceLine" id="cb760-24" data-line-number="24">Transactions &lt;-<span class="st"> </span>Transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb760-25" data-line-number="25"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">DateTime =</span> <span class="kw">as.character</span>(DateTime))</a></code></pre></div>
+<p>So that we remember what the data we are working with looks like:</p>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb761-1" data-line-number="1"><span class="kw">head</span>(Customers)    <span class="co"># Key  is  PersonID</span></a></code></pre></div>
+<pre><code>## # A tibble: 4 x 5
+##   PersonID Name               Street             City      State
+##   &lt;chr&gt;    &lt;chr&gt;              &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;
+## 1 1        Derek Sonderegger  231 River Run      Flagstaff AZ   
+## 2 2        Aubrey Sonderegger 231 River Run      Flagstaff AZ   
+## 3 3        Robert Buscaglia   754 Forest Heights Flagstaff AZ   
+## 4 4        Roy St Laurent     845 Elk View       Flagstaff AZ</code></pre>
+<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb763-1" data-line-number="1"><span class="kw">head</span>(Cards)        <span class="co"># Keys are PersonID and CardID  </span></a></code></pre></div>
+<pre><code>## # A tibble: 5 x 4
+##   CardID           PersonID Issue_DateTime      Exp_DateTime       
+##   &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;              
+## 1 9876768717278723 1        2019-09-20 00:00:00 2022-09-20 00:00:00
+## 2 9876765798212987 2        2019-09-20 00:00:00 2019-10-15 16:28:21
+## 3 9876765498122734 3        2019-09-28 00:00:00 2022-09-28 00:00:00
+## 4 9876768965231926 4        2019-09-30 00:00:00 2022-09-30 00:00:00
+## 5 9876765798212988 2        2019-10-15 16:28:45 2022-10-15 00:00:00</code></pre>
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb765-1" data-line-number="1"><span class="kw">head</span>(Transactions) <span class="co"># Keys are CardID and RetailID</span></a></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   CardID           RetailID DateTime            Amount
+##   &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;
+## 1 9876768717278723 1        2019-10-01 08:31:23   5.68
+## 2 9876765498122734 2        2019-10-01 12:45:45  25.7 
+## 3 9876768717278723 1        2019-10-02 08:26:31   5.68
+## 4 9876768717278723 1        2019-10-02 08:30:09   9.23
+## 5 9876765798212987 3        2019-10-05 18:58:57  68.5 
+## 6 9876765498122734 2        2019-10-05 12:39:26  31.8</code></pre>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb767-1" data-line-number="1"><span class="kw">head</span>(Retailers)    <span class="co"># Key  is  RetailID</span></a></code></pre></div>
+<pre><code>## # A tibble: 3 x 5
+##   RetailID Name           Street             City      State
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;
+## 1 1        Kickstand Kafe 719 N Humphreys St Flagstaff AZ   
+## 2 2        MartAnnes      112 E Route 66     Flagstaff AZ   
+## 3 3        REI            323 S Windsor Ln   Flagstaff AZ</code></pre>
+<p>Critically, using the ID columns, we can take an individual transaction figure out what customer executed it. Finally I’ll take these tables and load them into my RSQLite database.</p>
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb769-1" data-line-number="1"><span class="co"># Copy the tables to our newly set up database. The dbWriteTable() function is intended</span></a>
+<a class="sourceLine" id="cb769-2" data-line-number="2"><span class="co"># for database examples and is NOT how you would in practice create a database.</span></a>
+<a class="sourceLine" id="cb769-3" data-line-number="3">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Cards&#39;</span>, Cards,</a>
+<a class="sourceLine" id="cb769-4" data-line-number="4">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">CardID=</span><span class="st">&#39;character&#39;</span>,<span class="dt">PersonID=</span><span class="st">&#39;character&#39;</span>,</a>
+<a class="sourceLine" id="cb769-5" data-line-number="5">                                <span class="dt">Issue_DateTime=</span><span class="st">&#39;time&#39;</span>,<span class="dt">Exp_DateTime=</span><span class="st">&#39;time&#39;</span>) )</a>
+<a class="sourceLine" id="cb769-6" data-line-number="6">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Customers&#39;</span>, Customers,</a>
+<a class="sourceLine" id="cb769-7" data-line-number="7">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">PersonID=</span><span class="st">&#39;character&#39;</span>))</a>
+<a class="sourceLine" id="cb769-8" data-line-number="8">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Retailers&#39;</span>, Retailers,</a>
+<a class="sourceLine" id="cb769-9" data-line-number="9">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">RetailID=</span><span class="st">&#39;character&#39;</span>))</a>
+<a class="sourceLine" id="cb769-10" data-line-number="10">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Transactions&#39;</span>, Transactions,</a>
+<a class="sourceLine" id="cb769-11" data-line-number="11">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">CardID=</span><span class="st">&#39;character&#39;</span>, <span class="dt">RetailID=</span><span class="st">&#39;character&#39;</span>,</a>
+<a class="sourceLine" id="cb769-12" data-line-number="12">                                <span class="dt">DateTime=</span><span class="st">&#39;time&#39;</span>))</a>
+<a class="sourceLine" id="cb769-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb769-14" data-line-number="14"><span class="kw">rm</span>(Cards, Customers, Retailers, Transactions)     <span class="co"># Remove all the setup except `con`</span></a></code></pre></div>
 </div>
-</div>
-<div id="accessor-function" class="section level2">
-<h2><span class="header-section-number">5.3</span> Accessor function</h2>
-<p>Once a model has been fit, we want to obtain a variety of information from the model object. The way that we get most all of this information using base R commands is to call the <code>summary()</code> function which returns a list and then grab whatever we want out of that. Typically for a report, we could just print out all of the summary information and let the reader pick out the information.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="kw">summary</span>(model)</a></code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = Petal.Length ~ Sepal.Length * Species, data = iris)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.68611 -0.13442 -0.00856  0.15966  0.79607 
-## 
-## Coefficients:
-##                                Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)                      0.8031     0.5310   1.512    0.133    
-## Sepal.Length                     0.1316     0.1058   1.244    0.216    
-## Speciesversicolor               -0.6179     0.6837  -0.904    0.368    
-## Speciesvirginica                -0.1926     0.6578  -0.293    0.770    
-## Sepal.Length:Speciesversicolor   0.5548     0.1281   4.330 2.78e-05 ***
-## Sepal.Length:Speciesvirginica    0.6184     0.1210   5.111 1.00e-06 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.2611 on 144 degrees of freedom
-## Multiple R-squared:  0.9789, Adjusted R-squared:  0.9781 
-## F-statistic:  1333 on 5 and 144 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>But if we want to make a nice graph that includes the model’s <span class="math inline">\(R^2\)</span> value on it, we need to code some way of grabbing particular bits of information from the model fit and wrestling into a format that we can easily manipulate it.</p>
-<table style="width:100%;">
-<colgroup>
-<col width="28%" />
-<col width="36%" />
-<col width="34%" />
-</colgroup>
+<div id="sql" class="section level2">
+<h2><span class="header-section-number">18.2</span> SQL</h2>
+<p>The traditional way to interact with a database is by using SQL syntax. SQL stands for Structured Query Language and some understanding of SQL is mandatory for anyone that interacts with databases. There are many good introduction to SQL but we’ll present the basics here.</p>
+<p>Within an Rmarkdown file, we can insert a SQL chunk just as we insert an R chunk</p>
+<pre><code>```{sql, connection=con}
+/* SQL code Chunk, notice comments are marked in C++ style */
+SELECT * FROM Transactions
+```</code></pre>
+<div class="sourceCode" id="cb771"><pre class="sourceCode sql"><code class="sourceCode sql"><a class="sourceLine" id="cb771-1" data-line-number="1"><span class="co">/* SQL code Chunk, notice comments are marked in C++ style */</span></a>
+<a class="sourceLine" id="cb771-2" data-line-number="2"><span class="kw">SELECT</span> * <span class="kw">FROM</span> Transactions</a></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-9">Table 18.1: </span>8 records</caption>
 <thead>
 <tr class="header">
-<th align="center">Goal</th>
-<th align="left">Base R command</th>
-<th align="left"><code>tidymodels</code> version</th>
+<th align="left">CardID</th>
+<th align="left">RetailID</th>
+<th align="left">DateTime</th>
+<th align="right">Amount</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">Summary table of Coefficients</td>
-<td align="left"><code>summary(model)$coef</code></td>
-<td align="left"><code>broom::tidy(model)</code></td>
+<td align="left">9876768717278723</td>
+<td align="left">1</td>
+<td align="left">2019-10-01 08:31:23</td>
+<td align="right">5.68</td>
 </tr>
 <tr class="even">
-<td align="center">Parameter Confidence Intervals</td>
-<td align="left"><code>confint(model)</code></td>
-<td align="left"><code>broom::tidy(model, conf.int=TRUE)</code></td>
+<td align="left">9876765498122734</td>
+<td align="left">2</td>
+<td align="left">2019-10-01 12:45:45</td>
+<td align="right">25.67</td>
 </tr>
 <tr class="odd">
-<td align="center">Rsq and Adj-Rsq</td>
-<td align="left"><code>summary(model)$r.squared</code></td>
-<td align="left"><code>broom::glance(model)</code></td>
+<td align="left">9876768717278723</td>
+<td align="left">1</td>
+<td align="left">2019-10-02 08:26:31</td>
+<td align="right">5.68</td>
 </tr>
 <tr class="even">
-<td align="center">Model predictions</td>
-<td align="left"><code>predict(model)</code></td>
-<td align="left"><code>broom::augment(model, data)</code></td>
+<td align="left">9876768717278723</td>
+<td align="left">1</td>
+<td align="left">2019-10-02 08:30:09</td>
+<td align="right">9.23</td>
 </tr>
 <tr class="odd">
-<td align="center">Model residuals</td>
-<td align="left"><code>resid(model)</code></td>
-<td align="left"><code>broom::augment(model, data)</code></td>
+<td align="left">9876765798212987</td>
+<td align="left">3</td>
+<td align="left">2019-10-05 18:58:57</td>
+<td align="right">68.54</td>
 </tr>
 <tr class="even">
-<td align="center">Model predictions w/ CI</td>
-<td align="left"><code>predict(model, interval='confidence')</code></td>
-<td align="left"></td>
+<td align="left">9876765498122734</td>
+<td align="left">2</td>
+<td align="left">2019-10-05 12:39:26</td>
+<td align="right">31.84</td>
 </tr>
 <tr class="odd">
-<td align="center">Model predictions w/ PI</td>
-<td align="left"><code>predict(model, interval='prediction')</code></td>
-<td align="left"></td>
+<td align="left">9876768965231926</td>
+<td align="left">2</td>
+<td align="left">2019-10-10 19:02:20</td>
+<td align="right">42.83</td>
 </tr>
 <tr class="even">
-<td align="center">ANOVA table of model fit</td>
-<td align="left"><code>anova(model)</code></td>
-<td align="left"></td>
+<td align="left">9876765798212988</td>
+<td align="left">1</td>
+<td align="left">2019-10-16 14:30:21</td>
+<td align="right">4.98</td>
 </tr>
 </tbody>
 </table>
-<p>The package <code>broom</code> has three ways to interact with a model.</p>
-<ul>
-<li>The <code>tidy</code> command gives a nice table of the model coefficents.</li>
-<li>The <code>glance</code> function gives information about how well the model fits the data overall.</li>
-<li>The <code>augment</code> function adds the fitted values, residuals, and other diagnostic information to the original data frame used to generate the model. Unfortunately it does not have a way of adding the lower and upper confidence intervals for the predicted values.</li>
-</ul>
-<p>Most of the time, I use the base R commands for accessing information from a model and only resort to the <code>broom</code> commands when I need to access very specific quantities.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="kw">head</span>(iris)</a></code></pre></div>
-<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 1          5.1         3.5          1.4         0.2  setosa
-## 2          4.9         3.0          1.4         0.2  setosa
-## 3          4.7         3.2          1.3         0.2  setosa
-## 4          4.6         3.1          1.5         0.2  setosa
-## 5          5.0         3.6          1.4         0.2  setosa
-## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="co"># Remove any previous model prediction values that I&#39;ve added,</span></a>
-<a class="sourceLine" id="cb189-2" data-line-number="2"><span class="co"># and then add the model predictions </span></a>
-<a class="sourceLine" id="cb189-3" data-line-number="3">iris &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb189-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>( <span class="op">-</span><span class="kw">matches</span>(<span class="st">&#39;fit&#39;</span>), <span class="op">-</span><span class="kw">matches</span>(<span class="st">&#39;lwr&#39;</span>), <span class="op">-</span><span class="kw">matches</span>(<span class="st">&#39;upr&#39;</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb189-5" data-line-number="5"><span class="st">  </span><span class="kw">cbind</span>( <span class="kw">predict</span>(model, <span class="dt">newdata=</span>., <span class="dt">interval=</span><span class="st">&#39;confidence&#39;</span>) )       </a>
-<a class="sourceLine" id="cb189-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb189-7" data-line-number="7"><span class="kw">head</span>(iris, <span class="dt">n=</span><span class="dv">3</span>)</a></code></pre></div>
-<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species      fit
-## 1          5.1         3.5          1.4         0.2  setosa 1.474373
-## 2          4.9         3.0          1.4         0.2  setosa 1.448047
-## 3          4.7         3.2          1.3         0.2  setosa 1.421721
-##        lwr      upr
-## 1 1.398783 1.549964
-## 2 1.371765 1.524329
-## 3 1.324643 1.518798</code></pre>
-<p>Now that the fitted values that define the regression lines and the associated confidence interval band information has been added to my <code>iris</code> data set, we can now plot the raw data and the regression model predictions.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>fit) ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>( <span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">alpha=</span>.<span class="dv">3</span> )   <span class="co"># alpha is the ribbon transparency</span></a></code></pre></div>
-<p><img src="05_Model_Building_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>Now to add the R-squared value to the graph, we need to add a simple text layer. To do that, I’ll make a data frame that has the information, and then add the x and y coordinates for where it should go.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1">Rsq_data &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">glance</span>(model) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb192-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(r.squared) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb192-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">r.squared =</span> <span class="kw">round</span>(r.squared, <span class="dt">digits=</span><span class="dv">3</span>)) <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># only 3 digits of precision</span></a>
-<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">r.squared =</span> <span class="kw">paste</span>(<span class="st">&#39;Rsq =&#39;</span>, r.squared)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># append some text before</span></a>
-<a class="sourceLine" id="cb192-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Sepal.Length =</span><span class="dv">7</span>, <span class="dt">Petal.Length=</span><span class="fl">2.5</span>)           <span class="co"># set the location to place it</span></a>
-<a class="sourceLine" id="cb192-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb192-7" data-line-number="7">Rsq_data</a></code></pre></div>
-<pre><code>## # A tibble: 1 x 3
-##   r.squared   Sepal.Length Petal.Length
-##   &lt;chr&gt;              &lt;dbl&gt;        &lt;dbl&gt;
-## 1 Rsq = 0.979            7          2.5</code></pre>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb194-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb194-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>fit)  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb194-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>( <span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">alpha=</span>.<span class="dv">3</span> ) <span class="op">+</span><span class="st">   </span><span class="co"># alpha is the ribbon transparency</span></a>
-<a class="sourceLine" id="cb194-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_label</span>( <span class="dt">data=</span>Rsq_data, <span class="kw">aes</span>(<span class="dt">label=</span>r.squared, <span class="dt">color=</span><span class="ot">NULL</span>) )</a></code></pre></div>
-<p><img src="05_Model_Building_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
-<div id="exercises-4" class="section level2">
-<h2><span class="header-section-number">5.4</span> Exercises</h2>
-<ol style="list-style-type: decimal">
-<li>Using the <code>trees</code> data frame that comes pre-installed in R, fit the regression model that uses the tree <code>Height</code> to explain the <code>Volume</code> of wood harvested from the tree.
-<ol style="list-style-type: lower-alpha">
-<li>Graph the data</li>
-<li>Fit a <code>lm</code> model using the command <code>model &lt;- lm(Volume ~ Height, data=trees)</code>.</li>
-<li>Print out the table of coefficients estimate names, estimated value, standard error, and upper and lower 95% confidence intervals.</li>
-<li>Add the model fitted values to the <code>trees</code> data frame along with the regression model confidence intervals.</li>
-<li>Graph the data and fitted regression line and uncertainty ribbon.</li>
-<li>Add the R-squared value as an annotation to the graph.</li>
-</ol></li>
-<li>The data set <code>phbirths</code> from the <code>faraway</code> package contains information birth weight, gestational length, and smoking status of mother. We’ll fit a quadratic model to predict infant birthweight using the gestational time.
-<ol style="list-style-type: lower-alpha">
-<li>Create two scatterplots of gestational length and birthweight, one for each smoking status.</li>
-<li>Remove all the observations that are premature (less than 36 weeks).</li>
-<li><p>Fit the quadratic model</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(grams <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(gestate,<span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>smoke, <span class="dt">data=</span>phbirths)</a></code></pre></div></li>
-<li>Add the model fitted values to the <code>phbirths</code> data frame along with the regression model confidence intervals.</li>
-<li>On your two scatterplots from part (a), add layers for the model fits and ribbon of uncertainty for the model fits.</li>
-<li><p>Create a column for the residuals in the <code>phbirths</code> data set using any of the following:</p></li>
-</ol>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1">phbirths<span class="op">$</span>residuals =<span class="st"> </span><span class="kw">resid</span>(model)</a>
-<a class="sourceLine" id="cb196-2" data-line-number="2">phbirths &lt;-<span class="st"> </span>phbirths <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>( <span class="dt">residuals =</span> <span class="kw">resid</span>(model) )</a>
-<a class="sourceLine" id="cb196-3" data-line-number="3">phbirths &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">augment</span>(model, phbirths)</a></code></pre></div>
-<ol start="7" style="list-style-type: lower-alpha">
-<li>Create a histogram of the residuals.</li>
-</ol></li>
-</ol>
+<table>
+<colgroup>
+<col width="28%" />
+<col width="71%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">SQL Function</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>SELECT</code></td>
+<td align="left">A keyword that denotes that the following is a <em>query</em>.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>*</code></td>
+<td align="left">A placeholder meaning all columns. This could be any column name(s).</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>FROM</code></td>
+<td align="left">A keyword indicating that whatever follows is the table (or tables) being selected from. Any table joins need to be constrained in the WHERE clause to tell us what columns need to match.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>WHERE</code></td>
+<td align="left">A keyword indicating the following logical statements will be used to filter rows. Boolean operators <code>AND</code>, <code>OR</code>, and <code>NOT</code> can be used to create complex filter statements.</td>
+</tr>
+</tbody>
+</table>
+<p>Typical SQL statements can be quite long and sometimes difficult to read because the table join instructions are mixed in with the filtering instructions. For example, the following is the SQL command to generate my credit card statement</p>
+<div class="sourceCode" id="cb772"><pre class="sourceCode sql"><code class="sourceCode sql"><a class="sourceLine" id="cb772-1" data-line-number="1"><span class="co">/* SQL code Chunk, notice comments are marked in C++ style */</span></a>
+<a class="sourceLine" id="cb772-2" data-line-number="2"><span class="kw">SELECT</span> Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount</a>
+<a class="sourceLine" id="cb772-3" data-line-number="3">  <span class="kw">FROM</span> Customers, Cards, Transactions, Retailers</a>
+<a class="sourceLine" id="cb772-4" data-line-number="4">  <span class="kw">WHERE</span> Customers.PersonID = Cards.PersonID <span class="kw">AND</span> </a>
+<a class="sourceLine" id="cb772-5" data-line-number="5">        Cards.CardID = Transactions.CardID <span class="kw">AND</span></a>
+<a class="sourceLine" id="cb772-6" data-line-number="6">        Transactions.RetailID = Retailers.RetailID <span class="kw">AND</span></a>
+<a class="sourceLine" id="cb772-7" data-line-number="7">        Customers.Name = <span class="st">&#39;Derek Sonderegger&#39;</span></a></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-10">Table 18.2: </span>3 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">DateTime</th>
+<th align="left">Name..3</th>
+<th align="right">Amount</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Derek Sonderegger</td>
+<td align="left">2019-10-01 08:31:23</td>
+<td align="left">Kickstand Kafe</td>
+<td align="right">5.68</td>
+</tr>
+<tr class="even">
+<td align="left">Derek Sonderegger</td>
+<td align="left">2019-10-02 08:26:31</td>
+<td align="left">Kickstand Kafe</td>
+<td align="right">5.68</td>
+</tr>
+<tr class="odd">
+<td align="left">Derek Sonderegger</td>
+<td align="left">2019-10-02 08:30:09</td>
+<td align="left">Kickstand Kafe</td>
+<td align="right">9.23</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="dbplyr" class="section level2">
+<h2><span class="header-section-number">18.3</span> <code>dbplyr</code></h2>
+<p>There are a lot of good things about SQL, but for database queries, I would really like to pretend that the tables are in memory and use all of my favorite <code>dplyr</code> tools and pipelines. This would mean that I don’t have to remember all the weird SQL syntax. However, the database interface <code>dbplyr</code> is ONLY intended for queries and NOT for updating or inserting rows into the tables.</p>
+<p>The way this will work is that we will use the previously established database connection <code>con</code> to create a virtual link between the database table and some appropriately named R object.</p>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" data-line-number="1"><span class="co"># connect the database tables to similarly named objects in R</span></a>
+<a class="sourceLine" id="cb773-2" data-line-number="2">Cards &lt;-<span class="st">        </span><span class="kw">tbl</span>(con, <span class="st">&#39;Cards&#39;</span>)</a>
+<a class="sourceLine" id="cb773-3" data-line-number="3">Customers &lt;-<span class="st">    </span><span class="kw">tbl</span>(con, <span class="st">&#39;Customers&#39;</span>)</a>
+<a class="sourceLine" id="cb773-4" data-line-number="4">Retailers &lt;-<span class="st">    </span><span class="kw">tbl</span>(con, <span class="st">&#39;Retailers&#39;</span>)</a>
+<a class="sourceLine" id="cb773-5" data-line-number="5">Transactions &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="st">&#39;Transactions&#39;</span>)</a></code></pre></div>
+<p>However, this does NOT download the whole table into R. Instead it grabs only a couple of rows so that we can see the format. Notice that we don’t know how many rows are in the Transactions table.</p>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb774-1" data-line-number="1">Transactions <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>)</a></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 4]
+## # Database: sqlite 3.29.0 [:memory:]
+##   CardID           RetailID DateTime            Amount
+##   &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;
+## 1 9876768717278723 1        2019-10-01 08:31:23   5.68
+## 2 9876765498122734 2        2019-10-01 12:45:45  25.7 
+## 3 9876768717278723 1        2019-10-02 08:26:31   5.68</code></pre>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb776-1" data-line-number="1"><span class="co"># Transactions %&gt;% tail(3)  # not supported because we haven&#39;t yet downloaded much information.</span></a></code></pre></div>
+<p>The guiding principle of <code>dbplyr</code> is to delay as much work for as long as possible actually pulling the data from the database. The rational is that we spend a great deal of time figuring out what the query should look like and too often we write a query that accidentally downloads millions of lines of data and slows down our network connection. Instead <code>dbplyr</code> returns just the first few rows of whatever query we are working on until we finish the pipeline with a <code>collect()</code> command that will cause us to download ALL of the query results and save them as a local <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" data-line-number="1">CC_statement &lt;-<span class="st"> </span>Customers <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb777-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(Name <span class="op">==</span><span class="st"> &#39;Derek Sonderegger&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(PersonID) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb777-3" data-line-number="3"><span class="st">  </span><span class="kw">left_join</span>(Cards) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(Transactions) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(Retailers) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb777-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(DateTime, Name, Amount) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb777-5" data-line-number="5"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Retailer =</span> Name) </a></code></pre></div>
+<pre><code>## Joining, by = &quot;PersonID&quot;</code></pre>
+<pre><code>## Joining, by = &quot;CardID&quot;</code></pre>
+<pre><code>## Joining, by = &quot;RetailID&quot;</code></pre>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" data-line-number="1">CC_statement</a></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 3]
+## # Database: sqlite 3.29.0 [:memory:]
+##   DateTime            Retailer       Amount
+##   &lt;chr&gt;               &lt;chr&gt;           &lt;dbl&gt;
+## 1 2019-10-01 08:31:23 Kickstand Kafe   5.68
+## 2 2019-10-02 08:26:31 Kickstand Kafe   5.68
+## 3 2019-10-02 08:30:09 Kickstand Kafe   9.23</code></pre>
+<p>At this point, we <em>still</em> haven’t downloaded all of the rows. Instead this is still a <em>lazy</em> query. It can be fun to see what the SQL code that is being generated is.</p>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" data-line-number="1">CC_statement <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">show_query</span>()</a></code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT `DateTime`, `Name` AS `Retailer`, `Amount`
+## FROM (SELECT `LHS`.`PersonID` AS `PersonID`, `LHS`.`CardID` AS `CardID`, `LHS`.`Issue_DateTime` AS `Issue_DateTime`, `LHS`.`Exp_DateTime` AS `Exp_DateTime`, `LHS`.`RetailID` AS `RetailID`, `LHS`.`DateTime` AS `DateTime`, `LHS`.`Amount` AS `Amount`, `RHS`.`Name` AS `Name`, `RHS`.`Street` AS `Street`, `RHS`.`City` AS `City`, `RHS`.`State` AS `State`
+## FROM (SELECT `LHS`.`PersonID` AS `PersonID`, `LHS`.`CardID` AS `CardID`, `LHS`.`Issue_DateTime` AS `Issue_DateTime`, `LHS`.`Exp_DateTime` AS `Exp_DateTime`, `RHS`.`RetailID` AS `RetailID`, `RHS`.`DateTime` AS `DateTime`, `RHS`.`Amount` AS `Amount`
+## FROM (SELECT `LHS`.`PersonID` AS `PersonID`, `RHS`.`CardID` AS `CardID`, `RHS`.`Issue_DateTime` AS `Issue_DateTime`, `RHS`.`Exp_DateTime` AS `Exp_DateTime`
+## FROM (SELECT `PersonID`
+## FROM `Customers`
+## WHERE (`Name` = &#39;Derek Sonderegger&#39;)) AS `LHS`
+## LEFT JOIN `Cards` AS `RHS`
+## ON (`LHS`.`PersonID` = `RHS`.`PersonID`)
+## ) AS `LHS`
+## LEFT JOIN `Transactions` AS `RHS`
+## ON (`LHS`.`CardID` = `RHS`.`CardID`)
+## ) AS `LHS`
+## LEFT JOIN `Retailers` AS `RHS`
+## ON (`LHS`.`RetailID` = `RHS`.`RetailID`)
+## )</code></pre>
+<p>The algorithm used to convert my <code>dplyr</code> statement into a SQL statement doesn’t mind nesting SQL statements and isn’t the same as what I generated by hand, but it works.</p>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" data-line-number="1"><span class="co"># Close our database connection when we are through...</span></a>
+<a class="sourceLine" id="cb785-2" data-line-number="2"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div>
 
 </div>
 </div>
@@ -759,8 +715,8 @@ and the formula interpretation.</td>
           </div>
         </div>
       </div>
-<a href="4-data-wrangling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="6-flow-control.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="17-web-api-data-queries.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="19-speeding-up-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -793,7 +749,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/444/raw/master/05_Model_Building.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/38_Databases.Rmd",
 "text": "Edit"
 },
 "history": {

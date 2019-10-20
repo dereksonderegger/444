@@ -450,7 +450,7 @@ data.frame(Input = strings, stringsAsFactors = FALSE) %>%
 ```
 
 
-```{r}
+```{r, eval=FALSE, echo=FALSE}
 unis <- read.csv("https://goo.gl/EJxa20", header=T, stringsAsFactors=F)
 
 foo <- unis %>% pull(university) %>% unique()
@@ -470,8 +470,6 @@ strings <- c( ggplot2::map_data('world') %>% pull(region) %>% unique(),
 data.frame(Input = strings, stringsAsFactors = FALSE) %>%
   mutate( Result = n_gram_merge(Input, numgram = 2, edit_threshold = 2) ) %>%
   arrange(Result)
-
-  
 ```
 
 

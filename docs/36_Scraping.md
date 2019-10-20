@@ -156,7 +156,7 @@ ggplot( aes(x=Name, y=Percent_Change) ) +
   coord_flip() 
 ```
 
-<img src="29_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="36_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 
 ### Lists
@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nHow A Band Of Surfer Dudes Pulled Off The Biggest Jewel Heist In NY History\n"      
-## [2] "\nAmerica's Northernmost Town, In Photos\n"                                           
-## [3] "\nThis 'Invisibility Cloak' Technology Is Mind-Boggling\n"                            
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                          
-## [5] "\nThese Ants That Travel Up To 120 Miles Per Hour Might Give You The Heebie Jeebies\n"
-## [6] "\nA Cougar Was Stalking Her, So She Played Metallica\n"
+## [1] "\nThe Siege And Fall Of A Hoops Haven That Made All The Wrong Enemies\n"         
+## [2] "\nHow Much Is Budgeted Towards The American President's Living Expenses?\n"      
+## [3] "\nThe Badass WWII Squadron Of Female Pilots Known As The Night Witches\n"        
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                     
+## [5] "\nAdorable Baby Elephant Rolls Around In The Sand To The Delight Of Safari-ers\n"
+## [6] "\nConcussion Research Has A Troubling Patriarchy Problem\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.nytimes.com/2019/10/17/nyregion/natural-history-museum-jewelry-heist.html?utm_source=digg"
-## [2] "https://www.booooooom.com/2019/10/17/polar-night-by-photographer-mark-mahaney/?utm_source=digg"       
-## [3] "/video/invisibility-cloak-technology"                                                                 
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"          
-## [5] "/video/scientists-discover-worlds-fastest-ants"                                                       
-## [6] "https://www.outsideonline.com/2402922/mountain-lion-heavy-metal-music?utm_source=digg"
+## [1] "https://deadspin.com/the-siege-and-fall-of-a-hoops-haven-that-made-all-the-w-1838777225?utm_source=digg"
+## [2] "/video/how-much-is-budgeted-towards-the-american-presidents-living-expenses"                            
+## [3] "http://www.todayifoundout.com/index.php/2019/10/night-witches/?utm_source=digg"                         
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"            
+## [5] "/video/adorable-baby-elephant-rolls-around-in-the-sand-to-the-delight-of-safari-ers"                    
+## [6] "https://undark.org/2019/10/17/concussion-research-patriarchy-problem/?utm_source=digg"
 ```
 
 

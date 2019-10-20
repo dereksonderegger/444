@@ -18,9 +18,10 @@ library(glmnet)
 ```
 
 
-Eventually if you have large enough data sets, an R user eventually writes code that is slow to execute and needs to be sped up. This chapter tries to lay out common problems and bad habits and shows how to correct them.  However, the correctness and maintainability of code should take precendence over speed. Too often, misguided attempts to obtain efficient code results in an unmaintainable mess that is no faster that the initial code.
+Eventually if you have large enough data sets, an R user eventually writes code that is slow to execute and needs to be sped up. This chapter tries to lay out common problems and bad habits and shows how to correct them.  However, the correctness and maintainability of code should take precedence over speed. Too often, misguided attempts to obtain efficient code results in an un-maintainable mess that is no faster that the initial code.
 
-Hadley Wickham has a book aimed at advanced R user that describes many of the finer details about R. One section in the book describes his process for building fast, maintainable software projects and if you have the time, I highly suggest reading the on-line version, [Advanced R](http://adv-r.had.co.nz/Performance.html).
+Hadley Wickham has a book aimed at advanced R user that describes many of the finer details about R. One section in the book describes his process for building fast, maintainable software projects and if you have the time, I highly suggest reading the on-line version, 
+[Advanced R](http://adv-r.had.co.nz/Performance.html).
 
 First we need some way of measuring how long our code took to run. For this we will use the package `microbenchmark`. The idea is that we want to evaluate two or three expressions that solve a problem.
 
@@ -35,9 +36,9 @@ microbenchmark(
 
 ```
 ## Unit: microseconds
-##     expr   min   lq  mean median    uq  max neval cld
-##  sqrt(x)  2.54  2.6  3.07   2.67  2.78 17.7   100  a 
-##  x^(0.5) 25.50 25.6 26.64  25.66 25.79 65.4   100   b
+##     expr   min    lq  mean median    uq   max neval
+##  sqrt(x)  2.33  2.45  2.81   2.54  2.66  14.4   100
+##  x^(0.5) 23.88 24.04 28.66  24.15 25.67 123.1   100
 ```
 
 What `microbenchmark` does is run the two expressions a number of times and then produces the 5-number summary of those times. By running it multiple times, we account for the randomness associated with a operating system that is also running at the same time.
@@ -76,7 +77,7 @@ f1 <- function( input ){
 }
 ```
 
-We might consider that there are two ways to return a value from a function (using the `return` function and just printing it). In fact, I've always heard that using the `return` statment is a touch slower.
+We might consider that there are two ways to return a value from a function (using the `return` function and just printing it). In fact, I've always heard that using the `return` statement is a touch slower.
 
 
 ```r
@@ -100,9 +101,9 @@ microbenchmark(
 
 ```
 ## Unit: milliseconds
-##               expr  min   lq mean median   uq  max neval cld
-##           f1(data) 3.37 3.56 5.28   3.78 5.78 20.8   100   a
-##  f2.noReturn(data) 3.38 3.58 5.19   3.86 6.38 12.9   100   a
+##               expr  min   lq mean median   uq  max neval
+##           f1(data) 3.71 4.24 5.50   4.58 5.87 15.1   100
+##  f2.noReturn(data) 3.69 4.20 5.38   4.73 6.03 10.5   100
 ```
 
 In fact, it looks like it is a touch slower, but not massively compared to the run-to-run variability. I prefer to use the `return` statement for readability, but if we agree have the last line of code in the function be whatever needs to be returned, readability isn't strongly effected.
@@ -131,9 +132,9 @@ microbenchmark(
 
 ```
 ## Unit: milliseconds
-##                  expr  min   lq mean median   uq  max neval cld
-##              f1(data) 3.44 3.75 5.88   4.74 7.66 29.7   100   a
-##  f3.AllocOutput(data) 3.42 3.69 5.82   4.66 7.24 20.1   100   a
+##                  expr  min   lq mean median   uq  max neval
+##              f1(data) 3.63 4.17 5.19   4.77 5.79 13.4   100
+##  f3.AllocOutput(data) 3.62 4.07 5.24   4.61 5.54 13.8   100
 ```
 If anything, allocating the size of output first was slower. So given this, we shouldn't feel to bad being lazy and using `output <- NULL` to initiallize things.
 
@@ -159,9 +160,9 @@ microbenchmark(
 
 ```
 ## Unit: microseconds
-##            expr  min   lq mean median   uq   max neval cld
-##        f1(data) 3402 5367 6713   6273 7338 15504   100   b
-##  f4.apply(data)  288  350  691    538  585 13496   100  a
+##            expr  min   lq mean median   uq   max neval
+##        f1(data) 3638 4223 5169   4697 5506 10765   100
+##  f4.apply(data)  282  340  478    391  516  2959   100
 ```
 
 This is the type of speed up that matters.  We have a 10-fold speed up in execution time and particularly the maximum time has dropped impressively.
@@ -187,9 +188,9 @@ microbenchmark(
 
 ```
 ## Unit: microseconds
-##            expr min  lq mean median   uq  max neval cld
-##  f4.apply(data) 309 518  580    551  643 1030   100  a 
-##  f5.dplyr(data) 545 896 1186    996 1232 7805   100   b
+##            expr min  lq mean median   uq  max neval
+##  f4.apply(data) 313 376  581    474  662 3118   100
+##  f5.dplyr(data) 459 579  906    688 1005 5549   100
 ```
 
 Unfortunately `dplyr` is a lot slower than `apply` in this case. I wonder if the dynamics would change with a larger `n`?
@@ -205,9 +206,9 @@ microbenchmark(
 
 ```
 ## Unit: microseconds
-##            expr   min    lq  mean median    uq   max neval cld
-##  f4.apply(data) 22917 31409 35803  34375 40085 61017   100   b
-##  f5.dplyr(data)   803   997  1338   1204  1497  3532   100  a
+##            expr   min    lq  mean median    uq   max neval
+##  f4.apply(data) 26109 28992 34380  32313 36794 68252   100
+##  f5.dplyr(data)   630   948  1143   1097  1252  2593   100
 ```
 
 ```r
@@ -220,9 +221,9 @@ microbenchmark(
 
 ```
 ## Unit: milliseconds
-##            expr    min     lq   mean median     uq   max neval cld
-##  f4.apply(data) 266.98 299.65 419.66 385.56 506.16 727.1   100   b
-##  f5.dplyr(data)   2.04   2.44   3.07   2.68   3.01  10.2   100  a
+##            expr    min     lq   mean median     uq    max neval
+##  f4.apply(data) 281.73 328.30 449.92 430.17 542.54 786.79   100
+##  f5.dplyr(data)   1.97   2.56   3.06   2.82   3.08   9.05   100
 ```
 What just happened? The package `dplyr` is designed to work well for large data sets, and utilizes a modified structure, called a `tibble`, which provides massive benefits for large tables, but at the small scale, the overhead of converting the `data.frame` to a `tibble` overwhelms any speed up.  But because the small sample case is already fast enough to not be noticable, we don't really care about the small `n` case.
 
@@ -312,9 +313,9 @@ microbenchmark(
 
 ```
 ## Unit: milliseconds
-##                                 expr min  lq mean median  uq max neval cld
-##      boot.for(Volume ~ Girth, trees) 109 139  172    158 193 486   100  a 
-##  boot.foreach(Volume ~ Girth, trees) 173 211  244    236 265 458   100   b
+##                                 expr min  lq mean median  uq max neval
+##      boot.for(Volume ~ Girth, trees) 115 134  153    154 159 387   100
+##  boot.foreach(Volume ~ Girth, trees) 159 178  209    184 220 733   100
 ```
 In this case, the overhead associated with splitting the job across two cores, copying the data over, and then combining the results back together was more than we saved by using both cores. If the nugget of computation within each pass of the `for` loop was larger, then it would pay to use both cores.
 
@@ -334,11 +335,11 @@ microbenchmark(
 ```
 ## Unit: milliseconds
 ##                                        expr  min   lq mean median   uq
-##      boot.for(Volume ~ Girth, massiveTrees) 1133 1305 1375   1376 1413
-##  boot.foreach(Volume ~ Girth, massiveTrees)  800  836  968    862 1029
-##   max neval cld
-##  1881   100   b
-##  1594   100  a
+##      boot.for(Volume ~ Girth, massiveTrees) 1181 1270 1449   1439 1580
+##  boot.foreach(Volume ~ Girth, massiveTrees)  721  758 1103   1232 1262
+##   max neval
+##  2179   100
+##  2226   100
 ```
 
 Because we often generate a bunch of results that we want to see as a data.frame, the `foreach` function includes and option to do it for us.
@@ -386,9 +387,9 @@ microbenchmark(
 
 ```
 ## Unit: milliseconds
-##      expr min  lq mean median  uq  max neval cld
-##    serial 616 689  766    724 819 1282   100   a
-##  parallel 663 701  764    739 794 1165   100   a
+##      expr min  lq mean median  uq  max neval
+##    serial 681 706  790    790 810 1249   100
+##  parallel 593 636  682    667 689 1325   100
 ```
 
 In this case, we had a bit of a spead up, but not a factor of 2.  This is due to the overhead of splitting the job across both cores.
@@ -425,9 +426,9 @@ microbenchmark(
 ##                                                                                                                                 expr
 ##    model <- train(lpsa ~ ., data = prostate, method = "glmnet",      trControl = ctrl.serial, tuneGrid = grid, lambda = grid$lambda)
 ##  model <- train(lpsa ~ ., data = prostate, method = "glmnet",      trControl = ctrl.parallel, tuneGrid = grid, lambda = grid$lambda)
-##   min   lq mean median   uq  max neval cld
-##  1.15 1.19 1.31   1.27 1.36 1.88   100  a 
-##  1.30 1.36 1.49   1.44 1.54 2.42   100   b
+##   min   lq mean median   uq  max neval
+##  1.13 1.24 1.33   1.25 1.31 3.00   100
+##  1.21 1.29 1.37   1.31 1.35 2.66   100
 ```
 
 Again, we saw only moderate gains by using both cores, however it didn't really cost us anything. Because the `caret` package by default allows parallel processing, it doesn't hurt to just load the `doMC` package and register the number of cores. Even in just the two core case, it is a good habit to get into so that when you port your code to a huge computer with many cores, the only thing to change is how many cores you have access to.

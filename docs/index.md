@@ -1,7 +1,7 @@
 --- 
 title: "STA 444/5 - Introductory Data Science using R"
 author: "Derek L. Sonderegger"
-date: "October 18, 2019"
+date: "October 20, 2019"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -20,11 +20,15 @@ This book is intended to provide students with a resource for learning R while u
 ## Other Resources{-}
 There are a great number of very good online and physical resources for learning R.
 
-* Hadley Wickham and Garrett Grolemund's free online book [R for Data Science](https://r4ds.had.co.nz). This is a wonderful introduction to the `tidyverse` and is free.  If there is any book I'd recommend buying, this would be it.
-* Michael Freeman's book [Programming Skills for Data Science](https://www.amazon.com/Programming-Skills-Data-Science-Addison-Wesley/dp/0135133106). This book covers much of what we'll do in this class and is quite readable.
+* Hadley Wickham and Garrett Grolemund's free online book [R for Data Science](https://r4ds.had.co.nz). This is a wonderful introduction to the `tidyverse` and is free.  If there is any book I'd recommend buying, this would be it. Many of the topics my book covers are perhaps better covered in Hadley and Garrett's book. However, I think it is better to triangulate on a concept utilizing multiple sources so I've presented my taking on teaching these concepts.
 * Hadley Wickham and Jenny Bryan have a whole book on [R packages](https://r-pkgs.org) to effectively manage large projects.
+* Hadley Wickham also has a book about [Advanced R programming](https://adv-r.hadley.nz) and is quite helpful in understanding deeper issues relating to Object Oriented program in R, Environments, Namespaces, and function evaluation.
 
-## Acknowledgements {-}
-These online books are used a huge amount of work and I appreciative the support of my wife Aubrey and the love our our two children Elise and Casey.
+Non-Hadley books:
+
+* Michael Freeman's book [Programming Skills for Data Science](https://www.amazon.com/Programming-Skills-Data-Science-Addison-Wesley/dp/0135133106). This book covers much of what we'll do in this class and is quite readable.
+
+## Acknowledgments {-}
+These online books are a huge amount of work and without the support of my wife Aubrey, this book would not be possible. 
 
 

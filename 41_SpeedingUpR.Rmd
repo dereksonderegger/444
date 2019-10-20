@@ -28,9 +28,10 @@ library(glmnet)
 ```
 
 
-Eventually if you have large enough data sets, an R user eventually writes code that is slow to execute and needs to be sped up. This chapter tries to lay out common problems and bad habits and shows how to correct them.  However, the correctness and maintainability of code should take precendence over speed. Too often, misguided attempts to obtain efficient code results in an unmaintainable mess that is no faster that the initial code.
+Eventually if you have large enough data sets, an R user eventually writes code that is slow to execute and needs to be sped up. This chapter tries to lay out common problems and bad habits and shows how to correct them.  However, the correctness and maintainability of code should take precedence over speed. Too often, misguided attempts to obtain efficient code results in an un-maintainable mess that is no faster that the initial code.
 
-Hadley Wickham has a book aimed at advanced R user that describes many of the finer details about R. One section in the book describes his process for building fast, maintainable software projects and if you have the time, I highly suggest reading the on-line version, [Advanced R](http://adv-r.had.co.nz/Performance.html).
+Hadley Wickham has a book aimed at advanced R user that describes many of the finer details about R. One section in the book describes his process for building fast, maintainable software projects and if you have the time, I highly suggest reading the on-line version, 
+[Advanced R](http://adv-r.had.co.nz/Performance.html).
 
 First we need some way of measuring how long our code took to run. For this we will use the package `microbenchmark`. The idea is that we want to evaluate two or three expressions that solve a problem.
 
@@ -76,7 +77,7 @@ f1 <- function( input ){
 }
 ```
 
-We might consider that there are two ways to return a value from a function (using the `return` function and just printing it). In fact, I've always heard that using the `return` statment is a touch slower.
+We might consider that there are two ways to return a value from a function (using the `return` function and just printing it). In fact, I've always heard that using the `return` statement is a touch slower.
 
 ```{r}
 f2.noReturn <- function( input ){

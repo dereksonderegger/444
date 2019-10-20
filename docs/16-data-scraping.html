@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 15 Data Scraping | STA 444/5 - Introductory Data Science using R</title>
-  <meta name="description" content="Chapter 15 Data Scraping | STA 444/5 - Introductory Data Science using R" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <title>Chapter 16 Data Scraping | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 16 Data Scraping | STA 444/5 - Introductory Data Science using R" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 15 Data Scraping | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:title" content="Chapter 16 Data Scraping | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 15 Data Scraping | STA 444/5 - Introductory Data Science using R" />
+  <meta name="twitter:title" content="Chapter 16 Data Scraping | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-18" />
+<meta name="date" content="2019-10-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="14-graphing-part-ii.html">
-<link rel="next" href="16-r-packages.html">
+<link rel="prev" href="15-r-packages.html"/>
+<link rel="next" href="17-web-api-data-queries.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -127,7 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
 </ul></li>
 <li class="part"><span><b>Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="1-familiarization.html"><a href="1-familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
@@ -327,41 +330,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.6" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>14.6</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="15-data-scraping.html"><a href="15-data-scraping.html"><i class="fa fa-check"></i><b>15</b> Data Scraping</a><ul>
-<li class="chapter" data-level="15.1" data-path="15-data-scraping.html"><a href="15-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>15.1</b> Web Pages</a><ul>
-<li class="chapter" data-level="15.1.1" data-path="15-data-scraping.html"><a href="15-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>15.1.1</b> Example Wikipedia Table</a></li>
-<li class="chapter" data-level="15.1.2" data-path="15-data-scraping.html"><a href="15-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>15.1.2</b> Lists</a></li>
+<li class="chapter" data-level="15" data-path="15-r-packages.html"><a href="15-r-packages.html"><i class="fa fa-check"></i><b>15</b> R Packages</a><ul>
+<li class="chapter" data-level="15.1" data-path="15-r-packages.html"><a href="15-r-packages.html#introduction"><i class="fa fa-check"></i><b>15.1</b> Introduction</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="15-r-packages.html"><a href="15-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>15.1.1</b> Useful packages and books</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="15-data-scraping.html"><a href="15-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>15.2</b> Scraping .pdf files</a></li>
-<li class="chapter" data-level="15.3" data-path="15-data-scraping.html"><a href="15-data-scraping.html#exercises-15"><i class="fa fa-check"></i><b>15.3</b> Exercises</a></li>
+<li class="chapter" data-level="15.2" data-path="15-r-packages.html"><a href="15-r-packages.html#package-structure"><i class="fa fa-check"></i><b>15.2</b> Package Structure</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="15-r-packages.html"><a href="15-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>15.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="15.2.2" data-path="15-r-packages.html"><a href="15-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="16-r-packages.html"><a href="16-r-packages.html"><i class="fa fa-check"></i><b>16</b> R Packages</a><ul>
-<li class="chapter" data-level="16.1" data-path="16-r-packages.html"><a href="16-r-packages.html#introduction"><i class="fa fa-check"></i><b>16.1</b> Introduction</a><ul>
-<li class="chapter" data-level="16.1.1" data-path="16-r-packages.html"><a href="16-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>16.1.1</b> Useful packages and books</a></li>
+<li class="chapter" data-level="15.3" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Dataset Documentation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="16.2" data-path="16-r-packages.html"><a href="16-r-packages.html#package-structure"><i class="fa fa-check"></i><b>16.2</b> Package Structure</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="16-r-packages.html"><a href="16-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>16.2.1</b> Minimal files and directories</a></li>
-<li class="chapter" data-level="16.2.2" data-path="16-r-packages.html"><a href="16-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>16.2.2</b> Optional Files and Directories</a></li>
+<li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
+<li class="chapter" data-level="15.5" data-path="15-r-packages.html"><a href="15-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="15-r-packages.html"><a href="15-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>15.5.1</b> A Simple Analysis Package</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting"><i class="fa fa-check"></i><b>16.3</b> Documenting</a><ul>
-<li class="chapter" data-level="16.3.1" data-path="16-r-packages.html"><a href="16-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>16.3.1</b> Dataset Documentation</a></li>
-<li class="chapter" data-level="16.3.2" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>16.3.2</b> Documenting Functions</a></li>
+<li class="chapter" data-level="15.6" data-path="15-r-packages.html"><a href="15-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.6</b> Sharing your Package</a></li>
+<li class="chapter" data-level="15.7" data-path="15-r-packages.html"><a href="15-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>15.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a></li>
-<li class="chapter" data-level="16.5" data-path="16-r-packages.html"><a href="16-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>16.5</b> The DESCRIPTION file</a><ul>
-<li class="chapter" data-level="16.5.1" data-path="16-r-packages.html"><a href="16-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>16.5.1</b> A Simple Analysis Package</a></li>
+<li class="chapter" data-level="16" data-path="16-data-scraping.html"><a href="16-data-scraping.html"><i class="fa fa-check"></i><b>16</b> Data Scraping</a><ul>
+<li class="chapter" data-level="16.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>16.1</b> Web Pages</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>16.1.1</b> Example Wikipedia Table</a></li>
+<li class="chapter" data-level="16.1.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>16.1.2</b> Lists</a></li>
 </ul></li>
-<li class="chapter" data-level="16.6" data-path="16-r-packages.html"><a href="16-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>16.6</b> Sharing your Package</a></li>
-<li class="chapter" data-level="16.7" data-path="16-r-packages.html"><a href="16-r-packages.html#exercises-16"><i class="fa fa-check"></i><b>16.7</b> Exercises</a></li>
+<li class="chapter" data-level="16.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>16.2</b> Scraping .pdf files</a></li>
+<li class="chapter" data-level="16.3" data-path="16-data-scraping.html"><a href="16-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html"><i class="fa fa-check"></i><b>17</b> Speeding up R</a><ul>
-<li class="chapter" data-level="17.1" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>17.1</b> Faster for loops?</a></li>
-<li class="chapter" data-level="17.2" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>17.2</b> Vectorizing loops</a></li>
-<li class="chapter" data-level="17.3" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>17.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="17.4" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>17.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="17.5" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>17.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="17.5.1" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>17.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="17.5.2" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>17.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="17" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html"><i class="fa fa-check"></i><b>17</b> Web API Data Queries</a><ul>
+<li class="chapter" data-level="17.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>17.1</b> Web Interface</a></li>
+<li class="chapter" data-level="17.2" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>17.2</b> R API Interfaces</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.2.1</b> Population Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="18-databases.html"><a href="18-databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
+<li class="chapter" data-level="18.1" data-path="18-databases.html"><a href="18-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
+<li class="chapter" data-level="18.2" data-path="18-databases.html"><a href="18-databases.html#sql"><i class="fa fa-check"></i><b>18.2</b> SQL</a></li>
+<li class="chapter" data-level="18.3" data-path="18-databases.html"><a href="18-databases.html#dbplyr"><i class="fa fa-check"></i><b>18.3</b> <code>dbplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html"><i class="fa fa-check"></i><b>19</b> Speeding up R</a><ul>
+<li class="chapter" data-level="19.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="19.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="19.3" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.4</b> Parallelizing for loops</a></li>
+<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.5</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.5.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.5.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.5.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.5.2</b> <code>caret::train</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -382,12 +397,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="data-scraping" class="section level1">
-<h1><span class="header-section-number">Chapter 15</span> Data Scraping</h1>
-<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb714-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb714-2" data-line-number="2"><span class="kw">library</span>(rvest)     <span class="co"># rvest is not loaded in the tidyverse Metapackage</span></a></code></pre></div>
+<h1><span class="header-section-number">Chapter 16</span> Data Scraping</h1>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb729-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb729-2" data-line-number="2"><span class="kw">library</span>(rvest)     <span class="co"># rvest is not loaded in the tidyverse Metapackage</span></a></code></pre></div>
 <p>Getting data into R often involves accessing data that is available through non-convenient formats such as web pages or .pdf files. Fortunately those formats still have structure and we can import data from those sources. However to do this, we have to understand a little bit about those file formats.</p>
 <div id="web-pages" class="section level2">
-<h2><span class="header-section-number">15.1</span> Web Pages</h2>
+<h2><span class="header-section-number">16.1</span> Web Pages</h2>
 <p>Posting information on the web is incredibly common. As we first use google to find answers to our problems, it is inevitable that we’ll want to grab at least some of that information and import it as data into R. There are several ways to go about this:</p>
 <ol style="list-style-type: decimal">
 <li><p>Human Copy/Paste - Sometimes it is easy to copy/paste the information into a spreadsheet. This works for small datasets, but sometimes the HTML markup attributes get passed along and this suddenly becomes very cumbersome for more than a small amount of data. Furthermore, if the data is updated, we would have to redo all of the work instead of just re-running or tweaking a script.</p></li>
@@ -403,13 +418,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   &lt;tr&gt; &lt;td&gt;Derek&lt;/td&gt;     &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;43&lt;/td&gt;   &lt;/tr&gt;
   &lt;tr&gt; &lt;td&gt;Aubrey&lt;/td&gt;    &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;39&lt;/td&gt;   &lt;/tr&gt;
 &lt;/table&gt;</code></pre>
-<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb716-1" data-line-number="1"><span class="co"># Example of an unordered List, which starts and ends with &lt;ul&gt; and &lt;/ul&gt;</span></a>
-<a class="sourceLine" id="cb716-2" data-line-number="2"><span class="co"># Each list item is enclosed by &lt;li&gt; &lt;/li&gt;</span></a>
-<a class="sourceLine" id="cb716-3" data-line-number="3"><span class="op">&lt;</span>ul<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb716-4" data-line-number="4"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Coffee<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb716-5" data-line-number="5"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Tea<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb716-6" data-line-number="6"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Milk<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb716-7" data-line-number="7"><span class="er">&lt;/</span>ul<span class="op">&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb731-1" data-line-number="1"><span class="co"># Example of an unordered List, which starts and ends with &lt;ul&gt; and &lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb731-2" data-line-number="2"><span class="co"># Each list item is enclosed by &lt;li&gt; &lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb731-3" data-line-number="3"><span class="op">&lt;</span>ul<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb731-4" data-line-number="4"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Coffee<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb731-5" data-line-number="5"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Tea<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb731-6" data-line-number="6"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Milk<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb731-7" data-line-number="7"><span class="er">&lt;/</span>ul<span class="op">&gt;</span></a></code></pre></div>
 <p>Given this extremely clear structure it shouldn’t be too hard to grab tables and/or lists from a web page. However HTML has a heirarchical structure so that tables could be nested in lists. In order to control the way the page looks, there is often a <strong>lot</strong> of nesting. For example, we might be in a split pane page that has a side bar, and then a block that centers everything, and then some style blocks that control fonts and colors. Add to this, the need for modern web pages to display well on both mobile devices as well as desktops and the raw HTML typically is extremely complicated.
 In summary the workflow for scraping a web page will be:</p>
 <ol style="list-style-type: decimal">
@@ -420,21 +435,21 @@ In summary the workflow for scraping a web page will be:</p>
 </ol>
 <p>Hadley Wickham wrote a package to address the need for web scraping functionality and it happily works with the usual <code>magrittr</code> pipes. The package <code>rvest</code> is intended to <em>harvest</em> data from the web and make working with html pages relatively simple.</p>
 <div id="example-wikipedia-table" class="section level3">
-<h3><span class="header-section-number">15.1.1</span> Example Wikipedia Table</h3>
+<h3><span class="header-section-number">16.1.1</span> Example Wikipedia Table</h3>
 <p>Recently I needed to get information about U.S. state population sizes. I did a quick googling and found a
 <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population">Wikipedia</a>
 page that has the information that I wanted.</p>
-<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb717-1" data-line-number="1">url =<span class="st"> &#39;https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population&#39;</span></a>
-<a class="sourceLine" id="cb717-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb717-3" data-line-number="3"><span class="co"># Download the web page and save it. I like to do this within a single R Chunk</span></a>
-<a class="sourceLine" id="cb717-4" data-line-number="4"><span class="co"># so that I don&#39;t keep downloading a page repeatedly while I am fine tuning </span></a>
-<a class="sourceLine" id="cb717-5" data-line-number="5"><span class="co"># the subsequent data wrangling steps.</span></a>
-<a class="sourceLine" id="cb717-6" data-line-number="6">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
-<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb718-1" data-line-number="1"><span class="co"># Once the page is downloaded, we need to figure out which table to work with.</span></a>
-<a class="sourceLine" id="cb718-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb718-3" data-line-number="3"><span class="co"># There are 5 tables on the page.</span></a>
-<a class="sourceLine" id="cb718-4" data-line-number="4">page <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb718-5" data-line-number="5"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb732-1" data-line-number="1">url =<span class="st"> &#39;https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population&#39;</span></a>
+<a class="sourceLine" id="cb732-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb732-3" data-line-number="3"><span class="co"># Download the web page and save it. I like to do this within a single R Chunk</span></a>
+<a class="sourceLine" id="cb732-4" data-line-number="4"><span class="co"># so that I don&#39;t keep downloading a page repeatedly while I am fine tuning </span></a>
+<a class="sourceLine" id="cb732-5" data-line-number="5"><span class="co"># the subsequent data wrangling steps.</span></a>
+<a class="sourceLine" id="cb732-6" data-line-number="6">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb733-1" data-line-number="1"><span class="co"># Once the page is downloaded, we need to figure out which table to work with.</span></a>
+<a class="sourceLine" id="cb733-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb733-3" data-line-number="3"><span class="co"># There are 5 tables on the page.</span></a>
+<a class="sourceLine" id="cb733-4" data-line-number="4">page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb733-5" data-line-number="5"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) </a></code></pre></div>
 <pre><code>## {xml_nodeset (5)}
 ## [1] &lt;table class=&quot;wikitable sortable&quot; style=&quot;width:100%; text-align:cent ...
 ## [2] &lt;table class=&quot;wikitable&quot;&gt;&lt;tbody&gt;\n&lt;tr&gt;&lt;th style=&quot;text-align: left;&quot;&gt; ...
@@ -442,14 +457,14 @@ page that has the information that I wanted.</p>
 ## [4] &lt;table class=&quot;nowraplinks hlist mw-collapsible autocollapse navbox-i ...
 ## [5] &lt;table class=&quot;nowraplinks hlist mw-collapsible mw-collapsed navbox-i ...</code></pre>
 <p>With five tables on the page, I need to go through each table individually and decide if it is the one that I want. To do this, we’ll take each table and convert it into a data.frame and view it to see what information it contains.</p>
-<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb720-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb720-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb720-3" data-line-number="3"><span class="st">  </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">        </span><span class="co"># Grab the first table and </span></a>
-<a class="sourceLine" id="cb720-4" data-line-number="4"><span class="st">  </span><span class="kw">html_table</span>()      <span class="co"># convert it from HTML into a data.frame </span></a>
-<a class="sourceLine" id="cb720-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb720-6" data-line-number="6"><span class="co"># To view this table, we could use View() or print out just the first few</span></a>
-<a class="sourceLine" id="cb720-7" data-line-number="7"><span class="co"># rows and columns. Converting it to a tibble makes the printing turn out nice.</span></a>
-<a class="sourceLine" id="cb720-8" data-line-number="8">State_Pop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()  </a></code></pre></div>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb735-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb735-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb735-3" data-line-number="3"><span class="st">  </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">        </span><span class="co"># Grab the first table and </span></a>
+<a class="sourceLine" id="cb735-4" data-line-number="4"><span class="st">  </span><span class="kw">html_table</span>()      <span class="co"># convert it from HTML into a data.frame </span></a>
+<a class="sourceLine" id="cb735-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb735-6" data-line-number="6"><span class="co"># To view this table, we could use View() or print out just the first few</span></a>
+<a class="sourceLine" id="cb735-7" data-line-number="7"><span class="co"># rows and columns. Converting it to a tibble makes the printing turn out nice.</span></a>
+<a class="sourceLine" id="cb735-8" data-line-number="8">State_Pop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()  </a></code></pre></div>
 <pre><code>## # A tibble: 60 x 12
 ##    `Rank in the fi… `Rank in states… Name  `Population est…
 ##    &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;           
@@ -471,68 +486,68 @@ page that has the information that I wanted.</p>
 ## #   2018` &lt;chr&gt;, `Census population per House seat, 2010` &lt;chr&gt;, `Percent
 ## #   of the total U.S. population, 2018[note 3]` &lt;chr&gt;</code></pre>
 <p>It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we’ll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings. We need to remove those as well.</p>
-<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb722-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb722-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># First table on the page</span></a>
-<a class="sourceLine" id="cb722-3" data-line-number="3"><span class="st">  </span><span class="kw">html_table</span>()  <span class="op">%&gt;%</span><span class="st">                    </span><span class="co"># as a data.frame</span></a>
-<a class="sourceLine" id="cb722-4" data-line-number="4"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Population2018 =</span> <span class="st">`</span><span class="dt">Population estimate, July 1, 2018[5]</span><span class="st">`</span>,</a>
-<a class="sourceLine" id="cb722-5" data-line-number="5">         <span class="dt">Population2010 =</span> <span class="st">`</span><span class="dt">Census population, April 1, 2010[6]</span><span class="st">`</span>)  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb722-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(Name, Population2018, Population2010) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb722-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove_all, <span class="st">&#39;,&#39;</span>) <span class="op">%&gt;%</span><span class="st">           </span><span class="co"># remove all commas</span></a>
-<a class="sourceLine" id="cb722-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">[[0-9]+</span><span class="ch">\\</span><span class="st">]&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># remove [7] stuff</span></a>
-<a class="sourceLine" id="cb722-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>( <span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), as.numeric)                       <span class="co"># convert to numbers</span></a></code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb737-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb737-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># First table on the page</span></a>
+<a class="sourceLine" id="cb737-3" data-line-number="3"><span class="st">  </span><span class="kw">html_table</span>()  <span class="op">%&gt;%</span><span class="st">                    </span><span class="co"># as a data.frame</span></a>
+<a class="sourceLine" id="cb737-4" data-line-number="4"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Population2018 =</span> <span class="st">`</span><span class="dt">Population estimate, July 1, 2018[5]</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb737-5" data-line-number="5">         <span class="dt">Population2010 =</span> <span class="st">`</span><span class="dt">Census population, April 1, 2010[6]</span><span class="st">`</span>)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb737-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(Name, Population2018, Population2010) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb737-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove_all, <span class="st">&#39;,&#39;</span>) <span class="op">%&gt;%</span><span class="st">           </span><span class="co"># remove all commas</span></a>
+<a class="sourceLine" id="cb737-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">[[0-9]+</span><span class="ch">\\</span><span class="st">]&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># remove [7] stuff</span></a>
+<a class="sourceLine" id="cb737-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>( <span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), as.numeric)                       <span class="co"># convert to numbers</span></a></code></pre></div>
 <p>And just to show off the data we’ve just imported from Wikipedia, we’ll make a nice graph.</p>
-<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb723-1" data-line-number="1">State_Pop <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb723-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>( <span class="op">!</span>(Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Contiguous United States&#39;</span>, </a>
-<a class="sourceLine" id="cb723-3" data-line-number="3">                        <span class="st">&#39;The fifty states&#39;</span>,<span class="st">&#39;Fifty states + D.C.&#39;</span>,</a>
-<a class="sourceLine" id="cb723-4" data-line-number="4">                        <span class="st">&#39;Total U.S. (including D.C. and territories)&#39;</span>) ) )  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb723-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Percent_Change =</span> (Population2018 <span class="op">-</span><span class="st"> </span>Population2010)<span class="op">/</span>Population2010 ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb723-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Name =</span> <span class="kw">fct_reorder</span>(Name, Percent_Change) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb723-7" data-line-number="7"><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Name, <span class="dt">y=</span>Percent_Change) ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb723-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_col</span>( ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb723-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>, <span class="dt">y=</span><span class="st">&#39;% Change&#39;</span>, <span class="dt">title=</span><span class="st">&#39;State Population growth 2010-2018&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb723-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_flip</span>() </a></code></pre></div>
-<p><img src="29_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" data-line-number="1">State_Pop <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb738-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>( <span class="op">!</span>(Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Contiguous United States&#39;</span>, </a>
+<a class="sourceLine" id="cb738-3" data-line-number="3">                        <span class="st">&#39;The fifty states&#39;</span>,<span class="st">&#39;Fifty states + D.C.&#39;</span>,</a>
+<a class="sourceLine" id="cb738-4" data-line-number="4">                        <span class="st">&#39;Total U.S. (including D.C. and territories)&#39;</span>) ) )  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb738-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Percent_Change =</span> (Population2018 <span class="op">-</span><span class="st"> </span>Population2010)<span class="op">/</span>Population2010 ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb738-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Name =</span> <span class="kw">fct_reorder</span>(Name, Percent_Change) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb738-7" data-line-number="7"><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Name, <span class="dt">y=</span>Percent_Change) ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb738-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_col</span>( ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb738-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>, <span class="dt">y=</span><span class="st">&#39;% Change&#39;</span>, <span class="dt">title=</span><span class="st">&#39;State Population growth 2010-2018&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb738-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_flip</span>() </a></code></pre></div>
+<p><img src="36_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="lists-1" class="section level3">
-<h3><span class="header-section-number">15.1.2</span> Lists</h3>
+<h3><span class="header-section-number">16.1.2</span> Lists</h3>
 <p>Unfortunately, we don’t always want to get information from a webpage that is nicely organized into a table. Suppose we want to gather the most recent threads on <a href="www.digg.com">Digg</a>.</p>
 <p>We could sift through the HTML tags to find something that will match, but that will be challenging. Instead we will use a CSS selector named <a href="https://selectorgadget.com">SelectorGadget</a>. Install the bookmarklet by dragging this <a href="javascript:(function()%7Bvar%20s=document.createElement(&#39;div&#39;);s.innerHTML=&#39;Loading...&#39;;s.style.color=&#39;black&#39;;s.style.padding=&#39;20px&#39;;s.style.position=&#39;fixed&#39;;s.style.zIndex=&#39;9999&#39;;s.style.fontSize=&#39;3.0em&#39;;s.style.border=&#39;2px%20solid%20black&#39;;s.style.right=&#39;40px&#39;;s.style.top=&#39;40px&#39;;s.setAttribute(&#39;class&#39;,&#39;selector_gadget_loading&#39;);s.style.background=&#39;white&#39;;document.body.appendChild(s);s=document.createElement(&#39;script&#39;);s.setAttribute(&#39;type&#39;,&#39;text/javascript&#39;);s.setAttribute(&#39;src&#39;,&#39;https://dv0akt2986vzh.cloudfront.net/unstable/lib/selectorgadget.js&#39;);document.body.appendChild(s);%7D)();">bookmarklet</a>
 up to your browsers bookmark bar. When you are at the site you are interested in, just click on the bookmarklet to engage the CSS engine. Click on something you want to capture. This will highlight a whole bunch of things that match the HTML tag listed at the bottom of the screen. Select or deselect items by clicking on them and the search string used to refine the selection will be updated. Once you are happy with the items being selected, copy the HTML node selector.</p>
-<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb724-1" data-line-number="1">url &lt;-<span class="st"> &#39;http://digg.com&#39;</span></a>
-<a class="sourceLine" id="cb724-2" data-line-number="2">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
-<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb725-1" data-line-number="1"><span class="co"># Once the page is downloaded, we use the SelectorGadget Parse string</span></a>
-<a class="sourceLine" id="cb725-2" data-line-number="2"><span class="co"># To just give the headlines, we&#39;ll use html_text()</span></a>
-<a class="sourceLine" id="cb725-3" data-line-number="3">HeadLines &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb725-4" data-line-number="4"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># Grab just the headlines</span></a>
-<a class="sourceLine" id="cb725-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></a>
-<a class="sourceLine" id="cb725-6" data-line-number="6">HeadLines <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb725-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;\nHow A Band Of Surfer Dudes Pulled Off The Biggest Jewel Heist In NY History\n&quot;      
-## [2] &quot;\nAmerica&#39;s Northernmost Town, In Photos\n&quot;                                           
-## [3] &quot;\nThis &#39;Invisibility Cloak&#39; Technology Is Mind-Boggling\n&quot;                            
-## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                          
-## [5] &quot;\nThese Ants That Travel Up To 120 Miles Per Hour Might Give You The Heebie Jeebies\n&quot;
-## [6] &quot;\nA Cougar Was Stalking Her, So She Played Metallica\n&quot;</code></pre>
-<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb727-1" data-line-number="1"><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></a>
-<a class="sourceLine" id="cb727-2" data-line-number="2">Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb727-3" data-line-number="3"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb727-4" data-line-number="4"><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </a>
-<a class="sourceLine" id="cb727-5" data-line-number="5">Links <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb727-6" data-line-number="6"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;https://www.nytimes.com/2019/10/17/nyregion/natural-history-museum-jewelry-heist.html?utm_source=digg&quot;
-## [2] &quot;https://www.booooooom.com/2019/10/17/polar-night-by-photographer-mark-mahaney/?utm_source=digg&quot;       
-## [3] &quot;/video/invisibility-cloak-technology&quot;                                                                 
-## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;          
-## [5] &quot;/video/scientists-discover-worlds-fastest-ants&quot;                                                       
-## [6] &quot;https://www.outsideonline.com/2402922/mountain-lion-heavy-metal-music?utm_source=digg&quot;</code></pre>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb739-1" data-line-number="1">url &lt;-<span class="st"> &#39;http://digg.com&#39;</span></a>
+<a class="sourceLine" id="cb739-2" data-line-number="2">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" data-line-number="1"><span class="co"># Once the page is downloaded, we use the SelectorGadget Parse string</span></a>
+<a class="sourceLine" id="cb740-2" data-line-number="2"><span class="co"># To just give the headlines, we&#39;ll use html_text()</span></a>
+<a class="sourceLine" id="cb740-3" data-line-number="3">HeadLines &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb740-4" data-line-number="4"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># Grab just the headlines</span></a>
+<a class="sourceLine" id="cb740-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></a>
+<a class="sourceLine" id="cb740-6" data-line-number="6">HeadLines <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb740-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;\nThe Siege And Fall Of A Hoops Haven That Made All The Wrong Enemies\n&quot;         
+## [2] &quot;\nHow Much Is Budgeted Towards The American President&#39;s Living Expenses?\n&quot;      
+## [3] &quot;\nThe Badass WWII Squadron Of Female Pilots Known As The Night Witches\n&quot;        
+## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                     
+## [5] &quot;\nAdorable Baby Elephant Rolls Around In The Sand To The Delight Of Safari-ers\n&quot;
+## [6] &quot;\nConcussion Research Has A Troubling Patriarchy Problem\n&quot;</code></pre>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb742-1" data-line-number="1"><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></a>
+<a class="sourceLine" id="cb742-2" data-line-number="2">Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb742-3" data-line-number="3"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb742-4" data-line-number="4"><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </a>
+<a class="sourceLine" id="cb742-5" data-line-number="5">Links <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb742-6" data-line-number="6"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;https://deadspin.com/the-siege-and-fall-of-a-hoops-haven-that-made-all-the-w-1838777225?utm_source=digg&quot;
+## [2] &quot;/video/how-much-is-budgeted-towards-the-american-presidents-living-expenses&quot;                            
+## [3] &quot;http://www.todayifoundout.com/index.php/2019/10/night-witches/?utm_source=digg&quot;                         
+## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;            
+## [5] &quot;/video/adorable-baby-elephant-rolls-around-in-the-sand-to-the-delight-of-safari-ers&quot;                    
+## [6] &quot;https://undark.org/2019/10/17/concussion-research-patriarchy-problem/?utm_source=digg&quot;</code></pre>
 </div>
 </div>
 <div id="scraping-.pdf-files" class="section level2">
-<h2><span class="header-section-number">15.2</span> Scraping .pdf files</h2>
+<h2><span class="header-section-number">16.2</span> Scraping .pdf files</h2>
 <p>PDF documents can either be created with software that produce text that is readable, or it can be scanned and everything is effectively an image. The work flow presented in this section assumes that the text is readable as text and is not an image.</p>
 </div>
-<div id="exercises-15" class="section level2">
-<h2><span class="header-section-number">15.3</span> Exercises</h2>
+<div id="exercises-16" class="section level2">
+<h2><span class="header-section-number">16.3</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li><p>At the Insurance Institute for Highway Safety, they have
 <a href="https://www.iihs.org/topics/fatality-statistics/detail/state-by-state">data</a>
@@ -548,17 +563,19 @@ about human fatalities in vehicle crashes. From this web page, import the data f
           </div>
         </div>
       </div>
-<a href="14-graphing-part-ii.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="16-r-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="15-r-packages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="17-web-api-data-queries.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -580,7 +597,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/444/raw/master/29_Scraping.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/36_Scraping.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -604,8 +621,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

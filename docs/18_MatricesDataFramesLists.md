@@ -675,7 +675,7 @@ str(results)                                     # examine the resulting object
 ```
 
 ```
-## List of 9
+## List of 10
 ##  $ statistic  : Named num -0.314
 ##   ..- attr(*, "names")= chr "t"
 ##  $ parameter  : Named num 7
@@ -687,6 +687,7 @@ str(results)                                     # examine the resulting object
 ##   ..- attr(*, "names")= chr "mean of x"
 ##  $ null.value : Named num 5
 ##   ..- attr(*, "names")= chr "mean"
+##  $ stderr     : num 0.159
 ##  $ alternative: chr "less"
 ##  $ method     : chr "One Sample t-test"
 ##  $ data.name  : chr "x"

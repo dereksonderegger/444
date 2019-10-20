@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Rmarkdown Tricks | STA 444/5 - Introductory Data Science using R</title>
   <meta name="description" content="Rmarkdown Tricks | STA 444/5 - Introductory Data Science using R" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Rmarkdown Tricks | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-18" />
+<meta name="date" content="2019-10-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="statistical-tables.html">
-<link rel="next" href="8-data-structures.html">
+<link rel="prev" href="statistical-tables.html"/>
+<link rel="next" href="8-data-structures.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -127,7 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
 </ul></li>
 <li class="part"><span><b>Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="1-familiarization.html"><a href="1-familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
@@ -327,41 +330,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.6" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>14.6</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="15-data-scraping.html"><a href="15-data-scraping.html"><i class="fa fa-check"></i><b>15</b> Data Scraping</a><ul>
-<li class="chapter" data-level="15.1" data-path="15-data-scraping.html"><a href="15-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>15.1</b> Web Pages</a><ul>
-<li class="chapter" data-level="15.1.1" data-path="15-data-scraping.html"><a href="15-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>15.1.1</b> Example Wikipedia Table</a></li>
-<li class="chapter" data-level="15.1.2" data-path="15-data-scraping.html"><a href="15-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>15.1.2</b> Lists</a></li>
+<li class="chapter" data-level="15" data-path="15-r-packages.html"><a href="15-r-packages.html"><i class="fa fa-check"></i><b>15</b> R Packages</a><ul>
+<li class="chapter" data-level="15.1" data-path="15-r-packages.html"><a href="15-r-packages.html#introduction"><i class="fa fa-check"></i><b>15.1</b> Introduction</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="15-r-packages.html"><a href="15-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>15.1.1</b> Useful packages and books</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="15-data-scraping.html"><a href="15-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>15.2</b> Scraping .pdf files</a></li>
-<li class="chapter" data-level="15.3" data-path="15-data-scraping.html"><a href="15-data-scraping.html#exercises-15"><i class="fa fa-check"></i><b>15.3</b> Exercises</a></li>
+<li class="chapter" data-level="15.2" data-path="15-r-packages.html"><a href="15-r-packages.html#package-structure"><i class="fa fa-check"></i><b>15.2</b> Package Structure</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="15-r-packages.html"><a href="15-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>15.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="15.2.2" data-path="15-r-packages.html"><a href="15-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="16-r-packages.html"><a href="16-r-packages.html"><i class="fa fa-check"></i><b>16</b> R Packages</a><ul>
-<li class="chapter" data-level="16.1" data-path="16-r-packages.html"><a href="16-r-packages.html#introduction"><i class="fa fa-check"></i><b>16.1</b> Introduction</a><ul>
-<li class="chapter" data-level="16.1.1" data-path="16-r-packages.html"><a href="16-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>16.1.1</b> Useful packages and books</a></li>
+<li class="chapter" data-level="15.3" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Dataset Documentation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="16.2" data-path="16-r-packages.html"><a href="16-r-packages.html#package-structure"><i class="fa fa-check"></i><b>16.2</b> Package Structure</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="16-r-packages.html"><a href="16-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>16.2.1</b> Minimal files and directories</a></li>
-<li class="chapter" data-level="16.2.2" data-path="16-r-packages.html"><a href="16-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>16.2.2</b> Optional Files and Directories</a></li>
+<li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
+<li class="chapter" data-level="15.5" data-path="15-r-packages.html"><a href="15-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="15-r-packages.html"><a href="15-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>15.5.1</b> A Simple Analysis Package</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting"><i class="fa fa-check"></i><b>16.3</b> Documenting</a><ul>
-<li class="chapter" data-level="16.3.1" data-path="16-r-packages.html"><a href="16-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>16.3.1</b> Dataset Documentation</a></li>
-<li class="chapter" data-level="16.3.2" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>16.3.2</b> Documenting Functions</a></li>
+<li class="chapter" data-level="15.6" data-path="15-r-packages.html"><a href="15-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.6</b> Sharing your Package</a></li>
+<li class="chapter" data-level="15.7" data-path="15-r-packages.html"><a href="15-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>15.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a></li>
-<li class="chapter" data-level="16.5" data-path="16-r-packages.html"><a href="16-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>16.5</b> The DESCRIPTION file</a><ul>
-<li class="chapter" data-level="16.5.1" data-path="16-r-packages.html"><a href="16-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>16.5.1</b> A Simple Analysis Package</a></li>
+<li class="chapter" data-level="16" data-path="16-data-scraping.html"><a href="16-data-scraping.html"><i class="fa fa-check"></i><b>16</b> Data Scraping</a><ul>
+<li class="chapter" data-level="16.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>16.1</b> Web Pages</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>16.1.1</b> Example Wikipedia Table</a></li>
+<li class="chapter" data-level="16.1.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>16.1.2</b> Lists</a></li>
 </ul></li>
-<li class="chapter" data-level="16.6" data-path="16-r-packages.html"><a href="16-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>16.6</b> Sharing your Package</a></li>
-<li class="chapter" data-level="16.7" data-path="16-r-packages.html"><a href="16-r-packages.html#exercises-16"><i class="fa fa-check"></i><b>16.7</b> Exercises</a></li>
+<li class="chapter" data-level="16.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>16.2</b> Scraping .pdf files</a></li>
+<li class="chapter" data-level="16.3" data-path="16-data-scraping.html"><a href="16-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html"><i class="fa fa-check"></i><b>17</b> Speeding up R</a><ul>
-<li class="chapter" data-level="17.1" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>17.1</b> Faster for loops?</a></li>
-<li class="chapter" data-level="17.2" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>17.2</b> Vectorizing loops</a></li>
-<li class="chapter" data-level="17.3" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>17.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="17.4" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>17.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="17.5" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>17.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="17.5.1" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>17.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="17.5.2" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>17.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="17" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html"><i class="fa fa-check"></i><b>17</b> Web API Data Queries</a><ul>
+<li class="chapter" data-level="17.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>17.1</b> Web Interface</a></li>
+<li class="chapter" data-level="17.2" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>17.2</b> R API Interfaces</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.2.1</b> Population Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="18-databases.html"><a href="18-databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
+<li class="chapter" data-level="18.1" data-path="18-databases.html"><a href="18-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
+<li class="chapter" data-level="18.2" data-path="18-databases.html"><a href="18-databases.html#sql"><i class="fa fa-check"></i><b>18.2</b> SQL</a></li>
+<li class="chapter" data-level="18.3" data-path="18-databases.html"><a href="18-databases.html#dbplyr"><i class="fa fa-check"></i><b>18.3</b> <code>dbplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html"><i class="fa fa-check"></i><b>19</b> Speeding up R</a><ul>
+<li class="chapter" data-level="19.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="19.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="19.3" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.4</b> Parallelizing for loops</a></li>
+<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.5</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.5.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.5.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.5.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.5.2</b> <code>caret::train</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -485,7 +500,7 @@ list element, we indent 8 spaces. (4 for problem 1, and four for part a).</li>
 <li>Part number a</li>
 </ol></li>
 </ol>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" data-line-number="1"><span class="dv">2</span><span class="op">+</span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" data-line-number="1"><span class="dv">2</span><span class="op">+</span><span class="dv">3</span></a></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <pre><code>b) Part number b</code></pre>
 <p>So to keep ourselves in the nested list environment, we need to indent the R chunk 4 (or 8) spaces. If we indent it 4 spaces, then the R code and output will be aligned with the a), if we use 8 spaces, it will be indented from the a).</p>
@@ -500,7 +515,7 @@ list element, we indent 8 spaces. (4 for problem 1, and four for part a).</li>
 <li>Problem definition.
 <ol style="list-style-type: lower-alpha">
 <li><p>Part number a</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" data-line-number="1"><span class="dv">2</span><span class="op">+</span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" data-line-number="1"><span class="dv">2</span><span class="op">+</span><span class="dv">3</span></a></code></pre></div>
 <pre><code>## [1] 5</code></pre></li>
 <li><p>Part number b</p></li>
 </ol></li>
@@ -642,8 +657,8 @@ shamelessly stolen from the Pandoc documentation.
 <p>One way to print a table is to just print in in R and have the table presented
 in the code chunk. For example, suppose I want to print out the first 4 rows
 of the trees dataset.</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" data-line-number="1">data &lt;-<span class="st"> </span>trees[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, ]</a>
-<a class="sourceLine" id="cb328-2" data-line-number="2">data</a></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" data-line-number="1">data &lt;-<span class="st"> </span>trees[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, ]</a>
+<a class="sourceLine" id="cb329-2" data-line-number="2">data</a></code></pre></div>
 <pre><code>##   Girth Height Volume
 ## 1   8.3     70   10.3
 ## 2   8.6     65   10.3
@@ -658,11 +673,11 @@ RMarkdown supports 3 of those.</p>
 <h3><span class="header-section-number">7.5.1</span> Simple Tables</h3>
 <p>Simple tables look like this (Notice I don’t wrap these dollar signs or anything,
 just a blank line above and below the table):</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" data-line-number="1">Right   Left     Center   Default </a>
-<a class="sourceLine" id="cb330-2" data-line-number="2"><span class="op">-------</span><span class="st"> </span><span class="op">------</span><span class="st"> </span><span class="op">----------</span><span class="st"> </span><span class="op">-------</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb330-3" data-line-number="3"><span class="st">     </span><span class="dv">12</span> <span class="dv">12</span>        hmmm        <span class="dv">12</span> </a>
-<a class="sourceLine" id="cb330-4" data-line-number="4">    <span class="dv">123</span> <span class="dv">123</span>        <span class="dv">123</span>       <span class="dv">123</span> </a>
-<a class="sourceLine" id="cb330-5" data-line-number="5">      <span class="dv">1</span> <span class="dv">1</span>            <span class="dv">1</span>         <span class="dv">1</span></a></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" data-line-number="1">Right   Left     Center   Default </a>
+<a class="sourceLine" id="cb331-2" data-line-number="2"><span class="op">-------</span><span class="st"> </span><span class="op">------</span><span class="st"> </span><span class="op">----------</span><span class="st"> </span><span class="op">-------</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb331-3" data-line-number="3"><span class="st">     </span><span class="dv">12</span> <span class="dv">12</span>        hmmm        <span class="dv">12</span> </a>
+<a class="sourceLine" id="cb331-4" data-line-number="4">    <span class="dv">123</span> <span class="dv">123</span>        <span class="dv">123</span>       <span class="dv">123</span> </a>
+<a class="sourceLine" id="cb331-5" data-line-number="5">      <span class="dv">1</span> <span class="dv">1</span>            <span class="dv">1</span>         <span class="dv">1</span></a></code></pre></div>
 <p>and would be rendered like this:</p>
 <table>
 <thead>
@@ -710,15 +725,15 @@ blank line.</p>
 <h3><span class="header-section-number">7.5.2</span> Grid Tables</h3>
 <p>Grid tables are a little more flexible and each cell can take an arbitrary
 Markdown block elements (such as lists).</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" data-line-number="1"><span class="op">+---------------+---------------+--------------------+</span></a>
-<a class="sourceLine" id="cb331-2" data-line-number="2"><span class="er">|</span><span class="st"> </span>Fruit         <span class="op">|</span><span class="st"> </span>Price         <span class="op">|</span><span class="st"> </span>Advantages         <span class="op">|</span></a>
-<a class="sourceLine" id="cb331-3" data-line-number="3"><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">====================</span><span class="op">+</span></a>
-<a class="sourceLine" id="cb331-4" data-line-number="4"><span class="er">|</span><span class="st"> </span>Bananas       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">1.34</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>built<span class="op">-</span><span class="cf">in</span> wrapper <span class="op">|</span></a>
-<a class="sourceLine" id="cb331-5" data-line-number="5"><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>bright color     <span class="op">|</span></a>
-<a class="sourceLine" id="cb331-6" data-line-number="6"><span class="op">+---------------+---------------+--------------------+</span></a>
-<a class="sourceLine" id="cb331-7" data-line-number="7"><span class="er">|</span><span class="st"> </span>Oranges       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">2.10</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>cures scurvy     <span class="op">|</span></a>
-<a class="sourceLine" id="cb331-8" data-line-number="8"><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>tasty            <span class="op">|</span></a>
-<a class="sourceLine" id="cb331-9" data-line-number="9"><span class="op">+---------------+---------------+--------------------+</span></a></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" data-line-number="1"><span class="op">+---------------+---------------+--------------------+</span></a>
+<a class="sourceLine" id="cb332-2" data-line-number="2"><span class="er">|</span><span class="st"> </span>Fruit         <span class="op">|</span><span class="st"> </span>Price         <span class="op">|</span><span class="st"> </span>Advantages         <span class="op">|</span></a>
+<a class="sourceLine" id="cb332-3" data-line-number="3"><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">====================</span><span class="op">+</span></a>
+<a class="sourceLine" id="cb332-4" data-line-number="4"><span class="er">|</span><span class="st"> </span>Bananas       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">1.34</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>built<span class="op">-</span><span class="cf">in</span> wrapper <span class="op">|</span></a>
+<a class="sourceLine" id="cb332-5" data-line-number="5"><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>bright color     <span class="op">|</span></a>
+<a class="sourceLine" id="cb332-6" data-line-number="6"><span class="op">+---------------+---------------+--------------------+</span></a>
+<a class="sourceLine" id="cb332-7" data-line-number="7"><span class="er">|</span><span class="st"> </span>Oranges       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">2.10</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>cures scurvy     <span class="op">|</span></a>
+<a class="sourceLine" id="cb332-8" data-line-number="8"><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>tasty            <span class="op">|</span></a>
+<a class="sourceLine" id="cb332-9" data-line-number="9"><span class="op">+---------------+---------------+--------------------+</span></a></code></pre></div>
 <p>which is rendered as the following:</p>
 <table style="width:74%;">
 <colgroup>
@@ -762,11 +777,11 @@ in the rest of the table. Both Simple and Grid tables don’t require column hea
 <p>Pipe tables look quite similar to grid tables but Markdown isn’t as picky about the
 pipes lining up. However, it does require a header row (which you could leave
 the elements blank in).</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" data-line-number="1"><span class="op">|</span><span class="st"> </span>Right <span class="op">|</span><span class="st"> </span>Left <span class="op">|</span><span class="st"> </span>Default <span class="op">|</span><span class="st"> </span>Center <span class="op">|</span></a>
-<a class="sourceLine" id="cb332-2" data-line-number="2"><span class="er">|</span><span class="op">------</span><span class="er">:|:</span><span class="op">-----</span><span class="er">|</span><span class="op">---------</span><span class="er">|:</span><span class="op">------</span><span class="er">:|</span></a>
-<a class="sourceLine" id="cb332-3" data-line-number="3"><span class="er">|</span><span class="st">   </span><span class="dv">12</span>  <span class="op">|</span><span class="st">  </span><span class="dv">12</span>  <span class="op">|</span><span class="st">    </span><span class="dv">12</span>   <span class="op">|</span><span class="st">    </span><span class="dv">12</span>  <span class="op">|</span></a>
-<a class="sourceLine" id="cb332-4" data-line-number="4"><span class="er">|</span><span class="st">  </span><span class="dv">123</span>  <span class="op">|</span><span class="st">  </span><span class="dv">123</span> <span class="op">|</span><span class="st">   </span><span class="dv">123</span>   <span class="op">|</span><span class="st">   </span><span class="dv">123</span>  <span class="op">|</span></a>
-<a class="sourceLine" id="cb332-5" data-line-number="5"><span class="er">|</span><span class="st">    </span><span class="dv">1</span>  <span class="op">|</span><span class="st">    </span><span class="dv">1</span> <span class="op">|</span><span class="st">     </span><span class="dv">1</span>   <span class="op">|</span><span class="st">     </span><span class="dv">1</span>  <span class="op">|</span></a></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1"><span class="op">|</span><span class="st"> </span>Right <span class="op">|</span><span class="st"> </span>Left <span class="op">|</span><span class="st"> </span>Default <span class="op">|</span><span class="st"> </span>Center <span class="op">|</span></a>
+<a class="sourceLine" id="cb333-2" data-line-number="2"><span class="er">|</span><span class="op">------</span><span class="er">:|:</span><span class="op">-----</span><span class="er">|</span><span class="op">---------</span><span class="er">|:</span><span class="op">------</span><span class="er">:|</span></a>
+<a class="sourceLine" id="cb333-3" data-line-number="3"><span class="er">|</span><span class="st">   </span><span class="dv">12</span>  <span class="op">|</span><span class="st">  </span><span class="dv">12</span>  <span class="op">|</span><span class="st">    </span><span class="dv">12</span>   <span class="op">|</span><span class="st">    </span><span class="dv">12</span>  <span class="op">|</span></a>
+<a class="sourceLine" id="cb333-4" data-line-number="4"><span class="er">|</span><span class="st">  </span><span class="dv">123</span>  <span class="op">|</span><span class="st">  </span><span class="dv">123</span> <span class="op">|</span><span class="st">   </span><span class="dv">123</span>   <span class="op">|</span><span class="st">   </span><span class="dv">123</span>  <span class="op">|</span></a>
+<a class="sourceLine" id="cb333-5" data-line-number="5"><span class="er">|</span><span class="st">    </span><span class="dv">1</span>  <span class="op">|</span><span class="st">    </span><span class="dv">1</span> <span class="op">|</span><span class="st">     </span><span class="dv">1</span>   <span class="op">|</span><span class="st">     </span><span class="dv">1</span>  <span class="op">|</span></a></code></pre></div>
 <p>which will render as the following:</p>
 <table>
 <thead>
@@ -803,10 +818,10 @@ picky about getting everything correct. However it is still pretty
 annoying to get the table laid out correctly.</p>
 <p>In all of these tables, you can use the regular RMarkdown formatting tricks
 for italicizing and bolding. So I could have a table such as the following:</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1"><span class="op">|</span><span class="st">   </span>Source    <span class="op">|</span><span class="st">  </span>df  <span class="op">|</span><span class="st">   </span>Sum of Sq   <span class="op">|</span><span class="st">    </span>Mean Sq    <span class="op">|</span><span class="st">    </span>F   <span class="op">|</span><span class="st">  </span><span class="er">$</span><span class="kw">Pr</span>(<span class="op">&gt;</span>F_{<span class="dv">1</span>,<span class="dv">29</span>})<span class="op">$</span><span class="st">    </span><span class="er">|</span></a>
-<a class="sourceLine" id="cb333-2" data-line-number="2"><span class="er">|:</span><span class="op">------------</span><span class="er">|</span><span class="op">-----</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">-------</span><span class="er">:|</span><span class="op">--------------------</span><span class="er">:|</span></a>
-<a class="sourceLine" id="cb333-3" data-line-number="3"><span class="er">|</span><span class="st">  </span>Girth      <span class="op">|</span><span class="st">  </span><span class="er">*</span><span class="dv">1</span><span class="op">*</span><span class="st"> </span><span class="er">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st"> </span><span class="fl">419.26</span> <span class="op">|</span><span class="st">  </span><span class="er">**&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span><span class="op">**</span><span class="st">      </span><span class="er">|</span></a>
-<a class="sourceLine" id="cb333-4" data-line-number="4"><span class="er">|</span><span class="st">  </span>Residual   <span class="op">|</span><span class="st">  </span><span class="dv">29</span>  <span class="op">|</span><span class="st">  </span><span class="fl">524.3</span>        <span class="op">|</span><span class="st">   </span><span class="fl">18.1</span>        <span class="op">|</span><span class="st">        </span><span class="er">|</span><span class="st">                     </span><span class="er">|</span></a></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1"><span class="op">|</span><span class="st">   </span>Source    <span class="op">|</span><span class="st">  </span>df  <span class="op">|</span><span class="st">   </span>Sum of Sq   <span class="op">|</span><span class="st">    </span>Mean Sq    <span class="op">|</span><span class="st">    </span>F   <span class="op">|</span><span class="st">  </span><span class="er">$</span><span class="kw">Pr</span>(<span class="op">&gt;</span>F_{<span class="dv">1</span>,<span class="dv">29</span>})<span class="op">$</span><span class="st">    </span><span class="er">|</span></a>
+<a class="sourceLine" id="cb334-2" data-line-number="2"><span class="er">|:</span><span class="op">------------</span><span class="er">|</span><span class="op">-----</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">-------</span><span class="er">:|</span><span class="op">--------------------</span><span class="er">:|</span></a>
+<a class="sourceLine" id="cb334-3" data-line-number="3"><span class="er">|</span><span class="st">  </span>Girth      <span class="op">|</span><span class="st">  </span><span class="er">*</span><span class="dv">1</span><span class="op">*</span><span class="st"> </span><span class="er">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st"> </span><span class="fl">419.26</span> <span class="op">|</span><span class="st">  </span><span class="er">**&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span><span class="op">**</span><span class="st">      </span><span class="er">|</span></a>
+<a class="sourceLine" id="cb334-4" data-line-number="4"><span class="er">|</span><span class="st">  </span>Residual   <span class="op">|</span><span class="st">  </span><span class="dv">29</span>  <span class="op">|</span><span class="st">  </span><span class="fl">524.3</span>        <span class="op">|</span><span class="st">   </span><span class="fl">18.1</span>        <span class="op">|</span><span class="st">        </span><span class="er">|</span><span class="st">                     </span><span class="er">|</span></a></code></pre></div>
 <p>and have it look like this:</p>
 <table>
 <thead>
@@ -854,7 +869,7 @@ knitted, then RMarkdown will turn our simple/grid/pipe table into something pret
 <h3><span class="header-section-number">7.5.4</span> <code class="unnumbered">knitr::kable</code></h3>
 <p>The <code>knitr</code> package includes a function that produces simple tables. It doesn’t
 have much customizability, but it gets the job done. One nice aspect about <code>kable</code> compared to <code>pander</code> is that we don’t need to set any additional chunk options.</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">kable</span>( data )</a></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">kable</span>( data )</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -894,7 +909,7 @@ and not having to learn too much. It is relatively powerful in that it will
 take <code>summary()</code> and <code>anova()</code> output and produce tables for them. By default
 <code>pander</code> will produce simple tables, but you can ask for Grid or Pipe tables.</p>
 <p>To use <code>pander</code> results, we need to add the chunk option <code>results='hold'</code> to chunk so that the knitting process doesn’t try to convert the output into</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" data-line-number="1">pander<span class="op">::</span><span class="kw">pander</span>( data, <span class="dt">style=</span><span class="st">&#39;rmarkdown&#39;</span> )   <span class="co"># style is pipe tables...</span></a></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">pander<span class="op">::</span><span class="kw">pander</span>( data, <span class="dt">style=</span><span class="st">&#39;rmarkdown&#39;</span> )   <span class="co"># style is pipe tables...</span></a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -929,8 +944,8 @@ take <code>summary()</code> and <code>anova()</code> output and produce tables f
 <p>The <code>pander</code> package deals with summary and anova tables from
 a variety of different analyses. So you can simply ask for a
 nice looking version using the following:</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )    <span class="co"># a simple regression</span></a>
-<a class="sourceLine" id="cb336-2" data-line-number="2">pander<span class="op">::</span><span class="kw">pander</span>( <span class="kw">summary</span>(model) )    <span class="co"># my usual summary table</span></a></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )    <span class="co"># a simple regression</span></a>
+<a class="sourceLine" id="cb337-2" data-line-number="2">pander<span class="op">::</span><span class="kw">pander</span>( <span class="kw">summary</span>(model) )    <span class="co"># my usual summary table</span></a></code></pre></div>
 <table style="width:89%;">
 <colgroup>
 <col width="25%" />
@@ -990,7 +1005,7 @@ nice looking version using the following:</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" data-line-number="1">pander<span class="op">::</span><span class="kw">pander</span>( <span class="kw">anova</span>( model ) )    <span class="co"># my usual anova table</span></a></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1">pander<span class="op">::</span><span class="kw">pander</span>( <span class="kw">anova</span>( model ) )    <span class="co"># my usual anova table</span></a></code></pre></div>
 <table style="width:86%;">
 <caption>Analysis of Variance Table</caption>
 <colgroup>
@@ -1048,11 +1063,13 @@ nice looking version using the following:</p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1098,8 +1115,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

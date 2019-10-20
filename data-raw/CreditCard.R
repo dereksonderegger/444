@@ -97,8 +97,15 @@ if( Active ){
   warning('Invalid Card')
 }
 
-write_rds(Cards, 'data-raw/CreditCard_Cards.rds')
-write_rds(Customers, 'data-raw/CreditCard_Customers.rds')
-write_rds(Retailers, 'data-raw/CreditCard_Retailers.rds')
-write_rds(Transactions, 'data-raw/CreditCard_Transactions.rds')
+# convert the Dates to character strings 
+Cards <- Cards %>% 
+  mutate(Issue_DateTime = as.character(Issue_DateTime),
+         Exp_DateTime   = as.character(Exp_DateTime))
+Transactions <- Transactions %>%
+  mutate(DateTime = as.character(DateTime))
+
+write_csv(Cards, 'data-raw/CreditCard_Cards.csv', )
+write_csv(Customers, 'data-raw/CreditCard_Customers.csv')
+write_csv(Retailers, 'data-raw/CreditCard_Retailers.csv')
+write_csv(Transactions, 'data-raw/CreditCard_Transactions.csv')
 

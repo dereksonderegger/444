@@ -329,6 +329,12 @@ mosaic::tally( c(0,0,0,1,1,1,1,2) )
 ```
 
 ```
+## Registered S3 method overwritten by 'mosaic':
+##   method                           from   
+##   fortify.SpatialPolygonsDataFrame ggplot2
+```
+
+```
 ## X
 ## 0 1 2 
 ## 3 4 1

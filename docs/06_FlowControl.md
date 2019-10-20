@@ -102,15 +102,15 @@ df
 ```
 
 ```
-##   Type       Value
-## 1    A -0.92734071
-## 2    A -0.57976297
-## 3    B -0.50203769
-## 4    B  0.26105308
-## 5    C  0.08038373
-## 6    C -1.06925728
-## 7    D  1.29488758
-## 8    D  0.53510764
+##   Type      Value
+## 1    A -0.9459231
+## 2    A  1.7016194
+## 3    B  1.0066223
+## 4    B  1.3785417
+## 5    C -1.8991484
+## 6    C -0.1020785
+## 7    D -0.7894632
+## 8    D  1.4594670
 ```
 
 ```r
@@ -119,10 +119,10 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 
 ```
 ##   Type      Value
-## 1    A -0.9273407
-## 2    A -0.5797630
-## 3    B -0.5020377
-## 4    B  0.2610531
+## 1    A -0.9459231
+## 2    A  1.7016194
+## 3    B  1.0066223
+## 4    B  1.3785417
 ```
 
 
@@ -228,7 +228,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -243,7 +243,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 
@@ -257,7 +257,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -272,7 +272,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] " in the if statement, got a Tail! "
+## [1] "In the else part!"
 ```
 
 ```r
@@ -280,7 +280,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -304,7 +304,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The first child had more rules to follow"
+## [1] "No more unfounded generalizations!"
 ```
 
 
@@ -334,7 +334,7 @@ p.value
 ```
 
 ```
-## [1] 6.38285e-11
+## [1] 5.07197e-09
 ```
 
 

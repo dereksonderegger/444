@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Statistical Models | STA 444/5 - Introductory Data Science using R</title>
-  <meta name="description" content="Chapter 5 Statistical Models | STA 444/5 - Introductory Data Science using R" />
+  <title>Chapter 17 Web API Data Queries | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 17 Web API Data Queries | STA 444/5 - Introductory Data Science using R" />
   <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Statistical Models | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:title" content="Chapter 17 Web API Data Queries | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Statistical Models | STA 444/5 - Introductory Data Science using R" />
+  <meta name="twitter:title" content="Chapter 17 Web API Data Queries | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="4-data-wrangling.html"/>
-<link rel="next" href="6-flow-control.html"/>
+<link rel="prev" href="16-data-scraping.html"/>
+<link rel="next" href="18-databases.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -396,360 +396,176 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="statistical-models" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Statistical Models</h1>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)   <span class="co"># loading ggplot2 and dplyr</span></a>
-<a class="sourceLine" id="cb168-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb168-3" data-line-number="3"><span class="kw">options</span>(<span class="dt">tibble.width =</span> <span class="ot">Inf</span>)   <span class="co"># Print all the columns of a tibble (data.frame)</span></a></code></pre></div>
-<p>While R is a full programming language, it was first developed by statisticians for statisticians. There are several functions to do common statistical tests but because those functions were developed early in R’s history, there is some inconsistency in how those functions work. There have been some attempts to standardize modeling object interfaces, but there were always be a little weirdness.</p>
-<div id="formula-notation" class="section level2">
-<h2><span class="header-section-number">5.1</span> Formula Notation</h2>
-<p>Most statistical modeling functions rely on a formula based interface. The primary purpose is to provide a consistent way to designate which columns in a data frame are the response variable and which are the explanatory variables. In particular the notation is</p>
-<p><span class="math display">\[\underbrace{y}_{\textrm{LHS response}} \;\;\; 
-\underbrace{\sim}_{\textrm{is a function of}} \;\;\; 
-\underbrace{x}_{\textrm{RHS explanatory}}\]</span></p>
-<p>Mathematicians often refer to these terms as the <em>Left Hand Side</em> (LHS) and <em>Right Hand Side</em> (RHS). The LHS is always the response and the RHS contains the explanatory variables.</p>
-<p>In R, the LHS is usually just a single variable in the data. However the RHS can contain multiple variables and in complicated relationships.</p>
-<table>
-<colgroup>
-<col width="36%" />
-<col width="63%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Right Hand Side Terms</strong></td>
-<td>Meaning</td>
-</tr>
-<tr class="even">
-<td><code>x1 + x2</code></td>
-<td>Both <code>x1</code> and <code>x2</code> are additive explanatory variables.
-In this format, we are adding only the <em>main effects</em>
-of the <code>x1</code> and <code>x2</code> variables.</td>
-</tr>
-<tr class="odd">
-<td><code>x1:x2</code></td>
-<td>This is the interaction term between <code>x1</code> and <code>x2</code></td>
-</tr>
-<tr class="even">
-<td><code>x1 * x2</code></td>
-<td>Because whenever we add an interaction term to a
-model, we want to also have the main effects. So this
-is a short cut for adding the main effect of <code>x1</code> and
-<code>x2</code> and also the interaction term <code>x1:x2</code>.</td>
-</tr>
-<tr class="odd">
-<td><code>(x1 + x2 + x3)^2</code></td>
-<td>This is the main effects of <code>x1</code>, <code>x2</code>, and <code>x3</code> and
-also all of the second order interactions.</td>
-</tr>
-<tr class="even">
-<td><code>poly(x, degree=2)</code></td>
-<td>This fits the degree 2 polynomial. When fit like this,
-R produces an orthogonal basis for the polynomial,
-which is more computationally stable, but won’t be
-appropiate for interpreting the polynomial
-coefficients.</td>
-</tr>
-<tr class="odd">
-<td><code>poly(x, degree=2, raw=TRUE)</code></td>
-<td>This fits the degree 2 polynomial using
-<span class="math inline">\(\beta_0 + \beta_1 x + \beta_2 x^2\)</span> and the polynomial
-polynomial coefficients are suitable for
-interpretation.</td>
-</tr>
-<tr class="even">
-<td><code>I( x^2 )</code></td>
-<td><em>Ignore</em> the usual rules for interpreting formulas
-and do the mathematical calculation. This is not
-necessary for things like <code>sqrt(x)</code> or <code>log(x)</code> but
-required if there is a conflict between mathematics
-and the formula interpretation.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="basic-models" class="section level2">
-<h2><span class="header-section-number">5.2</span> Basic Models</h2>
-<p>The most common statistical models are generally referred to as <em>linear models</em> and the R function for creating a linear model is <code>lm()</code>. This section will introduce how to fit the model to data in a data frame as well as how to fit very specific t-test models.</p>
-<div id="t-tests" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> t-tests</h3>
-<p>There are several varients on T-tests depending on the question of interest, but they all require a continuous response and a categorical explanatory variable with two levels. If there is an obvious pairing between an observation in the first level of the explanatory variable with an observation in the second level, then it is a <em>paired</em> t-test, otherwise it is a <em>two-sample</em> t-test.</p>
-<div id="two-sample-t-tests" class="section level4">
-<h4><span class="header-section-number">5.2.1.1</span> Two Sample t-tests</h4>
-<p>First we’ll import data from the <code>Lock5Data</code> package that gives SAT scores and gender from 343 students in an introductory statistics class. We’ll also recode the <code>GenderCode</code> column to be more descriptive than 0 or 1. We’ll do a t-test to examine if there is evidence that males and females have a different SAT score at the college these data were take.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&#39;GPAGender&#39;</span>, <span class="dt">package=</span><span class="st">&#39;Lock5Data&#39;</span>)</a>
-<a class="sourceLine" id="cb169-2" data-line-number="2">GPAGender &lt;-<span class="st"> </span>GPAGender <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb169-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">ifelse</span>(GenderCode <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&#39;Male&#39;</span>, <span class="st">&#39;Female&#39;</span>))</a>
-<a class="sourceLine" id="cb169-4" data-line-number="4"><span class="kw">ggplot</span>(GPAGender, <span class="kw">aes</span>(<span class="dt">x=</span>Gender, <span class="dt">y=</span>SAT)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb169-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
-<p><img src="05_Model_Building_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>We’ll use the function <code>t.test()</code> using the formula interface for specifying the response and the explantory variables. The usual practice should be to save the output of the <code>t.test</code> function call (typically as an object named <code>model</code> or <code>model_1</code> or similar). Once the model has been fit, all of the important quantities have been calculated and saved and we just need to ask for them. Unfortunately, the base functions in R don’t make this particularly easy, but the <code>tidymodels</code> group of packages for building statistical models allows us to wrap all of the important information into a data frame with one row. In this case we will use the <code>broom::tidy()</code> function to extract all the important model results information.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">t.test</span>(SAT <span class="op">~</span><span class="st"> </span>Gender, <span class="dt">data=</span>GPAGender)</a>
-<a class="sourceLine" id="cb170-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb170-3" data-line-number="3"><span class="kw">print</span>(model) <span class="co"># print the summary information to the screen</span></a></code></pre></div>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  SAT by Gender
-## t = -1.4135, df = 323.26, p-value = 0.1585
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -44.382840   7.270083
-## sample estimates:
-## mean in group Female   mean in group Male 
-##             1195.702             1214.258</code></pre>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1">broom<span class="op">::</span><span class="kw">tidy</span>(model) <span class="co"># all that information as a data frame</span></a></code></pre></div>
-<pre><code>## # A tibble: 1 x 10
-##   estimate estimate1 estimate2 statistic p.value parameter conf.low
-##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1    -18.6     1196.     1214.     -1.41   0.158      323.    -44.4
-##   conf.high method                  alternative
-##       &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;      
-## 1      7.27 Welch Two Sample t-test two.sided</code></pre>
-<p>In the <code>t.test</code> function, the default behavior is to perform a test with a two-sided alternative and to calculate a 95% confidence interval. Those can be adjusted using the <code>alternative</code> and <code>conf.level</code> arguments. See the help documentation for <code>t.test()</code> function to see how to adust those.</p>
-<p>The <code>t.test</code> function can also be used without using a formula by inputing a vector of response variables for the first group and a vector of response variables for the second. The following results in the same model as the formula based interface.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1">male_SATs   &lt;-<span class="st"> </span>GPAGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Gender <span class="op">==</span><span class="st">   &#39;Male&#39;</span> ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(SAT)</a>
-<a class="sourceLine" id="cb174-2" data-line-number="2">female_SATs &lt;-<span class="st"> </span>GPAGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Gender <span class="op">==</span><span class="st"> &#39;Female&#39;</span> ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(SAT)</a>
-<a class="sourceLine" id="cb174-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb174-4" data-line-number="4">model &lt;-<span class="st"> </span><span class="kw">t.test</span>( male_SATs, female_SATs )</a>
-<a class="sourceLine" id="cb174-5" data-line-number="5">broom<span class="op">::</span><span class="kw">tidy</span>(model) <span class="co"># all that information as a data frame</span></a></code></pre></div>
-<pre><code>## # A tibble: 1 x 10
-##   estimate estimate1 estimate2 statistic p.value parameter conf.low
-##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1     18.6     1214.     1196.      1.41   0.158      323.    -7.27
-##   conf.high method                  alternative
-##       &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;      
-## 1      44.4 Welch Two Sample t-test two.sided</code></pre>
-</div>
-<div id="paired-t-tests" class="section level4">
-<h4><span class="header-section-number">5.2.1.2</span> Paired t-tests</h4>
-<p>In a paired t-test, there is some mechanism for pairing observations in the two categories. For example, perhaps we observe the maximum weight lifted by a strongman competitor while wearing a weight belt vs not wearing the belt. Then we look at the difference between the weights lifted for each athlete. In the example we’ll look at here, we have the ages of 100 randomly selected married heterosexual couples from St. Lawerence County, NY. For any given man in the study, the obvious woman to compare his age to is his wife’s. So a paired test makes sense to perform.</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&#39;MarriageAges&#39;</span>, <span class="dt">package=</span><span class="st">&#39;Lock5Data&#39;</span>)</a>
-<a class="sourceLine" id="cb176-2" data-line-number="2"><span class="kw">str</span>(MarriageAges)</a></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    105 obs. of  2 variables:
-##  $ Husband: int  53 38 46 30 31 26 29 48 65 29 ...
-##  $ Wife   : int  50 34 44 36 23 31 25 51 46 26 ...</code></pre>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">ggplot</span>(MarriageAges, <span class="kw">aes</span>(<span class="dt">x=</span>Husband, <span class="dt">y=</span>Wife)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Husband&#39;s Age&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Wife&#39;s Age&quot;</span>)</a></code></pre></div>
-<p><img src="05_Model_Building_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>To do a paired t-test, all we need to do is calculate the difference in age for each couple and pass that into the <code>t.test()</code> function.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1">MarriageAges &lt;-<span class="st"> </span>MarriageAges <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb179-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Age_Diff =</span> Husband <span class="op">-</span><span class="st"> </span>Wife)</a>
-<a class="sourceLine" id="cb179-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb179-4" data-line-number="4"><span class="kw">t.test</span>( MarriageAges<span class="op">$</span>Age_Diff)</a></code></pre></div>
-<pre><code>## 
-##  One Sample t-test
-## 
-## data:  MarriageAges$Age_Diff
-## t = 5.8025, df = 104, p-value = 7.121e-08
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  1.861895 3.795248
-## sample estimates:
-## mean of x 
-##  2.828571</code></pre>
-<p>Alternatively, we could pass the vector of Husband ages and the vector of Wife ages into the <code>t.test()</code> function and tell it that the data is paired so that the first husband is paired with the first wife.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1"><span class="kw">t.test</span>( MarriageAges<span class="op">$</span>Husband, MarriageAges<span class="op">$</span>Wife, <span class="dt">paired=</span><span class="ot">TRUE</span> )</a></code></pre></div>
-<pre><code>## 
-##  Paired t-test
-## 
-## data:  MarriageAges$Husband and MarriageAges$Wife
-## t = 5.8025, df = 104, p-value = 7.121e-08
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  1.861895 3.795248
-## sample estimates:
-## mean of the differences 
-##                2.828571</code></pre>
-<p>Either way that the function is called, the <code>broom::tidy()</code> function could convert the printed output into a nice data frame which can then be used in further analysis.</p>
-</div>
-</div>
-<div id="lm-objects" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> lm objects</h3>
-<p>The general linear model function <code>lm</code> is more widely used than <code>t.test</code> because <code>lm</code> can be made to perform a t-test and the general linear model allows for fitting more than one explanatory variable and those variables could be either categorical or continuous.</p>
-<p>The general workflow will be to:</p>
+<div id="web-api-data-queries" class="section level1">
+<h1><span class="header-section-number">Chapter 17</span> Web API Data Queries</h1>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb744-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb744-2" data-line-number="2"><span class="kw">library</span>(censusapi)</a>
+<a class="sourceLine" id="cb744-3" data-line-number="3"><span class="kw">library</span>(jsonlite)  </a></code></pre></div>
+<p>With a standard database connection, there is quite a lot we can do. For example we could insert incorrect rows into tables, or even <a href="https://xkcd.com/327/">delete whole tables</a>. Many organizations that deliver data to clients require a way to minimize the types of data base actions that are allowed. For example, consider Twitter. Twitter clients need to connect to the Twitter database, sign in, and download the latest tweets from whomever they follow and accept a database input that adds a tweet from the signed in user. However, the client must not be able to update or insert tweets from somebody else, and to prevent Denial-Of-Service attacks, there should be some limit to the number of rows of information that we ask for. Furthermore, the client shouldn’t have to remember the details of how the data is stored and changes to the database configuration should be completely invisible to clients.</p>
+<p>Application Program Interfaces (APIs) are the specification for how two programs will interface. An API that is well thought out and documented is wonderful to use. In a data query situation, the API will define how we submit a query and the manner in which the result will be returned. Web API queries are usually designed so that</p>
+<div id="web-interface" class="section level2">
+<h2><span class="header-section-number">17.1</span> Web Interface</h2>
+<p>An example from the US Census Bureau’s web interface</p>
+<p><a href="http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;for=state" class="uri">http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;for=state</a>:*&amp;DATE_CODE=1</p>
 <ol style="list-style-type: decimal">
-<li>Visualize the data</li>
-<li>Call <code>lm()</code> using a formula to specify the model to fit.</li>
-<li>Save the results of the <code>lm()</code> call to some object (usually I name it <code>model</code>)</li>
-<li>Use accessor functions to ask for pertainent quantities that have already been calculated.</li>
-<li>Store prediction values and model confidence intervals for each data point in the original data frame.</li>
-<li>Graph the original data along with prediction values and model confidence intervals.</li>
+<li>The base website is <a href="http://api.census.gov/data/2018/pep/population" class="uri">http://api.census.gov/data/2018/pep/population</a>. This is effectively specifying which table we want to query from.</li>
+<li>Modifiers are included after the <code>?</code> and different modifers are separated by <code>&amp;</code></li>
+<li><code>get=</code> section defines the variables that you want</li>
+<li>The <code>for=state:*</code> denotes that we want all of the states. <code>state:01</code> would have been just Alabama.</li>
+<li>The <code>DATE_CODE=1</code> indicates that I just want the first estimate.</li>
 </ol>
-<p>To explore this topic we’ll use the <code>iris</code> data set to fit a regression model to predict petal length using sepal length.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb183-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() </a></code></pre></div>
-<p><img src="05_Model_Building_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>Now suppose we want to fit a regression model to these data and allow each species to have its own slope. We would fit the interaction model</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>( Petal.Length <span class="op">~</span><span class="st"> </span>Sepal.Length <span class="op">*</span><span class="st"> </span>Species, <span class="dt">data =</span> iris ) </a></code></pre></div>
+<p>When you go to this website, the database will read the modifier list, do the appropriate database query, and return the result via a webpage that has a very simple structure that is easy to parse into a table.</p>
+<p>The hard part about Web APIs is understanding which tables are available, and what each covariate means. For the US Census Bureau, the <a href="https://www.census.gov/data/developers/">developers</a> page is a great place to start.</p>
+</div>
+<div id="r-api-interfaces" class="section level2">
+<h2><span class="header-section-number">17.2</span> R API Interfaces</h2>
+<p>While it is helpful to understand how the web API works, it would be nice to not have to worry about some of the fiddly aspects of parsing the result into a data frame. There are many R packages that provide a convenient interface to some database API. For our US Census Bureau example, we’ll use the R package <code>censusapi</code>. You should read the <a href="https://github.com/hrecht/censusapi">documentation</a> as well.</p>
+<p>The Census Bureau wants to identify which developers are accessing their data and you are required to sign up for a <a href="https://api.census.gov/data/key_signup.html">Census Key</a>. It is easy to give them your email and they’ll email you a character string that you’ll use for the rest of these examples.</p>
+<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb745-1" data-line-number="1"><span class="co"># I got a Census API key from https://api.census.gov/data/key_signup.html </span></a>
+<a class="sourceLine" id="cb745-2" data-line-number="2"><span class="co"># and saved it as Census_Key and use that in all the following examples...</span></a>
+<a class="sourceLine" id="cb745-3" data-line-number="3"><span class="co"># </span></a>
+<a class="sourceLine" id="cb745-4" data-line-number="4"><span class="co"># This query is the example query first given in the censusapi vignette.</span></a>
+<a class="sourceLine" id="cb745-5" data-line-number="5"><span class="kw">library</span>(censusapi)</a>
+<a class="sourceLine" id="cb745-6" data-line-number="6"><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;timeseries/healthins/sahie&quot;</span>,</a>
+<a class="sourceLine" id="cb745-7" data-line-number="7">    <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&quot;NAME&quot;</span>, <span class="st">&quot;IPRCAT&quot;</span>, <span class="st">&quot;IPR_DESC&quot;</span>, <span class="st">&quot;PCTUI_PT&quot;</span>), </a>
+<a class="sourceLine" id="cb745-8" data-line-number="8">    <span class="dt">region =</span> <span class="st">&quot;state:01&quot;</span>,</a>
+<a class="sourceLine" id="cb745-9" data-line-number="9">    <span class="dt">time =</span> <span class="dv">2017</span>,</a>
+<a class="sourceLine" id="cb745-10" data-line-number="10">    <span class="dt">key =</span> Census_Key)</a></code></pre></div>
+<pre><code>##   time state    NAME IPRCAT                IPR_DESC PCTUI_PT
+## 1 2017    01 Alabama      0             All Incomes     11.0
+## 2 2017    01 Alabama      1      &lt;= 200% of Poverty     18.3
+## 3 2017    01 Alabama      2      &lt;= 250% of Poverty     17.3
+## 4 2017    01 Alabama      3      &lt;= 138% of Poverty     19.4
+## 5 2017    01 Alabama      4      &lt;= 400% of Poverty     14.5
+## 6 2017    01 Alabama      5 138% to 400% of Poverty     11.5</code></pre>
+<p>This is now super easy to query the Census database, except that I have NO IDEA what API names (ie tables) are available and I have no clue what variables I just downloaded. We need to get a better sense of what data sets are available.</p>
+<p>A good place to start is the <a href="https://www.census.gov/data/developers/data-sets.html">developer datasets</a>. In particular I’m interested in both county are municipality level population estimates over time as well as information from the American Community Survey (ACS).</p>
+<div id="population-estimates" class="section level3">
+<h3><span class="header-section-number">17.2.1</span> Population Estimates</h3>
+<p>The Census Bureau’s Population Estimation Program (PEP) is responsible for population estimates. On the <a href="https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html">Census Population API page</a>, it looks like I need to use the <code>pep/population</code> tables.</p>
+<p><a href="http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;for=state" class="uri">http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;for=state</a>:*&amp;DATE_CODE=1</p>
+<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb747-1" data-line-number="1"><span class="co"># Code to grab county level population levels.</span></a>
+<a class="sourceLine" id="cb747-2" data-line-number="2">County_Populations &lt;-<span class="st"> </span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;pep/population&quot;</span>,</a>
+<a class="sourceLine" id="cb747-3" data-line-number="3">  <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&#39;STATE&#39;</span>,<span class="st">&#39;COUNTY&#39;</span>,<span class="st">&#39;GEONAME&#39;</span>,<span class="st">&#39;DATE_CODE&#39;</span>,<span class="st">&#39;DATE_DESC&#39;</span>,<span class="st">&#39;POP&#39;</span>),</a>
+<a class="sourceLine" id="cb747-4" data-line-number="4">  <span class="dt">vintage =</span> <span class="st">&#39;2018&#39;</span>,</a>
+<a class="sourceLine" id="cb747-5" data-line-number="5">  <span class="dt">region =</span> <span class="st">&#39;county:*&#39;</span>, <span class="co"># States are in alphabetical order...</span></a>
+<a class="sourceLine" id="cb747-6" data-line-number="6">    <span class="dt">key =</span> Census_Key,</a>
+<a class="sourceLine" id="cb747-7" data-line-number="7">  <span class="dt">DATE_CODE=</span><span class="dv">1</span>  <span class="co"># 1st year in the decade, leave this out to get each year 2010-2018</span></a>
+<a class="sourceLine" id="cb747-8" data-line-number="8">  )</a>
+<a class="sourceLine" id="cb747-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb747-10" data-line-number="10">County_Populations <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>)  </a></code></pre></div>
+<pre><code>##   state county STATE COUNTY                 GEONAME DATE_CODE
+## 1    01    001    01    001 Autauga County, Alabama         1
+## 2    01    003    01    003 Baldwin County, Alabama         1
+## 3    01    005    01    005 Barbour County, Alabama         1
+## 4    01    007    01    007    Bibb County, Alabama         1
+## 5    01    009    01    009  Blount County, Alabama         1
+## 6    01    011    01    011 Bullock County, Alabama         1
+##                    DATE_DESC    POP DATE_CODE_1
+## 1 4/1/2010 Census population  54571           1
+## 2 4/1/2010 Census population 182265           1
+## 3 4/1/2010 Census population  27457           1
+## 4 4/1/2010 Census population  22915           1
+## 5 4/1/2010 Census population  57322           1
+## 6 4/1/2010 Census population  10914           1</code></pre>
+<p>I was looking for population divided up by Race and Sex and it took awhile to figure out that I want to use PEP’s Demographic Characteristics Estimates by Age Groups tables <code>pep/charagegroups</code>. From there I looked at some of the examples and variables.</p>
+<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb749-1" data-line-number="1">County_Populations_by_AgeGender &lt;-<span class="st"> </span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;pep/charagegroups&quot;</span>,</a>
+<a class="sourceLine" id="cb749-2" data-line-number="2">  <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&#39;GEONAME&#39;</span>,<span class="st">&#39;DATE_CODE&#39;</span>,<span class="st">&#39;AGEGROUP&#39;</span>,<span class="st">&#39;SEX&#39;</span>,<span class="st">&#39;DATE_DESC&#39;</span>,<span class="st">&#39;POP&#39;</span>),</a>
+<a class="sourceLine" id="cb749-3" data-line-number="3">  <span class="dt">vintage =</span> <span class="st">&#39;2018&#39;</span>,</a>
+<a class="sourceLine" id="cb749-4" data-line-number="4">  <span class="dt">region =</span> <span class="st">&#39;state:01&#39;</span>, <span class="co"># States are in alphabetical order...</span></a>
+<a class="sourceLine" id="cb749-5" data-line-number="5">    <span class="dt">key =</span> Census_Key)</a>
+<a class="sourceLine" id="cb749-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb749-7" data-line-number="7">County_Populations_by_AgeGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>)</a></code></pre></div>
+<pre><code>##   state GEONAME DATE_CODE AGEGROUP SEX                  DATE_DESC     POP
+## 1    01 Alabama         1        0   0 4/1/2010 Census population 4779736
+## 2    01 Alabama         1        0   1 4/1/2010 Census population 2320188
+## 3    01 Alabama         1        0   2 4/1/2010 Census population 2459548
+## 4    01 Alabama         1        1   0 4/1/2010 Census population  304957
+## 5    01 Alabama         1        1   1 4/1/2010 Census population  155265
+## 6    01 Alabama         1        1   2 4/1/2010 Census population  149692</code></pre>
+<p>As I played around with it, it seems that I can grab Race and Sex information as well. But unfortunately the categories are numerically coded so somehow we have to figure out which are which. It looks like <code>SEX=0</code> is both but I have no idea which is men and which is women. Still looking at the <a href="https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html">Census Population API page</a> and following the link about the variables for demographic characteristics, we can click through each variable to see the .json file that defines the factor levels.</p>
+<p>We can also import those into R directly</p>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb751-1" data-line-number="1"><span class="co"># What variables are Available?</span></a>
+<a class="sourceLine" id="cb751-2" data-line-number="2">censusapi<span class="op">::</span><span class="kw">listCensusMetadata</span>(<span class="dt">name=</span><span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dt">vintage=</span><span class="dv">2018</span>)</a></code></pre></div>
+<pre><code>##          name                             label          required
+## 1   DATE_CODE                              Date default displayed
+## 2      SUMLEV                     Summary Level              &lt;NA&gt;
+## 3         SEX                               Sex default displayed
+## 4       STATE                   State FIPS code              &lt;NA&gt;
+## 5     GEONAME All geo names seperated by commas              &lt;NA&gt;
+## 6    DIVISION              Census Division Code              &lt;NA&gt;
+## 7      REGION              Census Regional Code              &lt;NA&gt;
+## 8      GEO_ID        Geographic identifier code              &lt;NA&gt;
+## 9         POP                        Population              &lt;NA&gt;
+## 10 LASTUPDATE                       Last Update              &lt;NA&gt;
+## 11     NATION                            Nation              &lt;NA&gt;
+## 12   AGEGROUP                         Age Group default displayed
+## 13       RACE                              Race default displayed
+## 14  DATE_DESC        Description of DATE values              &lt;NA&gt;
+## 15   UNIVERSE                          Universe              &lt;NA&gt;
+## 16     COUNTY                  County FIPS code              &lt;NA&gt;
+## 17       HISP                   Hispanic Origin default displayed
+##    predicateType group limit concept
+## 1            int   N/A     0    &lt;NA&gt;
+## 2         string   N/A     0    &lt;NA&gt;
+## 3            int   N/A     0    &lt;NA&gt;
+## 4           &lt;NA&gt;   N/A     0    &lt;NA&gt;
+## 5           &lt;NA&gt;   N/A     0    &lt;NA&gt;
+## 6            int   N/A     0    &lt;NA&gt;
+## 7            int   N/A     0    &lt;NA&gt;
+## 8         string   N/A     0    &lt;NA&gt;
+## 9           &lt;NA&gt;   N/A     0    &lt;NA&gt;
+## 10        string   N/A     0    &lt;NA&gt;
+## 11          &lt;NA&gt;   N/A     0    &lt;NA&gt;
+## 12           int   N/A     0    &lt;NA&gt;
+## 13           int   N/A     0    &lt;NA&gt;
+## 14        string   N/A     0    &lt;NA&gt;
+## 15        string   N/A     0    &lt;NA&gt;
+## 16          &lt;NA&gt;   N/A     0    &lt;NA&gt;
+## 17           int   N/A     0    &lt;NA&gt;</code></pre>
+<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb753-1" data-line-number="1"><span class="co"># I can&#39;t figure out how to make the censusapi package import the factor levels. </span></a>
+<a class="sourceLine" id="cb753-2" data-line-number="2"><span class="co"># So I&#39;ll just import the levels directly from the webpage .json file and then </span></a>
+<a class="sourceLine" id="cb753-3" data-line-number="3"><span class="co"># clean it up into a nice data frame.</span></a>
+<a class="sourceLine" id="cb753-4" data-line-number="4">CensusFactorLevels &lt;-<span class="st"> </span><span class="cf">function</span>(name, vintage, variable){</a>
+<a class="sourceLine" id="cb753-5" data-line-number="5">  file &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&#39;https://api.census.gov/data/&#39;</span>,vintage,<span class="st">&#39;/&#39;</span>,name,</a>
+<a class="sourceLine" id="cb753-6" data-line-number="6">                <span class="st">&#39;/variables/&#39;</span>,variable,<span class="st">&#39;.json&#39;</span>)</a>
+<a class="sourceLine" id="cb753-7" data-line-number="7">  Meta &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">read_json</span>(file) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb753-8" data-line-number="8"><span class="st">    </span>.[[<span class="st">&#39;values&#39;</span>]] <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="st">&#39;item&#39;</span>]] <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb753-9" data-line-number="9"><span class="st">    </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span>tibble<span class="op">::</span><span class="kw">enframe</span>() </a>
+<a class="sourceLine" id="cb753-10" data-line-number="10">  <span class="kw">colnames</span>(Meta) &lt;-<span class="st"> </span><span class="kw">c</span>(variable, <span class="kw">str_c</span>(variable,<span class="st">&#39;_DESC&#39;</span>))</a>
+<a class="sourceLine" id="cb753-11" data-line-number="11">  <span class="kw">return</span>(Meta)</a>
+<a class="sourceLine" id="cb753-12" data-line-number="12">}</a>
+<a class="sourceLine" id="cb753-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb753-14" data-line-number="14"><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;SEX&#39;</span>) </a></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   SEX   SEX_DESC  
+##   &lt;chr&gt; &lt;chr&gt;     
+## 1 0     Both Sexes
+## 2 1     Male      
+## 3 2     Female</code></pre>
+<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb755-1" data-line-number="1"><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;RACE&#39;</span>) </a></code></pre></div>
+<pre><code>## # A tibble: 12 x 2
+##    RACE  RACE_DESC                                                         
+##    &lt;chr&gt; &lt;chr&gt;                                                             
+##  1 11    Native Hawaiian and Other Pacific Islander alone or in combination
+##  2 10    Asian alone or in combination                                     
+##  3 9     American Indian and Alaska Native alone or in combination         
+##  4 8     Black alone or in combination                                     
+##  5 7     White alone or in combination                                     
+##  6 6     Two or more races                                                 
+##  7 5     Native Hawaiian and Other Pacific Islander alone                  
+##  8 4     Asian alone                                                       
+##  9 3     American Indian and Alaska Native alone                           
+## 10 2     Black alone                                                       
+## 11 1     White alone                                                       
+## 12 0     All races</code></pre>
 </div>
 </div>
-<div id="accessor-function" class="section level2">
-<h2><span class="header-section-number">5.3</span> Accessor function</h2>
-<p>Once a model has been fit, we want to obtain a variety of information from the model object. The way that we get most all of this information using base R commands is to call the <code>summary()</code> function which returns a list and then grab whatever we want out of that. Typically for a report, we could just print out all of the summary information and let the reader pick out the information.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="kw">summary</span>(model)</a></code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = Petal.Length ~ Sepal.Length * Species, data = iris)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.68611 -0.13442 -0.00856  0.15966  0.79607 
-## 
-## Coefficients:
-##                                Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)                      0.8031     0.5310   1.512    0.133    
-## Sepal.Length                     0.1316     0.1058   1.244    0.216    
-## Speciesversicolor               -0.6179     0.6837  -0.904    0.368    
-## Speciesvirginica                -0.1926     0.6578  -0.293    0.770    
-## Sepal.Length:Speciesversicolor   0.5548     0.1281   4.330 2.78e-05 ***
-## Sepal.Length:Speciesvirginica    0.6184     0.1210   5.111 1.00e-06 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.2611 on 144 degrees of freedom
-## Multiple R-squared:  0.9789, Adjusted R-squared:  0.9781 
-## F-statistic:  1333 on 5 and 144 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>But if we want to make a nice graph that includes the model’s <span class="math inline">\(R^2\)</span> value on it, we need to code some way of grabbing particular bits of information from the model fit and wrestling into a format that we can easily manipulate it.</p>
-<table style="width:100%;">
-<colgroup>
-<col width="28%" />
-<col width="36%" />
-<col width="34%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">Goal</th>
-<th align="left">Base R command</th>
-<th align="left"><code>tidymodels</code> version</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">Summary table of Coefficients</td>
-<td align="left"><code>summary(model)$coef</code></td>
-<td align="left"><code>broom::tidy(model)</code></td>
-</tr>
-<tr class="even">
-<td align="center">Parameter Confidence Intervals</td>
-<td align="left"><code>confint(model)</code></td>
-<td align="left"><code>broom::tidy(model, conf.int=TRUE)</code></td>
-</tr>
-<tr class="odd">
-<td align="center">Rsq and Adj-Rsq</td>
-<td align="left"><code>summary(model)$r.squared</code></td>
-<td align="left"><code>broom::glance(model)</code></td>
-</tr>
-<tr class="even">
-<td align="center">Model predictions</td>
-<td align="left"><code>predict(model)</code></td>
-<td align="left"><code>broom::augment(model, data)</code></td>
-</tr>
-<tr class="odd">
-<td align="center">Model residuals</td>
-<td align="left"><code>resid(model)</code></td>
-<td align="left"><code>broom::augment(model, data)</code></td>
-</tr>
-<tr class="even">
-<td align="center">Model predictions w/ CI</td>
-<td align="left"><code>predict(model, interval='confidence')</code></td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="center">Model predictions w/ PI</td>
-<td align="left"><code>predict(model, interval='prediction')</code></td>
-<td align="left"></td>
-</tr>
-<tr class="even">
-<td align="center">ANOVA table of model fit</td>
-<td align="left"><code>anova(model)</code></td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-<p>The package <code>broom</code> has three ways to interact with a model.</p>
-<ul>
-<li>The <code>tidy</code> command gives a nice table of the model coefficents.</li>
-<li>The <code>glance</code> function gives information about how well the model fits the data overall.</li>
-<li>The <code>augment</code> function adds the fitted values, residuals, and other diagnostic information to the original data frame used to generate the model. Unfortunately it does not have a way of adding the lower and upper confidence intervals for the predicted values.</li>
-</ul>
-<p>Most of the time, I use the base R commands for accessing information from a model and only resort to the <code>broom</code> commands when I need to access very specific quantities.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="kw">head</span>(iris)</a></code></pre></div>
-<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 1          5.1         3.5          1.4         0.2  setosa
-## 2          4.9         3.0          1.4         0.2  setosa
-## 3          4.7         3.2          1.3         0.2  setosa
-## 4          4.6         3.1          1.5         0.2  setosa
-## 5          5.0         3.6          1.4         0.2  setosa
-## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="co"># Remove any previous model prediction values that I&#39;ve added,</span></a>
-<a class="sourceLine" id="cb189-2" data-line-number="2"><span class="co"># and then add the model predictions </span></a>
-<a class="sourceLine" id="cb189-3" data-line-number="3">iris &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb189-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>( <span class="op">-</span><span class="kw">matches</span>(<span class="st">&#39;fit&#39;</span>), <span class="op">-</span><span class="kw">matches</span>(<span class="st">&#39;lwr&#39;</span>), <span class="op">-</span><span class="kw">matches</span>(<span class="st">&#39;upr&#39;</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb189-5" data-line-number="5"><span class="st">  </span><span class="kw">cbind</span>( <span class="kw">predict</span>(model, <span class="dt">newdata=</span>., <span class="dt">interval=</span><span class="st">&#39;confidence&#39;</span>) )       </a>
-<a class="sourceLine" id="cb189-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb189-7" data-line-number="7"><span class="kw">head</span>(iris, <span class="dt">n=</span><span class="dv">3</span>)</a></code></pre></div>
-<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species      fit
-## 1          5.1         3.5          1.4         0.2  setosa 1.474373
-## 2          4.9         3.0          1.4         0.2  setosa 1.448047
-## 3          4.7         3.2          1.3         0.2  setosa 1.421721
-##        lwr      upr
-## 1 1.398783 1.549964
-## 2 1.371765 1.524329
-## 3 1.324643 1.518798</code></pre>
-<p>Now that the fitted values that define the regression lines and the associated confidence interval band information has been added to my <code>iris</code> data set, we can now plot the raw data and the regression model predictions.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>fit) ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>( <span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">alpha=</span>.<span class="dv">3</span> )   <span class="co"># alpha is the ribbon transparency</span></a></code></pre></div>
-<p><img src="05_Model_Building_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>Now to add the R-squared value to the graph, we need to add a simple text layer. To do that, I’ll make a data frame that has the information, and then add the x and y coordinates for where it should go.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1">Rsq_data &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">glance</span>(model) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb192-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(r.squared) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb192-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">r.squared =</span> <span class="kw">round</span>(r.squared, <span class="dt">digits=</span><span class="dv">3</span>)) <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># only 3 digits of precision</span></a>
-<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">r.squared =</span> <span class="kw">paste</span>(<span class="st">&#39;Rsq =&#39;</span>, r.squared)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># append some text before</span></a>
-<a class="sourceLine" id="cb192-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Sepal.Length =</span><span class="dv">7</span>, <span class="dt">Petal.Length=</span><span class="fl">2.5</span>)           <span class="co"># set the location to place it</span></a>
-<a class="sourceLine" id="cb192-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb192-7" data-line-number="7">Rsq_data</a></code></pre></div>
-<pre><code>## # A tibble: 1 x 3
-##   r.squared   Sepal.Length Petal.Length
-##   &lt;chr&gt;              &lt;dbl&gt;        &lt;dbl&gt;
-## 1 Rsq = 0.979            7          2.5</code></pre>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb194-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb194-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>fit)  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb194-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>( <span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">alpha=</span>.<span class="dv">3</span> ) <span class="op">+</span><span class="st">   </span><span class="co"># alpha is the ribbon transparency</span></a>
-<a class="sourceLine" id="cb194-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_label</span>( <span class="dt">data=</span>Rsq_data, <span class="kw">aes</span>(<span class="dt">label=</span>r.squared, <span class="dt">color=</span><span class="ot">NULL</span>) )</a></code></pre></div>
-<p><img src="05_Model_Building_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-</div>
-<div id="exercises-4" class="section level2">
-<h2><span class="header-section-number">5.4</span> Exercises</h2>
+<div id="exercises-17" class="section level2">
+<h2><span class="header-section-number">17.3</span> Exercises</h2>
 <ol style="list-style-type: decimal">
-<li>Using the <code>trees</code> data frame that comes pre-installed in R, fit the regression model that uses the tree <code>Height</code> to explain the <code>Volume</code> of wood harvested from the tree.
-<ol style="list-style-type: lower-alpha">
-<li>Graph the data</li>
-<li>Fit a <code>lm</code> model using the command <code>model &lt;- lm(Volume ~ Height, data=trees)</code>.</li>
-<li>Print out the table of coefficients estimate names, estimated value, standard error, and upper and lower 95% confidence intervals.</li>
-<li>Add the model fitted values to the <code>trees</code> data frame along with the regression model confidence intervals.</li>
-<li>Graph the data and fitted regression line and uncertainty ribbon.</li>
-<li>Add the R-squared value as an annotation to the graph.</li>
-</ol></li>
-<li>The data set <code>phbirths</code> from the <code>faraway</code> package contains information birth weight, gestational length, and smoking status of mother. We’ll fit a quadratic model to predict infant birthweight using the gestational time.
-<ol style="list-style-type: lower-alpha">
-<li>Create two scatterplots of gestational length and birthweight, one for each smoking status.</li>
-<li>Remove all the observations that are premature (less than 36 weeks).</li>
-<li><p>Fit the quadratic model</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(grams <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(gestate,<span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>smoke, <span class="dt">data=</span>phbirths)</a></code></pre></div></li>
-<li>Add the model fitted values to the <code>phbirths</code> data frame along with the regression model confidence intervals.</li>
-<li>On your two scatterplots from part (a), add layers for the model fits and ribbon of uncertainty for the model fits.</li>
-<li><p>Create a column for the residuals in the <code>phbirths</code> data set using any of the following:</p></li>
-</ol>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1">phbirths<span class="op">$</span>residuals =<span class="st"> </span><span class="kw">resid</span>(model)</a>
-<a class="sourceLine" id="cb196-2" data-line-number="2">phbirths &lt;-<span class="st"> </span>phbirths <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>( <span class="dt">residuals =</span> <span class="kw">resid</span>(model) )</a>
-<a class="sourceLine" id="cb196-3" data-line-number="3">phbirths &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">augment</span>(model, phbirths)</a></code></pre></div>
-<ol start="7" style="list-style-type: lower-alpha">
-<li>Create a histogram of the residuals.</li>
-</ol></li>
+<li><p>I’m interested in information from the Census American Community Survey on demographics about educational attainment. This information can be found in ACS’s Subject table. Using the API, download the latest information about educational attainment and create map or graph summarizing educational attainment.</p></li>
+<li><p>Pick some API to investigate how to use. I might suggest Twitter, Reddit, Facebook for social media apps. If you are a genomics person, the R interface to Kegg would be a fun choice. The Centers for Disease Control has an API, as well. Many municipalities are starting to create Open Data and some of them have web APIs.</p></li>
 </ol>
 
 </div>
@@ -759,8 +575,8 @@ and the formula interpretation.</td>
           </div>
         </div>
       </div>
-<a href="4-data-wrangling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="6-flow-control.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="16-data-scraping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="18-databases.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -793,7 +609,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/444/raw/master/05_Model_Building.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/37_WebAPIs.Rmd",
 "text": "Edit"
 },
 "history": {

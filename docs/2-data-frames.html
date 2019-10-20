@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Data Frames | STA 444/5 - Introductory Data Science using R</title>
   <meta name="description" content="Chapter 2 Data Frames | STA 444/5 - Introductory Data Science using R" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Data Frames | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-18" />
+<meta name="date" content="2019-10-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="1-familiarization.html">
-<link rel="next" href="3-graphing.html">
+<link rel="prev" href="1-familiarization.html"/>
+<link rel="next" href="3-graphing.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -127,7 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
 </ul></li>
 <li class="part"><span><b>Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="1-familiarization.html"><a href="1-familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
@@ -327,41 +330,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.6" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>14.6</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="15-data-scraping.html"><a href="15-data-scraping.html"><i class="fa fa-check"></i><b>15</b> Data Scraping</a><ul>
-<li class="chapter" data-level="15.1" data-path="15-data-scraping.html"><a href="15-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>15.1</b> Web Pages</a><ul>
-<li class="chapter" data-level="15.1.1" data-path="15-data-scraping.html"><a href="15-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>15.1.1</b> Example Wikipedia Table</a></li>
-<li class="chapter" data-level="15.1.2" data-path="15-data-scraping.html"><a href="15-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>15.1.2</b> Lists</a></li>
+<li class="chapter" data-level="15" data-path="15-r-packages.html"><a href="15-r-packages.html"><i class="fa fa-check"></i><b>15</b> R Packages</a><ul>
+<li class="chapter" data-level="15.1" data-path="15-r-packages.html"><a href="15-r-packages.html#introduction"><i class="fa fa-check"></i><b>15.1</b> Introduction</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="15-r-packages.html"><a href="15-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>15.1.1</b> Useful packages and books</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="15-data-scraping.html"><a href="15-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>15.2</b> Scraping .pdf files</a></li>
-<li class="chapter" data-level="15.3" data-path="15-data-scraping.html"><a href="15-data-scraping.html#exercises-15"><i class="fa fa-check"></i><b>15.3</b> Exercises</a></li>
+<li class="chapter" data-level="15.2" data-path="15-r-packages.html"><a href="15-r-packages.html#package-structure"><i class="fa fa-check"></i><b>15.2</b> Package Structure</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="15-r-packages.html"><a href="15-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>15.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="15.2.2" data-path="15-r-packages.html"><a href="15-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="16-r-packages.html"><a href="16-r-packages.html"><i class="fa fa-check"></i><b>16</b> R Packages</a><ul>
-<li class="chapter" data-level="16.1" data-path="16-r-packages.html"><a href="16-r-packages.html#introduction"><i class="fa fa-check"></i><b>16.1</b> Introduction</a><ul>
-<li class="chapter" data-level="16.1.1" data-path="16-r-packages.html"><a href="16-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>16.1.1</b> Useful packages and books</a></li>
+<li class="chapter" data-level="15.3" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Dataset Documentation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="16.2" data-path="16-r-packages.html"><a href="16-r-packages.html#package-structure"><i class="fa fa-check"></i><b>16.2</b> Package Structure</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="16-r-packages.html"><a href="16-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>16.2.1</b> Minimal files and directories</a></li>
-<li class="chapter" data-level="16.2.2" data-path="16-r-packages.html"><a href="16-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>16.2.2</b> Optional Files and Directories</a></li>
+<li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
+<li class="chapter" data-level="15.5" data-path="15-r-packages.html"><a href="15-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="15-r-packages.html"><a href="15-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>15.5.1</b> A Simple Analysis Package</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting"><i class="fa fa-check"></i><b>16.3</b> Documenting</a><ul>
-<li class="chapter" data-level="16.3.1" data-path="16-r-packages.html"><a href="16-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>16.3.1</b> Dataset Documentation</a></li>
-<li class="chapter" data-level="16.3.2" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>16.3.2</b> Documenting Functions</a></li>
+<li class="chapter" data-level="15.6" data-path="15-r-packages.html"><a href="15-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.6</b> Sharing your Package</a></li>
+<li class="chapter" data-level="15.7" data-path="15-r-packages.html"><a href="15-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>15.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a></li>
-<li class="chapter" data-level="16.5" data-path="16-r-packages.html"><a href="16-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>16.5</b> The DESCRIPTION file</a><ul>
-<li class="chapter" data-level="16.5.1" data-path="16-r-packages.html"><a href="16-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>16.5.1</b> A Simple Analysis Package</a></li>
+<li class="chapter" data-level="16" data-path="16-data-scraping.html"><a href="16-data-scraping.html"><i class="fa fa-check"></i><b>16</b> Data Scraping</a><ul>
+<li class="chapter" data-level="16.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>16.1</b> Web Pages</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>16.1.1</b> Example Wikipedia Table</a></li>
+<li class="chapter" data-level="16.1.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>16.1.2</b> Lists</a></li>
 </ul></li>
-<li class="chapter" data-level="16.6" data-path="16-r-packages.html"><a href="16-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>16.6</b> Sharing your Package</a></li>
-<li class="chapter" data-level="16.7" data-path="16-r-packages.html"><a href="16-r-packages.html#exercises-16"><i class="fa fa-check"></i><b>16.7</b> Exercises</a></li>
+<li class="chapter" data-level="16.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>16.2</b> Scraping .pdf files</a></li>
+<li class="chapter" data-level="16.3" data-path="16-data-scraping.html"><a href="16-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html"><i class="fa fa-check"></i><b>17</b> Speeding up R</a><ul>
-<li class="chapter" data-level="17.1" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>17.1</b> Faster for loops?</a></li>
-<li class="chapter" data-level="17.2" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>17.2</b> Vectorizing loops</a></li>
-<li class="chapter" data-level="17.3" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>17.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="17.4" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>17.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="17.5" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>17.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="17.5.1" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>17.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="17.5.2" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>17.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="17" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html"><i class="fa fa-check"></i><b>17</b> Web API Data Queries</a><ul>
+<li class="chapter" data-level="17.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>17.1</b> Web Interface</a></li>
+<li class="chapter" data-level="17.2" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>17.2</b> R API Interfaces</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.2.1</b> Population Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="18-databases.html"><a href="18-databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
+<li class="chapter" data-level="18.1" data-path="18-databases.html"><a href="18-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
+<li class="chapter" data-level="18.2" data-path="18-databases.html"><a href="18-databases.html#sql"><i class="fa fa-check"></i><b>18.2</b> SQL</a></li>
+<li class="chapter" data-level="18.3" data-path="18-databases.html"><a href="18-databases.html#dbplyr"><i class="fa fa-check"></i><b>18.3</b> <code>dbplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html"><i class="fa fa-check"></i><b>19</b> Speeding up R</a><ul>
+<li class="chapter" data-level="19.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="19.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="19.3" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.4</b> Parallelizing for loops</a></li>
+<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.5</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.5.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.5.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.5.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.5.2</b> <code>caret::train</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -383,8 +398,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-frames" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Data Frames</h1>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co"># Load my favorite packages: dplyr, ggplot2, forcats, readr, and stringr</span></a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)  </a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="co"># Load my favorite packages: dplyr, ggplot2, forcats, readr, and stringr</span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)  </a></code></pre></div>
 <p>Data frames are the fundamental unit of data storage that casual users of R need to work with. Conceptually they are just like a single tab in a spreadsheet (e.g. Excel) file. There are multiple rows and columns and each column is of the same type of information (e.g. numerical values, dates, or character strings) and each row represents a single observation.</p>
 <p>Because the columns have meaning and we generally give them column names, it is desirable to want to access an element by the name of the column as opposed to the column number. While writing formulas in large Excel spreadsheets I often get annoyed trying to remember which column something was in and muttering “Was total biomass in column P or Q?” A system where I could just name the column <code>Total_Biomass</code> and then always refer to it that way, is much nicer to work with and I make fewer dumb mistakes.</p>
 <p>In this chapter we will briefly cover the minimal set of tools for working with data frames. First we discuss how to import data sets, both packages from packages and from appropriately formated Excel and .csv files. Finally we’ll see how to create a data frame “by hand” and to access columns and do simple manipulations.</p>
@@ -395,11 +410,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.1.1</span> From a Package</h3>
 <p>For many students, they will be assigned homework that utilizes data sets that are stored in some package. To access those, we would need to first install the package if we haven’t already. Recall to do that, we can use the Rstudio menu bar “Tools -&gt; Install Packages…” mouse action.</p>
 <p>Because we might have thousands of packages installed on a computer, and those packages might all have data sets associated with them, they aren’t loaded into memory by default. Instead we have to go through a two-step process of making sure that the package is installed on the computer, and then load the desired data set into the running session of R. Once the package is intalled, we can load the data into our session via the following command:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&#39;alfalfa&#39;</span>, <span class="dt">package=</span><span class="st">&#39;faraway&#39;</span>)   <span class="co"># load the data set &#39;alfalfa&#39; from the package &#39;faraway&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&#39;alfalfa&#39;</span>, <span class="dt">package=</span><span class="st">&#39;faraway&#39;</span>)   <span class="co"># load the data set &#39;alfalfa&#39; from the package &#39;faraway&#39;</span></a></code></pre></div>
 <p>Because R tries to avoid loading datasets until it is sure that you need them, the object <code>alfalfa</code> isn’t initially loaded as a <code>data.frame</code> but rather as a “promise” that it eventually will be loaded whenever you first use it. So lets first access it by viewing it.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">View</span>(alfalfa)</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">View</span>(alfalfa)</a></code></pre></div>
 <p>There are two ways to enter the view command. Either executing the <code>View()</code> function from the console, or clicking on either the white table or the object name in the <code>Environment</code> tab.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># Show the image of the environment tab with the white table highlighted</span></a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co"># Show the image of the environment tab with the white table highlighted</span></a></code></pre></div>
 </div>
 <div id="import-from-.csv-or-.xls-files" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Import from <code>.csv</code> or <code>.xls</code> files</h3>
@@ -407,9 +422,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Alternatively, the data might be stored in an Excel file and we just need to tell R where the file is and which worksheet tab to import.</p>
 <p>The hardest part for people that are new to programming is giving the path to the data file. In this case, I recommend students use the data import wizard that RStudio includes which is accessed via ‘File -&gt; Import Dataset’. This will then give you a choice of file types to read from (.csv files are in the “Text” options). Once you have selected the file type to import, the user is presented with a file browser window where the desired file should be located. Once the file is chosen, we can import of the file.</p>
 <p>Critically, we should notice that the import wizard generates R code that does the actual import. We MUST copy that code into our Rmarkdown file or else the import won’t happen when we try to knit the Rmarkdown into an output document because knitting always occurs in a completely fresh R session. So only use the import wizard to generate the import code! The code generated by the import wizard ends with a <code>View()</code> command and I typically remove that as it can interfer with the knitting process. The code that I’ll paste into my RMarkdown file typically looks like this:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">library</span>(readxl)</a>
-<a class="sourceLine" id="cb54-2" data-line-number="2">Melioid_IgG &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;~/Dropbox/NAU/MAGPIX serology/Data/Melioid_IgG.xlsx&quot;</span>)</a>
-<a class="sourceLine" id="cb54-3" data-line-number="3"><span class="co"># View(Melioid_IgG)</span></a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">Melioid_IgG &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;~/Dropbox/NAU/MAGPIX serology/Data/Melioid_IgG.xlsx&quot;</span>)</a>
+<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="co"># View(Melioid_IgG)</span></a></code></pre></div>
 </div>
 </div>
 <div id="data-types" class="section level2">
@@ -424,21 +439,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>Depending on the command, R will coerce your data from one type to another if necessary, but it is a good habit to do the coercion yourself. If a variable is a number, R will automatically assume that it is continuous numerical variable. If it is a character string, then R will assume it is a factor when doing any statistical analysis.</p>
 <p>Most of these types are familiar to beginning R users except for factors. Factors are how R keeps track of categorical variables. R does this in a two step pattern. First it figures out how many categories there are and remembers which category an observation belongs two and second, it keeps a vector character strings that correspond to the names of each of the categories.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># A character vector</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;C&#39;</span>)</a>
-<a class="sourceLine" id="cb55-3" data-line-number="3">y</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="co"># A character vector</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;C&#39;</span>)</a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">y</a></code></pre></div>
 <pre><code>## [1] &quot;B&quot; &quot;B&quot; &quot;A&quot; &quot;A&quot; &quot;C&quot;</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># convert the vector of characters into a vector of factors </span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2">z &lt;-<span class="st"> </span><span class="kw">factor</span>(y)</a>
-<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="kw">str</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co"># convert the vector of characters into a vector of factors </span></a>
+<a class="sourceLine" id="cb58-2" data-line-number="2">z &lt;-<span class="st"> </span><span class="kw">factor</span>(y)</a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="kw">str</span>(z)</a></code></pre></div>
 <pre><code>##  Factor w/ 3 levels &quot;A&quot;,&quot;B&quot;,&quot;C&quot;: 2 2 1 1 3</code></pre>
 <p>Notice that the vector <code>z</code> is actually the combination of group assignment vector <code>2,2,1,1,3</code> and the group names vector <code>“A”,”B”,”C”</code>. So we could convert z to a vector of numerics or to a vector of character strings.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">as.numeric</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="kw">as.numeric</span>(z)</a></code></pre></div>
 <pre><code>## [1] 2 2 1 1 3</code></pre>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">as.character</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">as.character</span>(z)</a></code></pre></div>
 <pre><code>## [1] &quot;B&quot; &quot;B&quot; &quot;A&quot; &quot;A&quot; &quot;C&quot;</code></pre>
 <p>Often we need to know what possible groups there are, and this is done using the <code>levels()</code> command.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">levels</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">levels</span>(z)</a></code></pre></div>
 <pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
 <p>Notice that the order of the group names was done alphabetically, which we did not chose. This ordering of the levels has implications when we do an analysis or make a plot and R will always display information about the factor levels using this order. It would be nice to be able to change the order. Also it would be really nice to give more descriptive names to the groups rather than just the group code in my raw data. Useful functions for controling the order and labels of the factor can be found in the <code>forcats</code> package which we use in a later chapter.</p>
 </div>
@@ -446,32 +461,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.3</span> Basic Manipulation</h2>
 <p>Occasionally I’ll need to create a small data frame “by hand” to facilitate creating graphs in ggplot2. In this final section, we’ll cover creating a data frame and doing simple manipulations using the base R commands and syntax.</p>
 <p>To create a data frame, we have to squish together a bunch of columns vectors. The command <code>data.frame()</code> does exactly that. In the example below, I list the names, ages and heights (in inches) of my family.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">family &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb65-2" data-line-number="2">  <span class="dt">Names =</span> <span class="kw">c</span>(<span class="st">&#39;Derek&#39;</span>, <span class="st">&#39;Aubrey&#39;</span>, <span class="st">&#39;Elise&#39;</span>, <span class="st">&#39;Casey&#39;</span>),</a>
-<a class="sourceLine" id="cb65-3" data-line-number="3">  <span class="dt">Age   =</span> <span class="kw">c</span>(<span class="dv">42</span>, <span class="dv">39</span>, <span class="dv">6</span>, <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb65-4" data-line-number="4">  <span class="dt">Height.in =</span> <span class="kw">c</span>(<span class="dv">64</span>, <span class="dv">66</span>, <span class="dv">43</span>, <span class="dv">39</span>) </a>
-<a class="sourceLine" id="cb65-5" data-line-number="5">)</a>
-<a class="sourceLine" id="cb65-6" data-line-number="6">family</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">family &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb66-2" data-line-number="2">  <span class="dt">Names =</span> <span class="kw">c</span>(<span class="st">&#39;Derek&#39;</span>, <span class="st">&#39;Aubrey&#39;</span>, <span class="st">&#39;Elise&#39;</span>, <span class="st">&#39;Casey&#39;</span>),</a>
+<a class="sourceLine" id="cb66-3" data-line-number="3">  <span class="dt">Age   =</span> <span class="kw">c</span>(<span class="dv">42</span>, <span class="dv">39</span>, <span class="dv">6</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb66-4" data-line-number="4">  <span class="dt">Height.in =</span> <span class="kw">c</span>(<span class="dv">64</span>, <span class="dv">66</span>, <span class="dv">43</span>, <span class="dv">39</span>) </a>
+<a class="sourceLine" id="cb66-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb66-6" data-line-number="6">family</a></code></pre></div>
 <pre><code>##    Names Age Height.in
 ## 1  Derek  42        64
 ## 2 Aubrey  39        66
 ## 3  Elise   6        43
 ## 4  Casey   3        39</code></pre>
 <p>To access a particular column, we could use the <code>$</code> operator. We could then do something like calculate the mean or standard deviation.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">family<span class="op">$</span>Age</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">family<span class="op">$</span>Age</a></code></pre></div>
 <pre><code>## [1] 42 39  6  3</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">mean</span>( family<span class="op">$</span>Age )</a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="kw">mean</span>( family<span class="op">$</span>Age )</a></code></pre></div>
 <pre><code>## [1] 22.5</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">sd</span>( family<span class="op">$</span>Age )</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw">sd</span>( family<span class="op">$</span>Age )</a></code></pre></div>
 <pre><code>## [1] 20.85665</code></pre>
 <p>As an alternative to the “$” operator, we could use the <code>[row, column]</code> notation. To select a particular row or column, we can select them by either name or location.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">family[ , <span class="st">&#39;Age&#39;</span>]    <span class="co"># all the rows, Age column</span></a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">family[ , <span class="st">&#39;Age&#39;</span>]    <span class="co"># all the rows, Age column</span></a></code></pre></div>
 <pre><code>## [1] 42 39  6  3</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">family[ <span class="dv">2</span>, <span class="st">&#39;Age&#39;</span>]  <span class="co"># age of person in row 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">family[ <span class="dv">2</span>, <span class="st">&#39;Age&#39;</span>]  <span class="co"># age of person in row 2</span></a></code></pre></div>
 <pre><code>## [1] 39</code></pre>
 <p>Next we could calculate everybodies height in centimeters by multiplying the heights by 2.54 and saving the result in column appropriately named.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">family<span class="op">$</span>Height.cm &lt;-<span class="st"> </span>family<span class="op">$</span>Height.in <span class="op">*</span><span class="st"> </span><span class="fl">2.54</span>  <span class="co"># calculate the heights and save them!</span></a>
-<a class="sourceLine" id="cb77-2" data-line-number="2">family                                       <span class="co"># view our result!</span></a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">family<span class="op">$</span>Height.cm &lt;-<span class="st"> </span>family<span class="op">$</span>Height.in <span class="op">*</span><span class="st"> </span><span class="fl">2.54</span>  <span class="co"># calculate the heights and save them!</span></a>
+<a class="sourceLine" id="cb78-2" data-line-number="2">family                                       <span class="co"># view our result!</span></a></code></pre></div>
 <pre><code>##    Names Age Height.in Height.cm
 ## 1  Derek  42        64    162.56
 ## 2 Aubrey  39        66    167.64
@@ -503,11 +518,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -553,8 +570,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

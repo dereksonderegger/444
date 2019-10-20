@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 17 Speeding up R | STA 444/5 - Introductory Data Science using R</title>
-  <meta name="description" content="Chapter 17 Speeding up R | STA 444/5 - Introductory Data Science using R" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <title>Chapter 19 Speeding up R | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 19 Speeding up R | STA 444/5 - Introductory Data Science using R" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 17 Speeding up R | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:title" content="Chapter 19 Speeding up R | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 17 Speeding up R | STA 444/5 - Introductory Data Science using R" />
+  <meta name="twitter:title" content="Chapter 19 Speeding up R | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
@@ -24,14 +24,14 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-18" />
+<meta name="date" content="2019-10-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="16-r-packages.html">
+<link rel="prev" href="18-databases.html"/>
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -127,7 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
 </ul></li>
 <li class="part"><span><b>Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="1-familiarization.html"><a href="1-familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
@@ -327,41 +330,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.6" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>14.6</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="15-data-scraping.html"><a href="15-data-scraping.html"><i class="fa fa-check"></i><b>15</b> Data Scraping</a><ul>
-<li class="chapter" data-level="15.1" data-path="15-data-scraping.html"><a href="15-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>15.1</b> Web Pages</a><ul>
-<li class="chapter" data-level="15.1.1" data-path="15-data-scraping.html"><a href="15-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>15.1.1</b> Example Wikipedia Table</a></li>
-<li class="chapter" data-level="15.1.2" data-path="15-data-scraping.html"><a href="15-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>15.1.2</b> Lists</a></li>
+<li class="chapter" data-level="15" data-path="15-r-packages.html"><a href="15-r-packages.html"><i class="fa fa-check"></i><b>15</b> R Packages</a><ul>
+<li class="chapter" data-level="15.1" data-path="15-r-packages.html"><a href="15-r-packages.html#introduction"><i class="fa fa-check"></i><b>15.1</b> Introduction</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="15-r-packages.html"><a href="15-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>15.1.1</b> Useful packages and books</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="15-data-scraping.html"><a href="15-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>15.2</b> Scraping .pdf files</a></li>
-<li class="chapter" data-level="15.3" data-path="15-data-scraping.html"><a href="15-data-scraping.html#exercises-15"><i class="fa fa-check"></i><b>15.3</b> Exercises</a></li>
+<li class="chapter" data-level="15.2" data-path="15-r-packages.html"><a href="15-r-packages.html#package-structure"><i class="fa fa-check"></i><b>15.2</b> Package Structure</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="15-r-packages.html"><a href="15-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>15.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="15.2.2" data-path="15-r-packages.html"><a href="15-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="16-r-packages.html"><a href="16-r-packages.html"><i class="fa fa-check"></i><b>16</b> R Packages</a><ul>
-<li class="chapter" data-level="16.1" data-path="16-r-packages.html"><a href="16-r-packages.html#introduction"><i class="fa fa-check"></i><b>16.1</b> Introduction</a><ul>
-<li class="chapter" data-level="16.1.1" data-path="16-r-packages.html"><a href="16-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>16.1.1</b> Useful packages and books</a></li>
+<li class="chapter" data-level="15.3" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Dataset Documentation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="16.2" data-path="16-r-packages.html"><a href="16-r-packages.html#package-structure"><i class="fa fa-check"></i><b>16.2</b> Package Structure</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="16-r-packages.html"><a href="16-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>16.2.1</b> Minimal files and directories</a></li>
-<li class="chapter" data-level="16.2.2" data-path="16-r-packages.html"><a href="16-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>16.2.2</b> Optional Files and Directories</a></li>
+<li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
+<li class="chapter" data-level="15.5" data-path="15-r-packages.html"><a href="15-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="15-r-packages.html"><a href="15-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>15.5.1</b> A Simple Analysis Package</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting"><i class="fa fa-check"></i><b>16.3</b> Documenting</a><ul>
-<li class="chapter" data-level="16.3.1" data-path="16-r-packages.html"><a href="16-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>16.3.1</b> Dataset Documentation</a></li>
-<li class="chapter" data-level="16.3.2" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>16.3.2</b> Documenting Functions</a></li>
+<li class="chapter" data-level="15.6" data-path="15-r-packages.html"><a href="15-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.6</b> Sharing your Package</a></li>
+<li class="chapter" data-level="15.7" data-path="15-r-packages.html"><a href="15-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>15.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a></li>
-<li class="chapter" data-level="16.5" data-path="16-r-packages.html"><a href="16-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>16.5</b> The DESCRIPTION file</a><ul>
-<li class="chapter" data-level="16.5.1" data-path="16-r-packages.html"><a href="16-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>16.5.1</b> A Simple Analysis Package</a></li>
+<li class="chapter" data-level="16" data-path="16-data-scraping.html"><a href="16-data-scraping.html"><i class="fa fa-check"></i><b>16</b> Data Scraping</a><ul>
+<li class="chapter" data-level="16.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>16.1</b> Web Pages</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>16.1.1</b> Example Wikipedia Table</a></li>
+<li class="chapter" data-level="16.1.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>16.1.2</b> Lists</a></li>
 </ul></li>
-<li class="chapter" data-level="16.6" data-path="16-r-packages.html"><a href="16-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>16.6</b> Sharing your Package</a></li>
-<li class="chapter" data-level="16.7" data-path="16-r-packages.html"><a href="16-r-packages.html#exercises-16"><i class="fa fa-check"></i><b>16.7</b> Exercises</a></li>
+<li class="chapter" data-level="16.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>16.2</b> Scraping .pdf files</a></li>
+<li class="chapter" data-level="16.3" data-path="16-data-scraping.html"><a href="16-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html"><i class="fa fa-check"></i><b>17</b> Speeding up R</a><ul>
-<li class="chapter" data-level="17.1" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>17.1</b> Faster for loops?</a></li>
-<li class="chapter" data-level="17.2" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>17.2</b> Vectorizing loops</a></li>
-<li class="chapter" data-level="17.3" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>17.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="17.4" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>17.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="17.5" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>17.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="17.5.1" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>17.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="17.5.2" data-path="17-speeding-up-r.html"><a href="17-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>17.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="17" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html"><i class="fa fa-check"></i><b>17</b> Web API Data Queries</a><ul>
+<li class="chapter" data-level="17.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>17.1</b> Web Interface</a></li>
+<li class="chapter" data-level="17.2" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>17.2</b> R API Interfaces</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.2.1</b> Population Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="18-databases.html"><a href="18-databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
+<li class="chapter" data-level="18.1" data-path="18-databases.html"><a href="18-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
+<li class="chapter" data-level="18.2" data-path="18-databases.html"><a href="18-databases.html#sql"><i class="fa fa-check"></i><b>18.2</b> SQL</a></li>
+<li class="chapter" data-level="18.3" data-path="18-databases.html"><a href="18-databases.html#dbplyr"><i class="fa fa-check"></i><b>18.3</b> <code>dbplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html"><i class="fa fa-check"></i><b>19</b> Speeding up R</a><ul>
+<li class="chapter" data-level="19.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="19.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="19.3" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.4</b> Parallelizing for loops</a></li>
+<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.5</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.5.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.5.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.5.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.5.2</b> <code>caret::train</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -382,145 +397,146 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="speeding-up-r" class="section level1">
-<h1><span class="header-section-number">Chapter 17</span> Speeding up R</h1>
-<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb745-1" data-line-number="1"><span class="kw">library</span>(microbenchmark)  <span class="co"># for measuring how long stuff takes</span></a>
-<a class="sourceLine" id="cb745-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb745-3" data-line-number="3"><span class="kw">library</span>(doMC)      <span class="co"># do multi-core stuff</span></a>
-<a class="sourceLine" id="cb745-4" data-line-number="4"><span class="kw">library</span>(foreach)   <span class="co"># parallelizable for loops</span></a>
-<a class="sourceLine" id="cb745-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb745-6" data-line-number="6"><span class="kw">library</span>(tidyverse) <span class="co"># dplyr, ggplot2, etc...</span></a>
-<a class="sourceLine" id="cb745-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb745-8" data-line-number="8"><span class="kw">library</span>(faraway)   <span class="co"># some examples</span></a>
-<a class="sourceLine" id="cb745-9" data-line-number="9"><span class="kw">library</span>(boot)</a>
-<a class="sourceLine" id="cb745-10" data-line-number="10"><span class="kw">library</span>(caret)</a>
-<a class="sourceLine" id="cb745-11" data-line-number="11"><span class="kw">library</span>(glmnet)</a></code></pre></div>
-<p>Eventually if you have large enough data sets, an R user eventually writes code that is slow to execute and needs to be sped up. This chapter tries to lay out common problems and bad habits and shows how to correct them. However, the correctness and maintainability of code should take precendence over speed. Too often, misguided attempts to obtain efficient code results in an unmaintainable mess that is no faster that the initial code.</p>
-<p>Hadley Wickham has a book aimed at advanced R user that describes many of the finer details about R. One section in the book describes his process for building fast, maintainable software projects and if you have the time, I highly suggest reading the on-line version, <a href="http://adv-r.had.co.nz/Performance.html">Advanced R</a>.</p>
+<h1><span class="header-section-number">Chapter 19</span> Speeding up R</h1>
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb786-1" data-line-number="1"><span class="kw">library</span>(microbenchmark)  <span class="co"># for measuring how long stuff takes</span></a>
+<a class="sourceLine" id="cb786-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb786-3" data-line-number="3"><span class="kw">library</span>(doMC)      <span class="co"># do multi-core stuff</span></a>
+<a class="sourceLine" id="cb786-4" data-line-number="4"><span class="kw">library</span>(foreach)   <span class="co"># parallelizable for loops</span></a>
+<a class="sourceLine" id="cb786-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb786-6" data-line-number="6"><span class="kw">library</span>(tidyverse) <span class="co"># dplyr, ggplot2, etc...</span></a>
+<a class="sourceLine" id="cb786-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb786-8" data-line-number="8"><span class="kw">library</span>(faraway)   <span class="co"># some examples</span></a>
+<a class="sourceLine" id="cb786-9" data-line-number="9"><span class="kw">library</span>(boot)</a>
+<a class="sourceLine" id="cb786-10" data-line-number="10"><span class="kw">library</span>(caret)</a>
+<a class="sourceLine" id="cb786-11" data-line-number="11"><span class="kw">library</span>(glmnet)</a></code></pre></div>
+<p>Eventually if you have large enough data sets, an R user eventually writes code that is slow to execute and needs to be sped up. This chapter tries to lay out common problems and bad habits and shows how to correct them. However, the correctness and maintainability of code should take precedence over speed. Too often, misguided attempts to obtain efficient code results in an un-maintainable mess that is no faster that the initial code.</p>
+<p>Hadley Wickham has a book aimed at advanced R user that describes many of the finer details about R. One section in the book describes his process for building fast, maintainable software projects and if you have the time, I highly suggest reading the on-line version,
+<a href="http://adv-r.had.co.nz/Performance.html">Advanced R</a>.</p>
 <p>First we need some way of measuring how long our code took to run. For this we will use the package <code>microbenchmark</code>. The idea is that we want to evaluate two or three expressions that solve a problem.</p>
-<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb746-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb746-2" data-line-number="2"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb746-3" data-line-number="3">  <span class="kw">sqrt</span>(x),         <span class="co"># First expression to compare</span></a>
-<a class="sourceLine" id="cb746-4" data-line-number="4">  x<span class="op">^</span>(<span class="fl">0.5</span>)          <span class="co"># second expression to compare</span></a>
-<a class="sourceLine" id="cb746-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb787-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb787-2" data-line-number="2"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb787-3" data-line-number="3">  <span class="kw">sqrt</span>(x),         <span class="co"># First expression to compare</span></a>
+<a class="sourceLine" id="cb787-4" data-line-number="4">  x<span class="op">^</span>(<span class="fl">0.5</span>)          <span class="co"># second expression to compare</span></a>
+<a class="sourceLine" id="cb787-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: microseconds
-##     expr   min   lq  mean median    uq  max neval cld
-##  sqrt(x)  2.54  2.6  3.07   2.67  2.78 17.7   100  a 
-##  x^(0.5) 25.50 25.6 26.64  25.66 25.79 65.4   100   b</code></pre>
+##     expr   min    lq  mean median    uq   max neval
+##  sqrt(x)  2.33  2.45  2.81   2.54  2.66  14.4   100
+##  x^(0.5) 23.88 24.04 28.66  24.15 25.67 123.1   100</code></pre>
 <p>What <code>microbenchmark</code> does is run the two expressions a number of times and then produces the 5-number summary of those times. By running it multiple times, we account for the randomness associated with a operating system that is also running at the same time.</p>
 <div id="faster-for-loops" class="section level2">
-<h2><span class="header-section-number">17.1</span> Faster for loops?</h2>
+<h2><span class="header-section-number">19.1</span> Faster for loops?</h2>
 <p>Often we need to perform some simple action repeatedly. It is natural to write a <code>for</code> loop to do the action and we wish to speed the up. In this first case, we will consider having to do the action millions of times and each chunk of computation within the <code>for</code> takes very little time.</p>
 <p>Consider frame of 4 columns, and for each of <span class="math inline">\(n\)</span> rows, we wish to know which column has the largest value.</p>
-<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb748-1" data-line-number="1">make.data &lt;-<span class="st"> </span><span class="cf">function</span>(n){</a>
-<a class="sourceLine" id="cb748-2" data-line-number="2">  data &lt;-<span class="st"> </span><span class="kw">cbind</span>(</a>
-<a class="sourceLine" id="cb748-3" data-line-number="3">    <span class="kw">rnorm</span>(n, <span class="dt">mean=</span><span class="dv">5</span>, <span class="dt">sd=</span><span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb748-4" data-line-number="4">    <span class="kw">rpois</span>(n, <span class="dt">lambda =</span> <span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb748-5" data-line-number="5">    <span class="kw">rgamma</span>(n, <span class="dt">shape =</span> <span class="dv">2</span>, <span class="dt">scale =</span> <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb748-6" data-line-number="6">    <span class="kw">rexp</span>(n, <span class="dt">rate =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb748-7" data-line-number="7">  data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data)</a>
-<a class="sourceLine" id="cb748-8" data-line-number="8">  <span class="kw">return</span>(data)</a>
-<a class="sourceLine" id="cb748-9" data-line-number="9">}</a>
-<a class="sourceLine" id="cb748-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb748-11" data-line-number="11">data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" data-line-number="1">make.data &lt;-<span class="st"> </span><span class="cf">function</span>(n){</a>
+<a class="sourceLine" id="cb789-2" data-line-number="2">  data &lt;-<span class="st"> </span><span class="kw">cbind</span>(</a>
+<a class="sourceLine" id="cb789-3" data-line-number="3">    <span class="kw">rnorm</span>(n, <span class="dt">mean=</span><span class="dv">5</span>, <span class="dt">sd=</span><span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb789-4" data-line-number="4">    <span class="kw">rpois</span>(n, <span class="dt">lambda =</span> <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb789-5" data-line-number="5">    <span class="kw">rgamma</span>(n, <span class="dt">shape =</span> <span class="dv">2</span>, <span class="dt">scale =</span> <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb789-6" data-line-number="6">    <span class="kw">rexp</span>(n, <span class="dt">rate =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb789-7" data-line-number="7">  data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data)</a>
+<a class="sourceLine" id="cb789-8" data-line-number="8">  <span class="kw">return</span>(data)</a>
+<a class="sourceLine" id="cb789-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb789-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb789-11" data-line-number="11">data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">100</span>)</a></code></pre></div>
 <p>The way that you might first think about solving this problem is to write a for loop and, for each row, figure it out.</p>
-<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb749-1" data-line-number="1">f1 &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</a>
-<a class="sourceLine" id="cb749-2" data-line-number="2">  output &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb749-3" data-line-number="3">  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(input) ){</a>
-<a class="sourceLine" id="cb749-4" data-line-number="4">    output[i] &lt;-<span class="st"> </span><span class="kw">which.max</span>( input[i,] )</a>
-<a class="sourceLine" id="cb749-5" data-line-number="5">  }</a>
-<a class="sourceLine" id="cb749-6" data-line-number="6">  <span class="kw">return</span>(output)</a>
-<a class="sourceLine" id="cb749-7" data-line-number="7">}</a></code></pre></div>
-<p>We might consider that there are two ways to return a value from a function (using the <code>return</code> function and just printing it). In fact, I’ve always heard that using the <code>return</code> statment is a touch slower.</p>
-<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb750-1" data-line-number="1">f2.noReturn &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</a>
-<a class="sourceLine" id="cb750-2" data-line-number="2">  output &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb750-3" data-line-number="3">  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(input) ){</a>
-<a class="sourceLine" id="cb750-4" data-line-number="4">    output[i] &lt;-<span class="st"> </span><span class="kw">which.max</span>( input[i,] )</a>
-<a class="sourceLine" id="cb750-5" data-line-number="5">  }</a>
-<a class="sourceLine" id="cb750-6" data-line-number="6">  output</a>
-<a class="sourceLine" id="cb750-7" data-line-number="7">}</a></code></pre></div>
-<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb751-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb751-2" data-line-number="2"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb751-3" data-line-number="3">  <span class="kw">f1</span>(data),</a>
-<a class="sourceLine" id="cb751-4" data-line-number="4">  <span class="kw">f2.noReturn</span>(data)</a>
-<a class="sourceLine" id="cb751-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb790-1" data-line-number="1">f1 &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</a>
+<a class="sourceLine" id="cb790-2" data-line-number="2">  output &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb790-3" data-line-number="3">  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(input) ){</a>
+<a class="sourceLine" id="cb790-4" data-line-number="4">    output[i] &lt;-<span class="st"> </span><span class="kw">which.max</span>( input[i,] )</a>
+<a class="sourceLine" id="cb790-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb790-6" data-line-number="6">  <span class="kw">return</span>(output)</a>
+<a class="sourceLine" id="cb790-7" data-line-number="7">}</a></code></pre></div>
+<p>We might consider that there are two ways to return a value from a function (using the <code>return</code> function and just printing it). In fact, I’ve always heard that using the <code>return</code> statement is a touch slower.</p>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" data-line-number="1">f2.noReturn &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</a>
+<a class="sourceLine" id="cb791-2" data-line-number="2">  output &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb791-3" data-line-number="3">  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(input) ){</a>
+<a class="sourceLine" id="cb791-4" data-line-number="4">    output[i] &lt;-<span class="st"> </span><span class="kw">which.max</span>( input[i,] )</a>
+<a class="sourceLine" id="cb791-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb791-6" data-line-number="6">  output</a>
+<a class="sourceLine" id="cb791-7" data-line-number="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb792-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb792-2" data-line-number="2"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb792-3" data-line-number="3">  <span class="kw">f1</span>(data),</a>
+<a class="sourceLine" id="cb792-4" data-line-number="4">  <span class="kw">f2.noReturn</span>(data)</a>
+<a class="sourceLine" id="cb792-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: milliseconds
-##               expr  min   lq mean median   uq  max neval cld
-##           f1(data) 3.37 3.56 5.28   3.78 5.78 20.8   100   a
-##  f2.noReturn(data) 3.38 3.58 5.19   3.86 6.38 12.9   100   a</code></pre>
+##               expr  min   lq mean median   uq  max neval
+##           f1(data) 3.71 4.24 5.50   4.58 5.87 15.1   100
+##  f2.noReturn(data) 3.69 4.20 5.38   4.73 6.03 10.5   100</code></pre>
 <p>In fact, it looks like it is a touch slower, but not massively compared to the run-to-run variability. I prefer to use the <code>return</code> statement for readability, but if we agree have the last line of code in the function be whatever needs to be returned, readability isn’t strongly effected.</p>
 <p>We next consider whether it would be faster to allocate the output vector once we figure out the number of rows needed, or just build it on the fly?</p>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb753-1" data-line-number="1">f3.AllocOutput &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</a>
-<a class="sourceLine" id="cb753-2" data-line-number="2">  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(input)</a>
-<a class="sourceLine" id="cb753-3" data-line-number="3">  output &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NULL</span>, n)</a>
-<a class="sourceLine" id="cb753-4" data-line-number="4">  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(input) ){</a>
-<a class="sourceLine" id="cb753-5" data-line-number="5">    output[i] &lt;-<span class="st"> </span><span class="kw">which.max</span>( input[i,] )</a>
-<a class="sourceLine" id="cb753-6" data-line-number="6">  }</a>
-<a class="sourceLine" id="cb753-7" data-line-number="7">  <span class="kw">return</span>(output)</a>
-<a class="sourceLine" id="cb753-8" data-line-number="8">}</a></code></pre></div>
-<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb754-1" data-line-number="1"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb754-2" data-line-number="2">  <span class="kw">f1</span>(data),</a>
-<a class="sourceLine" id="cb754-3" data-line-number="3">  <span class="kw">f3.AllocOutput</span>(data)</a>
-<a class="sourceLine" id="cb754-4" data-line-number="4">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb794-1" data-line-number="1">f3.AllocOutput &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</a>
+<a class="sourceLine" id="cb794-2" data-line-number="2">  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(input)</a>
+<a class="sourceLine" id="cb794-3" data-line-number="3">  output &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NULL</span>, n)</a>
+<a class="sourceLine" id="cb794-4" data-line-number="4">  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(input) ){</a>
+<a class="sourceLine" id="cb794-5" data-line-number="5">    output[i] &lt;-<span class="st"> </span><span class="kw">which.max</span>( input[i,] )</a>
+<a class="sourceLine" id="cb794-6" data-line-number="6">  }</a>
+<a class="sourceLine" id="cb794-7" data-line-number="7">  <span class="kw">return</span>(output)</a>
+<a class="sourceLine" id="cb794-8" data-line-number="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb795-1" data-line-number="1"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb795-2" data-line-number="2">  <span class="kw">f1</span>(data),</a>
+<a class="sourceLine" id="cb795-3" data-line-number="3">  <span class="kw">f3.AllocOutput</span>(data)</a>
+<a class="sourceLine" id="cb795-4" data-line-number="4">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: milliseconds
-##                  expr  min   lq mean median   uq  max neval cld
-##              f1(data) 3.44 3.75 5.88   4.74 7.66 29.7   100   a
-##  f3.AllocOutput(data) 3.42 3.69 5.82   4.66 7.24 20.1   100   a</code></pre>
+##                  expr  min   lq mean median   uq  max neval
+##              f1(data) 3.63 4.17 5.19   4.77 5.79 13.4   100
+##  f3.AllocOutput(data) 3.62 4.07 5.24   4.61 5.54 13.8   100</code></pre>
 <p>If anything, allocating the size of output first was slower. So given this, we shouldn’t feel to bad being lazy and using <code>output &lt;- NULL</code> to initiallize things.</p>
 </div>
 <div id="vectorizing-loops" class="section level2">
-<h2><span class="header-section-number">17.2</span> Vectorizing loops</h2>
+<h2><span class="header-section-number">19.2</span> Vectorizing loops</h2>
 <p>In general, <code>for</code> loops in R are very slow and we want to avoid them as much as possible. The <code>apply</code> family of functions can be quite helpful for applying a function to each row or column of a matrix or data.frame or to each element of a list.</p>
 <p>To test this, instead of a <code>for</code> loop, we will use <code>apply</code>.</p>
-<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb756-1" data-line-number="1">f4.apply &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</a>
-<a class="sourceLine" id="cb756-2" data-line-number="2">  output &lt;-<span class="st"> </span><span class="kw">apply</span>(input, <span class="dv">1</span>, which.max)</a>
-<a class="sourceLine" id="cb756-3" data-line-number="3">  <span class="kw">return</span>(output)</a>
-<a class="sourceLine" id="cb756-4" data-line-number="4">}</a></code></pre></div>
-<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb757-1" data-line-number="1"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb757-2" data-line-number="2">  <span class="kw">f1</span>(data),</a>
-<a class="sourceLine" id="cb757-3" data-line-number="3">  <span class="kw">f4.apply</span>(data)</a>
-<a class="sourceLine" id="cb757-4" data-line-number="4">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" data-line-number="1">f4.apply &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</a>
+<a class="sourceLine" id="cb797-2" data-line-number="2">  output &lt;-<span class="st"> </span><span class="kw">apply</span>(input, <span class="dv">1</span>, which.max)</a>
+<a class="sourceLine" id="cb797-3" data-line-number="3">  <span class="kw">return</span>(output)</a>
+<a class="sourceLine" id="cb797-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb798-1" data-line-number="1"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb798-2" data-line-number="2">  <span class="kw">f1</span>(data),</a>
+<a class="sourceLine" id="cb798-3" data-line-number="3">  <span class="kw">f4.apply</span>(data)</a>
+<a class="sourceLine" id="cb798-4" data-line-number="4">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: microseconds
-##            expr  min   lq mean median   uq   max neval cld
-##        f1(data) 3402 5367 6713   6273 7338 15504   100   b
-##  f4.apply(data)  288  350  691    538  585 13496   100  a</code></pre>
+##            expr  min   lq mean median   uq   max neval
+##        f1(data) 3638 4223 5169   4697 5506 10765   100
+##  f4.apply(data)  282  340  478    391  516  2959   100</code></pre>
 <p>This is the type of speed up that matters. We have a 10-fold speed up in execution time and particularly the maximum time has dropped impressively.</p>
 <p>Unfortunately, I have always found the <code>apply</code> functions a little cumbersome and I prefer to use <code>dplyr</code> instead strictly for readability.</p>
-<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb759-1" data-line-number="1">f5.dplyr &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</a>
-<a class="sourceLine" id="cb759-2" data-line-number="2">  output &lt;-<span class="st"> </span>input <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb759-3" data-line-number="3"><span class="st">    </span><span class="kw">mutate</span>( <span class="dt">max.col=</span><span class="kw">which.max</span>( <span class="kw">c</span>(X1, X2, X3, X4) ) ) </a>
-<a class="sourceLine" id="cb759-4" data-line-number="4">  <span class="kw">return</span>(output<span class="op">$</span>max.col)</a>
-<a class="sourceLine" id="cb759-5" data-line-number="5">}</a></code></pre></div>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" data-line-number="1"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb760-2" data-line-number="2">  <span class="kw">f4.apply</span>(data),</a>
-<a class="sourceLine" id="cb760-3" data-line-number="3">  <span class="kw">f5.dplyr</span>(data)</a>
-<a class="sourceLine" id="cb760-4" data-line-number="4">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb800-1" data-line-number="1">f5.dplyr &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</a>
+<a class="sourceLine" id="cb800-2" data-line-number="2">  output &lt;-<span class="st"> </span>input <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb800-3" data-line-number="3"><span class="st">    </span><span class="kw">mutate</span>( <span class="dt">max.col=</span><span class="kw">which.max</span>( <span class="kw">c</span>(X1, X2, X3, X4) ) ) </a>
+<a class="sourceLine" id="cb800-4" data-line-number="4">  <span class="kw">return</span>(output<span class="op">$</span>max.col)</a>
+<a class="sourceLine" id="cb800-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" data-line-number="1"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb801-2" data-line-number="2">  <span class="kw">f4.apply</span>(data),</a>
+<a class="sourceLine" id="cb801-3" data-line-number="3">  <span class="kw">f5.dplyr</span>(data)</a>
+<a class="sourceLine" id="cb801-4" data-line-number="4">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: microseconds
-##            expr min  lq mean median   uq  max neval cld
-##  f4.apply(data) 309 518  580    551  643 1030   100  a 
-##  f5.dplyr(data) 545 896 1186    996 1232 7805   100   b</code></pre>
+##            expr min  lq mean median   uq  max neval
+##  f4.apply(data) 313 376  581    474  662 3118   100
+##  f5.dplyr(data) 459 579  906    688 1005 5549   100</code></pre>
 <p>Unfortunately <code>dplyr</code> is a lot slower than <code>apply</code> in this case. I wonder if the dynamics would change with a larger <code>n</code>?</p>
-<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb762-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">10000</span>)</a>
-<a class="sourceLine" id="cb762-2" data-line-number="2"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb762-3" data-line-number="3">  <span class="kw">f4.apply</span>(data),</a>
-<a class="sourceLine" id="cb762-4" data-line-number="4">  <span class="kw">f5.dplyr</span>(data)</a>
-<a class="sourceLine" id="cb762-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb803-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb803-2" data-line-number="2"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb803-3" data-line-number="3">  <span class="kw">f4.apply</span>(data),</a>
+<a class="sourceLine" id="cb803-4" data-line-number="4">  <span class="kw">f5.dplyr</span>(data)</a>
+<a class="sourceLine" id="cb803-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: microseconds
-##            expr   min    lq  mean median    uq   max neval cld
-##  f4.apply(data) 22917 31409 35803  34375 40085 61017   100   b
-##  f5.dplyr(data)   803   997  1338   1204  1497  3532   100  a</code></pre>
-<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb764-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">100000</span>)</a>
-<a class="sourceLine" id="cb764-2" data-line-number="2"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb764-3" data-line-number="3">  <span class="kw">f4.apply</span>(data),</a>
-<a class="sourceLine" id="cb764-4" data-line-number="4">  <span class="kw">f5.dplyr</span>(data)</a>
-<a class="sourceLine" id="cb764-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+##            expr   min    lq  mean median    uq   max neval
+##  f4.apply(data) 26109 28992 34380  32313 36794 68252   100
+##  f5.dplyr(data)   630   948  1143   1097  1252  2593   100</code></pre>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb805-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">100000</span>)</a>
+<a class="sourceLine" id="cb805-2" data-line-number="2"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb805-3" data-line-number="3">  <span class="kw">f4.apply</span>(data),</a>
+<a class="sourceLine" id="cb805-4" data-line-number="4">  <span class="kw">f5.dplyr</span>(data)</a>
+<a class="sourceLine" id="cb805-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: milliseconds
-##            expr    min     lq   mean median     uq   max neval cld
-##  f4.apply(data) 266.98 299.65 419.66 385.56 506.16 727.1   100   b
-##  f5.dplyr(data)   2.04   2.44   3.07   2.68   3.01  10.2   100  a</code></pre>
+##            expr    min     lq   mean median     uq    max neval
+##  f4.apply(data) 281.73 328.30 449.92 430.17 542.54 786.79   100
+##  f5.dplyr(data)   1.97   2.56   3.06   2.82   3.08   9.05   100</code></pre>
 <p>What just happened? The package <code>dplyr</code> is designed to work well for large data sets, and utilizes a modified structure, called a <code>tibble</code>, which provides massive benefits for large tables, but at the small scale, the overhead of converting the <code>data.frame</code> to a <code>tibble</code> overwhelms any speed up. But because the small sample case is already fast enough to not be noticable, we don’t really care about the small <code>n</code> case.</p>
 </div>
 <div id="parallel-processing" class="section level2">
-<h2><span class="header-section-number">17.3</span> Parallel Processing</h2>
+<h2><span class="header-section-number">19.3</span> Parallel Processing</h2>
 <p>Most modern computers have multiple computing cores, and can run muliple processes at the same time. Sometimes this means that you can run multiple programs and switch back and forth easily without lag, but we are now interested in using as many cores as possible to get our statistical calculations completed by using muliple processing cores at the same time. This is referred to as running the process “in parallel” and there are many tasks in modern statistical computing that are “embarrasingly easily parallelized”. In particular bootstrapping and cross validation techniques are extremely easy to implement in a parallel fashion.</p>
 <p>However, running commands in parallel incurs some overhead cost in set up computation, as well as all the message passing from core to core. For example, to have 5 cores all perform an analysis on a set of data, all 5 cores must have access to the data, and not overwrite any of it. So parallelizing code only makes sense if the individual steps that we pass to each core is of sufficient size that the overhead incurred is substantially less than the time to run the job.</p>
 <p>We should think of executing code in parallel as having three major steps:
@@ -529,135 +545,135 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 3. Combine the results of each core back into a unified object.</p>
 </div>
 <div id="parallelizing-for-loops" class="section level2">
-<h2><span class="header-section-number">17.4</span> Parallelizing for loops</h2>
+<h2><span class="header-section-number">19.4</span> Parallelizing for loops</h2>
 <p>There are a number of packages that allow you to tell R how many cores you have access to. One of the easiest ways to parallelize a for loop is using a package called <code>foreach</code>. The registration of multiple cores is actually pretty easy.</p>
-<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb766-1" data-line-number="1">doMC<span class="op">::</span><span class="kw">registerDoMC</span>(<span class="dt">cores =</span> <span class="dv">2</span>)  <span class="co"># my laptop only has two cores.</span></a></code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb807-1" data-line-number="1">doMC<span class="op">::</span><span class="kw">registerDoMC</span>(<span class="dt">cores =</span> <span class="dv">2</span>)  <span class="co"># my laptop only has two cores.</span></a></code></pre></div>
 <p>We will consider an example that is common in modern statistics. We will examine parallel computing utilizing a bootstrap example where we create bootstrap samples for calculating confidence intervals for regression coefficients.</p>
-<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb767-1" data-line-number="1"><span class="kw">ggplot</span>(trees, <span class="kw">aes</span>(<span class="dt">x=</span>Girth, <span class="dt">y=</span>Volume)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb808-1" data-line-number="1"><span class="kw">ggplot</span>(trees, <span class="kw">aes</span>(<span class="dt">x=</span>Girth, <span class="dt">y=</span>Volume)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</a></code></pre></div>
 <p><img src="41_SpeedingUpR_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb768-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees)</a></code></pre></div>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb809-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees)</a></code></pre></div>
 <p>This is how we would do this previously.</p>
-<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb769-1" data-line-number="1"><span class="co"># f is a formula</span></a>
-<a class="sourceLine" id="cb769-2" data-line-number="2"><span class="co"># df is the input data frame</span></a>
-<a class="sourceLine" id="cb769-3" data-line-number="3"><span class="co"># M is the number of bootstrap iterations</span></a>
-<a class="sourceLine" id="cb769-4" data-line-number="4">boot.for &lt;-<span class="st"> </span><span class="cf">function</span>( f, df, <span class="dt">M=</span><span class="dv">999</span>){</a>
-<a class="sourceLine" id="cb769-5" data-line-number="5">  output &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb769-6" data-line-number="6">  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span> ){</a>
-<a class="sourceLine" id="cb769-7" data-line-number="7">    <span class="co"># Do stuff</span></a>
-<a class="sourceLine" id="cb769-8" data-line-number="8">    model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( f, <span class="dt">data=</span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</a>
-<a class="sourceLine" id="cb769-9" data-line-number="9">    output[[i]] &lt;-<span class="st"> </span>model.star<span class="op">$</span>coefficients </a>
-<a class="sourceLine" id="cb769-10" data-line-number="10">  }</a>
-<a class="sourceLine" id="cb769-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb769-12" data-line-number="12">  <span class="co"># use rbind to put the list of results together into a data.frame</span></a>
-<a class="sourceLine" id="cb769-13" data-line-number="13">  output &lt;-<span class="st"> </span><span class="kw">sapply</span>(output, rbind) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data.frame</span>()</a>
-<a class="sourceLine" id="cb769-14" data-line-number="14">  <span class="kw">return</span>(output)</a>
-<a class="sourceLine" id="cb769-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb810-1" data-line-number="1"><span class="co"># f is a formula</span></a>
+<a class="sourceLine" id="cb810-2" data-line-number="2"><span class="co"># df is the input data frame</span></a>
+<a class="sourceLine" id="cb810-3" data-line-number="3"><span class="co"># M is the number of bootstrap iterations</span></a>
+<a class="sourceLine" id="cb810-4" data-line-number="4">boot.for &lt;-<span class="st"> </span><span class="cf">function</span>( f, df, <span class="dt">M=</span><span class="dv">999</span>){</a>
+<a class="sourceLine" id="cb810-5" data-line-number="5">  output &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
+<a class="sourceLine" id="cb810-6" data-line-number="6">  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span> ){</a>
+<a class="sourceLine" id="cb810-7" data-line-number="7">    <span class="co"># Do stuff</span></a>
+<a class="sourceLine" id="cb810-8" data-line-number="8">    model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( f, <span class="dt">data=</span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</a>
+<a class="sourceLine" id="cb810-9" data-line-number="9">    output[[i]] &lt;-<span class="st"> </span>model.star<span class="op">$</span>coefficients </a>
+<a class="sourceLine" id="cb810-10" data-line-number="10">  }</a>
+<a class="sourceLine" id="cb810-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb810-12" data-line-number="12">  <span class="co"># use rbind to put the list of results together into a data.frame</span></a>
+<a class="sourceLine" id="cb810-13" data-line-number="13">  output &lt;-<span class="st"> </span><span class="kw">sapply</span>(output, rbind) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data.frame</span>()</a>
+<a class="sourceLine" id="cb810-14" data-line-number="14">  <span class="kw">return</span>(output)</a>
+<a class="sourceLine" id="cb810-15" data-line-number="15">}</a></code></pre></div>
 <p>We will first ask about how to do the same thing using the function <code>foreach</code></p>
-<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb770-1" data-line-number="1"><span class="co"># f is a formula</span></a>
-<a class="sourceLine" id="cb770-2" data-line-number="2"><span class="co"># df is the input data frame</span></a>
-<a class="sourceLine" id="cb770-3" data-line-number="3"><span class="co"># M is the number of bootstrap iterations</span></a>
-<a class="sourceLine" id="cb770-4" data-line-number="4">boot.foreach &lt;-<span class="st"> </span><span class="cf">function</span>(f, df, <span class="dt">M=</span><span class="dv">999</span>){</a>
-<a class="sourceLine" id="cb770-5" data-line-number="5">  output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span> ) <span class="op">%dopar%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb770-6" data-line-number="6">    <span class="co"># Do stuff</span></a>
-<a class="sourceLine" id="cb770-7" data-line-number="7">    model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( f, <span class="dt">data=</span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</a>
-<a class="sourceLine" id="cb770-8" data-line-number="8">    model.star<span class="op">$</span>coefficients </a>
-<a class="sourceLine" id="cb770-9" data-line-number="9">  }</a>
-<a class="sourceLine" id="cb770-10" data-line-number="10">  </a>
-<a class="sourceLine" id="cb770-11" data-line-number="11">  <span class="co"># use rbind to put the list of results together into a data.frame</span></a>
-<a class="sourceLine" id="cb770-12" data-line-number="12">  output &lt;-<span class="st"> </span><span class="kw">sapply</span>(output, rbind) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data.frame</span>()</a>
-<a class="sourceLine" id="cb770-13" data-line-number="13">  <span class="kw">return</span>(output)</a>
-<a class="sourceLine" id="cb770-14" data-line-number="14">}</a></code></pre></div>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb811-1" data-line-number="1"><span class="co"># f is a formula</span></a>
+<a class="sourceLine" id="cb811-2" data-line-number="2"><span class="co"># df is the input data frame</span></a>
+<a class="sourceLine" id="cb811-3" data-line-number="3"><span class="co"># M is the number of bootstrap iterations</span></a>
+<a class="sourceLine" id="cb811-4" data-line-number="4">boot.foreach &lt;-<span class="st"> </span><span class="cf">function</span>(f, df, <span class="dt">M=</span><span class="dv">999</span>){</a>
+<a class="sourceLine" id="cb811-5" data-line-number="5">  output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span> ) <span class="op">%dopar%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb811-6" data-line-number="6">    <span class="co"># Do stuff</span></a>
+<a class="sourceLine" id="cb811-7" data-line-number="7">    model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( f, <span class="dt">data=</span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</a>
+<a class="sourceLine" id="cb811-8" data-line-number="8">    model.star<span class="op">$</span>coefficients </a>
+<a class="sourceLine" id="cb811-9" data-line-number="9">  }</a>
+<a class="sourceLine" id="cb811-10" data-line-number="10">  </a>
+<a class="sourceLine" id="cb811-11" data-line-number="11">  <span class="co"># use rbind to put the list of results together into a data.frame</span></a>
+<a class="sourceLine" id="cb811-12" data-line-number="12">  output &lt;-<span class="st"> </span><span class="kw">sapply</span>(output, rbind) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data.frame</span>()</a>
+<a class="sourceLine" id="cb811-13" data-line-number="13">  <span class="kw">return</span>(output)</a>
+<a class="sourceLine" id="cb811-14" data-line-number="14">}</a></code></pre></div>
 <p>Not much has changed in our code. Lets see which is faster.</p>
-<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb771-1" data-line-number="1"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb771-2" data-line-number="2">  <span class="kw">boot.for</span>( Volume<span class="op">~</span>Girth, trees ),</a>
-<a class="sourceLine" id="cb771-3" data-line-number="3">  <span class="kw">boot.foreach</span>( Volume<span class="op">~</span>Girth, trees )</a>
-<a class="sourceLine" id="cb771-4" data-line-number="4">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb812-1" data-line-number="1"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb812-2" data-line-number="2">  <span class="kw">boot.for</span>( Volume<span class="op">~</span>Girth, trees ),</a>
+<a class="sourceLine" id="cb812-3" data-line-number="3">  <span class="kw">boot.foreach</span>( Volume<span class="op">~</span>Girth, trees )</a>
+<a class="sourceLine" id="cb812-4" data-line-number="4">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: milliseconds
-##                                 expr min  lq mean median  uq max neval cld
-##      boot.for(Volume ~ Girth, trees) 109 139  172    158 193 486   100  a 
-##  boot.foreach(Volume ~ Girth, trees) 173 211  244    236 265 458   100   b</code></pre>
+##                                 expr min  lq mean median  uq max neval
+##      boot.for(Volume ~ Girth, trees) 115 134  153    154 159 387   100
+##  boot.foreach(Volume ~ Girth, trees) 159 178  209    184 220 733   100</code></pre>
 <p>In this case, the overhead associated with splitting the job across two cores, copying the data over, and then combining the results back together was more than we saved by using both cores. If the nugget of computation within each pass of the <code>for</code> loop was larger, then it would pay to use both cores.</p>
-<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" data-line-number="1"><span class="co"># massiveTrees has 31000 observations</span></a>
-<a class="sourceLine" id="cb773-2" data-line-number="2">massiveTrees &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb773-3" data-line-number="3"><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span> ){</a>
-<a class="sourceLine" id="cb773-4" data-line-number="4">  massiveTrees &lt;-<span class="st"> </span><span class="kw">rbind</span>(massiveTrees, trees)</a>
-<a class="sourceLine" id="cb773-5" data-line-number="5">}</a>
-<a class="sourceLine" id="cb773-6" data-line-number="6"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb773-7" data-line-number="7">  <span class="kw">boot.for</span>( Volume<span class="op">~</span>Girth, massiveTrees )  ,</a>
-<a class="sourceLine" id="cb773-8" data-line-number="8">  <span class="kw">boot.foreach</span>( Volume<span class="op">~</span>Girth, massiveTrees )</a>
-<a class="sourceLine" id="cb773-9" data-line-number="9">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb814-1" data-line-number="1"><span class="co"># massiveTrees has 31000 observations</span></a>
+<a class="sourceLine" id="cb814-2" data-line-number="2">massiveTrees &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb814-3" data-line-number="3"><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span> ){</a>
+<a class="sourceLine" id="cb814-4" data-line-number="4">  massiveTrees &lt;-<span class="st"> </span><span class="kw">rbind</span>(massiveTrees, trees)</a>
+<a class="sourceLine" id="cb814-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb814-6" data-line-number="6"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb814-7" data-line-number="7">  <span class="kw">boot.for</span>( Volume<span class="op">~</span>Girth, massiveTrees )  ,</a>
+<a class="sourceLine" id="cb814-8" data-line-number="8">  <span class="kw">boot.foreach</span>( Volume<span class="op">~</span>Girth, massiveTrees )</a>
+<a class="sourceLine" id="cb814-9" data-line-number="9">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                        expr  min   lq mean median   uq
-##      boot.for(Volume ~ Girth, massiveTrees) 1133 1305 1375   1376 1413
-##  boot.foreach(Volume ~ Girth, massiveTrees)  800  836  968    862 1029
-##   max neval cld
-##  1881   100   b
-##  1594   100  a</code></pre>
+##      boot.for(Volume ~ Girth, massiveTrees) 1181 1270 1449   1439 1580
+##  boot.foreach(Volume ~ Girth, massiveTrees)  721  758 1103   1232 1262
+##   max neval
+##  2179   100
+##  2226   100</code></pre>
 <p>Because we often generate a bunch of results that we want to see as a data.frame, the <code>foreach</code> function includes and option to do it for us.</p>
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" data-line-number="1">output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, <span class="dt">.combine=</span>data.frame ) <span class="op">%dopar%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb775-2" data-line-number="2">  <span class="co"># Do stuff</span></a>
-<a class="sourceLine" id="cb775-3" data-line-number="3">  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</a>
-<a class="sourceLine" id="cb775-4" data-line-number="4">  model<span class="op">$</span>coefficients </a>
-<a class="sourceLine" id="cb775-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb816-1" data-line-number="1">output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, <span class="dt">.combine=</span>data.frame ) <span class="op">%dopar%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb816-2" data-line-number="2">  <span class="co"># Do stuff</span></a>
+<a class="sourceLine" id="cb816-3" data-line-number="3">  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</a>
+<a class="sourceLine" id="cb816-4" data-line-number="4">  model<span class="op">$</span>coefficients </a>
+<a class="sourceLine" id="cb816-5" data-line-number="5">}</a></code></pre></div>
 <p>It is important to recognize that the data.frame <code>trees</code> was utilized inside the <code>foreach</code> loop. So when we called the <code>foreach</code> loop and distributed the workload across the cores, it was smart enough to distribute the data to each core. However, if there were functions that we utilized inside the foor loop that came from a packege, we need to tell each core to load the function.</p>
-<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb776-1" data-line-number="1">output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="dt">.combine=</span>data.frame, <span class="dt">.packages=</span><span class="st">&#39;dplyr&#39;</span> ) <span class="op">%dopar%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb776-2" data-line-number="2">  <span class="co"># Do stuff</span></a>
-<a class="sourceLine" id="cb776-3" data-line-number="3">  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</a>
-<a class="sourceLine" id="cb776-4" data-line-number="4">  model.star<span class="op">$</span>coefficients </a>
-<a class="sourceLine" id="cb776-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb817-1" data-line-number="1">output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="dt">.combine=</span>data.frame, <span class="dt">.packages=</span><span class="st">&#39;dplyr&#39;</span> ) <span class="op">%dopar%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb817-2" data-line-number="2">  <span class="co"># Do stuff</span></a>
+<a class="sourceLine" id="cb817-3" data-line-number="3">  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</a>
+<a class="sourceLine" id="cb817-4" data-line-number="4">  model.star<span class="op">$</span>coefficients </a>
+<a class="sourceLine" id="cb817-5" data-line-number="5">}</a></code></pre></div>
 </div>
 <div id="parallel-aware-functions" class="section level2">
-<h2><span class="header-section-number">17.5</span> Parallel Aware Functions</h2>
+<h2><span class="header-section-number">19.5</span> Parallel Aware Functions</h2>
 <p>There are many packages that address problems that are “embarassingly easily parallelized” and they will happily work with multiple cores. Methods that rely on resampling certainly fit into this category.</p>
 <div id="bootboot" class="section level3">
-<h3><span class="header-section-number">17.5.1</span> <code>boot::boot</code></h3>
+<h3><span class="header-section-number">19.5.1</span> <code>boot::boot</code></h3>
 <p>Bootstrapping relys on resampling the dataset and calculating test statistics from each resample. In R, the most common way to do this is using the package <code>boot</code> and we just need to tell the <code>boot</code> function, to use the multiple cores available. (Note, we have to have registered the cores first!)</p>
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees)</a>
-<a class="sourceLine" id="cb777-2" data-line-number="2">my.fun &lt;-<span class="st"> </span><span class="cf">function</span>(df, index){</a>
-<a class="sourceLine" id="cb777-3" data-line-number="3">  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees[index,] )</a>
-<a class="sourceLine" id="cb777-4" data-line-number="4">  model.star<span class="op">$</span>coefficients </a>
-<a class="sourceLine" id="cb777-5" data-line-number="5">}</a>
-<a class="sourceLine" id="cb777-6" data-line-number="6"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb777-7" data-line-number="7">  <span class="dt">serial   =</span> boot<span class="op">::</span><span class="kw">boot</span>( trees, my.fun, <span class="dt">R=</span><span class="dv">1000</span> ),</a>
-<a class="sourceLine" id="cb777-8" data-line-number="8">  <span class="dt">parallel =</span> boot<span class="op">::</span><span class="kw">boot</span>( trees, my.fun, <span class="dt">R=</span><span class="dv">1000</span>, </a>
-<a class="sourceLine" id="cb777-9" data-line-number="9">                         <span class="dt">parallel=</span><span class="st">&#39;multicore&#39;</span>, <span class="dt">ncpus=</span><span class="dv">2</span> ) </a>
-<a class="sourceLine" id="cb777-10" data-line-number="10">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb818-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees)</a>
+<a class="sourceLine" id="cb818-2" data-line-number="2">my.fun &lt;-<span class="st"> </span><span class="cf">function</span>(df, index){</a>
+<a class="sourceLine" id="cb818-3" data-line-number="3">  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees[index,] )</a>
+<a class="sourceLine" id="cb818-4" data-line-number="4">  model.star<span class="op">$</span>coefficients </a>
+<a class="sourceLine" id="cb818-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb818-6" data-line-number="6"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb818-7" data-line-number="7">  <span class="dt">serial   =</span> boot<span class="op">::</span><span class="kw">boot</span>( trees, my.fun, <span class="dt">R=</span><span class="dv">1000</span> ),</a>
+<a class="sourceLine" id="cb818-8" data-line-number="8">  <span class="dt">parallel =</span> boot<span class="op">::</span><span class="kw">boot</span>( trees, my.fun, <span class="dt">R=</span><span class="dv">1000</span>, </a>
+<a class="sourceLine" id="cb818-9" data-line-number="9">                         <span class="dt">parallel=</span><span class="st">&#39;multicore&#39;</span>, <span class="dt">ncpus=</span><span class="dv">2</span> ) </a>
+<a class="sourceLine" id="cb818-10" data-line-number="10">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: milliseconds
-##      expr min  lq mean median  uq  max neval cld
-##    serial 616 689  766    724 819 1282   100   a
-##  parallel 663 701  764    739 794 1165   100   a</code></pre>
+##      expr min  lq mean median  uq  max neval
+##    serial 681 706  790    790 810 1249   100
+##  parallel 593 636  682    667 689 1325   100</code></pre>
 <p>In this case, we had a bit of a spead up, but not a factor of 2. This is due to the overhead of splitting the job across both cores.</p>
 </div>
 <div id="carettrain" class="section level3">
-<h3><span class="header-section-number">17.5.2</span> <code>caret::train</code></h3>
+<h3><span class="header-section-number">19.5.2</span> <code>caret::train</code></h3>
 <p>The statistical learning package <code>caret</code> also handles all the work to do cross validation in a parallel computing environment. The functions in <code>caret</code> have an option <code>allowParallel</code> which by default is TRUE, which controls if we should use all the cores. Assuming we have already registered the number of cores, then by default <code>caret</code> will use them all.</p>
-<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" data-line-number="1"><span class="kw">library</span>(faraway)</a>
-<a class="sourceLine" id="cb779-2" data-line-number="2"><span class="kw">library</span>(caret)</a>
-<a class="sourceLine" id="cb779-3" data-line-number="3">ctrl.serial &lt;-<span class="st"> </span><span class="kw">trainControl</span>( <span class="dt">method=</span><span class="st">&#39;repeatedcv&#39;</span>, <span class="dt">number=</span><span class="dv">5</span>, <span class="dt">repeats=</span><span class="dv">4</span>,  </a>
-<a class="sourceLine" id="cb779-4" data-line-number="4">                      <span class="dt">preProcOptions =</span> <span class="kw">c</span>(<span class="st">&#39;center&#39;</span>,<span class="st">&#39;scale&#39;</span>),</a>
-<a class="sourceLine" id="cb779-5" data-line-number="5">                      <span class="dt">allowParallel =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb779-6" data-line-number="6">ctrl.parallel &lt;-<span class="st"> </span><span class="kw">trainControl</span>( <span class="dt">method=</span><span class="st">&#39;repeatedcv&#39;</span>, <span class="dt">number=</span><span class="dv">5</span>, <span class="dt">repeats=</span><span class="dv">4</span>,  </a>
-<a class="sourceLine" id="cb779-7" data-line-number="7">                      <span class="dt">preProcOptions =</span> <span class="kw">c</span>(<span class="st">&#39;center&#39;</span>,<span class="st">&#39;scale&#39;</span>),</a>
-<a class="sourceLine" id="cb779-8" data-line-number="8">                      <span class="dt">allowParallel =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb779-9" data-line-number="9">grid &lt;-<span class="st"> </span><span class="kw">data.frame</span>( </a>
-<a class="sourceLine" id="cb779-10" data-line-number="10">  <span class="dt">alpha  =</span> <span class="dv">1</span>,  <span class="co"># 1 =&gt; Lasso Regression</span></a>
-<a class="sourceLine" id="cb779-11" data-line-number="11">  <span class="dt">lambda =</span> <span class="kw">exp</span>(<span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>, <span class="dv">1</span>, <span class="dt">length=</span><span class="dv">50</span>)))</a>
-<a class="sourceLine" id="cb779-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb779-13" data-line-number="13"><span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb779-14" data-line-number="14">  model &lt;-<span class="st"> </span><span class="kw">train</span>( lpsa <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>prostate, <span class="dt">method=</span><span class="st">&#39;glmnet&#39;</span>,</a>
-<a class="sourceLine" id="cb779-15" data-line-number="15">                  <span class="dt">trControl=</span>ctrl.serial, <span class="dt">tuneGrid=</span>grid, </a>
-<a class="sourceLine" id="cb779-16" data-line-number="16">                  <span class="dt">lambda =</span> grid<span class="op">$</span>lambda ),</a>
-<a class="sourceLine" id="cb779-17" data-line-number="17">  model &lt;-<span class="st"> </span><span class="kw">train</span>( lpsa <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>prostate, <span class="dt">method=</span><span class="st">&#39;glmnet&#39;</span>,</a>
-<a class="sourceLine" id="cb779-18" data-line-number="18">                  <span class="dt">trControl=</span>ctrl.parallel, <span class="dt">tuneGrid=</span>grid, </a>
-<a class="sourceLine" id="cb779-19" data-line-number="19">                  <span class="dt">lambda =</span> grid<span class="op">$</span>lambda )</a>
-<a class="sourceLine" id="cb779-20" data-line-number="20">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb820-1" data-line-number="1"><span class="kw">library</span>(faraway)</a>
+<a class="sourceLine" id="cb820-2" data-line-number="2"><span class="kw">library</span>(caret)</a>
+<a class="sourceLine" id="cb820-3" data-line-number="3">ctrl.serial &lt;-<span class="st"> </span><span class="kw">trainControl</span>( <span class="dt">method=</span><span class="st">&#39;repeatedcv&#39;</span>, <span class="dt">number=</span><span class="dv">5</span>, <span class="dt">repeats=</span><span class="dv">4</span>,  </a>
+<a class="sourceLine" id="cb820-4" data-line-number="4">                      <span class="dt">preProcOptions =</span> <span class="kw">c</span>(<span class="st">&#39;center&#39;</span>,<span class="st">&#39;scale&#39;</span>),</a>
+<a class="sourceLine" id="cb820-5" data-line-number="5">                      <span class="dt">allowParallel =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb820-6" data-line-number="6">ctrl.parallel &lt;-<span class="st"> </span><span class="kw">trainControl</span>( <span class="dt">method=</span><span class="st">&#39;repeatedcv&#39;</span>, <span class="dt">number=</span><span class="dv">5</span>, <span class="dt">repeats=</span><span class="dv">4</span>,  </a>
+<a class="sourceLine" id="cb820-7" data-line-number="7">                      <span class="dt">preProcOptions =</span> <span class="kw">c</span>(<span class="st">&#39;center&#39;</span>,<span class="st">&#39;scale&#39;</span>),</a>
+<a class="sourceLine" id="cb820-8" data-line-number="8">                      <span class="dt">allowParallel =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb820-9" data-line-number="9">grid &lt;-<span class="st"> </span><span class="kw">data.frame</span>( </a>
+<a class="sourceLine" id="cb820-10" data-line-number="10">  <span class="dt">alpha  =</span> <span class="dv">1</span>,  <span class="co"># 1 =&gt; Lasso Regression</span></a>
+<a class="sourceLine" id="cb820-11" data-line-number="11">  <span class="dt">lambda =</span> <span class="kw">exp</span>(<span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>, <span class="dv">1</span>, <span class="dt">length=</span><span class="dv">50</span>)))</a>
+<a class="sourceLine" id="cb820-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb820-13" data-line-number="13"><span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb820-14" data-line-number="14">  model &lt;-<span class="st"> </span><span class="kw">train</span>( lpsa <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>prostate, <span class="dt">method=</span><span class="st">&#39;glmnet&#39;</span>,</a>
+<a class="sourceLine" id="cb820-15" data-line-number="15">                  <span class="dt">trControl=</span>ctrl.serial, <span class="dt">tuneGrid=</span>grid, </a>
+<a class="sourceLine" id="cb820-16" data-line-number="16">                  <span class="dt">lambda =</span> grid<span class="op">$</span>lambda ),</a>
+<a class="sourceLine" id="cb820-17" data-line-number="17">  model &lt;-<span class="st"> </span><span class="kw">train</span>( lpsa <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>prostate, <span class="dt">method=</span><span class="st">&#39;glmnet&#39;</span>,</a>
+<a class="sourceLine" id="cb820-18" data-line-number="18">                  <span class="dt">trControl=</span>ctrl.parallel, <span class="dt">tuneGrid=</span>grid, </a>
+<a class="sourceLine" id="cb820-19" data-line-number="19">                  <span class="dt">lambda =</span> grid<span class="op">$</span>lambda )</a>
+<a class="sourceLine" id="cb820-20" data-line-number="20">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Unit: seconds
 ##                                                                                                                                 expr
 ##    model &lt;- train(lpsa ~ ., data = prostate, method = &quot;glmnet&quot;,      trControl = ctrl.serial, tuneGrid = grid, lambda = grid$lambda)
 ##  model &lt;- train(lpsa ~ ., data = prostate, method = &quot;glmnet&quot;,      trControl = ctrl.parallel, tuneGrid = grid, lambda = grid$lambda)
-##   min   lq mean median   uq  max neval cld
-##  1.15 1.19 1.31   1.27 1.36 1.88   100  a 
-##  1.30 1.36 1.49   1.44 1.54 2.42   100   b</code></pre>
+##   min   lq mean median   uq  max neval
+##  1.13 1.24 1.33   1.25 1.31 3.00   100
+##  1.21 1.29 1.37   1.31 1.35 2.66   100</code></pre>
 <p>Again, we saw only moderate gains by using both cores, however it didn’t really cost us anything. Because the <code>caret</code> package by default allows parallel processing, it doesn’t hurt to just load the <code>doMC</code> package and register the number of cores. Even in just the two core case, it is a good habit to get into so that when you port your code to a huge computer with many cores, the only thing to change is how many cores you have access to.</p>
 
 </div>
@@ -668,17 +684,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="16-r-packages.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="18-databases.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -724,8 +742,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
