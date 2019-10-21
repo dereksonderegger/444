@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Siege And Fall Of A Hoops Haven That Made All The Wrong Enemies\n"         
-## [2] "\nHow Much Is Budgeted Towards The American President's Living Expenses?\n"      
-## [3] "\nThe Badass WWII Squadron Of Female Pilots Known As The Night Witches\n"        
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                     
-## [5] "\nAdorable Baby Elephant Rolls Around In The Sand To The Delight Of Safari-ers\n"
-## [6] "\nConcussion Research Has A Troubling Patriarchy Problem\n"
+## [1] "\nOne Man's Quest To Make A Street-Legal Indycar\n "                                     
+## [2] "\nA Horrifying Glimpse Into Your Dystopian Future Commute\n"                             
+## [3] "\nWild Footage Of Homeowners Fleeing A Fast-Moving Fire In The Los Angeles Area\n"       
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                             
+## [5] "\nWarehouse Worker's Totally Normal Day At Work Gets Derailed By A 'Ghost Table'\n"      
+## [6] "\nHere Are The Most Ridiculous Reasons Car Dealers Refuse To Send Written Price Quotes\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://deadspin.com/the-siege-and-fall-of-a-hoops-haven-that-made-all-the-w-1838777225?utm_source=digg"
-## [2] "/video/how-much-is-budgeted-towards-the-american-presidents-living-expenses"                            
-## [3] "http://www.todayifoundout.com/index.php/2019/10/night-witches/?utm_source=digg"                         
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"            
-## [5] "/video/adorable-baby-elephant-rolls-around-in-the-sand-to-the-delight-of-safari-ers"                    
-## [6] "https://undark.org/2019/10/17/concussion-research-patriarchy-problem/?utm_source=digg"
+## [1] "https://www.popularmechanics.com/cars/a29390473/street-legal-indycar/?utm_source=digg"                                             
+## [2] "https://www.citylab.com/transportation/2019/10/cartoon-dystopian-future-transit-commute-hyperloop-air-taxi/600340/?utm_source=digg"
+## [3] "/2019/palisades-fire-los-angeles"                                                                                                  
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                       
+## [5] "/video/warehouse-worker-ghost-table"                                                                                               
+## [6] "https://jalopnik.com/here-are-the-most-ridiculous-reasons-why-dealers-will-r-1839224959?utm_source=digg"
 ```
 
 

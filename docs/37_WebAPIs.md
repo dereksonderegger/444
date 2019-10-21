@@ -12,23 +12,25 @@ library(jsonlite)
 
 With a standard database connection, there is quite a lot we can do. For example we could insert incorrect rows into tables, or even [delete whole tables](https://xkcd.com/327/). Many organizations that deliver data to clients require a way to minimize the types of data base actions that are allowed.  For example, consider Twitter. Twitter clients need to connect to the Twitter database, sign in, and download the latest tweets from whomever they follow and accept a database input that adds a tweet from the signed in user. However, the client must not be able to update or insert tweets from somebody else, and to prevent Denial-Of-Service attacks, there should be some limit to the number of rows of information that we ask for. Furthermore, the client shouldn't have to remember the details of how the data is stored and changes to the database configuration should be completely invisible to clients.
 
-Application Program Interfaces (APIs) are the specification for how two programs will interface. An API that is well thought out and documented is wonderful to use. In a data query situation, the API will define how we submit a query and the manner in which the result will be returned. Web API queries are usually designed so that 
+Application Program Interfaces (APIs) are the specification for how two programs will interface. An API that is well thought out and documented is wonderful to use. In a data query situation, the API will define how we submit a query and the manner in which the result will be returned. Web API queries are usually designed so that the client visits some web page and includes as part of the address, additional arguments that will be used to create a query. The results of the query are then rendered as a very simple web page.
 
 
 ## Web Interface
-An example from the US Census Bureau's web interface 
+We will consider an example from the US Census Bureau's web interface. The following web links will cause a query on the Census web site, and then result in some data. Go ahead and click on these!
 
 http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&for=state:*&DATE_CODE=1
 
-1. The base website is http://api.census.gov/data/2018/pep/population. This is effectively specifying which table we want to query from.
-2. Modifiers are included after the `?` and different modifers are separated by `&`
+http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&in=state:01&for=county:*&DATE_CODE=1
+
+1. The base website is http://api.census.gov/data/2018/pep/population. This is effectively specifying which table we want to query from. The `pep` part stands for the *Population Estimation Program*, which is one division of the Census Bureau. The 2018 part of the base address defines the *vintage* of the estimate. This page will produce estimates for the years 2010-2018, but the Census Bureau is constantly updating those estimates based on new information. So the this is specifying that we are to use the Census' 2018 estimate of the population.
+2. Modifiers are included after the `?` and different modifiers are separated by `&`
 3. `get=` section defines the variables that you want 
-4. The `for=state:*` denotes that we want all of the states. `state:01` would have been just Alabama.
-5. The `DATE_CODE=1` indicates that I just want the first estimate. 
+4. The `for=state:*` denotes that we want all of the states. `for=state:01` would have been just Alabama. If we want all the county populations we can use `for=county:*`. If we just want county populations within a particular state, we would use `in=state:01&for=county:*`
+5. The `DATE_CODE=1` indicates that I just want the first estimate in the decadal time series of estimates. If I didn't include this, we'd end up with estimates for each year between 2010 and 2018. 
 
 When you go to this website, the database will read the modifier list, do the appropriate database query, and return the result via a webpage that has a very simple structure that is easy to parse into a table.
 
-The hard part about Web APIs is understanding which tables are available, and what each covariate means. For the US Census Bureau, the [developers](https://www.census.gov/data/developers/) page is a great place to start. 
+The hard part about Web APIs is understanding which tables are available and what each covariate means. For the US Census Bureau, the [developers](https://www.census.gov/data/developers/) page is a great place to start. 
 
 
 ## R API Interfaces
@@ -44,23 +46,23 @@ The Census Bureau wants to identify which developers are accessing their data an
 # and saved it as Census_Key and use that in all the following examples...
 # 
 # This query is the example query first given in the censusapi vignette.
-library(censusapi)
 getCensus(name = "timeseries/healthins/sahie",
-	vars = c("NAME", "IPRCAT", "IPR_DESC", "PCTUI_PT"), 
-	region = "state:01",
-	time = 2017,
+	vars = c("NAME", "IPRCAT", "IPR_DESC", "PCTUI_PT"),      # Define the gets=
+	region = "state:01",                                     # Define the for=
+	time = 2017,                                         
 	key = Census_Key)
 ```
 
 ```
 ##   time state    NAME IPRCAT                IPR_DESC PCTUI_PT
-## 1 2017    01 Alabama      0             All Incomes     11.0
-## 2 2017    01 Alabama      1      <= 200% of Poverty     18.3
-## 3 2017    01 Alabama      2      <= 250% of Poverty     17.3
-## 4 2017    01 Alabama      3      <= 138% of Poverty     19.4
+## 1 2017    01 Alabama      3      <= 138% of Poverty     19.4
+## 2 2017    01 Alabama      0             All Incomes     11.0
+## 3 2017    01 Alabama      1      <= 200% of Poverty     18.3
+## 4 2017    01 Alabama      2      <= 250% of Poverty     17.3
 ## 5 2017    01 Alabama      4      <= 400% of Poverty     14.5
 ## 6 2017    01 Alabama      5 138% to 400% of Poverty     11.5
 ```
+
 
 This is now super easy to query the Census database, except that I have NO IDEA what API names (ie tables) are available and I have no clue what variables I just downloaded. We need to get a better sense of what data sets are available.
 
@@ -69,37 +71,36 @@ A good place to start is the [developer datasets](https://www.census.gov/data/de
 ### Population Estimates 
 The Census Bureau's Population Estimation Program (PEP) is responsible for population estimates. On the [Census Population API page](https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html), it looks like I need to use the `pep/population` tables. 
 
-http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&for=state:*&DATE_CODE=1
-
 
 ```r
 # Code to grab county level population levels.
 County_Populations <- getCensus(name = "pep/population",
   vars = c('STATE','COUNTY','GEONAME','DATE_CODE','DATE_DESC','POP'),
   vintage = '2018',
-  region = 'county:*', # States are in alphabetical order...
+  regionin = 'state:04',  # Just Arizona, which is coded as 04. I don't know why...
+  region = 'county:*',    # All the counties
+  DATE_CODE=1,            # 2010, Leave this out to get each year 2010-2018
 	key = Census_Key,
-  DATE_CODE=1  # 1st year in the decade, leave this out to get each year 2010-2018
   )
 
 County_Populations %>% head(6)  
 ```
 
 ```
-##   state county STATE COUNTY                 GEONAME DATE_CODE
-## 1    01    001    01    001 Autauga County, Alabama         1
-## 2    01    003    01    003 Baldwin County, Alabama         1
-## 3    01    005    01    005 Barbour County, Alabama         1
-## 4    01    007    01    007    Bibb County, Alabama         1
-## 5    01    009    01    009  Blount County, Alabama         1
-## 6    01    011    01    011 Bullock County, Alabama         1
+##   state county STATE COUNTY                  GEONAME DATE_CODE
+## 1    04    001    04    001   Apache County, Arizona         1
+## 2    04    003    04    003  Cochise County, Arizona         1
+## 3    04    005    04    005 Coconino County, Arizona         1
+## 4    04    007    04    007     Gila County, Arizona         1
+## 5    04    009    04    009   Graham County, Arizona         1
+## 6    04    011    04    011 Greenlee County, Arizona         1
 ##                    DATE_DESC    POP DATE_CODE_1
-## 1 4/1/2010 Census population  54571           1
-## 2 4/1/2010 Census population 182265           1
-## 3 4/1/2010 Census population  27457           1
-## 4 4/1/2010 Census population  22915           1
-## 5 4/1/2010 Census population  57322           1
-## 6 4/1/2010 Census population  10914           1
+## 1 4/1/2010 Census population  71518           1
+## 2 4/1/2010 Census population 131346           1
+## 3 4/1/2010 Census population 134421           1
+## 4 4/1/2010 Census population  53597           1
+## 5 4/1/2010 Census population  37220           1
+## 6 4/1/2010 Census population   8437           1
 ```
 
 
@@ -110,7 +111,7 @@ I was looking for population divided up by Race and Sex and it took awhile to fi
 County_Populations_by_AgeGender <- getCensus(name = "pep/charagegroups",
   vars = c('GEONAME','DATE_CODE','AGEGROUP','SEX','DATE_DESC','POP'),
   vintage = '2018',
-  region = 'state:01', # States are in alphabetical order...
+  region = 'state:04', 
 	key = Census_Key)
 
 County_Populations_by_AgeGender %>% head(6)
@@ -118,12 +119,12 @@ County_Populations_by_AgeGender %>% head(6)
 
 ```
 ##   state GEONAME DATE_CODE AGEGROUP SEX                  DATE_DESC     POP
-## 1    01 Alabama         1        0   0 4/1/2010 Census population 4779736
-## 2    01 Alabama         1        0   1 4/1/2010 Census population 2320188
-## 3    01 Alabama         1        0   2 4/1/2010 Census population 2459548
-## 4    01 Alabama         1        1   0 4/1/2010 Census population  304957
-## 5    01 Alabama         1        1   1 4/1/2010 Census population  155265
-## 6    01 Alabama         1        1   2 4/1/2010 Census population  149692
+## 1    04 Arizona         1        0   0 4/1/2010 Census population 6392017
+## 2    04 Arizona         1        0   1 4/1/2010 Census population 3175823
+## 3    04 Arizona         1        0   2 4/1/2010 Census population 3216194
+## 4    04 Arizona         1        1   0 4/1/2010 Census population  455715
+## 5    04 Arizona         1        1   1 4/1/2010 Census population  232562
+## 6    04 Arizona         1        1   2 4/1/2010 Census population  223153
 ```
 
 As I played around with it, it seems that I can grab Race and Sex information as well. But unfortunately the categories are numerically coded so somehow we have to figure out which are which. It looks like `SEX=0` is both but I have no idea which is men and which is women. Still looking at the [Census Population API page](https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html) and following the link about the variables for demographic characteristics, we can click through each variable to see the .json file that defines the factor levels.
@@ -228,5 +229,4 @@ CensusFactorLevels('pep/charagegroups', 2018, 'RACE')
 
 1. I'm interested in information from the Census American Community Survey on demographics about educational attainment. This information can be found in ACS's Subject table. Using the API, download the latest information about educational attainment and create map or graph summarizing educational attainment. 
 
-
-2. Pick some API to investigate how to use. I might suggest Twitter, Reddit, Facebook for social media apps. If you are a genomics person, the R interface to Kegg would be a fun choice. The Centers for Disease Control has an API, as well. Many municipalities are starting to create Open Data and some of them have web APIs.
+2. Pick some API to investigate how to use. Utilizing your interests, pick an API and figure out how to use it.  Using the API, download some data and produce an interesting graphic. *I know that some social media apps such as Twitter, Reddit, and  Facebook have APIs. If you are a genomics person, the R interface to Kegg would be a fun choice. The Centers for Disease Control has an API, as well. Many municipalities are starting to create Open Data and some of them have web APIs. Explore your interests and see if there is an interface to that data!*

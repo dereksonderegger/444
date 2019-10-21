@@ -103,14 +103,14 @@ df
 
 ```
 ##   Type      Value
-## 1    A -0.9459231
-## 2    A  1.7016194
-## 3    B  1.0066223
-## 4    B  1.3785417
-## 5    C -1.8991484
-## 6    C -0.1020785
-## 7    D -0.7894632
-## 8    D  1.4594670
+## 1    A -2.0603858
+## 2    A -0.4267730
+## 3    B -0.2570265
+## 4    B  0.1561146
+## 5    C  0.6839576
+## 6    C  0.2183235
+## 7    D -0.3987990
+## 8    D  0.8776118
 ```
 
 ```r
@@ -119,10 +119,10 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 
 ```
 ##   Type      Value
-## 1    A -0.9459231
-## 2    A  1.7016194
-## 3    B  1.0066223
-## 4    B  1.3785417
+## 1    A -2.0603858
+## 2    A -0.4267730
+## 3    B -0.2570265
+## 4    B  0.1561146
 ```
 
 
@@ -257,7 +257,7 @@ result
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 ```r
@@ -272,7 +272,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] "In the else part!"
+## [1] " in the if statement, got a Tail! "
 ```
 
 ```r
@@ -280,7 +280,7 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -334,7 +334,7 @@ p.value
 ```
 
 ```
-## [1] 5.07197e-09
+## [1] 1.159145e-08
 ```
 
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-20" />
+<meta name="date" content="2019-10-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -522,24 +522,24 @@ up to your browsers bookmark bar. When you are at the site you are interested in
 <a class="sourceLine" id="cb740-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></a>
 <a class="sourceLine" id="cb740-6" data-line-number="6">HeadLines <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb740-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;\nThe Siege And Fall Of A Hoops Haven That Made All The Wrong Enemies\n&quot;         
-## [2] &quot;\nHow Much Is Budgeted Towards The American President&#39;s Living Expenses?\n&quot;      
-## [3] &quot;\nThe Badass WWII Squadron Of Female Pilots Known As The Night Witches\n&quot;        
-## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                     
-## [5] &quot;\nAdorable Baby Elephant Rolls Around In The Sand To The Delight Of Safari-ers\n&quot;
-## [6] &quot;\nConcussion Research Has A Troubling Patriarchy Problem\n&quot;</code></pre>
+<pre><code>## [1] &quot;\nOne Man&#39;s Quest To Make A Street-Legal Indycar\n &quot;                                     
+## [2] &quot;\nA Horrifying Glimpse Into Your Dystopian Future Commute\n&quot;                             
+## [3] &quot;\nWild Footage Of Homeowners Fleeing A Fast-Moving Fire In The Los Angeles Area\n&quot;       
+## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                             
+## [5] &quot;\nWarehouse Worker&#39;s Totally Normal Day At Work Gets Derailed By A &#39;Ghost Table&#39;\n&quot;      
+## [6] &quot;\nHere Are The Most Ridiculous Reasons Car Dealers Refuse To Send Written Price Quotes\n&quot;</code></pre>
 <div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb742-1" data-line-number="1"><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></a>
 <a class="sourceLine" id="cb742-2" data-line-number="2">Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb742-3" data-line-number="3"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb742-4" data-line-number="4"><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </a>
 <a class="sourceLine" id="cb742-5" data-line-number="5">Links <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb742-6" data-line-number="6"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;https://deadspin.com/the-siege-and-fall-of-a-hoops-haven-that-made-all-the-w-1838777225?utm_source=digg&quot;
-## [2] &quot;/video/how-much-is-budgeted-towards-the-american-presidents-living-expenses&quot;                            
-## [3] &quot;http://www.todayifoundout.com/index.php/2019/10/night-witches/?utm_source=digg&quot;                         
-## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;            
-## [5] &quot;/video/adorable-baby-elephant-rolls-around-in-the-sand-to-the-delight-of-safari-ers&quot;                    
-## [6] &quot;https://undark.org/2019/10/17/concussion-research-patriarchy-problem/?utm_source=digg&quot;</code></pre>
+<pre><code>## [1] &quot;https://www.popularmechanics.com/cars/a29390473/street-legal-indycar/?utm_source=digg&quot;                                             
+## [2] &quot;https://www.citylab.com/transportation/2019/10/cartoon-dystopian-future-transit-commute-hyperloop-air-taxi/600340/?utm_source=digg&quot;
+## [3] &quot;/2019/palisades-fire-los-angeles&quot;                                                                                                  
+## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;                                       
+## [5] &quot;/video/warehouse-worker-ghost-table&quot;                                                                                               
+## [6] &quot;https://jalopnik.com/here-are-the-most-ridiculous-reasons-why-dealers-will-r-1839224959?utm_source=digg&quot;</code></pre>
 </div>
 </div>
 <div id="scraping-.pdf-files" class="section level2">
