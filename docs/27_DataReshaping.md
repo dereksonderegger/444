@@ -12,14 +12,26 @@ library(tidyverse) # dplyr, tidyr, ggplot2, etc.
 
 Most of the time, our data is in the form of a data frame and we are interested in exploring the relationships. However most procedures in R expect the data to show up in a 'long' format where each row is an observation and each column is a covariate. In practice, the data is often not stored like that and the data comes to us with repeated observations included on a single row. This is often done as a memory saving technique or because there is some structure in the data that makes the 'wide' format attractive. As a result, we need a way to convert data from 'wide' to 'long' and vice-versa.
 
-Next we need a way to squish two data frames together. It is often advantagous to store data that would be be repeated seperately in a different table so that a particular piece of information lives in only one location. This makes the data easier to modify, and more likely to maintain consistence. However, this practice requires that, when necessary, we can add information to a table, that might involve a lot of duplicated rows.
+Next we need a way to squish two data frames together. It is often advantageous to store data that would be be repeated separately in a different table so that a particular piece of information lives in only one location. This makes the data easier to modify, and more likely to maintain consistence. However, this practice requires that, when necessary, we can add information to a table, that might involve a lot of duplicated rows.
+
+## `data.frames` vs `tibbles`
+Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does less coercion during creation and manipulation, and does more type checking during those operations. So a `tibble` does less (automatically) and complains more. The rational for this is that while it can be convenient for coercion between data types can be helpful, it often disguises errors that take a long time to track down.
+
+Second, the printing methods for `tibbles` prevent it from showing too many rows or columns. This is a very convenient and more user-friendly way to show the data. We can control how many rows or columns are printed using the `options()` command, which sets all of the global options.
+
+|  Options            |    Result                           |
+|:--------------------------------------:|:-----------------|
+| `options(tibble.print_max = n, tibble.print_min = m)`  | if there are more than n rows, print only the first m rows. 
+| `options(tibble.print_max = Inf)` |  Always print all the rows. |
+| `options(tibble.width = Inf)` | Always print all columns, regardless of the width of the display device. |
+
 
 ## `cbind` & `rbind`
-Base R has two functions for squishing two data frames together, but they assume that the data frames are aligned correctly. The `c` and `r` parts of `cbind` and `rbind` correspond to if we are pushing columns together or rows together.
+Base R has two functions for squishing two data frames together, but they assume that the data frames are aligned correctly. The `c` and `r` parts of `cbind` and `rbind` correspond to if we are pushing columns together or rows together. 
 
 
 ```r
-# Define a tibble using a rowwise layout.
+# Define a tibble using a row-wise layout.
 df1 <- tribble(            
   ~ID,  ~First,
   1,   'Alice',
@@ -29,7 +41,7 @@ df1 <- tribble(
 # Define a tibble by columns
 df2 <- tibble( Last = c('Anderson', 'Barker', 'Cooper') )
 
-# Squish the two tibbles together by columns
+# Squish the two tibbles together by columns - results in a data.frame
 People <- cbind( df1, df2 )
 People
 ```
@@ -58,7 +70,49 @@ People
 ## 4  4  Daniel Davidson
 ```
 
-Both `cbind` and `rbind` assume that the data frames are appropriatly sized and appropriately arranged. In general, this is annoying to have to worry about and it is safer to write code that relys on `joins` which will be discussed later in this chapter.
+If both inputs have row or column names, then they don't need to be appropriate arranged as `rbind` and `cbind` can figure out how to order them. 
+
+There are equivalent functions in the `dplyr` package that do the same job, but will work more consistently. For example, if we try to bind a row of data that has more columns, `bind_rows()` will introduce a column of `NA` values to the smaller data set. Furthermore, if the column orders are mixed up
+
+
+```r
+df4 <- tibble(First='Elise', ID=5, Last='Erikson') # Notice changed columns order! 
+rbind(People, df4)  # but rbind() can still figure it out!
+```
+
+```
+##   ID   First     Last
+## 1  1   Alice Anderson
+## 2  2     Bob   Barker
+## 3  3 Charlie   Cooper
+## 4  4  Daniel Davidson
+## 5  5   Elise  Erikson
+```
+
+```r
+df5 <- tibble(First='Frank', ID=6, Last='Fredrick', dob=lubridate::ymd('1980-7-21'))
+rbind(People, df5)   # throws an error
+```
+
+```
+## Error in rbind(deparse.level, ...): numbers of columns of arguments do not match
+```
+
+```r
+bind_rows( People, df4, df5) # Inserts NA values as appropriate.
+```
+
+```
+##   ID   First     Last        dob
+## 1  1   Alice Anderson       <NA>
+## 2  2     Bob   Barker       <NA>
+## 3  3 Charlie   Cooper       <NA>
+## 4  4  Daniel Davidson       <NA>
+## 5  5   Elise  Erikson       <NA>
+## 6  6   Frank Fredrick 1980-07-21
+```
+
+In general, I find that `rbind()` and `bind_rows()` work really well and I use them quite often. However, `cbind()` and `bind_cols()` are less useful because I have to make sure that either I have rownames set up for each data set, or I have to be very careful with the ordering. Instead, it is safer to write code that relies on `joins`, which will be discussed later in this chapter.
 
 
 ## `tidyr`
@@ -81,7 +135,6 @@ grade.book
 ## 3 Charles    9    7    9   10
 ```
 
-
 What we want to do is turn this data frame from a *wide* data frame into a *long* data frame. In MS Excel this is called pivoting. Essentially I'd like to create a data frame with three columns: `name`, `assignment`, and `score`. That is to say that each homework datum really has three pieces of information: who it came from, which homework it was, and what the score was. It doesn't conceptually matter if I store it as 3 rows of 4 columns or 12 rows so long as there is a way to identify how a student scored on a particular homework. So we want to reshape the HW1 to HW4 columns into two columns (assignment and score). 
 
 This package was built by the same people that created dplyr and ggplot2 and there is a nice introduction at: [http://blog.rstudio.org/2014/07/22/introducing-tidyr/]
@@ -89,13 +142,14 @@ This package was built by the same people that created dplyr and ggplot2 and the
 ### Verbs 
 As with the dplyr package, there are two main verbs to remember:
 
-1. `gather` - Gather multiple columns that are related into two columns that contain the original column name and the value. For example for columns HW1, HW2, HW3 we would gather them into two column HomeworkNumber and Score. In this case, we refer to HomeworkNumber as the key column and Score as the value column. So for any key:value pair you know everything you need.
-
-2. `spread` - This is the opposite of gather. This takes a key column (or columns) and a results column and forms a new column for each level of the key column(s).
+|  Function     |   Description                                                                    |
+|:-------------:|:---------------------------------------------------------------------------------|
+| `gather`      |  Gather multiple columns that are related into two columns that contain the original column name and the value. For example for columns `HW1`, `HW2`, `HW3` we would gather them into two columns: `Homework` and `Score`. In this case, we refer to `Homework` as the key column and `Score` as the value column. So for any key:value pair you know everything you need. |
+| `spread`      | This is the opposite of `gather`. This takes a key column (or columns) and a value column and forms a new column for each level of the key column(s). |
 
 
 ```r
-# first we gather the score columns into columns we'll name Assesment and Score
+# first we gather the score columns into columns we'll name Homework and Score
 tidy.scores <- grade.book %>% 
   gather( key=Homework,     # What should I call the key column
           value=Score,      # What should I call the values column
@@ -123,7 +177,7 @@ To spread the key:value pairs out into a matrix, we use the `spread()` command.
 
 
 ```r
-# Turn the Assessment/Score pair of columns into one column per factor level of Assessment
+# Turn the Homework/Score pair of columns into one column per factor level of Homework
 tidy.scores %>% spread( key=Homework, value=Score )
 ```
 
@@ -136,8 +190,14 @@ tidy.scores %>% spread( key=Homework, value=Score )
 
 One way to keep straight which is the `key` column is that the key is the category, while `value` is the numerical value or response. 
 
+Often times, the long format of the data is most helpful for graphing or doing data analysis. Because of this, we often refer to this as the *tidy* form of the data. Hadley has a nice article about messy data vs tidy data and his [article](https://vita.had.co.nz/papers/tidy-data.pdf) is well worth your time to read, although `dplyr` and `tidyr` have matured since he wrote this article. The main point can be summarized by:
+
+    Tidy data has one observation per row and each column is a variable. - Hadley Wickham
+
+There are a variety of reasons why data might be stored in a non-tidy wide format, or entered in a wide format, but it is important to make sure that it is easy to transform it into a tidy format.
+
 ## Storing Data in Multiple Tables
-In many datasets it is common to store data across multiple tables, usually with the goal of minimizing memory used as well as providing minimal duplication of information so any change that must be made is only made in a single place.
+In many data sets it is common to store data across multiple tables, usually with the goal of minimizing memory used as well as providing minimal duplication of information so any change that must be made is only made in a single place.
 
 To see the rational why we might do this, consider building a data set of blood donations by a variety of donors across several years. For each blood donation, we will perform some assay and measure certain qualities about the blood and the patients health at the donation.
 
@@ -163,9 +223,9 @@ donations
 ## 3  Jeff 2017-08-14       16.9      145       101
 ```
 
-I would like to include additional information about the donor where that infomation doesn't change overtime. For example we might want to have information about the donar's birthdate, sex, blood type.  However, I don't want that information in _every single donation line_.  Otherwise if I mistype a birthday and have to correct it, I would have to correct it _everywhere_. For information about the donor, should live in a `donors` table, while information about a particular donation should live in the `donations` table.
+I would like to include additional information about the donor where that information doesn't change overtime. For example we might want to have information about the donor's birthdate, sex, blood type.  However, I don't want that information in _every single donation line_.  Otherwise if I mistype a birthday and have to correct it, I would have to correct it _everywhere_. For information about the donor, should live in a `donors` table, while information about a particular donation should live in the `donations` table.
 
-Furthermore, there are many Jeffs and Dereks in the world and to maintain a unique identifier (without using Social Security numbers) I will just create a `Donor_ID` code that will uniquely identify a person.  Similarly I will create a `Donation_ID` that will uniquely identify a dontation.
+Furthermore, there are many Jeffs and Dereks in the world and to maintain a unique identifier (without using Social Security numbers) I will just create a `Donor_ID` code that will uniquely identify a person.  Similarly I will create a `Donation_ID` that will uniquely identify a donation.
 
 
 
@@ -269,12 +329,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              273.
-## 2 A              233.
-## 3 B              199.
-## 4 B              230.
-## 5 C              295.
-## 6 C              268.
+## 1 A              252.
+## 2 A              231.
+## 3 B              260.
+## 4 B              236.
+## 5 C              270.
+## 6 C              257.
 ```
 
 ```r
@@ -305,12 +365,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              273. <NA>         NA      NA        NA
-## 2 A              233. <NA>         NA      NA        NA
-## 3 B              199. Lake Elaine   6.5    40         8
-## 4 B              230. Lake Elaine   6.5    40         8
-## 5 C              295. Mormon Lake   6.3   210        10
-## 6 C              268. Mormon Lake   6.3   210        10
+## 1 A              252. <NA>         NA      NA        NA
+## 2 A              231. <NA>         NA      NA        NA
+## 3 B              260. Lake Elaine   6.5    40         8
+## 4 B              236. Lake Elaine   6.5    40         8
+## 5 C              270. Mormon Lake   6.3   210        10
+## 6 C              257. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -335,12 +395,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              273. <NA>         NA      NA        NA
-## 2 A              233. <NA>         NA      NA        NA
-## 3 B              199. Lake Elaine   6.5    40         8
-## 4 B              230. Lake Elaine   6.5    40         8
-## 5 C              295. Mormon Lake   6.3   210        10
-## 6 C              268. Mormon Lake   6.3   210        10
+## 1 A              252. <NA>         NA      NA        NA
+## 2 A              231. <NA>         NA      NA        NA
+## 3 B              260. Lake Elaine   6.5    40         8
+## 4 B              236. Lake Elaine   6.5    40         8
+## 5 C              270. Mormon Lake   6.3   210        10
+## 6 C              257. Mormon Lake   6.3   210        10
 ```
 
 
@@ -356,10 +416,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              199. Lake Elaine   6.5    40         8
-## 2 B              230. Lake Elaine   6.5    40         8
-## 3 C              295. Mormon Lake   6.3   210        10
-## 4 C              268. Mormon Lake   6.3   210        10
+## 1 B              260. Lake Elaine   6.5    40         8
+## 2 B              236. Lake Elaine   6.5    40         8
+## 3 C              270. Mormon Lake   6.3   210        10
+## 4 C              257. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.

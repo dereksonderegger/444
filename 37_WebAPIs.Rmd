@@ -53,7 +53,7 @@ The Census Bureau wants to identify which developers are accessing their data an
 Census_Key = '2b7acec9009601032e6605909c4901d632f541d6'
 ```
 
-```{r}
+```{r, cache=TRUE}
 # I got a Census API key from https://api.census.gov/data/key_signup.html 
 # and saved it as Census_Key and use that in all the following examples...
 # 
@@ -73,7 +73,7 @@ A good place to start is the [developer datasets](https://www.census.gov/data/de
 ### Population Estimates 
 The Census Bureau's Population Estimation Program (PEP) is responsible for population estimates. On the [Census Population API page](https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html), it looks like I need to use the `pep/population` tables. 
 
-```{r}
+```{r, cache=TRUE}
 # Code to grab county level population levels.
 County_Populations <- getCensus(name = "pep/population",
   vars = c('STATE','COUNTY','GEONAME','DATE_CODE','DATE_DESC','POP'),
@@ -90,7 +90,7 @@ County_Populations %>% head(6)
 
 I was looking for population divided up by Race and Sex and it took awhile to figure out that I want to use PEP's Demographic Characteristics Estimates by Age Groups tables `pep/charagegroups`. From there I looked at some of the examples and variables.
 
-```{r}
+```{r, cache=TRUE}
 County_Populations_by_AgeGender <- getCensus(name = "pep/charagegroups",
   vars = c('GEONAME','DATE_CODE','AGEGROUP','SEX','DATE_DESC','POP'),
   vintage = '2018',
@@ -103,7 +103,7 @@ County_Populations_by_AgeGender %>% head(6)
 As I played around with it, it seems that I can grab Race and Sex information as well. But unfortunately the categories are numerically coded so somehow we have to figure out which are which. It looks like `SEX=0` is both but I have no idea which is men and which is women. Still looking at the [Census Population API page](https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html) and following the link about the variables for demographic characteristics, we can click through each variable to see the .json file that defines the factor levels.
 
 We can also import those into R directly
-```{r}
+```{r, cache=TRUE}
 # What variables are Available?
 censusapi::listCensusMetadata(name='pep/charagegroups', vintage=2018)
 
@@ -128,6 +128,6 @@ CensusFactorLevels('pep/charagegroups', 2018, 'RACE')
 
 ## Exercises
 
-1. I'm interested in information from the Census American Community Survey on demographics about educational attainment. This information can be found in ACS's Subject table. Using the API, download the latest information about educational attainment and create map or graph summarizing educational attainment. 
+1. The Census Bureau is constantly running many different surveys and compiling the results. One of the most comprehensive and interesting of these is the [American Community Survey](https://www.census.gov/programs-surveys/acs/guidance.html). I'm interested in using the ACS to get information about educational attainment. The developers overview webpage for the 1 year ACS data is [here](https://www.census.gov/data/developers/data-sets/acs-1year.html) and we can get the desired information from the Subject table. Using the on-line documentation, figure out which columns you want and then using the API, download the latest information about educational attainment. Create map or graph summarizing educational attainment in either counties in Arizona or across states within the US. Or if you are feeling ambitious, create a graph or graphs summarizing this across all counties in the US.
 
 2. Pick some API to investigate how to use. Utilizing your interests, pick an API and figure out how to use it.  Using the API, download some data and produce an interesting graphic. *I know that some social media apps such as Twitter, Reddit, and  Facebook have APIs. If you are a genomics person, the R interface to Kegg would be a fun choice. The Centers for Disease Control has an API, as well. Many municipalities are starting to create Open Data and some of them have web APIs. Explore your interests and see if there is an interface to that data!*
