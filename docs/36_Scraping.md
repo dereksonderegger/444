@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nOne Man's Quest To Make A Street-Legal Indycar\n "                                     
-## [2] "\nA Horrifying Glimpse Into Your Dystopian Future Commute\n"                             
-## [3] "\nWild Footage Of Homeowners Fleeing A Fast-Moving Fire In The Los Angeles Area\n"       
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                             
-## [5] "\nWarehouse Worker's Totally Normal Day At Work Gets Derailed By A 'Ghost Table'\n"      
-## [6] "\nHere Are The Most Ridiculous Reasons Car Dealers Refuse To Send Written Price Quotes\n"
+## [1] "\nA Million People Are Jailed At China's Gulags. I Managed To Escape. Here's What Really Goes On Inside\n"
+## [2] "\nThe Obscure Charges That Utility Companies Add To Your Bills\n"                                         
+## [3] "\nThe Final Trailer For 'Star Wars: The Rise of Skywalker' Features A Whole Bunch Of New Footage\n"       
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                              
+## [5] "\nThis Group Of Men Thought It Was A Good Idea To Go Down A Gigantic Slide Together. It Really Wasn't\n"  
+## [6] "\nHow The World's Largest Geode Grew To Half The Size Of A Small Bedroom\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.popularmechanics.com/cars/a29390473/street-legal-indycar/?utm_source=digg"                                             
-## [2] "https://www.citylab.com/transportation/2019/10/cartoon-dystopian-future-transit-commute-hyperloop-air-taxi/600340/?utm_source=digg"
-## [3] "/2019/palisades-fire-los-angeles"                                                                                                  
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                       
-## [5] "/video/warehouse-worker-ghost-table"                                                                                               
-## [6] "https://jalopnik.com/here-are-the-most-ridiculous-reasons-why-dealers-will-r-1839224959?utm_source=digg"
+## [1] "https://www.haaretz.com/world-news/.premium.MAGAZINE-a-million-people-are-jailed-at-china-s-gulags-i-escaped-here-s-what-goes-on-inside-1.7994216?utm_source=digg"
+## [2] "https://www.propublica.org/article/the-obscure-charges-that-utility-companies-add-to-your-bills#169394?utm_source=digg"                                           
+## [3] "/video/star-wars-rise-skywalker-new-trailer"                                                                                                                      
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                                                      
+## [5] "/video/group-of-men-slide-fail"                                                                                                                                   
+## [6] "https://www.sciencemag.org/news/2019/10/how-world-s-largest-geode-grew-half-size-small-bedroom?rss=1?utm_source=digg"
 ```
 
 

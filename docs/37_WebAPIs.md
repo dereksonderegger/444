@@ -55,10 +55,10 @@ getCensus(name = "timeseries/healthins/sahie",
 
 ```
 ##   time state    NAME IPRCAT                IPR_DESC PCTUI_PT
-## 1 2017    01 Alabama      3      <= 138% of Poverty     19.4
-## 2 2017    01 Alabama      0             All Incomes     11.0
-## 3 2017    01 Alabama      1      <= 200% of Poverty     18.3
-## 4 2017    01 Alabama      2      <= 250% of Poverty     17.3
+## 1 2017    01 Alabama      0             All Incomes     11.0
+## 2 2017    01 Alabama      1      <= 200% of Poverty     18.3
+## 3 2017    01 Alabama      2      <= 250% of Poverty     17.3
+## 4 2017    01 Alabama      3      <= 138% of Poverty     19.4
 ## 5 2017    01 Alabama      4      <= 400% of Poverty     14.5
 ## 6 2017    01 Alabama      5 138% to 400% of Poverty     11.5
 ```
@@ -227,6 +227,6 @@ CensusFactorLevels('pep/charagegroups', 2018, 'RACE')
 
 ## Exercises
 
-1. I'm interested in information from the Census American Community Survey on demographics about educational attainment. This information can be found in ACS's Subject table. Using the API, download the latest information about educational attainment and create map or graph summarizing educational attainment. 
+1. The Census Bureau is constantly running many different surveys and compiling the results. One of the most comprehensive and interesting of these is the [American Community Survey](https://www.census.gov/programs-surveys/acs/guidance.html). I'm interested in using the ACS to get information about educational attainment. The developers overview webpage for the 1 year ACS data is [here](https://www.census.gov/data/developers/data-sets/acs-1year.html) and we can get the desired information from the Subject table. Using the on-line documentation, figure out which columns you want and then using the API, download the latest information about educational attainment. Create map or graph summarizing educational attainment in either counties in Arizona or across states within the US. Or if you are feeling ambitious, create a graph or graphs summarizing this across all counties in the US.
 
 2. Pick some API to investigate how to use. Utilizing your interests, pick an API and figure out how to use it.  Using the API, download some data and produce an interesting graphic. *I know that some social media apps such as Twitter, Reddit, and  Facebook have APIs. If you are a genomics person, the R interface to Kegg would be a fun choice. The Centers for Disease Control has an API, as well. Many municipalities are starting to create Open Data and some of them have web APIs. Explore your interests and see if there is an interface to that data!*

@@ -15,13 +15,13 @@ Most of the time, our data is in the form of a data frame and we are interested 
 Next we need a way to squish two data frames together. It is often advantageous to store data that would be be repeated separately in a different table so that a particular piece of information lives in only one location. This makes the data easier to modify, and more likely to maintain consistence. However, this practice requires that, when necessary, we can add information to a table, that might involve a lot of duplicated rows.
 
 ## `data.frames` vs `tibbles`
-Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does less coercion during creation and manipulation, and does more type checking during those operations. So a `tibble` does less (automatically) and complains more. The rational for this is that while it can be convenient for coercion between data types can be helpful, it often disguises errors that take a long time to track down.
+Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does more type checking and less coercion during creation and manipulation. So a `tibble` does less (automatically) and complains more. The rational for this is that while it can be convenient for coercion between data types can be helpful, it often disguises errors that take a long time to track down.
 
 Second, the printing methods for `tibbles` prevent it from showing too many rows or columns. This is a very convenient and more user-friendly way to show the data. We can control how many rows or columns are printed using the `options()` command, which sets all of the global options.
 
 |  Options            |    Result                           |
 |:--------------------------------------:|:-----------------|
-| `options(tibble.print_max = n, tibble.print_min = m)`  | if there are more than n rows, print only the first m rows. 
+| `options(tibble.print_max = n, tibble.print_min = m)`  | if there are more than `n` rows, print only the first `m`. 
 | `options(tibble.print_max = Inf)` |  Always print all the rows. |
 | `options(tibble.width = Inf)` | Always print all columns, regardless of the width of the display device. |
 
@@ -199,109 +199,137 @@ There are a variety of reasons why data might be stored in a non-tidy wide forma
 ## Storing Data in Multiple Tables
 In many data sets it is common to store data across multiple tables, usually with the goal of minimizing memory used as well as providing minimal duplication of information so any change that must be made is only made in a single place.
 
-To see the rational why we might do this, consider building a data set of blood donations by a variety of donors across several years. For each blood donation, we will perform some assay and measure certain qualities about the blood and the patients health at the donation.
-
-
-```
-##   Donor Hemoglobin Systolic Diastolic
-## 1 Derek       17.4      121        80
-## 2  Jeff       16.9      145       101
-```
-
-But now we have to ask, what happens when we have a donor that has given blood multiple times?  In this case we should just have multiple rows per person along with a date column to uniquely identify a particular donation.
-
-
-
-```r
-donations
-```
-
-```
-##   Donor       Date Hemoglobin Systolic Diastolic
-## 1 Derek 2017-04-14       17.4      120        79
-## 2 Derek 2017-06-20       16.5      121        80
-## 3  Jeff 2017-08-14       16.9      145       101
-```
+To see the rational why we might do this, consider building a data set of blood donations by a variety of donors across several years. For each blood donation, we will perform some assay and measure certain qualities about the blood and the patients health at the donation. But should we contain the donor's address, phone number, and email address in the same data table that holds the information about the blood donated.
 
 I would like to include additional information about the donor where that information doesn't change overtime. For example we might want to have information about the donor's birthdate, sex, blood type.  However, I don't want that information in _every single donation line_.  Otherwise if I mistype a birthday and have to correct it, I would have to correct it _everywhere_. For information about the donor, should live in a `donors` table, while information about a particular donation should live in the `donations` table.
 
-Furthermore, there are many Jeffs and Dereks in the world and to maintain a unique identifier (without using Social Security numbers) I will just create a `Donor_ID` code that will uniquely identify a person.  Similarly I will create a `Donation_ID` that will uniquely identify a donation.
+Furthermore, there are many Jeffs and Dereks in the world and to maintain a unique identifier (without using Social Security numbers) I will just create a `Donor_ID` code that will uniquely identify a person.  Similarly I will create a `Blood_ID` that will uniquely identify a blood donation.
 
 
 
 ```r
-donors
+Donors
 ```
 
 ```
-##   Donor_ID F_Name L_Name B_Type      Birth       Street      City State
-## 1  Donor_1  Derek    Lee     O+ 1976-09-17 7392 Willard Flagstaff    AZ
-## 2  Donor_2   Jeff  Smith      A 1974-06-23     873 Vine   Bozeman    MT
+## # A tibble: 3 x 7
+##   Donor_ID Name   Blood_Type Birthday   Street       City      State
+##   <chr>    <chr>  <chr>      <chr>      <chr>        <chr>     <chr>
+## 1 D1       Derek  O+         1976-09-17 7392 Willard Flagstaff AZ   
+## 2 D2       Jeff   A-         1974-06-23 873 Vine     Bozeman   MT   
+## 3 D3       Aubrey O+         1976-09-17 7392 Willard Flagstaff AZ
 ```
+
+
+
 
 ```r
-donations
+Blood_Donations 
 ```
 
 ```
-##   Donation_ID Donor_ID       Date Hemoglobin Systolic Diastolic
-## 1  Donation_1  Donor_1 2017-04-14       17.4      120        79
-## 2  Donation_2  Donor_1 2017-06-20       16.5      121        80
-## 3  Donation_3  Donor_2 2017-08-14       16.9      145       101
+## # A tibble: 5 x 6
+##   Blood_ID Donor_ID Date       Hemoglobin Systolic Diastolic
+##   <chr>    <chr>    <chr>           <dbl>    <dbl>     <dbl>
+## 1 B_1      D1       2017-04-14       17.4      120        79
+## 2 B_2      D1       2017-06-20       16.5      121        80
+## 3 B_3      D2       2017-08-14       16.9      145       101
+## 4 B_4      D1       2017-08-26       17.6      120        79
+## 5 B_5      D3       2017-08-26       16.1      137        90
 ```
 
 If we have a new donor walk in and give blood, then we'll have to create a new entry in the `donors` table as well as a new entry in the `donations` table. If an experienced donor gives again, we just have to create a new entry in the donations table.
 
-
-
-```r
-donors
-```
-
-```
-##   Donor_ID F_Name L_Name B_Type      Birth       Street      City State
-## 1  Donor_1  Derek    Lee     O+ 1976-09-17 7392 Willard Flagstaff    AZ
-## 2  Donor_2   Jeff  Smith      A 1974-06-23     873 Vine   Bozeman    MT
-## 3  Donor_3 Aubrey    Lee     O+ 1980-12-15 7392 Willard Flagstaff    AZ
-```
-
-```r
-donations
-```
-
-```
-##   Donation_ID Donor_ID       Date Hemoglobin Systolic Diastolic
-## 1  Donation_1  Donor_1 2017-04-14       17.4      120        79
-## 2  Donation_2  Donor_1 2017-06-20       16.5      121        80
-## 3  Donation_3  Donor_2 2017-08-14       16.9      145       101
-## 4  Donation_4  Donor_1 2017-08-26       17.6      120        79
-## 5  Donation_5  Donor_3 2017-08-26       16.1      137        90
-```
-
-
-This data storage set-up might be flexible enough for us.  However what happens if somebody moves? If we don't want to keep the historical information, then we could just change the person's `Street_Address`, `City`, and `State` values.  If we do want to keep that, then we could create `donor_addresses` table that contains a `Start_Date` and `End_Date` that denotes the period of time that the address was valid.
-
-
-
-```r
-donor_addresses
-```
-
-```
-##   Donor_ID       Street      City State Start_Date   End_Date
-## 1  Donor_1 346 Treeline   Pullman    WA 2015-01-26 2016-06-27
-## 2  Donor_1     645 Main Flagstsff    AZ 2016-06-28 2017-07-02
-## 3  Donor_1 7392 Willard Flagstaff    AZ 2017-07-03       <NA>
-## 4  Donor_2     873 Vine   Bozeman    MT 2015-03-17       <NA>
-## 5  Donor_3 7392 Willard Flagstaff    AZ 2017-06-01       <NA>
-```
-
 Given this data structure, we can now easily create new donations as well as store donor information. In the event that we need to change something about a donor, there is only _one_ place to make that change.
 
-However, having data spread across multiple tables is challenging because I often want that information squished back together.  For example, the blood donations services might want to find all 'O' or 'O+' donors in Flagstaff and their current mailing address and send them some notification about blood supplies being low.  So we need someway to join the `donors` and `donor_addresses` tables together in a sensible manner.
+However, having data spread across multiple tables is challenging because I often want that information squished back together.  For example, if during routine testing we discover that a blood sample is HIV positive. Then we *need* to be able to join the blood donations table to the donors table in some sensible manner.
 
 ## Table Joins
-Often we need to squish together two data frames but they do not have the same number of rows. Consider the case where we have a data frame of observations of fish and a separate data frame that contains information about lake (perhaps surface area, max depth, pH, etc). I want to store them as two separate tables so that when I have to record a lake level observation, I only input it *one* place. This decreases the chance that I make a copy/paste error. 
+
+There are four different types of joins: outer, left, right, and inner joins. Consider the following example tables. Here we consider that there is some *key* column that is common to both tables.
+
+| Join Type            | Result                           |
+|:--------------------:|:---------------------------------|
+|  `inner_join(A,B)`   | Include rows if the key value is in *both* tables.   |
+|  `left_join(A,B)`    | Include all rows of `A`, and if the match in `B` doesn't exist, just insert a `NA`. |
+|  `right_join(A,B)`   | Include all rows of `B`, and if the match in `A` doesn't exist, just insert a `NA`. |    
+|  `full_join(A,B)`    | Include all rows of `A` and `B` and if the necessary match doesn't exist, insert `NA` values. |
+
+For a practical example
+
+```r
+A <- tribble(
+  ~ID, ~x,
+  'a', 34,    # Notice that A doesn't have ID = d
+  'b', 36,
+  'c', 38)
+B <- tribble(
+  ~ID, ~y,
+  'b', 56,   # Notice that B doesn't have ID = a
+  'c', 57,
+  'd', 59)
+```
+
+
+
+```r
+# only include rows with IDs that are in both tables
+inner_join(A,B)
+```
+
+```
+## # A tibble: 2 x 3
+##   ID        x     y
+##   <chr> <dbl> <dbl>
+## 1 b        36    56
+## 2 c        38    57
+```
+
+```r
+# All the rows in table A, insert NA if the B info is missing
+left_join(A,B)
+```
+
+```
+## # A tibble: 3 x 3
+##   ID        x     y
+##   <chr> <dbl> <dbl>
+## 1 a        34    NA
+## 2 b        36    56
+## 3 c        38    57
+```
+
+```r
+# All the rows in table B, insert NA if the A info is missing
+right_join(A,B)
+```
+
+```
+## # A tibble: 3 x 3
+##   ID        x     y
+##   <chr> <dbl> <dbl>
+## 1 b        36    56
+## 2 c        38    57
+## 3 d        NA    59
+```
+
+```r
+# All the rows possible, insert NA if the matching info is missing
+full_join(A,B)
+```
+
+```
+## # A tibble: 4 x 3
+##   ID        x     y
+##   <chr> <dbl> <dbl>
+## 1 a        34    NA
+## 2 b        36    56
+## 3 c        38    57
+## 4 d        NA    59
+```
+
+
+Consider the case where we have a data frame of observations of fish and a separate data frame that contains information about lake (perhaps surface area, max depth, pH, etc). I want to store them as two separate tables so that when I have to record a lake level observation, I only input it *one* place. This decreases the chance that I make a copy/paste error. 
 
 To illustrate the different types of table joins, we'll consider two different tables.
 
@@ -329,12 +357,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              252.
-## 2 A              231.
-## 3 B              260.
-## 4 B              236.
-## 5 C              270.
-## 6 C              257.
+## 1 A              290.
+## 2 A              257.
+## 3 B              225.
+## 4 B              257.
+## 5 C              292.
+## 6 C              262.
 ```
 
 ```r
@@ -350,7 +378,7 @@ Lake.Data
 ## 3 D       Lake Mary     6.1   240        38
 ```
 
-Notice that each of these tables has a column labled `Lake_ID`. When we join these two tables, the row that describes lake `A` should be duplicated for each row in the `Fish.Data` that corresponds with fish caught from lake `A`.
+Notice that each of these tables has a column labeled `Lake_ID`. When we join these two tables, the row that describes lake `A` should be duplicated for each row in the `Fish.Data` that corresponds with fish caught from lake `A`.
 
 
 ```r
@@ -365,22 +393,17 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              252. <NA>         NA      NA        NA
-## 2 A              231. <NA>         NA      NA        NA
-## 3 B              260. Lake Elaine   6.5    40         8
-## 4 B              236. Lake Elaine   6.5    40         8
-## 5 C              270. Mormon Lake   6.3   210        10
-## 6 C              257. Mormon Lake   6.3   210        10
+## 1 A              290. <NA>         NA      NA        NA
+## 2 A              257. <NA>         NA      NA        NA
+## 3 B              225. Lake Elaine   6.5    40         8
+## 4 B              257. Lake Elaine   6.5    40         8
+## 5 C              292. Mormon Lake   6.3   210        10
+## 6 C              262. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
 Notice that because we didn't have any fish caught in lake `D` and we don't have any Lake information about lake `A`, when we join these two tables, we end up introducing missing observations into the resulting data frame.
 
-The other types of joins govern the behavor or these missing data.
-
-**`left_join(A, B)`** For each row in A, match with a row in B, but don't create any more rows than what was already in A.
-
-**`inner_join(A,B)`** Only match row values where both data frames have a value.
 
 
 ```r
@@ -395,12 +418,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              252. <NA>         NA      NA        NA
-## 2 A              231. <NA>         NA      NA        NA
-## 3 B              260. Lake Elaine   6.5    40         8
-## 4 B              236. Lake Elaine   6.5    40         8
-## 5 C              270. Mormon Lake   6.3   210        10
-## 6 C              257. Mormon Lake   6.3   210        10
+## 1 A              290. <NA>         NA      NA        NA
+## 2 A              257. <NA>         NA      NA        NA
+## 3 B              225. Lake Elaine   6.5    40         8
+## 4 B              257. Lake Elaine   6.5    40         8
+## 5 C              292. Mormon Lake   6.3   210        10
+## 6 C              262. Mormon Lake   6.3   210        10
 ```
 
 
@@ -416,15 +439,16 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              260. Lake Elaine   6.5    40         8
-## 2 B              236. Lake Elaine   6.5    40         8
-## 3 C              270. Mormon Lake   6.3   210        10
-## 4 C              257. Mormon Lake   6.3   210        10
+## 1 B              225. Lake Elaine   6.5    40         8
+## 2 B              257. Lake Elaine   6.5    40         8
+## 3 C              292. Mormon Lake   6.3   210        10
+## 4 C              262. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
 
 
+## Row summations
 Finally, the combination of `gather` and `join` allows me to do some very complex calculations across many columns of a data set.  For example, I might gather up a set of columns, calculate some summary statistics, and then join the result back to original data set.  
 
 

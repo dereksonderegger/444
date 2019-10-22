@@ -317,7 +317,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="13.4" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#storing-data-in-multiple-tables"><i class="fa fa-check"></i><b>13.4</b> Storing Data in Multiple Tables</a></li>
 <li class="chapter" data-level="13.5" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#table-joins"><i class="fa fa-check"></i><b>13.5</b> Table Joins</a></li>
-<li class="chapter" data-level="13.6" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#exercises-13"><i class="fa fa-check"></i><b>13.6</b> Exercises</a></li>
+<li class="chapter" data-level="13.6" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#row-summations"><i class="fa fa-check"></i><b>13.6</b> Row summations</a></li>
+<li class="chapter" data-level="13.7" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#exercises-13"><i class="fa fa-check"></i><b>13.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html"><i class="fa fa-check"></i><b>14</b> Graphing Part II</a><ul>
 <li class="chapter" data-level="14.1" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#multi-plots"><i class="fa fa-check"></i><b>14.1</b> Multi-plots</a><ul>
@@ -411,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Next we need a way to squish two data frames together. It is often advantageous to store data that would be be repeated separately in a different table so that a particular piece of information lives in only one location. This makes the data easier to modify, and more likely to maintain consistence. However, this practice requires that, when necessary, we can add information to a table, that might involve a lot of duplicated rows.</p>
 <div id="data.frames-vs-tibbles" class="section level2">
 <h2><span class="header-section-number">13.1</span> <code>data.frames</code> vs <code>tibbles</code></h2>
-<p>Previously we’ve been using <code>data.frame</code> and <code>tibble</code> objects interchangeably, but now is a good time make a distinction. Essentially a <code>tibble</code> is a <code>data.frame</code> that does less coercion during creation and manipulation, and does more type checking during those operations. So a <code>tibble</code> does less (automatically) and complains more. The rational for this is that while it can be convenient for coercion between data types can be helpful, it often disguises errors that take a long time to track down.</p>
+<p>Previously we’ve been using <code>data.frame</code> and <code>tibble</code> objects interchangeably, but now is a good time make a distinction. Essentially a <code>tibble</code> is a <code>data.frame</code> that does more type checking and less coercion during creation and manipulation. So a <code>tibble</code> does less (automatically) and complains more. The rational for this is that while it can be convenient for coercion between data types can be helpful, it often disguises errors that take a long time to track down.</p>
 <p>Second, the printing methods for <code>tibbles</code> prevent it from showing too many rows or columns. This is a very convenient and more user-friendly way to show the data. We can control how many rows or columns are printed using the <code>options()</code> command, which sets all of the global options.</p>
 <table>
 <colgroup>
@@ -427,7 +428,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="center"><code>options(tibble.print_max = n, tibble.print_min = m)</code></td>
-<td align="left">if there are more than n rows, print only the first m rows.</td>
+<td align="left">if there are more than <code>n</code> rows, print only the first <code>m</code>.</td>
 </tr>
 <tr class="even">
 <td align="center"><code>options(tibble.print_max = Inf)</code></td>
@@ -567,54 +568,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="storing-data-in-multiple-tables" class="section level2">
 <h2><span class="header-section-number">13.4</span> Storing Data in Multiple Tables</h2>
 <p>In many data sets it is common to store data across multiple tables, usually with the goal of minimizing memory used as well as providing minimal duplication of information so any change that must be made is only made in a single place.</p>
-<p>To see the rational why we might do this, consider building a data set of blood donations by a variety of donors across several years. For each blood donation, we will perform some assay and measure certain qualities about the blood and the patients health at the donation.</p>
-<pre><code>##   Donor Hemoglobin Systolic Diastolic
-## 1 Derek       17.4      121        80
-## 2  Jeff       16.9      145       101</code></pre>
-<p>But now we have to ask, what happens when we have a donor that has given blood multiple times? In this case we should just have multiple rows per person along with a date column to uniquely identify a particular donation.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">donations</a></code></pre></div>
-<pre><code>##   Donor       Date Hemoglobin Systolic Diastolic
-## 1 Derek 2017-04-14       17.4      120        79
-## 2 Derek 2017-06-20       16.5      121        80
-## 3  Jeff 2017-08-14       16.9      145       101</code></pre>
+<p>To see the rational why we might do this, consider building a data set of blood donations by a variety of donors across several years. For each blood donation, we will perform some assay and measure certain qualities about the blood and the patients health at the donation. But should we contain the donor’s address, phone number, and email address in the same data table that holds the information about the blood donated.</p>
 <p>I would like to include additional information about the donor where that information doesn’t change overtime. For example we might want to have information about the donor’s birthdate, sex, blood type. However, I don’t want that information in <em>every single donation line</em>. Otherwise if I mistype a birthday and have to correct it, I would have to correct it <em>everywhere</em>. For information about the donor, should live in a <code>donors</code> table, while information about a particular donation should live in the <code>donations</code> table.</p>
-<p>Furthermore, there are many Jeffs and Dereks in the world and to maintain a unique identifier (without using Social Security numbers) I will just create a <code>Donor_ID</code> code that will uniquely identify a person. Similarly I will create a <code>Donation_ID</code> that will uniquely identify a donation.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">donors</a></code></pre></div>
-<pre><code>##   Donor_ID F_Name L_Name B_Type      Birth       Street      City State
-## 1  Donor_1  Derek    Lee     O+ 1976-09-17 7392 Willard Flagstaff    AZ
-## 2  Donor_2   Jeff  Smith      A 1974-06-23     873 Vine   Bozeman    MT</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">donations</a></code></pre></div>
-<pre><code>##   Donation_ID Donor_ID       Date Hemoglobin Systolic Diastolic
-## 1  Donation_1  Donor_1 2017-04-14       17.4      120        79
-## 2  Donation_2  Donor_1 2017-06-20       16.5      121        80
-## 3  Donation_3  Donor_2 2017-08-14       16.9      145       101</code></pre>
+<p>Furthermore, there are many Jeffs and Dereks in the world and to maintain a unique identifier (without using Social Security numbers) I will just create a <code>Donor_ID</code> code that will uniquely identify a person. Similarly I will create a <code>Blood_ID</code> that will uniquely identify a blood donation.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">Donors</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 7
+##   Donor_ID Name   Blood_Type Birthday   Street       City      State
+##   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;
+## 1 D1       Derek  O+         1976-09-17 7392 Willard Flagstaff AZ   
+## 2 D2       Jeff   A-         1974-06-23 873 Vine     Bozeman   MT   
+## 3 D3       Aubrey O+         1976-09-17 7392 Willard Flagstaff AZ</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">Blood_Donations </a></code></pre></div>
+<pre><code>## # A tibble: 5 x 6
+##   Blood_ID Donor_ID Date       Hemoglobin Systolic Diastolic
+##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 B_1      D1       2017-04-14       17.4      120        79
+## 2 B_2      D1       2017-06-20       16.5      121        80
+## 3 B_3      D2       2017-08-14       16.9      145       101
+## 4 B_4      D1       2017-08-26       17.6      120        79
+## 5 B_5      D3       2017-08-26       16.1      137        90</code></pre>
 <p>If we have a new donor walk in and give blood, then we’ll have to create a new entry in the <code>donors</code> table as well as a new entry in the <code>donations</code> table. If an experienced donor gives again, we just have to create a new entry in the donations table.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">donors</a></code></pre></div>
-<pre><code>##   Donor_ID F_Name L_Name B_Type      Birth       Street      City State
-## 1  Donor_1  Derek    Lee     O+ 1976-09-17 7392 Willard Flagstaff    AZ
-## 2  Donor_2   Jeff  Smith      A 1974-06-23     873 Vine   Bozeman    MT
-## 3  Donor_3 Aubrey    Lee     O+ 1980-12-15 7392 Willard Flagstaff    AZ</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">donations</a></code></pre></div>
-<pre><code>##   Donation_ID Donor_ID       Date Hemoglobin Systolic Diastolic
-## 1  Donation_1  Donor_1 2017-04-14       17.4      120        79
-## 2  Donation_2  Donor_1 2017-06-20       16.5      121        80
-## 3  Donation_3  Donor_2 2017-08-14       16.9      145       101
-## 4  Donation_4  Donor_1 2017-08-26       17.6      120        79
-## 5  Donation_5  Donor_3 2017-08-26       16.1      137        90</code></pre>
-<p>This data storage set-up might be flexible enough for us. However what happens if somebody moves? If we don’t want to keep the historical information, then we could just change the person’s <code>Street_Address</code>, <code>City</code>, and <code>State</code> values. If we do want to keep that, then we could create <code>donor_addresses</code> table that contains a <code>Start_Date</code> and <code>End_Date</code> that denotes the period of time that the address was valid.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">donor_addresses</a></code></pre></div>
-<pre><code>##   Donor_ID       Street      City State Start_Date   End_Date
-## 1  Donor_1 346 Treeline   Pullman    WA 2015-01-26 2016-06-27
-## 2  Donor_1     645 Main Flagstsff    AZ 2016-06-28 2017-07-02
-## 3  Donor_1 7392 Willard Flagstaff    AZ 2017-07-03       &lt;NA&gt;
-## 4  Donor_2     873 Vine   Bozeman    MT 2015-03-17       &lt;NA&gt;
-## 5  Donor_3 7392 Willard Flagstaff    AZ 2017-06-01       &lt;NA&gt;</code></pre>
 <p>Given this data structure, we can now easily create new donations as well as store donor information. In the event that we need to change something about a donor, there is only <em>one</em> place to make that change.</p>
-<p>However, having data spread across multiple tables is challenging because I often want that information squished back together. For example, the blood donations services might want to find all ‘O’ or ‘O+’ donors in Flagstaff and their current mailing address and send them some notification about blood supplies being low. So we need someway to join the <code>donors</code> and <code>donor_addresses</code> tables together in a sensible manner.</p>
+<p>However, having data spread across multiple tables is challenging because I often want that information squished back together. For example, if during routine testing we discover that a blood sample is HIV positive. Then we <em>need</em> to be able to join the blood donations table to the donors table in some sensible manner.</p>
 </div>
 <div id="table-joins" class="section level2">
 <h2><span class="header-section-number">13.5</span> Table Joins</h2>
-<p>Often we need to squish together two data frames but they do not have the same number of rows. Consider the case where we have a data frame of observations of fish and a separate data frame that contains information about lake (perhaps surface area, max depth, pH, etc). I want to store them as two separate tables so that when I have to record a lake level observation, I only input it <em>one</em> place. This decreases the chance that I make a copy/paste error.</p>
+<p>There are four different types of joins: outer, left, right, and inner joins. Consider the following example tables. Here we consider that there is some <em>key</em> column that is common to both tables.</p>
+<table>
+<colgroup>
+<col width="39%" />
+<col width="60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Join Type</th>
+<th align="left">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>inner_join(A,B)</code></td>
+<td align="left">Include rows if the key value is in <em>both</em> tables.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>left_join(A,B)</code></td>
+<td align="left">Include all rows of <code>A</code>, and if the match in <code>B</code> doesn’t exist, just insert a <code>NA</code>.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>right_join(A,B)</code></td>
+<td align="left">Include all rows of <code>B</code>, and if the match in <code>A</code> doesn’t exist, just insert a <code>NA</code>.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>full_join(A,B)</code></td>
+<td align="left">Include all rows of <code>A</code> and <code>B</code> and if the necessary match doesn’t exist, insert <code>NA</code> values.</td>
+</tr>
+</tbody>
+</table>
+<p>For a practical example</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">A &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">  <span class="op">~</span>ID, <span class="op">~</span>x,</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">  <span class="st">&#39;a&#39;</span>, <span class="dv">34</span>,    <span class="co"># Notice that A doesn&#39;t have ID = d</span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">  <span class="st">&#39;b&#39;</span>, <span class="dv">36</span>,</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">  <span class="st">&#39;c&#39;</span>, <span class="dv">38</span>)</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">B &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">  <span class="op">~</span>ID, <span class="op">~</span>y,</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">  <span class="st">&#39;b&#39;</span>, <span class="dv">56</span>,   <span class="co"># Notice that B doesn&#39;t have ID = a</span></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">  <span class="st">&#39;c&#39;</span>, <span class="dv">57</span>,</a>
+<a class="sourceLine" id="cb23-10" data-line-number="10">  <span class="st">&#39;d&#39;</span>, <span class="dv">59</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># only include rows with IDs that are in both tables</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">inner_join</span>(A,B)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   ID        x     y
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 b        36    56
+## 2 c        38    57</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># All the rows in table A, insert NA if the B info is missing</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">left_join</span>(A,B)</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   ID        x     y
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 a        34    NA
+## 2 b        36    56
+## 3 c        38    57</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># All the rows in table B, insert NA if the A info is missing</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">right_join</span>(A,B)</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   ID        x     y
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 b        36    56
+## 2 c        38    57
+## 3 d        NA    59</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="co"># All the rows possible, insert NA if the matching info is missing</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">full_join</span>(A,B)</a></code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##   ID        x     y
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 a        34    NA
+## 2 b        36    56
+## 3 c        38    57
+## 4 d        NA    59</code></pre>
+<p>Consider the case where we have a data frame of observations of fish and a separate data frame that contains information about lake (perhaps surface area, max depth, pH, etc). I want to store them as two separate tables so that when I have to record a lake level observation, I only input it <em>one</em> place. This decreases the chance that I make a copy/paste error.</p>
 <p>To illustrate the different types of table joins, we’ll consider two different tables.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co"># tibbles are just data.frames that print a bit nicer and don&#39;t automatically</span></a>
 <a class="sourceLine" id="cb32-2" data-line-number="2"><span class="co"># convert character columns into factors.  They behave a bit more consistently</span></a>
@@ -632,12 +685,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 A              252.
-## 2 A              231.
-## 3 B              260.
-## 4 B              236.
-## 5 C              270.
-## 6 C              257.</code></pre>
+## 1 A              290.
+## 2 A              257.
+## 3 B              225.
+## 4 B              257.
+## 5 C              292.
+## 6 C              262.</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">Lake.Data</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   Lake_ID Lake_Name      pH  area avg_depth
@@ -645,44 +698,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 B       Lake Elaine   6.5    40         8
 ## 2 C       Mormon Lake   6.3   210        10
 ## 3 D       Lake Mary     6.1   240        38</code></pre>
-<p>Notice that each of these tables has a column labled <code>Lake_ID</code>. When we join these two tables, the row that describes lake <code>A</code> should be duplicated for each row in the <code>Fish.Data</code> that corresponds with fish caught from lake <code>A</code>.</p>
+<p>Notice that each of these tables has a column labeled <code>Lake_ID</code>. When we join these two tables, the row that describes lake <code>A</code> should be duplicated for each row in the <code>Fish.Data</code> that corresponds with fish caught from lake <code>A</code>.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">full_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              252. &lt;NA&gt;         NA      NA        NA
-## 2 A              231. &lt;NA&gt;         NA      NA        NA
-## 3 B              260. Lake Elaine   6.5    40         8
-## 4 B              236. Lake Elaine   6.5    40         8
-## 5 C              270. Mormon Lake   6.3   210        10
-## 6 C              257. Mormon Lake   6.3   210        10
+## 1 A              290. &lt;NA&gt;         NA      NA        NA
+## 2 A              257. &lt;NA&gt;         NA      NA        NA
+## 3 B              225. Lake Elaine   6.5    40         8
+## 4 B              257. Lake Elaine   6.5    40         8
+## 5 C              292. Mormon Lake   6.3   210        10
+## 6 C              262. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38</code></pre>
 <p>Notice that because we didn’t have any fish caught in lake <code>D</code> and we don’t have any Lake information about lake <code>A</code>, when we join these two tables, we end up introducing missing observations into the resulting data frame.</p>
-<p>The other types of joins govern the behavor or these missing data.</p>
-<p><strong><code>left_join(A, B)</code></strong> For each row in A, match with a row in B, but don’t create any more rows than what was already in A.</p>
-<p><strong><code>inner_join(A,B)</code></strong> Only match row values where both data frames have a value.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">left_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              252. &lt;NA&gt;         NA      NA        NA
-## 2 A              231. &lt;NA&gt;         NA      NA        NA
-## 3 B              260. Lake Elaine   6.5    40         8
-## 4 B              236. Lake Elaine   6.5    40         8
-## 5 C              270. Mormon Lake   6.3   210        10
-## 6 C              257. Mormon Lake   6.3   210        10</code></pre>
+## 1 A              290. &lt;NA&gt;         NA      NA        NA
+## 2 A              257. &lt;NA&gt;         NA      NA        NA
+## 3 B              225. Lake Elaine   6.5    40         8
+## 4 B              257. Lake Elaine   6.5    40         8
+## 5 C              292. Mormon Lake   6.3   210        10
+## 6 C              262. Mormon Lake   6.3   210        10</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 B              260. Lake Elaine   6.5    40         8
-## 2 B              236. Lake Elaine   6.5    40         8
-## 3 C              270. Mormon Lake   6.3   210        10
-## 4 C              257. Mormon Lake   6.3   210        10</code></pre>
+## 1 B              225. Lake Elaine   6.5    40         8
+## 2 B              257. Lake Elaine   6.5    40         8
+## 3 C              292. Mormon Lake   6.3   210        10
+## 4 C              262. Mormon Lake   6.3   210        10</code></pre>
 <p>The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn’t the case. In that situation you can use the <code>by=c(&quot;ColName.A&quot;=&quot;ColName.B&quot;)</code> syntax where <code>ColName.A</code> represents the name of the column in the first data frame and <code>ColName.B</code> is the equivalent column in the second data frame.</p>
+</div>
+<div id="row-summations" class="section level2">
+<h2><span class="header-section-number">13.6</span> Row summations</h2>
 <p>Finally, the combination of <code>gather</code> and <code>join</code> allows me to do some very complex calculations across many columns of a data set. For example, I might gather up a set of columns, calculate some summary statistics, and then join the result back to original data set.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">grade.book <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb46-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></a>
@@ -696,7 +749,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 Charles    9    7    9   10   8.75</code></pre>
 </div>
 <div id="exercises-13" class="section level2">
-<h2><span class="header-section-number">13.6</span> Exercises</h2>
+<h2><span class="header-section-number">13.7</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li><p>Suppose we are given information about the maximum daily temperature from a weather station in Flagstaff, AZ. The file is available at the GitHub site that this book is hosted on.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">FlagTemp &lt;-<span class="st">  </span><span class="kw">read.csv</span>(</a>
