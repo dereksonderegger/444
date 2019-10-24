@@ -299,12 +299,14 @@ of US government expenditures from 1962 to 2015. (I downloaded this data from ht
 Our goal is to end up with a data frame with columns for `Function`, `Subfunction`, `Year`, and `Amount`. We'll ignore the "On-budget" and "Off-budget" distinction.
     a) Download the data file, inspect it, and read in the data using the `readxl` package.
     b) Rename the `Function or subfunction` column to `Department`.
-    b) Remove any row with Total, Subtotal, On-budget or Off-budget.
+    b) Remove any row with Total, Subtotal, On-budget or Off-budget. Also remove the row at the bottom that defines what NA means.
     c) Create a new column for ID_number and parse the Function column for it.
-    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Perhaps the easiest way to create the `Function` and `Subfunction` columns is to write a `for` loop that steps through the data row-by-row. Alternatively, the `tidyr::fill` function might be useful.
-    e) Reshape the data into four columns for Function, Subfunction, Year, and Amount.
-    f) Replace any Amount value of `..........` with an NA.
-    g) Make a bar chart that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for the years 2001 through 2015. *Notice you'll have to sum up the sub-functions within each function.*
+    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: the `tidyr::fill` command is a varient of the `mutate` command that would be really handy.* 
+    e) Remove rows that corresponded to the Function name that have no data.
+    f) Reshape the data into four columns for Function, Subfunction, Year, and Amount.
+    g) Remove rows that have Amount value of `..........`.
+    h) Make sure that Year and Amount are numeric. *Hint: it is ok to get rid of the estimate rows for 2016+*
+    h) Make a line graph that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for each of the years 2001 through 2015. *Notice you'll have to sum up the sub-functions within each function.*
 
 
 4. Data table joins are extremely common because effective database design almost always involves having multiple tables for different types of objects. To illustrate both the table joins and the usefulness of multiple tables we will develop a set of data frames that will represent a credit card company's customer data base. We will have tables for Customers, Retailers, Cards, and Transactions.  Below is code that will create and populate these tables.

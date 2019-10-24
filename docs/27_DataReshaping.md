@@ -357,12 +357,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              290.
-## 2 A              257.
-## 3 B              225.
-## 4 B              257.
-## 5 C              292.
-## 6 C              262.
+## 1 A              277.
+## 2 A              211.
+## 3 B              245.
+## 4 B              236.
+## 5 C              282.
+## 6 C              251.
 ```
 
 ```r
@@ -393,12 +393,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              290. <NA>         NA      NA        NA
-## 2 A              257. <NA>         NA      NA        NA
-## 3 B              225. Lake Elaine   6.5    40         8
-## 4 B              257. Lake Elaine   6.5    40         8
-## 5 C              292. Mormon Lake   6.3   210        10
-## 6 C              262. Mormon Lake   6.3   210        10
+## 1 A              277. <NA>         NA      NA        NA
+## 2 A              211. <NA>         NA      NA        NA
+## 3 B              245. Lake Elaine   6.5    40         8
+## 4 B              236. Lake Elaine   6.5    40         8
+## 5 C              282. Mormon Lake   6.3   210        10
+## 6 C              251. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -418,12 +418,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              290. <NA>         NA      NA        NA
-## 2 A              257. <NA>         NA      NA        NA
-## 3 B              225. Lake Elaine   6.5    40         8
-## 4 B              257. Lake Elaine   6.5    40         8
-## 5 C              292. Mormon Lake   6.3   210        10
-## 6 C              262. Mormon Lake   6.3   210        10
+## 1 A              277. <NA>         NA      NA        NA
+## 2 A              211. <NA>         NA      NA        NA
+## 3 B              245. Lake Elaine   6.5    40         8
+## 4 B              236. Lake Elaine   6.5    40         8
+## 5 C              282. Mormon Lake   6.3   210        10
+## 6 C              251. Mormon Lake   6.3   210        10
 ```
 
 
@@ -439,10 +439,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              225. Lake Elaine   6.5    40         8
-## 2 B              257. Lake Elaine   6.5    40         8
-## 3 C              292. Mormon Lake   6.3   210        10
-## 4 C              262. Mormon Lake   6.3   210        10
+## 1 B              245. Lake Elaine   6.5    40         8
+## 2 B              236. Lake Elaine   6.5    40         8
+## 3 C              282. Mormon Lake   6.3   210        10
+## 4 C              251. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
@@ -508,12 +508,14 @@ of US government expenditures from 1962 to 2015. (I downloaded this data from ht
 Our goal is to end up with a data frame with columns for `Function`, `Subfunction`, `Year`, and `Amount`. We'll ignore the "On-budget" and "Off-budget" distinction.
     a) Download the data file, inspect it, and read in the data using the `readxl` package.
     b) Rename the `Function or subfunction` column to `Department`.
-    b) Remove any row with Total, Subtotal, On-budget or Off-budget.
+    b) Remove any row with Total, Subtotal, On-budget or Off-budget. Also remove the row at the bottom that defines what NA means.
     c) Create a new column for ID_number and parse the Function column for it.
-    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Perhaps the easiest way to create the `Function` and `Subfunction` columns is to write a `for` loop that steps through the data row-by-row. Alternatively, the `tidyr::fill` function might be useful.
-    e) Reshape the data into four columns for Function, Subfunction, Year, and Amount.
-    f) Replace any Amount value of `..........` with an NA.
-    g) Make a bar chart that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for the years 2001 through 2015. *Notice you'll have to sum up the sub-functions within each function.*
+    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: the `tidyr::fill` command is a varient of the `mutate` command that would be really handy.* 
+    e) Remove rows that corresponded to the Function name that have no data.
+    f) Reshape the data into four columns for Function, Subfunction, Year, and Amount.
+    g) Remove rows that have Amount value of `..........`.
+    h) Make sure that Year and Amount are numeric. *Hint: it is ok to get rid of the estimate rows for 2016+*
+    h) Make a line graph that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for each of the years 2001 through 2015. *Notice you'll have to sum up the sub-functions within each function.*
 
 
 4. Data table joins are extremely common because effective database design almost always involves having multiple tables for different types of objects. To illustrate both the table joins and the usefulness of multiple tables we will develop a set of data frames that will represent a credit card company's customer data base. We will have tables for Customers, Retailers, Cards, and Transactions.  Below is code that will create and populate these tables.
