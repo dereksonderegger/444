@@ -15,7 +15,8 @@ Most of the time, our data is in the form of a data frame and we are interested 
 Next we need a way to squish two data frames together. It is often advantageous to store data that would be be repeated separately in a different table so that a particular piece of information lives in only one location. This makes the data easier to modify, and more likely to maintain consistence. However, this practice requires that, when necessary, we can add information to a table, that might involve a lot of duplicated rows.
 
 ## `data.frames` vs `tibbles`
-Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does more type checking and less coercion during creation and manipulation. So a `tibble` does less (automatically) and complains more. The rational for this is that while it can be convenient for coercion between data types can be helpful, it often disguises errors that take a long time to track down.
+Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does more type checking and less coercion during creation and manipulation. So a `tibble` does less (automatically) and complains more. The rational for this is that while coercion between data types can be helpful, it often disguises errors that take a long time to track down. On the whole, is better to force the user to do the coercion explicitly rather than hope that R magically does the right thing.
+
 
 Second, the printing methods for `tibbles` prevent it from showing too many rows or columns. This is a very convenient and more user-friendly way to show the data. We can control how many rows or columns are printed using the `options()` command, which sets all of the global options.
 
@@ -25,6 +26,25 @@ Second, the printing methods for `tibbles` prevent it from showing too many rows
 | `options(tibble.print_max = Inf)` |  Always print all the rows. |
 | `options(tibble.width = Inf)` | Always print all columns, regardless of the width of the display device. |
 
+Third, `tibbles` support column names that would be rejected by a data frame.  For example, a data frame will not allow columns to begin with a number, nor can column names contain a space. These are allowable by `tibbles`, although they are required to be enclosed by back-quotes when referring to them.
+
+
+```r
+example <- tribble(
+  ~'1985', ~"Is Awesome",
+  'George',   20,
+  'Orwell',   87)
+
+example %>% select( `1985`, `Is Awesome` )
+```
+
+```
+## # A tibble: 2 x 2
+##   `1985` `Is Awesome`
+##   <chr>         <dbl>
+## 1 George           20
+## 2 Orwell           87
+```
 
 ## `cbind` & `rbind`
 Base R has two functions for squishing two data frames together, but they assume that the data frames are aligned correctly. The `c` and `r` parts of `cbind` and `rbind` correspond to if we are pushing columns together or rows together. 
@@ -357,12 +377,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              277.
-## 2 A              211.
-## 3 B              245.
-## 4 B              236.
-## 5 C              282.
-## 6 C              251.
+## 1 A              294.
+## 2 A              254.
+## 3 B              304.
+## 4 B              255.
+## 5 C              248.
+## 6 C              261.
 ```
 
 ```r
@@ -393,12 +413,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              277. <NA>         NA      NA        NA
-## 2 A              211. <NA>         NA      NA        NA
-## 3 B              245. Lake Elaine   6.5    40         8
-## 4 B              236. Lake Elaine   6.5    40         8
-## 5 C              282. Mormon Lake   6.3   210        10
-## 6 C              251. Mormon Lake   6.3   210        10
+## 1 A              294. <NA>         NA      NA        NA
+## 2 A              254. <NA>         NA      NA        NA
+## 3 B              304. Lake Elaine   6.5    40         8
+## 4 B              255. Lake Elaine   6.5    40         8
+## 5 C              248. Mormon Lake   6.3   210        10
+## 6 C              261. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -418,12 +438,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              277. <NA>         NA      NA        NA
-## 2 A              211. <NA>         NA      NA        NA
-## 3 B              245. Lake Elaine   6.5    40         8
-## 4 B              236. Lake Elaine   6.5    40         8
-## 5 C              282. Mormon Lake   6.3   210        10
-## 6 C              251. Mormon Lake   6.3   210        10
+## 1 A              294. <NA>         NA      NA        NA
+## 2 A              254. <NA>         NA      NA        NA
+## 3 B              304. Lake Elaine   6.5    40         8
+## 4 B              255. Lake Elaine   6.5    40         8
+## 5 C              248. Mormon Lake   6.3   210        10
+## 6 C              261. Mormon Lake   6.3   210        10
 ```
 
 
@@ -439,10 +459,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              245. Lake Elaine   6.5    40         8
-## 2 B              236. Lake Elaine   6.5    40         8
-## 3 C              282. Mormon Lake   6.3   210        10
-## 4 C              251. Mormon Lake   6.3   210        10
+## 1 B              304. Lake Elaine   6.5    40         8
+## 2 B              255. Lake Elaine   6.5    40         8
+## 3 C              248. Mormon Lake   6.3   210        10
+## 4 C              261. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.

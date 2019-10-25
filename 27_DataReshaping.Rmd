@@ -25,7 +25,8 @@ Most of the time, our data is in the form of a data frame and we are interested 
 Next we need a way to squish two data frames together. It is often advantageous to store data that would be be repeated separately in a different table so that a particular piece of information lives in only one location. This makes the data easier to modify, and more likely to maintain consistence. However, this practice requires that, when necessary, we can add information to a table, that might involve a lot of duplicated rows.
 
 ## `data.frames` vs `tibbles`
-Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does more type checking and less coercion during creation and manipulation. So a `tibble` does less (automatically) and complains more. The rational for this is that while it can be convenient for coercion between data types can be helpful, it often disguises errors that take a long time to track down.
+Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does more type checking and less coercion during creation and manipulation. So a `tibble` does less (automatically) and complains more. The rational for this is that while coercion between data types can be helpful, it often disguises errors that take a long time to track down. On the whole, is better to force the user to do the coercion explicitly rather than hope that R magically does the right thing.
+
 
 Second, the printing methods for `tibbles` prevent it from showing too many rows or columns. This is a very convenient and more user-friendly way to show the data. We can control how many rows or columns are printed using the `options()` command, which sets all of the global options.
 
@@ -35,6 +36,16 @@ Second, the printing methods for `tibbles` prevent it from showing too many rows
 | `options(tibble.print_max = Inf)` |  Always print all the rows. |
 | `options(tibble.width = Inf)` | Always print all columns, regardless of the width of the display device. |
 
+Third, `tibbles` support column names that would be rejected by a data frame.  For example, a data frame will not allow columns to begin with a number, nor can column names contain a space. These are allowable by `tibbles`, although they are required to be enclosed by back-quotes when referring to them.
+
+```{r}
+example <- tribble(
+  ~'1985', ~"Is Awesome",
+  'George',   20,
+  'Orwell',   87)
+
+example %>% select( `1985`, `Is Awesome` )
+```
 
 ## `cbind` & `rbind`
 Base R has two functions for squishing two data frames together, but they assume that the data frames are aligned correctly. The `c` and `r` parts of `cbind` and `rbind` correspond to if we are pushing columns together or rows together. 
