@@ -584,16 +584,16 @@ Third, `tibbles` support column names that would be rejected by a data frame.  F
 # the tribble() function just creates a tibble, but specifying the information
 # in rows. This can be beneficial in creating small data sets by hand.
 example <- tribble(
-  ~'1985', ~"Is Awesome",
+  ~'1984', ~"Is Awesome",
   'George',   20,
   'Orwell',   87)
 
-example %>% select( `1985`, `Is Awesome` )
+example %>% select( `1984`, `Is Awesome` )
 ```
 
 ```
 ## # A tibble: 2 x 2
-##   `1985` `Is Awesome`
+##   `1984` `Is Awesome`
 ##   <chr>         <dbl>
 ## 1 George           20
 ## 2 Orwell           87

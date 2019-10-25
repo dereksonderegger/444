@@ -444,13 +444,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <p>Third, <code>tibbles</code> support column names that would be rejected by a data frame. For example, a data frame will not allow columns to begin with a number, nor can column names contain a space. These are allowable by <code>tibbles</code>, although they are required to be enclosed by back-quotes when referring to them.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">example &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="op">~</span><span class="st">&#39;1985&#39;</span>, <span class="op">~</span><span class="st">&quot;Is Awesome&quot;</span>,</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="op">~</span><span class="st">&#39;1984&#39;</span>, <span class="op">~</span><span class="st">&quot;Is Awesome&quot;</span>,</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="st">&#39;George&#39;</span>,   <span class="dv">20</span>,</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="st">&#39;Orwell&#39;</span>,   <span class="dv">87</span>)</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">example <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="st">`</span><span class="dt">1985</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Is Awesome</span><span class="st">`</span> )</a></code></pre></div>
+<a class="sourceLine" id="cb2-6" data-line-number="6">example <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="st">`</span><span class="dt">1984</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Is Awesome</span><span class="st">`</span> )</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
-##   `1985` `Is Awesome`
+##   `1984` `Is Awesome`
 ##   &lt;chr&gt;         &lt;dbl&gt;
 ## 1 George           20
 ## 2 Orwell           87</code></pre>
@@ -699,12 +699,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 A              279.
-## 2 A              235.
-## 3 B              307.
-## 4 B              217.
-## 5 C              230.
-## 6 C              265.</code></pre>
+## 1 A              264.
+## 2 A              247.
+## 3 B              229.
+## 4 B              270.
+## 5 C              229.
+## 6 C              246.</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">Lake.Data</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   Lake_ID Lake_Name      pH  area avg_depth
@@ -718,12 +718,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              279. &lt;NA&gt;         NA      NA        NA
-## 2 A              235. &lt;NA&gt;         NA      NA        NA
-## 3 B              307. Lake Elaine   6.5    40         8
-## 4 B              217. Lake Elaine   6.5    40         8
-## 5 C              230. Mormon Lake   6.3   210        10
-## 6 C              265. Mormon Lake   6.3   210        10
+## 1 A              264. &lt;NA&gt;         NA      NA        NA
+## 2 A              247. &lt;NA&gt;         NA      NA        NA
+## 3 B              229. Lake Elaine   6.5    40         8
+## 4 B              270. Lake Elaine   6.5    40         8
+## 5 C              229. Mormon Lake   6.3   210        10
+## 6 C              246. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38</code></pre>
 <p>Notice that because we didn’t have any fish caught in lake <code>D</code> and we don’t have any Lake information about lake <code>A</code>, when we join these two tables, we end up introducing missing observations into the resulting data frame.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">left_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
@@ -731,21 +731,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              279. &lt;NA&gt;         NA      NA        NA
-## 2 A              235. &lt;NA&gt;         NA      NA        NA
-## 3 B              307. Lake Elaine   6.5    40         8
-## 4 B              217. Lake Elaine   6.5    40         8
-## 5 C              230. Mormon Lake   6.3   210        10
-## 6 C              265. Mormon Lake   6.3   210        10</code></pre>
+## 1 A              264. &lt;NA&gt;         NA      NA        NA
+## 2 A              247. &lt;NA&gt;         NA      NA        NA
+## 3 B              229. Lake Elaine   6.5    40         8
+## 4 B              270. Lake Elaine   6.5    40         8
+## 5 C              229. Mormon Lake   6.3   210        10
+## 6 C              246. Mormon Lake   6.3   210        10</code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 B              307. Lake Elaine   6.5    40         8
-## 2 B              217. Lake Elaine   6.5    40         8
-## 3 C              230. Mormon Lake   6.3   210        10
-## 4 C              265. Mormon Lake   6.3   210        10</code></pre>
+## 1 B              229. Lake Elaine   6.5    40         8
+## 2 B              270. Lake Elaine   6.5    40         8
+## 3 C              229. Mormon Lake   6.3   210        10
+## 4 C              246. Mormon Lake   6.3   210        10</code></pre>
 <p>The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn’t the case. In that situation you can use the <code>by=c(&quot;ColName.A&quot;=&quot;ColName.B&quot;)</code> syntax where <code>ColName.A</code> represents the name of the column in the first data frame and <code>ColName.B</code> is the equivalent column in the second data frame.</p>
 </div>
 <div id="row-summations" class="section level2">
