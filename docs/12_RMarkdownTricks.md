@@ -1,6 +1,14 @@
 # Rmarkdown Tricks{-}
 
 
+
+
+```r
+# as always, I'm loading the tidyverse.
+library(tidyverse)
+```
+
+
 We have been using RMarkdown files to combine the analysis and discussion into one nice document that contains all the analysis steps so that your research is  reproducible. 
 
 There are many resources on the web about Markdown and the variant that RStudio uses (called RMarkdown), but the easiest reference is to just use the RStudio help tab to access the help.  I particular like `Help -> Cheatsheets -> RMarkdown Reference Guide` because it gives me the standard Markdown information but also a bunch of information about the options I can use to customize the behavior of individual R code chunks.
@@ -376,8 +384,12 @@ nice looking version using the following:
 
 
 ```r
-model <- lm( Volume ~ Girth, data=trees )    # a simple regression
-pander::pander( summary(model) )    # my usual summary table
+# a simple regression model
+model <- lm( Volume ~ Girth, data=trees )         
+
+model %>% 
+  summary() %>%      # the usual summary table
+  pander::pander()   # make the table print *pretty*
 ```
 
 
@@ -399,7 +411,9 @@ pander::pander( summary(model) )    # my usual summary table
 Table: Fitting linear model: Volume ~ Girth
 
 ```r
-pander::pander( anova( model ) )    # my usual anova table
+model %>% 
+  anova() %>%                 # The usual anoval table
+  pander::pander(missing='')  # Make the table print *pretty*
 ```
 
 
@@ -408,11 +422,12 @@ pander::pander( anova( model ) )    # my usual anova table
 --------------- ---- -------- --------- --------- -----------
    **Girth**     1     7582     7582      419.4    8.644e-19 
 
- **Residuals**   29   524.3     18.08      NA         NA     
+ **Residuals**   29   524.3     18.08                        
 -------------------------------------------------------------
 
 Table: Analysis of Variance Table
 
+The `missing=''` argument causes pander to print a blank instead of `NA` for any missing values in the table.
 
 ## Code Appendix {-}
 Some people prefer to not be distracted by having all of the R code embedded within a document and just want to see the resulting output tables and graphs. This can easily be done by including `echo=FALSE` in the header of each code chunk, or in the initial global chunk options via `knitr::opts_chunk$set(echo=FALSE)`. This will cause the code to be executed and the results shown, but the R code used to produce those results will not be shown.
@@ -432,5 +447,4 @@ Then at the end of the document, create a code-chunk that isn't evaluated but is
 ```{r, ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE, documentation=1}
 ```
 ```
-
 
