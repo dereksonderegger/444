@@ -311,7 +311,7 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
     a) Download the data file, inspect it, and read in the data using the `readxl` package.
     b) Rename the `Function or subfunction` column to `Department`.
     b) Remove any row with Total, Subtotal, On-budget or Off-budget. Also remove the row at the bottom that defines what NA means.
-    c) Create a new column for ID_number and parse the Function column for it.
+    c) Create a new column for `ID_number` and parse the `Department` column for it.
     d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: Copy `Department` to `Subfunction`. Then using an `ifelse` statement to copy either NA or `Department` to `Function`. Once you have `Function` with either the `Function` name or an `NA`, you can use the `tidyr::fill` command to replace the NA values with whatever is on the row above. Check out the help files to see how to use it.* 
     e) Remove rows that corresponded to the Function name that have no data.
     f) Reshape the data into four columns for Function, Subfunction, Year, and Amount.
