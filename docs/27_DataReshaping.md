@@ -377,12 +377,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              226.
-## 2 A              243.
-## 3 B              219.
-## 4 B              248.
-## 5 C              297.
-## 6 C              296.
+## 1 A              266.
+## 2 A              259.
+## 3 B              309.
+## 4 B              283.
+## 5 C              246.
+## 6 C              284.
 ```
 
 ```r
@@ -413,12 +413,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              226. <NA>         NA      NA        NA
-## 2 A              243. <NA>         NA      NA        NA
-## 3 B              219. Lake Elaine   6.5    40         8
-## 4 B              248. Lake Elaine   6.5    40         8
-## 5 C              297. Mormon Lake   6.3   210        10
-## 6 C              296. Mormon Lake   6.3   210        10
+## 1 A              266. <NA>         NA      NA        NA
+## 2 A              259. <NA>         NA      NA        NA
+## 3 B              309. Lake Elaine   6.5    40         8
+## 4 B              283. Lake Elaine   6.5    40         8
+## 5 C              246. Mormon Lake   6.3   210        10
+## 6 C              284. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -438,12 +438,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              226. <NA>         NA      NA        NA
-## 2 A              243. <NA>         NA      NA        NA
-## 3 B              219. Lake Elaine   6.5    40         8
-## 4 B              248. Lake Elaine   6.5    40         8
-## 5 C              297. Mormon Lake   6.3   210        10
-## 6 C              296. Mormon Lake   6.3   210        10
+## 1 A              266. <NA>         NA      NA        NA
+## 2 A              259. <NA>         NA      NA        NA
+## 3 B              309. Lake Elaine   6.5    40         8
+## 4 B              283. Lake Elaine   6.5    40         8
+## 5 C              246. Mormon Lake   6.3   210        10
+## 6 C              284. Mormon Lake   6.3   210        10
 ```
 
 
@@ -459,10 +459,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              219. Lake Elaine   6.5    40         8
-## 2 B              248. Lake Elaine   6.5    40         8
-## 3 C              297. Mormon Lake   6.3   210        10
-## 4 C              296. Mormon Lake   6.3   210        10
+## 1 B              309. Lake Elaine   6.5    40         8
+## 2 B              283. Lake Elaine   6.5    40         8
+## 3 C              246. Mormon Lake   6.3   210        10
+## 4 C              284. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
@@ -530,11 +530,11 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
     b) Rename the `Function or subfunction` column to `Department`.
     b) Remove any row with Total, Subtotal, On-budget or Off-budget. Also remove the row at the bottom that defines what NA means.
     c) Create a new column for `ID_number` and parse the `Department` column for it.
-    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: Copy `Department` to `Subfunction`. Then using an `ifelse` statement to copy either NA or `Department` to `Function`. Once you have `Function` with either the `Function` name or an `NA`, you can use the `tidyr::fill` command to replace the NA values with whatever is on the row above. Check out the help files to see how to use it.* 
-    e) Remove rows that corresponded to the Function name that have no data.
+    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: Directly copy `Department` to `Subfunction`. Then using an `ifelse` statement to copy either `NA` or `Department` to `Function` depending on if the 2015 column is an `NA` (use the function `is.na()`). Once you have `Function` with either the `Function` name or an `NA`, you can use the `tidyr::fill` command to replace the NA values with whatever is on the row above. Check out the help files to see how to use it.* 
+    e) Remove rows that corresponded to the Function name that have no data. *Hint, you can just check if the `2015` column is `NA`.*
     f) Reshape the data into four columns for Function, Subfunction, Year, and Amount.
     g) Remove rows that have Amount value of `..........`.
-    h) Make sure that Year and Amount are numeric. *Hint: it is ok to get rid of the estimate rows for 2016+*
+    h) Make sure that Year and Amount are numeric. *Hint: it is OK to get rid of the estimate rows for 2016+*
     h) Make a line graph that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for each of the years 2001 through 2015. *Notice you'll have to sum up the sub-functions within each function.*
 
 

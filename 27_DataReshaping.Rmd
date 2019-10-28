@@ -312,11 +312,11 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
     b) Rename the `Function or subfunction` column to `Department`.
     b) Remove any row with Total, Subtotal, On-budget or Off-budget. Also remove the row at the bottom that defines what NA means.
     c) Create a new column for `ID_number` and parse the `Department` column for it.
-    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: Copy `Department` to `Subfunction`. Then using an `ifelse` statement to copy either NA or `Department` to `Function`. Once you have `Function` with either the `Function` name or an `NA`, you can use the `tidyr::fill` command to replace the NA values with whatever is on the row above. Check out the help files to see how to use it.* 
-    e) Remove rows that corresponded to the Function name that have no data.
+    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: Directly copy `Department` to `Subfunction`. Then using an `ifelse` statement to copy either `NA` or `Department` to `Function` depending on if the 2015 column is an `NA` (use the function `is.na()`). Once you have `Function` with either the `Function` name or an `NA`, you can use the `tidyr::fill` command to replace the NA values with whatever is on the row above. Check out the help files to see how to use it.* 
+    e) Remove rows that corresponded to the Function name that have no data. *Hint, you can just check if the `2015` column is `NA`.*
     f) Reshape the data into four columns for Function, Subfunction, Year, and Amount.
     g) Remove rows that have Amount value of `..........`.
-    h) Make sure that Year and Amount are numeric. *Hint: it is ok to get rid of the estimate rows for 2016+*
+    h) Make sure that Year and Amount are numeric. *Hint: it is OK to get rid of the estimate rows for 2016+*
     h) Make a line graph that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for each of the years 2001 through 2015. *Notice you'll have to sum up the sub-functions within each function.*
 
 
