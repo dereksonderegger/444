@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nA Million People Are Jailed At China's Gulags. I Managed To Escape. Here's What Really Goes On Inside\n"
-## [2] "\nThe Obscure Charges That Utility Companies Add To Your Bills\n"                                         
-## [3] "\nThe Final Trailer For 'Star Wars: The Rise of Skywalker' Features A Whole Bunch Of New Footage\n"       
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                              
-## [5] "\nThis Group Of Men Thought It Was A Good Idea To Go Down A Gigantic Slide Together. It Really Wasn't\n"  
-## [6] "\nHow The World's Largest Geode Grew To Half The Size Of A Small Bedroom\n"
+## [1] "\nAre Apple TV Plus' Original TV Shows Any Good? Here's What The Reviews Say\n"                 
+## [2] "\nMichigan Family Surprised When Samsung Satellite Crashes Onto Their Property\n"               
+## [3] "\nYouTuber Tom Scott Blasts Apart The Iffy Claims In All Those VPN Ads You're Seeing\n"         
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                    
+## [5] "\nTrucker Gives Hilarious Running Commentary On A Poor New Driver Trying To Learn Stick Shift\n"
+## [6] "\nA New Startup Called Pattern Wants Combat Millennial Burnout\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.haaretz.com/world-news/.premium.MAGAZINE-a-million-people-are-jailed-at-china-s-gulags-i-escaped-here-s-what-goes-on-inside-1.7994216?utm_source=digg"
-## [2] "https://www.propublica.org/article/the-obscure-charges-that-utility-companies-add-to-your-bills#169394?utm_source=digg"                                           
-## [3] "/video/star-wars-rise-skywalker-new-trailer"                                                                                                                      
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                                                      
-## [5] "/video/group-of-men-slide-fail"                                                                                                                                   
-## [6] "https://www.sciencemag.org/news/2019/10/how-world-s-largest-geode-grew-half-size-small-bedroom?rss=1?utm_source=digg"
+## [1] "/2019/apple-tv-plus-the-morning-show-see-dickinson-for-all-mankind-reviews-any-good"                                               
+## [2] "https://www.wzzm13.com/article/news/weird/satellite-lands-in-michigan-yard/69-8ea9d127-83a7-4729-9f20-6b79bbf77a11?utm_source=digg"
+## [3] "/video/do-vpns-work"                                                                                                               
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                       
+## [5] "/video/trucker-gives-hilarious-running-commentary-new-driver-stick-shift"                                                          
+## [6] "https://www.buzzfeednews.com/article/annehelenpetersen/millennial-burnout-startup-gin-lane-pattern-equal-parts?utm_source=digg"
 ```
 
 

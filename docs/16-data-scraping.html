@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-21" />
+<meta name="date" content="2019-10-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -236,6 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5.4" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#knitrkable"><i class="fa fa-check"></i><b>7.5.4</b> <code class="unnumbered">knitr::kable</code></a></li>
 <li class="chapter" data-level="7.5.5" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#package-pander"><i class="fa fa-check"></i><b>7.5.5</b> Package <code class="unnumbered">pander</code></a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#code-appendix"><i class="fa fa-check"></i>Code Appendix</a></li>
 </ul></li>
 <li class="part"><span><b>Deeper Details</b></span></li>
 <li class="chapter" data-level="8" data-path="8-data-structures.html"><a href="8-data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
@@ -246,7 +247,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.4" data-path="8-data-structures.html"><a href="8-data-structures.html#commonly-used-vector-functions"><i class="fa fa-check"></i><b>8.1.4</b> Commonly Used Vector Functions</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="8-data-structures.html"><a href="8-data-structures.html#matrices"><i class="fa fa-check"></i><b>8.2</b> Matrices</a></li>
-<li class="chapter" data-level="8.3" data-path="8-data-structures.html"><a href="8-data-structures.html#data-frames-1"><i class="fa fa-check"></i><b>8.3</b> Data Frames</a></li>
+<li class="chapter" data-level="8.3" data-path="8-data-structures.html"><a href="8-data-structures.html#data-frames-1"><i class="fa fa-check"></i><b>8.3</b> Data Frames</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="8-data-structures.html"><a href="8-data-structures.html#data.frames-vs-tibbles"><i class="fa fa-check"></i><b>8.3.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+</ul></li>
 <li class="chapter" data-level="8.4" data-path="8-data-structures.html"><a href="8-data-structures.html#lists"><i class="fa fa-check"></i><b>8.4</b> Lists</a></li>
 <li class="chapter" data-level="8.5" data-path="8-data-structures.html"><a href="8-data-structures.html#exercises-8"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
 </ul></li>
@@ -305,7 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.4" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html#exercises-12"><i class="fa fa-check"></i><b>12.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a><ul>
-<li class="chapter" data-level="13.1" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#data.frames-vs-tibbles"><i class="fa fa-check"></i><b>13.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+<li class="chapter" data-level="13.1" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#data.frames-vs-tibbles-1"><i class="fa fa-check"></i><b>13.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
 <li class="chapter" data-level="13.2" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>13.2</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
 <li class="chapter" data-level="13.3" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#tidyr"><i class="fa fa-check"></i><b>13.3</b> <code>tidyr</code></a><ul>
 <li class="chapter" data-level="13.3.1" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#verbs-1"><i class="fa fa-check"></i><b>13.3.1</b> Verbs</a></li>
@@ -400,8 +403,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-scraping" class="section level1">
 <h1><span class="header-section-number">Chapter 16</span> Data Scraping</h1>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb736-2" data-line-number="2"><span class="kw">library</span>(rvest)     <span class="co"># rvest is not loaded in the tidyverse Metapackage</span></a></code></pre></div>
+<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb741-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb741-2" data-line-number="2"><span class="kw">library</span>(rvest)     <span class="co"># rvest is not loaded in the tidyverse Metapackage</span></a></code></pre></div>
 <p>Getting data into R often involves accessing data that is available through non-convenient formats such as web pages or .pdf files. Fortunately those formats still have structure and we can import data from those sources. However to do this, we have to understand a little bit about those file formats.</p>
 <div id="web-pages" class="section level2">
 <h2><span class="header-section-number">16.1</span> Web Pages</h2>
@@ -420,13 +423,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   &lt;tr&gt; &lt;td&gt;Derek&lt;/td&gt;     &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;43&lt;/td&gt;   &lt;/tr&gt;
   &lt;tr&gt; &lt;td&gt;Aubrey&lt;/td&gt;    &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;39&lt;/td&gt;   &lt;/tr&gt;
 &lt;/table&gt;</code></pre>
-<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" data-line-number="1"><span class="co"># Example of an unordered List, which starts and ends with &lt;ul&gt; and &lt;/ul&gt;</span></a>
-<a class="sourceLine" id="cb738-2" data-line-number="2"><span class="co"># Each list item is enclosed by &lt;li&gt; &lt;/li&gt;</span></a>
-<a class="sourceLine" id="cb738-3" data-line-number="3"><span class="op">&lt;</span>ul<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb738-4" data-line-number="4"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Coffee<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb738-5" data-line-number="5"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Tea<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb738-6" data-line-number="6"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Milk<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb738-7" data-line-number="7"><span class="er">&lt;/</span>ul<span class="op">&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb743-1" data-line-number="1"><span class="co"># Example of an unordered List, which starts and ends with &lt;ul&gt; and &lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb743-2" data-line-number="2"><span class="co"># Each list item is enclosed by &lt;li&gt; &lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb743-3" data-line-number="3"><span class="op">&lt;</span>ul<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb743-4" data-line-number="4"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Coffee<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb743-5" data-line-number="5"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Tea<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb743-6" data-line-number="6"><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Milk<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb743-7" data-line-number="7"><span class="er">&lt;/</span>ul<span class="op">&gt;</span></a></code></pre></div>
 <p>Given this extremely clear structure it shouldn’t be too hard to grab tables and/or lists from a web page. However HTML has a heirarchical structure so that tables could be nested in lists. In order to control the way the page looks, there is often a <strong>lot</strong> of nesting. For example, we might be in a split pane page that has a side bar, and then a block that centers everything, and then some style blocks that control fonts and colors. Add to this, the need for modern web pages to display well on both mobile devices as well as desktops and the raw HTML typically is extremely complicated.
 In summary the workflow for scraping a web page will be:</p>
 <ol style="list-style-type: decimal">
@@ -441,17 +444,17 @@ In summary the workflow for scraping a web page will be:</p>
 <p>Recently I needed to get information about U.S. state population sizes. I did a quick googling and found a
 <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population">Wikipedia</a>
 page that has the information that I wanted.</p>
-<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb739-1" data-line-number="1">url =<span class="st"> &#39;https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population&#39;</span></a>
-<a class="sourceLine" id="cb739-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb739-3" data-line-number="3"><span class="co"># Download the web page and save it. I like to do this within a single R Chunk</span></a>
-<a class="sourceLine" id="cb739-4" data-line-number="4"><span class="co"># so that I don&#39;t keep downloading a page repeatedly while I am fine tuning </span></a>
-<a class="sourceLine" id="cb739-5" data-line-number="5"><span class="co"># the subsequent data wrangling steps.</span></a>
-<a class="sourceLine" id="cb739-6" data-line-number="6">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
-<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" data-line-number="1"><span class="co"># Once the page is downloaded, we need to figure out which table to work with.</span></a>
-<a class="sourceLine" id="cb740-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb740-3" data-line-number="3"><span class="co"># There are 5 tables on the page.</span></a>
-<a class="sourceLine" id="cb740-4" data-line-number="4">page <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb740-5" data-line-number="5"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb744-1" data-line-number="1">url =<span class="st"> &#39;https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population&#39;</span></a>
+<a class="sourceLine" id="cb744-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb744-3" data-line-number="3"><span class="co"># Download the web page and save it. I like to do this within a single R Chunk</span></a>
+<a class="sourceLine" id="cb744-4" data-line-number="4"><span class="co"># so that I don&#39;t keep downloading a page repeatedly while I am fine tuning </span></a>
+<a class="sourceLine" id="cb744-5" data-line-number="5"><span class="co"># the subsequent data wrangling steps.</span></a>
+<a class="sourceLine" id="cb744-6" data-line-number="6">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
+<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb745-1" data-line-number="1"><span class="co"># Once the page is downloaded, we need to figure out which table to work with.</span></a>
+<a class="sourceLine" id="cb745-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb745-3" data-line-number="3"><span class="co"># There are 5 tables on the page.</span></a>
+<a class="sourceLine" id="cb745-4" data-line-number="4">page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb745-5" data-line-number="5"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) </a></code></pre></div>
 <pre><code>## {xml_nodeset (5)}
 ## [1] &lt;table class=&quot;wikitable sortable&quot; style=&quot;width:100%; text-align:cent ...
 ## [2] &lt;table class=&quot;wikitable&quot;&gt;&lt;tbody&gt;\n&lt;tr&gt;&lt;th style=&quot;text-align: left;&quot;&gt; ...
@@ -459,14 +462,14 @@ page that has the information that I wanted.</p>
 ## [4] &lt;table class=&quot;nowraplinks hlist mw-collapsible autocollapse navbox-i ...
 ## [5] &lt;table class=&quot;nowraplinks hlist mw-collapsible mw-collapsed navbox-i ...</code></pre>
 <p>With five tables on the page, I need to go through each table individually and decide if it is the one that I want. To do this, we’ll take each table and convert it into a data.frame and view it to see what information it contains.</p>
-<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb742-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb742-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb742-3" data-line-number="3"><span class="st">  </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">        </span><span class="co"># Grab the first table and </span></a>
-<a class="sourceLine" id="cb742-4" data-line-number="4"><span class="st">  </span><span class="kw">html_table</span>()      <span class="co"># convert it from HTML into a data.frame </span></a>
-<a class="sourceLine" id="cb742-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb742-6" data-line-number="6"><span class="co"># To view this table, we could use View() or print out just the first few</span></a>
-<a class="sourceLine" id="cb742-7" data-line-number="7"><span class="co"># rows and columns. Converting it to a tibble makes the printing turn out nice.</span></a>
-<a class="sourceLine" id="cb742-8" data-line-number="8">State_Pop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()  </a></code></pre></div>
+<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb747-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb747-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb747-3" data-line-number="3"><span class="st">  </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">        </span><span class="co"># Grab the first table and </span></a>
+<a class="sourceLine" id="cb747-4" data-line-number="4"><span class="st">  </span><span class="kw">html_table</span>()      <span class="co"># convert it from HTML into a data.frame </span></a>
+<a class="sourceLine" id="cb747-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb747-6" data-line-number="6"><span class="co"># To view this table, we could use View() or print out just the first few</span></a>
+<a class="sourceLine" id="cb747-7" data-line-number="7"><span class="co"># rows and columns. Converting it to a tibble makes the printing turn out nice.</span></a>
+<a class="sourceLine" id="cb747-8" data-line-number="8">State_Pop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()  </a></code></pre></div>
 <pre><code>## # A tibble: 60 x 12
 ##    `Rank in the fi… `Rank in states… Name  `Population est…
 ##    &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;           
@@ -488,26 +491,26 @@ page that has the information that I wanted.</p>
 ## #   2018` &lt;chr&gt;, `Census population per House seat, 2010` &lt;chr&gt;, `Percent
 ## #   of the total U.S. population, 2018[note 3]` &lt;chr&gt;</code></pre>
 <p>It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we’ll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings. We need to remove those as well.</p>
-<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb744-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb744-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># First table on the page</span></a>
-<a class="sourceLine" id="cb744-3" data-line-number="3"><span class="st">  </span><span class="kw">html_table</span>()  <span class="op">%&gt;%</span><span class="st">                    </span><span class="co"># as a data.frame</span></a>
-<a class="sourceLine" id="cb744-4" data-line-number="4"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Population2018 =</span> <span class="st">`</span><span class="dt">Population estimate, July 1, 2018[5]</span><span class="st">`</span>,</a>
-<a class="sourceLine" id="cb744-5" data-line-number="5">         <span class="dt">Population2010 =</span> <span class="st">`</span><span class="dt">Census population, April 1, 2010[6]</span><span class="st">`</span>)  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb744-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(Name, Population2018, Population2010) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb744-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove_all, <span class="st">&#39;,&#39;</span>) <span class="op">%&gt;%</span><span class="st">           </span><span class="co"># remove all commas</span></a>
-<a class="sourceLine" id="cb744-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">[[0-9]+</span><span class="ch">\\</span><span class="st">]&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># remove [7] stuff</span></a>
-<a class="sourceLine" id="cb744-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>( <span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), as.numeric)                       <span class="co"># convert to numbers</span></a></code></pre></div>
+<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb749-1" data-line-number="1">State_Pop &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb749-2" data-line-number="2"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># First table on the page</span></a>
+<a class="sourceLine" id="cb749-3" data-line-number="3"><span class="st">  </span><span class="kw">html_table</span>()  <span class="op">%&gt;%</span><span class="st">                    </span><span class="co"># as a data.frame</span></a>
+<a class="sourceLine" id="cb749-4" data-line-number="4"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Population2018 =</span> <span class="st">`</span><span class="dt">Population estimate, July 1, 2018[5]</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb749-5" data-line-number="5">         <span class="dt">Population2010 =</span> <span class="st">`</span><span class="dt">Census population, April 1, 2010[6]</span><span class="st">`</span>)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb749-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(Name, Population2018, Population2010) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb749-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove_all, <span class="st">&#39;,&#39;</span>) <span class="op">%&gt;%</span><span class="st">           </span><span class="co"># remove all commas</span></a>
+<a class="sourceLine" id="cb749-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">[[0-9]+</span><span class="ch">\\</span><span class="st">]&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># remove [7] stuff</span></a>
+<a class="sourceLine" id="cb749-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>( <span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), as.numeric)                       <span class="co"># convert to numbers</span></a></code></pre></div>
 <p>And just to show off the data we’ve just imported from Wikipedia, we’ll make a nice graph.</p>
-<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb745-1" data-line-number="1">State_Pop <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb745-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>( <span class="op">!</span>(Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Contiguous United States&#39;</span>, </a>
-<a class="sourceLine" id="cb745-3" data-line-number="3">                        <span class="st">&#39;The fifty states&#39;</span>,<span class="st">&#39;Fifty states + D.C.&#39;</span>,</a>
-<a class="sourceLine" id="cb745-4" data-line-number="4">                        <span class="st">&#39;Total U.S. (including D.C. and territories)&#39;</span>) ) )  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb745-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Percent_Change =</span> (Population2018 <span class="op">-</span><span class="st"> </span>Population2010)<span class="op">/</span>Population2010 ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb745-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Name =</span> <span class="kw">fct_reorder</span>(Name, Percent_Change) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb745-7" data-line-number="7"><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Name, <span class="dt">y=</span>Percent_Change) ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb745-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_col</span>( ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb745-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>, <span class="dt">y=</span><span class="st">&#39;% Change&#39;</span>, <span class="dt">title=</span><span class="st">&#39;State Population growth 2010-2018&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb745-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_flip</span>() </a></code></pre></div>
+<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb750-1" data-line-number="1">State_Pop <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb750-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>( <span class="op">!</span>(Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Contiguous United States&#39;</span>, </a>
+<a class="sourceLine" id="cb750-3" data-line-number="3">                        <span class="st">&#39;The fifty states&#39;</span>,<span class="st">&#39;Fifty states + D.C.&#39;</span>,</a>
+<a class="sourceLine" id="cb750-4" data-line-number="4">                        <span class="st">&#39;Total U.S. (including D.C. and territories)&#39;</span>) ) )  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb750-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Percent_Change =</span> (Population2018 <span class="op">-</span><span class="st"> </span>Population2010)<span class="op">/</span>Population2010 ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb750-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Name =</span> <span class="kw">fct_reorder</span>(Name, Percent_Change) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb750-7" data-line-number="7"><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Name, <span class="dt">y=</span>Percent_Change) ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb750-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_col</span>( ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb750-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>, <span class="dt">y=</span><span class="st">&#39;% Change&#39;</span>, <span class="dt">title=</span><span class="st">&#39;State Population growth 2010-2018&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb750-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_flip</span>() </a></code></pre></div>
 <p><img src="36_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="lists-1" class="section level3">
@@ -515,33 +518,33 @@ page that has the information that I wanted.</p>
 <p>Unfortunately, we don’t always want to get information from a webpage that is nicely organized into a table. Suppose we want to gather the most recent threads on <a href="www.digg.com">Digg</a>.</p>
 <p>We could sift through the HTML tags to find something that will match, but that will be challenging. Instead we will use a CSS selector named <a href="https://selectorgadget.com">SelectorGadget</a>. Install the bookmarklet by dragging this <a href="javascript:(function()%7Bvar%20s=document.createElement(&#39;div&#39;);s.innerHTML=&#39;Loading...&#39;;s.style.color=&#39;black&#39;;s.style.padding=&#39;20px&#39;;s.style.position=&#39;fixed&#39;;s.style.zIndex=&#39;9999&#39;;s.style.fontSize=&#39;3.0em&#39;;s.style.border=&#39;2px%20solid%20black&#39;;s.style.right=&#39;40px&#39;;s.style.top=&#39;40px&#39;;s.setAttribute(&#39;class&#39;,&#39;selector_gadget_loading&#39;);s.style.background=&#39;white&#39;;document.body.appendChild(s);s=document.createElement(&#39;script&#39;);s.setAttribute(&#39;type&#39;,&#39;text/javascript&#39;);s.setAttribute(&#39;src&#39;,&#39;https://dv0akt2986vzh.cloudfront.net/unstable/lib/selectorgadget.js&#39;);document.body.appendChild(s);%7D)();">bookmarklet</a>
 up to your browsers bookmark bar. When you are at the site you are interested in, just click on the bookmarklet to engage the CSS engine. Click on something you want to capture. This will highlight a whole bunch of things that match the HTML tag listed at the bottom of the screen. Select or deselect items by clicking on them and the search string used to refine the selection will be updated. Once you are happy with the items being selected, copy the HTML node selector.</p>
-<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb746-1" data-line-number="1">url &lt;-<span class="st"> &#39;http://digg.com&#39;</span></a>
-<a class="sourceLine" id="cb746-2" data-line-number="2">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
-<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb747-1" data-line-number="1"><span class="co"># Once the page is downloaded, we use the SelectorGadget Parse string</span></a>
-<a class="sourceLine" id="cb747-2" data-line-number="2"><span class="co"># To just give the headlines, we&#39;ll use html_text()</span></a>
-<a class="sourceLine" id="cb747-3" data-line-number="3">HeadLines &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb747-4" data-line-number="4"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># Grab just the headlines</span></a>
-<a class="sourceLine" id="cb747-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></a>
-<a class="sourceLine" id="cb747-6" data-line-number="6">HeadLines <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb747-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;\nA Million People Are Jailed At China&#39;s Gulags. I Managed To Escape. Here&#39;s What Really Goes On Inside\n&quot;
-## [2] &quot;\nThe Obscure Charges That Utility Companies Add To Your Bills\n&quot;                                         
-## [3] &quot;\nThe Final Trailer For &#39;Star Wars: The Rise of Skywalker&#39; Features A Whole Bunch Of New Footage\n&quot;       
-## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                                              
-## [5] &quot;\nThis Group Of Men Thought It Was A Good Idea To Go Down A Gigantic Slide Together. It Really Wasn&#39;t\n&quot;  
-## [6] &quot;\nHow The World&#39;s Largest Geode Grew To Half The Size Of A Small Bedroom\n&quot;</code></pre>
-<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb749-1" data-line-number="1"><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></a>
-<a class="sourceLine" id="cb749-2" data-line-number="2">Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb749-3" data-line-number="3"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb749-4" data-line-number="4"><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </a>
-<a class="sourceLine" id="cb749-5" data-line-number="5">Links <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb749-6" data-line-number="6"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;https://www.haaretz.com/world-news/.premium.MAGAZINE-a-million-people-are-jailed-at-china-s-gulags-i-escaped-here-s-what-goes-on-inside-1.7994216?utm_source=digg&quot;
-## [2] &quot;https://www.propublica.org/article/the-obscure-charges-that-utility-companies-add-to-your-bills#169394?utm_source=digg&quot;                                           
-## [3] &quot;/video/star-wars-rise-skywalker-new-trailer&quot;                                                                                                                      
-## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;                                                                      
-## [5] &quot;/video/group-of-men-slide-fail&quot;                                                                                                                                   
-## [6] &quot;https://www.sciencemag.org/news/2019/10/how-world-s-largest-geode-grew-half-size-small-bedroom?rss=1?utm_source=digg&quot;</code></pre>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb751-1" data-line-number="1">url &lt;-<span class="st"> &#39;http://digg.com&#39;</span></a>
+<a class="sourceLine" id="cb751-2" data-line-number="2">page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a></code></pre></div>
+<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb752-1" data-line-number="1"><span class="co"># Once the page is downloaded, we use the SelectorGadget Parse string</span></a>
+<a class="sourceLine" id="cb752-2" data-line-number="2"><span class="co"># To just give the headlines, we&#39;ll use html_text()</span></a>
+<a class="sourceLine" id="cb752-3" data-line-number="3">HeadLines &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb752-4" data-line-number="4"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># Grab just the headlines</span></a>
+<a class="sourceLine" id="cb752-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></a>
+<a class="sourceLine" id="cb752-6" data-line-number="6">HeadLines <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb752-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;\nAre Apple TV Plus&#39; Original TV Shows Any Good? Here&#39;s What The Reviews Say\n&quot;                 
+## [2] &quot;\nMichigan Family Surprised When Samsung Satellite Crashes Onto Their Property\n&quot;               
+## [3] &quot;\nYouTuber Tom Scott Blasts Apart The Iffy Claims In All Those VPN Ads You&#39;re Seeing\n&quot;         
+## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                                    
+## [5] &quot;\nTrucker Gives Hilarious Running Commentary On A Poor New Driver Trying To Learn Stick Shift\n&quot;
+## [6] &quot;\nA New Startup Called Pattern Wants Combat Millennial Burnout\n&quot;</code></pre>
+<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb754-1" data-line-number="1"><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></a>
+<a class="sourceLine" id="cb754-2" data-line-number="2">Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb754-3" data-line-number="3"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb754-4" data-line-number="4"><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </a>
+<a class="sourceLine" id="cb754-5" data-line-number="5">Links <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb754-6" data-line-number="6"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;/2019/apple-tv-plus-the-morning-show-see-dickinson-for-all-mankind-reviews-any-good&quot;                                               
+## [2] &quot;https://www.wzzm13.com/article/news/weird/satellite-lands-in-michigan-yard/69-8ea9d127-83a7-4729-9f20-6b79bbf77a11?utm_source=digg&quot;
+## [3] &quot;/video/do-vpns-work&quot;                                                                                                               
+## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;                                       
+## [5] &quot;/video/trucker-gives-hilarious-running-commentary-new-driver-stick-shift&quot;                                                          
+## [6] &quot;https://www.buzzfeednews.com/article/annehelenpetersen/millennial-burnout-startup-gin-lane-pattern-equal-parts?utm_source=digg&quot;</code></pre>
 </div>
 </div>
 <div id="scraping-.pdf-files" class="section level2">

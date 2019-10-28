@@ -102,15 +102,15 @@ df
 ```
 
 ```
-##   Type       Value
-## 1    A -0.13803711
-## 2    A -1.00716881
-## 3    B  0.34295017
-## 4    B  0.58178487
-## 5    C -1.00212880
-## 6    C -1.04306716
-## 7    D -0.05620067
-## 8    D -0.27041196
+##   Type      Value
+## 1    A -0.9594688
+## 2    A  2.2488915
+## 3    B  1.1178973
+## 4    B  1.2332451
+## 5    C -0.6097278
+## 6    C  0.5647027
+## 7    D  1.5789026
+## 8    D -1.4165634
 ```
 
 ```r
@@ -119,10 +119,10 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 
 ```
 ##   Type      Value
-## 1    A -0.1380371
-## 2    A -1.0071688
-## 3    B  0.3429502
-## 4    B  0.5817849
+## 1    A -0.9594688
+## 2    A  2.2488915
+## 3    B  1.1178973
+## 4    B  1.2332451
 ```
 
 
@@ -257,7 +257,7 @@ result
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 ```r
@@ -272,7 +272,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] "In the else part!"
+## [1] " in the if statement, got a Tail! "
 ```
 
 ```r
@@ -280,7 +280,7 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -304,7 +304,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "No more unfounded generalizations!"
+## [1] "The second child was ignored"
 ```
 
 
@@ -334,7 +334,7 @@ p.value
 ```
 
 ```
-## [1] 1.261221e-06
+## [1] 3.072521e-07
 ```
 
 

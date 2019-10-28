@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-10-21" />
+<meta name="date" content="2019-10-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -702,12 +702,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 A              187.
-## 2 A              248.
-## 3 B              259.
-## 4 B              234.
-## 5 C              268.
-## 6 C              250.</code></pre>
+## 1 A              226.
+## 2 A              243.
+## 3 B              219.
+## 4 B              248.
+## 5 C              297.
+## 6 C              296.</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">Lake.Data</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   Lake_ID Lake_Name      pH  area avg_depth
@@ -721,12 +721,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              187. &lt;NA&gt;         NA      NA        NA
-## 2 A              248. &lt;NA&gt;         NA      NA        NA
-## 3 B              259. Lake Elaine   6.5    40         8
-## 4 B              234. Lake Elaine   6.5    40         8
-## 5 C              268. Mormon Lake   6.3   210        10
-## 6 C              250. Mormon Lake   6.3   210        10
+## 1 A              226. &lt;NA&gt;         NA      NA        NA
+## 2 A              243. &lt;NA&gt;         NA      NA        NA
+## 3 B              219. Lake Elaine   6.5    40         8
+## 4 B              248. Lake Elaine   6.5    40         8
+## 5 C              297. Mormon Lake   6.3   210        10
+## 6 C              296. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38</code></pre>
 <p>Notice that because we didn’t have any fish caught in lake <code>D</code> and we don’t have any Lake information about lake <code>A</code>, when we join these two tables, we end up introducing missing observations into the resulting data frame.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">left_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
@@ -734,21 +734,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              187. &lt;NA&gt;         NA      NA        NA
-## 2 A              248. &lt;NA&gt;         NA      NA        NA
-## 3 B              259. Lake Elaine   6.5    40         8
-## 4 B              234. Lake Elaine   6.5    40         8
-## 5 C              268. Mormon Lake   6.3   210        10
-## 6 C              250. Mormon Lake   6.3   210        10</code></pre>
+## 1 A              226. &lt;NA&gt;         NA      NA        NA
+## 2 A              243. &lt;NA&gt;         NA      NA        NA
+## 3 B              219. Lake Elaine   6.5    40         8
+## 4 B              248. Lake Elaine   6.5    40         8
+## 5 C              297. Mormon Lake   6.3   210        10
+## 6 C              296. Mormon Lake   6.3   210        10</code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 B              259. Lake Elaine   6.5    40         8
-## 2 B              234. Lake Elaine   6.5    40         8
-## 3 C              268. Mormon Lake   6.3   210        10
-## 4 C              250. Mormon Lake   6.3   210        10</code></pre>
+## 1 B              219. Lake Elaine   6.5    40         8
+## 2 B              248. Lake Elaine   6.5    40         8
+## 3 C              297. Mormon Lake   6.3   210        10
+## 4 C              296. Mormon Lake   6.3   210        10</code></pre>
 <p>The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn’t the case. In that situation you can use the <code>by=c(&quot;ColName.A&quot;=&quot;ColName.B&quot;)</code> syntax where <code>ColName.A</code> represents the name of the column in the first data frame and <code>ColName.B</code> is the equivalent column in the second data frame.</p>
 </div>
 <div id="row-summations" class="section level2">
@@ -865,11 +865,26 @@ Our goal is to end up with a data frame with columns for <code>Function</code>, 
 <a class="sourceLine" id="cb53-34" data-line-number="34">Transactions &lt;-<span class="st"> </span>Transactions <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb53-35" data-line-number="35"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">DateTime =</span> lubridate<span class="op">::</span><span class="kw">ymd_hms</span>(DateTime))</a></code></pre></div>
 <ol style="list-style-type: lower-alpha">
-<li>Create a table that gives the credit card statement for Derek. It should give all the transactions, the amounts, and the store name. Write your code as if the only initial information you have is the customer’s name.</li>
-<li>Aubrey has lost her credit card on Oct 15, 2019. Close her credit card at 4:28:21 PM and issue her a new credit card in the <code>Cards</code> table.</li>
-<li>Aubrey is using her card at Kickstand Kafe on Oct 16, 2019 at 2:30:21 PM for coffee with a charge of $4.98. Generate a new transaction for this action. <em>Hint: create temporary variables <code>card</code>,<code>retailid</code>,<code>datetime</code>, and <code>amount</code> that contain the information for this transaction and then write your code to use those. This way in the next question you can just use the same code but modify the temporary variables. Alternatively, you could write a function that takes in these four values and manipulates the tables in the GLOBAL environment using the <code>&lt;&lt;-</code> command to assign a result to a variable defined in the global environment. The reason this is OK is that in a real situation, these data would be stored in a database and we would expect the function to update that database.</em></li>
-<li>On Oct 17, 2019, some nefarious person is trying to use her OLD credit card at REI. Make sure your code in part (c) first checks to see if the credit card is active before creating a new transaction. Using the same code, verify that the nefarious transaction at REI is denied.</li>
-<li>Generate a table that gives the credit card statement for Aubrey. It should give all the transactions, amounts, and retailer name for both credit cards she had during this period.</li>
+<li>Create a table that gives the credit card statement for Derek. It should give all the transactions, the amounts, and the store name. Write your code as if the only initial information you have is the customer’s name. <em>Hint: Do a bunch of table joins, and then filter for the desired customer name.</em></li>
+<li>Aubrey has lost her credit card on Oct 15, 2019. Close her credit card at 4:28:21 PM and issue her a new credit card in the <code>Cards</code> table. <em>Hint: Using the Aubrey’s name, get necessary CardID and PersonID and save those as <code>cardID</code> and <code>personID</code>. Then update the <code>Cards</code> table row that corresponds to the <code>cardID</code> and insert a new row with the <code>personID</code> for Aubrey and a new <code>CardID</code> number that you make up.</em></li>
+<li>Aubrey is using her new card at Kickstand Kafe on Oct 16, 2019 at 2:30:21 PM for coffee with a charge of $4.98. Generate a new transaction for this action. <em>Hint: create temporary variables <code>card</code>,<code>retailid</code>,<code>datetime</code>, and <code>amount</code> that contain the information for this transaction and then write your code to use those. This way in the next question you can just use the same code but modify the temporary variables. Alternatively, you could write a function that takes in these four values and manipulates the tables in the GLOBAL environment using the <code>&lt;&lt;-</code> command to assign a result to a variable defined in the global environment. The reason this is OK is that in a real situation, these data would be stored in a database and we would expect the function to update that database.</em></li>
+<li><p>On Oct 17, 2019, some nefarious person is trying to use her OLD credit card at REI. Make sure your code in part (c) first checks to see if the credit card is active before creating a new transaction. Using the same code, verify that the nefarious transaction at REI is denied. <em>Hint: your check ought to look something like this:</em></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">card &lt;-<span class="st"> &#39;9876768717278723&#39;</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">redailid &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb54-3" data-line-number="3">datetime &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&#39;2019-10-16 14:30:21&#39;</span>)</a>
+<a class="sourceLine" id="cb54-4" data-line-number="4">amount &lt;-<span class="st"> </span><span class="fl">4.98</span></a>
+<a class="sourceLine" id="cb54-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb54-6" data-line-number="6"><span class="co"># If the card is currently valid, this should return exactly 1 row.</span></a>
+<a class="sourceLine" id="cb54-7" data-line-number="7">Valid_Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb54-8" data-line-number="8"><span class="st">  </span><span class="kw">filter</span>(CardID <span class="op">==</span><span class="st"> </span>card, Issue_DateTime <span class="op">&lt;=</span><span class="st"> </span>datetime, datetime <span class="op">&lt;=</span><span class="st"> </span>Exp_DateTime)</a>
+<a class="sourceLine" id="cb54-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb54-10" data-line-number="10"><span class="co"># If the transaction is valid, insert the transaction into the table</span></a>
+<a class="sourceLine" id="cb54-11" data-line-number="11"><span class="cf">if</span>( <span class="kw">nrows</span>(Valid_Cards) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){</a>
+<a class="sourceLine" id="cb54-12" data-line-number="12">  <span class="co"># Some code to insert the transaction</span></a>
+<a class="sourceLine" id="cb54-13" data-line-number="13">}<span class="cf">else</span>{</a>
+<a class="sourceLine" id="cb54-14" data-line-number="14">  <span class="kw">print</span>(<span class="st">&#39;Card Denied&#39;</span>)</a>
+<a class="sourceLine" id="cb54-15" data-line-number="15">}</a></code></pre></div></li>
+<li><p>Generate a table that gives the credit card statement for Aubrey. It should give all the transactions, amounts, and retailer name for both credit cards she had during this period.</p></li>
 </ol></li>
 <li><p>The package <code>nycflights13</code> contains information about all the flights that arrived in or left from New York City in 2013. This package contains five data tables, but there are three data tables we will work with. The data table <code>flights</code> gives information about a particular flight, <code>airports</code> gives information about a particular airport, and <code>airlines</code> gives information about each airline. Create a table of all the flights on February 14th by Virgin America that has columns for the carrier, destination, departure time, and flight duration. Join this table with the airports information for the destination. Notice that because the column for the destination airport code doesn’t match up between <code>flights</code> and <code>airports</code>, you’ll have to use the <code>by=c(&quot;TableA.Col&quot;=&quot;TableB.Col&quot;)</code> argument where you insert the correct names for <code>TableA.Col</code> and <code>TableB.Col</code>.</p></li>
 </ol>
