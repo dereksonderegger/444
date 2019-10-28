@@ -157,12 +157,8 @@ Students %>%
 ```r
 # reset all the levels orders
 Students %>%
-  mutate( Year = fct_relevel(Year, 'senior', 'junior','sophmore','first year') ) %>%
+  mutate( Year = fct_relevel(Year, 'senior', 'junior','sophomore','first year') ) %>%
   ggplot( aes(x=Year, fill=Gender)) + geom_bar() + coord_flip()
-```
-
-```
-## Warning: Unknown levels in `f`: sophmore
 ```
 
 <img src="07_Factors_files/figure-html/unnamed-chunk-7-2.png" width="672" />
@@ -170,13 +166,9 @@ Students %>%
 ```r
 # Reverse order of what I already had
 Students %>%
-  mutate( Year = fct_relevel(Year, 'senior', 'junior','sophmore','first year') ) %>%
+  mutate( Year = fct_relevel(Year, 'senior', 'junior','sophomore','first year') ) %>%
   mutate( Year = fct_rev(Year) ) %>%
   ggplot( aes(x=Year, fill=Gender)) + geom_bar() + coord_flip()
-```
-
-```
-## Warning: Unknown levels in `f`: sophmore
 ```
 
 <img src="07_Factors_files/figure-html/unnamed-chunk-7-3.png" width="672" />
@@ -185,13 +177,9 @@ Students %>%
 # Sometimes it is useful to rotate using + or - the number of shift steps
 # positive values move the first to the end. Negative values move the end to the front.
 Students %>%
-  mutate( Year = fct_relevel(Year, 'senior', 'junior','sophmore','first year') ) %>%
+  mutate( Year = fct_relevel(Year, 'senior', 'junior','sophomore','first year') ) %>%
   mutate( Year = fct_shift(Year, +1) ) %>%
   ggplot( aes(x=Year, fill=Gender)) + geom_bar() + coord_flip()
-```
-
-```
-## Warning: Unknown levels in `f`: sophmore
 ```
 
 <img src="07_Factors_files/figure-html/unnamed-chunk-7-4.png" width="672" />
