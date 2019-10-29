@@ -21,7 +21,7 @@ Often it is necessary to write scripts that perform different action depending o
 
 ## Logical Expressions
 
-The most common logical expressions are the numerical expressions `<`, `<=`, `==`, `!=`, `>=`, `>`. These are the usual logical comparisons from mathematics, with `!=` being the *not equal* comparison. For any logical value or vector of values, the `!` flips the logical values.
+The most common logical expressions are the numerical expressions `<`, `<=`, `==`, `!=`, `>=`, `>`. These are the usual logical comparisons from mathematics, with `!=` being the *not equal* comparison. For any logical value or vector of values, the `!` flips the logical values. 
 ```{r}
 df <- data.frame(A=1:6, B=5:10)
 df
@@ -30,6 +30,11 @@ df %>% mutate(`A==3?`         =  A == 3,
               `A<=3?`         =  A <= 3,
               `A!=3?`         =  A != 3,
               `Flip Previous` = ! `A!=3?` )
+```
+
+I find that it is preferable to write logical comparisons using `<` or `<=` rather than the "greater than" versions because the number line is read left to right, so it is much easier to have the smaller value on the left.
+```{r}
+df %>% mutate( `A < B`  =  A < B)
 ```
 
 
@@ -43,7 +48,7 @@ df %>% mutate(C =  A==5,  D =  B==5) %>%
 ```
 
 
-Next we can summarize a vector of logicals using `any()`, `all()`, and `which()`. These functions do exactly what you would expect them to do.
+Next we can summarize a vector of logical values using `any()`, `all()`, and `which()`. These functions do exactly what you would expect them to do.
 ```{r}
 any(6:10 <= 7 )   # Should return TRUE because there are two TRUE result
 all(6:10 <= 7 )   # Should return FALSE because there is at least one FALSE result
