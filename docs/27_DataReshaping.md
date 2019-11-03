@@ -377,12 +377,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              218.
-## 2 A              256.
-## 3 B              251.
-## 4 B              262.
-## 5 C              294.
-## 6 C              296.
+## 1 A              243.
+## 2 A              273.
+## 3 B              249.
+## 4 B              260.
+## 5 C              287.
+## 6 C              237.
 ```
 
 ```r
@@ -413,12 +413,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              218. <NA>         NA      NA        NA
-## 2 A              256. <NA>         NA      NA        NA
-## 3 B              251. Lake Elaine   6.5    40         8
-## 4 B              262. Lake Elaine   6.5    40         8
-## 5 C              294. Mormon Lake   6.3   210        10
-## 6 C              296. Mormon Lake   6.3   210        10
+## 1 A              243. <NA>         NA      NA        NA
+## 2 A              273. <NA>         NA      NA        NA
+## 3 B              249. Lake Elaine   6.5    40         8
+## 4 B              260. Lake Elaine   6.5    40         8
+## 5 C              287. Mormon Lake   6.3   210        10
+## 6 C              237. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -438,12 +438,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              218. <NA>         NA      NA        NA
-## 2 A              256. <NA>         NA      NA        NA
-## 3 B              251. Lake Elaine   6.5    40         8
-## 4 B              262. Lake Elaine   6.5    40         8
-## 5 C              294. Mormon Lake   6.3   210        10
-## 6 C              296. Mormon Lake   6.3   210        10
+## 1 A              243. <NA>         NA      NA        NA
+## 2 A              273. <NA>         NA      NA        NA
+## 3 B              249. Lake Elaine   6.5    40         8
+## 4 B              260. Lake Elaine   6.5    40         8
+## 5 C              287. Mormon Lake   6.3   210        10
+## 6 C              237. Mormon Lake   6.3   210        10
 ```
 
 
@@ -459,10 +459,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              251. Lake Elaine   6.5    40         8
-## 2 B              262. Lake Elaine   6.5    40         8
-## 3 C              294. Mormon Lake   6.3   210        10
-## 4 C              296. Mormon Lake   6.3   210        10
+## 1 B              249. Lake Elaine   6.5    40         8
+## 2 B              260. Lake Elaine   6.5    40         8
+## 3 C              287. Mormon Lake   6.3   210        10
+## 4 C              237. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
@@ -578,7 +578,7 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
       mutate( DateTime = lubridate::ymd_hms(DateTime))
     ```
     a) Create a table that gives the credit card statement for Derek. It should give all the transactions, the amounts, and the store name. Write your code as if the only initial information you have is the customer's name. *Hint: Do a bunch of table joins, and then filter for the desired customer name.*
-    b) Aubrey has lost her credit card on Oct 15, 2019. Close her credit card at 4:28:21 PM and issue her a new credit card in the `Cards` table. *Hint: Using the Aubrey's name, get necessary CardID and PersonID and save those as `cardID` and `personID`. Then update the `Cards` table row that corresponds to the `cardID` and insert a new row with the `personID` for Aubrey and a new `CardID` number that you make up.* 
+    b) Aubrey has lost her credit card on Oct 15, 2019. Close her credit card at 4:28:21 PM and issue her a new credit card in the `Cards` table. *Hint: Using the Aubrey's name, get necessary CardID and PersonID and save those as `cardID` and `personID`. Then update the `Cards` table row that corresponds to the `cardID` so that the expiration date is set to the time that the card is closed. Then insert a new row with the `personID` for Aubrey and a new `CardID` number that you make up.* 
     c) Aubrey is using her new card at Kickstand Kafe on Oct 16, 2019 at 2:30:21 PM for coffee with a charge of $4.98. Generate a new transaction for this action. *Hint: create temporary variables `card`,`retailid`,`datetime`, and `amount` that contain the information for this transaction and then write your code to use those. This way in the next question you can just use the same code but modify the temporary variables. Alternatively, you could write a function that takes in these four values and manipulates the tables in the GLOBAL environment using the `<<-` command to assign a result to a variable defined in the global environment. The reason this is OK is that in a real situation, these data would be stored in a database and we would expect the function to update that database.*
     d) On Oct 17, 2019, some nefarious person is trying to use her OLD credit card at REI. Make sure your code in part (c) first checks to see if the credit card is active before creating a new transaction. Using the same code, verify that the nefarious transaction at REI is denied. *Hint: your check ought to look something like this:*
         

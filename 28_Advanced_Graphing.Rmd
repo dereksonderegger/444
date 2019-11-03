@@ -361,14 +361,14 @@ There is a nice [tutorial](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.htm
 1. The `infmort` data set from the package `faraway` gives the infant mortality rate for a variety of countries. The information is relatively out of date, but will be fun to graph. T
     a) The `rownames()` of the dataset give the country names and you should create a new column that contains the country names. 
     b) Save the `ggplot2::map_data('world')` result as `geo.data`. Compare the `infmort` country names to the `region` names in the `geo.data` data set and do whatever is necessary to get the country names to concur. *Hint: `unique(x)` will return the unique items in a vector, `intersect(x,y)`returns the elements common to `x` and `y`, and `setdiff(x,y)`  returns the elements of `x` that are not in `y`. I recommend creating a `Country_Dictionary` that contains the standardized country name and all the weird versions you've run into. Every time you see some new abbreviation, just add it to the dictionary. To start with, you might consider all the ways people commonly refer to the United States of America.*
-    ```{r}
-    Country_Dictionary <- tribble(
-      ~raw, ~standardized,
-      'U.S.A',         'United States of America',
-      'United States', 'United States of America',
-      'US',            'United States of America')
-    ```
-    *After doing some simple data cleaning on the country names (e.g. swapping `_` for a space or vice versa), figure out which country names in the two data sets don't match up and decide on a standardized name and insert the translation into your dictionary table. Then join the dictionary to the `geo.data` and create a standardized country name column. Do the same for the `infmort` data and then then standardized country name levels should match up.*
+        ```{r}
+        Country_Dictionary <- tribble(
+          ~raw, ~standardized,
+          'U.S.A',         'United States of America',
+          'United States', 'United States of America',
+          'US',            'United States of America')
+        ```
+        *After doing some simple data cleaning on the country names (e.g. swapping `_` for a space or vice versa), figure out which country names in the two data sets don't match up and decide on a standardized name and insert the translation into your dictionary table. Then join the dictionary to the `geo.data` and create a standardized country name column. Do the same for the `infmort` data and then the standardized country name levels should match up.*
     c) Join the `geo.data` with the `infmort` data.
     d) Make a map of the world where we shade in countries based on the country income. Set the color fill scale to be anything other than the default.
     e) Make a map of the world where we shade in the countries based on if they are oil exports. Color the map black if the country is an oil exporter, and a light gray if it is not.
