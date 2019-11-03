@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nAre Apple TV Plus' Original TV Shows Any Good? Here's What The Reviews Say\n"                 
-## [2] "\nMichigan Family Surprised When Samsung Satellite Crashes Onto Their Property\n"               
-## [3] "\nYouTuber Tom Scott Blasts Apart The Iffy Claims In All Those VPN Ads You're Seeing\n"         
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                    
-## [5] "\nTrucker Gives Hilarious Running Commentary On A Poor New Driver Trying To Learn Stick Shift\n"
-## [6] "\nA New Startup Called Pattern Wants Combat Millennial Burnout\n"
+## [1] "\nThe Harrowing Two-Year Detention Of A Transgender Asylum Seeker\n"                              
+## [2] "\nCat Sneaks Into Little Boy's Room, Sparks An Animated Interspecies Conversation\n"              
+## [3] "\nThe Woman Who Escaped The Asylum\n"                                                             
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                      
+## [5] "\nCement Is A Massive Emitter Of Greenhouse Gases, Bill Gates Explains How We Can Make It Green\n"
+## [6] "\nInside 'Hot Ones,' The Wildly Popular And Violently Spicy YouTube Show\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2019/apple-tv-plus-the-morning-show-see-dickinson-for-all-mankind-reviews-any-good"                                               
-## [2] "https://www.wzzm13.com/article/news/weird/satellite-lands-in-michigan-yard/69-8ea9d127-83a7-4729-9f20-6b79bbf77a11?utm_source=digg"
-## [3] "/video/do-vpns-work"                                                                                                               
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                       
-## [5] "/video/trucker-gives-hilarious-running-commentary-new-driver-stick-shift"                                                          
-## [6] "https://www.buzzfeednews.com/article/annehelenpetersen/millennial-burnout-startup-gin-lane-pattern-equal-parts?utm_source=digg"
+## [1] "https://www.newyorker.com/news/dispatch/the-harrowing-two-year-detention-of-a-transgender-asylum-seeker?utm_source=digg"               
+## [2] "/video/cat-sneaks-into-little-boys-room-sparks-an-animated-interspecies-conversation"                                                  
+## [3] "https://lithub.com/american-gothic-the-woman-who-escaped-the-asylum/?utm_source=digg"                                                  
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                           
+## [5] "/video/cement-is-a-massive-emitter-of-greenhouse-gases-bill-gates-explains-how-we-can-make-it-green"                                   
+## [6] "https://www.theverge.com/2019/10/31/20938739/hot-ones-sean-evans-youtube-guests-gordon-ramsey-idris-elba-late-night-tv?utm_source=digg"
 ```
 
 

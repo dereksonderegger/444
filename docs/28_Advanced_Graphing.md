@@ -264,26 +264,31 @@ This will allow you to set the graphing options at the start of your Rmarkdown/R
 
 ## Mathematical Notation
 
-It would be nice to be able to include mathematical formula and notation on plot axes, titles, and text annotation. R plotting has a notation scheme similar to Latex to do this, but it is much easier for me to remember the Latex command.  Fortunately there is a package, `latex2exp` that allows us to just use Latex. It works by using the `latex2exp::TeX` function to take an input latex string and convert it into R's plotmath notation. 
+It would be nice to be able to include mathematical formula and notation on plot axes, titles, and text annotation. R plotting has a notation scheme which it calls `expressions`. You can learn more about how R `expressions` are defined by looking at the [plotmath help](https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/plotmath.html) help page. They are similar to LaTeX but different enough that it can be frustrating to use. It is particularly difficult to mix character strings and math symbols. I recommend not bothering to learn R expressions, but instead learn LaTeX and use the R package `latex2exp` that converts character strings written in LaTeX to be converted into R's expressions.  
+
+LaTeX is an extremely common typesetting program for mathematics and is widely used. The key idea is that `$` will open/close the LaTeX mode and within LaTeX mode, using the backslash represents that something special should be done.  For example, just typing `$alpha$` produces $alpha$, but putting a backslash in front means that we should interpret it as the greek letter alpha. So in LaTeX, `$\alpha$` is rendered as $\alpha$. We've already seen an [introduction](https://dereksonderegger.github.io/444/rmarkdown-tricks.html#mathematical-expressions) to LaTeX in the Rmarkdown Tricks chapter.
+
+However, because I need to write character strings with LaTeX syntax, and R also uses the backslash to represent special characters, then to get the backslash into the character string, we actually need to do the same double backslash trick we did in the string manipulations using regular expressions section.
 
 
 ```r
 seed <- 7867
 N <- 20
-data <- data.frame(x=runif(N, 1, 10)) %>%
-  mutate(y = 12 - 1*x + rnorm(N, sd=1))
+data <- data.frame(x=runif(N, 1, 10)) %>%    # create a data set to work with
+  mutate(y = 12 - 1*x + rnorm(N, sd=1))      # with columns x, y
 
-model <- lm( y ~ x, data=data)
-data <- data %>%
+model <- lm( y ~ x, data=data)               # Fit a regression model
+data <- data %>%                             # save the regression line yhat points
   mutate(fit=fitted(model))
 
 ggplot(data, aes(x=x)) +
   geom_point(aes(y=y)) +
   geom_line(aes(y=fit), color='blue') +
-  annotate('text', x=9, y=9.5, label=TeX('$\\hat{\\rho}$ = 0.916') ) +
+  annotate('text', x=9, y=9.5, 
+           label=TeX('$\\hat{\\rho}$ = 0.916') ) +   # always double \\
   labs( x=TeX('X-axis $\\alpha$'), 
-        y=TeX('Y: \\log_{10}(Income)'),
-        title=TeX('$\\hat{\\beta} = (X^TX)^{-1}X^Ty$'))
+        y=TeX('Y: $\\log_{10}$(Income)'),
+        title=TeX('Linear Models use: $\\hat{\\beta} = (X^TX)^{-1}X^Ty$'))
 ```
 
 ```
@@ -292,7 +297,7 @@ ggplot(data, aes(x=x)) +
 ```
 
 <img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-20-1.png" width="672" />
-
+The warning message that is produced is coming from `ggplot` and I haven't figured out how to avoid it. Because it is giving us the graph we want, I'm just going to ignore the error for now.
 
 ## Geographic Maps
 

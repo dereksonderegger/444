@@ -11,7 +11,7 @@ Often it is necessary to write scripts that perform different action depending o
 
 ## Logical Expressions
 
-The most common logical expressions are the numerical expressions `<`, `<=`, `==`, `!=`, `>=`, `>`. These are the usual logical comparisons from mathematics, with `!=` being the *not equal* comparison. For any logical value or vector of values, the `!` flips the logical values.
+The most common logical expressions are the numerical expressions `<`, `<=`, `==`, `!=`, `>=`, `>`. These are the usual logical comparisons from mathematics, with `!=` being the *not equal* comparison. For any logical value or vector of values, the `!` flips the logical values. 
 
 ```r
 df <- data.frame(A=1:6, B=5:10)
@@ -45,6 +45,22 @@ df %>% mutate(`A==3?`         =  A == 3,
 ## 6 6 10 FALSE FALSE  TRUE         FALSE
 ```
 
+I find that it is preferable to write logical comparisons using `<` or `<=` rather than the "greater than" versions because the number line is read left to right, so it is much easier to have the smaller value on the left.
+
+```r
+df %>% mutate( `A < B`  =  A < B)
+```
+
+```
+##   A  B A < B
+## 1 1  5  TRUE
+## 2 2  6  TRUE
+## 3 3  7  TRUE
+## 4 4  8  TRUE
+## 5 5  9  TRUE
+## 6 6 10  TRUE
+```
+
 
 If we have two (or more) vectors of of logical values, we can do two *pairwise* operations. The "and" operator `&` will result in a TRUE value if all elements are TRUE.  The "or" operator will result in a TRUE value if either the left hand side or right hand side is TRUE. 
 
@@ -67,7 +83,7 @@ df %>% mutate(C =  A==5,  D =  B==5) %>%
 ```
 
 
-Next we can summarize a vector of logicals using `any()`, `all()`, and `which()`. These functions do exactly what you would expect them to do.
+Next we can summarize a vector of logical values using `any()`, `all()`, and `which()`. These functions do exactly what you would expect them to do.
 
 ```r
 any(6:10 <= 7 )   # Should return TRUE because there are two TRUE result
@@ -103,14 +119,14 @@ df
 
 ```
 ##   Type      Value
-## 1    A -0.9594688
-## 2    A  2.2488915
-## 3    B  1.1178973
-## 4    B  1.2332451
-## 5    C -0.6097278
-## 6    C  0.5647027
-## 7    D  1.5789026
-## 8    D -1.4165634
+## 1    A -0.6629250
+## 2    A  1.3731353
+## 3    B -2.1464013
+## 4    B -0.2592196
+## 5    C -0.4603691
+## 6    C  1.5556276
+## 7    D  0.1631923
+## 8    D  0.1314652
 ```
 
 ```r
@@ -119,10 +135,10 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 
 ```
 ##   Type      Value
-## 1    A -0.9594688
-## 2    A  2.2488915
-## 3    B  1.1178973
-## 4    B  1.2332451
+## 1    A -0.6629250
+## 2    A  1.3731353
+## 3    B -2.1464013
+## 4    B -0.2592196
 ```
 
 
@@ -228,7 +244,7 @@ result
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 ```r
@@ -243,7 +259,7 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
 
@@ -257,7 +273,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -272,7 +288,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] " in the if statement, got a Tail! "
+## [1] "In the else part!"
 ```
 
 ```r
@@ -280,7 +296,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -304,7 +320,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The second child was ignored"
+## [1] "The third child was spoiled"
 ```
 
 
@@ -334,7 +350,7 @@ p.value
 ```
 
 ```
-## [1] 3.072521e-07
+## [1] 1.682576e-08
 ```
 
 
@@ -623,7 +639,7 @@ ggplot(SampDist, aes(x=xbar)) +
     print(myplot) 
     ```
     
-    <img src="06_FlowControl_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+    <img src="06_FlowControl_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
     a) Use a for loop to create similar graphs for degrees of freedom $2,3,4,\dots,29,30$. 
 
