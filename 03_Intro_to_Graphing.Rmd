@@ -34,28 +34,28 @@ These notes are sufficient for creating simple graphs using `ggplot2`, but are n
 
 One way that `ggplot2` makes it easy to form very complicated graphs is that it provides a large number of basic building blocks that, when stacked upon each other, can produce extremely complicated graphs. A full list is available at [http://docs.ggplot2.org/current/](http://docs.ggplot2.org/current/) but the following list gives some idea of different building blocks. These different geometries are different ways to display the relationship between variables and can be combined in many interesting ways.
 
- Geom	             |    Description	                                    |   Required Aesthetics
--------------------|----------------------------------------------------|-----------------------
-`geom_histogram`	 |  A histogram                                       |	`x`
-`geom_bar`         |	A barplot                                         |	`x`
-`geom_density`     |  A density plot of data. (smoothed histogram)      | `x`
-`geom_boxplot`     | 	Boxplots                                          | `x, y`
-`geom_line`	       |  Draw a line (after sorting x-values)	            | `x, y`
-`geom_path`	       |  Draw a line (without sorting x-values)	          | `x, y`
-`geom_point`	     |  Draw points (for a scatterplot)	                  | `x, y`
-`geom_smooth`	     |  Add a ribbon that summarizes a scatterplot	      | `x, y`
-`geom_ribbon`	     |  Enclose a region, and color the interior          |	`ymin, ymax`
-`geom_errorbar`    |	Error bars	                                      | `ymin, ymax`
-`geom_text`	       |  Add text to a graph	                              | `x, y, label`
-`geom_label`	     |  Add text to a graph	                              | `x, y, label`
-`geom_tile`        |  Create Heat map                                   | `x, y, fill`
+| Geom	           |    Description	                                    |   Required Aesthetics  |
+|:-----------------|:---------------------------------------------------|:-----------------------|
+|`geom_histogram`	 |  A histogram                                       |	`x`                    |
+|`geom_bar`        |	A barplot (y is number of rows)                   |	`x`                    |
+|`geom_col`        |	A barplot (y is given by a column)                |	`x, y`                 |
+|`geom_density`    |  A density plot of data. (smoothed histogram)      | `x`                    |
+|`geom_boxplot`    | 	Boxplots                                          | `x, y`                 |
+|`geom_line`	     |  Draw a line (after sorting x-values)	            | `x, y`                 |
+|`geom_path`	     |  Draw a line (without sorting x-values)	          | `x, y`                 |
+|`geom_point`	     |  Draw points (for a scatterplot)	                  | `x, y`                 |
+|`geom_smooth`	   |  Add a ribbon that summarizes a scatterplot	      | `x, y`                 |
+|`geom_ribbon`	   |  Enclose a region, and color the interior          |	`ymin, ymax`           |
+|`geom_errorbar`   |	Error bars	                                      | `ymin, ymax`           |
+|`geom_text`	     |  Add text to a graph	                              | `x, y, label`          |
+|`geom_label`	     |  Add text to a graph	                              | `x, y, label`          |
+|`geom_tile`       |  Create Heat map                                   | `x, y, fill`           |
 
 A graph can be built up layer by layer, where:
 
 * Each layer corresponds to a `geom`, each of which requires a dataset and a mapping between an aesthetic and a column of the data set.
     * If you don't specify either, then the layer inherits everything defined in the `ggplot()` command.
     * You can have different datasets for each layer!
-
 * Layers can be added with a `+`, or you can define two plots and add them together (second one over-writes anything that conflicts).
 
 
@@ -78,9 +78,7 @@ ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length) ) +
 ```
 
 1. The data set we wish to use is specified using `data=iris`.
-
 2. The relationship we want to explore is `x=Sepal.Length` and `y=Petal.Length`. This means the x-axis will be the Sepal Length and the y-axis will be the Petal Length.
-
 3. The way we want to display this relationship is through graphing 1 point for every observation.
 
 We can define other attributes that might reflect other aspects of the data. For example, we might want for the color of the data point to change dynamically based on the species of iris. 
@@ -89,7 +87,6 @@ We can define other attributes that might reflect other aspects of the data. For
 ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length) ) +  
 	geom_point( aes(color=Species) )
 ```
-
 
 The `aes()` command inside the previous section of code is quite mysterious. The way to think about the `aes()` is that it gives you a way to define relationships that are data dependent. In the previous graph, the x-value and y-value for each point was defined dynamically by the data, as was the color. If we just wanted all the data points to be colored blue and larger, then the following code would do that
 
@@ -102,7 +99,6 @@ ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length) ) +
 The important part isn't that color and size were defined in the `geom_point()` but that they were defined outside of an `aes()` function! 
 
 1. Anything set inside an `aes()` command will be of the form `attribute=Column_Name` and will change based on the data.
-
 2. Anything set outside an `aes()` command will be in the form `attribute=value` and will be fixed. 
 
 
@@ -118,72 +114,6 @@ ggplot(iris, aes(x=Species, y=Petal.Length)) +
 The boxes show the $25^{th}$, $50^{th}$, and $75^{th}$ percentile and the lines coming off the box extend to the smallest and largest non-outlier observation.  
 
 
-## Title & Axis Labels 
-
-To make a graph more understandable, it is necessary to tweak the axis labels and add a main title and such. Here we'll adjust labels in a graph, including the legend labels.
-```{r, fig.height=3}
-# Save the graph before I add more to it.
-P <- ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length) ) +  
-	geom_point( aes(color=Species)  ) +
-  labs( title='Sepal Length vs Petal Length') +
-  labs( x="Sepal Length (cm)", y="Petal Length (cm)" ) +
-  labs( color="Species Name")  +
-  labs( caption = "iris data from Edgar Anderson (1935)" )
-
-# Print out the plot
-P
-```
-
-You could either call the `labs()` command repeatedly with each label, or you could provide multiple arguements to just one `labs()` call.  
-
-## Annotation
-One way to improve the clarity of a graph is to remove the legend and label the points directly on the graph. For example, we could instead have the species names near the cloud of data points for the species. 
-
-Usually our annotations aren't stored in the `data.frame` that contains our data of interest. So we need to either create a new (usually small) `data.frame` that contains all the information needed to create the annotation or we need to set the necessary information in-place. Either way, we need to specify the `x` and `y` coordinates, the `label` to be printed as well as any other attribute that is set in the global `aes()` command. That means if `color` has been set globally, the annotation layer also needs to address the `color` attribute.
-
-### Using a `data.frame`
-To do this in ggplot, we need to make a data frame that has the columns `Sepal.Length` and `Petal.Length` so that we can specify where each label should go, as well as the label that we want to print. Also, because color is matched to the `Species` column, this small dataset should also have a the `Species` column.
-
-This step always requires a bit of fussing with the graph because the text size and location should be chosen based on the size of the output graphic and if I rescale the image it often looks awkward. Typically I leave this step until the figure is being prepared for final publication.
-
-```{r, fig.height=3}
-# create another data frame that has the text labels I want to add to the graph.
-annotation.data <- data.frame(
-  Sepal.Length = c(4.5,  6.5,  7.0),  # Figured out the label location by eye.
-  Petal.Length = c(2.25, 3.75, 6.5),  # If I rescale the graph, I would redo this step.
-  Species = c('setosa', 'versicolor', 'virginica'),
-  Text = c('SETOSA', 'VERSICOLOR', 'VIRGINICA')
-)
-
-# Use the previous plot I created, along with the 
-# aes() options already defined.
-P +
-  geom_text( data=annotation.data, aes(label=Text), size=2.5) +   # write the labels
-  theme( legend.position = 'none' )                               # remove the legend
-
-```
-
-
-### Setting attributes in-line
-Instead of creating a new data frame, we could just add a new layer and just set all of the graph attributes manually. To do this, we have to have one layer for each text we want to add to the graph. The `annotate` function takes a geom layer type and the necessary inputs an allows us to avoid the annoyance of building a labels data frame.
-```{r}
-P +
-  annotate('text', x=4.5, y=2.25, size=2, label='SETOSA'     ) +
-  annotate('text', x=6.5, y=3.75, size=2, label='VERSICOLOR' ) +
-  annotate('text', x=7.0, y=6.50, size=2, label='VIRGINICA'  )
-```
-
-
-Finally there is a `geom_label` layer that draws a nice box around what you want to print.
-
-```{r}
-P +
-  annotate('label', x=4.5, y=2.25, size=2, label='SETOSA'     ) +
-  annotate('label', x=6.5, y=3.75, size=2, label='VERSICOLOR' ) +
-  annotate('label', x=7.0, y=6.50, size=2, label='VIRGINICA'  )
-```
-
-My recommendation is to just set the `x`, `y`, and `label` attributes manually inside an `annotate()` call if you have one or two annotations to print on the graph. If you have many annotations to print, the create a data frame that contains all of them and use `data=` argument in the geom to use that created annotation data set.
 
 ## Faceting
 
@@ -235,6 +165,75 @@ ggplot(tips, aes(x = total_bill, y = tip / total_bill )) +
   facet_grid( sex ~ day, scales="free_y" )
 ```
 
+## Annotation 
+
+### Axis Labels and Titles
+To make a graph more understandable, it is necessary to tweak the axis labels and add a main title and such. Here we'll adjust labels in a graph, including the legend labels.
+```{r, fig.height=3}
+# Save the graph before I add more to it.
+P <- ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length, color=Species) ) +  
+	geom_point( aes(color=Species)  ) +
+  labs( title='Sepal Length vs Petal Length') +
+  labs( x="Sepal Length (cm)", y="Petal Length (cm)" ) +
+  labs( color="Species Name")  +
+  labs( caption = "Iris data from Edgar Anderson (1935)" )
+
+# Print out the plot
+P
+```
+
+You could either call the `labs()` command repeatedly with each label, or you could provide multiple arguments to just one `labs()` call.  
+
+### Text Labels
+One way to improve the clarity of a graph is to remove the legend and label the points directly on the graph. For example, we could instead have the species names near the cloud of data points for the species. 
+
+Usually our annotations aren't stored in the `data.frame` that contains our data of interest. So we need to either create a new (usually small) `data.frame` that contains all the information needed to create the annotation or we need to set the necessary information in-place. Either way, we need to specify the `x` and `y` coordinates, the `label` to be printed as well as any other attribute that is set in the global `aes()` command. That means if `color` has been set globally, the annotation layer also needs to address the `color` attribute.
+
+#### Using a `data.frame`
+To do this in ggplot, we need to make a data frame that has the columns `Sepal.Length` and `Petal.Length` so that we can specify where each label should go, as well as the label that we want to print. Also, because color is matched to the `Species` column, this small dataset should also have a the `Species` column.
+
+This step always requires a bit of fussing with the graph because the text size and location should be chosen based on the size of the output graphic and if I rescale the image it often looks awkward. Typically I leave this step until the figure is being prepared for final publication.
+
+```{r}
+# create another data frame that has the text labels I want to add to the graph.
+annotation.data <- data.frame(
+  Sepal.Length = c(4.5,  6.5,  7.0),  # Figured out the label location by eye.
+  Petal.Length = c(2.25, 3.75, 6.5),  # If I rescale the graph, I would redo this step.
+  Species = c('setosa', 'versicolor', 'virginica'),
+  Text = c('SETOSA', 'VERSICOLOR', 'VIRGINICA')
+)
+
+# Use the previous plot I created, along with the 
+# aes() options already defined.
+P +
+  geom_text( data=annotation.data, aes(label=Text), size=2.5) +   # write the labels
+  theme( legend.position = 'none' )                               # remove the legend
+
+```
+
+
+#### Setting attributes in-line
+Instead of creating a new data frame, we could just add a new layer and just set all of the graph attributes manually. To do this, we have to have one layer for each text we want to add to the graph. The `annotate` function takes a geom layer type and the necessary inputs an allows us to avoid the annoyance of building a labels data frame.
+```{r}
+P +
+  annotate('text', x=4.5, y=2.25, size=6, color='#F8766D', label='SETOSA'     ) +
+  annotate('text', x=6.5, y=3.75, size=6, color='#00BA38', label='VERSICOLOR' ) +
+  annotate('text', x=7.0, y=6.50, size=6, color='#619CFF', label='VIRGINICA'  ) +
+  theme(legend.position = 'none')
+```
+
+
+Finally there is a `geom_label` layer that draws a nice box around what you want to print.
+
+```{r}
+P +
+  annotate('label', x=4.5, y=2.25, size=6, color='#F8766D', label='SETOSA'     ) +
+  annotate('label', x=6.5, y=3.50, size=6, color='#00BA38', label='VERSICOLOR' ) +
+  annotate('label', x=7.0, y=6.75, size=6, color='#619CFF', label='VIRGINICA'  ) +
+  theme(legend.position = 'none')
+```
+
+My recommendation is to just set the `x`, `y`, and `label` attributes manually inside an `annotate()` call if you have one or two annotations to print on the graph. If you have many annotations to print, the create a data frame that contains all of them and use `data=` argument in the geom to use that created annotation data set.
 
 ## Exercises
 

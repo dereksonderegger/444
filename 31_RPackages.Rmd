@@ -241,7 +241,25 @@ For widely distributed packages, using `Imports` is the preferred way to utilize
 For a data analysis package, I usually leave the Depends/Imports/Suggests blank and just load whatever analysis packages I need in the RMarkdown files that live in the `docs/` directory.
 
 
-### A Simple Analysis Package
+
+
+## Sharing your Package
+The last step to a package is being able to share it with other people. We could either wrap up the package into a `.tar.gz` file or we could save the package to some version control platform like `GitHub`. For packages that are in a stable form and need to be available via `CRAN` or Bioconductor, then building a `.tar.gz` file is important. However when a package is just meant for yourself and your collaborators, I prefer to save the package to `GitHub`.
+
+I have several packages available on my `GitHub` account.  I have a repository 
+[https://github.com/dereksonderegger/TestPackage](https://github.com/dereksonderegger/TestPackage) that demonstrates a very simple package. To install this package, we can install it directly using the following:
+
+```{r, eval=FALSE}
+devtools::install_github('dereksonderegger/TestPackage')
+```
+
+If you chose to share your package with others by sharing a `.tar.gz` file, then create the file using the `Build` tab and `More -> Build Source Package`. Then to install the package, the user will run the R command
+```{r, eval=FALSE}
+install.packages('TestPackage_0.0.0.1.tar.gz', repos=NULL, type='source')
+```
+
+
+## An Example Package
 I find it is easiest to use RStudio to start a new package via `File -> New Project ...` and then start a project in a `new directory` and finally select that we want a new `R package`.
 
 Alternatively we could use the `usethis::create_package()` function to build the minimal package. 
@@ -251,7 +269,7 @@ usethis::create_package('~/GitHub/TestPackage')  # replace the path to where you
 
 Once the package is created:
 
-1. Put any `.csv` or `.xls` data files you have in `data-raw/` sub-directory.  In that same directory, create a R script or Rmarkdown file that reads the data in, cleans it up by renaming columns, or whatever.  An example R script might look something like this:
+1. Put any `.csv` or `.xls` data files you have in `data-raw/` sub-directory.  For this example, save the file [https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/FlagMaxTemp.csv](FlagMaxTemp.csv) from the STA 444/5 Github page. In the same `data-raw` directory, create a R script or Rmarkdown file that reads the data in, cleans it up by renaming columns, or whatever.  An example R script might look something like this:
     ```{r, eval=FALSE, highlight=FALSE}
     library(tidyverse)
     
@@ -259,7 +277,7 @@ Once the package is created:
     MaxTemp <- read.csv('data-raw/FlagMaxTemp.csv') %>%
       gather('DOM', 'MaxTemp', X1:X31) %>%            
       drop_na() %>%
-      mutate(DOM = str_remove(DOM, fixed('X')) ) %>%  
+      mutate(DOM  = str_remove(DOM, fixed('X')) ) %>%  
       mutate(Date = lubridate::ymd( paste( Year, Month, DOM )) ) %>%
       select(Date, MaxTemp)
     
@@ -281,8 +299,11 @@ Once the package is created:
     ```
 
 3. Build the package by going to `Build` tab.
-    a) Click the `More` and select `Document` to create the data frame documentation.
-    b) Click the `Install and Restart` to build the package.
+    a) Create the Documentation.
+        i) The first time, you'll need to enable `Oxygen` style documentation. Do this by clicking `Build` tab, then click `More` -> `Configure Build Tools`. Finally select the tick-box to build documentation using `ROxygen`.
+        ii) Click the `More` and select `Document` to create the data frame documentation. The shortcut is `Ctrl/Cmd Shift D`.
+    b) Install the package.
+        i) Click the `Install and Restart` to build the package. The shortcut is `Ctrl/Cmd Shift B`.
 
 4. Create the `docs/` directory and then create a RMarkdown file that does some analysis.
     ```{r, eval=FALSE, highlight=FALSE}
@@ -313,24 +334,6 @@ Once the package is created:
     # So there is a character there, but it doesn't get displayed.
     ```
     
-
-
-## Sharing your Package
-The last step to a package is being able to share it with other people. We could either wrap up the package into a `.tar.gz` file or we could save the package to ssome version control platform like `GitHub`. For packages that are in a stable form and need to be available via `CRAN` or Bioconductor, then building a `.tar.gz` file is important. However when a package is just meant for yourself and your collaborators, I prefer to save the package to `GitHub`.
-
-I have several packages available on my `GitHub` account.  I have a repository 
-[https://github.com/dereksonderegger/TestPackage](https://github.com/dereksonderegger/TestPackage) that demonstrates a very simple package. To install this package, we can install it directly using the following:
-
-```{r, eval=FALSE}
-devtools::install_github('dereksonderegger/TestPackage')
-```
-
-
-If you chose to share your package with others by sharing a `.tar.gz` file, then create the file using the `Build` tab and `More -> Build Source Package`. Then to install the package, the user will run the R command
-```{r, eval=FALSE}
-install.packages('TestPackage_0.0.0.1.tar.gz', repos=NULL, type='source')
-```
-
 
 ## Exercises
 

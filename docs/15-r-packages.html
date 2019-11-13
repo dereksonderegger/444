@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-11-03" />
+<meta name="date" content="2019-11-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -348,11 +348,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
-<li class="chapter" data-level="15.5" data-path="15-r-packages.html"><a href="15-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a><ul>
-<li class="chapter" data-level="15.5.1" data-path="15-r-packages.html"><a href="15-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>15.5.1</b> A Simple Analysis Package</a></li>
-</ul></li>
+<li class="chapter" data-level="15.5" data-path="15-r-packages.html"><a href="15-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a></li>
 <li class="chapter" data-level="15.6" data-path="15-r-packages.html"><a href="15-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.6</b> Sharing your Package</a></li>
-<li class="chapter" data-level="15.7" data-path="15-r-packages.html"><a href="15-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>15.7</b> Exercises</a></li>
+<li class="chapter" data-level="15.7" data-path="15-r-packages.html"><a href="15-r-packages.html#an-example-package"><i class="fa fa-check"></i><b>15.7</b> An Example Package</a></li>
+<li class="chapter" data-level="15.8" data-path="15-r-packages.html"><a href="15-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>15.8</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="16-data-scraping.html"><a href="16-data-scraping.html"><i class="fa fa-check"></i><b>16</b> Data Scraping</a><ul>
 <li class="chapter" data-level="16.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>16.1</b> Web Pages</a><ul>
@@ -541,46 +540,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html">vignette</a>
 for <code>roxygen2</code>. If/when the information in this chapter seems insufficient, that should be your next resource.</p>
 <p>The documentation information is built in comments and so documentation lines always start with a <code>#'</code>. For both datasets and functions, the first couple of lines give the short title and description.</p>
-<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb729-1" data-line-number="1"><span class="co">#&#39; A short title</span></a>
-<a class="sourceLine" id="cb729-2" data-line-number="2"><span class="co">#&#39; </span></a>
-<a class="sourceLine" id="cb729-3" data-line-number="3"><span class="co">#&#39; A longer paragraph that describes the context of the dataset/function and </span></a>
-<a class="sourceLine" id="cb729-4" data-line-number="4"><span class="co">#&#39; discusses important aspects that will be necessary for somebody first seeing </span></a>
-<a class="sourceLine" id="cb729-5" data-line-number="5"><span class="co">#&#39; the data/function to know about. Any text in these initial paragraphs will be </span></a>
-<a class="sourceLine" id="cb729-6" data-line-number="6"><span class="co">#&#39; in the description section of the documentation file.</span></a>
-<a class="sourceLine" id="cb729-7" data-line-number="7"><span class="co">#&#39; </span></a></code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb731-1" data-line-number="1"><span class="co">#&#39; A short title</span></a>
+<a class="sourceLine" id="cb731-2" data-line-number="2"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb731-3" data-line-number="3"><span class="co">#&#39; A longer paragraph that describes the context of the dataset/function and </span></a>
+<a class="sourceLine" id="cb731-4" data-line-number="4"><span class="co">#&#39; discusses important aspects that will be necessary for somebody first seeing </span></a>
+<a class="sourceLine" id="cb731-5" data-line-number="5"><span class="co">#&#39; the data/function to know about. Any text in these initial paragraphs will be </span></a>
+<a class="sourceLine" id="cb731-6" data-line-number="6"><span class="co">#&#39; in the description section of the documentation file.</span></a>
+<a class="sourceLine" id="cb731-7" data-line-number="7"><span class="co">#&#39; </span></a></code></pre></div>
 <div id="dataset-documentation" class="section level3">
 <h3><span class="header-section-number">15.3.1</span> Dataset Documentation</h3>
 <p>Dataset documentation should contain both general information about the context of the data as well as detailed information about the data columns. Finally the documentation should also include information about where the data came from, if it is available. The title and description are given in the first paragraphs of the description, but the format and source need some indication starting the sections.</p>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb730-1" data-line-number="1"><span class="co">#&#39; @format A data frame with XXX observations with ZZ columns.</span></a>
-<a class="sourceLine" id="cb730-2" data-line-number="2"><span class="co">#&#39; \describe{</span></a>
-<a class="sourceLine" id="cb730-3" data-line-number="3"><span class="co">#&#39;    \item{Column1}{Description of column 1, including units if appropriate}</span></a>
-<a class="sourceLine" id="cb730-4" data-line-number="4"><span class="co">#&#39;    \item{Column2}{Description of column 2, including units if appropriate}</span></a>
-<a class="sourceLine" id="cb730-5" data-line-number="5"><span class="co">#&#39; }</span></a></code></pre></div>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb732-1" data-line-number="1"><span class="co">#&#39; @format A data frame with XXX observations with ZZ columns.</span></a>
+<a class="sourceLine" id="cb732-2" data-line-number="2"><span class="co">#&#39; \describe{</span></a>
+<a class="sourceLine" id="cb732-3" data-line-number="3"><span class="co">#&#39;    \item{Column1}{Description of column 1, including units if appropriate}</span></a>
+<a class="sourceLine" id="cb732-4" data-line-number="4"><span class="co">#&#39;    \item{Column2}{Description of column 2, including units if appropriate}</span></a>
+<a class="sourceLine" id="cb732-5" data-line-number="5"><span class="co">#&#39; }</span></a></code></pre></div>
 <p>There are a few other documentation sections that can be filled in. They will all be introduced using <code>@Section</code> notation.</p>
-<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb731-1" data-line-number="1"><span class="co">#&#39; @source This describes where the data came from</span></a>
-<a class="sourceLine" id="cb731-2" data-line-number="2"><span class="co">#&#39; @references If we need to cite some book or journal article.</span></a></code></pre></div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb733-1" data-line-number="1"><span class="co">#&#39; @source This describes where the data came from</span></a>
+<a class="sourceLine" id="cb733-2" data-line-number="2"><span class="co">#&#39; @references If we need to cite some book or journal article.</span></a></code></pre></div>
 </div>
 <div id="documenting-functions" class="section level3">
 <h3><span class="header-section-number">15.3.2</span> Documenting Functions</h3>
 <p>Functions that you want other people to use need to be documentated. In particular, we need a general description of what the function does, a list of all function arguments and what they do, and what type of object the function returns. Finally, it is nice to have some examples that demonstrate how the function can be used.</p>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb732-1" data-line-number="1"><span class="co">#&#39; Sum two numeric objects.</span></a>
-<a class="sourceLine" id="cb732-2" data-line-number="2"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb732-3" data-line-number="3"><span class="co">#&#39; Because this is a very simple function, my explanation is short. These</span></a>
-<a class="sourceLine" id="cb732-4" data-line-number="4"><span class="co">#&#39; paragraphs should explain everything you need to know.</span></a>
-<a class="sourceLine" id="cb732-5" data-line-number="5"><span class="co">#&#39; </span></a>
-<a class="sourceLine" id="cb732-6" data-line-number="6"><span class="co">#&#39; This is still in the description part of the documentation and and it </span></a>
-<a class="sourceLine" id="cb732-7" data-line-number="7"><span class="co">#&#39; will be until we see something that indicates a new section.</span></a>
-<a class="sourceLine" id="cb732-8" data-line-number="8"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb732-9" data-line-number="9"><span class="co">#&#39; @param a A real number</span></a>
-<a class="sourceLine" id="cb732-10" data-line-number="10"><span class="co">#&#39; @param b A real number</span></a>
-<a class="sourceLine" id="cb732-11" data-line-number="11"><span class="co">#&#39; @return The sum of \code{a} and \code{b}</span></a>
-<a class="sourceLine" id="cb732-12" data-line-number="12"><span class="co">#&#39; @examples</span></a>
-<a class="sourceLine" id="cb732-13" data-line-number="13"><span class="co">#&#39; sum(12,5)</span></a>
-<a class="sourceLine" id="cb732-14" data-line-number="14"><span class="co">#&#39; sum(4,-2)</span></a>
-<a class="sourceLine" id="cb732-15" data-line-number="15"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb732-16" data-line-number="16">my.sum &lt;-<span class="st"> </span><span class="cf">function</span>( a, b ){</a>
-<a class="sourceLine" id="cb732-17" data-line-number="17">  <span class="kw">return</span>( a <span class="op">+</span><span class="st"> </span>b )</a>
-<a class="sourceLine" id="cb732-18" data-line-number="18">}</a></code></pre></div>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb734-1" data-line-number="1"><span class="co">#&#39; Sum two numeric objects.</span></a>
+<a class="sourceLine" id="cb734-2" data-line-number="2"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb734-3" data-line-number="3"><span class="co">#&#39; Because this is a very simple function, my explanation is short. These</span></a>
+<a class="sourceLine" id="cb734-4" data-line-number="4"><span class="co">#&#39; paragraphs should explain everything you need to know.</span></a>
+<a class="sourceLine" id="cb734-5" data-line-number="5"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb734-6" data-line-number="6"><span class="co">#&#39; This is still in the description part of the documentation and and it </span></a>
+<a class="sourceLine" id="cb734-7" data-line-number="7"><span class="co">#&#39; will be until we see something that indicates a new section.</span></a>
+<a class="sourceLine" id="cb734-8" data-line-number="8"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb734-9" data-line-number="9"><span class="co">#&#39; @param a A real number</span></a>
+<a class="sourceLine" id="cb734-10" data-line-number="10"><span class="co">#&#39; @param b A real number</span></a>
+<a class="sourceLine" id="cb734-11" data-line-number="11"><span class="co">#&#39; @return The sum of \code{a} and \code{b}</span></a>
+<a class="sourceLine" id="cb734-12" data-line-number="12"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb734-13" data-line-number="13"><span class="co">#&#39; sum(12,5)</span></a>
+<a class="sourceLine" id="cb734-14" data-line-number="14"><span class="co">#&#39; sum(4,-2)</span></a>
+<a class="sourceLine" id="cb734-15" data-line-number="15"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb734-16" data-line-number="16">my.sum &lt;-<span class="st"> </span><span class="cf">function</span>( a, b ){</a>
+<a class="sourceLine" id="cb734-17" data-line-number="17">  <span class="kw">return</span>( a <span class="op">+</span><span class="st"> </span>b )</a>
+<a class="sourceLine" id="cb734-18" data-line-number="18">}</a></code></pre></div>
 <p>Each of the sections is self explanatory except for the <code>@export</code>. The purpose of this is to indicate that this function should be available to any user of the package. If a function is not exported, then it is available only to functions <em>within</em> the package. This can be convenient if there are multiple functions that help with the analysis but you don’t want the user to see them because it is too much work to explain that they shouldn’t be used.</p>
 <p>Other regions that you might use:</p>
 <ul>
@@ -595,7 +594,7 @@ for <code>roxygen2</code>. If/when the information in this chapter seems insuffi
 <li><code>@references</code> This is a text area to point to journal articles or other literature sources.</li>
 </ul>
 <p>A complete list is available via:</p>
-<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb733-1" data-line-number="1"><span class="kw">names</span>(roxygen2<span class="op">:::</span><span class="kw">default_tags</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb735-1" data-line-number="1"><span class="kw">names</span>(roxygen2<span class="op">:::</span><span class="kw">default_tags</span>())</a></code></pre></div>
 <pre><code>##  [1] &quot;evalNamespace&quot;     &quot;export&quot;            &quot;exportClass&quot;      
 ##  [4] &quot;exportMethod&quot;      &quot;exportPattern&quot;     &quot;import&quot;           
 ##  [7] &quot;importClassesFrom&quot; &quot;importFrom&quot;        &quot;importMethodsFrom&quot;
@@ -623,8 +622,8 @@ for <code>roxygen2</code>. If/when the information in this chapter seems insuffi
 <li><p>Cleaner functionality. Because unit testing requires you to think about how your code should respond in different instances, you think more clearly about what the appropriate inputs and outputs should be and as a result, you are less likely to have functions that do <em>WAY</em> too much and are difficult to test. Separate smaller functions are easier to write, easier to test, and ultimately more reliable.</p></li>
 <li><p>Robust code. With unit testing, it is easier to make changes and feel confident that you haven’t broken previously working code. In particular, it allows us to capture weird edge cases and make sure they are always tested for.</p></li>
 </ol>
-<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb735-1" data-line-number="1"><span class="co"># To set up your package to use the testthat package run:</span></a>
-<a class="sourceLine" id="cb735-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">uses_testthat</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb737-1" data-line-number="1"><span class="co"># To set up your package to use the testthat package run:</span></a>
+<a class="sourceLine" id="cb737-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">uses_testthat</span>()</a></code></pre></div>
 <p>What this command does is:</p>
 <ol style="list-style-type: decimal">
 <li>Creates a tests/testthat directory in the package.</li>
@@ -634,19 +633,19 @@ for <code>roxygen2</code>. If/when the information in this chapter seems insuffi
 <p>Next you create .R files in the <code>tests/testthat/</code> directory named <code>test_XXX.r</code>. In those files, you’ll input your test code.</p>
 <p>Recently, I had to utilize a truncated distribution and the <code>trunc</code> package didn’t work for the distribution I needed, so I had to create my own version of the <code>trunc</code> package. So I made my own <a href="https://github.com/dereksonderegger/truncdist2">trunc2</a>
 package. However, I wanted to be absolutely certain that I was getting the correct answers, so I made some unit tests.</p>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" data-line-number="1"><span class="co"># Check to see if I get the same values in Poisson distribution</span></a>
-<a class="sourceLine" id="cb736-2" data-line-number="2"><span class="kw">test_that</span>(<span class="st">&#39;Unrestricted Poisson values correct&#39;</span>, {</a>
-<a class="sourceLine" id="cb736-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="kw">dpois</span>( <span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">3</span> ),  <span class="kw">dtrunc</span>(<span class="dv">2</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</a>
-<a class="sourceLine" id="cb736-4" data-line-number="4">  <span class="kw">expect_equal</span>(<span class="kw">ppois</span>( <span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">3</span> ),  <span class="kw">ptrunc</span>(<span class="dv">2</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</a>
-<a class="sourceLine" id="cb736-5" data-line-number="5">  <span class="kw">expect_equal</span>(<span class="kw">qpois</span>( <span class="fl">.8</span>, <span class="dt">lambda=</span><span class="dv">3</span> ), <span class="kw">qtrunc</span>(.<span class="dv">8</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</a>
-<a class="sourceLine" id="cb736-6" data-line-number="6">})</a>
-<a class="sourceLine" id="cb736-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb736-8" data-line-number="8"><span class="co"># Check to see if I get the same values in Exponential distribution</span></a>
-<a class="sourceLine" id="cb736-9" data-line-number="9"><span class="kw">test_that</span>(<span class="st">&#39;Unrestricted Exponential values correct&#39;</span>, {</a>
-<a class="sourceLine" id="cb736-10" data-line-number="10">  <span class="kw">expect_equal</span>(<span class="kw">dexp</span>( <span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">3</span> ),  <span class="kw">dtrunc</span>(<span class="dv">2</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</a>
-<a class="sourceLine" id="cb736-11" data-line-number="11">  <span class="kw">expect_equal</span>(<span class="kw">pexp</span>( <span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">3</span> ),  <span class="kw">ptrunc</span>(<span class="dv">2</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</a>
-<a class="sourceLine" id="cb736-12" data-line-number="12">  <span class="kw">expect_equal</span>(<span class="kw">qexp</span>( <span class="fl">.8</span>, <span class="dt">rate=</span><span class="dv">3</span> ), <span class="kw">qtrunc</span>(.<span class="dv">8</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</a>
-<a class="sourceLine" id="cb736-13" data-line-number="13">})</a></code></pre></div>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" data-line-number="1"><span class="co"># Check to see if I get the same values in Poisson distribution</span></a>
+<a class="sourceLine" id="cb738-2" data-line-number="2"><span class="kw">test_that</span>(<span class="st">&#39;Unrestricted Poisson values correct&#39;</span>, {</a>
+<a class="sourceLine" id="cb738-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="kw">dpois</span>( <span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">3</span> ),  <span class="kw">dtrunc</span>(<span class="dv">2</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb738-4" data-line-number="4">  <span class="kw">expect_equal</span>(<span class="kw">ppois</span>( <span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">3</span> ),  <span class="kw">ptrunc</span>(<span class="dv">2</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb738-5" data-line-number="5">  <span class="kw">expect_equal</span>(<span class="kw">qpois</span>( <span class="fl">.8</span>, <span class="dt">lambda=</span><span class="dv">3</span> ), <span class="kw">qtrunc</span>(.<span class="dv">8</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb738-6" data-line-number="6">})</a>
+<a class="sourceLine" id="cb738-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb738-8" data-line-number="8"><span class="co"># Check to see if I get the same values in Exponential distribution</span></a>
+<a class="sourceLine" id="cb738-9" data-line-number="9"><span class="kw">test_that</span>(<span class="st">&#39;Unrestricted Exponential values correct&#39;</span>, {</a>
+<a class="sourceLine" id="cb738-10" data-line-number="10">  <span class="kw">expect_equal</span>(<span class="kw">dexp</span>( <span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">3</span> ),  <span class="kw">dtrunc</span>(<span class="dv">2</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb738-11" data-line-number="11">  <span class="kw">expect_equal</span>(<span class="kw">pexp</span>( <span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">3</span> ),  <span class="kw">ptrunc</span>(<span class="dv">2</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb738-12" data-line-number="12">  <span class="kw">expect_equal</span>(<span class="kw">qexp</span>( <span class="fl">.8</span>, <span class="dt">rate=</span><span class="dv">3</span> ), <span class="kw">qtrunc</span>(.<span class="dv">8</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</a>
+<a class="sourceLine" id="cb738-13" data-line-number="13">})</a></code></pre></div>
 <p>The idea is that each <code>test_that()</code> command tests some functionality and each <code>expect_XXX()</code> tests some atomic unit of computing. I would then have multiple files, where each file is named <code>test_XXX</code> and has some organizational rational.</p>
 <p>The expectation functions give you a way to have your function calculate something and compare it to what you think should be the output. These functions start with <code>expect_</code> and throw an error if the expectation is not met. In the table below, the <code>a</code> and <code>b</code> represent expressions to be evaluated.</p>
 <table>
@@ -700,23 +699,23 @@ package. However, I wanted to be absolutely certain that I was getting the corre
 <div id="the-description-file" class="section level2">
 <h2><span class="header-section-number">15.5</span> The DESCRIPTION file</h2>
 <p>I never write the DESCRIPTION file from scratch, but rather it is generated it from a template when the package structure is initially created. It is useful to go into this file and edit it.</p>
-<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb737-1" data-line-number="1">Package<span class="op">:</span><span class="st"> </span>MyAwesomePackage</a>
-<a class="sourceLine" id="cb737-2" data-line-number="2">Title<span class="op">:</span><span class="st"> </span>What the Package <span class="kw">Does</span> (One Line, Title Case)</a>
-<a class="sourceLine" id="cb737-3" data-line-number="3">Version<span class="op">:</span><span class="st"> </span><span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span></a>
-<a class="sourceLine" id="cb737-4" data-line-number="4">Authors<span class="op">@</span>R<span class="op">:</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb737-5" data-line-number="5"><span class="st">    </span><span class="kw">person</span>(<span class="dt">given =</span> <span class="st">&quot;First&quot;</span>,</a>
-<a class="sourceLine" id="cb737-6" data-line-number="6">           <span class="dt">family =</span> <span class="st">&quot;Last&quot;</span>,</a>
-<a class="sourceLine" id="cb737-7" data-line-number="7">           <span class="dt">role =</span> <span class="kw">c</span>(<span class="st">&quot;aut&quot;</span>, <span class="st">&quot;cre&quot;</span>),</a>
-<a class="sourceLine" id="cb737-8" data-line-number="8">           <span class="dt">email =</span> <span class="st">&quot;first.last@example.com&quot;</span>,</a>
-<a class="sourceLine" id="cb737-9" data-line-number="9">           <span class="dt">comment =</span> <span class="kw">c</span>(<span class="dt">ORCID =</span> <span class="st">&quot;YOUR-ORCID-ID&quot;</span>))</a>
-<a class="sourceLine" id="cb737-10" data-line-number="10">Description<span class="op">:</span><span class="st"> </span>What the package <span class="kw">does</span> (one paragraph).</a>
-<a class="sourceLine" id="cb737-11" data-line-number="11">License<span class="op">:</span><span class="st"> </span>What license it uses</a>
-<a class="sourceLine" id="cb737-12" data-line-number="12">Encoding<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></a>
-<a class="sourceLine" id="cb737-13" data-line-number="13">LazyData<span class="op">:</span><span class="st"> </span>true  </a></code></pre></div>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb739-1" data-line-number="1">Package<span class="op">:</span><span class="st"> </span>MyAwesomePackage</a>
+<a class="sourceLine" id="cb739-2" data-line-number="2">Title<span class="op">:</span><span class="st"> </span>What the Package <span class="kw">Does</span> (One Line, Title Case)</a>
+<a class="sourceLine" id="cb739-3" data-line-number="3">Version<span class="op">:</span><span class="st"> </span><span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span></a>
+<a class="sourceLine" id="cb739-4" data-line-number="4">Authors<span class="op">@</span>R<span class="op">:</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb739-5" data-line-number="5"><span class="st">    </span><span class="kw">person</span>(<span class="dt">given =</span> <span class="st">&quot;First&quot;</span>,</a>
+<a class="sourceLine" id="cb739-6" data-line-number="6">           <span class="dt">family =</span> <span class="st">&quot;Last&quot;</span>,</a>
+<a class="sourceLine" id="cb739-7" data-line-number="7">           <span class="dt">role =</span> <span class="kw">c</span>(<span class="st">&quot;aut&quot;</span>, <span class="st">&quot;cre&quot;</span>),</a>
+<a class="sourceLine" id="cb739-8" data-line-number="8">           <span class="dt">email =</span> <span class="st">&quot;first.last@example.com&quot;</span>,</a>
+<a class="sourceLine" id="cb739-9" data-line-number="9">           <span class="dt">comment =</span> <span class="kw">c</span>(<span class="dt">ORCID =</span> <span class="st">&quot;YOUR-ORCID-ID&quot;</span>))</a>
+<a class="sourceLine" id="cb739-10" data-line-number="10">Description<span class="op">:</span><span class="st"> </span>What the package <span class="kw">does</span> (one paragraph).</a>
+<a class="sourceLine" id="cb739-11" data-line-number="11">License<span class="op">:</span><span class="st"> </span>What license it uses</a>
+<a class="sourceLine" id="cb739-12" data-line-number="12">Encoding<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></a>
+<a class="sourceLine" id="cb739-13" data-line-number="13">LazyData<span class="op">:</span><span class="st"> </span>true  </a></code></pre></div>
 <p>Often you want to have your package include other libraries so that the packages are available to be used in any functions you use. To do this, you’ll add lines to the description file.</p>
-<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" data-line-number="1">Depends<span class="op">:</span><span class="st"> </span>magrittr     </a>
-<a class="sourceLine" id="cb738-2" data-line-number="2">Imports<span class="op">:</span><span class="st"> </span>dplyr, ggplot2, tidyr</a>
-<a class="sourceLine" id="cb738-3" data-line-number="3">Suggests<span class="op">:</span><span class="st"> </span>lme4</a></code></pre></div>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" data-line-number="1">Depends<span class="op">:</span><span class="st"> </span>magrittr     </a>
+<a class="sourceLine" id="cb740-2" data-line-number="2">Imports<span class="op">:</span><span class="st"> </span>dplyr, ggplot2, tidyr</a>
+<a class="sourceLine" id="cb740-3" data-line-number="3">Suggests<span class="op">:</span><span class="st"> </span>lme4</a></code></pre></div>
 <p>In this example, I’ve included a dependency on the <code>magrittr</code> package, which defines the <code>%&gt;%</code> operator, while <code>dplyr</code>, <code>ggplot2</code>, <code>tidyr</code>, and <code>lme4</code> packages are included in a slightly different manner.</p>
 <table>
 <colgroup>
@@ -746,21 +745,31 @@ package. However, I wanted to be absolutely certain that I was getting the corre
 </table>
 <p>For widely distributed packages, using <code>Imports</code> is the preferred way to utilize other packages in your code to avoid namespace problems. For example, because packages <code>MASS</code> and <code>dplyr</code> both have a <code>select()</code> function, it is advisable to avoid depending on <code>dplyr</code> just in case the user also has loaded the <code>MASS</code> package. However, this choice is annoying because I then have to use <code>PackageName::FunctionName()</code> syntax within all of the functions within your package.</p>
 <p>For a data analysis package, I usually leave the Depends/Imports/Suggests blank and just load whatever analysis packages I need in the RMarkdown files that live in the <code>docs/</code> directory.</p>
-<div id="a-simple-analysis-package" class="section level3">
-<h3><span class="header-section-number">15.5.1</span> A Simple Analysis Package</h3>
+</div>
+<div id="sharing-your-package" class="section level2">
+<h2><span class="header-section-number">15.6</span> Sharing your Package</h2>
+<p>The last step to a package is being able to share it with other people. We could either wrap up the package into a <code>.tar.gz</code> file or we could save the package to some version control platform like <code>GitHub</code>. For packages that are in a stable form and need to be available via <code>CRAN</code> or Bioconductor, then building a <code>.tar.gz</code> file is important. However when a package is just meant for yourself and your collaborators, I prefer to save the package to <code>GitHub</code>.</p>
+<p>I have several packages available on my <code>GitHub</code> account. I have a repository
+<a href="https://github.com/dereksonderegger/TestPackage">https://github.com/dereksonderegger/TestPackage</a> that demonstrates a very simple package. To install this package, we can install it directly using the following:</p>
+<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb741-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;dereksonderegger/TestPackage&#39;</span>)</a></code></pre></div>
+<p>If you chose to share your package with others by sharing a <code>.tar.gz</code> file, then create the file using the <code>Build</code> tab and <code>More -&gt; Build Source Package</code>. Then to install the package, the user will run the R command</p>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb742-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;TestPackage_0.0.0.1.tar.gz&#39;</span>, <span class="dt">repos=</span><span class="ot">NULL</span>, <span class="dt">type=</span><span class="st">&#39;source&#39;</span>)</a></code></pre></div>
+</div>
+<div id="an-example-package" class="section level2">
+<h2><span class="header-section-number">15.7</span> An Example Package</h2>
 <p>I find it is easiest to use RStudio to start a new package via <code>File -&gt; New Project ...</code> and then start a project in a <code>new directory</code> and finally select that we want a new <code>R package</code>.</p>
 <p>Alternatively we could use the <code>usethis::create_package()</code> function to build the minimal package.</p>
-<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb739-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">create_package</span>(<span class="st">&#39;~/GitHub/TestPackage&#39;</span>)  <span class="co"># replace the path to where you want it...</span></a></code></pre></div>
+<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb743-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">create_package</span>(<span class="st">&#39;~/GitHub/TestPackage&#39;</span>)  <span class="co"># replace the path to where you want it...</span></a></code></pre></div>
 <p>Once the package is created:</p>
 <ol style="list-style-type: decimal">
-<li><p>Put any <code>.csv</code> or <code>.xls</code> data files you have in <code>data-raw/</code> sub-directory. In that same directory, create a R script or Rmarkdown file that reads the data in, cleans it up by renaming columns, or whatever. An example R script might look something like this:</p>
+<li><p>Put any <code>.csv</code> or <code>.xls</code> data files you have in <code>data-raw/</code> sub-directory. For this example, save the file <a href="FlagMaxTemp.csv">https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/FlagMaxTemp.csv</a> from the STA 444/5 Github page. In the same <code>data-raw</code> directory, create a R script or Rmarkdown file that reads the data in, cleans it up by renaming columns, or whatever. An example R script might look something like this:</p>
 <pre class="text"><code>library(tidyverse)
 
 # Read in the data.  Do some cleaning/verification
 MaxTemp &lt;- read.csv(&#39;data-raw/FlagMaxTemp.csv&#39;) %&gt;%
   gather(&#39;DOM&#39;, &#39;MaxTemp&#39;, X1:X31) %&gt;%            
   drop_na() %&gt;%
-  mutate(DOM = str_remove(DOM, fixed(&#39;X&#39;)) ) %&gt;%  
+  mutate(DOM  = str_remove(DOM, fixed(&#39;X&#39;)) ) %&gt;%  
   mutate(Date = lubridate::ymd( paste( Year, Month, DOM )) ) %&gt;%
   select(Date, MaxTemp)
 
@@ -778,8 +787,15 @@ usethis::use_data(MaxTemp)</code></pre></li>
 &quot;MaxTemp&quot;</code></pre></li>
 <li>Build the package by going to <code>Build</code> tab.
 <ol style="list-style-type: lower-alpha">
-<li>Click the <code>More</code> and select <code>Document</code> to create the data frame documentation.</li>
-<li>Click the <code>Install and Restart</code> to build the package.</li>
+<li>Create the Documentation.
+<ol style="list-style-type: lower-roman">
+<li>The first time, you’ll need to enable <code>Oxygen</code> style documentation. Do this by clicking <code>Build</code> tab, then click <code>More</code> -&gt; <code>Configure Build Tools</code>. Finally select the tick-box to build documentation using <code>ROxygen</code>.</li>
+<li>Click the <code>More</code> and select <code>Document</code> to create the data frame documentation. The shortcut is <code>Ctrl/Cmd Shift D</code>.</li>
+</ol></li>
+<li>Install the package.
+<ol style="list-style-type: lower-roman">
+<li>Click the <code>Install and Restart</code> to build the package. The shortcut is <code>Ctrl/Cmd Shift B</code>.</li>
+</ol></li>
 </ol></li>
 <li><p>Create the <code>docs/</code> directory and then create a RMarkdown file that does some analysis.</p>
 <pre class="text"><code>---
@@ -802,18 +818,8 @@ ggplot(MaxTemp, aex(x=Date, y=MaxTemp)) +
 We see that the daily max temperature in Flagstaff varies quite a lot.</code></pre></li>
 </ol>
 </div>
-</div>
-<div id="sharing-your-package" class="section level2">
-<h2><span class="header-section-number">15.6</span> Sharing your Package</h2>
-<p>The last step to a package is being able to share it with other people. We could either wrap up the package into a <code>.tar.gz</code> file or we could save the package to ssome version control platform like <code>GitHub</code>. For packages that are in a stable form and need to be available via <code>CRAN</code> or Bioconductor, then building a <code>.tar.gz</code> file is important. However when a package is just meant for yourself and your collaborators, I prefer to save the package to <code>GitHub</code>.</p>
-<p>I have several packages available on my <code>GitHub</code> account. I have a repository
-<a href="https://github.com/dereksonderegger/TestPackage">https://github.com/dereksonderegger/TestPackage</a> that demonstrates a very simple package. To install this package, we can install it directly using the following:</p>
-<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb743-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;dereksonderegger/TestPackage&#39;</span>)</a></code></pre></div>
-<p>If you chose to share your package with others by sharing a <code>.tar.gz</code> file, then create the file using the <code>Build</code> tab and <code>More -&gt; Build Source Package</code>. Then to install the package, the user will run the R command</p>
-<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb744-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;TestPackage_0.0.0.1.tar.gz&#39;</span>, <span class="dt">repos=</span><span class="ot">NULL</span>, <span class="dt">type=</span><span class="st">&#39;source&#39;</span>)</a></code></pre></div>
-</div>
 <div id="exercises-15" class="section level2">
-<h2><span class="header-section-number">15.7</span> Exercises</h2>
+<h2><span class="header-section-number">15.8</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li>Build a package that contains a dataset that gives weather information at Flagstaff’s Pulliam Airport from 1950 to 2019. I have the data and metadata on my <a href="https://github.com/dereksonderegger/444">GitHub</a> site and I downloaded the data on 9-19-19 from <a href="https://www.ncdc.noaa.gov/cdo-web/search" class="uri">https://www.ncdc.noaa.gov/cdo-web/search</a>. In the <code>data-raw</code> directory, there are files <code>Pulliam_Airport_Weather_Station.csv</code> and its associated metadata <code>Pulliam_Airport_Weather_Station_Metadata.csv</code>. In the data, there are a bunch of columns that contain attribute information about the preceding column. I don’t think those are helpful, or at least the metadata didn’t explain how to interpret them. So remove those. Many of the later columns have values that are exclusively ones or zeros. I believe those indicate if the weather phenomena was present that day. Presumably a <code>1</code> is a yes, but I don’t know that. When I downloaded the data, I asked for “standard” units, so precipitation and snow amounts should be in inches, and temperature should be in Fahrenheit.
 <ol style="list-style-type: lower-alpha">

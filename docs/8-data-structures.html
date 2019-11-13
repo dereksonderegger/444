@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-11-03" />
+<meta name="date" content="2019-11-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -348,11 +348,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
-<li class="chapter" data-level="15.5" data-path="15-r-packages.html"><a href="15-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a><ul>
-<li class="chapter" data-level="15.5.1" data-path="15-r-packages.html"><a href="15-r-packages.html#a-simple-analysis-package"><i class="fa fa-check"></i><b>15.5.1</b> A Simple Analysis Package</a></li>
-</ul></li>
+<li class="chapter" data-level="15.5" data-path="15-r-packages.html"><a href="15-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a></li>
 <li class="chapter" data-level="15.6" data-path="15-r-packages.html"><a href="15-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.6</b> Sharing your Package</a></li>
-<li class="chapter" data-level="15.7" data-path="15-r-packages.html"><a href="15-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>15.7</b> Exercises</a></li>
+<li class="chapter" data-level="15.7" data-path="15-r-packages.html"><a href="15-r-packages.html#an-example-package"><i class="fa fa-check"></i><b>15.7</b> An Example Package</a></li>
+<li class="chapter" data-level="15.8" data-path="15-r-packages.html"><a href="15-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>15.8</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="16-data-scraping.html"><a href="16-data-scraping.html"><i class="fa fa-check"></i><b>16</b> Data Scraping</a><ul>
 <li class="chapter" data-level="16.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>16.1</b> Web Pages</a><ul>
@@ -859,19 +858,23 @@ using the <code>rep()</code> command. You might need to check the help file for 
 <li>Without using <code>dplyr</code> functions, use the <code>index</code> vector to create a small data set with just the large girth trees.</li>
 <li>Without using <code>dplyr</code> functions, use the <code>index</code> vector to create a small data set with just the small girth trees.</li>
 </ol></li>
+<li><p>The following code creates a <code>data.frame</code> and then has two different methods for removing the rows with <code>NA</code> values in the column <code>Grade</code>. Explain the difference between the two.</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name=</span> <span class="kw">c</span>(<span class="st">&#39;Alice&#39;</span>,<span class="st">&#39;Bob&#39;</span>,<span class="st">&#39;Charlie&#39;</span>,<span class="st">&#39;Daniel&#39;</span>),</a>
+<a class="sourceLine" id="cb459-2" data-line-number="2">                 <span class="dt">Grade =</span> <span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">8</span>,<span class="ot">NA</span>,<span class="dv">9</span>))</a>
+<a class="sourceLine" id="cb459-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb459-4" data-line-number="4">df[ <span class="op">-</span><span class="kw">which</span>(  <span class="kw">is.na</span>(df<span class="op">$</span>Grade) ), ]</a>
+<a class="sourceLine" id="cb459-5" data-line-number="5">df[  <span class="kw">which</span>( <span class="op">!</span><span class="kw">is.na</span>(df<span class="op">$</span>Grade) ), ]</a></code></pre></div></li>
 <li><p>Creation of data frames is usually done by binding together vectors while using <code>seq</code> and <code>rep</code> commands. However often we need to create a data frame that contains all possible combinations of several variables. The function <code>expand.grid()</code> addresses this need.</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" data-line-number="1"><span class="kw">expand.grid</span>( <span class="dt">F1=</span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>), <span class="dt">F2=</span><span class="kw">c</span>(<span class="st">&#39;x&#39;</span>,<span class="st">&#39;w&#39;</span>,<span class="st">&#39;z&#39;</span>), <span class="dt">replicate=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> )</a></code></pre></div>
-<p>A fun example of using this function is making several graphs of the standard normal distribution versus the t-distribution. Use the <code>expand.grid</code> function to create a <code>data.frame</code> with all combinations of <code>x=seq(-4,4,by=.01)</code>, <code>dist=c('Normal','t')</code>, and <code>df=c(2,3,4,5,10,15,20,30)</code>. Use the <code>dplyr::mutate</code> command with the <code>if_else</code> command to generate the function heights <code>y</code> using either <code>dt(x,df)</code> or <code>dnorm(x)</code> depending on what is in the distribution column.</p></li>
-</ol>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" data-line-number="1"><span class="kw">expand.grid</span>( <span class="dt">x=</span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dt">by=</span>.<span class="dv">01</span>), </a>
-<a class="sourceLine" id="cb460-2" data-line-number="2">             <span class="dt">dist=</span><span class="kw">c</span>(<span class="st">&#39;Normal&#39;</span>,<span class="st">&#39;t&#39;</span>), </a>
-<a class="sourceLine" id="cb460-3" data-line-number="3">             <span class="dt">df=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">30</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb460-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">y =</span> <span class="kw">if_else</span>(dist <span class="op">==</span><span class="st"> &#39;t&#39;</span>, <span class="kw">dt</span>(x, df), <span class="kw">dnorm</span>(x) ) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb460-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>( <span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">color=</span>dist) ) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb460-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb460-7" data-line-number="7"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>df)</a></code></pre></div>
-<p><img src="18_MatricesDataFramesLists_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
-<ol start="13" style="list-style-type: decimal">
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" data-line-number="1"><span class="kw">expand.grid</span>( <span class="dt">F1=</span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>), <span class="dt">F2=</span><span class="kw">c</span>(<span class="st">&#39;x&#39;</span>,<span class="st">&#39;w&#39;</span>,<span class="st">&#39;z&#39;</span>), <span class="dt">replicate=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> )</a></code></pre></div>
+<p>A fun example of using this function is making several graphs of the standard normal distribution versus the t-distribution. Use the <code>expand.grid</code> function to create a <code>data.frame</code> with all combinations of <code>x=seq(-4,4,by=.01)</code>, <code>dist=c('Normal','t')</code>, and <code>df=c(2,3,4,5,10,15,20,30)</code>. Use the <code>dplyr::mutate</code> command with the <code>if_else</code> command to generate the function heights <code>y</code> using either <code>dt(x,df)</code> or <code>dnorm(x)</code> depending on what is in the distribution column.</p>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1"><span class="kw">expand.grid</span>( <span class="dt">x=</span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dt">by=</span>.<span class="dv">01</span>), </a>
+<a class="sourceLine" id="cb461-2" data-line-number="2">             <span class="dt">dist=</span><span class="kw">c</span>(<span class="st">&#39;Normal&#39;</span>,<span class="st">&#39;t&#39;</span>), </a>
+<a class="sourceLine" id="cb461-3" data-line-number="3">             <span class="dt">df=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">30</span>) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb461-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">y =</span> <span class="kw">if_else</span>(dist <span class="op">==</span><span class="st"> &#39;t&#39;</span>, <span class="kw">dt</span>(x, df), <span class="kw">dnorm</span>(x) ) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb461-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>( <span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">color=</span>dist) ) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb461-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb461-7" data-line-number="7"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>df)</a></code></pre></div>
+<p><img src="18_MatricesDataFramesLists_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p></li>
 <li>Create and manipulate a list.
 <ol style="list-style-type: lower-alpha">
 <li>Create a list named my.test with elements
@@ -888,12 +891,12 @@ using the <code>rep()</code> command. You might need to check the help file for 
 <ol style="list-style-type: lower-alpha">
 <li>There are many data sets that are included with R and its packages. One of which is the <code>trees</code> data which is a data set of <span class="math inline">\(n=31\)</span> cherry trees. Load this dataset into your current workspace using the command:</li>
 </ol>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1"><span class="kw">data</span>(trees)     <span class="co"># load trees data.frame</span></a></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" data-line-number="1"><span class="kw">data</span>(trees)     <span class="co"># load trees data.frame</span></a></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Examine the data frame using the <code>str()</code> command. Look at the help file for the data using the command <code>help(trees)</code> or <code>?trees</code>.</li>
 <li>Perform a regression relating the volume of lumber produced to the girth and height of the tree using the following command</li>
 </ol>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth <span class="op">+</span><span class="st"> </span>Height, <span class="dt">data=</span>trees)</a></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth <span class="op">+</span><span class="st"> </span>Height, <span class="dt">data=</span>trees)</a></code></pre></div>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Use the str() command to inspect <code>m</code>. Extract the model coefficients from this list.</li>
 </ol></li>

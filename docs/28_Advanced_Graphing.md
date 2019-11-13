@@ -297,7 +297,24 @@ ggplot(data, aes(x=x)) +
 ```
 
 <img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+
 The warning message that is produced is coming from `ggplot` and I haven't figured out how to avoid it. Because it is giving us the graph we want, I'm just going to ignore the error for now.
+
+One issue is how to add expression to a data frame. Unfortunately, neither `data.frame` nor `tibble` will allow a column of expressions, so instead we have store it as a character string. Below, we create three character strings using standard LaTeX syntax, and then convert it to a character string that represents the R expression. Finally, in `ggplot`, we tell the `geom_text` layer to parse the label and interpret it as an R expression.
+
+
+```r
+foo <- data.frame( x=c(1,2,3), y=c(2,2,2) ) %>%
+  mutate( label1 = paste('$\\alpha$ = ', x) ) %>%       # label is a TeX character string
+  mutate( label2 = TeX(label1, output = 'character') )  # label2 is an expression character string
+
+ggplot(foo, aes(x=x, y=y) ) +
+  geom_label( aes(label=label2), parse=TRUE )   # parse=TRUE forces an expression interpretation 
+```
+
+<img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+
+
 
 ## Geographic Maps
 
@@ -337,7 +354,7 @@ ggplot(geo.data, aes(x = long, y = lat, group = group)) +
   geom_polygon( colour = "white", fill='grey50') 
 ```
 
-<img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-21-1.png" width="576" />
+<img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-22-1.png" width="576" />
 
 The `maps` package has several data bases of geographical regions.  
 
@@ -360,7 +377,7 @@ ggplot2::map_data('world', regions='ghana') %>%
   geom_polygon( color = 'white', fill='grey40')
 ```
 
-<img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-22-1.png" width="288" />
+<img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-23-1.png" width="288" />
 
 The `maps` package also has a `data.frame` of major US cities.  
 
@@ -381,7 +398,7 @@ ggplot2::map_data('state', regions='arizona') %>%
   ggrepel::geom_label_repel(data=small.az.cities, aes(label=name))
 ```
 
-<img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-23-1.png" width="480" />
+<img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-24-1.png" width="480" />
 
 The `maps` package is fairly primitive in the data it has as well as the manner in which it stores the data. Another alternative is to use the *spatial features* package `sf` along with an on-line data base of GIS information from [Natural Earth](https://www.naturalearthdata.com).
 
@@ -401,7 +418,7 @@ There is a nice [tutorial](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.htm
           'United States', 'United States of America',
           'US',            'United States of America')
         ```
-        *After doing some simple data cleaning on the country names (e.g. swapping `_` for a space or vice versa), figure out which country names in the two data sets don't match up and decide on a standardized name and insert the translation into your dictionary table. Then join the dictionary to the `geo.data` and create a standardized country name column. Do the same for the `infmort` data and then then standardized country name levels should match up.*
+        *After doing some simple data cleaning on the country names (e.g. swapping `_` for a space or vice versa), figure out which country names in the two data sets don't match up and decide on a standardized name and insert the translation into your dictionary table. Then join the dictionary to the `geo.data` and create a standardized country name column. Do the same for the `infmort` data and then the standardized country name levels should match up.*
     c) Join the `geo.data` with the `infmort` data.
     d) Make a map of the world where we shade in countries based on the country income. Set the color fill scale to be anything other than the default.
     e) Make a map of the world where we shade in the countries based on if they are oil exports. Color the map black if the country is an oil exporter, and a light gray if it is not.

@@ -233,7 +233,7 @@ Rmisc::multiplot( cols = 2,
 )
 ```
 
-```{r, fig.height=6}
+```{r, fig.height=8}
 Rmisc::multiplot( cols = 2,
   p1 + cowplot::theme_cowplot() + labs(title='cowplot::theme_cowplot()'),
   p1 + cowplot::theme_minimal_grid() + labs(title='cowplot::theme_minimial_grid'),
@@ -286,7 +286,21 @@ ggplot(data, aes(x=x)) +
         y=TeX('Y: $\\log_{10}$(Income)'),
         title=TeX('Linear Models use: $\\hat{\\beta} = (X^TX)^{-1}X^Ty$'))
 ```
+
 The warning message that is produced is coming from `ggplot` and I haven't figured out how to avoid it. Because it is giving us the graph we want, I'm just going to ignore the error for now.
+
+One issue is how to add expression to a data frame. Unfortunately, neither `data.frame` nor `tibble` will allow a column of expressions, so instead we have store it as a character string. Below, we create three character strings using standard LaTeX syntax, and then convert it to a character string that represents the R expression. Finally, in `ggplot`, we tell the `geom_text` layer to parse the label and interpret it as an R expression.
+
+```{r}
+foo <- data.frame( x=c(1,2,3), y=c(2,2,2) ) %>%
+  mutate( label1 = paste('$\\alpha$ = ', x) ) %>%       # label is a TeX character string
+  mutate( label2 = TeX(label1, output = 'character') )  # label2 is an expression character string
+
+ggplot(foo, aes(x=x, y=y) ) +
+  geom_label( aes(label=label2), parse=TRUE )   # parse=TRUE forces an expression interpretation 
+```
+
+
 
 ## Geographic Maps
 

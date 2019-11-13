@@ -816,28 +816,37 @@ results
     f) Without using `dplyr` functions, use the `index` vector to create a small data set with just the large girth trees.
     g) Without using `dplyr` functions, use the `index` vector to create a small data set with just the small girth trees.
 
-12. Creation of data frames is usually done by binding together vectors while using `seq` and `rep` commands. However often we need to create a data frame that contains all possible combinations of several variables. The function `expand.grid()` addresses this need.
+12. The following code creates a `data.frame` and then has two different methods for removing the rows with `NA` values in the column `Grade`. Explain the difference between the two.
+    
+    ```r
+    df <- data.frame(name= c('Alice','Bob','Charlie','Daniel'),
+                     Grade = c(6,8,NA,9))
+    
+    df[ -which(  is.na(df$Grade) ), ]
+    df[  which( !is.na(df$Grade) ), ]
+    ```
+    
+13. Creation of data frames is usually done by binding together vectors while using `seq` and `rep` commands. However often we need to create a data frame that contains all possible combinations of several variables. The function `expand.grid()` addresses this need.
     
     ```r
     expand.grid( F1=c('A','B'), F2=c('x','w','z'), replicate=1:2 )
     ```
     A fun example of using this function is making several graphs of the standard normal distribution versus the t-distribution. Use the `expand.grid` function to create a `data.frame` with all combinations of `x=seq(-4,4,by=.01)`, `dist=c('Normal','t')`, and `df=c(2,3,4,5,10,15,20,30)`. Use the `dplyr::mutate` command with the `if_else` command to generate the function heights `y` using either `dt(x,df)` or `dnorm(x)` depending on what is in the distribution column.
-
-```r
-expand.grid( x=seq(-4,4,by=.01), 
-             dist=c('Normal','t'), 
-             df=c(2,3,4,5,10,15,20,30) ) %>%
-  mutate( y = if_else(dist == 't', dt(x, df), dnorm(x) ) ) %>%
-  ggplot( aes( x=x, y=y, color=dist) ) + 
-  geom_line() + 
-  facet_wrap(~df)
-```
-
-<img src="18_MatricesDataFramesLists_files/figure-html/unnamed-chunk-40-1.png" width="672" />
+    
+    ```r
+    expand.grid( x=seq(-4,4,by=.01), 
+                 dist=c('Normal','t'), 
+                 df=c(2,3,4,5,10,15,20,30) ) %>%
+      mutate( y = if_else(dist == 't', dt(x, df), dnorm(x) ) ) %>%
+      ggplot( aes( x=x, y=y, color=dist) ) + 
+      geom_line() + 
+      facet_wrap(~df)
+    ```
+    
+    <img src="18_MatricesDataFramesLists_files/figure-html/unnamed-chunk-41-1.png" width="672" />
     
 
-    
-13. Create and manipulate a list.
+14. Create and manipulate a list.
     a) Create a list named my.test with elements
         + x = c(4,5,6,7,8,9,10)
         + y = c(34,35,41,40,45,47,51)
@@ -846,7 +855,7 @@ expand.grid( x=seq(-4,4,by=.01),
     b) Extract the second element in the list.
     c) Extract the element named `p.value` from the list.
 
-4. The function `lm()` creates a linear model, which is a general class of model that includes both regression and ANOVA. We will call this on a data frame and examine the results. For this problem, there isn't much to figure out, but rather the goal is to recognize the data structures being used in common analysis functions.
+15. The function `lm()` creates a linear model, which is a general class of model that includes both regression and ANOVA. We will call this on a data frame and examine the results. For this problem, there isn't much to figure out, but rather the goal is to recognize the data structures being used in common analysis functions.
     a) There are many data sets that are included with R and its packages. One of which is the `trees` data which is a data set of $n=31$ cherry trees. Load this dataset into your current workspace using the command:
     
     ```r

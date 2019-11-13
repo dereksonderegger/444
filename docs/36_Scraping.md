@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Harrowing Two-Year Detention Of A Transgender Asylum Seeker\n"                              
-## [2] "\nCat Sneaks Into Little Boy's Room, Sparks An Animated Interspecies Conversation\n"              
-## [3] "\nThe Woman Who Escaped The Asylum\n"                                                             
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                      
-## [5] "\nCement Is A Massive Emitter Of Greenhouse Gases, Bill Gates Explains How We Can Make It Green\n"
-## [6] "\nInside 'Hot Ones,' The Wildly Popular And Violently Spicy YouTube Show\n"
+## [1] "\nBob Lazar Says The FBI Raided Him To Seize Area 51's Alien Fuel. The Truth Is Weirder\n"
+## [2] "\nThe Best Cartoons Of The Early Internet\n"                                              
+## [3] "\nThe Suspension System On This Souped-Up Off-Roader Is Crazy Impressive\n"               
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                              
+## [5] "\nRabbit Has Adorable Reaction Waking Up Surrounded By Carrots\n"                         
+## [6] "\nThe Highlights From The First Day Of Public Impeachment Hearings\n"
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.newyorker.com/news/dispatch/the-harrowing-two-year-detention-of-a-transgender-asylum-seeker?utm_source=digg"               
-## [2] "/video/cat-sneaks-into-little-boys-room-sparks-an-animated-interspecies-conversation"                                                  
-## [3] "https://lithub.com/american-gothic-the-woman-who-escaped-the-asylum/?utm_source=digg"                                                  
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                           
-## [5] "/video/cement-is-a-massive-emitter-of-greenhouse-gases-bill-gates-explains-how-we-can-make-it-green"                                   
-## [6] "https://www.theverge.com/2019/10/31/20938739/hot-ones-sean-evans-youtube-guests-gordon-ramsey-idris-elba-late-night-tv?utm_source=digg"
+## [1] "https://www.vice.com/en_us/article/evjwkw/bob-lazar-says-the-fbi-raided-him-to-seize-area-51s-alien-fuel-the-truth-is-weirder?utm_source=digg"
+## [2] "https://www.vulture.com/2019/11/best-cartoons-early-internet.html?utm_source=digg"                                                            
+## [3] "/2019/glickenhaus-boot-suspension"                                                                                                            
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                                  
+## [5] "/video/rabbit-surrounded-by-carrots-wakes-up"                                                                                                 
+## [6] "/2019/impeachment-testimony-hearings-highlights-taylor-kent"
 ```
 
 
