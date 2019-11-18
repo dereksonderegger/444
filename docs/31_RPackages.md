@@ -85,6 +85,7 @@ Dataset documentation should contain both general information about the context 
 #'    \item{Column1}{Description of column 1, including units if appropriate}
 #'    \item{Column2}{Description of column 2, including units if appropriate}
 #' }
+"DataSetName"
 ```
 
 There are a few other documentation sections that can be filled in. They will all be introduced using `@Section` notation.
