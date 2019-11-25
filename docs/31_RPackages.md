@@ -61,7 +61,7 @@ Hadley Wickham has a more complete discussion of package documentation in a
 [vignette](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html) 
 for `roxygen2`. If/when the information in this chapter seems insufficient, that should be your next resource.
 
-The documentation information is built in comments and so documentation lines always start with a `#'`. For both datasets and functions, the first couple of lines give the short title and description. 
+The documentation information is built in comments and so documentation lines always start with a `#'`. For both data sets and functions, the first couple of lines give the short title and description. 
 
 
 ```r
@@ -75,8 +75,8 @@ The documentation information is built in comments and so documentation lines al
 ```
 
 
-### Dataset Documentation
-Dataset documentation should contain both general information about the context of the data as well as detailed information about the data columns. Finally the documentation should also include information about where the data came from, if it is available. The title and description are given in the first paragraphs of the description, but the format and source need some indication starting the sections.
+### Data Documentation
+Data set documentation should contain both general information about the context of the data as well as detailed information about the data columns. Finally the documentation should also include information about where the data came from, if it is available. The title and description are given in the first paragraphs of the description, but the format and source need some indication starting the sections.
 
 
 ```r
@@ -180,7 +180,7 @@ Moving from *ad-hoc* testing into a formalized *unit testing* results substantia
 
 ```r
 # To set up your package to use the testthat package run:
-devtools::uses_testthat()
+usethis::use_testthat()
 ```
 
 What this command does is:
