@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-11-13" />
+<meta name="date" content="2019-12-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,13 +164,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.1" data-path="3-graphing.html"><a href="3-graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
 <li class="chapter" data-level="3.1.2" data-path="3-graphing.html"><a href="3-graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#title-axis-labels"><i class="fa fa-check"></i><b>3.2</b> Title &amp; Axis Labels</a></li>
+<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.2</b> Faceting</a></li>
 <li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="3-graphing.html"><a href="3-graphing.html#using-a-data.frame"><i class="fa fa-check"></i><b>3.3.1</b> Using a <code>data.frame</code></a></li>
-<li class="chapter" data-level="3.3.2" data-path="3-graphing.html"><a href="3-graphing.html#setting-attributes-in-line"><i class="fa fa-check"></i><b>3.3.2</b> Setting attributes in-line</a></li>
+<li class="chapter" data-level="3.3.1" data-path="3-graphing.html"><a href="3-graphing.html#axis-labels-and-titles"><i class="fa fa-check"></i><b>3.3.1</b> Axis Labels and Titles</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-graphing.html"><a href="3-graphing.html#text-labels"><i class="fa fa-check"></i><b>3.3.2</b> Text Labels</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.4</b> Faceting</a></li>
-<li class="chapter" data-level="3.5" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.5</b> Exercises</a></li>
+<li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a><ul>
 <li class="chapter" data-level="4.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a><ul>
@@ -344,7 +343,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2.2" data-path="15-r-packages.html"><a href="15-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
-<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Dataset Documentation</a></li>
+<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#data-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Data Documentation</a></li>
 <li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
@@ -459,21 +458,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Finally, I often need to figure out if a character string is in some set of values.</p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Type =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">Value=</span><span class="kw">rnorm</span>(<span class="dv">8</span>) )</a>
 <a class="sourceLine" id="cb212-2" data-line-number="2">df</a></code></pre></div>
-<pre><code>##   Type      Value
-## 1    A -0.2597057
-## 2    A  1.4329605
-## 3    B  2.0344445
-## 4    B  2.2372480
-## 5    C -0.3012346
-## 6    C -0.2728086
-## 7    D  0.4091120
-## 8    D -0.2173333</code></pre>
+<pre><code>##   Type       Value
+## 1    A  1.23504262
+## 2    A  0.48891608
+## 3    B  0.85200058
+## 4    B  0.28521581
+## 5    C  1.40777858
+## 6    C -1.89708519
+## 7    D -0.03210728
+## 8    D -0.07878431</code></pre>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) )   <span class="co"># Only rows with Type == &#39;A&#39; or Type ==&#39;B&#39;</span></a></code></pre></div>
-<pre><code>##   Type      Value
-## 1    A -0.2597057
-## 2    A  1.4329605
-## 3    B  2.0344445
-## 4    B  2.2372480</code></pre>
+<pre><code>##   Type     Value
+## 1    A 1.2350426
+## 2    A 0.4889161
+## 3    B 0.8520006
+## 4    B 0.2852158</code></pre>
 </div>
 <div id="decision-statements" class="section level2">
 <h2><span class="header-section-number">6.2</span> Decision statements</h2>
@@ -540,7 +539,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1"><span class="co"># Flip the coin, and we get a 0 or 1</span></a>
 <a class="sourceLine" id="cb223-2" data-line-number="2">result &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</a>
 <a class="sourceLine" id="cb223-3" data-line-number="3">result</a></code></pre></div>
-<pre><code>## [1] 1</code></pre>
+<pre><code>## [1] 0</code></pre>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1"><span class="co"># convert the 0/1 to Tail/Head</span></a>
 <a class="sourceLine" id="cb225-2" data-line-number="2"><span class="cf">if</span>( result <span class="op">==</span><span class="st"> </span><span class="dv">0</span> ){</a>
 <a class="sourceLine" id="cb225-3" data-line-number="3">  result &lt;-<span class="st"> &#39;Tail&#39;</span></a>
@@ -549,7 +548,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb225-6" data-line-number="6">}</a>
 <a class="sourceLine" id="cb225-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb225-8" data-line-number="8">result</a></code></pre></div>
-<pre><code>## [1] &quot;Head&quot;</code></pre>
+<pre><code>## [1] &quot;Tail&quot;</code></pre>
 <p>What is happening is that the test expression inside the <code>if()</code> is evaluated and if it is true, then the subsequent statement is executed. If the test expression is false, the next statement is skipped. The way the R language is defined, only the first statement after the if statement is executed (or skipped) depending on the test expression. If we want multiple statements to be executed (or skipped), we will wrap those expressions in curly brackets <code>{ }</code>. I find it easier to follow the <code>if else</code> logic when I see the curly brackets so I use them even when there is only one expression to be executed. Also notice that the RStudio editor indents the code that might be skipped to try help give you a hint that it will be conditionally evaluated.</p>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="co"># Flip the coin, and we get a 0 or 1</span></a>
 <a class="sourceLine" id="cb227-2" data-line-number="2">result &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</a>
@@ -580,7 +579,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb233-10" data-line-number="10">  <span class="co"># if birth.order is anything other than 1, 2 or 3</span></a>
 <a class="sourceLine" id="cb233-11" data-line-number="11">  <span class="kw">print</span>(<span class="st">&#39;No more unfounded generalizations!&#39;</span>)</a>
 <a class="sourceLine" id="cb233-12" data-line-number="12">}</a></code></pre></div>
-<pre><code>## [1] &quot;No more unfounded generalizations!&quot;</code></pre>
+<pre><code>## [1] &quot;The third child was spoiled&quot;</code></pre>
 <p>To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:</p>
 <ul>
 <li><p>If the test statistic t is negative, then p-value = <span class="math inline">\(2*P\left(T_{df} \le t \right)\)</span></p></li>
@@ -601,7 +600,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb235-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb235-14" data-line-number="14"><span class="co"># print the resulting p-value</span></a>
 <a class="sourceLine" id="cb235-15" data-line-number="15">p.value</a></code></pre></div>
-<pre><code>## [1] 1.157344e-07</code></pre>
+<pre><code>## [1] 1.019888e-08</code></pre>
 <p>This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the <code>t.test()</code> function.</p>
 </div>
 </div>

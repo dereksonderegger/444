@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-11-13" />
+<meta name="date" content="2019-12-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,13 +164,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.1" data-path="3-graphing.html"><a href="3-graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
 <li class="chapter" data-level="3.1.2" data-path="3-graphing.html"><a href="3-graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#title-axis-labels"><i class="fa fa-check"></i><b>3.2</b> Title &amp; Axis Labels</a></li>
+<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.2</b> Faceting</a></li>
 <li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="3-graphing.html"><a href="3-graphing.html#using-a-data.frame"><i class="fa fa-check"></i><b>3.3.1</b> Using a <code>data.frame</code></a></li>
-<li class="chapter" data-level="3.3.2" data-path="3-graphing.html"><a href="3-graphing.html#setting-attributes-in-line"><i class="fa fa-check"></i><b>3.3.2</b> Setting attributes in-line</a></li>
+<li class="chapter" data-level="3.3.1" data-path="3-graphing.html"><a href="3-graphing.html#axis-labels-and-titles"><i class="fa fa-check"></i><b>3.3.1</b> Axis Labels and Titles</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-graphing.html"><a href="3-graphing.html#text-labels"><i class="fa fa-check"></i><b>3.3.2</b> Text Labels</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.4</b> Faceting</a></li>
-<li class="chapter" data-level="3.5" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.5</b> Exercises</a></li>
+<li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a><ul>
 <li class="chapter" data-level="4.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a><ul>
@@ -344,7 +343,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2.2" data-path="15-r-packages.html"><a href="15-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
-<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Dataset Documentation</a></li>
+<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#data-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Data Documentation</a></li>
 <li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
@@ -526,24 +525,24 @@ up to your browsers bookmark bar. When you are at the site you are interested in
 <a class="sourceLine" id="cb758-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></a>
 <a class="sourceLine" id="cb758-6" data-line-number="6">HeadLines <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb758-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;\nBob Lazar Says The FBI Raided Him To Seize Area 51&#39;s Alien Fuel. The Truth Is Weirder\n&quot;
-## [2] &quot;\nThe Best Cartoons Of The Early Internet\n&quot;                                              
-## [3] &quot;\nThe Suspension System On This Souped-Up Off-Roader Is Crazy Impressive\n&quot;               
-## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                              
-## [5] &quot;\nRabbit Has Adorable Reaction Waking Up Surrounded By Carrots\n&quot;                         
-## [6] &quot;\nThe Highlights From The First Day Of Public Impeachment Hearings\n&quot;</code></pre>
+<pre><code>## [1] &quot;\n            An Ocean Current Critical To World Weather Is Nearing A Tipping Point\n          &quot;
+## [2] &quot;\n        Are &#39;Basic Economy&#39; Seats Ever Worth It?\n      &quot;                                     
+## [3] &quot;\n        The Most And Least Tax-Friendly States In The US, Visualized\n      &quot;                 
+## [4] &quot;\n        Quickly Collect Signatures. Anywhere And On Any Device.\n      &quot;                      
+## [5] &quot;\n        Boxing Match Ends With Ultra-Rare Simultaneous Knockout\n      &quot;                      
+## [6] &quot;\n        NASA Finds Lost Indian Spacecraft With Help From Amateur Astronomer\n      &quot;</code></pre>
 <div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" data-line-number="1"><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></a>
 <a class="sourceLine" id="cb760-2" data-line-number="2">Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb760-3" data-line-number="3"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb760-4" data-line-number="4"><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </a>
 <a class="sourceLine" id="cb760-5" data-line-number="5">Links <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb760-6" data-line-number="6"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;https://www.vice.com/en_us/article/evjwkw/bob-lazar-says-the-fbi-raided-him-to-seize-area-51s-alien-fuel-the-truth-is-weirder?utm_source=digg&quot;
-## [2] &quot;https://www.vulture.com/2019/11/best-cartoons-early-internet.html?utm_source=digg&quot;                                                            
-## [3] &quot;/2019/glickenhaus-boot-suspension&quot;                                                                                                            
-## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;                                                  
-## [5] &quot;/video/rabbit-surrounded-by-carrots-wakes-up&quot;                                                                                                 
-## [6] &quot;/2019/impeachment-testimony-hearings-highlights-taylor-kent&quot;</code></pre>
+<pre><code>## [1] &quot;https://www.nationalgeographic.com/science/2019/12/why-ocean-current-critical-to-world-weather-losing-steam-arctic/?utm_source=digg&quot;       
+## [2] &quot;https://lifehacker.com/are-basic-economy-seats-ever-worth-it-1840151394?utm_source=digg&quot;                                                   
+## [3] &quot;/2019/states-highest-lowest-taxes&quot;                                                                                                         
+## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;                                               
+## [5] &quot;/video/boxing-simultaneous-knockout&quot;                                                                                                       
+## [6] &quot;https://news.sky.com/story/vikram-moon-lander-nasa-finds-lost-indian-spacecraft-with-help-from-amateur-astronomer-11877115?utm_source=digg&quot;</code></pre>
 </div>
 </div>
 <div id="scraping-.pdf-files" class="section level2">

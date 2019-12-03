@@ -374,11 +374,11 @@ Once the package is created:
 
 ## Exercises
 
-1. Build a package that contains a dataset that gives weather information at Flagstaff's Pulliam Airport from 1950 to 2019. I have the data and metadata on my [GitHub](https://github.com/dereksonderegger/444) site and I downloaded the data on 9-19-19 from https://www.ncdc.noaa.gov/cdo-web/search. In the `data-raw` directory, there are files `Pulliam_Airport_Weather_Station.csv` and its associated metadata `Pulliam_Airport_Weather_Station_Metadata.csv`. In the data, there are a bunch of columns that contain attribute information about the preceding column, I don't think those are helpful, or at least the metadata didn't explain how to interpret them. So remove those. Many of the later columns have values that are exclusively ones or zeros.  I believe those indicate if the weather phenomena was present that day. Presumably a `1` is a yes, but I don't know that. When I downloaded the data, I asked for "standard" units, so precipitation and snow amounts should be in inches, and temperature should be in Fahrenheit.
-    a) Create a new package named `YourName_FlagWeather`. In the package, create the `data-raw/` directory and  place the data and metadata there.
+1. Build a package that contains a dataset that gives weather information at Flagstaff's Pulliam Airport from 1950 to 2019. I have the data and metadata on my [GitHub](https://github.com/dereksonderegger/444) site and I downloaded the data on 9-19-19 from https://www.ncdc.noaa.gov/cdo-web/search. In the `data-raw` directory, there are files `Pulliam_Airport_Weather_Station.csv` and its associated metadata `Pulliam_Airport_Weather_Station_Metadata.csv`. In the data, there are a bunch of columns that contain attribute information about the preceding column, I don't think those are helpful, or at least the metadata didn't explain how to interpret them. So remove those. Many of the later columns have values that are exclusively ones or zeros.  I believe those indicate if the weather phenomena was present that day. Presumably a `1` is a yes, but I don't know that. When I downloaded the data, I asked for "standard" units, so precipitation and snow amounts should be in inches, and temperature should be in Fahrenheit. For this package, we only care about a couple of variables, `DATE`, `PRCP`, `SNOW`, `TMAX`, and `TMIN`.
+    a) Create a new package named `YourNameFlagWeather`. In the package, use `usethis::use_data-raw` to create the `data-raw/` directory. Place the data and metadata there.
     b) Also in the `data-raw` directory, create an R-script that reads in the data and does any necessary cleaning. Call your resulting data frame `Flagstaff_Weather` and save a `.rda` file to the `data/` directory using the command `usethis::use_data(Flagstaff_Weather)`. For this package, we only care about a couple of variables, `DATE`, `PRCP`, `SNOW`, `TMAX`, and `TMIN`. Keep and document only these variables.
     c) In the `R/` directory, create a file `Flagstaff_Weather.R` that documents where the data came from and what each of the columns mean.
-    d) Cause `roxygen2` to build the appropriate documentation files. Use the `Build` tab, then `More -> Document`.
+    d) Set RStudio to build documentation using Roxygen by clicking the `Build` tab, then `More -> Configure Build Tools` and click the box for generating documentation with Roxygen. Select `OK` and then build the appropriate documentation file by clicking the `Build` tab, then `More -> Document`.
     e) Load your package and restart your session of R, again using the `Build tab`.
     f) Create a new directory in your package called `docs/`. In that directory create a RMarkdown file that loads your package and uses the weather data to make a few graphs of weather phenomena over time.
     g) Suppose that we decided to change something in the data and we need to rebuild the package. 
@@ -390,12 +390,13 @@ Once the package is created:
         vi) Update the documentation file for the dataset and re-run the documentation routine.
         vii) Re-install the package and check that the documentation is now correct.
 
-2. Recall writing the function FizzBuzz in the chapter on functions. We will add this function to our package and include both documentation and unit tests.
-    a) Copy your previously submitted FizzBuzz function into an R file in `R/FizzBuzz.R`. 
+2. Recall writing the function `FizzBuzz` in the chapter on functions. We will add this function to our package and include both documentation and unit tests.
+    a) Copy your previously submitted `FizzBuzz` function into an R file in `R/FizzBuzz.R`. 
     b) Document what the function does, what its arguments are, and what its result should be.
-    c) Add unit tests for testing that the length of the output is the same as the input `n`.
-    d) Add unit tests that address what should happen if the user inputs a negative, zero, or ininite value for `n`.
-    e) Modify your function so that if the user inputs a negative, zero, or infinite value for `n`, that the function throws and error using the command `stop('Error Message')`. Modify the error message appropriately for the input `n`. *Hint: there is a family of functions `is.XXX()` which test a variety of conditions. In particular there is a `is.infinite()` function.*
-    f) Update your unit tests and make sure that the unit tests all pass.
+    c) Force your package to use unit testing by running the `usethis::use_testthat()`.
+    d) Add unit tests for testing that the length of the output is the same as the input `n`.
+    e) Add unit tests that address what should happen if the user inputs a negative, zero, or infinite value for `n`.
+    f) Modify your function so that if the user inputs a negative, zero, or infinite value for `n`, that the function throws and error using the command `stop('Error Message')`. Modify the error message appropriately for the input `n`. *Hint: there is a family of functions `is.XXX()` which test a variety of conditions. In particular there is a `is.infinite()` function.*
+    g) Update your unit tests and make sure that the unit tests all pass.
 
 3. Now save the package as one file by building a source package using the `Build` tab, `More -> Build Source Package`. This will create a `.tar.gz` file that you can easily upload to Bblearn. 

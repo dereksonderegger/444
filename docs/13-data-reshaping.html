@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-11-13" />
+<meta name="date" content="2019-12-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,13 +164,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.1" data-path="3-graphing.html"><a href="3-graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
 <li class="chapter" data-level="3.1.2" data-path="3-graphing.html"><a href="3-graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#title-axis-labels"><i class="fa fa-check"></i><b>3.2</b> Title &amp; Axis Labels</a></li>
+<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.2</b> Faceting</a></li>
 <li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="3-graphing.html"><a href="3-graphing.html#using-a-data.frame"><i class="fa fa-check"></i><b>3.3.1</b> Using a <code>data.frame</code></a></li>
-<li class="chapter" data-level="3.3.2" data-path="3-graphing.html"><a href="3-graphing.html#setting-attributes-in-line"><i class="fa fa-check"></i><b>3.3.2</b> Setting attributes in-line</a></li>
+<li class="chapter" data-level="3.3.1" data-path="3-graphing.html"><a href="3-graphing.html#axis-labels-and-titles"><i class="fa fa-check"></i><b>3.3.1</b> Axis Labels and Titles</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-graphing.html"><a href="3-graphing.html#text-labels"><i class="fa fa-check"></i><b>3.3.2</b> Text Labels</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.4</b> Faceting</a></li>
-<li class="chapter" data-level="3.5" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.5</b> Exercises</a></li>
+<li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a><ul>
 <li class="chapter" data-level="4.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a><ul>
@@ -344,7 +343,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2.2" data-path="15-r-packages.html"><a href="15-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
-<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#dataset-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Dataset Documentation</a></li>
+<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#data-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Data Documentation</a></li>
 <li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
@@ -694,12 +693,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 A              235.
-## 2 A              267.
-## 3 B              290.
-## 4 B              269.
-## 5 C              229.
-## 6 C              267.</code></pre>
+## 1 A              253.
+## 2 A              285.
+## 3 B              250.
+## 4 B              253.
+## 5 C              250.
+## 6 C              282.</code></pre>
 <div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb688-1" data-line-number="1">Lake.Data</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   Lake_ID Lake_Name      pH  area avg_depth
@@ -713,12 +712,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              235. &lt;NA&gt;         NA      NA        NA
-## 2 A              267. &lt;NA&gt;         NA      NA        NA
-## 3 B              290. Lake Elaine   6.5    40         8
-## 4 B              269. Lake Elaine   6.5    40         8
-## 5 C              229. Mormon Lake   6.3   210        10
-## 6 C              267. Mormon Lake   6.3   210        10
+## 1 A              253. &lt;NA&gt;         NA      NA        NA
+## 2 A              285. &lt;NA&gt;         NA      NA        NA
+## 3 B              250. Lake Elaine   6.5    40         8
+## 4 B              253. Lake Elaine   6.5    40         8
+## 5 C              250. Mormon Lake   6.3   210        10
+## 6 C              282. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38</code></pre>
 <p>Notice that because we didn’t have any fish caught in lake <code>D</code> and we don’t have any Lake information about lake <code>A</code>, when we join these two tables, we end up introducing missing observations into the resulting data frame.</p>
 <div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb693-1" data-line-number="1"><span class="kw">left_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
@@ -726,21 +725,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              235. &lt;NA&gt;         NA      NA        NA
-## 2 A              267. &lt;NA&gt;         NA      NA        NA
-## 3 B              290. Lake Elaine   6.5    40         8
-## 4 B              269. Lake Elaine   6.5    40         8
-## 5 C              229. Mormon Lake   6.3   210        10
-## 6 C              267. Mormon Lake   6.3   210        10</code></pre>
+## 1 A              253. &lt;NA&gt;         NA      NA        NA
+## 2 A              285. &lt;NA&gt;         NA      NA        NA
+## 3 B              250. Lake Elaine   6.5    40         8
+## 4 B              253. Lake Elaine   6.5    40         8
+## 5 C              250. Mormon Lake   6.3   210        10
+## 6 C              282. Mormon Lake   6.3   210        10</code></pre>
 <div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb696-1" data-line-number="1"><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</a></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 B              290. Lake Elaine   6.5    40         8
-## 2 B              269. Lake Elaine   6.5    40         8
-## 3 C              229. Mormon Lake   6.3   210        10
-## 4 C              267. Mormon Lake   6.3   210        10</code></pre>
+## 1 B              250. Lake Elaine   6.5    40         8
+## 2 B              253. Lake Elaine   6.5    40         8
+## 3 C              250. Mormon Lake   6.3   210        10
+## 4 C              282. Mormon Lake   6.3   210        10</code></pre>
 <p>The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn’t the case. In that situation you can use the <code>by=c(&quot;ColName.A&quot;=&quot;ColName.B&quot;)</code> syntax where <code>ColName.A</code> represents the name of the column in the first data frame and <code>ColName.B</code> is the equivalent column in the second data frame.</p>
 </div>
 <div id="row-summations" class="section level2">

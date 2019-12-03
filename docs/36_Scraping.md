@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nBob Lazar Says The FBI Raided Him To Seize Area 51's Alien Fuel. The Truth Is Weirder\n"
-## [2] "\nThe Best Cartoons Of The Early Internet\n"                                              
-## [3] "\nThe Suspension System On This Souped-Up Off-Roader Is Crazy Impressive\n"               
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                              
-## [5] "\nRabbit Has Adorable Reaction Waking Up Surrounded By Carrots\n"                         
-## [6] "\nThe Highlights From The First Day Of Public Impeachment Hearings\n"
+## [1] "\n            An Ocean Current Critical To World Weather Is Nearing A Tipping Point\n          "
+## [2] "\n        Are 'Basic Economy' Seats Ever Worth It?\n      "                                     
+## [3] "\n        The Most And Least Tax-Friendly States In The US, Visualized\n      "                 
+## [4] "\n        Quickly Collect Signatures. Anywhere And On Any Device.\n      "                      
+## [5] "\n        Boxing Match Ends With Ultra-Rare Simultaneous Knockout\n      "                      
+## [6] "\n        NASA Finds Lost Indian Spacecraft With Help From Amateur Astronomer\n      "
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.vice.com/en_us/article/evjwkw/bob-lazar-says-the-fbi-raided-him-to-seize-area-51s-alien-fuel-the-truth-is-weirder?utm_source=digg"
-## [2] "https://www.vulture.com/2019/11/best-cartoons-early-internet.html?utm_source=digg"                                                            
-## [3] "/2019/glickenhaus-boot-suspension"                                                                                                            
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                                  
-## [5] "/video/rabbit-surrounded-by-carrots-wakes-up"                                                                                                 
-## [6] "/2019/impeachment-testimony-hearings-highlights-taylor-kent"
+## [1] "https://www.nationalgeographic.com/science/2019/12/why-ocean-current-critical-to-world-weather-losing-steam-arctic/?utm_source=digg"       
+## [2] "https://lifehacker.com/are-basic-economy-seats-ever-worth-it-1840151394?utm_source=digg"                                                   
+## [3] "/2019/states-highest-lowest-taxes"                                                                                                         
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                               
+## [5] "/video/boxing-simultaneous-knockout"                                                                                                       
+## [6] "https://news.sky.com/story/vikram-moon-lander-nasa-finds-lost-indian-spacecraft-with-help-from-amateur-astronomer-11877115?utm_source=digg"
 ```
 
 
