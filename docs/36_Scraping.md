@@ -184,11 +184,11 @@ HeadLines %>%
 
 ```
 ## [1] "\n            The Great Grain Fraud\n          "                                                                         
-## [2] "\n        Compare These 20 Headlines To See How Differently UK Tabloids Treated Kate Middleton And Meghan Markle\n      "
-## [3] "\n        Jared Leto Is Transformed Into A Powerful Vampire In Trailer For MCU Movie 'Morbius'\n      "                  
+## [2] "\n        What Ever Happened To Josh Hartnett?\n      "                                                                  
+## [3] "\n        Watch This Record-Breaking Dog Jump So Far He's Been Dubbed The 'Michael Jordan Of Dogs'\n      "              
 ## [4] "\n        Quickly Collect Signatures. Anywhere And On Any Device.\n      "                                               
 ## [5] "\n        Driver Escapes From An Attempted Hijacking By The Mexican Cartel In Nerve-Wracking Video\n      "              
-## [6] "\n        How Digital Sleuths Unravelled The Mystery Of Iran's Plane Crash\n      "
+## [6] "\n        Compare These 20 Headlines To See How Differently UK Tabloids Treated Kate Middleton And Meghan Markle\n      "
 ```
 
 
@@ -204,11 +204,11 @@ Links %>%
 
 ```
 ## [1] "https://www.kansascity.com/news/local/crime/article239079858.html?utm_source=digg"                                  
-## [2] "https://www.buzzfeednews.com/article/ellievhall/meghan-markle-kate-middleton-double-standards-royal?utm_source=digg"
-## [3] "/video/morbius-trailer-jared-leto"                                                                                  
+## [2] "https://variety.com/2020/film/news/what-happened-to-josh-hartnett-1203463127/?utm_source=digg"                      
+## [3] "/video/record-breaking-diving-dog-spitfire"                                                                         
 ## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                        
 ## [5] "/video/driver-escapes-attempted-hijacking-mexican-cartel"                                                           
-## [6] "https://www.wired.co.uk/article/iran-plane-crash-news?utm_source=digg"
+## [6] "https://www.buzzfeednews.com/article/ellievhall/meghan-markle-kate-middleton-double-standards-royal?utm_source=digg"
 ```
 
 
