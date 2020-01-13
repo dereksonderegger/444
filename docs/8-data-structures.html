@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-12-03" />
+<meta name="date" content="2020-01-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="rmarkdown-tricks.html"/>
-<link rel="next" href="9-importing-data.html"/>
+<link rel="next" href="9-data-wrangling-process.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -53,9 +53,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -64,14 +64,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -134,21 +136,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="part"><span><b>Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="1-familiarization.html"><a href="1-familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
-<li class="chapter" data-level="1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-file-types"><i class="fa fa-check"></i><b>1.1</b> R file Types</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-scripts-.r-files"><i class="fa fa-check"></i><b>1.1.1</b> R Scripts (.R files)</a></li>
-<li class="chapter" data-level="1.1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-markdown-.rmd-files"><i class="fa fa-check"></i><b>1.1.2</b> R Markdown (.Rmd files)</a></li>
-<li class="chapter" data-level="1.1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#r-notebooks-.rmd-files"><i class="fa fa-check"></i><b>1.1.3</b> R Notebooks (.Rmd files)</a></li>
+<li class="chapter" data-level="1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#working-within-an-rmarkdown-file"><i class="fa fa-check"></i><b>1.1</b> Working within an Rmarkdown File</a></li>
+<li class="chapter" data-level="1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-file-types"><i class="fa fa-check"></i><b>1.2</b> R file Types</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-scripts-.r-files"><i class="fa fa-check"></i><b>1.2.1</b> R Scripts (.R files)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-markdown-.rmd-files"><i class="fa fa-check"></i><b>1.2.2</b> R Markdown (.Rmd files)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-familiarization.html"><a href="1-familiarization.html#r-notebooks-.rmd-files"><i class="fa fa-check"></i><b>1.2.3</b> R Notebooks (.Rmd files)</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.2</b> R as a simple calculator</a></li>
-<li class="chapter" data-level="1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#assignment"><i class="fa fa-check"></i><b>1.3</b> Assignment</a></li>
-<li class="chapter" data-level="1.4" data-path="1-familiarization.html"><a href="1-familiarization.html#vectors"><i class="fa fa-check"></i><b>1.4</b> Vectors</a></li>
-<li class="chapter" data-level="1.5" data-path="1-familiarization.html"><a href="1-familiarization.html#packages"><i class="fa fa-check"></i><b>1.5</b> Packages</a></li>
-<li class="chapter" data-level="1.6" data-path="1-familiarization.html"><a href="1-familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.6</b> Finding Help</a><ul>
-<li class="chapter" data-level="1.6.1" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.6.1</b> How does this function work?</a></li>
-<li class="chapter" data-level="1.6.2" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.6.2</b> How does this package work?</a></li>
-<li class="chapter" data-level="1.6.3" data-path="1-familiarization.html"><a href="1-familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.6.3</b> How do I do XXX?</a></li>
+<li class="chapter" data-level="1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.3</b> R as a simple calculator</a></li>
+<li class="chapter" data-level="1.4" data-path="1-familiarization.html"><a href="1-familiarization.html#assignment"><i class="fa fa-check"></i><b>1.4</b> Assignment</a></li>
+<li class="chapter" data-level="1.5" data-path="1-familiarization.html"><a href="1-familiarization.html#vectors"><i class="fa fa-check"></i><b>1.5</b> Vectors</a></li>
+<li class="chapter" data-level="1.6" data-path="1-familiarization.html"><a href="1-familiarization.html#packages"><i class="fa fa-check"></i><b>1.6</b> Packages</a></li>
+<li class="chapter" data-level="1.7" data-path="1-familiarization.html"><a href="1-familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.7</b> Finding Help</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.7.1</b> How does this function work?</a></li>
+<li class="chapter" data-level="1.7.2" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.7.2</b> How does this package work?</a></li>
+<li class="chapter" data-level="1.7.3" data-path="1-familiarization.html"><a href="1-familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.7.3</b> How do I do XXX?</a></li>
 </ul></li>
-<li class="chapter" data-level="1.7" data-path="1-familiarization.html"><a href="1-familiarization.html#exercises"><i class="fa fa-check"></i><b>1.7</b> Exercises</a></li>
+<li class="chapter" data-level="1.8" data-path="1-familiarization.html"><a href="1-familiarization.html#exercises"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="2-data-frames.html"><a href="2-data-frames.html"><i class="fa fa-check"></i><b>2</b> Data Frames</a><ul>
 <li class="chapter" data-level="2.1" data-path="2-data-frames.html"><a href="2-data-frames.html#introduction-to-importing-data"><i class="fa fa-check"></i><b>2.1</b> Introduction to Importing Data</a><ul>
@@ -200,8 +203,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="6-flow-control.html"><a href="6-flow-control.html#loops"><i class="fa fa-check"></i><b>6.3</b> Loops</a><ul>
 <li class="chapter" data-level="6.3.1" data-path="6-flow-control.html"><a href="6-flow-control.html#while-loops"><i class="fa fa-check"></i><b>6.3.1</b> <code>while</code> Loops</a></li>
 <li class="chapter" data-level="6.3.2" data-path="6-flow-control.html"><a href="6-flow-control.html#for-loops"><i class="fa fa-check"></i><b>6.3.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6-flow-control.html"><a href="6-flow-control.html#mosaicdo-loops"><i class="fa fa-check"></i><b>6.3.3</b> <code>mosaic::do()</code> loops</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="6-flow-control.html"><a href="6-flow-control.html#exercises-5"><i class="fa fa-check"></i><b>6.4</b> Exercises</a></li>
+<li class="chapter" data-level="6.4" data-path="6-flow-control.html"><a href="6-flow-control.html#functions"><i class="fa fa-check"></i><b>6.4</b> Functions</a></li>
+<li class="chapter" data-level="6.5" data-path="6-flow-control.html"><a href="6-flow-control.html#exercises-5"><i class="fa fa-check"></i><b>6.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-factors.html"><a href="7-factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-factors.html"><a href="7-factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
@@ -252,134 +257,139 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4" data-path="8-data-structures.html"><a href="8-data-structures.html#lists"><i class="fa fa-check"></i><b>8.4</b> Lists</a></li>
 <li class="chapter" data-level="8.5" data-path="8-data-structures.html"><a href="8-data-structures.html#exercises-8"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="9-importing-data.html"><a href="9-importing-data.html"><i class="fa fa-check"></i><b>9</b> Importing Data</a><ul>
-<li class="chapter" data-level="9.1" data-path="9-importing-data.html"><a href="9-importing-data.html#working-directory"><i class="fa fa-check"></i><b>9.1</b> Working directory</a></li>
-<li class="chapter" data-level="9.2" data-path="9-importing-data.html"><a href="9-importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>9.2</b> Comma Separated Data</a></li>
-<li class="chapter" data-level="9.3" data-path="9-importing-data.html"><a href="9-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>9.3</b> MS Excel</a></li>
-<li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.4</b> Exercises</a></li>
+<li class="chapter" data-level="9" data-path="9-data-wrangling-process.html"><a href="9-data-wrangling-process.html"><i class="fa fa-check"></i><b>9</b> Data Wrangling Process</a><ul>
+<li class="chapter" data-level="9.1" data-path="9-data-wrangling-process.html"><a href="9-data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="9-data-wrangling-process.html"><a href="9-data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>9.2</b> Tidying</a></li>
+<li class="chapter" data-level="9.3" data-path="9-data-wrangling-process.html"><a href="9-data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>9.3</b> Cleaning</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html"><i class="fa fa-check"></i><b>10</b> User Defined Functions</a><ul>
-<li class="chapter" data-level="10.1" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#basic-function-definition"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
-<li class="chapter" data-level="10.2" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#parameter-defaults"><i class="fa fa-check"></i><b>10.2</b> Parameter Defaults</a></li>
-<li class="chapter" data-level="10.3" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#ellipses"><i class="fa fa-check"></i><b>10.3</b> Ellipses</a></li>
-<li class="chapter" data-level="10.4" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#function-overloading"><i class="fa fa-check"></i><b>10.4</b> Function Overloading</a></li>
-<li class="chapter" data-level="10.5" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#debugging"><i class="fa fa-check"></i><b>10.5</b> Debugging</a><ul>
-<li class="chapter" data-level="10.5.1" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#rmarkdown-recommendations"><i class="fa fa-check"></i><b>10.5.1</b> Rmarkdown Recommendations</a></li>
-<li class="chapter" data-level="10.5.2" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#step-wise-execution"><i class="fa fa-check"></i><b>10.5.2</b> Step-wise Execution</a></li>
-<li class="chapter" data-level="10.5.3" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#print-statements"><i class="fa fa-check"></i><b>10.5.3</b> Print Statements</a></li>
-<li class="chapter" data-level="10.5.4" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#browser"><i class="fa fa-check"></i><b>10.5.4</b> <code>browser</code></a></li>
+<li class="chapter" data-level="10" data-path="10-importing-data.html"><a href="10-importing-data.html"><i class="fa fa-check"></i><b>10</b> Importing Data</a><ul>
+<li class="chapter" data-level="10.1" data-path="10-importing-data.html"><a href="10-importing-data.html#working-directory"><i class="fa fa-check"></i><b>10.1</b> Working directory</a></li>
+<li class="chapter" data-level="10.2" data-path="10-importing-data.html"><a href="10-importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>10.2</b> Comma Separated Data</a></li>
+<li class="chapter" data-level="10.3" data-path="10-importing-data.html"><a href="10-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>10.3</b> MS Excel</a></li>
+<li class="chapter" data-level="10.4" data-path="10-importing-data.html"><a href="10-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>10.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="10.6" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#scope"><i class="fa fa-check"></i><b>10.6</b> Scope</a></li>
-<li class="chapter" data-level="10.7" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#exercises-10"><i class="fa fa-check"></i><b>10.7</b> Exercises</a></li>
+<li class="chapter" data-level="11" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html"><i class="fa fa-check"></i><b>11</b> User Defined Functions</a><ul>
+<li class="chapter" data-level="11.1" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#basic-function-definition"><i class="fa fa-check"></i><b>11.1</b> Basic function definition</a></li>
+<li class="chapter" data-level="11.2" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#parameter-defaults"><i class="fa fa-check"></i><b>11.2</b> Parameter Defaults</a></li>
+<li class="chapter" data-level="11.3" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#ellipses"><i class="fa fa-check"></i><b>11.3</b> Ellipses</a></li>
+<li class="chapter" data-level="11.4" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#function-overloading"><i class="fa fa-check"></i><b>11.4</b> Function Overloading</a></li>
+<li class="chapter" data-level="11.5" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#debugging"><i class="fa fa-check"></i><b>11.5</b> Debugging</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#rmarkdown-recommendations"><i class="fa fa-check"></i><b>11.5.1</b> Rmarkdown Recommendations</a></li>
+<li class="chapter" data-level="11.5.2" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#step-wise-execution"><i class="fa fa-check"></i><b>11.5.2</b> Step-wise Execution</a></li>
+<li class="chapter" data-level="11.5.3" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#print-statements"><i class="fa fa-check"></i><b>11.5.3</b> Print Statements</a></li>
+<li class="chapter" data-level="11.5.4" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#browser"><i class="fa fa-check"></i><b>11.5.4</b> <code>browser</code></a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html"><i class="fa fa-check"></i><b>11</b> String Manipulation</a><ul>
-<li class="chapter" data-level="11.1" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#base-function"><i class="fa fa-check"></i><b>11.1</b> Base function</a></li>
-<li class="chapter" data-level="11.2" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#stringr-basic-operations"><i class="fa fa-check"></i><b>11.2</b> <code>stringr</code>: Basic operations</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#concatenating-with-str_c-or-str_join"><i class="fa fa-check"></i><b>11.2.1</b> Concatenating with <code>str_c()</code> or <code>str_join()</code></a></li>
-<li class="chapter" data-level="11.2.2" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#calculating-string-length-with-str_length"><i class="fa fa-check"></i><b>11.2.2</b> Calculating string length with <code>str_length()</code></a></li>
-<li class="chapter" data-level="11.2.3" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#extracting-substrings-with-str_sub"><i class="fa fa-check"></i><b>11.2.3</b> Extracting substrings with <code>str_sub()</code></a></li>
-<li class="chapter" data-level="11.2.4" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#pad-a-string-with-str_pad"><i class="fa fa-check"></i><b>11.2.4</b> Pad a string with <code>str_pad()</code></a></li>
-<li class="chapter" data-level="11.2.5" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#trim-a-string-with-str_trim"><i class="fa fa-check"></i><b>11.2.5</b> Trim a string with <code>str_trim()</code></a></li>
+<li class="chapter" data-level="11.6" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#scope"><i class="fa fa-check"></i><b>11.6</b> Scope</a></li>
+<li class="chapter" data-level="11.7" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#exercises-10"><i class="fa fa-check"></i><b>11.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#stringr-pattern-matching-tools"><i class="fa fa-check"></i><b>11.3</b> <code>stringr</code>: Pattern Matching Tools</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#detecting-a-pattern-using-str_detect"><i class="fa fa-check"></i><b>11.3.1</b> Detecting a pattern using str_detect()</a></li>
-<li class="chapter" data-level="11.3.2" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#locating-a-pattern-using-str_locate"><i class="fa fa-check"></i><b>11.3.2</b> Locating a pattern using str_locate()</a></li>
-<li class="chapter" data-level="11.3.3" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#replacing-sub-strings-using-str_replace"><i class="fa fa-check"></i><b>11.3.3</b> Replacing sub-strings using <code>str_replace()</code></a></li>
-<li class="chapter" data-level="11.3.4" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#splitting-into-sub-strings-using-str_split"><i class="fa fa-check"></i><b>11.3.4</b> Splitting into sub-strings using <code>str_split()</code></a></li>
+<li class="chapter" data-level="12" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html"><i class="fa fa-check"></i><b>12</b> String Manipulation</a><ul>
+<li class="chapter" data-level="12.1" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#base-function"><i class="fa fa-check"></i><b>12.1</b> Base function</a></li>
+<li class="chapter" data-level="12.2" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#stringr-basic-operations"><i class="fa fa-check"></i><b>12.2</b> <code>stringr</code>: Basic operations</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#concatenating-with-str_c-or-str_join"><i class="fa fa-check"></i><b>12.2.1</b> Concatenating with <code>str_c()</code> or <code>str_join()</code></a></li>
+<li class="chapter" data-level="12.2.2" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#calculating-string-length-with-str_length"><i class="fa fa-check"></i><b>12.2.2</b> Calculating string length with <code>str_length()</code></a></li>
+<li class="chapter" data-level="12.2.3" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#extracting-substrings-with-str_sub"><i class="fa fa-check"></i><b>12.2.3</b> Extracting substrings with <code>str_sub()</code></a></li>
+<li class="chapter" data-level="12.2.4" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#pad-a-string-with-str_pad"><i class="fa fa-check"></i><b>12.2.4</b> Pad a string with <code>str_pad()</code></a></li>
+<li class="chapter" data-level="12.2.5" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#trim-a-string-with-str_trim"><i class="fa fa-check"></i><b>12.2.5</b> Trim a string with <code>str_trim()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#regular-expressions"><i class="fa fa-check"></i><b>11.4</b> Regular Expressions</a><ul>
-<li class="chapter" data-level="11.4.1" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#regular-expression-ingredients"><i class="fa fa-check"></i><b>11.4.1</b> Regular Expression Ingredients</a></li>
-<li class="chapter" data-level="11.4.2" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#matching-a-specific-string"><i class="fa fa-check"></i><b>11.4.2</b> Matching a specific string</a></li>
-<li class="chapter" data-level="11.4.3" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#matching-arbitrary-numbers"><i class="fa fa-check"></i><b>11.4.3</b> Matching arbitrary numbers</a></li>
-<li class="chapter" data-level="11.4.4" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#greedy-matching"><i class="fa fa-check"></i><b>11.4.4</b> Greedy matching</a></li>
+<li class="chapter" data-level="12.3" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#stringr-pattern-matching-tools"><i class="fa fa-check"></i><b>12.3</b> <code>stringr</code>: Pattern Matching Tools</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#detecting-a-pattern-using-str_detect"><i class="fa fa-check"></i><b>12.3.1</b> Detecting a pattern using str_detect()</a></li>
+<li class="chapter" data-level="12.3.2" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#locating-a-pattern-using-str_locate"><i class="fa fa-check"></i><b>12.3.2</b> Locating a pattern using str_locate()</a></li>
+<li class="chapter" data-level="12.3.3" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#replacing-sub-strings-using-str_replace"><i class="fa fa-check"></i><b>12.3.3</b> Replacing sub-strings using <code>str_replace()</code></a></li>
+<li class="chapter" data-level="12.3.4" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#splitting-into-sub-strings-using-str_split"><i class="fa fa-check"></i><b>12.3.4</b> Splitting into sub-strings using <code>str_split()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#fuzzy-pattern-matching"><i class="fa fa-check"></i><b>11.5</b> Fuzzy Pattern Matching</a><ul>
-<li class="chapter" data-level="11.5.1" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#key-collision-merge"><i class="fa fa-check"></i><b>11.5.1</b> Key Collision Merge</a></li>
-<li class="chapter" data-level="11.5.2" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#string-distances"><i class="fa fa-check"></i><b>11.5.2</b> String Distances</a></li>
-<li class="chapter" data-level="11.5.3" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#n-gram-merge"><i class="fa fa-check"></i><b>11.5.3</b> N-gram Merge</a></li>
+<li class="chapter" data-level="12.4" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#regular-expressions"><i class="fa fa-check"></i><b>12.4</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#regular-expression-ingredients"><i class="fa fa-check"></i><b>12.4.1</b> Regular Expression Ingredients</a></li>
+<li class="chapter" data-level="12.4.2" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#matching-a-specific-string"><i class="fa fa-check"></i><b>12.4.2</b> Matching a specific string</a></li>
+<li class="chapter" data-level="12.4.3" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#matching-arbitrary-numbers"><i class="fa fa-check"></i><b>12.4.3</b> Matching arbitrary numbers</a></li>
+<li class="chapter" data-level="12.4.4" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#greedy-matching"><i class="fa fa-check"></i><b>12.4.4</b> Greedy matching</a></li>
 </ul></li>
-<li class="chapter" data-level="11.6" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#exercises-11"><i class="fa fa-check"></i><b>11.6</b> Exercises</a></li>
+<li class="chapter" data-level="12.5" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#fuzzy-pattern-matching"><i class="fa fa-check"></i><b>12.5</b> Fuzzy Pattern Matching</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#key-collision-merge"><i class="fa fa-check"></i><b>12.5.1</b> Key Collision Merge</a></li>
+<li class="chapter" data-level="12.5.2" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#string-distances"><i class="fa fa-check"></i><b>12.5.2</b> String Distances</a></li>
+<li class="chapter" data-level="12.5.3" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#n-gram-merge"><i class="fa fa-check"></i><b>12.5.3</b> N-gram Merge</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
-<li class="chapter" data-level="12.1" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>12.1</b> Creating Date and Time objects</a></li>
-<li class="chapter" data-level="12.2" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.2</b> Extracting information</a></li>
-<li class="chapter" data-level="12.3" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.3</b> Arithmetic on Dates</a></li>
-<li class="chapter" data-level="12.4" data-path="12-dates-and-times.html"><a href="12-dates-and-times.html#exercises-12"><i class="fa fa-check"></i><b>12.4</b> Exercises</a></li>
+<li class="chapter" data-level="12.6" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#exercises-11"><i class="fa fa-check"></i><b>12.6</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a><ul>
-<li class="chapter" data-level="13.1" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#data.frames-vs-tibbles-1"><i class="fa fa-check"></i><b>13.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
-<li class="chapter" data-level="13.2" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>13.2</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
-<li class="chapter" data-level="13.3" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#tidyr"><i class="fa fa-check"></i><b>13.3</b> <code>tidyr</code></a><ul>
-<li class="chapter" data-level="13.3.1" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#verbs-1"><i class="fa fa-check"></i><b>13.3.1</b> Verbs</a></li>
+<li class="chapter" data-level="13" data-path="13-dates-and-times.html"><a href="13-dates-and-times.html"><i class="fa fa-check"></i><b>13</b> Dates and Times</a><ul>
+<li class="chapter" data-level="13.1" data-path="13-dates-and-times.html"><a href="13-dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>13.1</b> Creating Date and Time objects</a></li>
+<li class="chapter" data-level="13.2" data-path="13-dates-and-times.html"><a href="13-dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>13.2</b> Extracting information</a></li>
+<li class="chapter" data-level="13.3" data-path="13-dates-and-times.html"><a href="13-dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>13.3</b> Arithmetic on Dates</a></li>
+<li class="chapter" data-level="13.4" data-path="13-dates-and-times.html"><a href="13-dates-and-times.html#exercises-12"><i class="fa fa-check"></i><b>13.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="13.4" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#storing-data-in-multiple-tables"><i class="fa fa-check"></i><b>13.4</b> Storing Data in Multiple Tables</a></li>
-<li class="chapter" data-level="13.5" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#table-joins"><i class="fa fa-check"></i><b>13.5</b> Table Joins</a></li>
-<li class="chapter" data-level="13.6" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#row-summations"><i class="fa fa-check"></i><b>13.6</b> Row summations</a></li>
-<li class="chapter" data-level="13.7" data-path="13-data-reshaping.html"><a href="13-data-reshaping.html#exercises-13"><i class="fa fa-check"></i><b>13.7</b> Exercises</a></li>
+<li class="chapter" data-level="14" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html"><i class="fa fa-check"></i><b>14</b> Data Reshaping</a><ul>
+<li class="chapter" data-level="14.1" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#data.frames-vs-tibbles-1"><i class="fa fa-check"></i><b>14.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+<li class="chapter" data-level="14.2" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>14.2</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
+<li class="chapter" data-level="14.3" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#tidyr"><i class="fa fa-check"></i><b>14.3</b> <code>tidyr</code></a><ul>
+<li class="chapter" data-level="14.3.1" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#verbs-1"><i class="fa fa-check"></i><b>14.3.1</b> Verbs</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html"><i class="fa fa-check"></i><b>14</b> Graphing Part II</a><ul>
-<li class="chapter" data-level="14.1" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#multi-plots"><i class="fa fa-check"></i><b>14.1</b> Multi-plots</a><ul>
-<li class="chapter" data-level="14.1.1" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#cowplot-package"><i class="fa fa-check"></i><b>14.1.1</b> <code>cowplot</code> package</a></li>
-<li class="chapter" data-level="14.1.2" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#multiplot-in-rmisc"><i class="fa fa-check"></i><b>14.1.2</b> <code>multiplot</code> in <code>Rmisc</code></a></li>
+<li class="chapter" data-level="14.4" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#storing-data-in-multiple-tables"><i class="fa fa-check"></i><b>14.4</b> Storing Data in Multiple Tables</a></li>
+<li class="chapter" data-level="14.5" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#table-joins"><i class="fa fa-check"></i><b>14.5</b> Table Joins</a></li>
+<li class="chapter" data-level="14.6" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#row-summations"><i class="fa fa-check"></i><b>14.6</b> Row summations</a></li>
+<li class="chapter" data-level="14.7" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#exercises-13"><i class="fa fa-check"></i><b>14.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="14.2" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#customized-scales"><i class="fa fa-check"></i><b>14.2</b> Customized Scales</a><ul>
-<li class="chapter" data-level="14.2.1" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#color-scales"><i class="fa fa-check"></i><b>14.2.1</b> Color Scales</a></li>
-<li class="chapter" data-level="14.2.2" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#setting-major-minor-ticks"><i class="fa fa-check"></i><b>14.2.2</b> Setting major &amp; minor ticks</a></li>
-<li class="chapter" data-level="14.2.3" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#log-scales"><i class="fa fa-check"></i><b>14.2.3</b> Log Scales</a></li>
+<li class="chapter" data-level="15" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html"><i class="fa fa-check"></i><b>15</b> Graphing Part II</a><ul>
+<li class="chapter" data-level="15.1" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#multi-plots"><i class="fa fa-check"></i><b>15.1</b> Multi-plots</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#cowplot-package"><i class="fa fa-check"></i><b>15.1.1</b> <code>cowplot</code> package</a></li>
+<li class="chapter" data-level="15.1.2" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#multiplot-in-rmisc"><i class="fa fa-check"></i><b>15.1.2</b> <code>multiplot</code> in <code>Rmisc</code></a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#themes"><i class="fa fa-check"></i><b>14.3</b> Themes</a></li>
-<li class="chapter" data-level="14.4" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>14.4</b> Mathematical Notation</a></li>
-<li class="chapter" data-level="14.5" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>14.5</b> Geographic Maps</a><ul>
-<li class="chapter" data-level="14.5.1" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>14.5.1</b> Package <code>maps</code></a></li>
+<li class="chapter" data-level="15.2" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#customized-scales"><i class="fa fa-check"></i><b>15.2</b> Customized Scales</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#color-scales"><i class="fa fa-check"></i><b>15.2.1</b> Color Scales</a></li>
+<li class="chapter" data-level="15.2.2" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#setting-major-minor-ticks"><i class="fa fa-check"></i><b>15.2.2</b> Setting major &amp; minor ticks</a></li>
+<li class="chapter" data-level="15.2.3" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#log-scales"><i class="fa fa-check"></i><b>15.2.3</b> Log Scales</a></li>
 </ul></li>
-<li class="chapter" data-level="14.6" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>14.6</b> Exercises</a></li>
+<li class="chapter" data-level="15.3" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#themes"><i class="fa fa-check"></i><b>15.3</b> Themes</a></li>
+<li class="chapter" data-level="15.4" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>15.4</b> Mathematical Notation</a></li>
+<li class="chapter" data-level="15.5" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>15.5</b> Geographic Maps</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>15.5.1</b> Package <code>maps</code></a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="15-r-packages.html"><a href="15-r-packages.html"><i class="fa fa-check"></i><b>15</b> R Packages</a><ul>
-<li class="chapter" data-level="15.1" data-path="15-r-packages.html"><a href="15-r-packages.html#introduction"><i class="fa fa-check"></i><b>15.1</b> Introduction</a><ul>
-<li class="chapter" data-level="15.1.1" data-path="15-r-packages.html"><a href="15-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>15.1.1</b> Useful packages and books</a></li>
+<li class="chapter" data-level="15.6" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>15.6</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="15-r-packages.html"><a href="15-r-packages.html#package-structure"><i class="fa fa-check"></i><b>15.2</b> Package Structure</a><ul>
-<li class="chapter" data-level="15.2.1" data-path="15-r-packages.html"><a href="15-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>15.2.1</b> Minimal files and directories</a></li>
-<li class="chapter" data-level="15.2.2" data-path="15-r-packages.html"><a href="15-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
+<li class="chapter" data-level="16" data-path="16-r-packages.html"><a href="16-r-packages.html"><i class="fa fa-check"></i><b>16</b> R Packages</a><ul>
+<li class="chapter" data-level="16.1" data-path="16-r-packages.html"><a href="16-r-packages.html#introduction-1"><i class="fa fa-check"></i><b>16.1</b> Introduction</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="16-r-packages.html"><a href="16-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>16.1.1</b> Useful packages and books</a></li>
 </ul></li>
-<li class="chapter" data-level="15.3" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
-<li class="chapter" data-level="15.3.1" data-path="15-r-packages.html"><a href="15-r-packages.html#data-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Data Documentation</a></li>
-<li class="chapter" data-level="15.3.2" data-path="15-r-packages.html"><a href="15-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
+<li class="chapter" data-level="16.2" data-path="16-r-packages.html"><a href="16-r-packages.html#package-structure"><i class="fa fa-check"></i><b>16.2</b> Package Structure</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="16-r-packages.html"><a href="16-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>16.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="16.2.2" data-path="16-r-packages.html"><a href="16-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>16.2.2</b> Optional Files and Directories</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="15-r-packages.html"><a href="15-r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
-<li class="chapter" data-level="15.5" data-path="15-r-packages.html"><a href="15-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a></li>
-<li class="chapter" data-level="15.6" data-path="15-r-packages.html"><a href="15-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.6</b> Sharing your Package</a></li>
-<li class="chapter" data-level="15.7" data-path="15-r-packages.html"><a href="15-r-packages.html#an-example-package"><i class="fa fa-check"></i><b>15.7</b> An Example Package</a></li>
-<li class="chapter" data-level="15.8" data-path="15-r-packages.html"><a href="15-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>15.8</b> Exercises</a></li>
+<li class="chapter" data-level="16.3" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting"><i class="fa fa-check"></i><b>16.3</b> Documenting</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="16-r-packages.html"><a href="16-r-packages.html#data-documentation"><i class="fa fa-check"></i><b>16.3.1</b> Data Documentation</a></li>
+<li class="chapter" data-level="16.3.2" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>16.3.2</b> Documenting Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="16-data-scraping.html"><a href="16-data-scraping.html"><i class="fa fa-check"></i><b>16</b> Data Scraping</a><ul>
-<li class="chapter" data-level="16.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>16.1</b> Web Pages</a><ul>
-<li class="chapter" data-level="16.1.1" data-path="16-data-scraping.html"><a href="16-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>16.1.1</b> Example Wikipedia Table</a></li>
-<li class="chapter" data-level="16.1.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>16.1.2</b> Lists</a></li>
+<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a></li>
+<li class="chapter" data-level="16.5" data-path="16-r-packages.html"><a href="16-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>16.5</b> The DESCRIPTION file</a></li>
+<li class="chapter" data-level="16.6" data-path="16-r-packages.html"><a href="16-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>16.6</b> Sharing your Package</a></li>
+<li class="chapter" data-level="16.7" data-path="16-r-packages.html"><a href="16-r-packages.html#an-example-package"><i class="fa fa-check"></i><b>16.7</b> An Example Package</a></li>
+<li class="chapter" data-level="16.8" data-path="16-r-packages.html"><a href="16-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>16.8</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="16.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>16.2</b> Scraping .pdf files</a></li>
-<li class="chapter" data-level="16.3" data-path="16-data-scraping.html"><a href="16-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
+<li class="chapter" data-level="17" data-path="17-data-scraping.html"><a href="17-data-scraping.html"><i class="fa fa-check"></i><b>17</b> Data Scraping</a><ul>
+<li class="chapter" data-level="17.1" data-path="17-data-scraping.html"><a href="17-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>17.1</b> Web Pages</a><ul>
+<li class="chapter" data-level="17.1.1" data-path="17-data-scraping.html"><a href="17-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>17.1.1</b> Example Wikipedia Table</a></li>
+<li class="chapter" data-level="17.1.2" data-path="17-data-scraping.html"><a href="17-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>17.1.2</b> Lists</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html"><i class="fa fa-check"></i><b>17</b> Web API Data Queries</a><ul>
-<li class="chapter" data-level="17.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>17.1</b> Web Interface</a></li>
-<li class="chapter" data-level="17.2" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>17.2</b> R API Interfaces</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.2.1</b> Population Estimates</a></li>
+<li class="chapter" data-level="17.2" data-path="17-data-scraping.html"><a href="17-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>17.2</b> Scraping .pdf files</a></li>
+<li class="chapter" data-level="17.3" data-path="17-data-scraping.html"><a href="17-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="17.3" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
+<li class="chapter" data-level="18" data-path="18-web-api-data-queries.html"><a href="18-web-api-data-queries.html"><i class="fa fa-check"></i><b>18</b> Web API Data Queries</a><ul>
+<li class="chapter" data-level="18.1" data-path="18-web-api-data-queries.html"><a href="18-web-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>18.1</b> Web Interface</a></li>
+<li class="chapter" data-level="18.2" data-path="18-web-api-data-queries.html"><a href="18-web-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>18.2</b> R API Interfaces</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="18-web-api-data-queries.html"><a href="18-web-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>18.2.1</b> Population Estimates</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="18-databases.html"><a href="18-databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
-<li class="chapter" data-level="18.1" data-path="18-databases.html"><a href="18-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
-<li class="chapter" data-level="18.2" data-path="18-databases.html"><a href="18-databases.html#sql"><i class="fa fa-check"></i><b>18.2</b> SQL</a></li>
-<li class="chapter" data-level="18.3" data-path="18-databases.html"><a href="18-databases.html#dbplyr"><i class="fa fa-check"></i><b>18.3</b> <code>dbplyr</code></a></li>
+<li class="chapter" data-level="18.3" data-path="18-web-api-data-queries.html"><a href="18-web-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>18.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html"><i class="fa fa-check"></i><b>19</b> Speeding up R</a><ul>
-<li class="chapter" data-level="19.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
-<li class="chapter" data-level="19.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
-<li class="chapter" data-level="19.3" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="19.5.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="19" data-path="19-databases.html"><a href="19-databases.html"><i class="fa fa-check"></i><b>19</b> Databases</a><ul>
+<li class="chapter" data-level="19.1" data-path="19-databases.html"><a href="19-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>19.1</b> Tutorial Set-Up</a></li>
+<li class="chapter" data-level="19.2" data-path="19-databases.html"><a href="19-databases.html#sql"><i class="fa fa-check"></i><b>19.2</b> SQL</a></li>
+<li class="chapter" data-level="19.3" data-path="19-databases.html"><a href="19-databases.html#dbplyr"><i class="fa fa-check"></i><b>19.3</b> <code>dbplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html"><i class="fa fa-check"></i><b>20</b> Speeding up R</a><ul>
+<li class="chapter" data-level="20.1" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>20.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="20.2" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>20.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="20.3" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>20.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="20.4" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>20.4</b> Parallelizing for loops</a></li>
+<li class="chapter" data-level="20.5" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>20.5</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="20.5.1" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>20.5.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="20.5.2" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>20.5.2</b> <code>caret::train</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -401,59 +411,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-structures" class="section level1">
 <h1><span class="header-section-number">Chapter 8</span> Data Structures</h1>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb342-2" data-line-number="2"><span class="kw">library</span>(rvest)     <span class="co"># rvest is not loaded in the tidyverse Metapackage</span></a></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="8-data-structures.html#cb347-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <p>In the introduction section of these notes, we concentrated on <code>data.frame</code>s created and manipulated using <code>dplyr</code>. There are other data structures that are used in R and it is useful to learn how to manipulate those other data structures. Furthermore, it is also useful to be able to use base R functionality to do certain manipulations on <code>data.frame</code>s.</p>
 <div id="vectors-1" class="section level2">
 <h2><span class="header-section-number">8.1</span> Vectors</h2>
 <p>R operates on vectors where we think of a vector as a collection of objects, usually numbers. The first thing we need to be able to do is define an arbitrary collection using the <code>c()</code> function. The “c” stands for collection.</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" data-line-number="1"><span class="co"># Define the vector of numbers 1, ..., 4</span></a>
-<a class="sourceLine" id="cb343-2" data-line-number="2"><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="8-data-structures.html#cb348-1"></a><span class="co"># Define the vector of numbers 1, ..., 4</span></span>
+<span id="cb348-2"><a href="8-data-structures.html#cb348-2"></a><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
 <p>There are many other ways to define vectors. The function <code>rep(x, times)</code> just repeats <code>x</code> a the number times specified by <code>times</code>.</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1"><span class="kw">rep</span>(<span class="dv">2</span>, <span class="dv">5</span>)              <span class="co"># repeat 2 five times... 2 2 2 2 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="8-data-structures.html#cb350-1"></a><span class="kw">rep</span>(<span class="dv">2</span>, <span class="dv">5</span>)              <span class="co"># repeat 2 five times... 2 2 2 2 2</span></span></code></pre></div>
 <pre><code>## [1] 2 2 2 2 2</code></pre>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1"><span class="kw">rep</span>( <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>), <span class="dv">3</span> )   <span class="co"># repeat A B three times  A B A B A B</span></a></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="8-data-structures.html#cb352-1"></a><span class="kw">rep</span>( <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>), <span class="dv">3</span> )   <span class="co"># repeat A B three times  A B A B A B</span></span></code></pre></div>
 <pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot;</code></pre>
 <p>Finally, we can also define a sequence of numbers using the <code>seq(from, to, by, length.out)</code> function which expects the user to supply 3 out of 4 possible arguments. The possible arguments are <code>from</code>, <code>to</code>, <code>by</code>, and <code>length.out</code>. From is the starting point of the sequence, to is the ending point, by is the difference between any two successive elements, and <code>length.out</code> is the total number of elements in the vector.</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">1</span>, <span class="dt">to=</span><span class="dv">4</span>, <span class="dt">by=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="8-data-structures.html#cb354-1"></a><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">1</span>, <span class="dt">to=</span><span class="dv">4</span>, <span class="dt">by=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1"><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">4</span>)        <span class="co"># &#39;by&#39; has a default of 1   </span></a></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="8-data-structures.html#cb356-1"></a><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">4</span>)        <span class="co"># &#39;by&#39; has a default of 1   </span></span></code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>             <span class="co"># a shortcut for seq(1,4)</span></a></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="8-data-structures.html#cb358-1"></a><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>             <span class="co"># a shortcut for seq(1,4)</span></span></code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1"><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>, <span class="dt">by=</span>.<span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="8-data-structures.html#cb360-1"></a><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>, <span class="dt">by=</span>.<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</code></pre>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" data-line-number="1"><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">11</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="8-data-structures.html#cb362-1"></a><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">11</span>) </span></code></pre></div>
 <pre><code>##  [1] 1.0 1.4 1.8 2.2 2.6 3.0 3.4 3.8 4.2 4.6 5.0</code></pre>
 <p>If we have two vectors and we wish to combine them, we can again use the <code>c()</code> function.</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1">vec1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb359-2" data-line-number="2">vec2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb359-3" data-line-number="3">vec3 &lt;-<span class="st"> </span><span class="kw">c</span>(vec1, vec2)</a>
-<a class="sourceLine" id="cb359-4" data-line-number="4">vec3</a></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="8-data-structures.html#cb364-1"></a>vec1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb364-2"><a href="8-data-structures.html#cb364-2"></a>vec2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb364-3"><a href="8-data-structures.html#cb364-3"></a>vec3 &lt;-<span class="st"> </span><span class="kw">c</span>(vec1, vec2)</span>
+<span id="cb364-4"><a href="8-data-structures.html#cb364-4"></a>vec3</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5 6</code></pre>
 <div id="accessing-vector-elements" class="section level3">
 <h3><span class="header-section-number">8.1.1</span> Accessing Vector Elements</h3>
 <p>Suppose I have defined a vector</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" data-line-number="1">foo &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>, <span class="st">&#39;B&#39;</span>, <span class="st">&#39;C&#39;</span>, <span class="st">&#39;D&#39;</span>, <span class="st">&#39;F&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="8-data-structures.html#cb366-1"></a>foo &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>, <span class="st">&#39;B&#39;</span>, <span class="st">&#39;C&#39;</span>, <span class="st">&#39;D&#39;</span>, <span class="st">&#39;F&#39;</span>)</span></code></pre></div>
 <p>and I am interested in accessing whatever is in the first spot of the vector. Or perhaps the 3rd or 5th element. To do that we use the <code>[]</code> notation, where the square bracket represents a subscript.</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" data-line-number="1">foo[<span class="dv">1</span>]  <span class="co"># First element in vector foo</span></a></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="8-data-structures.html#cb367-1"></a>foo[<span class="dv">1</span>]  <span class="co"># First element in vector foo</span></span></code></pre></div>
 <pre><code>## [1] &quot;A&quot;</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1">foo[<span class="dv">4</span>]  <span class="co"># Fourth element in vector foo</span></a></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="8-data-structures.html#cb369-1"></a>foo[<span class="dv">4</span>]  <span class="co"># Fourth element in vector foo</span></span></code></pre></div>
 <pre><code>## [1] &quot;D&quot;</code></pre>
-<p>This subscripting notation can get more complicated. For example I might want the 2nd and 3rd element or the 3rd through 5th elements.</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" data-line-number="1">foo[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)]  <span class="co"># elements 2 and 3</span></a></code></pre></div>
+<p>This sub-scripting notation can get more complicated. For example I might want the 2nd and 3rd element or the 3rd through 5th elements.</p>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="8-data-structures.html#cb371-1"></a>foo[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)]  <span class="co"># elements 2 and 3</span></span></code></pre></div>
 <pre><code>## [1] &quot;B&quot; &quot;C&quot;</code></pre>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" data-line-number="1">foo[ <span class="dv">3</span><span class="op">:</span><span class="dv">5</span> ]   <span class="co"># elements 3 to 5</span></a></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="8-data-structures.html#cb373-1"></a>foo[ <span class="dv">3</span><span class="op">:</span><span class="dv">5</span> ]   <span class="co"># elements 3 to 5</span></span></code></pre></div>
 <pre><code>## [1] &quot;C&quot; &quot;D&quot; &quot;F&quot;</code></pre>
 <p>Finally, I might be interested in getting the entire vector except for a certain element. To do this, R allows us to use the square bracket notation with a negative index number.</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" data-line-number="1">foo[<span class="op">-</span><span class="dv">1</span>]          <span class="co"># everything but the first element</span></a></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="8-data-structures.html#cb375-1"></a>foo[<span class="op">-</span><span class="dv">1</span>]          <span class="co"># everything but the first element</span></span></code></pre></div>
 <pre><code>## [1] &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;F&quot;</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" data-line-number="1">foo[ <span class="dv">-1</span><span class="op">*</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) ] <span class="co"># everything but the first two elements</span></a></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="8-data-structures.html#cb377-1"></a>foo[ <span class="dv">-1</span><span class="op">*</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) ] <span class="co"># everything but the first two elements</span></span></code></pre></div>
 <pre><code>## [1] &quot;C&quot; &quot;D&quot; &quot;F&quot;</code></pre>
 <p>Now is a good time to address what is the <code>[1]</code> doing in our output? Because vectors are often very long and might span multiple lines, R is trying to help us by telling us the index number of the left most value. If we have a very long vector, the second line of values will start with the index of the first value on the second line.</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" data-line-number="1"><span class="co"># The letters vector is a vector of all 26 lower-case letters</span></a>
-<a class="sourceLine" id="cb374-2" data-line-number="2">letters</a></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="8-data-structures.html#cb379-1"></a><span class="co"># The letters vector is a vector of all 26 lower-case letters</span></span>
+<span id="cb379-2"><a href="8-data-structures.html#cb379-2"></a>letters</span></code></pre></div>
 <pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot;
 ## [18] &quot;r&quot; &quot;s&quot; &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
 <p>Here the <code>[1]</code> is telling me that <code>a</code> is the first element of the vector and the <code>[18]</code> is telling me that <code>r</code> is the 18th element of the vector.</p>
@@ -461,12 +470,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="scalar-functions-applied-to-vectors" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> Scalar Functions Applied to Vectors</h3>
 <p>It is very common to want to perform some operation on all the elements of a vector simultaneously. For example, I might want take the absolute value of every element. Functions that are inherently defined on single values will almost always apply the function to each element of the vector if given a vector.</p>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">-5</span><span class="op">:</span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb376-2" data-line-number="2">x</a></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="8-data-structures.html#cb381-1"></a>x &lt;-<span class="st"> </span><span class="dv">-5</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb381-2"><a href="8-data-structures.html#cb381-2"></a>x</span></code></pre></div>
 <pre><code>##  [1] -5 -4 -3 -2 -1  0  1  2  3  4  5</code></pre>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" data-line-number="1"><span class="kw">abs</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="8-data-structures.html#cb383-1"></a><span class="kw">abs</span>(x)</span></code></pre></div>
 <pre><code>##  [1] 5 4 3 2 1 0 1 2 3 4 5</code></pre>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" data-line-number="1"><span class="kw">exp</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="8-data-structures.html#cb385-1"></a><span class="kw">exp</span>(x)</span></code></pre></div>
 <pre><code>##  [1] 6.737947e-03 1.831564e-02 4.978707e-02 1.353353e-01 3.678794e-01
 ##  [6] 1.000000e+00 2.718282e+00 7.389056e+00 2.008554e+01 5.459815e+01
 ## [11] 1.484132e+02</code></pre>
@@ -474,15 +483,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="vector-algebra" class="section level3">
 <h3><span class="header-section-number">8.1.3</span> Vector Algebra</h3>
 <p>All algebra done with vectors will be done element-wise by default.For matrix and vector multiplication as usually defined by mathematicians, use <code>%*%</code> instead of <code>*</code>. So two vectors added together result in their individual elements being summed.</p>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb382-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="dv">5</span><span class="op">:</span><span class="dv">8</span></a>
-<a class="sourceLine" id="cb382-3" data-line-number="3">x <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="8-data-structures.html#cb387-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></span>
+<span id="cb387-2"><a href="8-data-structures.html#cb387-2"></a>y &lt;-<span class="st"> </span><span class="dv">5</span><span class="op">:</span><span class="dv">8</span></span>
+<span id="cb387-3"><a href="8-data-structures.html#cb387-3"></a>x <span class="op">+</span><span class="st"> </span>y</span></code></pre></div>
 <pre><code>## [1]  6  8 10 12</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" data-line-number="1">x <span class="op">*</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="8-data-structures.html#cb389-1"></a>x <span class="op">*</span><span class="st"> </span>y</span></code></pre></div>
 <pre><code>## [1]  5 12 21 32</code></pre>
 <p>R does another trick when doing vector algebra. If the lengths of the two vectors don’t match, R will recycle the elements of the shorter vector to come up with vector the same length as the longer. This is potentially confusing, but is most often used when adding a long vector to a vector of length 1.</p>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb386-2" data-line-number="2">x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="8-data-structures.html#cb391-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></span>
+<span id="cb391-2"><a href="8-data-structures.html#cb391-2"></a>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span></code></pre></div>
 <pre><code>## [1] 2 3 4 5</code></pre>
 </div>
 <div id="commonly-used-vector-functions" class="section level3">
@@ -531,93 +540,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <p>Putting this all together, we can easily perform tedious calculations with ease. To demonstrate how scalars, vectors, and functions of them work together, we will calculate the variance of 5 numbers. Recall that variance is defined as
 <span class="math display">\[ Var\left(x\right)=\frac{\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}{n-1} \]</span></p>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb388-2" data-line-number="2">xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(x)         <span class="co"># calculate the mean</span></a>
-<a class="sourceLine" id="cb388-3" data-line-number="3">xbar</a></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="8-data-structures.html#cb393-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>)</span>
+<span id="cb393-2"><a href="8-data-structures.html#cb393-2"></a>xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(x)         <span class="co"># calculate the mean</span></span>
+<span id="cb393-3"><a href="8-data-structures.html#cb393-3"></a>xbar</span></code></pre></div>
 <pre><code>## [1] 6</code></pre>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" data-line-number="1">x <span class="op">-</span><span class="st"> </span>xbar                <span class="co"># calculate the errors </span></a></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="8-data-structures.html#cb395-1"></a>x <span class="op">-</span><span class="st"> </span>xbar                <span class="co"># calculate the errors </span></span></code></pre></div>
 <pre><code>## [1] -4 -2  0  2  4</code></pre>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" data-line-number="1">(x<span class="op">-</span>xbar)<span class="op">^</span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="8-data-structures.html#cb397-1"></a>(x<span class="op">-</span>xbar)<span class="op">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 16  4  0  4 16</code></pre>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" data-line-number="1"><span class="kw">sum</span>( (x<span class="op">-</span>xbar)<span class="op">^</span><span class="dv">2</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="8-data-structures.html#cb399-1"></a><span class="kw">sum</span>( (x<span class="op">-</span>xbar)<span class="op">^</span><span class="dv">2</span> )</span></code></pre></div>
 <pre><code>## [1] 40</code></pre>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="kw">length</span>(x)          <span class="co"># how many data points do we have</span></a>
-<a class="sourceLine" id="cb396-2" data-line-number="2">n</a></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="8-data-structures.html#cb401-1"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(x)          <span class="co"># how many data points do we have</span></span>
+<span id="cb401-2"><a href="8-data-structures.html#cb401-2"></a>n</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" data-line-number="1"><span class="kw">sum</span>((x<span class="op">-</span>xbar)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(n<span class="dv">-1</span>)   <span class="co"># calculating the variance by hand</span></a></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="8-data-structures.html#cb403-1"></a><span class="kw">sum</span>((x<span class="op">-</span>xbar)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(n<span class="dv">-1</span>)   <span class="co"># calculating the variance by hand</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" data-line-number="1"><span class="kw">var</span>(x)                  <span class="co"># Same thing using the built-in variance function</span></a></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="8-data-structures.html#cb405-1"></a><span class="kw">var</span>(x)                  <span class="co"># Same thing using the built-in variance function</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 </div>
 </div>
 <div id="matrices" class="section level2">
 <h2><span class="header-section-number">8.2</span> Matrices</h2>
 <p>We often want to store numerical data in a square or rectangular format and mathematicians will call these “matrices”. These will have two dimensions, rows and columns. To create a matrix in R we can create it directly using the <code>matrix()</code> command which requires the data to fill the matrix with, and optionally, some information about the number of rows and columns:</p>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" data-line-number="1">W &lt;-<span class="st"> </span><span class="kw">matrix</span>( <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span> )</a>
-<a class="sourceLine" id="cb402-2" data-line-number="2">W</a></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="8-data-structures.html#cb407-1"></a>W &lt;-<span class="st"> </span><span class="kw">matrix</span>( <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span> )</span>
+<span id="cb407-2"><a href="8-data-structures.html#cb407-2"></a>W</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6</code></pre>
 <p>Notice that because we only gave it six values, the information the number of columns is redundant and could be left off and R would figure out how many columns are needed. Next notice that the order that R chose to fill in the matrix was to fill in the first column then the second, and then the third. If we wanted to fill the matrix in order of the rows first, then we’d use the optional <code>byrow=TRUE</code> argument.</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" data-line-number="1">W &lt;-<span class="st"> </span><span class="kw">matrix</span>( <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span> )</a>
-<a class="sourceLine" id="cb404-2" data-line-number="2">W</a></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="8-data-structures.html#cb409-1"></a>W &lt;-<span class="st"> </span><span class="kw">matrix</span>( <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span> )</span>
+<span id="cb409-2"><a href="8-data-structures.html#cb409-2"></a>W</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    4    5    6</code></pre>
 <p>The alternative to the <code>matrix()</code> command is we could create two columns as individual vectors and just push them together. Or we could have made three rows and lump them by rows instead. To do this we’ll use a group of functions that bind vectors together. To join two column vectors together, we’ll use <code>cbind</code> and to bind rows together we’ll use the <code>rbind</code> function</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb406-2" data-line-number="2">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb406-3" data-line-number="3"><span class="kw">cbind</span>(a,b)  <span class="co"># Column Bind:  a,b are columns in resultant matrix </span></a></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="8-data-structures.html#cb411-1"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb411-2"><a href="8-data-structures.html#cb411-2"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb411-3"><a href="8-data-structures.html#cb411-3"></a><span class="kw">cbind</span>(a,b)  <span class="co"># Column Bind:  a,b are columns in resultant matrix </span></span></code></pre></div>
 <pre><code>##      a b
 ## [1,] 1 4
 ## [2,] 2 5
 ## [3,] 3 6</code></pre>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" data-line-number="1"><span class="kw">rbind</span>(a,b)  <span class="co"># Row Bind:     a,b are   rows  in resultant matrix    </span></a></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="8-data-structures.html#cb413-1"></a><span class="kw">rbind</span>(a,b)  <span class="co"># Row Bind:     a,b are   rows  in resultant matrix    </span></span></code></pre></div>
 <pre><code>##   [,1] [,2] [,3]
 ## a    1    2    3
 ## b    4    5    6</code></pre>
 <p>Notice that doing this has provided R with some names for the individual rows and columns. I can change these using the commands <code>colnames()</code> and <code>rownames()</code>.</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" data-line-number="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb410-2" data-line-number="2"><span class="kw">colnames</span>(M) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Column1&#39;</span>, <span class="st">&#39;Column2&#39;</span>)       <span class="co"># set column labels</span></a>
-<a class="sourceLine" id="cb410-3" data-line-number="3"><span class="kw">rownames</span>(M) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Row1&#39;</span>, <span class="st">&#39;Row2&#39;</span>,<span class="st">&#39;Row3&#39;</span>)      <span class="co"># set row labels</span></a>
-<a class="sourceLine" id="cb410-4" data-line-number="4">M</a></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="8-data-structures.html#cb415-1"></a>M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>) </span>
+<span id="cb415-2"><a href="8-data-structures.html#cb415-2"></a><span class="kw">colnames</span>(M) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Column1&#39;</span>, <span class="st">&#39;Column2&#39;</span>)       <span class="co"># set column labels</span></span>
+<span id="cb415-3"><a href="8-data-structures.html#cb415-3"></a><span class="kw">rownames</span>(M) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Row1&#39;</span>, <span class="st">&#39;Row2&#39;</span>,<span class="st">&#39;Row3&#39;</span>)      <span class="co"># set row labels</span></span>
+<span id="cb415-4"><a href="8-data-structures.html#cb415-4"></a>M</span></code></pre></div>
 <pre><code>##      Column1 Column2
 ## Row1       1       2
 ## Row2       3       4
 ## Row3       5       6</code></pre>
 <p>This is actually a pretty peculiar way of setting the <em>attributes</em> of the object <code>M</code> because it looks like we are evaluating a function and assigning some value to the function output. Yes it is weird, but R was developed in the 70s and it seemed like a good idea at the time.</p>
 <p>Accessing a particular element of a matrix is done in a similar manner as with vectors, using the <code>[ ]</code> notation, but this time we must specify which row and which column. Notice that this scheme always is <code>[row, col]</code>.</p>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" data-line-number="1">M1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb412-2" data-line-number="2">M1</a></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="8-data-structures.html#cb417-1"></a>M1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb417-2"><a href="8-data-structures.html#cb417-2"></a>M1</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    4
 ## [2,]    2    5
 ## [3,]    3    6</code></pre>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" data-line-number="1">M1[<span class="dv">1</span>,<span class="dv">2</span>]     <span class="co"># Grab row 1, column 2 value</span></a></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="8-data-structures.html#cb419-1"></a>M1[<span class="dv">1</span>,<span class="dv">2</span>]     <span class="co"># Grab row 1, column 2 value</span></span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" data-line-number="1">M1[<span class="dv">1</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]  <span class="co"># Grab row 1, and columns 1 and 2.</span></a></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="8-data-structures.html#cb421-1"></a>M1[<span class="dv">1</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]  <span class="co"># Grab row 1, and columns 1 and 2.</span></span></code></pre></div>
 <pre><code>## [1] 1 4</code></pre>
 <p>I might want to grab a single row or a single column out of a matrix, which is sometimes referred to as taking a slice of the matrix. I could figure out how long that vector is, but often I’m too lazy. Instead I can just specify the specify the particular row or column I want.</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" data-line-number="1">M1</a></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="8-data-structures.html#cb423-1"></a>M1</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    4
 ## [2,]    2    5
 ## [3,]    3    6</code></pre>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" data-line-number="1">M1[<span class="dv">1</span>, ]    <span class="co"># grab the 1st row </span></a></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="8-data-structures.html#cb425-1"></a>M1[<span class="dv">1</span>, ]    <span class="co"># grab the 1st row </span></span></code></pre></div>
 <pre><code>## [1] 1 4</code></pre>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" data-line-number="1">M1[ ,<span class="dv">2</span>]    <span class="co"># grab second column (the spaces are optional...)</span></a></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="8-data-structures.html#cb427-1"></a>M1[ ,<span class="dv">2</span>]    <span class="co"># grab second column (the spaces are optional...)</span></span></code></pre></div>
 <pre><code>## [1] 4 5 6</code></pre>
 </div>
 <div id="data-frames-1" class="section level2">
 <h2><span class="header-section-number">8.3</span> Data Frames</h2>
 <p>Matrices are great for mathematical operations, but I also want to be able to store data that is numerical. For example I might want to store a categorical variable such as manufacturer brand. To generalize our concept of a matrix to include these types of data, we will create a structure called a <code>data.frame</code>. These are very much like a simple Excel spreadsheet where each column represents a different trait or measurement type and each row will represent an individual.</p>
 <p>Perhaps the easiest way to create a data frame is to just type the columns of data</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb424-2" data-line-number="2">  <span class="dt">Name  =</span> <span class="kw">c</span>(<span class="st">&#39;Bob&#39;</span>,<span class="st">&#39;Jeff&#39;</span>,<span class="st">&#39;Mary&#39;</span>),   </a>
-<a class="sourceLine" id="cb424-3" data-line-number="3">  <span class="dt">Score =</span> <span class="kw">c</span>(<span class="dv">90</span>, <span class="dv">75</span>, <span class="dv">92</span>)</a>
-<a class="sourceLine" id="cb424-4" data-line-number="4">)</a>
-<a class="sourceLine" id="cb424-5" data-line-number="5"><span class="co"># Show the data.frame </span></a>
-<a class="sourceLine" id="cb424-6" data-line-number="6">data</a></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="8-data-structures.html#cb429-1"></a>data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb429-2"><a href="8-data-structures.html#cb429-2"></a>  <span class="dt">Name  =</span> <span class="kw">c</span>(<span class="st">&#39;Bob&#39;</span>,<span class="st">&#39;Jeff&#39;</span>,<span class="st">&#39;Mary&#39;</span>),   </span>
+<span id="cb429-3"><a href="8-data-structures.html#cb429-3"></a>  <span class="dt">Score =</span> <span class="kw">c</span>(<span class="dv">90</span>, <span class="dv">75</span>, <span class="dv">92</span>)</span>
+<span id="cb429-4"><a href="8-data-structures.html#cb429-4"></a>)</span>
+<span id="cb429-5"><a href="8-data-structures.html#cb429-5"></a><span class="co"># Show the data.frame </span></span>
+<span id="cb429-6"><a href="8-data-structures.html#cb429-6"></a>data</span></code></pre></div>
 <pre><code>##   Name Score
 ## 1  Bob    90
 ## 2 Jeff    75
@@ -646,34 +655,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>Because the columns have meaning and we have given them column names, it is desirable to want to access an element by the name of the column as opposed to the column number.In large Excel spreadsheets I often get annoyed trying to remember which column something was in and muttering “Was total biomass in column P or Q?” A system where I could just name the column <code>Total.Biomass</code> and be done with it is much nicer to work with and I make fewer dumb mistakes.</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" data-line-number="1">data<span class="op">$</span>Name       <span class="co"># The $-sign means to reference a column by its label</span></a></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="8-data-structures.html#cb431-1"></a>data<span class="op">$</span>Name       <span class="co"># The $-sign means to reference a column by its label</span></span></code></pre></div>
 <pre><code>## [1] Bob  Jeff Mary
 ## Levels: Bob Jeff Mary</code></pre>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" data-line-number="1">data<span class="op">$</span>Name[<span class="dv">2</span>]    <span class="co"># Notice that data$Name results in a vector, which I can manipulate</span></a></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="8-data-structures.html#cb433-1"></a>data<span class="op">$</span>Name[<span class="dv">2</span>]    <span class="co"># Notice that data$Name results in a vector, which I can manipulate</span></span></code></pre></div>
 <pre><code>## [1] Jeff
 ## Levels: Bob Jeff Mary</code></pre>
 <p>I can mix the <code>[ ]</code> notation with the column names. The following is also acceptable:</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" data-line-number="1">data[, <span class="st">&#39;Name&#39;</span>]   <span class="co"># Grab the column labeled &#39;Name&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="8-data-structures.html#cb435-1"></a>data[, <span class="st">&#39;Name&#39;</span>]   <span class="co"># Grab the column labeled &#39;Name&#39;</span></span></code></pre></div>
 <pre><code>## [1] Bob  Jeff Mary
 ## Levels: Bob Jeff Mary</code></pre>
 <p>The next thing we might wish to do is add a new column to a preexisting data frame. There are two ways to do this. First, we could use the <code>cbind()</code> function to bind two data frames together. Second we could reference a new column name and assign values to it.</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" data-line-number="1">Second.score &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Score2=</span><span class="kw">c</span>(<span class="dv">41</span>,<span class="dv">42</span>,<span class="dv">43</span>))  <span class="co"># another data.frame</span></a>
-<a class="sourceLine" id="cb432-2" data-line-number="2">data &lt;-<span class="st">  </span><span class="kw">cbind</span>( data, Second.score )            <span class="co"># squish them together</span></a>
-<a class="sourceLine" id="cb432-3" data-line-number="3">data</a></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="8-data-structures.html#cb437-1"></a>Second.score &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Score2=</span><span class="kw">c</span>(<span class="dv">41</span>,<span class="dv">42</span>,<span class="dv">43</span>))  <span class="co"># another data.frame</span></span>
+<span id="cb437-2"><a href="8-data-structures.html#cb437-2"></a>data &lt;-<span class="st">  </span><span class="kw">cbind</span>( data, Second.score )            <span class="co"># squish them together</span></span>
+<span id="cb437-3"><a href="8-data-structures.html#cb437-3"></a>data</span></code></pre></div>
 <pre><code>##   Name Score Score2
 ## 1  Bob    90     41
 ## 2 Jeff    75     42
 ## 3 Mary    92     43</code></pre>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" data-line-number="1"><span class="co"># if you assign a value to a column that doesn&#39;t exist, R will create it</span></a>
-<a class="sourceLine" id="cb434-2" data-line-number="2">data<span class="op">$</span>Score3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">61</span>,<span class="dv">62</span>,<span class="dv">63</span>) <span class="co"># the Score3 column will created</span></a>
-<a class="sourceLine" id="cb434-3" data-line-number="3">data</a></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="8-data-structures.html#cb439-1"></a><span class="co"># if you assign a value to a column that doesn&#39;t exist, R will create it</span></span>
+<span id="cb439-2"><a href="8-data-structures.html#cb439-2"></a>data<span class="op">$</span>Score3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">61</span>,<span class="dv">62</span>,<span class="dv">63</span>) <span class="co"># the Score3 column will created</span></span>
+<span id="cb439-3"><a href="8-data-structures.html#cb439-3"></a>data</span></code></pre></div>
 <pre><code>##   Name Score Score2 Score3
 ## 1  Bob    90     41     61
 ## 2 Jeff    75     42     62
 ## 3 Mary    92     43     63</code></pre>
 <p>Data frames are very commonly used and many commonly used functions will take a <code>data=</code> argument and all other arguments are assumed to be in the given data frame. Unfortunately this is not universally supported by all functions and you must look at the help file for the function you are interested in.</p>
 <p>Data frames are also very restrictive in that the shape of the data must be rectangular. If I try to create a new column that doesn’t have enough rows, R will complain.</p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" data-line-number="1">data<span class="op">$</span>Score4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="8-data-structures.html#cb441-1"></a>data<span class="op">$</span>Score4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Error in `$&lt;-.data.frame`(`*tmp*`, Score4, value = c(1, 2)): replacement has 2 rows, data has 3</code></pre>
 <div id="data.frames-vs-tibbles" class="section level3">
 <h3><span class="header-section-number">8.3.1</span> <code>data.frames</code> vs <code>tibbles</code></h3>
@@ -706,14 +715,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>Third, <code>tibbles</code> support column names that would be rejected by a data frame. For example, a data frame will not allow columns to begin with a number, nor can column names contain a space. These are allowable by <code>tibbles</code>, although they are required to be enclosed by back-quotes when referring to them.</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" data-line-number="1"><span class="co"># the tribble() function just creates a tibble, but specifying the information</span></a>
-<a class="sourceLine" id="cb438-2" data-line-number="2"><span class="co"># in rows. This can be beneficial in creating small data sets by hand.</span></a>
-<a class="sourceLine" id="cb438-3" data-line-number="3">example &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb438-4" data-line-number="4">  <span class="op">~</span><span class="st">&#39;1984&#39;</span>, <span class="op">~</span><span class="st">&quot;Is Awesome&quot;</span>,</a>
-<a class="sourceLine" id="cb438-5" data-line-number="5">  <span class="st">&#39;George&#39;</span>,   <span class="dv">20</span>,</a>
-<a class="sourceLine" id="cb438-6" data-line-number="6">  <span class="st">&#39;Orwell&#39;</span>,   <span class="dv">87</span>)</a>
-<a class="sourceLine" id="cb438-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb438-8" data-line-number="8">example <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="st">`</span><span class="dt">1984</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Is Awesome</span><span class="st">`</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="8-data-structures.html#cb443-1"></a><span class="co"># the tribble() function just creates a tibble, but specifying the information</span></span>
+<span id="cb443-2"><a href="8-data-structures.html#cb443-2"></a><span class="co"># in rows. This can be beneficial in creating small data sets by hand.</span></span>
+<span id="cb443-3"><a href="8-data-structures.html#cb443-3"></a>example &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb443-4"><a href="8-data-structures.html#cb443-4"></a>  <span class="op">~</span><span class="st">&#39;1984&#39;</span>, <span class="op">~</span><span class="st">&quot;Is Awesome&quot;</span>,</span>
+<span id="cb443-5"><a href="8-data-structures.html#cb443-5"></a>  <span class="st">&#39;George&#39;</span>,   <span class="dv">20</span>,</span>
+<span id="cb443-6"><a href="8-data-structures.html#cb443-6"></a>  <span class="st">&#39;Orwell&#39;</span>,   <span class="dv">87</span>)</span>
+<span id="cb443-7"><a href="8-data-structures.html#cb443-7"></a></span>
+<span id="cb443-8"><a href="8-data-structures.html#cb443-8"></a>example <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="st">`</span><span class="dt">1984</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Is Awesome</span><span class="st">`</span> )</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   `1984` `Is Awesome`
 ##   &lt;chr&gt;         &lt;dbl&gt;
@@ -725,32 +734,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.4</span> Lists</h2>
 <p>Data frames are quite useful for storing data but sometimes we’ll need to store a bunch of different pieces of information and it won’t fit neatly as a data frame. The most general form of a data structure is called a list. This can be thought of as a vector of objects where there is no requirement for each element to be the same type of object.</p>
 <p>Consider that I might need to store information about person. For example, suppose that I want make an object that holds information about my immediate family. This object should have my spouse’s name (just one name) as well as my siblings. But because I have many siblings, I want the siblings to be a vector of names. Likewise I might also include my pets, but we don’t want any requirement that the number of pets is the same as the number of siblings (or spouses!).</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" data-line-number="1">wife &lt;-<span class="st"> &#39;Aubrey&#39;</span></a>
-<a class="sourceLine" id="cb440-2" data-line-number="2">sibs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Tina&#39;</span>,<span class="st">&#39;Caroline&#39;</span>,<span class="st">&#39;Brandon&#39;</span>,<span class="st">&#39;John&#39;</span>)</a>
-<a class="sourceLine" id="cb440-3" data-line-number="3">pets &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Beau&#39;</span>,<span class="st">&#39;Tess&#39;</span>,<span class="st">&#39;Kaylee&#39;</span>)</a>
-<a class="sourceLine" id="cb440-4" data-line-number="4">Derek &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">Spouse=</span>wife, <span class="dt">Siblings=</span>sibs, <span class="dt">Pets=</span>pets) <span class="co"># Create the list</span></a>
-<a class="sourceLine" id="cb440-5" data-line-number="5"><span class="kw">str</span>(Derek) <span class="co"># show the structure of object</span></a></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="8-data-structures.html#cb445-1"></a>wife &lt;-<span class="st"> &#39;Aubrey&#39;</span></span>
+<span id="cb445-2"><a href="8-data-structures.html#cb445-2"></a>sibs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Tina&#39;</span>,<span class="st">&#39;Caroline&#39;</span>,<span class="st">&#39;Brandon&#39;</span>,<span class="st">&#39;John&#39;</span>)</span>
+<span id="cb445-3"><a href="8-data-structures.html#cb445-3"></a>pets &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Beau&#39;</span>,<span class="st">&#39;Tess&#39;</span>,<span class="st">&#39;Kaylee&#39;</span>)</span>
+<span id="cb445-4"><a href="8-data-structures.html#cb445-4"></a>Derek &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">Spouse=</span>wife, <span class="dt">Siblings=</span>sibs, <span class="dt">Pets=</span>pets) <span class="co"># Create the list</span></span>
+<span id="cb445-5"><a href="8-data-structures.html#cb445-5"></a><span class="kw">str</span>(Derek) <span class="co"># show the structure of object</span></span></code></pre></div>
 <pre><code>## List of 3
 ##  $ Spouse  : chr &quot;Aubrey&quot;
 ##  $ Siblings: chr [1:4] &quot;Tina&quot; &quot;Caroline&quot; &quot;Brandon&quot; &quot;John&quot;
 ##  $ Pets    : chr [1:3] &quot;Beau&quot; &quot;Tess&quot; &quot;Kaylee&quot;</code></pre>
 <p>Notice that the object <code>Derek</code> is a list of three elements. The first is the single string containing my wife’s name. The next is a vector of my siblings’ names and it is a vector of length four. Finally the vector of pets’ names is only of length three.</p>
 <p>To access any element of this list we can use an indexing scheme similar to matrices and vectors. The only difference is that we’ll use two square brackets instead of one.</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" data-line-number="1">Derek[[ <span class="dv">1</span> ]]    <span class="co"># First element of the list is Spouse!</span></a></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="8-data-structures.html#cb447-1"></a>Derek[[ <span class="dv">1</span> ]]    <span class="co"># First element of the list is Spouse!</span></span></code></pre></div>
 <pre><code>## [1] &quot;Aubrey&quot;</code></pre>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" data-line-number="1">Derek[[ <span class="dv">3</span> ]]    <span class="co"># Third element of the list is the vector of pets</span></a></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="8-data-structures.html#cb449-1"></a>Derek[[ <span class="dv">3</span> ]]    <span class="co"># Third element of the list is the vector of pets</span></span></code></pre></div>
 <pre><code>## [1] &quot;Beau&quot;   &quot;Tess&quot;   &quot;Kaylee&quot;</code></pre>
 <p>There is a second way I can access elements. For data frames it was convenient to use the notation <code>DataFrame$ColumnName</code> and we will use the same convention for lists. Actually a data frame is just a list with the requirement that each list element is a vector and all vectors are of the same length. To access my pets names we can use the following notation:</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb446-1" data-line-number="1">Derek<span class="op">$</span>Pets         <span class="co"># Using the &#39;$&#39; notation</span></a></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="8-data-structures.html#cb451-1"></a>Derek<span class="op">$</span>Pets         <span class="co"># Using the &#39;$&#39; notation</span></span></code></pre></div>
 <pre><code>## [1] &quot;Beau&quot;   &quot;Tess&quot;   &quot;Kaylee&quot;</code></pre>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" data-line-number="1">Derek[[ <span class="st">&#39;Pets&#39;</span> ]]  <span class="co"># Using the &#39;[[ ]]&#39; notation</span></a></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="8-data-structures.html#cb453-1"></a>Derek[[ <span class="st">&#39;Pets&#39;</span> ]]  <span class="co"># Using the &#39;[[ ]]&#39; notation</span></span></code></pre></div>
 <pre><code>## [1] &quot;Beau&quot;   &quot;Tess&quot;   &quot;Kaylee&quot;</code></pre>
 <p>To add something new to the list object, we can just make an assignment in a similar fashion as we did for <code>data.frame</code> and just assign a value to a slot that doesn’t (yet!) exist.</p>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" data-line-number="1">Derek<span class="op">$</span>Spawn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Elise&#39;</span>, <span class="st">&#39;Casey&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="8-data-structures.html#cb455-1"></a>Derek<span class="op">$</span>Spawn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Elise&#39;</span>, <span class="st">&#39;Casey&#39;</span>)</span></code></pre></div>
 <p>We can also add extremely complicated items to my list. Here we’ll add a <code>data.frame</code> as another list element.</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" data-line-number="1"><span class="co"># Recall that we previous had defined a data.frame called &quot;data&quot;</span></a>
-<a class="sourceLine" id="cb451-2" data-line-number="2">Derek<span class="op">$</span>RandomDataFrame &lt;-<span class="st"> </span>data  <span class="co"># Assign it to be a list element</span></a>
-<a class="sourceLine" id="cb451-3" data-line-number="3"><span class="kw">str</span>(Derek)</a></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="8-data-structures.html#cb456-1"></a><span class="co"># Recall that we previous had defined a data.frame called &quot;data&quot;</span></span>
+<span id="cb456-2"><a href="8-data-structures.html#cb456-2"></a>Derek<span class="op">$</span>RandomDataFrame &lt;-<span class="st"> </span>data  <span class="co"># Assign it to be a list element</span></span>
+<span id="cb456-3"><a href="8-data-structures.html#cb456-3"></a><span class="kw">str</span>(Derek)</span></code></pre></div>
 <pre><code>## List of 5
 ##  $ Spouse         : chr &quot;Aubrey&quot;
 ##  $ Siblings       : chr [1:4] &quot;Tina&quot; &quot;Caroline&quot; &quot;Brandon&quot; &quot;John&quot;
@@ -763,9 +772,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..$ Score3: num [1:3] 61 62 63</code></pre>
 <p>Now we see that the list <code>Derek</code> has five elements and some of those elements are pretty complicated. In fact, I could happily have lists of lists and have a very complicated nesting structure.</p>
 <p>The place that most users will run into lists is that the output of many statistical procedures will return the results in a list object. When a user asks R to perform a regression, the output returned is a list object, and we’ll need to grab particular information from that object afterwards. For example, the output from a t-test in R is a list:</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">5.1</span>, <span class="fl">4.9</span>, <span class="fl">5.6</span>, <span class="fl">4.2</span>, <span class="fl">4.8</span>, <span class="fl">4.5</span>, <span class="fl">5.3</span>, <span class="fl">5.2</span>)   <span class="co"># some toy data</span></a>
-<a class="sourceLine" id="cb453-2" data-line-number="2">results &lt;-<span class="st"> </span><span class="kw">t.test</span>(x, <span class="dt">alternative=</span><span class="st">&#39;less&#39;</span>, <span class="dt">mu=</span><span class="dv">5</span>)   <span class="co"># do a t-test</span></a>
-<a class="sourceLine" id="cb453-3" data-line-number="3"><span class="kw">str</span>(results)                                     <span class="co"># examine the resulting object</span></a></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="8-data-structures.html#cb458-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">5.1</span>, <span class="fl">4.9</span>, <span class="fl">5.6</span>, <span class="fl">4.2</span>, <span class="fl">4.8</span>, <span class="fl">4.5</span>, <span class="fl">5.3</span>, <span class="fl">5.2</span>)   <span class="co"># some toy data</span></span>
+<span id="cb458-2"><a href="8-data-structures.html#cb458-2"></a>results &lt;-<span class="st"> </span><span class="kw">t.test</span>(x, <span class="dt">alternative=</span><span class="st">&#39;less&#39;</span>, <span class="dt">mu=</span><span class="dv">5</span>)   <span class="co"># do a t-test</span></span>
+<span id="cb458-3"><a href="8-data-structures.html#cb458-3"></a><span class="kw">str</span>(results)                                     <span class="co"># examine the resulting object</span></span></code></pre></div>
 <pre><code>## List of 10
 ##  $ statistic  : Named num -0.314
 ##   ..- attr(*, &quot;names&quot;)= chr &quot;t&quot;
@@ -784,10 +793,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ data.name  : chr &quot;x&quot;
 ##  - attr(*, &quot;class&quot;)= chr &quot;htest&quot;</code></pre>
 <p>We see that result is actually a list with 9 elements in it. To access the p-value we could use:</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" data-line-number="1">results<span class="op">$</span>p.value</a></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="8-data-structures.html#cb460-1"></a>results<span class="op">$</span>p.value</span></code></pre></div>
 <pre><code>## [1] 0.3813385</code></pre>
 <p>If I ask R to print the object <code>results</code>, it will hide the structure from you and print it in a “pretty” fashion because there is a <code>print</code> function defined specifically for objects created by the <code>t.test()</code> function.</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" data-line-number="1">results</a></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="8-data-structures.html#cb462-1"></a>results</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -806,12 +815,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Create a vector of three elements (2,4,6) and name that vector <code>vec_a</code>. Create a second vector, <code>vec_b</code>, that contains (8,10,12). Add these two vectors together and name the result <code>vec_c</code>.</p></li>
 <li><p>Create a vector, named <code>vec_d</code>, that contains only two elements (14,20). Add this vector to <code>vec_a</code>. What is the result and what do you think R did (look up the recycling rule using Google)? What is the warning message that R gives you?</p></li>
 <li><p>Next add 5 to the vector vec_a. What is the result and what did R do? Why doesn’t in give you a warning message similar to what you saw in the previous problem?</p></li>
-<li>Generate the vector of integers <span class="math inline">\(\left\{ 1,2,\dots5\right\}\)</span> in two different ways.
+<li><p>Generate the vector of integers <span class="math inline">\(\left\{ 1,2,\dots5\right\}\)</span> in two different ways.</p>
 <ol style="list-style-type: lower-alpha">
 <li>First using the <code>seq()</code> function</li>
 <li>Using the <code>a:b</code> shortcut.</li>
 </ol></li>
-<li>Generate the vector of even numbers <span class="math inline">\(\left\{ 2,4,6,\dots,20\right\}\)</span>
+<li><p>Generate the vector of even numbers <span class="math inline">\(\left\{ 2,4,6,\dots,20\right\}\)</span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Using the seq() function and</li>
 <li>Using the a:b shortcut and some subsequent algebra. <em>Hint: Generate the vector 1-10 and then multiple it by 2</em>.</li>
@@ -821,7 +830,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 using the <code>rep()</code> command to replicate the vector c(2,4,8).</p></li>
 <li><p>Generate the vector <span class="math inline">\(\left\{ 2,2,2,2,4,4,4,4,8,8,8,8\right\}\)</span>
 using the <code>rep()</code> command. You might need to check the help file for rep() to see all of the options that rep() will accept. In particular, look at the optional argument <code>each=</code>.</p></li>
-<li>The vector <code>letters</code> is a built-in vector to R and contains the lower case English alphabet.
+<li><p>The vector <code>letters</code> is a built-in vector to R and contains the lower case English alphabet.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Extract the 9th element of the letters vector.</li>
 <li>Extract the sub-vector that contains the 9th, 11th, and 19th elements.</li>
@@ -842,7 +851,7 @@ using the <code>rep()</code> command. You might need to check the help file for 
 <li>Extract the second row out of <code>M</code>.</li>
 <li>Extract the element in the third row and second column of <code>M</code>.</li>
 </ol></li>
-<li>Create and manipulate a data frame.
+<li><p>Create and manipulate a data frame.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Create a <code>data.frame</code> named <code>my.trees</code> that has the following columns:
 <ul>
@@ -858,23 +867,23 @@ using the <code>rep()</code> command. You might need to check the help file for 
 <li>Without using <code>dplyr</code> functions, use the <code>index</code> vector to create a small data set with just the small girth trees.</li>
 </ol></li>
 <li><p>The following code creates a <code>data.frame</code> and then has two different methods for removing the rows with <code>NA</code> values in the column <code>Grade</code>. Explain the difference between the two.</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name=</span> <span class="kw">c</span>(<span class="st">&#39;Alice&#39;</span>,<span class="st">&#39;Bob&#39;</span>,<span class="st">&#39;Charlie&#39;</span>,<span class="st">&#39;Daniel&#39;</span>),</a>
-<a class="sourceLine" id="cb459-2" data-line-number="2">                 <span class="dt">Grade =</span> <span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">8</span>,<span class="ot">NA</span>,<span class="dv">9</span>))</a>
-<a class="sourceLine" id="cb459-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb459-4" data-line-number="4">df[ <span class="op">-</span><span class="kw">which</span>(  <span class="kw">is.na</span>(df<span class="op">$</span>Grade) ), ]</a>
-<a class="sourceLine" id="cb459-5" data-line-number="5">df[  <span class="kw">which</span>( <span class="op">!</span><span class="kw">is.na</span>(df<span class="op">$</span>Grade) ), ]</a></code></pre></div></li>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="8-data-structures.html#cb464-1"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name=</span> <span class="kw">c</span>(<span class="st">&#39;Alice&#39;</span>,<span class="st">&#39;Bob&#39;</span>,<span class="st">&#39;Charlie&#39;</span>,<span class="st">&#39;Daniel&#39;</span>),</span>
+<span id="cb464-2"><a href="8-data-structures.html#cb464-2"></a>                 <span class="dt">Grade =</span> <span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">8</span>,<span class="ot">NA</span>,<span class="dv">9</span>))</span>
+<span id="cb464-3"><a href="8-data-structures.html#cb464-3"></a></span>
+<span id="cb464-4"><a href="8-data-structures.html#cb464-4"></a>df[ <span class="op">-</span><span class="kw">which</span>(  <span class="kw">is.na</span>(df<span class="op">$</span>Grade) ), ]</span>
+<span id="cb464-5"><a href="8-data-structures.html#cb464-5"></a>df[  <span class="kw">which</span>( <span class="op">!</span><span class="kw">is.na</span>(df<span class="op">$</span>Grade) ), ]</span></code></pre></div></li>
 <li><p>Creation of data frames is usually done by binding together vectors while using <code>seq</code> and <code>rep</code> commands. However often we need to create a data frame that contains all possible combinations of several variables. The function <code>expand.grid()</code> addresses this need.</p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" data-line-number="1"><span class="kw">expand.grid</span>( <span class="dt">F1=</span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>), <span class="dt">F2=</span><span class="kw">c</span>(<span class="st">&#39;x&#39;</span>,<span class="st">&#39;w&#39;</span>,<span class="st">&#39;z&#39;</span>), <span class="dt">replicate=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="8-data-structures.html#cb465-1"></a><span class="kw">expand.grid</span>( <span class="dt">F1=</span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>), <span class="dt">F2=</span><span class="kw">c</span>(<span class="st">&#39;x&#39;</span>,<span class="st">&#39;w&#39;</span>,<span class="st">&#39;z&#39;</span>), <span class="dt">replicate=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> )</span></code></pre></div>
 <p>A fun example of using this function is making several graphs of the standard normal distribution versus the t-distribution. Use the <code>expand.grid</code> function to create a <code>data.frame</code> with all combinations of <code>x=seq(-4,4,by=.01)</code>, <code>dist=c('Normal','t')</code>, and <code>df=c(2,3,4,5,10,15,20,30)</code>. Use the <code>dplyr::mutate</code> command with the <code>if_else</code> command to generate the function heights <code>y</code> using either <code>dt(x,df)</code> or <code>dnorm(x)</code> depending on what is in the distribution column.</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1"><span class="kw">expand.grid</span>( <span class="dt">x=</span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dt">by=</span>.<span class="dv">01</span>), </a>
-<a class="sourceLine" id="cb461-2" data-line-number="2">             <span class="dt">dist=</span><span class="kw">c</span>(<span class="st">&#39;Normal&#39;</span>,<span class="st">&#39;t&#39;</span>), </a>
-<a class="sourceLine" id="cb461-3" data-line-number="3">             <span class="dt">df=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">30</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb461-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">y =</span> <span class="kw">if_else</span>(dist <span class="op">==</span><span class="st"> &#39;t&#39;</span>, <span class="kw">dt</span>(x, df), <span class="kw">dnorm</span>(x) ) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb461-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>( <span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">color=</span>dist) ) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb461-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb461-7" data-line-number="7"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>df)</a></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="8-data-structures.html#cb466-1"></a><span class="kw">expand.grid</span>( <span class="dt">x=</span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dt">by=</span>.<span class="dv">01</span>), </span>
+<span id="cb466-2"><a href="8-data-structures.html#cb466-2"></a>             <span class="dt">dist=</span><span class="kw">c</span>(<span class="st">&#39;Normal&#39;</span>,<span class="st">&#39;t&#39;</span>), </span>
+<span id="cb466-3"><a href="8-data-structures.html#cb466-3"></a>             <span class="dt">df=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">30</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb466-4"><a href="8-data-structures.html#cb466-4"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">y =</span> <span class="kw">if_else</span>(dist <span class="op">==</span><span class="st"> &#39;t&#39;</span>, <span class="kw">dt</span>(x, df), <span class="kw">dnorm</span>(x) ) ) <span class="op">%&gt;%</span></span>
+<span id="cb466-5"><a href="8-data-structures.html#cb466-5"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>( <span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">color=</span>dist) ) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb466-6"><a href="8-data-structures.html#cb466-6"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb466-7"><a href="8-data-structures.html#cb466-7"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>df)</span></code></pre></div>
 <p><img src="18_MatricesDataFramesLists_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p></li>
-<li>Create and manipulate a list.
+<li><p>Create and manipulate a list.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Create a list named my.test with elements
 <ul>
@@ -886,16 +895,16 @@ using the <code>rep()</code> command. You might need to check the help file for 
 <li>Extract the second element in the list.</li>
 <li>Extract the element named <code>p.value</code> from the list.</li>
 </ol></li>
-<li>The function <code>lm()</code> creates a linear model, which is a general class of model that includes both regression and ANOVA. We will call this on a data frame and examine the results. For this problem, there isn’t much to figure out, but rather the goal is to recognize the data structures being used in common analysis functions.
+<li><p>The function <code>lm()</code> creates a linear model, which is a general class of model that includes both regression and ANOVA. We will call this on a data frame and examine the results. For this problem, there isn’t much to figure out, but rather the goal is to recognize the data structures being used in common analysis functions.</p>
 <ol style="list-style-type: lower-alpha">
 <li>There are many data sets that are included with R and its packages. One of which is the <code>trees</code> data which is a data set of <span class="math inline">\(n=31\)</span> cherry trees. Load this dataset into your current workspace using the command:</li>
 </ol>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" data-line-number="1"><span class="kw">data</span>(trees)     <span class="co"># load trees data.frame</span></a></code></pre></div>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="8-data-structures.html#cb467-1"></a><span class="kw">data</span>(trees)     <span class="co"># load trees data.frame</span></span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Examine the data frame using the <code>str()</code> command. Look at the help file for the data using the command <code>help(trees)</code> or <code>?trees</code>.</li>
 <li>Perform a regression relating the volume of lumber produced to the girth and height of the tree using the following command</li>
 </ol>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth <span class="op">+</span><span class="st"> </span>Height, <span class="dt">data=</span>trees)</a></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="8-data-structures.html#cb468-1"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth <span class="op">+</span><span class="st"> </span>Height, <span class="dt">data=</span>trees)</span></code></pre></div>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Use the str() command to inspect <code>m</code>. Extract the model coefficients from this list.</li>
 </ol></li>
@@ -909,7 +918,7 @@ using the <code>rep()</code> command. You might need to check the help file for 
         </div>
       </div>
 <a href="rmarkdown-tricks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9-importing-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="9-data-wrangling-process.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

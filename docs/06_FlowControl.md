@@ -118,15 +118,15 @@ df
 ```
 
 ```
-##   Type       Value
-## 1    A  1.23504262
-## 2    A  0.48891608
-## 3    B  0.85200058
-## 4    B  0.28521581
-## 5    C  1.40777858
-## 6    C -1.89708519
-## 7    D -0.03210728
-## 8    D -0.07878431
+##   Type         Value
+## 1    A  3.765622e-01
+## 2    A -1.013756e+00
+## 3    B -4.682326e-01
+## 4    B -5.245756e-01
+## 5    C  1.443312e+00
+## 6    C  1.136932e+00
+## 7    D -5.517582e-05
+## 8    D  9.943301e-03
 ```
 
 ```r
@@ -134,11 +134,11 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 ```
 
 ```
-##   Type     Value
-## 1    A 1.2350426
-## 2    A 0.4889161
-## 3    B 0.8520006
-## 4    B 0.2852158
+##   Type      Value
+## 1    A  0.3765622
+## 2    A -1.0137560
+## 3    B -0.4682326
+## 4    B -0.5245756
 ```
 
 
@@ -188,7 +188,7 @@ people
 ## 6  Deborah      0     3  Female
 ```
 
-To do something similar for the case where we have 3 or more categories, we could use the `ifelse()` command repeatedly to address each category level seperately. However because the `ifelse` command is limited to just two cases, it would be nice if there was a generalization to multiple categories. The  `dplyr::case_when` function is that generalization. The synax is `case_when( logicalExpression1~Value1, logicalExpression2~Value2, ... )`. We can have as many `LogicalExpression ~ Value` pairs as we want. 
+To do something similar for the case where we have 3 or more categories, we could use the `ifelse()` command repeatedly to address each category level separately. However because the `ifelse` command is limited to just two cases, it would be nice if there was a generalization to multiple categories. The  `dplyr::case_when` function is that generalization. The syntax is `case_when( logicalExpression1~Value1, logicalExpression2~Value2, ... )`. We can have as many `LogicalExpression ~ Value` pairs as we want. 
 
 
 ```r
@@ -236,6 +236,8 @@ where the else part is optional.
 
 Suppose that I have a piece of code that generates a random variable from the Binomial distribution with one sample (essentially just flipping a coin) but I'd like to label it head or tails instead of one or zero.
 
+What is happening is that the test expression inside the `if()` is evaluated and if it is true, then the subsequent statement is executed. If the test expression is false, the next statement is skipped. The way the R language is defined, only the first statement after the if statement is executed (or skipped) depending on the test expression. If we want multiple statements to be executed (or skipped), we will wrap those expressions in curly brackets `{ }`. I find it easier to follow the `if else` logic when I see the curly brackets so I use them even when there is only one expression to be executed. Also notice that the RStudio editor indents the code that might be skipped to try help give you a hint that it will be conditionally evaluated.
+
 
 ```r
 # Flip the coin, and we get a 0 or 1
@@ -251,35 +253,6 @@ result
 # convert the 0/1 to Tail/Head
 if( result == 0 ){
   result <- 'Tail'
-}else{
-  result <- 'Head'
-}
-
-result
-```
-
-```
-## [1] "Tail"
-```
-
-
-What is happening is that the test expression inside the `if()` is evaluated and if it is true, then the subsequent statement is executed. If the test expression is false, the next statement is skipped. The way the R language is defined, only the first statement after the if statement is executed (or skipped) depending on the test expression. If we want multiple statements to be executed (or skipped), we will wrap those expressions in curly brackets `{ }`. I find it easier to follow the `if else` logic when I see the curly brackets so I use them even when there is only one expression to be executed. Also notice that the RStudio editor indents the code that might be skipped to try help give you a hint that it will be conditionally evaluated.
-
-
-```r
-# Flip the coin, and we get a 0 or 1
-result <- rbinom(n=1, size=1, prob=0.5)
-result
-```
-
-```
-## [1] 1
-```
-
-```r
-# convert the 0/1 to Tail/Head
-if( result == 0 ){
-  result <- 'Tail'
   print(" in the if statement, got a Tail! ")
 }else{
   result <- 'Head'
@@ -288,7 +261,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] "In the else part!"
+## [1] " in the if statement, got a Tail! "
 ```
 
 ```r
@@ -296,32 +269,10 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
-Run this code several times until you get both cases several times. Notice that in the Evironment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
-
-Finally we can nest if else statements together to allow you to write code that has many different execution routes.
-
-
-```r
-# randomly grab a number between 0,5 and round it up to 1,2, ..., 5
-birth.order <- ceiling( runif(1, 0,5) )  
-if( birth.order == 1 ){
-  print('The first child had more rules to follow')
-}else if( birth.order == 2 ){
-  print('The second child was ignored')
-}else if( birth.order == 3 ){
-  print('The third child was spoiled')
-}else{
-  # if birth.order is anything other than 1, 2 or 3
-  print('No more unfounded generalizations!')
-}
-```
-
-```
-## [1] "The third child was spoiled"
-```
+Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
 
 
 To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:
@@ -350,11 +301,33 @@ p.value
 ```
 
 ```
-## [1] 1.019888e-08
+## [1] 4.940134e-08
 ```
 
-
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.
+
+
+Finally we can nest if else statements together to allow you to write code that has many different execution routes.
+
+
+```r
+# randomly grab a number between 0,5 and round it up to 1,2, ..., 5
+birth.order <- ceiling( runif(1, 0,5) )  
+if( birth.order == 1 ){
+  print('The first child had more rules to follow')
+}else if( birth.order == 2 ){
+  print('The second child was ignored')
+}else if( birth.order == 3 ){
+  print('The third child was spoiled')
+}else{
+  # if birth.order is anything other than 1, 2 or 3
+  print('No more unfounded generalizations!')
+}
+```
+
+```
+## [1] "No more unfounded generalizations!"
+```
 
 
 
@@ -494,13 +467,27 @@ library(dplyr)
 library(ggplot2)
 
 # bootstrap from the trees dataset.
-SampDist <- data.frame() # Make a data frame to store the means 
+SampDist <- data.frame(xbar=NULL) # Make a data frame to store the means 
 for( i in 1:1000 ){
+  ## Do some stuff
   boot.data <- trees %>% dplyr::sample_frac(replace=TRUE)  
   boot.stat <- boot.data %>% dplyr::summarise(xbar=mean(Height)) # 1x1 data frame
+  
+  ## Save the result as a new row in the output data frame
   SampDist <- rbind( SampDist, boot.stat )
 }
 
+# Check out the structure of the result
+str(SampDist)
+```
+
+```
+## 'data.frame':	1000 obs. of  1 variable:
+##  $ xbar: num  74.5 76 76.8 74.9 74.1 ...
+```
+
+```r
+# Plot the output
 ggplot(SampDist, aes(x=xbar)) + 
   geom_histogram( binwidth=0.25) +
   labs(title='Trees Data: Bootstrap distribution of xbar')
@@ -508,6 +495,125 @@ ggplot(SampDist, aes(x=xbar)) +
 
 <img src="06_FlowControl_files/figure-html/ForLoopExample-1.png" width="672" />
 
+### `mosaic::do()` loops
+
+Many times when using a `for` loop, we want to save some quantity for each pass through the `for` loop. Because this is such a common tasks, the `mosaic::do()` function automates the creation of the output data frame and the saving each repetition. This function is intended to hide the coding steps that often trips up new programmers.  
+
+
+```r
+# Same Loop 
+SampDist <- mosaic::do(1000) * {
+  trees %>% dplyr::sample_frac(replace=TRUE)  %>%
+    dplyr::summarise(xbar=mean(Height)) %>%       # 1x1 data frame
+    pull(xbar)                                    # Scalar 
+}
+
+# Structure of the SampDist object 
+str(SampDist)
+```
+
+```
+## Classes 'do.data.frame' and 'data.frame':	1000 obs. of  1 variable:
+##  $ result: num  74.9 75.3 76.9 75.6 77.3 ...
+##  - attr(*, "lazy")=Class 'formula'  language ~{     trees %>% dplyr::sample_frac(replace = TRUE) %>% dplyr::summarise(xbar = mean(Height)) %>%  ...
+##   .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
+##  - attr(*, "culler")=function (object, ...)
+```
+
+```r
+# Plot the output
+ggplot(SampDist, aes(x=result)) + 
+  geom_histogram( binwidth=0.25) +
+  labs(title='Trees Data: Bootstrap distribution of xbar')
+```
+
+<img src="06_FlowControl_files/figure-html/DoLoopExample-1.png" width="672" />
+
+
+## Functions
+It is very important to be able to define a piece of programming logic that is repeated often. For example, I don't want to have to always program the mathematical code for calculating the sample variance of a vector of data. Instead I just want to call a function that does everything for me and I don't have to worry about the details. 
+
+While hiding the computational details is nice, fundamentally writing functions allows us to think about our problems at a higher layer of abstraction. For example, most scientists just want to run a t-test on their data and get the appropriate p-value out; they want to focus on their problem and not how to calculate what the appropriate degrees of freedom are. 
+Another statistical example where functions are important is a bootstrap data analysis where we need to define a function that calculates whatever statistic the research cares about.
+
+The format for defining your own function is 
+
+```r
+function.name <- function(arg1, arg2, arg3){
+  statement1
+  statement2
+}
+```
+
+where `arg1` is the first argument passed to the function and `arg2` is the second.
+
+To illustrate how to define your own function, we will define a variance calculating function.
+
+
+```r
+# define my function
+my.var <- function(x){
+  n <- length(x)                # calculate sample size
+  xbar <- mean(x)               # calculate sample mean
+  SSE <- sum( (x-xbar)^2 )      # calculate sum of squared error
+  v <- SSE / ( n - 1 )          # "average" squared error
+  return(v)                     # result of function is v
+}
+```
+
+
+```r
+# create a vector that I wish to calculate the variance of
+test.vector <- c(1,2,2,4,5)
+
+# calculate the variance using my function
+calculated.var <- my.var( test.vector )
+calculated.var
+```
+
+```
+## [1] 2.7
+```
+
+Notice that even though I defined my function using `x` as my vector of data, and passed my function something named `test.vector`, R does the appropriate renaming.If my function doesn't modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable `x` as a placeholder, with it being replaced by whatever gets passed into the function.
+
+When I call a function, the function might cause something to happen (e.g. draw a plot) or it might do some calculates the result is returned by the function and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the `return` statement. (Actually R doesn't completely require this. But the alternative method is less intuitive and I strongly recommend using the `return()` statement for readability.)
+
+By writing a function, I can use the same chunk of code repeatedly. This means that I can do all my tedious calculations inside the function and just call the function whenever I want and happily ignore the details. Consider the function `t.test()` which we have used to do all the calculations in a t-test. We could write a similar function using the following code:
+
+
+```r
+# define my function
+one.sample.t.test <- function(input.data, mu0){
+  n    <- length(input.data)
+  xbar <- mean(input.data)
+  s    <- sd(input.data)
+  t    <- (xbar - mu0)/(s / sqrt(n))
+  if( t < 0 ){
+    p.value <- 2 * pt(t, df=n-1)
+  }else{
+    p.value <- 2 * (1-pt(t, df=n-1))
+  }
+  # we haven't addressed how to print things in a organized 
+  # fashion, the following is ugly, but works...
+  # Notice that this function returns a character string
+  # with the necessary information in the string.
+  return( paste('t =', round(t, digits=3), ' and p.value =', round(p.value, 3)) )
+}
+```
+
+
+```r
+# create a vector that I wish apply a one-sample t-test on.
+test.data <- c(1,2,2,4,5,4,3,2,3,2,4,5,6)
+one.sample.t.test( test.data, mu0=2 )
+```
+
+```
+## [1] "t = 3.157  and p.value = 0.008"
+```
+
+Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something similar to the above function, but is a bit grander in scope. Even if you don't end up writing any of your own functions, knowing how to will help you understand why certain functions you use are designed the way they are. 
 
 ## Exercises
 
@@ -535,8 +641,7 @@ ggplot(SampDist, aes(x=xbar)) +
     ## 10 Joe Biden        M      1942-11-20 D                77
     ## 11 Bernie Sanders   M      1941-09-08 D                79
     ```
-    
-    a) Recode the Gender column to have Male and Female levels. Similarly convert the party variable to be Democratic or Republican.
+    a) Re-code the Gender column to have Male and Female levels. Similarly convert the party variable to be Democratic or Republican.
     b) Bernie Sanders was registered as an Independent up until his 2016 presidential run. Change his political party value into 'Independent'.
 
 2. The $Uniform\left(a,b\right)$ distribution is defined on x $\in [a,b]$ and represents a random variable that takes on any value of between `a` and `b` with equal probability. Technically since there are an infinite number of values between `a` and `b`, each value has a probability of 0 of being selected and I should say each interval of width $d$ has equal probability. It has the density function 
@@ -559,7 +664,7 @@ ggplot(SampDist, aes(x=xbar)) +
     ```
     
     ```
-    ## [1] 0.1666667
+    ## [1] 0
     ```
 
     
@@ -639,25 +744,9 @@ ggplot(SampDist, aes(x=xbar)) +
     print(myplot) 
     ```
     
-    <img src="06_FlowControl_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+    <img src="06_FlowControl_files/figure-html/unnamed-chunk-33-1.png" width="672" />
 
-    a) Use a for loop to create similar graphs for degrees of freedom $2,3,4,\dots,29,30$. 
+    a) Use a `for` loop to create similar graphs for degrees of freedom $2,3,4,\dots,29,30$. 
 
     b) In retrospect, perhaps we didn't need to produce all of those. Rewrite your loop so that we only produce graphs for $\left\{ 2,3,4,5,10,15,20,25,30\right\}$ degrees of freedom. *Hint: you can just modify the vector in the `for` statement to include the desired degrees of freedom.*
 
-4. The `for` loop usually is the most natural one to use, but occasionally we have occasions where it is too cumbersome and a different sort of loop is appropriate. One example is taking a random sample from a truncated distribution. For example, I might want to take a sample from a normal distribution with mean $\mu$ and standard deviation $\sigma$ but for some reason need the answer to be larger than zero. One solution is to just sample from the given normal distribution until I get a value that is bigger than zero. 
-
-    
-    ```r
-    mu    <- 0 
-    sigma <- 1
-    x <- rnorm(1, mean=mu, sd=sigma) 
-    print(x)       
-    # start the while loop checking if x < 0
-    #    generate a new x value
-    #    print the new x value
-    # end the while loop
-    ```
-
-    Replace the comments in the above code so that x is a random observation from the truncated normal distribution.
-    

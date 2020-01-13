@@ -401,9 +401,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="databases" class="section level1">
 <h1><span class="header-section-number">Chapter 18</span> Databases</h1>
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb775-2" data-line-number="2"><span class="kw">library</span>(DBI)         <span class="co"># DataBase Interface Package</span></a>
-<a class="sourceLine" id="cb775-3" data-line-number="3"><span class="kw">library</span>(dbplyr)      <span class="co"># dplyr with databases!</span></a></code></pre></div>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb773-2" data-line-number="2"><span class="kw">library</span>(DBI)         <span class="co"># DataBase Interface Package</span></a>
+<a class="sourceLine" id="cb773-3" data-line-number="3"><span class="kw">library</span>(dbplyr)      <span class="co"># dplyr with databases!</span></a></code></pre></div>
 <p>As our data grows larger and is being updated more frequently, we need to stop using static input files and instead learn to interact with databases. There are a many reasons for using a database, but these are my favorite:</p>
 <ol style="list-style-type: decimal">
 <li>Data Freshness. Because the database holds the definitive copy of the data, there isn’t a problem of using a .csv file that is months (or years) old. That means my results are constantly being updated with new data.</li>
@@ -415,49 +415,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">18.1</span> Tutorial Set-Up</h2>
 <p>To demonstrate how a database works, we unfortunately need to have a live database to connect to. In real situations this would already be done (probably by somebody else) and you would just need to install some DataBase Interface (DBI) package that will negotiate creating a connection between your R-session and the database.</p>
 <p>However for this example, we need to start up a data base before we can start working with.</p>
-<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb776-1" data-line-number="1"><span class="co"># Normally, a database connection looks something like this:</span></a>
-<a class="sourceLine" id="cb776-2" data-line-number="2">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RMariaDB<span class="op">::</span><span class="kw">MariaDB</span>(), </a>
-<a class="sourceLine" id="cb776-3" data-line-number="3">  <span class="dt">host =</span> <span class="st">&quot;database.rstudio.com&quot;</span>,</a>
-<a class="sourceLine" id="cb776-4" data-line-number="4">  <span class="dt">user =</span> <span class="st">&quot;hadley&quot;</span>,</a>
-<a class="sourceLine" id="cb776-5" data-line-number="5">  <span class="dt">password =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;Database password&quot;</span>)</a>
-<a class="sourceLine" id="cb776-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb776-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb776-8" data-line-number="8"><span class="co"># For a Postgres database, it might look like this:</span></a>
-<a class="sourceLine" id="cb776-9" data-line-number="9">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(<span class="kw">dbDriver</span>(<span class="st">&quot;PostgresSQL&quot;</span>), <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</a>
-<a class="sourceLine" id="cb776-10" data-line-number="10">  <span class="dt">host =</span> <span class="st">&quot;database.nau.edu&quot;</span>, <span class="dt">port =</span> <span class="dv">5432</span>,</a>
-<a class="sourceLine" id="cb776-11" data-line-number="11">  <span class="dt">user =</span> <span class="st">&quot;dls354&quot;</span>, </a>
-<a class="sourceLine" id="cb776-12" data-line-number="12">  <span class="dt">password =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;Database password&quot;</span>))</a></code></pre></div>
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" data-line-number="1"><span class="co"># For our little toy example, we&#39;ll use a database I&#39;ll create right now.</span></a>
-<a class="sourceLine" id="cb777-2" data-line-number="2"><span class="co"># Establish a connection</span></a>
-<a class="sourceLine" id="cb777-3" data-line-number="3">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;:memory:&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb774-1" data-line-number="1"><span class="co"># Normally, a database connection looks something like this:</span></a>
+<a class="sourceLine" id="cb774-2" data-line-number="2">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RMariaDB<span class="op">::</span><span class="kw">MariaDB</span>(), </a>
+<a class="sourceLine" id="cb774-3" data-line-number="3">  <span class="dt">host =</span> <span class="st">&quot;database.rstudio.com&quot;</span>,</a>
+<a class="sourceLine" id="cb774-4" data-line-number="4">  <span class="dt">user =</span> <span class="st">&quot;hadley&quot;</span>,</a>
+<a class="sourceLine" id="cb774-5" data-line-number="5">  <span class="dt">password =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;Database password&quot;</span>)</a>
+<a class="sourceLine" id="cb774-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb774-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb774-8" data-line-number="8"><span class="co"># For a Postgres database, it might look like this:</span></a>
+<a class="sourceLine" id="cb774-9" data-line-number="9">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(<span class="kw">dbDriver</span>(<span class="st">&quot;PostgresSQL&quot;</span>), <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb774-10" data-line-number="10">  <span class="dt">host =</span> <span class="st">&quot;database.nau.edu&quot;</span>, <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb774-11" data-line-number="11">  <span class="dt">user =</span> <span class="st">&quot;dls354&quot;</span>, </a>
+<a class="sourceLine" id="cb774-12" data-line-number="12">  <span class="dt">password =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;Database password&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" data-line-number="1"><span class="co"># For our little toy example, we&#39;ll use a database I&#39;ll create right now.</span></a>
+<a class="sourceLine" id="cb775-2" data-line-number="2"><span class="co"># Establish a connection</span></a>
+<a class="sourceLine" id="cb775-3" data-line-number="3">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;:memory:&quot;</span>)</a></code></pre></div>
 <p>Our final step involves populating our new database with some data so that we can play with it. For this example, we’ll go back to the credit card data example from the data reshaping chapter. I have it available on the book’s GitHub data-raw directory.</p>
-<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb778-1" data-line-number="1"><span class="co"># Read in some data for the Credit Card example</span></a>
-<a class="sourceLine" id="cb778-2" data-line-number="2">stem &lt;-<span class="st"> &#39;https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/CreditCard&#39;</span></a>
-<a class="sourceLine" id="cb778-3" data-line-number="3">stem &lt;-<span class="st"> &#39;~/GitHub/444/data-raw/CreditCard&#39;</span></a>
-<a class="sourceLine" id="cb778-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb778-5" data-line-number="5">Cards        &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Cards.csv&#39;</span>,        <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>), </a>
-<a class="sourceLine" id="cb778-6" data-line-number="6">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">CardID=</span><span class="kw">col_character</span>(),</a>
-<a class="sourceLine" id="cb778-7" data-line-number="7">                                          <span class="dt">PersonID=</span><span class="kw">col_character</span>()))</a>
-<a class="sourceLine" id="cb778-8" data-line-number="8">Customers    &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Customers.csv&#39;</span>,    <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</a>
-<a class="sourceLine" id="cb778-9" data-line-number="9">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">PersonID=</span><span class="kw">col_character</span>()))</a>
-<a class="sourceLine" id="cb778-10" data-line-number="10">Retailers    &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Retailers.csv&#39;</span>,    <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</a>
-<a class="sourceLine" id="cb778-11" data-line-number="11">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">RetailID=</span><span class="kw">col_character</span>()))</a>
-<a class="sourceLine" id="cb778-12" data-line-number="12">Transactions &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Transactions.csv&#39;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</a>
-<a class="sourceLine" id="cb778-13" data-line-number="13">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">CardID=</span><span class="kw">col_character</span>(),</a>
-<a class="sourceLine" id="cb778-14" data-line-number="14">                                          <span class="dt">RetailID=</span><span class="kw">col_character</span>()))</a>
-<a class="sourceLine" id="cb778-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb778-16" data-line-number="16"><span class="co"># Because the EXTREMELY simple RSQLite database doesn&#39;t support dates natively,</span></a>
-<a class="sourceLine" id="cb778-17" data-line-number="17"><span class="co"># we need to convert all the Date/Time values to be character strings. Notice</span></a>
-<a class="sourceLine" id="cb778-18" data-line-number="18"><span class="co"># because they are sorted as Year-Month-Day Hour:Minute:Second, sorting will</span></a>
-<a class="sourceLine" id="cb778-19" data-line-number="19"><span class="co"># still work.</span></a>
-<a class="sourceLine" id="cb778-20" data-line-number="20"><span class="co"># convert the Dates to character strings </span></a>
-<a class="sourceLine" id="cb778-21" data-line-number="21">Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb778-22" data-line-number="22"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Issue_DateTime =</span> <span class="kw">as.character</span>(Issue_DateTime),</a>
-<a class="sourceLine" id="cb778-23" data-line-number="23">         <span class="dt">Exp_DateTime   =</span> <span class="kw">as.character</span>(Exp_DateTime))</a>
-<a class="sourceLine" id="cb778-24" data-line-number="24">Transactions &lt;-<span class="st"> </span>Transactions <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb778-25" data-line-number="25"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">DateTime =</span> <span class="kw">as.character</span>(DateTime))</a></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb776-1" data-line-number="1"><span class="co"># Read in some data for the Credit Card example</span></a>
+<a class="sourceLine" id="cb776-2" data-line-number="2">stem &lt;-<span class="st"> &#39;https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/CreditCard&#39;</span></a>
+<a class="sourceLine" id="cb776-3" data-line-number="3">stem &lt;-<span class="st"> &#39;~/GitHub/444/data-raw/CreditCard&#39;</span></a>
+<a class="sourceLine" id="cb776-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb776-5" data-line-number="5">Cards        &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Cards.csv&#39;</span>,        <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>), </a>
+<a class="sourceLine" id="cb776-6" data-line-number="6">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">CardID=</span><span class="kw">col_character</span>(),</a>
+<a class="sourceLine" id="cb776-7" data-line-number="7">                                          <span class="dt">PersonID=</span><span class="kw">col_character</span>()))</a>
+<a class="sourceLine" id="cb776-8" data-line-number="8">Customers    &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Customers.csv&#39;</span>,    <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</a>
+<a class="sourceLine" id="cb776-9" data-line-number="9">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">PersonID=</span><span class="kw">col_character</span>()))</a>
+<a class="sourceLine" id="cb776-10" data-line-number="10">Retailers    &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Retailers.csv&#39;</span>,    <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</a>
+<a class="sourceLine" id="cb776-11" data-line-number="11">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">RetailID=</span><span class="kw">col_character</span>()))</a>
+<a class="sourceLine" id="cb776-12" data-line-number="12">Transactions &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Transactions.csv&#39;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</a>
+<a class="sourceLine" id="cb776-13" data-line-number="13">                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">CardID=</span><span class="kw">col_character</span>(),</a>
+<a class="sourceLine" id="cb776-14" data-line-number="14">                                          <span class="dt">RetailID=</span><span class="kw">col_character</span>()))</a>
+<a class="sourceLine" id="cb776-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb776-16" data-line-number="16"><span class="co"># Because the EXTREMELY simple RSQLite database doesn&#39;t support dates natively,</span></a>
+<a class="sourceLine" id="cb776-17" data-line-number="17"><span class="co"># we need to convert all the Date/Time values to be character strings. Notice</span></a>
+<a class="sourceLine" id="cb776-18" data-line-number="18"><span class="co"># because they are sorted as Year-Month-Day Hour:Minute:Second, sorting will</span></a>
+<a class="sourceLine" id="cb776-19" data-line-number="19"><span class="co"># still work.</span></a>
+<a class="sourceLine" id="cb776-20" data-line-number="20"><span class="co"># convert the Dates to character strings </span></a>
+<a class="sourceLine" id="cb776-21" data-line-number="21">Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb776-22" data-line-number="22"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Issue_DateTime =</span> <span class="kw">as.character</span>(Issue_DateTime),</a>
+<a class="sourceLine" id="cb776-23" data-line-number="23">         <span class="dt">Exp_DateTime   =</span> <span class="kw">as.character</span>(Exp_DateTime))</a>
+<a class="sourceLine" id="cb776-24" data-line-number="24">Transactions &lt;-<span class="st"> </span>Transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb776-25" data-line-number="25"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">DateTime =</span> <span class="kw">as.character</span>(DateTime))</a></code></pre></div>
 <p>So that we remember what the data we are working with looks like:</p>
-<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" data-line-number="1"><span class="kw">head</span>(Customers)    <span class="co"># Key  is  PersonID</span></a></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" data-line-number="1"><span class="kw">head</span>(Customers)    <span class="co"># Key  is  PersonID</span></a></code></pre></div>
 <pre><code>## # A tibble: 4 x 5
 ##   PersonID Name               Street             City      State
 ##   &lt;chr&gt;    &lt;chr&gt;              &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;
@@ -465,7 +465,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 2        Aubrey Sonderegger 231 River Run      Flagstaff AZ   
 ## 3 3        Robert Buscaglia   754 Forest Heights Flagstaff AZ   
 ## 4 4        Roy St Laurent     845 Elk View       Flagstaff AZ</code></pre>
-<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" data-line-number="1"><span class="kw">head</span>(Cards)        <span class="co"># Keys are PersonID and CardID  </span></a></code></pre></div>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" data-line-number="1"><span class="kw">head</span>(Cards)        <span class="co"># Keys are PersonID and CardID  </span></a></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
 ##   CardID           PersonID Issue_DateTime      Exp_DateTime       
 ##   &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;              
@@ -474,7 +474,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 9876765498122734 3        2019-09-28 00:00:00 2022-09-28 00:00:00
 ## 4 9876768965231926 4        2019-09-30 00:00:00 2022-09-30 00:00:00
 ## 5 9876765798212988 2        2019-10-15 16:28:45 2022-10-15 00:00:00</code></pre>
-<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" data-line-number="1"><span class="kw">head</span>(Transactions) <span class="co"># Keys are CardID and RetailID</span></a></code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" data-line-number="1"><span class="kw">head</span>(Transactions) <span class="co"># Keys are CardID and RetailID</span></a></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   CardID           RetailID DateTime            Amount
 ##   &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;
@@ -484,7 +484,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 9876768717278723 1        2019-10-02 08:30:09   9.23
 ## 5 9876765798212987 3        2019-10-05 18:58:57  68.5 
 ## 6 9876765498122734 2        2019-10-05 12:39:26  31.8</code></pre>
-<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" data-line-number="1"><span class="kw">head</span>(Retailers)    <span class="co"># Key  is  RetailID</span></a></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" data-line-number="1"><span class="kw">head</span>(Retailers)    <span class="co"># Key  is  RetailID</span></a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   RetailID Name           Street             City      State
 ##   &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;
@@ -492,20 +492,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 2        MartAnnes      112 E Route 66     Flagstaff AZ   
 ## 3 3        REI            323 S Windsor Ln   Flagstaff AZ</code></pre>
 <p>Critically, using the ID columns, we can take an individual transaction figure out what customer executed it. Finally I’ll take these tables and load them into my RSQLite database.</p>
-<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb787-1" data-line-number="1"><span class="co"># Copy the tables to our newly set up database. The dbWriteTable() function is intended</span></a>
-<a class="sourceLine" id="cb787-2" data-line-number="2"><span class="co"># for database examples and is NOT how you would in practice create a database.</span></a>
-<a class="sourceLine" id="cb787-3" data-line-number="3">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Cards&#39;</span>, Cards,</a>
-<a class="sourceLine" id="cb787-4" data-line-number="4">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">CardID=</span><span class="st">&#39;character&#39;</span>,<span class="dt">PersonID=</span><span class="st">&#39;character&#39;</span>,</a>
-<a class="sourceLine" id="cb787-5" data-line-number="5">                                <span class="dt">Issue_DateTime=</span><span class="st">&#39;time&#39;</span>,<span class="dt">Exp_DateTime=</span><span class="st">&#39;time&#39;</span>) )</a>
-<a class="sourceLine" id="cb787-6" data-line-number="6">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Customers&#39;</span>, Customers,</a>
-<a class="sourceLine" id="cb787-7" data-line-number="7">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">PersonID=</span><span class="st">&#39;character&#39;</span>))</a>
-<a class="sourceLine" id="cb787-8" data-line-number="8">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Retailers&#39;</span>, Retailers,</a>
-<a class="sourceLine" id="cb787-9" data-line-number="9">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">RetailID=</span><span class="st">&#39;character&#39;</span>))</a>
-<a class="sourceLine" id="cb787-10" data-line-number="10">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Transactions&#39;</span>, Transactions,</a>
-<a class="sourceLine" id="cb787-11" data-line-number="11">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">CardID=</span><span class="st">&#39;character&#39;</span>, <span class="dt">RetailID=</span><span class="st">&#39;character&#39;</span>,</a>
-<a class="sourceLine" id="cb787-12" data-line-number="12">                                <span class="dt">DateTime=</span><span class="st">&#39;time&#39;</span>))</a>
-<a class="sourceLine" id="cb787-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb787-14" data-line-number="14"><span class="kw">rm</span>(Cards, Customers, Retailers, Transactions)     <span class="co"># Remove all the setup except `con`</span></a></code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" data-line-number="1"><span class="co"># Copy the tables to our newly set up database. The dbWriteTable() function is intended</span></a>
+<a class="sourceLine" id="cb785-2" data-line-number="2"><span class="co"># for database examples and is NOT how you would in practice create a database.</span></a>
+<a class="sourceLine" id="cb785-3" data-line-number="3">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Cards&#39;</span>, Cards,</a>
+<a class="sourceLine" id="cb785-4" data-line-number="4">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">CardID=</span><span class="st">&#39;character&#39;</span>,<span class="dt">PersonID=</span><span class="st">&#39;character&#39;</span>,</a>
+<a class="sourceLine" id="cb785-5" data-line-number="5">                                <span class="dt">Issue_DateTime=</span><span class="st">&#39;time&#39;</span>,<span class="dt">Exp_DateTime=</span><span class="st">&#39;time&#39;</span>) )</a>
+<a class="sourceLine" id="cb785-6" data-line-number="6">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Customers&#39;</span>, Customers,</a>
+<a class="sourceLine" id="cb785-7" data-line-number="7">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">PersonID=</span><span class="st">&#39;character&#39;</span>))</a>
+<a class="sourceLine" id="cb785-8" data-line-number="8">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Retailers&#39;</span>, Retailers,</a>
+<a class="sourceLine" id="cb785-9" data-line-number="9">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">RetailID=</span><span class="st">&#39;character&#39;</span>))</a>
+<a class="sourceLine" id="cb785-10" data-line-number="10">DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Transactions&#39;</span>, Transactions,</a>
+<a class="sourceLine" id="cb785-11" data-line-number="11">                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">CardID=</span><span class="st">&#39;character&#39;</span>, <span class="dt">RetailID=</span><span class="st">&#39;character&#39;</span>,</a>
+<a class="sourceLine" id="cb785-12" data-line-number="12">                                <span class="dt">DateTime=</span><span class="st">&#39;time&#39;</span>))</a>
+<a class="sourceLine" id="cb785-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb785-14" data-line-number="14"><span class="kw">rm</span>(Cards, Customers, Retailers, Transactions)     <span class="co"># Remove all the setup except `con`</span></a></code></pre></div>
 </div>
 <div id="sql" class="section level2">
 <h2><span class="header-section-number">18.2</span> SQL</h2>
@@ -515,8 +515,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 /* SQL code Chunk, notice comments are marked in C++ style */
 SELECT * FROM Transactions
 ```</code></pre>
-<div class="sourceCode" id="cb789"><pre class="sourceCode sql"><code class="sourceCode sql"><a class="sourceLine" id="cb789-1" data-line-number="1"><span class="co">/* SQL code Chunk, notice comments are marked in C++ style */</span></a>
-<a class="sourceLine" id="cb789-2" data-line-number="2"><span class="kw">SELECT</span> * <span class="kw">FROM</span> Transactions</a></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode sql"><code class="sourceCode sql"><a class="sourceLine" id="cb787-1" data-line-number="1"><span class="co">/* SQL code Chunk, notice comments are marked in C++ style */</span></a>
+<a class="sourceLine" id="cb787-2" data-line-number="2"><span class="kw">SELECT</span> * <span class="kw">FROM</span> Transactions</a></code></pre></div>
 <div class="knitsql-table">
 <table>
 <caption><span id="tab:unnamed-chunk-9">Table 18.1: </span>8 records</caption>
@@ -611,13 +611,13 @@ SELECT * FROM Transactions
 </tbody>
 </table>
 <p>Typical SQL statements can be quite long and sometimes difficult to read because the table join instructions are mixed in with the filtering instructions. For example, the following is the SQL command to generate my credit card statement</p>
-<div class="sourceCode" id="cb790"><pre class="sourceCode sql"><code class="sourceCode sql"><a class="sourceLine" id="cb790-1" data-line-number="1"><span class="co">/* SQL code Chunk, notice comments are marked in C++ style */</span></a>
-<a class="sourceLine" id="cb790-2" data-line-number="2"><span class="kw">SELECT</span> Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount</a>
-<a class="sourceLine" id="cb790-3" data-line-number="3">  <span class="kw">FROM</span> Customers, Cards, Transactions, Retailers</a>
-<a class="sourceLine" id="cb790-4" data-line-number="4">  <span class="kw">WHERE</span> Customers.PersonID = Cards.PersonID <span class="kw">AND</span> </a>
-<a class="sourceLine" id="cb790-5" data-line-number="5">        Cards.CardID = Transactions.CardID <span class="kw">AND</span></a>
-<a class="sourceLine" id="cb790-6" data-line-number="6">        Transactions.RetailID = Retailers.RetailID <span class="kw">AND</span></a>
-<a class="sourceLine" id="cb790-7" data-line-number="7">        Customers.Name = <span class="st">&#39;Derek Sonderegger&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb788"><pre class="sourceCode sql"><code class="sourceCode sql"><a class="sourceLine" id="cb788-1" data-line-number="1"><span class="co">/* SQL code Chunk, notice comments are marked in C++ style */</span></a>
+<a class="sourceLine" id="cb788-2" data-line-number="2"><span class="kw">SELECT</span> Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount</a>
+<a class="sourceLine" id="cb788-3" data-line-number="3">  <span class="kw">FROM</span> Customers, Cards, Transactions, Retailers</a>
+<a class="sourceLine" id="cb788-4" data-line-number="4">  <span class="kw">WHERE</span> Customers.PersonID = Cards.PersonID <span class="kw">AND</span> </a>
+<a class="sourceLine" id="cb788-5" data-line-number="5">        Cards.CardID = Transactions.CardID <span class="kw">AND</span></a>
+<a class="sourceLine" id="cb788-6" data-line-number="6">        Transactions.RetailID = Retailers.RetailID <span class="kw">AND</span></a>
+<a class="sourceLine" id="cb788-7" data-line-number="7">        Customers.Name = <span class="st">&#39;Derek Sonderegger&#39;</span></a></code></pre></div>
 <div class="knitsql-table">
 <table>
 <caption><span id="tab:unnamed-chunk-10">Table 18.2: </span>3 records</caption>
@@ -656,13 +656,13 @@ SELECT * FROM Transactions
 <h2><span class="header-section-number">18.3</span> <code>dbplyr</code></h2>
 <p>There are a lot of good things about SQL, but for database queries, I would really like to pretend that the tables are in memory and use all of my favorite <code>dplyr</code> tools and pipelines. This would mean that I don’t have to remember all the weird SQL syntax. However, the database interface <code>dbplyr</code> is ONLY intended for queries and NOT for updating or inserting rows into the tables.</p>
 <p>The way this will work is that we will use the previously established database connection <code>con</code> to create a virtual link between the database table and some appropriately named R object.</p>
-<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" data-line-number="1"><span class="co"># connect the database tables to similarly named objects in R</span></a>
-<a class="sourceLine" id="cb791-2" data-line-number="2">Cards &lt;-<span class="st">        </span><span class="kw">tbl</span>(con, <span class="st">&#39;Cards&#39;</span>)</a>
-<a class="sourceLine" id="cb791-3" data-line-number="3">Customers &lt;-<span class="st">    </span><span class="kw">tbl</span>(con, <span class="st">&#39;Customers&#39;</span>)</a>
-<a class="sourceLine" id="cb791-4" data-line-number="4">Retailers &lt;-<span class="st">    </span><span class="kw">tbl</span>(con, <span class="st">&#39;Retailers&#39;</span>)</a>
-<a class="sourceLine" id="cb791-5" data-line-number="5">Transactions &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="st">&#39;Transactions&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" data-line-number="1"><span class="co"># connect the database tables to similarly named objects in R</span></a>
+<a class="sourceLine" id="cb789-2" data-line-number="2">Cards &lt;-<span class="st">        </span><span class="kw">tbl</span>(con, <span class="st">&#39;Cards&#39;</span>)</a>
+<a class="sourceLine" id="cb789-3" data-line-number="3">Customers &lt;-<span class="st">    </span><span class="kw">tbl</span>(con, <span class="st">&#39;Customers&#39;</span>)</a>
+<a class="sourceLine" id="cb789-4" data-line-number="4">Retailers &lt;-<span class="st">    </span><span class="kw">tbl</span>(con, <span class="st">&#39;Retailers&#39;</span>)</a>
+<a class="sourceLine" id="cb789-5" data-line-number="5">Transactions &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="st">&#39;Transactions&#39;</span>)</a></code></pre></div>
 <p>However, this does NOT download the whole table into R. Instead it grabs only a couple of rows so that we can see the format. Notice that we don’t know how many rows are in the Transactions table.</p>
-<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb792-1" data-line-number="1">Transactions <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb790-1" data-line-number="1">Transactions <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 4]
 ## # Database: sqlite 3.29.0 [:memory:]
 ##   CardID           RetailID DateTime            Amount
@@ -670,17 +670,17 @@ SELECT * FROM Transactions
 ## 1 9876768717278723 1        2019-10-01 08:31:23   5.68
 ## 2 9876765498122734 2        2019-10-01 12:45:45  25.7 
 ## 3 9876768717278723 1        2019-10-02 08:26:31   5.68</code></pre>
-<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb794-1" data-line-number="1"><span class="co"># Transactions %&gt;% tail(3)  # not supported because we haven&#39;t yet downloaded much information.</span></a></code></pre></div>
+<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb792-1" data-line-number="1"><span class="co"># Transactions %&gt;% tail(3)  # not supported because we haven&#39;t yet downloaded much information.</span></a></code></pre></div>
 <p>The guiding principle of <code>dbplyr</code> is to delay as much work for as long as possible actually pulling the data from the database. The rational is that we spend a great deal of time figuring out what the query should look like and too often we write a query that accidentally downloads millions of lines of data and slows down our network connection. Instead <code>dbplyr</code> returns just the first few rows of whatever query we are working on until we finish the pipeline with a <code>collect()</code> command that will cause us to download ALL of the query results and save them as a local <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb795-1" data-line-number="1">CC_statement &lt;-<span class="st"> </span>Customers <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb795-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(Name <span class="op">==</span><span class="st"> &#39;Derek Sonderegger&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(PersonID) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb795-3" data-line-number="3"><span class="st">  </span><span class="kw">left_join</span>(Cards) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(Transactions) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(Retailers) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb795-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(DateTime, Name, Amount) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb795-5" data-line-number="5"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Retailer =</span> Name) </a></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb793-1" data-line-number="1">CC_statement &lt;-<span class="st"> </span>Customers <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb793-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(Name <span class="op">==</span><span class="st"> &#39;Derek Sonderegger&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(PersonID) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb793-3" data-line-number="3"><span class="st">  </span><span class="kw">left_join</span>(Cards) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(Transactions) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(Retailers) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb793-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(DateTime, Name, Amount) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb793-5" data-line-number="5"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Retailer =</span> Name) </a></code></pre></div>
 <pre><code>## Joining, by = &quot;PersonID&quot;</code></pre>
 <pre><code>## Joining, by = &quot;CardID&quot;</code></pre>
 <pre><code>## Joining, by = &quot;RetailID&quot;</code></pre>
-<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" data-line-number="1">CC_statement</a></code></pre></div>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" data-line-number="1">CC_statement</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 3]
 ## # Database: sqlite 3.29.0 [:memory:]
 ##   DateTime            Retailer       Amount
@@ -689,7 +689,7 @@ SELECT * FROM Transactions
 ## 2 2019-10-02 08:26:31 Kickstand Kafe   5.68
 ## 3 2019-10-02 08:30:09 Kickstand Kafe   9.23</code></pre>
 <p>At this point, we <em>still</em> haven’t downloaded all of the rows. Instead this is still a <em>lazy</em> query. It can be fun to see what the SQL code that is being generated is.</p>
-<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" data-line-number="1">CC_statement <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">show_query</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" data-line-number="1">CC_statement <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT `DateTime`, `Name` AS `Retailer`, `Amount`
 ## FROM (SELECT `LHS`.`PersonID` AS `PersonID`, `LHS`.`CardID` AS `CardID`, `LHS`.`Issue_DateTime` AS `Issue_DateTime`, `LHS`.`Exp_DateTime` AS `Exp_DateTime`, `LHS`.`RetailID` AS `RetailID`, `LHS`.`DateTime` AS `DateTime`, `LHS`.`Amount` AS `Amount`, `RHS`.`Name` AS `Name`, `RHS`.`Street` AS `Street`, `RHS`.`City` AS `City`, `RHS`.`State` AS `State`
@@ -708,8 +708,8 @@ SELECT * FROM Transactions
 ## ON (`LHS`.`RetailID` = `RHS`.`RetailID`)
 ## )</code></pre>
 <p>The algorithm used to convert my <code>dplyr</code> statement into a SQL statement doesn’t mind nesting SQL statements and isn’t the same as what I generated by hand, but it works.</p>
-<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb803-1" data-line-number="1"><span class="co"># Close our database connection when we are through...</span></a>
-<a class="sourceLine" id="cb803-2" data-line-number="2"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" data-line-number="1"><span class="co"># Close our database connection when we are through...</span></a>
+<a class="sourceLine" id="cb801-2" data-line-number="2"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div>
 
 </div>
 </div>

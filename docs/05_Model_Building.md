@@ -341,28 +341,18 @@ Now to add the R-squared value to the graph, we need to add a simple text layer.
 
 
 ```r
-Rsq_data <- broom::glance(model) %>%
+Rsq_string <- 
+  broom::glance(model) %>%
   select(r.squared) %>%
   mutate(r.squared = round(r.squared, digits=3)) %>%   # only 3 digits of precision
   mutate(r.squared = paste('Rsq =', r.squared)) %>%    # append some text before
-  mutate( Sepal.Length =7, Petal.Length=2.5)           # set the location to place it
+  pull(r.squared)           
 
-Rsq_data
-```
-
-```
-## # A tibble: 1 x 3
-##   r.squared   Sepal.Length Petal.Length
-##   <chr>              <dbl>        <dbl>
-## 1 Rsq = 0.979            7          2.5
-```
-
-```r
 ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
   geom_point(  ) +
   geom_line( aes(y=fit)  ) +
   geom_ribbon( aes( ymin=lwr, ymax=upr), alpha=.3 ) +   # alpha is the ribbon transparency
-  geom_label( data=Rsq_data, aes(label=r.squared, color=NULL) )
+  annotate('label', label=Rsq_string, x=7, y=2, size=7)
 ```
 
 <img src="05_Model_Building_files/figure-html/unnamed-chunk-14-1.png" width="672" />

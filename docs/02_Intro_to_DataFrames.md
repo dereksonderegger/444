@@ -222,9 +222,9 @@ family                                       # view our result!
 
 
 ## Exercises
-1. Create a data frame "by hand" with the names, ages, and heights of your own family. *If this feels odd, feel free to make up people or include pets.*
+1. Create a data frame "by hand" with the names, ages, and heights of your own family. *If this feels excessively personal, feel free to make up people or include pets.*
 
-2. Calculate the mean age amongst your family.
+2. Calculate the mean age among your family.
 
 3. I have a spreadsheet file hosted on GitHub at https://raw.githubusercontent.com/dereksonderegger/570L/master/data-raw/Example_1.csv. Because the `readr` package doesn't care whether a file is on your local computer or on the Internet, we'll use this file. 
     a) Start the import wizard using: "File -> Import Dataset -> From Text (readr) ..." and input the above web URL. Click the update button near the top to cause the wizard to preview the result.

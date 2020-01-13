@@ -7,7 +7,6 @@
 
 ```r
 library(tidyverse)
-library(rvest)     # rvest is not loaded in the tidyverse Metapackage
 ```
 
 In the introduction section of these notes, we concentrated on `data.frame`s created and manipulated using `dplyr`. There are other data structures that are used in R and it is useful to learn how to manipulate those other data structures. Furthermore, it is also useful to be able to use base R functionality to do certain manipulations on `data.frame`s.
@@ -130,7 +129,7 @@ foo[4]  # Fourth element in vector foo
 ## [1] "D"
 ```
 
-This subscripting notation can get more complicated. For example I might want the 2nd and 3rd element or the 3rd through 5th elements.
+This sub-scripting notation can get more complicated. For example I might want the 2nd and 3rd element or the 3rd through 5th elements.
 
 
 ```r

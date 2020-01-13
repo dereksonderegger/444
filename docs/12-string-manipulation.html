@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 String Manipulation | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 12 String Manipulation | STA 444/5 - Introductory Data Science using R" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 String Manipulation | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/Cover1.png" />
+  
+  <meta name="github-repo" content="dereksonderegger/444" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 String Manipulation | STA 444/5 - Introductory Data Science using R" />
+  
+  
+  <meta name="twitter:image" content="images/Cover1.png" />
+
+<meta name="author" content="Derek L. Sonderegger" />
+
+
+<meta name="date" content="2020-01-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="11-user-defined-functions.html"/>
+<link rel="next" href="13-dates-and-times.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="part"><span><b>Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="1-familiarization.html"><a href="1-familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#working-within-an-rmarkdown-file"><i class="fa fa-check"></i><b>1.1</b> Working within an Rmarkdown File</a></li>
+<li class="chapter" data-level="1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-file-types"><i class="fa fa-check"></i><b>1.2</b> R file Types</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-scripts-.r-files"><i class="fa fa-check"></i><b>1.2.1</b> R Scripts (.R files)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-markdown-.rmd-files"><i class="fa fa-check"></i><b>1.2.2</b> R Markdown (.Rmd files)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-familiarization.html"><a href="1-familiarization.html#r-notebooks-.rmd-files"><i class="fa fa-check"></i><b>1.2.3</b> R Notebooks (.Rmd files)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.3</b> R as a simple calculator</a></li>
+<li class="chapter" data-level="1.4" data-path="1-familiarization.html"><a href="1-familiarization.html#assignment"><i class="fa fa-check"></i><b>1.4</b> Assignment</a></li>
+<li class="chapter" data-level="1.5" data-path="1-familiarization.html"><a href="1-familiarization.html#vectors"><i class="fa fa-check"></i><b>1.5</b> Vectors</a></li>
+<li class="chapter" data-level="1.6" data-path="1-familiarization.html"><a href="1-familiarization.html#packages"><i class="fa fa-check"></i><b>1.6</b> Packages</a></li>
+<li class="chapter" data-level="1.7" data-path="1-familiarization.html"><a href="1-familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.7</b> Finding Help</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.7.1</b> How does this function work?</a></li>
+<li class="chapter" data-level="1.7.2" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.7.2</b> How does this package work?</a></li>
+<li class="chapter" data-level="1.7.3" data-path="1-familiarization.html"><a href="1-familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.7.3</b> How do I do XXX?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="1-familiarization.html"><a href="1-familiarization.html#exercises"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-data-frames.html"><a href="2-data-frames.html"><i class="fa fa-check"></i><b>2</b> Data Frames</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-data-frames.html"><a href="2-data-frames.html#introduction-to-importing-data"><i class="fa fa-check"></i><b>2.1</b> Introduction to Importing Data</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="2-data-frames.html"><a href="2-data-frames.html#from-a-package"><i class="fa fa-check"></i><b>2.1.1</b> From a Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-data-frames.html"><a href="2-data-frames.html#import-from-.csv-or-.xls-files"><i class="fa fa-check"></i><b>2.1.2</b> Import from <code>.csv</code> or <code>.xls</code> files</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-data-frames.html"><a href="2-data-frames.html#data-types"><i class="fa fa-check"></i><b>2.2</b> Data Types</a></li>
+<li class="chapter" data-level="2.3" data-path="2-data-frames.html"><a href="2-data-frames.html#basic-manipulation"><i class="fa fa-check"></i><b>2.3</b> Basic Manipulation</a></li>
+<li class="chapter" data-level="2.4" data-path="2-data-frames.html"><a href="2-data-frames.html#exercises-1"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-graphing.html"><a href="3-graphing.html"><i class="fa fa-check"></i><b>3</b> Graphing</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-graphing.html"><a href="3-graphing.html#basic-graphs"><i class="fa fa-check"></i><b>3.1</b> Basic Graphs</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="3-graphing.html"><a href="3-graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3-graphing.html"><a href="3-graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3-graphing.html"><a href="3-graphing.html#faceting"><i class="fa fa-check"></i><b>3.2</b> Faceting</a></li>
+<li class="chapter" data-level="3.3" data-path="3-graphing.html"><a href="3-graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-graphing.html"><a href="3-graphing.html#axis-labels-and-titles"><i class="fa fa-check"></i><b>3.3.1</b> Axis Labels and Titles</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-graphing.html"><a href="3-graphing.html#text-labels"><i class="fa fa-check"></i><b>3.3.2</b> Text Labels</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3-graphing.html"><a href="3-graphing.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#add_row"><i class="fa fa-check"></i><b>4.1.1</b> <code>add_row</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#subsetting"><i class="fa fa-check"></i><b>4.1.2</b> Subsetting</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#arrange"><i class="fa fa-check"></i><b>4.1.3</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#mutate"><i class="fa fa-check"></i><b>4.1.4</b> mutate()</a></li>
+<li class="chapter" data-level="4.1.5" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#summarise"><i class="fa fa-check"></i><b>4.1.5</b> summarise()</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#split-apply-combine"><i class="fa fa-check"></i><b>4.2</b> Split, apply, combine</a></li>
+<li class="chapter" data-level="4.3" data-path="4-data-wrangling.html"><a href="4-data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-statistical-models.html"><a href="5-statistical-models.html"><i class="fa fa-check"></i><b>5</b> Statistical Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-statistical-models.html"><a href="5-statistical-models.html#formula-notation"><i class="fa fa-check"></i><b>5.1</b> Formula Notation</a></li>
+<li class="chapter" data-level="5.2" data-path="5-statistical-models.html"><a href="5-statistical-models.html#basic-models"><i class="fa fa-check"></i><b>5.2</b> Basic Models</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-statistical-models.html"><a href="5-statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5-statistical-models.html"><a href="5-statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5-statistical-models.html"><a href="5-statistical-models.html#accessor-function"><i class="fa fa-check"></i><b>5.3</b> Accessor function</a></li>
+<li class="chapter" data-level="5.4" data-path="5-statistical-models.html"><a href="5-statistical-models.html#exercises-4"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-flow-control.html"><a href="6-flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a><ul>
+<li class="chapter" data-level="6.1" data-path="6-flow-control.html"><a href="6-flow-control.html#logical-expressions"><i class="fa fa-check"></i><b>6.1</b> Logical Expressions</a></li>
+<li class="chapter" data-level="6.2" data-path="6-flow-control.html"><a href="6-flow-control.html#decision-statements"><i class="fa fa-check"></i><b>6.2</b> Decision statements</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="6-flow-control.html"><a href="6-flow-control.html#in-dplyr-wrangling"><i class="fa fa-check"></i><b>6.2.1</b> In <code>dplyr</code> wrangling</a></li>
+<li class="chapter" data-level="6.2.2" data-path="6-flow-control.html"><a href="6-flow-control.html#general-if-else"><i class="fa fa-check"></i><b>6.2.2</b> General <code>if else</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="6-flow-control.html"><a href="6-flow-control.html#loops"><i class="fa fa-check"></i><b>6.3</b> Loops</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="6-flow-control.html"><a href="6-flow-control.html#while-loops"><i class="fa fa-check"></i><b>6.3.1</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6-flow-control.html"><a href="6-flow-control.html#for-loops"><i class="fa fa-check"></i><b>6.3.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6-flow-control.html"><a href="6-flow-control.html#mosaicdo-loops"><i class="fa fa-check"></i><b>6.3.3</b> <code>mosaic::do()</code> loops</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="6-flow-control.html"><a href="6-flow-control.html#functions"><i class="fa fa-check"></i><b>6.4</b> Functions</a></li>
+<li class="chapter" data-level="6.5" data-path="6-flow-control.html"><a href="6-flow-control.html#exercises-5"><i class="fa fa-check"></i><b>6.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-factors.html"><a href="7-factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a><ul>
+<li class="chapter" data-level="7.1" data-path="7-factors.html"><a href="7-factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
+<li class="chapter" data-level="7.2" data-path="7-factors.html"><a href="7-factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
+<li class="chapter" data-level="7.3" data-path="7-factors.html"><a href="7-factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
+<li class="chapter" data-level="7.4" data-path="7-factors.html"><a href="7-factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.5" data-path="7-factors.html"><a href="7-factors.html#exercises-6"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+</ul></li>
+<li class="part"><span><b>Miscellaneous</b></span></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html"><i class="fa fa-check"></i>Statistical Tables</a><ul>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#example-distributions"><i class="fa fa-check"></i>Example Distributions</a></li>
+<li><a href="statistical-tables.html#mosaicplotdist-function"><code>mosaic::plotDist()</code> function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#base-r-functions"><i class="fa fa-check"></i>Base R functions</a><ul>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#d-function"><i class="fa fa-check"></i>d-function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#p-function"><i class="fa fa-check"></i>p-function</a></li>
+<li><a href="statistical-tables.html#q-function"><code>q</code>-function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#r-function"><i class="fa fa-check"></i>r-function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#exercises-7"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html"><i class="fa fa-check"></i>Rmarkdown Tricks</a><ul>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#chunk-options"><i class="fa fa-check"></i>Chunk Options</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#verbatim-list-environments"><i class="fa fa-check"></i>Verbatim &amp; List Environments</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#mathematical-expressions"><i class="fa fa-check"></i>Mathematical expressions</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#tables"><i class="fa fa-check"></i>Tables</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#simple-tables"><i class="fa fa-check"></i><b>7.5.1</b> Simple Tables</a></li>
+<li class="chapter" data-level="7.5.2" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#grid-tables"><i class="fa fa-check"></i><b>7.5.2</b> Grid Tables</a></li>
+<li class="chapter" data-level="7.5.3" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#pipe-tables"><i class="fa fa-check"></i><b>7.5.3</b> Pipe Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#r-functions-to-produce-table-code."><i class="fa fa-check"></i>R functions to produce table code.</a><ul>
+<li class="chapter" data-level="7.5.4" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#knitrkable"><i class="fa fa-check"></i><b>7.5.4</b> <code class="unnumbered">knitr::kable</code></a></li>
+<li class="chapter" data-level="7.5.5" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#package-pander"><i class="fa fa-check"></i><b>7.5.5</b> Package <code class="unnumbered">pander</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#code-appendix"><i class="fa fa-check"></i>Code Appendix</a></li>
+</ul></li>
+<li class="part"><span><b>Deeper Details</b></span></li>
+<li class="chapter" data-level="8" data-path="8-data-structures.html"><a href="8-data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
+<li class="chapter" data-level="8.1" data-path="8-data-structures.html"><a href="8-data-structures.html#vectors-1"><i class="fa fa-check"></i><b>8.1</b> Vectors</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="8-data-structures.html"><a href="8-data-structures.html#accessing-vector-elements"><i class="fa fa-check"></i><b>8.1.1</b> Accessing Vector Elements</a></li>
+<li class="chapter" data-level="8.1.2" data-path="8-data-structures.html"><a href="8-data-structures.html#scalar-functions-applied-to-vectors"><i class="fa fa-check"></i><b>8.1.2</b> Scalar Functions Applied to Vectors</a></li>
+<li class="chapter" data-level="8.1.3" data-path="8-data-structures.html"><a href="8-data-structures.html#vector-algebra"><i class="fa fa-check"></i><b>8.1.3</b> Vector Algebra</a></li>
+<li class="chapter" data-level="8.1.4" data-path="8-data-structures.html"><a href="8-data-structures.html#commonly-used-vector-functions"><i class="fa fa-check"></i><b>8.1.4</b> Commonly Used Vector Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="8-data-structures.html"><a href="8-data-structures.html#matrices"><i class="fa fa-check"></i><b>8.2</b> Matrices</a></li>
+<li class="chapter" data-level="8.3" data-path="8-data-structures.html"><a href="8-data-structures.html#data-frames-1"><i class="fa fa-check"></i><b>8.3</b> Data Frames</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="8-data-structures.html"><a href="8-data-structures.html#data.frames-vs-tibbles"><i class="fa fa-check"></i><b>8.3.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="8-data-structures.html"><a href="8-data-structures.html#lists"><i class="fa fa-check"></i><b>8.4</b> Lists</a></li>
+<li class="chapter" data-level="8.5" data-path="8-data-structures.html"><a href="8-data-structures.html#exercises-8"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-data-wrangling-process.html"><a href="9-data-wrangling-process.html"><i class="fa fa-check"></i><b>9</b> Data Wrangling Process</a><ul>
+<li class="chapter" data-level="9.1" data-path="9-data-wrangling-process.html"><a href="9-data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="9-data-wrangling-process.html"><a href="9-data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>9.2</b> Tidying</a></li>
+<li class="chapter" data-level="9.3" data-path="9-data-wrangling-process.html"><a href="9-data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>9.3</b> Cleaning</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="10-importing-data.html"><a href="10-importing-data.html"><i class="fa fa-check"></i><b>10</b> Importing Data</a><ul>
+<li class="chapter" data-level="10.1" data-path="10-importing-data.html"><a href="10-importing-data.html#working-directory"><i class="fa fa-check"></i><b>10.1</b> Working directory</a></li>
+<li class="chapter" data-level="10.2" data-path="10-importing-data.html"><a href="10-importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>10.2</b> Comma Separated Data</a></li>
+<li class="chapter" data-level="10.3" data-path="10-importing-data.html"><a href="10-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>10.3</b> MS Excel</a></li>
+<li class="chapter" data-level="10.4" data-path="10-importing-data.html"><a href="10-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>10.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html"><i class="fa fa-check"></i><b>11</b> User Defined Functions</a><ul>
+<li class="chapter" data-level="11.1" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#basic-function-definition"><i class="fa fa-check"></i><b>11.1</b> Basic function definition</a></li>
+<li class="chapter" data-level="11.2" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#parameter-defaults"><i class="fa fa-check"></i><b>11.2</b> Parameter Defaults</a></li>
+<li class="chapter" data-level="11.3" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#ellipses"><i class="fa fa-check"></i><b>11.3</b> Ellipses</a></li>
+<li class="chapter" data-level="11.4" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#function-overloading"><i class="fa fa-check"></i><b>11.4</b> Function Overloading</a></li>
+<li class="chapter" data-level="11.5" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#debugging"><i class="fa fa-check"></i><b>11.5</b> Debugging</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#rmarkdown-recommendations"><i class="fa fa-check"></i><b>11.5.1</b> Rmarkdown Recommendations</a></li>
+<li class="chapter" data-level="11.5.2" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#step-wise-execution"><i class="fa fa-check"></i><b>11.5.2</b> Step-wise Execution</a></li>
+<li class="chapter" data-level="11.5.3" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#print-statements"><i class="fa fa-check"></i><b>11.5.3</b> Print Statements</a></li>
+<li class="chapter" data-level="11.5.4" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#browser"><i class="fa fa-check"></i><b>11.5.4</b> <code>browser</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#scope"><i class="fa fa-check"></i><b>11.6</b> Scope</a></li>
+<li class="chapter" data-level="11.7" data-path="11-user-defined-functions.html"><a href="11-user-defined-functions.html#exercises-10"><i class="fa fa-check"></i><b>11.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html"><i class="fa fa-check"></i><b>12</b> String Manipulation</a><ul>
+<li class="chapter" data-level="12.1" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#base-function"><i class="fa fa-check"></i><b>12.1</b> Base function</a></li>
+<li class="chapter" data-level="12.2" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#stringr-basic-operations"><i class="fa fa-check"></i><b>12.2</b> <code>stringr</code>: Basic operations</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#concatenating-with-str_c-or-str_join"><i class="fa fa-check"></i><b>12.2.1</b> Concatenating with <code>str_c()</code> or <code>str_join()</code></a></li>
+<li class="chapter" data-level="12.2.2" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#calculating-string-length-with-str_length"><i class="fa fa-check"></i><b>12.2.2</b> Calculating string length with <code>str_length()</code></a></li>
+<li class="chapter" data-level="12.2.3" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#extracting-substrings-with-str_sub"><i class="fa fa-check"></i><b>12.2.3</b> Extracting substrings with <code>str_sub()</code></a></li>
+<li class="chapter" data-level="12.2.4" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#pad-a-string-with-str_pad"><i class="fa fa-check"></i><b>12.2.4</b> Pad a string with <code>str_pad()</code></a></li>
+<li class="chapter" data-level="12.2.5" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#trim-a-string-with-str_trim"><i class="fa fa-check"></i><b>12.2.5</b> Trim a string with <code>str_trim()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#stringr-pattern-matching-tools"><i class="fa fa-check"></i><b>12.3</b> <code>stringr</code>: Pattern Matching Tools</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#detecting-a-pattern-using-str_detect"><i class="fa fa-check"></i><b>12.3.1</b> Detecting a pattern using str_detect()</a></li>
+<li class="chapter" data-level="12.3.2" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#locating-a-pattern-using-str_locate"><i class="fa fa-check"></i><b>12.3.2</b> Locating a pattern using str_locate()</a></li>
+<li class="chapter" data-level="12.3.3" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#replacing-sub-strings-using-str_replace"><i class="fa fa-check"></i><b>12.3.3</b> Replacing sub-strings using <code>str_replace()</code></a></li>
+<li class="chapter" data-level="12.3.4" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#splitting-into-sub-strings-using-str_split"><i class="fa fa-check"></i><b>12.3.4</b> Splitting into sub-strings using <code>str_split()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#regular-expressions"><i class="fa fa-check"></i><b>12.4</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#regular-expression-ingredients"><i class="fa fa-check"></i><b>12.4.1</b> Regular Expression Ingredients</a></li>
+<li class="chapter" data-level="12.4.2" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#matching-a-specific-string"><i class="fa fa-check"></i><b>12.4.2</b> Matching a specific string</a></li>
+<li class="chapter" data-level="12.4.3" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#matching-arbitrary-numbers"><i class="fa fa-check"></i><b>12.4.3</b> Matching arbitrary numbers</a></li>
+<li class="chapter" data-level="12.4.4" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#greedy-matching"><i class="fa fa-check"></i><b>12.4.4</b> Greedy matching</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#fuzzy-pattern-matching"><i class="fa fa-check"></i><b>12.5</b> Fuzzy Pattern Matching</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#key-collision-merge"><i class="fa fa-check"></i><b>12.5.1</b> Key Collision Merge</a></li>
+<li class="chapter" data-level="12.5.2" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#string-distances"><i class="fa fa-check"></i><b>12.5.2</b> String Distances</a></li>
+<li class="chapter" data-level="12.5.3" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#n-gram-merge"><i class="fa fa-check"></i><b>12.5.3</b> N-gram Merge</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="12-string-manipulation.html"><a href="12-string-manipulation.html#exercises-11"><i class="fa fa-check"></i><b>12.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="13-dates-and-times.html"><a href="13-dates-and-times.html"><i class="fa fa-check"></i><b>13</b> Dates and Times</a><ul>
+<li class="chapter" data-level="13.1" data-path="13-dates-and-times.html"><a href="13-dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>13.1</b> Creating Date and Time objects</a></li>
+<li class="chapter" data-level="13.2" data-path="13-dates-and-times.html"><a href="13-dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>13.2</b> Extracting information</a></li>
+<li class="chapter" data-level="13.3" data-path="13-dates-and-times.html"><a href="13-dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>13.3</b> Arithmetic on Dates</a></li>
+<li class="chapter" data-level="13.4" data-path="13-dates-and-times.html"><a href="13-dates-and-times.html#exercises-12"><i class="fa fa-check"></i><b>13.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html"><i class="fa fa-check"></i><b>14</b> Data Reshaping</a><ul>
+<li class="chapter" data-level="14.1" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#data.frames-vs-tibbles-1"><i class="fa fa-check"></i><b>14.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+<li class="chapter" data-level="14.2" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>14.2</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
+<li class="chapter" data-level="14.3" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#tidyr"><i class="fa fa-check"></i><b>14.3</b> <code>tidyr</code></a><ul>
+<li class="chapter" data-level="14.3.1" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#verbs-1"><i class="fa fa-check"></i><b>14.3.1</b> Verbs</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#storing-data-in-multiple-tables"><i class="fa fa-check"></i><b>14.4</b> Storing Data in Multiple Tables</a></li>
+<li class="chapter" data-level="14.5" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#table-joins"><i class="fa fa-check"></i><b>14.5</b> Table Joins</a></li>
+<li class="chapter" data-level="14.6" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#row-summations"><i class="fa fa-check"></i><b>14.6</b> Row summations</a></li>
+<li class="chapter" data-level="14.7" data-path="14-data-reshaping.html"><a href="14-data-reshaping.html#exercises-13"><i class="fa fa-check"></i><b>14.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html"><i class="fa fa-check"></i><b>15</b> Graphing Part II</a><ul>
+<li class="chapter" data-level="15.1" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#multi-plots"><i class="fa fa-check"></i><b>15.1</b> Multi-plots</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#cowplot-package"><i class="fa fa-check"></i><b>15.1.1</b> <code>cowplot</code> package</a></li>
+<li class="chapter" data-level="15.1.2" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#multiplot-in-rmisc"><i class="fa fa-check"></i><b>15.1.2</b> <code>multiplot</code> in <code>Rmisc</code></a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#customized-scales"><i class="fa fa-check"></i><b>15.2</b> Customized Scales</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#color-scales"><i class="fa fa-check"></i><b>15.2.1</b> Color Scales</a></li>
+<li class="chapter" data-level="15.2.2" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#setting-major-minor-ticks"><i class="fa fa-check"></i><b>15.2.2</b> Setting major &amp; minor ticks</a></li>
+<li class="chapter" data-level="15.2.3" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#log-scales"><i class="fa fa-check"></i><b>15.2.3</b> Log Scales</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#themes"><i class="fa fa-check"></i><b>15.3</b> Themes</a></li>
+<li class="chapter" data-level="15.4" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>15.4</b> Mathematical Notation</a></li>
+<li class="chapter" data-level="15.5" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>15.5</b> Geographic Maps</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>15.5.1</b> Package <code>maps</code></a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="15-graphing-part-ii.html"><a href="15-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>15.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="16-r-packages.html"><a href="16-r-packages.html"><i class="fa fa-check"></i><b>16</b> R Packages</a><ul>
+<li class="chapter" data-level="16.1" data-path="16-r-packages.html"><a href="16-r-packages.html#introduction-1"><i class="fa fa-check"></i><b>16.1</b> Introduction</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="16-r-packages.html"><a href="16-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>16.1.1</b> Useful packages and books</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="16-r-packages.html"><a href="16-r-packages.html#package-structure"><i class="fa fa-check"></i><b>16.2</b> Package Structure</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="16-r-packages.html"><a href="16-r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>16.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="16.2.2" data-path="16-r-packages.html"><a href="16-r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>16.2.2</b> Optional Files and Directories</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting"><i class="fa fa-check"></i><b>16.3</b> Documenting</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="16-r-packages.html"><a href="16-r-packages.html#data-documentation"><i class="fa fa-check"></i><b>16.3.1</b> Data Documentation</a></li>
+<li class="chapter" data-level="16.3.2" data-path="16-r-packages.html"><a href="16-r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>16.3.2</b> Documenting Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="16-r-packages.html"><a href="16-r-packages.html#testing"><i class="fa fa-check"></i><b>16.4</b> Testing</a></li>
+<li class="chapter" data-level="16.5" data-path="16-r-packages.html"><a href="16-r-packages.html#the-description-file"><i class="fa fa-check"></i><b>16.5</b> The DESCRIPTION file</a></li>
+<li class="chapter" data-level="16.6" data-path="16-r-packages.html"><a href="16-r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>16.6</b> Sharing your Package</a></li>
+<li class="chapter" data-level="16.7" data-path="16-r-packages.html"><a href="16-r-packages.html#an-example-package"><i class="fa fa-check"></i><b>16.7</b> An Example Package</a></li>
+<li class="chapter" data-level="16.8" data-path="16-r-packages.html"><a href="16-r-packages.html#exercises-15"><i class="fa fa-check"></i><b>16.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="17-data-scraping.html"><a href="17-data-scraping.html"><i class="fa fa-check"></i><b>17</b> Data Scraping</a><ul>
+<li class="chapter" data-level="17.1" data-path="17-data-scraping.html"><a href="17-data-scraping.html#web-pages"><i class="fa fa-check"></i><b>17.1</b> Web Pages</a><ul>
+<li class="chapter" data-level="17.1.1" data-path="17-data-scraping.html"><a href="17-data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>17.1.1</b> Example Wikipedia Table</a></li>
+<li class="chapter" data-level="17.1.2" data-path="17-data-scraping.html"><a href="17-data-scraping.html#lists-1"><i class="fa fa-check"></i><b>17.1.2</b> Lists</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="17-data-scraping.html"><a href="17-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>17.2</b> Scraping .pdf files</a></li>
+<li class="chapter" data-level="17.3" data-path="17-data-scraping.html"><a href="17-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="18-web-api-data-queries.html"><a href="18-web-api-data-queries.html"><i class="fa fa-check"></i><b>18</b> Web API Data Queries</a><ul>
+<li class="chapter" data-level="18.1" data-path="18-web-api-data-queries.html"><a href="18-web-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>18.1</b> Web Interface</a></li>
+<li class="chapter" data-level="18.2" data-path="18-web-api-data-queries.html"><a href="18-web-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>18.2</b> R API Interfaces</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="18-web-api-data-queries.html"><a href="18-web-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>18.2.1</b> Population Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="18-web-api-data-queries.html"><a href="18-web-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>18.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="19-databases.html"><a href="19-databases.html"><i class="fa fa-check"></i><b>19</b> Databases</a><ul>
+<li class="chapter" data-level="19.1" data-path="19-databases.html"><a href="19-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>19.1</b> Tutorial Set-Up</a></li>
+<li class="chapter" data-level="19.2" data-path="19-databases.html"><a href="19-databases.html#sql"><i class="fa fa-check"></i><b>19.2</b> SQL</a></li>
+<li class="chapter" data-level="19.3" data-path="19-databases.html"><a href="19-databases.html#dbplyr"><i class="fa fa-check"></i><b>19.3</b> <code>dbplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html"><i class="fa fa-check"></i><b>20</b> Speeding up R</a><ul>
+<li class="chapter" data-level="20.1" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>20.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="20.2" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>20.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="20.3" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>20.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="20.4" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>20.4</b> Parallelizing for loops</a></li>
+<li class="chapter" data-level="20.5" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>20.5</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="20.5.1" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>20.5.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="20.5.2" data-path="20-speeding-up-r.html"><a href="20-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>20.5.2</b> <code>caret::train</code></a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 444/5 - Introductory Data Science using R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="string-manipulation" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> String Manipulation</h1>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="12-string-manipulation.html#cb535-1"></a><span class="kw">library</span>(tidyverse) </span>
+<span id="cb535-2"><a href="12-string-manipulation.html#cb535-2"></a><span class="kw">library</span>(stringr)   <span class="co"># tidyverse string functions, not loaded with tidyverse </span></span>
+<span id="cb535-3"><a href="12-string-manipulation.html#cb535-3"></a><span class="kw">library</span>(refinr)    <span class="co"># fuzzy string matching</span></span></code></pre></div>
+<p>Strings make up a very important class of data. Data being read into R often come in the form of character strings where different parts might mean different things. For example a sample ID of “R1_P2_C1_2012_05_28” might represent data from Region 1, Park 2, Camera 1, taken on May 28, 2012. It is important that we have a set of utilities that allow us to split and combine character strings in a easy and consistent fashion.</p>
+<p>Unfortunately, the utilities included in the base version of R are somewhat inconsistent and were not designed to work nicely together. Hadley Wickham, the developer of <code>ggplot2</code> and <code>dplyr</code> has this to say:</p>
+<blockquote>
+<p>“R provides a solid set of string operations, but because they have grown organically over time, they can be inconsistent and a little hard to learn. Additionally, they lag behind the string operations in other programming languages, so that some things that are easy to do in languages like Ruby or Python are rather hard to do in R.” – Hadley Wickham</p>
+</blockquote>
+<p>For this chapter we will introduce the most commonly used functions from the base version of R that you might use or see in other people’s code. Second, we introduce Dr Wickham’s <code>stringr</code> package that provides many useful functions that operate in a consistent manner. In his <em>R for Data Science</em> he has a nice chapter on
+<a href="https://r4ds.had.co.nz/strings.html">strings</a>.</p>
+<p>There are several white space characters that need to be represented in character strings such as tabs and returns. Most programming languages, including R, represent these using the <em>escape character</em> combined with another. For example in a character string <code>\t</code> represents a tab and <code>\n</code> represents a newline. However, because the backslash is the escape character, in order to have a backslash in the character string, the backslash needs to be escaped as well.</p>
+<div id="base-function" class="section level2">
+<h2><span class="header-section-number">12.1</span> Base function</h2>
+<p>1.1.1 <code>paste()</code></p>
+<p>The most basic thing we will want to do is to combine two strings or to combine a string with a numerical value. The <code>paste()</code> command will take one or more R objects and converts them to character strings and then pastes them together to form one or more character strings. It has the form:</p>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="12-string-manipulation.html#cb536-1"></a><span class="kw">paste</span>( ..., <span class="dt">sep =</span> <span class="st">&#39; &#39;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span> )</span></code></pre></div>
+<p>The <code>...</code> piece means that we can pass any number of objects to be pasted together. The <code>sep</code> argument gives the string that separates the strings to be joined and the collapse argument that specifies if a simplification should be performed after being pasting together.</p>
+<p>Suppose we want to combine the strings “Peanut butter” and “Jelly” then we could execute:</p>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="12-string-manipulation.html#cb537-1"></a><span class="kw">paste</span>( <span class="st">&quot;PeanutButter&quot;</span>, <span class="st">&quot;Jelly&quot;</span> )</span></code></pre></div>
+<pre><code>## [1] &quot;PeanutButter Jelly&quot;</code></pre>
+<p>Notice that without specifying the separator character, R chose to put a space between the two strings. We could specify whatever we wanted:</p>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="12-string-manipulation.html#cb539-1"></a><span class="kw">paste</span>( <span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;World&quot;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span> )</span></code></pre></div>
+<pre><code>## [1] &quot;Hello_World&quot;</code></pre>
+<p>Also we can combine strings with numerical values</p>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="12-string-manipulation.html#cb541-1"></a><span class="kw">paste</span>( <span class="st">&quot;Pi is equal to&quot;</span>, pi )</span></code></pre></div>
+<pre><code>## [1] &quot;Pi is equal to 3.14159265358979&quot;</code></pre>
+<p>We can combine vectors of similar or different lengths as well. By default R assumes that you want to produce a vector of character strings as output.</p>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="12-string-manipulation.html#cb543-1"></a><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )</span></code></pre></div>
+<pre><code>## [1] &quot;n = 5&quot;   &quot;n = 25&quot;  &quot;n = 100&quot;</code></pre>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="12-string-manipulation.html#cb545-1"></a>first.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Robb&#39;</span>,<span class="st">&#39;Stannis&#39;</span>,<span class="st">&#39;Daenerys&#39;</span>)</span>
+<span id="cb545-2"><a href="12-string-manipulation.html#cb545-2"></a>last.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Stark&#39;</span>,<span class="st">&#39;Baratheon&#39;</span>,<span class="st">&#39;Targaryen&#39;</span>)</span>
+<span id="cb545-3"><a href="12-string-manipulation.html#cb545-3"></a><span class="kw">paste</span>( first.names, last.names)</span></code></pre></div>
+<pre><code>## [1] &quot;Robb Stark&quot;         &quot;Stannis Baratheon&quot;  &quot;Daenerys Targaryen&quot;</code></pre>
+<p>If we want <code>paste()</code> produce just a single string of output, use the <code>collapse=</code> argument to paste together each of the output vectors (separated by the <code>collapse</code> character).</p>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="12-string-manipulation.html#cb547-1"></a><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )  <span class="co"># Produces 3 strings</span></span></code></pre></div>
+<pre><code>## [1] &quot;n = 5&quot;   &quot;n = 25&quot;  &quot;n = 100&quot;</code></pre>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="12-string-manipulation.html#cb549-1"></a><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>), <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span> ) <span class="co"># collapses output into one string</span></span></code></pre></div>
+<pre><code>## [1] &quot;n = 5:n = 25:n = 100&quot;</code></pre>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="12-string-manipulation.html#cb551-1"></a><span class="kw">paste</span>(first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Robb.Stark : Stannis.Baratheon : Daenerys.Targaryen&quot;</code></pre>
+<p>Notice we could use the <code>paste()</code> command with the collapse option to combine a vector of character strings together.</p>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="12-string-manipulation.html#cb553-1"></a><span class="kw">paste</span>(first.names, <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Robb:Stannis:Daenerys&quot;</code></pre>
+</div>
+<div id="stringr-basic-operations" class="section level2">
+<h2><span class="header-section-number">12.2</span> <code>stringr</code>: Basic operations</h2>
+<blockquote>
+<p>The goal of <code>stringr</code> is to make a consistent user interface to a suite of functions to manipulate strings. “(stringr) is a set of simple wrappers that make R’s string functions more consistent, simpler and easier to use. It does this by ensuring that: function and argument names (and positions) are consistent, all functions deal with NA’s and zero length character appropriately, and the output data structures from each function matches the input data structures of other functions.” - Hadley Wickham</p>
+</blockquote>
+<p>We’ll investigate the most commonly used function but there are many we will ignore.</p>
+<table>
+<colgroup>
+<col width="27%" />
+<col width="72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>str_c()</code></td>
+<td>string concatenation, similar to paste</td>
+</tr>
+<tr class="even">
+<td><code>str_length()</code></td>
+<td>number of characters in the string</td>
+</tr>
+<tr class="odd">
+<td><code>str_sub()</code></td>
+<td>extract a substring</td>
+</tr>
+<tr class="even">
+<td><code>str_trim()</code></td>
+<td>remove leading and trailing whitespace</td>
+</tr>
+<tr class="odd">
+<td><code>str_pad()</code></td>
+<td>pad a string with empty space to make it a certain length</td>
+</tr>
+</tbody>
+</table>
+<div id="concatenating-with-str_c-or-str_join" class="section level3">
+<h3><span class="header-section-number">12.2.1</span> Concatenating with <code>str_c()</code> or <code>str_join()</code></h3>
+<p>The first thing we do is to concatenate two strings or two vectors of strings similarly to the <code>paste()</code> command. The <code>str_c()</code> and <code>str_join()</code> functions are a synonym for the exact same function, but str_join() might be a more natural verb to use and remember. The syntax is:</p>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="12-string-manipulation.html#cb555-1"></a><span class="kw">str_c</span>( ..., <span class="dt">sep=</span><span class="st">&#39;&#39;</span>, <span class="dt">collapse=</span><span class="ot">NULL</span>)</span></code></pre></div>
+<p>You can think of the inputs building a matrix of strings, with each input creating a column of the matrix. For each row, <code>str_c()</code> first joins all the columns (using the separator character given in <code>sep</code>) into a single column of strings. If the collapse argument is non-NULL, the function takes the vector and joins each element together using collapse as the separator character.</p>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="12-string-manipulation.html#cb556-1"></a><span class="co"># envisioning the matrix of strings</span></span>
+<span id="cb556-2"><a href="12-string-manipulation.html#cb556-2"></a><span class="kw">cbind</span>(first.names, last.names)</span></code></pre></div>
+<pre><code>##      first.names last.names 
+## [1,] &quot;Robb&quot;      &quot;Stark&quot;    
+## [2,] &quot;Stannis&quot;   &quot;Baratheon&quot;
+## [3,] &quot;Daenerys&quot;  &quot;Targaryen&quot;</code></pre>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="12-string-manipulation.html#cb558-1"></a><span class="co"># join the columns together</span></span>
+<span id="cb558-2"><a href="12-string-manipulation.html#cb558-2"></a>full.names &lt;-<span class="st"> </span><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>)</span>
+<span id="cb558-3"><a href="12-string-manipulation.html#cb558-3"></a><span class="kw">cbind</span>( first.names, last.names, full.names)</span></code></pre></div>
+<pre><code>##      first.names last.names  full.names          
+## [1,] &quot;Robb&quot;      &quot;Stark&quot;     &quot;Robb.Stark&quot;        
+## [2,] &quot;Stannis&quot;   &quot;Baratheon&quot; &quot;Stannis.Baratheon&quot; 
+## [3,] &quot;Daenerys&quot;  &quot;Targaryen&quot; &quot;Daenerys.Targaryen&quot;</code></pre>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="12-string-manipulation.html#cb560-1"></a><span class="co"># Join each of the rows together separated by collapse</span></span>
+<span id="cb560-2"><a href="12-string-manipulation.html#cb560-2"></a><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Robb.Stark : Stannis.Baratheon : Daenerys.Targaryen&quot;</code></pre>
+</div>
+<div id="calculating-string-length-with-str_length" class="section level3">
+<h3><span class="header-section-number">12.2.2</span> Calculating string length with <code>str_length()</code></h3>
+<p>The <code>str_length()</code> function calculates the length of each string in the vector of strings passed to it.</p>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="12-string-manipulation.html#cb562-1"></a>text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;WordTesting&#39;</span>, <span class="st">&#39;With a space&#39;</span>, <span class="ot">NA</span>, <span class="st">&#39;Night&#39;</span>)</span>
+<span id="cb562-2"><a href="12-string-manipulation.html#cb562-2"></a><span class="kw">str_length</span>( text )</span></code></pre></div>
+<pre><code>## [1] 11 12 NA  5</code></pre>
+<p>Notice that <code>str_length()</code> correctly interprets the missing data as missing and that the length ought to also be missing.</p>
+</div>
+<div id="extracting-substrings-with-str_sub" class="section level3">
+<h3><span class="header-section-number">12.2.3</span> Extracting substrings with <code>str_sub()</code></h3>
+<p>If we know we want to extract the <span class="math inline">\(3^{rd}\)</span> through <span class="math inline">\(6^{th}\)</span> letters in a string, this function will grab them.</p>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="12-string-manipulation.html#cb564-1"></a><span class="kw">str_sub</span>(text, <span class="dt">start=</span><span class="dv">3</span>, <span class="dt">end=</span><span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;rdTe&quot; &quot;th a&quot; NA     &quot;ght&quot;</code></pre>
+<p>If a given string isn’t long enough to contain all the necessary indices, <code>str_sub()</code> returns only the letters that where there (as in the above case for “Night”</p>
+</div>
+<div id="pad-a-string-with-str_pad" class="section level3">
+<h3><span class="header-section-number">12.2.4</span> Pad a string with <code>str_pad()</code></h3>
+<p>Sometimes we to make every string in a vector the same length to facilitate display or in the creation of a uniform system of assigning ID numbers. The <code>str_pad()</code> function will add spaces at either the beginning or end of the of every string appropriately.</p>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="12-string-manipulation.html#cb566-1"></a><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;    Robb&quot; &quot; Stannis&quot; &quot;Daenerys&quot;</code></pre>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="12-string-manipulation.html#cb568-1"></a><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>, <span class="dt">side=</span><span class="st">&#39;right&#39;</span>, <span class="dt">pad=</span><span class="st">&#39;*&#39;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Robb****&quot; &quot;Stannis*&quot; &quot;Daenerys&quot;</code></pre>
+</div>
+<div id="trim-a-string-with-str_trim" class="section level3">
+<h3><span class="header-section-number">12.2.5</span> Trim a string with <code>str_trim()</code></h3>
+<p>This removes any leading or trailing white space where white space is defined as spaces ’ ’, tabs <code>\t</code> or returns <code>\n</code>.</p>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="12-string-manipulation.html#cb570-1"></a>text &lt;-<span class="st"> &#39; Some text. </span><span class="ch">\n</span><span class="st">  &#39;</span></span>
+<span id="cb570-2"><a href="12-string-manipulation.html#cb570-2"></a><span class="kw">print</span>(text)</span></code></pre></div>
+<pre><code>## [1] &quot; Some text. \n  &quot;</code></pre>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="12-string-manipulation.html#cb572-1"></a><span class="kw">str_trim</span>(text)</span></code></pre></div>
+<pre><code>## [1] &quot;Some text.&quot;</code></pre>
+</div>
+</div>
+<div id="stringr-pattern-matching-tools" class="section level2">
+<h2><span class="header-section-number">12.3</span> <code>stringr</code>: Pattern Matching Tools</h2>
+<p>The previous commands are all quite useful but the most powerful string operation is take a string and match some pattern within it. The following commands are available within <code>stringr</code>.</p>
+<table>
+<colgroup>
+<col width="32%" />
+<col width="67%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>str_detect()</code></td>
+<td>Detect if a pattern occurs in input string</td>
+</tr>
+<tr class="even">
+<td><code>str_locate()</code>
+<code>str_locate_all()</code></td>
+<td>Locates the first (or all) positions of a
+pattern.</td>
+</tr>
+<tr class="odd">
+<td><code>str_extract()</code>
+<code>str_extract_all()</code></td>
+<td>Extracts the first (or all) sub-strings
+corresponding to a pattern</td>
+</tr>
+<tr class="even">
+<td><code>str_replace()</code>
+<code>str_replace_all()</code></td>
+<td>Replaces the matched sub-string(s) with
+a new pattern</td>
+</tr>
+<tr class="odd">
+<td><code>str_split()</code>
+<code>str_split_fixed()</code></td>
+<td>Splits the input string based on the
+input pattern</td>
+</tr>
+</tbody>
+</table>
+<p>We will first examine these functions using a very simple pattern matching algorithm where we are matching a specific pattern. For most people, this is as complex as we need.</p>
+<p>Suppose that we have a vector of strings that contain a date in the form “2012-May-27” and we want to manipulate them to extract certain information.</p>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="12-string-manipulation.html#cb574-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;2008-Feb-10&#39;</span>, <span class="st">&#39;2010-Sept-18&#39;</span>, <span class="st">&#39;2013-Jan-11&#39;</span>, <span class="st">&#39;2016-Jan-2&#39;</span>)</span></code></pre></div>
+<div id="detecting-a-pattern-using-str_detect" class="section level3">
+<h3><span class="header-section-number">12.3.1</span> Detecting a pattern using str_detect()</h3>
+<p>Suppose we want to know which dates are in September. We want to detect if the pattern “Sept” occurs in the strings.</p>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="12-string-manipulation.html#cb575-1"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb575-2"><a href="12-string-manipulation.html#cb575-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>( string, <span class="dt">pattern=</span><span class="st">&#39;Sept&#39;</span> ) )</span></code></pre></div>
+<pre><code>##         string result
+## 1  2008-Feb-10  FALSE
+## 2 2010-Sept-18   TRUE
+## 3  2013-Jan-11  FALSE
+## 4   2016-Jan-2  FALSE</code></pre>
+<p>Here we see that the second string in the test vector included the sub-string “Sept” but none of the others did.</p>
+</div>
+<div id="locating-a-pattern-using-str_locate" class="section level3">
+<h3><span class="header-section-number">12.3.2</span> Locating a pattern using str_locate()</h3>
+<p>To figure out where the “-” characters are, we can use the <code>str_locate()</code> function.</p>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="12-string-manipulation.html#cb577-1"></a><span class="kw">str_locate</span>(strings, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span> )</span></code></pre></div>
+<pre><code>##      start end
+## [1,]     5   5
+## [2,]     5   5
+## [3,]     5   5
+## [4,]     5   5</code></pre>
+<p>which shows that the first dash occurs as the <span class="math inline">\(5^{th}\)</span> character in each string. If we wanted all the dashes in the string the following works.</p>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="12-string-manipulation.html#cb579-1"></a><span class="kw">str_locate_all</span>(strings, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span> )</span></code></pre></div>
+<pre><code>## [[1]]
+##      start end
+## [1,]     5   5
+## [2,]     9   9
+## 
+## [[2]]
+##      start end
+## [1,]     5   5
+## [2,]    10  10
+## 
+## [[3]]
+##      start end
+## [1,]     5   5
+## [2,]     9   9
+## 
+## [[4]]
+##      start end
+## [1,]     5   5
+## [2,]     9   9</code></pre>
+<p>The output of <code>str_locate_all()</code> is a list of matrices that gives the start and end of each matrix. Using this information, we could grab the Year/Month/Day information out of each of the dates. We won’t do that here because it will be easier to do this using <code>str_split()</code>.</p>
+</div>
+<div id="replacing-sub-strings-using-str_replace" class="section level3">
+<h3><span class="header-section-number">12.3.3</span> Replacing sub-strings using <code>str_replace()</code></h3>
+<p>Suppose we didn’t like using “-” to separate the Year/Month/Day but preferred a space, or an underscore, or something else. This can be done by replacing all of the “-” with the desired character. The <code>str_replace()</code> function only replaces the first match, but <code>str_replace_all()</code> replaces all matches.</p>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="12-string-manipulation.html#cb581-1"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb581-2"><a href="12-string-manipulation.html#cb581-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">result =</span> <span class="kw">str_replace</span>(string, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">replacement=</span><span class="st">&#39;:&#39;</span>))</span></code></pre></div>
+<pre><code>##         string       result
+## 1  2008-Feb-10  2008:Feb-10
+## 2 2010-Sept-18 2010:Sept-18
+## 3  2013-Jan-11  2013:Jan-11
+## 4   2016-Jan-2   2016:Jan-2</code></pre>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="12-string-manipulation.html#cb583-1"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb583-2"><a href="12-string-manipulation.html#cb583-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">result =</span> <span class="kw">str_replace_all</span>(string, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">replacement=</span><span class="st">&#39;:&#39;</span>))</span></code></pre></div>
+<pre><code>##         string       result
+## 1  2008-Feb-10  2008:Feb:10
+## 2 2010-Sept-18 2010:Sept:18
+## 3  2013-Jan-11  2013:Jan:11
+## 4   2016-Jan-2   2016:Jan:2</code></pre>
+</div>
+<div id="splitting-into-sub-strings-using-str_split" class="section level3">
+<h3><span class="header-section-number">12.3.4</span> Splitting into sub-strings using <code>str_split()</code></h3>
+<p>We can split each of the dates into three smaller sub-strings using the <code>str_split()</code> command, which returns a list where each element of the list is a vector containing pieces of the original string (excluding the pattern we matched on).</p>
+<p>If we know that all the strings will be split into a known number of sub-strings (we have to specify how many sub-strings to match with the <code>n=</code> argument), we can use <code>str_split_fixed()</code> to get a matrix of sub-strings instead of list of sub-strings.</p>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="12-string-manipulation.html#cb585-1"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb585-2"><a href="12-string-manipulation.html#cb585-2"></a><span class="st">  </span><span class="kw">cbind</span>( <span class="kw">str_split_fixed</span>(.<span class="op">$</span>string, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">n=</span><span class="dv">3</span>) )</span></code></pre></div>
+<pre><code>##         string    1    2  3
+## 1  2008-Feb-10 2008  Feb 10
+## 2 2010-Sept-18 2010 Sept 18
+## 3  2013-Jan-11 2013  Jan 11
+## 4   2016-Jan-2 2016  Jan  2</code></pre>
+</div>
+</div>
+<div id="regular-expressions" class="section level2">
+<h2><span class="header-section-number">12.4</span> Regular Expressions</h2>
+<p>The next section will introduce using regular expressions. Regular expressions are a way to specify very complicated patterns. Go look at <a href="https://xkcd.com/208/" class="uri">https://xkcd.com/208/</a> to gain insight into just how geeky regular expressions are.</p>
+<p>Regular expressions are a way of precisely writing out patterns that are very complicated. The <code>stringr</code> package pattern arguments can be given using standard regular expressions (not perl-style!) instead of using fixed strings.</p>
+<p>Regular expressions are extremely powerful for sifting through large amounts of text. For example, we might want to extract all of the 4 digit sub-strings (the years) out of our dates vector, or I might want to find all cases in a paragraph of text of words that begin with a capital letter and are at least 5 letters long. In another, somewhat nefarious example, spammers might have downloaded a bunch of text from web pages and want to be able to look for email addresses. So as a first pass, they want to match a pattern:
+<span class="math display">\[\underset{\textrm{1 or more letters}}{\underbrace{\texttt{Username}}}\texttt{@}\;\;\underset{\textrm{1 or more letter}}{\underbrace{\texttt{OrganizationName}}}\;\texttt{.\;}\begin{cases}
+\texttt{com}\\
+\texttt{org}\\
+\texttt{edu}
+\end{cases}\]</span>
+where the <code>Username</code> and <code>OrganizationName</code> can be pretty much anything, but a valid email address looks like this. We might get even more creative and recognize that my list of possible endings could include country codes as well.</p>
+<p>For most people, I don’t recommend opening the regular expression can-of-worms, but it is good to know that these pattern matching utilities are available within R and you don’t need to export your pattern matching problems to Perl or Python.</p>
+<div id="regular-expression-ingredients" class="section level3">
+<h3><span class="header-section-number">12.4.1</span> Regular Expression Ingredients</h3>
+<p>Regular expressions use a select number of characters to signify further meaning in order to create recipes that might be matched within a character string.
+The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Character Types</th>
+<th align="left">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>abc</code></td>
+<td align="left">Letters <code>abc</code> <em>exactly</em></td>
+</tr>
+<tr class="even">
+<td align="center"><code>123</code></td>
+<td align="left">Digits <code>123</code> <em>exactly</em></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>\d</code></td>
+<td align="left">Any Digit</td>
+</tr>
+<tr class="even">
+<td align="center"><code>\D</code></td>
+<td align="left">Any Non-digit character</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>\w</code></td>
+<td align="left">Any Alphanumeric character</td>
+</tr>
+<tr class="even">
+<td align="center"><code>\W</code></td>
+<td align="left">Any Non-alphanumeric character</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>\s</code></td>
+<td align="left">Any White space</td>
+</tr>
+<tr class="even">
+<td align="center"><code>\S</code></td>
+<td align="left">Any Non-white space character</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>.</code></td>
+<td align="left">Any Character (The wildcard!)</td>
+</tr>
+<tr class="even">
+<td align="center"><code>^</code></td>
+<td align="left">Beginning of input string</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>$</code></td>
+<td align="left">End of input string</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Grouping</th>
+<th align="left">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>[abc]</code></td>
+<td align="left">Only a, b, or c</td>
+</tr>
+<tr class="even">
+<td align="center"><code>[^abc]</code></td>
+<td align="left">Not a, b, nor c</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>[a-z]</code></td>
+<td align="left">Characters a to z</td>
+</tr>
+<tr class="even">
+<td align="center"><code>[A-Z]</code></td>
+<td align="left">Characters A to Z</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>[0-9]</code></td>
+<td align="left">Numbers 0 to 9</td>
+</tr>
+<tr class="even">
+<td align="center"><code>[a-zA-Z]</code></td>
+<td align="left">Characters a to z or A to Z</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>()</code></td>
+<td align="left">Capture Group</td>
+</tr>
+<tr class="even">
+<td align="center"><code>(a(bc))</code></td>
+<td align="left">Capture Sub-group</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>(abc|def)</code></td>
+<td align="left">Matches <code>abc</code> or <code>def</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Group Modifiers</th>
+<th align="left">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>*</code></td>
+<td align="left">Zero or more repetitions of previous</td>
+</tr>
+<tr class="even">
+<td align="center"><code>+</code></td>
+<td align="left">One or more repetitions of previous</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>?</code></td>
+<td align="left">Previous group is optional</td>
+</tr>
+<tr class="even">
+<td align="center"><code>{m}</code></td>
+<td align="left">m repetitions of the previous</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>{m,n}</code></td>
+<td align="left">Between m and n repetitions of the previous</td>
+</tr>
+</tbody>
+</table>
+<p>The general idea is to make a recipe that combines one or more groups and add modifiers on the groups for how often the group is repeated.</p>
+</div>
+<div id="matching-a-specific-string" class="section level3">
+<h3><span class="header-section-number">12.4.2</span> Matching a specific string</h3>
+<p>I might have a set of strings and I want to remove a specific string from them, or perhaps detect if a specific string is present. So long as the string of interest doesn’t contain any special characters, you can just type out the string to be detected.</p>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="12-string-manipulation.html#cb587-1"></a><span class="co"># Replace &#39;John&#39; from all of the strings with &#39;****&#39;</span></span>
+<span id="cb587-2"><a href="12-string-manipulation.html#cb587-2"></a><span class="co"># The regular expression interpretation only comes in evaluating &#39;John&#39;</span></span>
+<span id="cb587-3"><a href="12-string-manipulation.html#cb587-3"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;John Sanderson&#39;</span>, <span class="st">&#39;Johnathan Wilkes&#39;</span>, <span class="st">&#39;Brendan Johnson&#39;</span>, <span class="st">&#39;Bigjohn Smith&#39;</span>)</span>
+<span id="cb587-4"><a href="12-string-manipulation.html#cb587-4"></a></span>
+<span id="cb587-5"><a href="12-string-manipulation.html#cb587-5"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb587-6"><a href="12-string-manipulation.html#cb587-6"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_replace</span>(string, <span class="st">&#39;John&#39;</span>, <span class="st">&#39;****&#39;</span>) )</span></code></pre></div>
+<pre><code>##             string           result
+## 1   John Sanderson   **** Sanderson
+## 2 Johnathan Wilkes ****athan Wilkes
+## 3  Brendan Johnson  Brendan ****son
+## 4    Bigjohn Smith    Bigjohn Smith</code></pre>
+<p>Notice that this is case sensitive and we didn’t replace the ‘john’.</p>
+<p>I might have special characters in my string that I want to replace.</p>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="12-string-manipulation.html#cb589-1"></a><span class="co"># Remove the commas and the $ sign and convert to integers.</span></span>
+<span id="cb589-2"><a href="12-string-manipulation.html#cb589-2"></a><span class="co"># Because $ is a special character, we need to use the escape character, \.</span></span>
+<span id="cb589-3"><a href="12-string-manipulation.html#cb589-3"></a><span class="co"># However, because R uses the escape character as well, we have to use TWO</span></span>
+<span id="cb589-4"><a href="12-string-manipulation.html#cb589-4"></a><span class="co"># escape characters. The first to escape R usual interpretation of the backslash,</span></span>
+<span id="cb589-5"><a href="12-string-manipulation.html#cb589-5"></a><span class="co"># and the second to cause the regular expression to not use the usual </span></span>
+<span id="cb589-6"><a href="12-string-manipulation.html#cb589-6"></a><span class="co"># interpretation of the $ sign.</span></span>
+<span id="cb589-7"><a href="12-string-manipulation.html#cb589-7"></a><span class="co"># </span></span>
+<span id="cb589-8"><a href="12-string-manipulation.html#cb589-8"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;$1,000,873&#39;</span>, <span class="st">&#39;$4.53&#39;</span>, <span class="st">&#39;$672&#39;</span>)</span>
+<span id="cb589-9"><a href="12-string-manipulation.html#cb589-9"></a></span>
+<span id="cb589-10"><a href="12-string-manipulation.html#cb589-10"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb589-11"><a href="12-string-manipulation.html#cb589-11"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_remove_all</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">$&#39;</span>) )</span></code></pre></div>
+<pre><code>##       string    result
+## 1 $1,000,873 1,000,873
+## 2      $4.53      4.53
+## 3       $672       672</code></pre>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="12-string-manipulation.html#cb591-1"></a><span class="co"># We can use the Or clause built into regular expressions to grab the </span></span>
+<span id="cb591-2"><a href="12-string-manipulation.html#cb591-2"></a><span class="co"># dollar signs and the commas using (Pattern1|Pattern2) notation</span></span>
+<span id="cb591-3"><a href="12-string-manipulation.html#cb591-3"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb591-4"><a href="12-string-manipulation.html#cb591-4"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_remove_all</span>(string, <span class="st">&#39;(</span><span class="ch">\\</span><span class="st">$|,)&#39;</span>) ) </span></code></pre></div>
+<pre><code>##       string  result
+## 1 $1,000,873 1000873
+## 2      $4.53    4.53
+## 3       $672     672</code></pre>
+</div>
+<div id="matching-arbitrary-numbers" class="section level3">
+<h3><span class="header-section-number">12.4.3</span> Matching arbitrary numbers</h3>
+<p>We might need to extract the numbers from a string. To do this, we want to grab 1 or more digits.</p>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="12-string-manipulation.html#cb593-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;I need 653 to fix the car&#39;</span>, </span>
+<span id="cb593-2"><a href="12-string-manipulation.html#cb593-2"></a>             <span class="st">&#39;But I only have 432.34 in the bank&#39;</span>, </span>
+<span id="cb593-3"><a href="12-string-manipulation.html#cb593-3"></a>             <span class="st">&#39;I could get .53 from the piggy bank&#39;</span>) </span>
+<span id="cb593-4"><a href="12-string-manipulation.html#cb593-4"></a></span>
+<span id="cb593-5"><a href="12-string-manipulation.html#cb593-5"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb593-6"><a href="12-string-manipulation.html#cb593-6"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_extract</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+&#39;</span>) ) </span></code></pre></div>
+<pre><code>##                                string result
+## 1           I need 653 to fix the car    653
+## 2  But I only have 432.34 in the bank    432
+## 3 I could get .53 from the piggy bank     53</code></pre>
+<p>That isn’t exactly what we wanted. Instead of extracting the whole number, we left off the decimals. To fix this, we could have an optional part of the recipe for decimals. The way to enter into an optional section of the recipe is to use a <code>()?</code> and enclose the optional part inside the parentheses.</p>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="12-string-manipulation.html#cb595-1"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb595-2"><a href="12-string-manipulation.html#cb595-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_extract</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+(</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">d+)?&#39;</span> )) </span></code></pre></div>
+<pre><code>##                                string result
+## 1           I need 653 to fix the car    653
+## 2  But I only have 432.34 in the bank 432.34
+## 3 I could get .53 from the piggy bank     53</code></pre>
+<p>That fixed the issue for the second row, but still misses the third line. Lets have 3 different recipes and then ‘or’ them together.</p>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="12-string-manipulation.html#cb597-1"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb597-2"><a href="12-string-manipulation.html#cb597-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_extract</span>(string, <span class="st">&#39;(</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">d+|</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">d+|</span><span class="ch">\\</span><span class="st">d+)&#39;</span> )) </span></code></pre></div>
+<pre><code>##                                string result
+## 1           I need 653 to fix the car    653
+## 2  But I only have 432.34 in the bank 432.34
+## 3 I could get .53 from the piggy bank    .53</code></pre>
+</div>
+<div id="greedy-matching" class="section level3">
+<h3><span class="header-section-number">12.4.4</span> Greedy matching</h3>
+<p>Regular expressions tries to match as much as it can. The modifiers <code>*</code> and <code>+</code> try to match as many characters as possible. While often this is what we want, it sometimes is not. Consider the case where we are scanning HTML code and looking for markup tags which are of the form <code>&lt;blah blah&gt;</code>. The information inside the angled brackets will be important, but for now we just want to search the string for all instances of HTML tags.</p>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="12-string-manipulation.html#cb599-1"></a>string &lt;-<span class="st"> &#39;A web page has &lt;b&gt;MANY&lt;/b&gt; types of &lt;em&gt;awesome&lt;/em&gt; tags!&#39;</span></span></code></pre></div>
+<p>For now, we want to extract <code>&lt;b&gt;</code>, <code>&lt;/b&gt;</code>, <code>&lt;em&gt;</code> and <code>&lt;/em&gt;</code>. To do this, we might first consider the following:</p>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="12-string-manipulation.html#cb600-1"></a><span class="kw">str_extract_all</span>(string, <span class="st">&#39;&lt;.+&gt;&#39;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;&lt;b&gt;MANY&lt;/b&gt; types of &lt;em&gt;awesome&lt;/em&gt;&quot;</code></pre>
+<p>What the regular expression engine did was matched as many characters in the <code>.+</code> until it got to the very last ending angled bracket it could find. We can force the <code>+</code> and <code>*</code> modifiers to be lazy and match as few characters as possible to complete the match by adding a <code>?</code> suffix to the <code>+</code> or <code>*</code> modifier.</p>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="12-string-manipulation.html#cb602-1"></a><span class="kw">str_extract_all</span>(string, <span class="st">&#39;&lt;.+?&gt;&#39;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;&lt;b&gt;&quot;   &quot;&lt;/b&gt;&quot;  &quot;&lt;em&gt;&quot;  &quot;&lt;/em&gt;&quot;</code></pre>
+</div>
+</div>
+<div id="fuzzy-pattern-matching" class="section level2">
+<h2><span class="header-section-number">12.5</span> Fuzzy Pattern Matching</h2>
+<p>A common data wrangling task is to take a vector of strings that might be subtly different, but those differences aren’t important. For example the address <em>321 S. Milton</em> should be the same as the address <em>321 South Milton</em>. These are easy for humans to recognize as being the same, but it is much harder for a computer.</p>
+<p>The open source project <a href="http://openrefine.org">OpenRefine</a> has a tool that does a very nice job doing fuzzy pattern grouping and several of the algorithms they created have been implemented in the R package <code>refinr</code>. In this section we will utilize these tools identify which strings represent the same items.</p>
+<p>Much of the information (and examples) we present here are taken from the OpenRefine GitHub page on
+<a href="https://github.com/OpenRefine/OpenRefine/wiki/Clustering-In-Depth">Clustering in Depth</a>.</p>
+<div id="key-collision-merge" class="section level3">
+<h3><span class="header-section-number">12.5.1</span> Key Collision Merge</h3>
+<ol style="list-style-type: decimal">
+<li>Remove leading and trailing white space</li>
+<li>Change all characters to their lowercase representation</li>
+<li>Remove all punctuation and control characters</li>
+<li>Normalize extended western characters to their ASCII representation (for example “gödel” → “godel”)</li>
+<li>Split the string into white space separated tokens</li>
+<li>Sort the tokens and remove duplicates</li>
+<li>Join the tokens back together</li>
+</ol>
+<p>From this algorithm, upper-case vs lower-case won’t matter, nor will any punctuation. Furthermore, because we split the string into tokens on the internal white space, then the order of the words won’t matter either. This algorithm is available from <code>refinr::key_collision_merge()</code>.</p>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="12-string-manipulation.html#cb604-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Acme Pizza&quot;</span>, <span class="st">&quot;AcMe PiZzA&quot;</span>, <span class="st">&quot;   ACME PIZZA&quot;</span>, <span class="st">&#39;Pizza, ACME&#39;</span>)</span>
+<span id="cb604-2"><a href="12-string-manipulation.html#cb604-2"></a><span class="kw">data.frame</span>(<span class="dt">Input =</span> strings, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb604-3"><a href="12-string-manipulation.html#cb604-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">key_collision_merge</span>(Input) )</span></code></pre></div>
+<pre><code>##           Input        Result
+## 1    Acme Pizza    ACME PIZZA
+## 2    AcMe PiZzA    ACME PIZZA
+## 3    ACME PIZZA    ACME PIZZA
+## 4   Pizza, ACME    ACME PIZZA</code></pre>
+<p>The function <code>refinr::key_collision_merge()</code> also includes two options for ignoring tokens. First, the <code>ignore_strings</code> argument allows us to set up strings that should be ignored. For example the words <code>the</code>, <code>of</code> often are filler words that should be ignored.</p>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="12-string-manipulation.html#cb606-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Northern Arizona University&quot;</span>, <span class="st">&quot;University of Northern Arizona&quot;</span>, <span class="st">&quot;The University of Northern Arizona&quot;</span>)</span>
+<span id="cb606-2"><a href="12-string-manipulation.html#cb606-2"></a><span class="kw">data.frame</span>(<span class="dt">Input =</span> strings, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb606-3"><a href="12-string-manipulation.html#cb606-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">key_collision_merge</span>(Input, <span class="dt">ignore_strings =</span> <span class="kw">c</span>(<span class="st">&#39;the&#39;</span>,<span class="st">&#39;of&#39;</span>) ) ) </span></code></pre></div>
+<pre><code>##                                Input                      Result
+## 1        Northern Arizona University Northern Arizona University
+## 2     University of Northern Arizona Northern Arizona University
+## 3 The University of Northern Arizona Northern Arizona University</code></pre>
+<p>Finally, there are common business suffixes that should be ignored. For example <code>company</code>, <code>inc.</code>, <code>LLC</code> all mean similar things. The <code>key_collision_merge()</code> function has an <code>bus_suffix=TRUE</code> argument that indicates if the merging should be insensitive to these business suffixes.</p>
+</div>
+<div id="string-distances" class="section level3">
+<h3><span class="header-section-number">12.5.2</span> String Distances</h3>
+<p>Non-exact pattern matching requires some notion of <em>distance</em> between any two strings. One measure of this (called Optimal String Alignment distance) is the number of changes it takes to transform one string to the other where the valid types of changes are deletion, insertion, substitution, and transposition. For example, the distance between <code>sarah</code> and <code>sara</code> is 1 because we only need to delete one character. But the distance between <code>sarah</code> and <code>syria</code> is 3 <code>sarah</code> -&gt; <code>syrah</code> -&gt; <code>syraa</code> -&gt; <code>syria</code>.</p>
+<p>There are other distance metrics to use and the full list available to the <code>stringdist</code> package is available in the documentation <code>help("stringdist-metrics")</code></p>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="12-string-manipulation.html#cb608-1"></a><span class="co"># Compare two strings</span></span>
+<span id="cb608-2"><a href="12-string-manipulation.html#cb608-2"></a>stringdist<span class="op">::</span><span class="kw">stringdist</span>(<span class="st">&#39;sarah&#39;</span>, <span class="st">&#39;syria&#39;</span>)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>With the idea of string distance, we could then match strings with small distances.</p>
+</div>
+<div id="n-gram-merge" class="section level3">
+<h3><span class="header-section-number">12.5.3</span> N-gram Merge</h3>
+<p>The <code>refinr::n_gram_merge</code> function will perform a similar algorithm as the <code>key_collision_merge</code> but will also match strings with small distances,</p>
+<ol style="list-style-type: decimal">
+<li>Change all characters to their lowercase representation</li>
+<li>Remove all punctuation, white space, and control characters</li>
+<li>Obtain all the string n-grams</li>
+<li>Sort the n-grams and remove duplicates</li>
+<li>Join the sorted n-grams back together</li>
+<li>Normalize extended western characters to their ASCII representation</li>
+<li>Match strings with distance less than <code>edit_threshold</code> (defaults to 2)</li>
+</ol>
+<p>Instead of creating tokens using white space, <code>n-grams</code> tokenize <em>every</em> collection of sequential n-letters. For example the 3-gram of “Frank” is:
+1. frank
+3. fra, ran, ank
+4. ank, fra, ran
+5. ankfraran</p>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="12-string-manipulation.html#cb610-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Derek Sonderegger&quot;</span>, <span class="st">&quot;Derek L Sonderegger&quot;</span>, <span class="st">&quot;Derek Sondereger&quot;</span>)</span>
+<span id="cb610-2"><a href="12-string-manipulation.html#cb610-2"></a><span class="kw">data.frame</span>(<span class="dt">Input =</span> strings, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb610-3"><a href="12-string-manipulation.html#cb610-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">n_gram_merge</span>(Input, <span class="dt">numgram =</span> <span class="dv">2</span>, <span class="dt">edit_threshold =</span> <span class="dv">100</span>) )</span></code></pre></div>
+<pre><code>##                 Input              Result
+## 1   Derek Sonderegger    Derek Sondereger
+## 2 Derek L Sonderegger Derek L Sonderegger
+## 3    Derek Sondereger    Derek Sondereger</code></pre>
+</div>
+</div>
+<div id="exercises-11" class="section level2">
+<h2><span class="header-section-number">12.6</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><p>For the following regular expression, explain in words what it matches on. Then add test strings to demonstrate that it in fact does match on the pattern you claim it does. Make sure that your test set of strings has several examples that match as well as several that do not. <em>If you copy the Rmarkdown code for these exercises directly from my source pages, make sure to remove the <code>eval=FALSE</code> from the R-chunk headers.</em></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="12-string-manipulation.html#cb612-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb612-2"><a href="12-string-manipulation.html#cb612-2"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb612-3"><a href="12-string-manipulation.html#cb612-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;a&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="12-string-manipulation.html#cb613-1"></a><span class="co"># This regular expression matches:  Insert your answer here...</span></span>
+<span id="cb613-2"><a href="12-string-manipulation.html#cb613-2"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb613-3"><a href="12-string-manipulation.html#cb613-3"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb613-4"><a href="12-string-manipulation.html#cb613-4"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;ab&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="12-string-manipulation.html#cb614-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb614-2"><a href="12-string-manipulation.html#cb614-2"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb614-3"><a href="12-string-manipulation.html#cb614-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;[ab]&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="12-string-manipulation.html#cb615-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb615-2"><a href="12-string-manipulation.html#cb615-2"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb615-3"><a href="12-string-manipulation.html#cb615-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^[ab]&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="12-string-manipulation.html#cb616-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb616-2"><a href="12-string-manipulation.html#cb616-2"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb616-3"><a href="12-string-manipulation.html#cb616-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">s[aA]&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="12-string-manipulation.html#cb617-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb617-2"><a href="12-string-manipulation.html#cb617-2"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb617-3"><a href="12-string-manipulation.html#cb617-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;.*&#39;</span>) )</span></code></pre></div></li>
+</ol></li>
+<li><p>The following file names were used in a camera trap study. The S number represents the site, P is the plot within a site, C is the camera number within the plot, the first string of numbers is the YearMonthDay and the second string of numbers is the HourMinuteSecond.</p>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="12-string-manipulation.html#cb618-1"></a>file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</span>
+<span id="cb618-2"><a href="12-string-manipulation.html#cb618-2"></a>                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</span>
+<span id="cb618-3"><a href="12-string-manipulation.html#cb618-3"></a>                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</span></code></pre></div>
+<p>Use a combination of <code>str_sub()</code> and <code>str_split()</code> to produce a data frame with columns corresponding to the <code>site</code>, <code>plot</code>, <code>camera</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>, and <code>second</code> for these three file names. So we want to produce code that will create the data frame:</p>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="12-string-manipulation.html#cb619-1"></a> Site Plot Camera Year Month Day Hour Minute Second</span>
+<span id="cb619-2"><a href="12-string-manipulation.html#cb619-2"></a> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></span>
+<span id="cb619-3"><a href="12-string-manipulation.html#cb619-3"></a>  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></span>
+<span id="cb619-4"><a href="12-string-manipulation.html#cb619-4"></a> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></span></code></pre></div></li>
+<li><p>Variable names in R may be and combination letters, digits, period, and underscore. However, they may not start with a digit and if they start with a period, they must not be followed by a digit.</p>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="12-string-manipulation.html#cb620-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;foo15&#39;</span>, <span class="st">&#39;Bar&#39;</span>, <span class="st">&#39;.resid&#39;</span>, <span class="st">&#39;_14s&#39;</span>, </span>
+<span id="cb620-2"><a href="12-string-manipulation.html#cb620-2"></a>             <span class="st">&#39;99_Bottles&#39;</span>, <span class="st">&#39;.9Arggh&#39;</span>, <span class="st">&#39;Foo!&#39;</span>,<span class="st">&#39;HIV Rate&#39;</span>)</span></code></pre></div>
+<p>The first four are valid variable names, but the last four are not.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>First write a regular expression that determines if the string starts with a character (upper or lower case) or underscore and then is followed by zero or more numbers, letters, periods or underscores. <em>Notice I use the start/end of string markers. This is important so that we don’t just match somewhere in the middle of the variable name.</em></p>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="12-string-manipulation.html#cb621-1"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb621-2"><a href="12-string-manipulation.html#cb621-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^(???what goes here???)$&#39;</span> )) </span></code></pre></div></li>
+<li><p>Modify your regular expression so that the first group could be either <code>[a-zA-Z_]</code> as before or it could be a period followed by letters or an underscore.</p></li>
+</ol></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="11-user-defined-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="13-dates-and-times.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+"instapper": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dereksonderegger/444/raw/master/22_Strings.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

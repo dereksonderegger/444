@@ -428,7 +428,6 @@ Notice that even though I passed `x` into the function and then sorted it, `x` r
 # a horribly defined function that has no parameters
 # but still accesses something called "x"
 trimmed.mean <- function(){
-  browser()
   x <- sort(x)              # Access global x, sort and save in local environment
   n <- length(x)
   if( k > 0){               # Accessing the Global k
@@ -445,18 +444,6 @@ trimmed.mean()  # amazingly this still works
 ```
 
 ```
-## Called from: trimmed.mean()
-## debug at <text>#5: x <- sort(x)
-## debug at <text>#6: n <- length(x)
-## debug at <text>#7: if (k > 0) {
-##     x <- x[c(-1 * (1:k), -1 * ((n - k + 1):n))]
-## }
-## debug at <text>#8: x <- x[c(-1 * (1:k), -1 * ((n - k + 1):n))]
-## debug at <text>#10: tm <- sum(x)/length(x)
-## debug at <text>#11: return(tm)
-```
-
-```
 ## [1] 6
 ```
 
@@ -464,15 +451,6 @@ trimmed.mean()  # amazingly this still works
 # but what if k wasn't defined?
 rm(k)           # remove k 
 trimmed.mean()  # now the function can't find anything named k and throws and error.
-```
-
-```
-## Called from: trimmed.mean()
-## debug at <text>#5: x <- sort(x)
-## debug at <text>#6: n <- length(x)
-## debug at <text>#7: if (k > 0) {
-##     x <- x[c(-1 * (1:k), -1 * ((n - k + 1):n))]
-## }
 ```
 
 ```

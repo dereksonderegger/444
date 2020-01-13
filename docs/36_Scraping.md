@@ -106,22 +106,22 @@ State_Pop %>% as_tibble()
 ## # A tibble: 60 x 12
 ##    `Rank in the fi… `Rank in states… Name  `Population est…
 ##    <chr>            <chr>            <chr> <chr>           
-##  1 1                1                Cali… 39,557,045      
-##  2 2                2                Texas 28,701,845      
-##  3 3                4                Flor… 21,299,325      
-##  4 4                3                New … 19,542,209      
-##  5 5                6                Penn… 12,807,060      
-##  6 6                5                Illi… 12,741,080      
-##  7 7                7                Ohio  11,689,442      
-##  8 8                9                Geor… 10,519,475      
-##  9 9                10               Nort… 10,383,620      
-## 10 10               8                Mich… 9,995,915       
+##  1 1                1                Cali… 39,512,223      
+##  2 2                2                Texas 28,995,881      
+##  3 3                4                Flor… 21,477,737      
+##  4 4                3                New … 19,453,561      
+##  5 5                6                Penn… 12,801,989      
+##  6 6                5                Illi… 12,671,821      
+##  7 7                7                Ohio  11,689,100      
+##  8 8                9                Geor… 10,617,423      
+##  9 9                10               Nort… 10,488,084      
+## 10 10               8                Mich… 9,986,857       
 ## # … with 50 more rows, and 8 more variables: `Census population, April 1,
-## #   2010[6]` <chr>, `Percent change, 2010–2018[note 1]` <chr>, `Absolute
-## #   change, 2010-2018` <chr>, `Total seats in the U.S. House of
+## #   2010[6]` <chr>, `Percent change, 2010–2019[note 1]` <chr>, `Absolute
+## #   change, 2010-2019` <chr>, `Total seats in the U.S. House of
 ## #   Representatives, 2013–2023` <chr>, `Estimated population per electoral
-## #   vote, 2018[note 2]` <chr>, `Estimated population per House seat,
-## #   2018` <chr>, `Census population per House seat, 2010` <chr>, `Percent
+## #   vote, 2019[note 2]` <chr>, `Estimated population per House seat,
+## #   2019` <chr>, `Census population per House seat, 2010` <chr>, `Percent
 ## #   of the total U.S. population, 2018[note 3]` <chr>
 ```
 
@@ -132,9 +132,9 @@ It turns out that the first table on the page is the one that I want. Now we nee
 State_Pop <- page %>%
   html_nodes('table') %>% .[[1]] %>%   # First table on the page
   html_table()  %>%                    # as a data.frame
-  rename(Population2018 = `Population estimate, July 1, 2018[5]`,
+  rename(Population2019 = `Population estimate, July 1, 2019[5]`,
          Population2010 = `Census population, April 1, 2010[6]`)  %>%
-  select(Name, Population2018, Population2010) %>%
+  select(Name, Population2019, Population2010) %>%
   mutate_at( vars(matches('Pop')), str_remove_all, ',') %>%           # remove all commas
   mutate_at( vars(matches('Pop')), str_remove, '\\[[0-9]+\\]') %>%    # remove [7] stuff
   mutate_at( vars( matches('Pop')), as.numeric)                       # convert to numbers
@@ -148,11 +148,11 @@ State_Pop %>%
   filter( !(Name %in% c('Contiguous United States', 
                         'The fifty states','Fifty states + D.C.',
                         'Total U.S. (including D.C. and territories)') ) )  %>%
-  mutate( Percent_Change = (Population2018 - Population2010)/Population2010 ) %>%
+  mutate( Percent_Change = (Population2019 - Population2010)/Population2010 ) %>%
   mutate( Name = fct_reorder(Name, Percent_Change) ) %>%
 ggplot( aes(x=Name, y=Percent_Change) ) +
   geom_col( ) +
-  labs(x=NULL, y='% Change', title='State Population growth 2010-2018') +
+  labs(x=NULL, y='% Change', title='State Population growth 2010-2019') +
   coord_flip() 
 ```
 
@@ -183,12 +183,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\n            An Ocean Current Critical To World Weather Is Nearing A Tipping Point\n          "
-## [2] "\n        Are 'Basic Economy' Seats Ever Worth It?\n      "                                     
-## [3] "\n        The Most And Least Tax-Friendly States In The US, Visualized\n      "                 
-## [4] "\n        Quickly Collect Signatures. Anywhere And On Any Device.\n      "                      
-## [5] "\n        Boxing Match Ends With Ultra-Rare Simultaneous Knockout\n      "                      
-## [6] "\n        NASA Finds Lost Indian Spacecraft With Help From Amateur Astronomer\n      "
+## [1] "\n            The Great Grain Fraud\n          "                                                                         
+## [2] "\n        Compare These 20 Headlines To See How Differently UK Tabloids Treated Kate Middleton And Meghan Markle\n      "
+## [3] "\n        Jared Leto Is Transformed Into A Powerful Vampire In Trailer For MCU Movie 'Morbius'\n      "                  
+## [4] "\n        Quickly Collect Signatures. Anywhere And On Any Device.\n      "                                               
+## [5] "\n        Driver Escapes From An Attempted Hijacking By The Mexican Cartel In Nerve-Wracking Video\n      "              
+## [6] "\n        How Digital Sleuths Unravelled The Mystery Of Iran's Plane Crash\n      "
 ```
 
 
@@ -203,12 +203,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.nationalgeographic.com/science/2019/12/why-ocean-current-critical-to-world-weather-losing-steam-arctic/?utm_source=digg"       
-## [2] "https://lifehacker.com/are-basic-economy-seats-ever-worth-it-1840151394?utm_source=digg"                                                   
-## [3] "/2019/states-highest-lowest-taxes"                                                                                                         
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                               
-## [5] "/video/boxing-simultaneous-knockout"                                                                                                       
-## [6] "https://news.sky.com/story/vikram-moon-lander-nasa-finds-lost-indian-spacecraft-with-help-from-amateur-astronomer-11877115?utm_source=digg"
+## [1] "https://www.kansascity.com/news/local/crime/article239079858.html?utm_source=digg"                                  
+## [2] "https://www.buzzfeednews.com/article/ellievhall/meghan-markle-kate-middleton-double-standards-royal?utm_source=digg"
+## [3] "/video/morbius-trailer-jared-leto"                                                                                  
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                        
+## [5] "/video/driver-escapes-attempted-hijacking-mexican-cartel"                                                           
+## [6] "https://www.wired.co.uk/article/iran-plane-crash-news?utm_source=digg"
 ```
 
 

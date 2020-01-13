@@ -7,18 +7,64 @@
 
 R is a open-source program that is commonly used in statistics and machine learning. It runs on almost every platform and is completely free and is available at [www.r-project.org](www.r-project.org). Most cutting-edge statistical research is first available on R. 
 
-The basic editor that comes with R works fairly well, but you should consider running R through the program RStudio which is located at [rstudio.com](http://www.rstudio.org). This is a completely free Integrated Developement Environment that works on Macs, Windows and a couple of flavors of Linux. It simplifies a bunch of more annoying aspects of the standard R GUI and supports things like tab completion.
+The basic editor that comes with R works fairly well, but but it is *strongly* recommended that you run R through the program RStudio which is available at [rstudio.com](http://www.rstudio.org). This is a completely free Integrated Development Environment that works on Macs, Windows and a couple of flavors of Linux. It simplifies a bunch of more annoying aspects of the standard R GUI and supports useful things like tab completion.
 
-R is a script based language, and there isn't a point-and-click interface for data wrangling and statistical modeling. While the initial learning curve will be steeper, understanding how to write scripts will be valuable because scripts leave a clear description of what steps were performed. This is a critical aspect of what is known as *reproducable research* and a good practice.
+R is a script based language, and there isn't a point-and-click interface for data wrangling and statistical modeling. While initially painful, writing scripts leaves a clear and reproducible description of exactly what steps were performed. This is a critical aspect of sharing your methods and results with other students, colleagues, and the world at-large.
 
-While it may seem tempting to type commands into the console directly, but because the goal is to create a script that contains all of the necessary commands to perform an analysis, users should get into the habit of always writing their commands into their R script (or Rmarkdown file) and executing the command from there.
+## Working within an Rmarkdown File
+
+The first step in any new analysis or project is to create a new Rmarkdown file. This can be done by selecting the 
+`File -> New File -> R Markdown...` dropdown option and a menu will appear asking you for the document title, author, and preferred output type. In order to create a PDF, you'll need to have LaTeX installed, but the HTML output nearly always works and I've had good luck with the MS Word output as well.
+
+![](images/RStudio_NewRmarkdown_File.gif)
+
+Once you've created a new Rmarkdown file, you'll be presented with four different panes that you can interact with. 
+
+|  Pane          | Location   | Description                 |
+|:-----|:----|------------------------------|
+|  Editor        | Top Left    | Where you edit the script. This is where you should write most all of your R code. You should write your code, then execute it from this pane. Because nobody writes code correctly the first time, you'll inevitably make some change, and then execute the code again. This will be repeated until the code finally does what you want.   |
+|  Console       | Bottom Left | You can execute code directly in this pane, but the code you write won't be saved. I recommend only writing stuff here if you don't want to keep it. I only type commands in the console when using R as a calculator and I don't want to refer to the result ever again. | 
+| Environment    | Top Right   | This displays the current objects that are available to you. I typically keep the `data.frame` I'm working with opened here so that I can see the column names.
+|  Miscellaneous | Bottom Left | This pane gives access to the help files, the files in your current working directory, and your plots (if you have it set up to show here.) |
+
+
+![](images/RStudio_Pane_Descriptions.gif)
+
+
+The R Markdown is an implementation of the Markdown syntax. It is reasonable to think of a Markdown document as just a text file with some basic structure so that it can easily be converted into either a webpage, pdf, or MS Word document. This syntax was extended to allow use to embed R commands directly into the document. 
+
+Whenever you create a new Rmarkdown document, it is populated with code and comments that attempts to teach new users how to work with Rmarkdown. Critically there are two types of regions:
+
+| Region Type |  Description      |
+|:-----------:|:--------------------------------|
+| Commentary  | These are the areas with a white background. You can write nearly anything here and in your final document it will be copied over. I typically use these spaces to write commentary and interpretation of my data analysis project.  |
+| Code Chunk  |  These are the grey areas. This is where your R code will go. When knitting the document, each code chunk will be run sequentially and the code in each chunk must run. |
+
+
+
+
+
+
+The R code in my document is nicely separated from my regular text using the three backticks and an instruction that it is R code that needs to be evaluated. The output of this document looks good as a HTML, PDF, or MS Word document. I have actually created this entire book using RMarkdown. To see what the the Rmarkdown file looks like for any chapter, just click on the pencil icon at the top of the online notes.
+
+While writing an Rmarkdown file, each of the code chunks can be executed in a couple of different ways. 
+
+1. Press the green arrow at the top of the code chunk to run the entire chunk.
+2. The run button has several options has several options.
+3. There are keyboard shortcuts, on the Mac it is Cmd-Return.
+
+To insert a new code chunk, a user can type it in directly, use the green Insert button, or the keyboard shortcut.
+
+Often we want to produce a nice output document that combines the code, output, and commentary. To do this, you'll "knit" the document which causes all of the R code to be run in a new R session, and then weave together the output into your document. This can be done using the knit button at the top of the Editor Window.
+
+
 
 
 ## R file Types
 
 One of the worst things about a pocket calculator is there is no good way to go several steps and easily see what you did or fix a mistake (there is nothing more annoying than re-typing something because of a typo. To avoid these issues I always work with RMarkdown (or script) files instead of typing directly into the console. You will quickly learn that it is impossible to write R code correctly the first time and you'll save yourself a huge amount of work by just embracing this from the beginning. Furthermore, having an R file fully documents how you did your analysis, which can help when writing the methods section of a paper. Finally, having a file makes it easy to re-run an analysis after a change in the data (additional data values, transformed data, or removal of outliers).
 
-There are three common ways to store R commands in some file: scripts, notebooks, and Rmarkdown files. The distinction between the R scripts and the other two is substantial as R scripts just store R commands, but don't make any attampt to save the results in any distinct format.  Both notebooks and Rmarkdown files save the results of an analysis and present the results in a nice readable fashion. I encourage people to use Rmarkdown files over notebooks because the Rmarkdown knitting enforces a reproducable workflow whereas notebooks can be run out of order. Rmarkdown files are written in a way to combine the R commands, commentary, and the command outputs all together into one coherent document. For most people that use R to advance their research, using Rmarkdown is the most useful.
+There are three common ways to store R commands in some file: scripts, notebooks, and Rmarkdown files. The distinction between the R scripts and the other two is substantial as R scripts just store R commands, but don't make any attempt to save the results in any distinct format.  Both notebooks and Rmarkdown files save the results of an analysis and present the results in a nice readable fashion. I encourage people to use Rmarkdown files over notebooks because the Rmarkdown knitting enforces a reproducible work-flow whereas notebooks can be run out of order. Rmarkdown files are written in a way to combine the R commands, commentary, and the command outputs all together into one coherent document. For most people that use R to advance their research, using Rmarkdown is the most useful.
 
 
 ### R Scripts (.R files)
@@ -70,7 +116,7 @@ While writing an Rmarkdown file, each of the code chunks can be executed in a co
 
 To insert a new code chunk, a user can type it in directly, use the green Insert button, or the keyboard shortcut.
 
-To produce a final output document that you'll present to your boss/collegues/client where you want to combine the code, output, and commentary you'll "knit" the document which causes all of the R code to be run in a new R session, and then weave together the output into your document. This can be done using the knit button at the top of the Editor Window.
+To produce a final output document that you'll present to your boss/colleagues/client where you want to combine the code, output, and commentary you'll "knit" the document which causes all of the R code to be run in a new R session, and then weave together the output into your document. This can be done using the knit button at the top of the Editor Window.
 
 
 ### R Notebooks (.Rmd files)

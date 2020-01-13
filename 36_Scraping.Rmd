@@ -104,9 +104,9 @@ It turns out that the first table on the page is the one that I want. Now we nee
 State_Pop <- page %>%
   html_nodes('table') %>% .[[1]] %>%   # First table on the page
   html_table()  %>%                    # as a data.frame
-  rename(Population2018 = `Population estimate, July 1, 2018[5]`,
+  rename(Population2019 = `Population estimate, July 1, 2019[5]`,
          Population2010 = `Census population, April 1, 2010[6]`)  %>%
-  select(Name, Population2018, Population2010) %>%
+  select(Name, Population2019, Population2010) %>%
   mutate_at( vars(matches('Pop')), str_remove_all, ',') %>%           # remove all commas
   mutate_at( vars(matches('Pop')), str_remove, '\\[[0-9]+\\]') %>%    # remove [7] stuff
   mutate_at( vars( matches('Pop')), as.numeric)                       # convert to numbers
@@ -119,11 +119,11 @@ State_Pop %>%
   filter( !(Name %in% c('Contiguous United States', 
                         'The fifty states','Fifty states + D.C.',
                         'Total U.S. (including D.C. and territories)') ) )  %>%
-  mutate( Percent_Change = (Population2018 - Population2010)/Population2010 ) %>%
+  mutate( Percent_Change = (Population2019 - Population2010)/Population2010 ) %>%
   mutate( Name = fct_reorder(Name, Percent_Change) ) %>%
 ggplot( aes(x=Name, y=Percent_Change) ) +
   geom_col( ) +
-  labs(x=NULL, y='% Change', title='State Population growth 2010-2018') +
+  labs(x=NULL, y='% Change', title='State Population growth 2010-2019') +
   coord_flip() 
 ```
 
