@@ -101,7 +101,6 @@ grade.book <- rbind(
   data.frame(name='Brandon', HW.1=5, HW.2=3, HW.3=6, HW.4=9),
   data.frame(name='Charles', HW.1=9, HW.2=7, HW.3=9, HW.4=10))
 grade.book
-
 ```
 
 What we want to do is turn this data frame from a *wide* data frame into a *long* data frame. In MS Excel this is called pivoting. Essentially I'd like to create a data frame with three columns: `name`, `assignment`, and `score`. That is to say that each homework datum really has three pieces of information: who it came from, which homework it was, and what the score was. It doesn't conceptually matter if I store it as 3 rows of 4 columns or 12 rows so long as there is a way to identify how a student scored on a particular homework. So we want to reshape the HW1 to HW4 columns into two columns (assignment and score). 
@@ -278,17 +277,7 @@ grade.book %>%
 
 ## Exercises
 
-1. Suppose we are given information about the maximum daily temperature from a weather station in Flagstaff, AZ. The file is available at the GitHub site that this book is hosted on.
-
-    ```{r}
-    FlagTemp <-  read.csv(
-      'https://github.com/dereksonderegger/570L/raw/master/data-raw/FlagMaxTemp.csv',
-       header=TRUE, sep=',')
-    ```
-    This file is in a wide format, where each row represents a month and the columns X1, X2, ..., X31 represent the day of the month the observation was made. 
-    a. Convert data set to the long format where the data has only four columns: `Year`, `Month`, `Day`, `Tmax`.
-    b. Calculate the average monthly maximum temperature for each Month in the dataset (So there will be 365 mean maximum temperatures). *You'll probably have some issues taking the mean because there are a number of values that are missing and by default R refuses to take means and sums when there is missing data. The argument `na.rm=TRUE` to `mean()` allows you to force R to remove the missing observations before calculating the mean. Alternatively at some point in your workflow, you could remove rows that include a missing values using `dplyr::drop_na`.* 
-    c. Convert the average month maximums back to a wide data format where each line represents a year and there are 12 columns of temperature data (one for each month) along with a column for the year. *There will be a couple of months that still have missing data because the weather station was out of commission for those months and there was NO data for the entire month.*
+1.  
     
 2. A common task is to take a set of data that has multiple categorical variables and create a table of the number of cases for each combination. An introductory statistics textbook contains a dataset summarizing student surveys from several sections of an intro class. The two variables of interest for us are `Gender` and `Year` which are the students gender and year in college.
     a. Download the dataset and correctly order the `Year` variable using the following:

@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-01-13" />
+<meta name="date" content="2020-02-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -767,81 +767,42 @@ We want to write a function <code>duniform(x, a, b)</code> that takes an arbitra
 <span id="cb531-15"><a href="11-user-defined-functions.html#cb531-15"></a><span class="kw">ggplot</span>(iris.z, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Sepal.Width, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
 <span id="cb531-16"><a href="11-user-defined-functions.html#cb531-16"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb531-17"><a href="11-user-defined-functions.html#cb531-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Post-Transformation&#39;</span>)</span></code></pre></div></li>
-<li><p>In this example, we’ll write a function that will output the first <span class="math inline">\(n\)</span> terms in the child’s game <em>Fizz Buzz</em>. The goal is to count as high as you can, but for any number evenly divisible by 3, substitute “Fizz” and any number evenly divisible by 5, substitute “Buzz”, and if it is divisible by both, substitute “Fizz Buzz”. So the sequence will look like 1,2,Fizz,4,Buzz,Fizz,7,8,Fizz, … <em>Hint: The <code>paste()</code> function will squish strings together, the remainder operator is <code>%%</code> where it is used as <code>9 %% 3 = 0</code>. This problem was inspired by a wonderful YouTube <a href="https://www.youtube.com/watch?v=QPZ0pIK_wsc">video</a> that describes how to write an appropriate loop to do this in JavaScript, but it should be easy enough to interpret what to do in R. I encourage you to try to write your function first before watching the video.</em></p></li>
-</ol>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="11-user-defined-functions.html#cb532-1"></a><span class="co"># Because I added this problem late in the Fall 2019 semester, I just want you to </span></span>
-<span id="cb532-2"><a href="11-user-defined-functions.html#cb532-2"></a><span class="co"># watch the video about how to think about writing a for loop.</span></span>
-<span id="cb532-3"><a href="11-user-defined-functions.html#cb532-3"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb532-4"><a href="11-user-defined-functions.html#cb532-4"></a>FizzBuzz &lt;-<span class="st"> </span><span class="cf">function</span>(n){</span>
-<span id="cb532-5"><a href="11-user-defined-functions.html#cb532-5"></a>  output &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">i =</span> <span class="dv">1</span><span class="op">:</span>n, <span class="dt">result=</span><span class="st">&#39;&#39;</span>)</span>
-<span id="cb532-6"><a href="11-user-defined-functions.html#cb532-6"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</span>
-<span id="cb532-7"><a href="11-user-defined-functions.html#cb532-7"></a>    <span class="cf">if</span>( i <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span> ){</span>
-<span id="cb532-8"><a href="11-user-defined-functions.html#cb532-8"></a>      output[i,<span class="st">&#39;result&#39;</span>] &lt;-<span class="st"> </span><span class="kw">paste</span>(output[i,<span class="st">&#39;result&#39;</span>], <span class="st">&#39;Fizz&#39;</span>)</span>
-<span id="cb532-9"><a href="11-user-defined-functions.html#cb532-9"></a>    }</span>
-<span id="cb532-10"><a href="11-user-defined-functions.html#cb532-10"></a>    <span class="cf">if</span>( i <span class="op">%%</span><span class="st"> </span><span class="dv">5</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb532-11"><a href="11-user-defined-functions.html#cb532-11"></a>      output[i,<span class="st">&#39;result&#39;</span>] &lt;-<span class="st"> </span><span class="kw">paste</span>(output[i,<span class="st">&#39;result&#39;</span>], <span class="st">&#39;Buzz&#39;</span>)</span>
-<span id="cb532-12"><a href="11-user-defined-functions.html#cb532-12"></a>    }</span>
-<span id="cb532-13"><a href="11-user-defined-functions.html#cb532-13"></a>  }</span>
-<span id="cb532-14"><a href="11-user-defined-functions.html#cb532-14"></a>  output &lt;-<span class="st"> </span>output <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb532-15"><a href="11-user-defined-functions.html#cb532-15"></a><span class="st">    </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">ifelse</span>(result <span class="op">==</span><span class="st"> &#39;&#39;</span>, i, result) ) <span class="op">%&gt;%</span></span>
-<span id="cb532-16"><a href="11-user-defined-functions.html#cb532-16"></a><span class="st">    </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_trim</span>(result) )  <span class="co"># Remove the spaces at the beginning</span></span>
-<span id="cb532-17"><a href="11-user-defined-functions.html#cb532-17"></a>  <span class="kw">return</span>(output)</span>
-<span id="cb532-18"><a href="11-user-defined-functions.html#cb532-18"></a>}</span>
-<span id="cb532-19"><a href="11-user-defined-functions.html#cb532-19"></a><span class="kw">FizzBuzz</span>(<span class="dv">15</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 15 x 2
-##        i result   
-##    &lt;int&gt; &lt;chr&gt;    
-##  1     1 1        
-##  2     2 2        
-##  3     3 Fizz     
-##  4     4 4        
-##  5     5 Buzz     
-##  6     6 Fizz     
-##  7     7 7        
-##  8     8 8        
-##  9     9 Fizz     
-## 10    10 Buzz     
-## 11    11 11       
-## 12    12 Fizz     
-## 13    13 13       
-## 14    14 14       
-## 15    15 Fizz Buzz</code></pre>
-<ol start="5" style="list-style-type: decimal">
+<li><p>In this example, we’ll write a function that will output a vector of the first <span class="math inline">\(n\)</span> terms in the child’s game <em>Fizz Buzz</em>. The goal is to count as high as you can, but for any number evenly divisible by 3, substitute “Fizz” and any number evenly divisible by 5, substitute “Buzz”, and if it is divisible by both, substitute “Fizz Buzz”. So the sequence will look like 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, … <em>Hint: The <code>paste()</code> function will squish strings together, the remainder operator is <code>%%</code> where it is used as <code>9 %% 3 = 0</code>. This problem was inspired by a wonderful YouTube <a href="https://www.youtube.com/watch?v=QPZ0pIK_wsc">video</a> that describes how to write an appropriate loop to do this in JavaScript, but it should be easy enough to interpret what to do in R. I encourage you to try to write your function first before watching the video.</em></p></li>
 <li><p>A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest. Below is a function <code>boot.lm</code> that bootstraps the linear model using case re-sampling.</p>
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="11-user-defined-functions.html#cb534-1"></a><span class="co">#&#39; Calculate bootstrap CI for an lm object</span></span>
-<span id="cb534-2"><a href="11-user-defined-functions.html#cb534-2"></a><span class="co">#&#39; </span></span>
-<span id="cb534-3"><a href="11-user-defined-functions.html#cb534-3"></a><span class="co">#&#39; @param model</span></span>
-<span id="cb534-4"><a href="11-user-defined-functions.html#cb534-4"></a><span class="co">#&#39; @param N</span></span>
-<span id="cb534-5"><a href="11-user-defined-functions.html#cb534-5"></a>boot.lm &lt;-<span class="st"> </span><span class="cf">function</span>(model, <span class="dt">N=</span><span class="dv">1000</span>){</span>
-<span id="cb534-6"><a href="11-user-defined-functions.html#cb534-6"></a>  data    &lt;-<span class="st"> </span>model<span class="op">$</span>model  <span class="co"># Extract the original data</span></span>
-<span id="cb534-7"><a href="11-user-defined-functions.html#cb534-7"></a>  formula &lt;-<span class="st"> </span>model<span class="op">$</span>terms  <span class="co"># and model formula used</span></span>
-<span id="cb534-8"><a href="11-user-defined-functions.html#cb534-8"></a></span>
-<span id="cb534-9"><a href="11-user-defined-functions.html#cb534-9"></a>  <span class="co"># Start the output data frame with the full sample statistic</span></span>
-<span id="cb534-10"><a href="11-user-defined-functions.html#cb534-10"></a>  output &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb534-11"><a href="11-user-defined-functions.html#cb534-11"></a><span class="st">    </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb534-12"><a href="11-user-defined-functions.html#cb534-12"></a><span class="st">    </span><span class="kw">spread</span>(term, estimate)</span>
-<span id="cb534-13"><a href="11-user-defined-functions.html#cb534-13"></a></span>
-<span id="cb534-14"><a href="11-user-defined-functions.html#cb534-14"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N ){</span>
-<span id="cb534-15"><a href="11-user-defined-functions.html#cb534-15"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>( <span class="dt">replace=</span><span class="ot">TRUE</span> )</span>
-<span id="cb534-16"><a href="11-user-defined-functions.html#cb534-16"></a>    model.boot &lt;-<span class="st"> </span><span class="kw">lm</span>( formula, <span class="dt">data=</span>data)</span>
-<span id="cb534-17"><a href="11-user-defined-functions.html#cb534-17"></a>    coefs &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model.boot) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb534-18"><a href="11-user-defined-functions.html#cb534-18"></a><span class="st">      </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb534-19"><a href="11-user-defined-functions.html#cb534-19"></a><span class="st">      </span><span class="kw">spread</span>(term, estimate)</span>
-<span id="cb534-20"><a href="11-user-defined-functions.html#cb534-20"></a>    output &lt;-<span class="st"> </span>output <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rbind</span>( coefs )</span>
-<span id="cb534-21"><a href="11-user-defined-functions.html#cb534-21"></a>  }  </span>
-<span id="cb534-22"><a href="11-user-defined-functions.html#cb534-22"></a></span>
-<span id="cb534-23"><a href="11-user-defined-functions.html#cb534-23"></a>  <span class="kw">return</span>(output)</span>
-<span id="cb534-24"><a href="11-user-defined-functions.html#cb534-24"></a>}</span>
-<span id="cb534-25"><a href="11-user-defined-functions.html#cb534-25"></a></span>
-<span id="cb534-26"><a href="11-user-defined-functions.html#cb534-26"></a><span class="co"># Run the function on a model</span></span>
-<span id="cb534-27"><a href="11-user-defined-functions.html#cb534-27"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )</span>
-<span id="cb534-28"><a href="11-user-defined-functions.html#cb534-28"></a>boot.dist &lt;-<span class="st"> </span><span class="kw">boot.lm</span>(m)</span>
-<span id="cb534-29"><a href="11-user-defined-functions.html#cb534-29"></a></span>
-<span id="cb534-30"><a href="11-user-defined-functions.html#cb534-30"></a><span class="co"># If boot.lm() works, then the following produces a nice graph</span></span>
-<span id="cb534-31"><a href="11-user-defined-functions.html#cb534-31"></a>boot.dist <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="st">&#39;term&#39;</span>,<span class="st">&#39;estimate&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb534-32"><a href="11-user-defined-functions.html#cb534-32"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>estimate) ) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb534-33"><a href="11-user-defined-functions.html#cb534-33"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb534-34"><a href="11-user-defined-functions.html#cb534-34"></a><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>term, <span class="dt">scales=</span><span class="st">&#39;free&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="11-user-defined-functions.html#cb532-1"></a><span class="co">#&#39; Calculate bootstrap CI for an lm object</span></span>
+<span id="cb532-2"><a href="11-user-defined-functions.html#cb532-2"></a><span class="co">#&#39; </span></span>
+<span id="cb532-3"><a href="11-user-defined-functions.html#cb532-3"></a><span class="co">#&#39; @param model</span></span>
+<span id="cb532-4"><a href="11-user-defined-functions.html#cb532-4"></a><span class="co">#&#39; @param N</span></span>
+<span id="cb532-5"><a href="11-user-defined-functions.html#cb532-5"></a>boot.lm &lt;-<span class="st"> </span><span class="cf">function</span>(model, <span class="dt">N=</span><span class="dv">1000</span>){</span>
+<span id="cb532-6"><a href="11-user-defined-functions.html#cb532-6"></a>  data    &lt;-<span class="st"> </span>model<span class="op">$</span>model  <span class="co"># Extract the original data</span></span>
+<span id="cb532-7"><a href="11-user-defined-functions.html#cb532-7"></a>  formula &lt;-<span class="st"> </span>model<span class="op">$</span>terms  <span class="co"># and model formula used</span></span>
+<span id="cb532-8"><a href="11-user-defined-functions.html#cb532-8"></a></span>
+<span id="cb532-9"><a href="11-user-defined-functions.html#cb532-9"></a>  <span class="co"># Start the output data frame with the full sample statistic</span></span>
+<span id="cb532-10"><a href="11-user-defined-functions.html#cb532-10"></a>  output &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb532-11"><a href="11-user-defined-functions.html#cb532-11"></a><span class="st">    </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb532-12"><a href="11-user-defined-functions.html#cb532-12"></a><span class="st">    </span><span class="kw">spread</span>(term, estimate)</span>
+<span id="cb532-13"><a href="11-user-defined-functions.html#cb532-13"></a></span>
+<span id="cb532-14"><a href="11-user-defined-functions.html#cb532-14"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N ){</span>
+<span id="cb532-15"><a href="11-user-defined-functions.html#cb532-15"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>( <span class="dt">replace=</span><span class="ot">TRUE</span> )</span>
+<span id="cb532-16"><a href="11-user-defined-functions.html#cb532-16"></a>    model.boot &lt;-<span class="st"> </span><span class="kw">lm</span>( formula, <span class="dt">data=</span>data)</span>
+<span id="cb532-17"><a href="11-user-defined-functions.html#cb532-17"></a>    coefs &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model.boot) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb532-18"><a href="11-user-defined-functions.html#cb532-18"></a><span class="st">      </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb532-19"><a href="11-user-defined-functions.html#cb532-19"></a><span class="st">      </span><span class="kw">spread</span>(term, estimate)</span>
+<span id="cb532-20"><a href="11-user-defined-functions.html#cb532-20"></a>    output &lt;-<span class="st"> </span>output <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rbind</span>( coefs )</span>
+<span id="cb532-21"><a href="11-user-defined-functions.html#cb532-21"></a>  }  </span>
+<span id="cb532-22"><a href="11-user-defined-functions.html#cb532-22"></a></span>
+<span id="cb532-23"><a href="11-user-defined-functions.html#cb532-23"></a>  <span class="kw">return</span>(output)</span>
+<span id="cb532-24"><a href="11-user-defined-functions.html#cb532-24"></a>}</span>
+<span id="cb532-25"><a href="11-user-defined-functions.html#cb532-25"></a></span>
+<span id="cb532-26"><a href="11-user-defined-functions.html#cb532-26"></a><span class="co"># Run the function on a model</span></span>
+<span id="cb532-27"><a href="11-user-defined-functions.html#cb532-27"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )</span>
+<span id="cb532-28"><a href="11-user-defined-functions.html#cb532-28"></a>boot.dist &lt;-<span class="st"> </span><span class="kw">boot.lm</span>(m)</span>
+<span id="cb532-29"><a href="11-user-defined-functions.html#cb532-29"></a></span>
+<span id="cb532-30"><a href="11-user-defined-functions.html#cb532-30"></a><span class="co"># If boot.lm() works, then the following produces a nice graph</span></span>
+<span id="cb532-31"><a href="11-user-defined-functions.html#cb532-31"></a>boot.dist <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="st">&#39;term&#39;</span>,<span class="st">&#39;estimate&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb532-32"><a href="11-user-defined-functions.html#cb532-32"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>estimate) ) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb532-33"><a href="11-user-defined-functions.html#cb532-33"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb532-34"><a href="11-user-defined-functions.html#cb532-34"></a><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>term, <span class="dt">scales=</span><span class="st">&#39;free&#39;</span>)</span></code></pre></div>
 <p>This code does not correctly calculate a bootstrap sample for the model coefficients. Figure out where the mistake is. <em>Hint: Even if you haven’t studied the bootstrap, my description above gives enough information about the bootstrap algorithm to figure this out.</em></p></li>
 </ol>
 

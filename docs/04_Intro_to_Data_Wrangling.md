@@ -35,7 +35,7 @@ The foundational operations to perform on a data set are:
 
 * `add_row` - Add an additional row of data.
 
-* Subsetting - Returns a  with only particular columns or rows
+* Subsetting - Returns a data set with particular columns or rows
 
     – `select` - Selecting a subset of columns by name or column number.
 
@@ -609,10 +609,10 @@ warpbreaks %>%
         data(ChickWeight)
         ```
     b. Look at the help files for the description of the columns.
-    c) Remove all the observations except for observations from day 10 or day 20. The tough part in this instruction is disguishing between "and" and "or".  Obviously there are no observations that occur from both day 10 AND day 20.  Google 'R logical operators' to get an introducton to those.
+    c) Remove all the observations except for observations from day 10 or day 20. The tough part in this instruction is distinguishing between "and" and "or".  Obviously there are no observations that occur from both day 10 AND day 20.  Google 'R logical operators' to get an introduction to those.
     d) Calculate the mean and standard deviation of the chick weights for each diet group on days 10 and 20. 
 
-2. The OpenIntro textbook on statistics includes a data set on body dimensions. 
+2. The OpenIntro textbook on statistics includes a data set on body dimensions. Instead of creating an R chunk for each step of this problem, create a single R pipeline that performs each of the following tasks.  Y 
     a) Load the file using 
         
         ```r

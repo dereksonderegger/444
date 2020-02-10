@@ -104,25 +104,24 @@ State_Pop %>% as_tibble()
 
 ```
 ## # A tibble: 60 x 12
-##    `Rank in the fi… `Rank in states… Name  `Population est…
-##    <chr>            <chr>            <chr> <chr>           
-##  1 1                1                Cali… 39,512,223      
-##  2 2                2                Texas 28,995,881      
-##  3 3                4                Flor… 21,477,737      
-##  4 4                3                New … 19,453,561      
-##  5 5                6                Penn… 12,801,989      
-##  6 6                5                Illi… 12,671,821      
-##  7 7                7                Ohio  11,689,100      
-##  8 8                9                Geor… 10,617,423      
-##  9 9                10               Nort… 10,488,084      
-## 10 10               8                Mich… 9,986,857       
-## # … with 50 more rows, and 8 more variables: `Census population, April 1,
-## #   2010[6]` <chr>, `Percent change, 2010–2019[note 1]` <chr>, `Absolute
-## #   change, 2010-2019` <chr>, `Total seats in the U.S. House of
-## #   Representatives, 2013–2023` <chr>, `Estimated population per electoral
-## #   vote, 2019[note 2]` <chr>, `Estimated population per House seat,
-## #   2019` <chr>, `Census population per House seat, 2010` <chr>, `Percent
-## #   of the total U.S. population, 2018[note 3]` <chr>
+##    `Current Rank` `Rank in states… State `Census populat… `Census populat…
+##    <chr>          <chr>            <chr> <chr>            <chr>           
+##  1 1              1                Cali… 39,512,223       37,254,523      
+##  2 2              2                Texas 28,995,881       25,145,561      
+##  3 3              4                Flor… 21,477,737       18,801,310      
+##  4 4              3                New … 19,453,561       19,378,102      
+##  5 5              6                Penn… 12,801,989       12,702,379      
+##  6 6              5                Illi… 12,671,821       12,830,632      
+##  7 7              7                Ohio  11,689,100       11,536,504      
+##  8 8              9                Geor… 10,617,423       9,687,653       
+##  9 9              10               Nort… 10,488,084       9,535,483       
+## 10 10             8                Mich… 9,986,857        9,883,640       
+## # … with 50 more rows, and 7 more variables: `Percent change,
+## #   2010–2019[note 1]` <chr>, `Absolute change, 2010-2019` <chr>, `Total
+## #   U.S. House of Representatives Seats` <chr>, `Estimated population per
+## #   electoral vote, 2019[note 2]` <chr>, `Estimated population per House
+## #   seat, 2019` <chr>, `Census population per House seat, 2010` <chr>,
+## #   `Percent of the total U.S. population, 2018[note 3]` <chr>
 ```
 
 It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we'll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings.  We need to remove those as well.
@@ -132,9 +131,9 @@ It turns out that the first table on the page is the one that I want. Now we nee
 State_Pop <- page %>%
   html_nodes('table') %>% .[[1]] %>%   # First table on the page
   html_table()  %>%                    # as a data.frame
-  rename(Population2019 = `Population estimate, July 1, 2019[5]`,
-         Population2010 = `Census population, April 1, 2010[6]`)  %>%
-  select(Name, Population2019, Population2010) %>%
+  rename(Population2019 = 4,           # Column 4 is the estimate
+         Population2010 = 5)  %>%      # Column 5 is the last census
+  select(State, Population2019, Population2010) %>%
   mutate_at( vars(matches('Pop')), str_remove_all, ',') %>%           # remove all commas
   mutate_at( vars(matches('Pop')), str_remove, '\\[[0-9]+\\]') %>%    # remove [7] stuff
   mutate_at( vars( matches('Pop')), as.numeric)                       # convert to numbers
@@ -145,12 +144,12 @@ And just to show off the data we've just imported from Wikipedia, we'll make a n
 
 ```r
 State_Pop %>%
-  filter( !(Name %in% c('Contiguous United States', 
+  filter( !(State %in% c('Contiguous United States', 
                         'The fifty states','Fifty states + D.C.',
                         'Total U.S. (including D.C. and territories)') ) )  %>%
   mutate( Percent_Change = (Population2019 - Population2010)/Population2010 ) %>%
-  mutate( Name = fct_reorder(Name, Percent_Change) ) %>%
-ggplot( aes(x=Name, y=Percent_Change) ) +
+  mutate( State = fct_reorder(State, Percent_Change) ) %>%
+ggplot( aes(x=State, y=Percent_Change) ) +
   geom_col( ) +
   labs(x=NULL, y='% Change', title='State Population growth 2010-2019') +
   coord_flip() 
@@ -183,12 +182,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\n            The Great Grain Fraud\n          "                                                                         
-## [2] "\n        What Ever Happened To Josh Hartnett?\n      "                                                                  
-## [3] "\n        Watch This Record-Breaking Dog Jump So Far He's Been Dubbed The 'Michael Jordan Of Dogs'\n      "              
-## [4] "\n        Quickly Collect Signatures. Anywhere And On Any Device.\n      "                                               
-## [5] "\n        Driver Escapes From An Attempted Hijacking By The Mexican Cartel In Nerve-Wracking Video\n      "              
-## [6] "\n        Compare These 20 Headlines To See How Differently UK Tabloids Treated Kate Middleton And Meghan Markle\n      "
+## [1] "\nWas The Nuclear Family A Mistake?\n"                                                        
+## [2] "\nWas Jeanne Calment The Oldest Person Who Ever Lived — Or A Fraud?\n"                        
+## [3] "\nSpectacular Footage Of The (New) Biggest Firework Ever Launched\n"                          
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                  
+## [5] "\nEminem Performed At The Oscars For Some Reason, And The Audience Reactions Were Priceless\n"
+## [6] "\nYou Can't Take This Photo: The Colossal Underbelly Of An Iceberg\n"
 ```
 
 
@@ -203,12 +202,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.kansascity.com/news/local/crime/article239079858.html?utm_source=digg"                                  
-## [2] "https://variety.com/2020/film/news/what-happened-to-josh-hartnett-1203463127/?utm_source=digg"                      
-## [3] "/video/record-breaking-diving-dog-spitfire"                                                                         
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                        
-## [5] "/video/driver-escapes-attempted-hijacking-mexican-cartel"                                                           
-## [6] "https://www.buzzfeednews.com/article/ellievhall/meghan-markle-kate-middleton-double-standards-royal?utm_source=digg"
+## [1] "https://www.theatlantic.com/magazine/archive/2020/03/the-nuclear-family-was-a-mistake/605536/?utm_source=digg"               
+## [2] "https://www.newyorker.com/magazine/2020/02/17/was-jeanne-calment-the-oldest-person-who-ever-lived-or-a-fraud?utm_source=digg"
+## [3] "/video/biggest-firework-ever-steamboat-springs"                                                                              
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                 
+## [5] "/2020/eminem-performed-at-the-oscars-for-some-reason-and-the-audience-reactions-were-hilarious"                              
+## [6] "https://www.wired.com/story/you-cant-take-this-iceberg-photo/?utm_source=digg"
 ```
 
 

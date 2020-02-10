@@ -377,12 +377,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              232.
-## 2 A              320.
-## 3 B              283.
-## 4 B              297.
-## 5 C              237.
-## 6 C              229.
+## 1 A              257.
+## 2 A              282.
+## 3 B              207.
+## 4 B              257.
+## 5 C              268.
+## 6 C              273.
 ```
 
 ```r
@@ -413,12 +413,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              232. <NA>         NA      NA        NA
-## 2 A              320. <NA>         NA      NA        NA
-## 3 B              283. Lake Elaine   6.5    40         8
-## 4 B              297. Lake Elaine   6.5    40         8
-## 5 C              237. Mormon Lake   6.3   210        10
-## 6 C              229. Mormon Lake   6.3   210        10
+## 1 A              257. <NA>         NA      NA        NA
+## 2 A              282. <NA>         NA      NA        NA
+## 3 B              207. Lake Elaine   6.5    40         8
+## 4 B              257. Lake Elaine   6.5    40         8
+## 5 C              268. Mormon Lake   6.3   210        10
+## 6 C              273. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -438,12 +438,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              232. <NA>         NA      NA        NA
-## 2 A              320. <NA>         NA      NA        NA
-## 3 B              283. Lake Elaine   6.5    40         8
-## 4 B              297. Lake Elaine   6.5    40         8
-## 5 C              237. Mormon Lake   6.3   210        10
-## 6 C              229. Mormon Lake   6.3   210        10
+## 1 A              257. <NA>         NA      NA        NA
+## 2 A              282. <NA>         NA      NA        NA
+## 3 B              207. Lake Elaine   6.5    40         8
+## 4 B              257. Lake Elaine   6.5    40         8
+## 5 C              268. Mormon Lake   6.3   210        10
+## 6 C              273. Mormon Lake   6.3   210        10
 ```
 
 
@@ -459,10 +459,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              283. Lake Elaine   6.5    40         8
-## 2 B              297. Lake Elaine   6.5    40         8
-## 3 C              237. Mormon Lake   6.3   210        10
-## 4 C              229. Mormon Lake   6.3   210        10
+## 1 B              207. Lake Elaine   6.5    40         8
+## 2 B              257. Lake Elaine   6.5    40         8
+## 3 C              268. Mormon Lake   6.3   210        10
+## 4 C              273. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
@@ -494,18 +494,7 @@ grade.book %>%
 
 ## Exercises
 
-1. Suppose we are given information about the maximum daily temperature from a weather station in Flagstaff, AZ. The file is available at the GitHub site that this book is hosted on.
-
-    
-    ```r
-    FlagTemp <-  read.csv(
-      'https://github.com/dereksonderegger/570L/raw/master/data-raw/FlagMaxTemp.csv',
-       header=TRUE, sep=',')
-    ```
-    This file is in a wide format, where each row represents a month and the columns X1, X2, ..., X31 represent the day of the month the observation was made. 
-    a. Convert data set to the long format where the data has only four columns: `Year`, `Month`, `Day`, `Tmax`.
-    b. Calculate the average monthly maximum temperature for each Month in the dataset (So there will be 365 mean maximum temperatures). *You'll probably have some issues taking the mean because there are a number of values that are missing and by default R refuses to take means and sums when there is missing data. The argument `na.rm=TRUE` to `mean()` allows you to force R to remove the missing observations before calculating the mean. Alternatively at some point in your workflow, you could remove rows that include a missing values using `dplyr::drop_na`.* 
-    c. Convert the average month maximums back to a wide data format where each line represents a year and there are 12 columns of temperature data (one for each month) along with a column for the year. *There will be a couple of months that still have missing data because the weather station was out of commission for those months and there was NO data for the entire month.*
+1.  
     
 2. A common task is to take a set of data that has multiple categorical variables and create a table of the number of cases for each combination. An introductory statistics textbook contains a dataset summarizing student surveys from several sections of an intro class. The two variables of interest for us are `Gender` and `Year` which are the students gender and year in college.
     a. Download the dataset and correctly order the `Year` variable using the following:

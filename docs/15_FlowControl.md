@@ -88,7 +88,7 @@ df %>% mutate(C =  A==5,  D =  B==5) %>%
 Next we can summarize a vector of logical values using `any()`, `all()`, and `which()`. These functions do exactly what you would expect them to do.
 
 ```r
-any(6:10 <= 7 )   # Should return TRUE because there are two TRUE result
+any(6:10 <= 7 )   # Should return TRUE because there are two TRUE results
 ```
 
 ```
@@ -121,26 +121,27 @@ df
 
 ```
 ##   Type      Value
-## 1    A -0.3450619
-## 2    A -1.0617622
-## 3    B  1.9858695
-## 4    B -1.0314026
-## 5    C -0.1889796
-## 6    C -0.7214601
-## 7    D  0.3752272
-## 8    D -2.1481583
+## 1    A  0.1036901
+## 2    A  0.2804084
+## 3    B  0.3062566
+## 4    B -1.0131483
+## 5    C -0.6687742
+## 6    C  0.3086037
+## 7    D  0.9013233
+## 8    D  0.2655186
 ```
 
 ```r
+# df %>% filter( Type == 'A' | Type == 'B' )
 df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='B'
 ```
 
 ```
 ##   Type      Value
-## 1    A -0.3450619
-## 2    A -1.0617622
-## 3    B  1.9858695
-## 4    B -1.0314026
+## 1    A  0.1036901
+## 2    A  0.2804084
+## 3    B  0.3062566
+## 4    B -1.0131483
 ```
 
 
@@ -248,7 +249,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -263,7 +264,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] " in the if statement, got a Tail! "
+## [1] "In the else part!"
 ```
 
 ```r
@@ -271,7 +272,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -303,7 +304,7 @@ p.value
 ```
 
 ```
-## [1] 3.785608e-08
+## [1] 4.753046e-09
 ```
 
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.
@@ -328,7 +329,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The second child was ignored"
+## [1] "The first child had more rules to follow"
 ```
 
 
