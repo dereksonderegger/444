@@ -1,18 +1,8 @@
-# Data Wrangling Process
+# Data Wrangling Process {-}
 
-```{r, echo=FALSE}
-# Un-attach any packages that happen to already be loaded. In general this is unnecessary
-# but is important for the creation of the book to not have package namespaces
-# fighting unexpectedly.
-pkgs = names(sessionInfo()$otherPkgs)
-if( length(pkgs > 0)){
-  pkgs = paste('package:', pkgs, sep = "")
-  for( i in 1:length(pkgs)){
-    detach(pkgs[i], character.only = TRUE, force=TRUE)
-  }
-}
-```
-```{r, warning=FALSE, message=FALSE}
+
+
+```r
 # Chapter packages we will use
 library(tidyverse)
 ```
@@ -29,7 +19,8 @@ The process of data wrangling often seems very situation dependent and there isn
 
 
 I tend to break my data cleaning scripts into three chunks and the cleaning script looks something like this:
-```{r, eval=FALSE}
+
+```r
 # Script for reading in Flagstaff Weather Data
 Weather_raw <- read_csv('~/GitHub/444/data-raw/Flagstaff_Temp.csv')
 
@@ -56,36 +47,45 @@ The difficult part is recognizing what constitutes an observation and what const
 
 Suppose I have an address book where I keep email addresses, phone numbers, and other contact information.  However, because different people have several different types of contact information, it would be a bad idea to have one row per person because then we'd need a column for work email, personal email, home phone, work phone, cell phone, twitter handle, reddit user name, etc. Instead, store the information with a single row representing a particular contact.
 
-```{r, echo=FALSE}
-Contacts <- tribble(
-  ~Person,  ~Type,  ~Value,
-  'Derek',  'Work Email', 'derek.sonderegger@nau.edu',
-  'Derek',  'Cell Phone', '970-867-5309',
-  'Derek',  'Twitter',    '@D_Sonderegger',
-  'Derek',  'Github',     'dereksonderegger',
-  'Mom',    'Home Phone', '555-867-5309')
-Contacts
+
+```
+## # A tibble: 5 x 3
+##   Person Type       Value                    
+##   <chr>  <chr>      <chr>                    
+## 1 Derek  Work Email derek.sonderegger@nau.edu
+## 2 Derek  Cell Phone 970-867-5309             
+## 3 Derek  Twitter    @D_Sonderegger           
+## 4 Derek  Github     dereksonderegger         
+## 5 Mom    Home Phone 555-867-5309
 ```
 
 For a more challenging example, suppose we have grade book where we've stored students scores for four different homework assignments.
 
-```{r, echo=FALSE}
-grade.book <- rbind(
-  data.frame(name='Alison',  HW.1=8, HW.2=5, HW.3=8, HW.4=4),
-  data.frame(name='Brandon', HW.1=5, HW.2=3, HW.3=6, HW.4=9),
-  data.frame(name='Charles', HW.1=9, HW.2=7, HW.3=9, HW.4=10))
-grade.book
+
+```
+##      name HW.1 HW.2 HW.3 HW.4
+## 1  Alison    8    5    8    4
+## 2 Brandon    5    3    6    9
+## 3 Charles    9    7    9   10
 ```
 
 In this case we are considering each row to represent a student and each variable represents homework score. An alternative representation would be for each row to represent a single score.
 
-```{r, echo=FALSE}
-# first we gather the score columns into columns we'll name Homework and Score
-tidy.scores <- grade.book %>% 
-  gather( key=Assignment,   # What should I call the key column
-          value=Score,      # What should I call the values column
-          HW.1:HW.4)        # which columns to apply this to
-tidy.scores
+
+```
+##       name Assignment Score
+## 1   Alison       HW.1     8
+## 2  Brandon       HW.1     5
+## 3  Charles       HW.1     9
+## 4   Alison       HW.2     5
+## 5  Brandon       HW.2     3
+## 6  Charles       HW.2     7
+## 7   Alison       HW.3     8
+## 8  Brandon       HW.3     6
+## 9  Charles       HW.3     9
+## 10  Alison       HW.4     4
+## 11 Brandon       HW.4     9
+## 12 Charles       HW.4    10
 ```
 
 Either representation is fine in this case, because each student should have the same number of assignments. However, if I was combining grade books from multiple times I've taught the course, the first option won't work because sometimes I assign projects and sometimes not. So the tidy version of the data would be to have a table `scores` where each row represents a single assignment from a particular student.

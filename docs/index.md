@@ -1,7 +1,7 @@
 --- 
 title: "STA 444/5 - Introductory Data Science using R"
 author: "Derek L. Sonderegger"
-date: "February 10, 2020"
+date: "February 21, 2020"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

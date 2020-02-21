@@ -1,7 +1,7 @@
 # Data Scraping
 
 ```{r, echo=FALSE}
-# Un-attach any packages that happen to already be loaded. In general this is unecessary
+# Un-attach any packages that happen to already be loaded. In general this is unnecessary
 # but is important for the creation of the book to not have package namespaces
 # fighting unexpectedly.
 pkgs = names(sessionInfo()$otherPkgs)
@@ -88,24 +88,29 @@ page %>%
 With five tables on the page, I need to go through each table individually and decide if it is the one that I want. To do this, we'll take each table and convert it into a data.frame and view it to see what information it contains.
 
 ```{r}
-State_Pop <- page %>%
+State_Pop <- 
+  page %>%
   html_nodes('table') %>% 
-  .[[1]] %>%        # Grab the first table and 
-  html_table()      # convert it from HTML into a data.frame 
+  .[[1]] %>%                              # Grab the first table and 
+  html_table(header=FALSE, fill=TRUE) %>% # convert it from HTML into a data.frame 
+  magrittr::set_colnames(c('Rank_current','Rank_2010','State',
+            'Population2019', 'Population2010',
+            'Percent_Change','Absolute_Change', 
+            'House_Seats', 'Population_Per_Electoral_Vote',
+            'Population_Per_House_Seat', 'Population_Per_House_Seat_2010',
+            'Percent_US_Population')) %>%
+  slice(-1 * 1:2 )
+
 
 # To view this table, we could use View() or print out just the first few
 # rows and columns. Converting it to a tibble makes the printing turn out nice.
-State_Pop %>% as_tibble()  
+State_Pop %>% as_tibble() 
 ```
 
 It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we'll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings.  We need to remove those as well.
 
 ```{r}
-State_Pop <- page %>%
-  html_nodes('table') %>% .[[1]] %>%   # First table on the page
-  html_table()  %>%                    # as a data.frame
-  rename(Population2019 = 4,           # Column 4 is the estimate
-         Population2010 = 5)  %>%      # Column 5 is the last census
+State_Pop <- State_Pop %>%
   select(State, Population2019, Population2010) %>%
   mutate_at( vars(matches('Pop')), str_remove_all, ',') %>%           # remove all commas
   mutate_at( vars(matches('Pop')), str_remove, '\\[[0-9]+\\]') %>%    # remove [7] stuff

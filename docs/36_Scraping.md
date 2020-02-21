@@ -81,58 +81,61 @@ page %>%
 
 ```
 ## {xml_nodeset (5)}
-## [1] <table class="wikitable sortable" style="width:100%; text-align:cent ...
-## [2] <table class="wikitable"><tbody>\n<tr><th style="text-align: left;"> ...
-## [3] <table class="wikitable sortable" style="text-align: right;">\n<capt ...
-## [4] <table class="nowraplinks hlist mw-collapsible autocollapse navbox-i ...
-## [5] <table class="nowraplinks hlist mw-collapsible mw-collapsed navbox-i ...
+## [1] <table class="wikitable sortable" style="width:100%; text-align:center;"> ...
+## [2] <table class="wikitable"><tbody>\n<tr><th style="text-align: left;">Legen ...
+## [3] <table class="wikitable sortable" style="text-align: right;">\n<caption>P ...
+## [4] <table class="nowraplinks hlist mw-collapsible autocollapse navbox-inner" ...
+## [5] <table class="nowraplinks hlist mw-collapsible mw-collapsed navbox-inner" ...
 ```
 
 With five tables on the page, I need to go through each table individually and decide if it is the one that I want. To do this, we'll take each table and convert it into a data.frame and view it to see what information it contains.
 
 
 ```r
-State_Pop <- page %>%
+State_Pop <- 
+  page %>%
   html_nodes('table') %>% 
-  .[[1]] %>%        # Grab the first table and 
-  html_table()      # convert it from HTML into a data.frame 
+  .[[1]] %>%                              # Grab the first table and 
+  html_table(header=FALSE, fill=TRUE) %>% # convert it from HTML into a data.frame 
+  magrittr::set_colnames(c('Rank_current','Rank_2010','State',
+            'Population2019', 'Population2010',
+            'Percent_Change','Absolute_Change', 
+            'House_Seats', 'Population_Per_Electoral_Vote',
+            'Population_Per_House_Seat', 'Population_Per_House_Seat_2010',
+            'Percent_US_Population')) %>%
+  slice(-1 * 1:2 )
+
 
 # To view this table, we could use View() or print out just the first few
 # rows and columns. Converting it to a tibble makes the printing turn out nice.
-State_Pop %>% as_tibble()  
+State_Pop %>% as_tibble() 
 ```
 
 ```
 ## # A tibble: 60 x 12
-##    `Current Rank` `Rank in states… State `Census populat… `Census populat…
-##    <chr>          <chr>            <chr> <chr>            <chr>           
-##  1 1              1                Cali… 39,512,223       37,254,523      
-##  2 2              2                Texas 28,995,881       25,145,561      
-##  3 3              4                Flor… 21,477,737       18,801,310      
-##  4 4              3                New … 19,453,561       19,378,102      
-##  5 5              6                Penn… 12,801,989       12,702,379      
-##  6 6              5                Illi… 12,671,821       12,830,632      
-##  7 7              7                Ohio  11,689,100       11,536,504      
-##  8 8              9                Geor… 10,617,423       9,687,653       
-##  9 9              10               Nort… 10,488,084       9,535,483       
-## 10 10             8                Mich… 9,986,857        9,883,640       
-## # … with 50 more rows, and 7 more variables: `Percent change,
-## #   2010–2019[note 1]` <chr>, `Absolute change, 2010-2019` <chr>, `Total
-## #   U.S. House of Representatives Seats` <chr>, `Estimated population per
-## #   electoral vote, 2019[note 2]` <chr>, `Estimated population per House
-## #   seat, 2019` <chr>, `Census population per House seat, 2010` <chr>,
-## #   `Percent of the total U.S. population, 2018[note 3]` <chr>
+##    Rank_current Rank_2010 State Population2019 Population2010 Percent_Change
+##    <chr>        <chr>     <chr> <chr>          <chr>          <chr>         
+##  1 1            1         Cali… 39,512,223     37,254,523     6.1%          
+##  2 2            2         Texas 28,995,881     25,145,561     15.3%         
+##  3 3            4         Flor… 21,477,737     18,801,310     14.2%         
+##  4 4            3         New … 19,453,561     19,378,102     0.4%          
+##  5 5            6         Penn… 12,801,989     12,702,379     0.8%          
+##  6 6            5         Illi… 12,671,821     12,830,632     -1.2%         
+##  7 7            7         Ohio  11,689,100     11,536,504     1.3%          
+##  8 8            9         Geor… 10,617,423     9,687,653      9.6%          
+##  9 9            10        Nort… 10,488,084     9,535,483      10.0%         
+## 10 10           8         Mich… 9,986,857      9,883,640      1.0%          
+## # … with 50 more rows, and 6 more variables: Absolute_Change <chr>,
+## #   House_Seats <chr>, Population_Per_Electoral_Vote <chr>,
+## #   Population_Per_House_Seat <chr>, Population_Per_House_Seat_2010 <chr>,
+## #   Percent_US_Population <chr>
 ```
 
 It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we'll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings.  We need to remove those as well.
 
 
 ```r
-State_Pop <- page %>%
-  html_nodes('table') %>% .[[1]] %>%   # First table on the page
-  html_table()  %>%                    # as a data.frame
-  rename(Population2019 = 4,           # Column 4 is the estimate
-         Population2010 = 5)  %>%      # Column 5 is the last census
+State_Pop <- State_Pop %>%
   select(State, Population2019, Population2010) %>%
   mutate_at( vars(matches('Pop')), str_remove_all, ',') %>%           # remove all commas
   mutate_at( vars(matches('Pop')), str_remove, '\\[[0-9]+\\]') %>%    # remove [7] stuff
@@ -182,12 +185,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nWas The Nuclear Family A Mistake?\n"                                                        
-## [2] "\nWas Jeanne Calment The Oldest Person Who Ever Lived — Or A Fraud?\n"                        
-## [3] "\nSpectacular Footage Of The (New) Biggest Firework Ever Launched\n"                          
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                  
-## [5] "\nEminem Performed At The Oscars For Some Reason, And The Audience Reactions Were Priceless\n"
-## [6] "\nYou Can't Take This Photo: The Colossal Underbelly Of An Iceberg\n"
+## [1] "\nThe Tragedy On Great Slave Lake\n"                                                             
+## [2] "\nI Criticized 'South Park' For Spawning A Generation Of Trolls. And So The Trolls Came For Me\n"
+## [3] "\nDriver Brake Checks Another Car, Ends Up Setting Off Chaotic Chain Of Events\n"                
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                     
+## [5] "\nThis Is What Years, Maybe Decades, Of Cable Mismanagement Looks Like\n"                        
+## [6] "\nHow Google Autocomplete Describes Every State In America\n"
 ```
 
 
@@ -202,12 +205,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.theatlantic.com/magazine/archive/2020/03/the-nuclear-family-was-a-mistake/605536/?utm_source=digg"               
-## [2] "https://www.newyorker.com/magazine/2020/02/17/was-jeanne-calment-the-oldest-person-who-ever-lived-or-a-fraud?utm_source=digg"
-## [3] "/video/biggest-firework-ever-steamboat-springs"                                                                              
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                 
-## [5] "/2020/eminem-performed-at-the-oscars-for-some-reason-and-the-audience-reactions-were-hilarious"                              
-## [6] "https://www.wired.com/story/you-cant-take-this-iceberg-photo/?utm_source=digg"
+## [1] "https://www.mensjournal.com/features/the-tragic-end-of-an-ill-fated-solo-northern-journey-on-great-slave-lake/?utm_source=digg"          
+## [2] "https://www.washingtonpost.com/opinions/2020/02/21/i-criticized-south-park-spawning-generation-trolls-so-trolls-came-me/?utm_source=digg"
+## [3] "/video/brake-check-car-change-lanes-crash"                                                                                               
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                             
+## [5] "/video/russian-cable-tangle"                                                                                                             
+## [6] "/2020/google-autocomplete-american-states"
 ```
 
 

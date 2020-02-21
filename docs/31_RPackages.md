@@ -142,31 +142,6 @@ Other regions that you might use:
 * `@references` This is a text area to point to journal articles or other literature sources.
 
 
-A complete list is available via:
-
-```r
-names(roxygen2:::default_tags())
-```
-
-```
-##  [1] "evalNamespace"     "export"            "exportClass"      
-##  [4] "exportMethod"      "exportPattern"     "import"           
-##  [7] "importClassesFrom" "importFrom"        "importMethodsFrom"
-## [10] "rawNamespace"      "S3method"          "useDynLib"        
-## [13] "aliases"           "author"            "backref"          
-## [16] "concept"           "describeIn"        "description"      
-## [19] "details"           "docType"           "encoding"         
-## [22] "evalRd"            "example"           "examples"         
-## [25] "family"            "field"             "format"           
-## [28] "inherit"           "inheritParams"     "inheritDotParams" 
-## [31] "inheritSection"    "keywords"          "method"           
-## [34] "name"              "md"                "noMd"             
-## [37] "noRd"              "note"              "param"            
-## [40] "rdname"            "rawRd"             "references"       
-## [43] "return"            "section"           "seealso"          
-## [46] "slot"              "source"            "template"         
-## [49] "templateVar"       "title"             "usage"
-```
 
 ## Testing
 In any package that contains R-functions, we need to make sure those functions work correctly. In particular, as I am writing the function, I am building test cases that verify that my function does exactly what I claim it does. In particular, I want to save all of those simple test cases that I've thought about and automatically run them each time I re-build the package. 

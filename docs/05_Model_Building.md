@@ -104,12 +104,12 @@ broom::tidy(model) # all that information as a data frame
 
 ```
 ## # A tibble: 1 x 10
-##   estimate estimate1 estimate2 statistic p.value parameter conf.low
-##      <dbl>     <dbl>     <dbl>     <dbl>   <dbl>     <dbl>    <dbl>
-## 1    -18.6     1196.     1214.     -1.41   0.158      323.    -44.4
-##   conf.high method                  alternative
-##       <dbl> <chr>                   <chr>      
-## 1      7.27 Welch Two Sample t-test two.sided
+##   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+##      <dbl>     <dbl>     <dbl>     <dbl>   <dbl>     <dbl>    <dbl>     <dbl>
+## 1    -18.6     1196.     1214.     -1.41   0.158      323.    -44.4      7.27
+##   method                  alternative
+##   <chr>                   <chr>      
+## 1 Welch Two Sample t-test two.sided
 ```
 
 In the `t.test` function, the default behavior is to perform a test with a two-sided alternative and to calculate a 95% confidence interval. Those can be adjusted using the `alternative` and `conf.level` arguments. See the help documentation for `t.test()` function to see how to adust those.
@@ -126,12 +126,12 @@ broom::tidy(model) # all that information as a data frame
 
 ```
 ## # A tibble: 1 x 10
-##   estimate estimate1 estimate2 statistic p.value parameter conf.low
-##      <dbl>     <dbl>     <dbl>     <dbl>   <dbl>     <dbl>    <dbl>
-## 1     18.6     1214.     1196.      1.41   0.158      323.    -7.27
-##   conf.high method                  alternative
-##       <dbl> <chr>                   <chr>      
-## 1      44.4 Welch Two Sample t-test two.sided
+##   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+##      <dbl>     <dbl>     <dbl>     <dbl>   <dbl>     <dbl>    <dbl>     <dbl>
+## 1     18.6     1214.     1196.      1.41   0.158      323.    -7.27      44.4
+##   method                  alternative
+##   <chr>                   <chr>      
+## 1 Welch Two Sample t-test two.sided
 ```
 
 
@@ -315,14 +315,14 @@ head(iris, n=3)
 ```
 
 ```
-##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species      fit
-## 1          5.1         3.5          1.4         0.2  setosa 1.474373
-## 2          4.9         3.0          1.4         0.2  setosa 1.448047
-## 3          4.7         3.2          1.3         0.2  setosa 1.421721
-##        lwr      upr
-## 1 1.398783 1.549964
-## 2 1.371765 1.524329
-## 3 1.324643 1.518798
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species      fit      lwr
+## 1          5.1         3.5          1.4         0.2  setosa 1.474373 1.398783
+## 2          4.9         3.0          1.4         0.2  setosa 1.448047 1.371765
+## 3          4.7         3.2          1.3         0.2  setosa 1.421721 1.324643
+##        upr
+## 1 1.549964
+## 2 1.524329
+## 3 1.518798
 ```
 
 Now that the fitted values that define the regression lines and the associated confidence interval band information has been added to my `iris` data set, we can now plot the raw data and the regression model predictions.
@@ -367,9 +367,9 @@ ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
     e) Graph the data and fitted regression line and uncertainty ribbon.
     f) Add the R-squared value as an annotation to the graph.
   
-2. The data set `phbirths` from the `faraway` package contains information birth weight, gestational length, and smoking status of mother. We'll fit a quadratic model to predict infant birthweight using the gestational time.
-    a) Create two scatterplots of gestational length and birthweight, one for each smoking status.
-    b) Remove all the observations that are premature (less than 36 weeks).
+2. The data set `phbirths` from the `faraway` package contains information birth weight, gestational length, and smoking status of mother. We'll fit a quadratic model to predict infant birth weight using the gestational time.
+    a) Create two scatter plots of gestational length and birthweight, one for each smoking status.
+    b) Remove all the observations that are premature (less than 36 weeks). For the remainder of the problem, only use these full-term babies.
     c) Fit the quadratic model 
         
         ```r

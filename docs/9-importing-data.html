@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Importing Data | STA 444/5 - Introductory Data Science using R</title>
   <meta name="description" content="Chapter 9 Importing Data | STA 444/5 - Introductory Data Science using R" />
-  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Importing Data | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2019-12-03" />
+<meta name="date" content="2020-02-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="8-data-structures.html"/>
-<link rel="next" href="10-user-defined-functions.html"/>
+<link rel="next" href="10-functions-1.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -53,9 +53,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -64,14 +64,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -134,21 +136,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="part"><span><b>Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="1-familiarization.html"><a href="1-familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
-<li class="chapter" data-level="1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-file-types"><i class="fa fa-check"></i><b>1.1</b> R file Types</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-scripts-.r-files"><i class="fa fa-check"></i><b>1.1.1</b> R Scripts (.R files)</a></li>
-<li class="chapter" data-level="1.1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-markdown-.rmd-files"><i class="fa fa-check"></i><b>1.1.2</b> R Markdown (.Rmd files)</a></li>
-<li class="chapter" data-level="1.1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#r-notebooks-.rmd-files"><i class="fa fa-check"></i><b>1.1.3</b> R Notebooks (.Rmd files)</a></li>
+<li class="chapter" data-level="1.1" data-path="1-familiarization.html"><a href="1-familiarization.html#working-within-an-rmarkdown-file"><i class="fa fa-check"></i><b>1.1</b> Working within an Rmarkdown File</a></li>
+<li class="chapter" data-level="1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-file-types"><i class="fa fa-check"></i><b>1.2</b> R file Types</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="1-familiarization.html"><a href="1-familiarization.html#r-scripts-.r-files"><i class="fa fa-check"></i><b>1.2.1</b> R Scripts (.R files)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-markdown-.rmd-files"><i class="fa fa-check"></i><b>1.2.2</b> R Markdown (.Rmd files)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-familiarization.html"><a href="1-familiarization.html#r-notebooks-.rmd-files"><i class="fa fa-check"></i><b>1.2.3</b> R Notebooks (.Rmd files)</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="1-familiarization.html"><a href="1-familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.2</b> R as a simple calculator</a></li>
-<li class="chapter" data-level="1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#assignment"><i class="fa fa-check"></i><b>1.3</b> Assignment</a></li>
-<li class="chapter" data-level="1.4" data-path="1-familiarization.html"><a href="1-familiarization.html#vectors"><i class="fa fa-check"></i><b>1.4</b> Vectors</a></li>
-<li class="chapter" data-level="1.5" data-path="1-familiarization.html"><a href="1-familiarization.html#packages"><i class="fa fa-check"></i><b>1.5</b> Packages</a></li>
-<li class="chapter" data-level="1.6" data-path="1-familiarization.html"><a href="1-familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.6</b> Finding Help</a><ul>
-<li class="chapter" data-level="1.6.1" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.6.1</b> How does this function work?</a></li>
-<li class="chapter" data-level="1.6.2" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.6.2</b> How does this package work?</a></li>
-<li class="chapter" data-level="1.6.3" data-path="1-familiarization.html"><a href="1-familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.6.3</b> How do I do XXX?</a></li>
+<li class="chapter" data-level="1.3" data-path="1-familiarization.html"><a href="1-familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.3</b> R as a simple calculator</a></li>
+<li class="chapter" data-level="1.4" data-path="1-familiarization.html"><a href="1-familiarization.html#assignment"><i class="fa fa-check"></i><b>1.4</b> Assignment</a></li>
+<li class="chapter" data-level="1.5" data-path="1-familiarization.html"><a href="1-familiarization.html#vectors"><i class="fa fa-check"></i><b>1.5</b> Vectors</a></li>
+<li class="chapter" data-level="1.6" data-path="1-familiarization.html"><a href="1-familiarization.html#packages"><i class="fa fa-check"></i><b>1.6</b> Packages</a></li>
+<li class="chapter" data-level="1.7" data-path="1-familiarization.html"><a href="1-familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.7</b> Finding Help</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.7.1</b> How does this function work?</a></li>
+<li class="chapter" data-level="1.7.2" data-path="1-familiarization.html"><a href="1-familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.7.2</b> How does this package work?</a></li>
+<li class="chapter" data-level="1.7.3" data-path="1-familiarization.html"><a href="1-familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.7.3</b> How do I do XXX?</a></li>
 </ul></li>
-<li class="chapter" data-level="1.7" data-path="1-familiarization.html"><a href="1-familiarization.html#exercises"><i class="fa fa-check"></i><b>1.7</b> Exercises</a></li>
+<li class="chapter" data-level="1.8" data-path="1-familiarization.html"><a href="1-familiarization.html#exercises"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="2-data-frames.html"><a href="2-data-frames.html"><i class="fa fa-check"></i><b>2</b> Data Frames</a><ul>
 <li class="chapter" data-level="2.1" data-path="2-data-frames.html"><a href="2-data-frames.html#introduction-to-importing-data"><i class="fa fa-check"></i><b>2.1</b> Introduction to Importing Data</a><ul>
@@ -200,8 +203,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="6-flow-control.html"><a href="6-flow-control.html#loops"><i class="fa fa-check"></i><b>6.3</b> Loops</a><ul>
 <li class="chapter" data-level="6.3.1" data-path="6-flow-control.html"><a href="6-flow-control.html#while-loops"><i class="fa fa-check"></i><b>6.3.1</b> <code>while</code> Loops</a></li>
 <li class="chapter" data-level="6.3.2" data-path="6-flow-control.html"><a href="6-flow-control.html#for-loops"><i class="fa fa-check"></i><b>6.3.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6-flow-control.html"><a href="6-flow-control.html#mosaicdo-loops"><i class="fa fa-check"></i><b>6.3.3</b> <code>mosaic::do()</code> loops</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="6-flow-control.html"><a href="6-flow-control.html#exercises-5"><i class="fa fa-check"></i><b>6.4</b> Exercises</a></li>
+<li class="chapter" data-level="6.4" data-path="6-flow-control.html"><a href="6-flow-control.html#functions"><i class="fa fa-check"></i><b>6.4</b> Functions</a></li>
+<li class="chapter" data-level="6.5" data-path="6-flow-control.html"><a href="6-flow-control.html#exercises-5"><i class="fa fa-check"></i><b>6.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-factors.html"><a href="7-factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-factors.html"><a href="7-factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
@@ -237,6 +242,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#code-appendix"><i class="fa fa-check"></i>Code Appendix</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html"><i class="fa fa-check"></i>Data Wrangling Process</a><ul>
+<li class="chapter" data-level="7.6" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>7.6</b> Introduction</a></li>
+<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.7</b> Tidying</a></li>
+<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.8</b> Cleaning</a></li>
+</ul></li>
 <li class="part"><span><b>Deeper Details</b></span></li>
 <li class="chapter" data-level="8" data-path="8-data-structures.html"><a href="8-data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
 <li class="chapter" data-level="8.1" data-path="8-data-structures.html"><a href="8-data-structures.html#vectors-1"><i class="fa fa-check"></i><b>8.1</b> Vectors</a><ul>
@@ -258,19 +268,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.3" data-path="9-importing-data.html"><a href="9-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>9.3</b> MS Excel</a></li>
 <li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html"><i class="fa fa-check"></i><b>10</b> User Defined Functions</a><ul>
-<li class="chapter" data-level="10.1" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#basic-function-definition"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
-<li class="chapter" data-level="10.2" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#parameter-defaults"><i class="fa fa-check"></i><b>10.2</b> Parameter Defaults</a></li>
-<li class="chapter" data-level="10.3" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#ellipses"><i class="fa fa-check"></i><b>10.3</b> Ellipses</a></li>
-<li class="chapter" data-level="10.4" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#function-overloading"><i class="fa fa-check"></i><b>10.4</b> Function Overloading</a></li>
-<li class="chapter" data-level="10.5" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#debugging"><i class="fa fa-check"></i><b>10.5</b> Debugging</a><ul>
-<li class="chapter" data-level="10.5.1" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#rmarkdown-recommendations"><i class="fa fa-check"></i><b>10.5.1</b> Rmarkdown Recommendations</a></li>
-<li class="chapter" data-level="10.5.2" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#step-wise-execution"><i class="fa fa-check"></i><b>10.5.2</b> Step-wise Execution</a></li>
-<li class="chapter" data-level="10.5.3" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#print-statements"><i class="fa fa-check"></i><b>10.5.3</b> Print Statements</a></li>
-<li class="chapter" data-level="10.5.4" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#browser"><i class="fa fa-check"></i><b>10.5.4</b> <code>browser</code></a></li>
+<li class="chapter" data-level="10" data-path="10-functions-1.html"><a href="10-functions-1.html"><i class="fa fa-check"></i><b>10</b> Functions</a><ul>
+<li class="chapter" data-level="10.1" data-path="10-functions-1.html"><a href="10-functions-1.html#basic-function-definition"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
+<li class="chapter" data-level="10.2" data-path="10-functions-1.html"><a href="10-functions-1.html#parameter-defaults"><i class="fa fa-check"></i><b>10.2</b> Parameter Defaults</a></li>
+<li class="chapter" data-level="10.3" data-path="10-functions-1.html"><a href="10-functions-1.html#ellipses"><i class="fa fa-check"></i><b>10.3</b> Ellipses</a></li>
+<li class="chapter" data-level="10.4" data-path="10-functions-1.html"><a href="10-functions-1.html#function-overloading"><i class="fa fa-check"></i><b>10.4</b> Function Overloading</a></li>
+<li class="chapter" data-level="10.5" data-path="10-functions-1.html"><a href="10-functions-1.html#debugging"><i class="fa fa-check"></i><b>10.5</b> Debugging</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="10-functions-1.html"><a href="10-functions-1.html#rmarkdown-recommendations"><i class="fa fa-check"></i><b>10.5.1</b> Rmarkdown Recommendations</a></li>
+<li class="chapter" data-level="10.5.2" data-path="10-functions-1.html"><a href="10-functions-1.html#step-wise-execution"><i class="fa fa-check"></i><b>10.5.2</b> Step-wise Execution</a></li>
+<li class="chapter" data-level="10.5.3" data-path="10-functions-1.html"><a href="10-functions-1.html#print-statements"><i class="fa fa-check"></i><b>10.5.3</b> Print Statements</a></li>
+<li class="chapter" data-level="10.5.4" data-path="10-functions-1.html"><a href="10-functions-1.html#browser"><i class="fa fa-check"></i><b>10.5.4</b> <code>browser</code></a></li>
 </ul></li>
-<li class="chapter" data-level="10.6" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#scope"><i class="fa fa-check"></i><b>10.6</b> Scope</a></li>
-<li class="chapter" data-level="10.7" data-path="10-user-defined-functions.html"><a href="10-user-defined-functions.html#exercises-10"><i class="fa fa-check"></i><b>10.7</b> Exercises</a></li>
+<li class="chapter" data-level="10.6" data-path="10-functions-1.html"><a href="10-functions-1.html#scope"><i class="fa fa-check"></i><b>10.6</b> Scope</a></li>
+<li class="chapter" data-level="10.7" data-path="10-functions-1.html"><a href="10-functions-1.html#exercises-10"><i class="fa fa-check"></i><b>10.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html"><i class="fa fa-check"></i><b>11</b> String Manipulation</a><ul>
 <li class="chapter" data-level="11.1" data-path="11-string-manipulation.html"><a href="11-string-manipulation.html#base-function"><i class="fa fa-check"></i><b>11.1</b> Base function</a></li>
@@ -335,7 +345,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.6" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>14.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="15-r-packages.html"><a href="15-r-packages.html"><i class="fa fa-check"></i><b>15</b> R Packages</a><ul>
-<li class="chapter" data-level="15.1" data-path="15-r-packages.html"><a href="15-r-packages.html#introduction"><i class="fa fa-check"></i><b>15.1</b> Introduction</a><ul>
+<li class="chapter" data-level="15.1" data-path="15-r-packages.html"><a href="15-r-packages.html#introduction-1"><i class="fa fa-check"></i><b>15.1</b> Introduction</a><ul>
 <li class="chapter" data-level="15.1.1" data-path="15-r-packages.html"><a href="15-r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>15.1.1</b> Useful packages and books</a></li>
 </ul></li>
 <li class="chapter" data-level="15.2" data-path="15-r-packages.html"><a href="15-r-packages.html#package-structure"><i class="fa fa-check"></i><b>15.2</b> Package Structure</a><ul>
@@ -360,12 +370,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.2" data-path="16-data-scraping.html"><a href="16-data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>16.2</b> Scraping .pdf files</a></li>
 <li class="chapter" data-level="16.3" data-path="16-data-scraping.html"><a href="16-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html"><i class="fa fa-check"></i><b>17</b> Web API Data Queries</a><ul>
-<li class="chapter" data-level="17.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>17.1</b> Web Interface</a></li>
-<li class="chapter" data-level="17.2" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>17.2</b> R API Interfaces</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.2.1</b> Population Estimates</a></li>
+<li class="chapter" data-level="17" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html"><i class="fa fa-check"></i><b>17</b> API Data Queries</a><ul>
+<li class="chapter" data-level="17.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>17.1</b> Web Interface</a></li>
+<li class="chapter" data-level="17.2" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>17.2</b> R API Interfaces</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.2.1</b> Population Estimates</a></li>
 </ul></li>
-<li class="chapter" data-level="17.3" data-path="17-web-api-data-queries.html"><a href="17-web-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
+<li class="chapter" data-level="17.3" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="18-databases.html"><a href="18-databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
 <li class="chapter" data-level="18.1" data-path="18-databases.html"><a href="18-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
@@ -479,9 +489,9 @@ The first few rows of the file are as follows:</p>
 </tr>
 <tr class="odd">
 <td><code>sep</code></td>
-<td>&quot; &quot;</td>
+<td>" "</td>
 <td>What character separates columns.
-&quot; &quot; == any whitespace</td>
+" " == any whitespace</td>
 </tr>
 <tr class="even">
 <td><code>skip</code></td>
@@ -498,19 +508,19 @@ multiple. E.g. <code>c('NA', -9999)</code></td>
 </tr>
 <tr class="even">
 <td><code>quote</code></td>
-<td>&quot; and ’</td>
+<td>" and ’</td>
 <td>For character strings, what characters represent
 quotes.</td>
 </tr>
 </tbody>
 </table>
 <p>To read in the “Body Fat” dataset we could run the R command:</p>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" data-line-number="1">BodyFat &lt;-<span class="st"> </span><span class="kw">read.table</span>( </a>
-<a class="sourceLine" id="cb468-2" data-line-number="2">  <span class="dt">file   =</span> <span class="st">&#39;http://www.lock5stat.com/datasets/BodyFat.csv&#39;</span>,  <span class="co"># where the data lives</span></a>
-<a class="sourceLine" id="cb468-3" data-line-number="3">  <span class="dt">header =</span> <span class="ot">TRUE</span>,                                             <span class="co"># first line is column names</span></a>
-<a class="sourceLine" id="cb468-4" data-line-number="4">  <span class="dt">sep    =</span> <span class="st">&#39;,&#39;</span> )                                             <span class="co"># Data is sparated by commas</span></a>
-<a class="sourceLine" id="cb468-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb468-6" data-line-number="6"><span class="kw">str</span>(BodyFat)</a></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="9-importing-data.html#cb478-1"></a>BodyFat &lt;-<span class="st"> </span><span class="kw">read.table</span>( </span>
+<span id="cb478-2"><a href="9-importing-data.html#cb478-2"></a>  <span class="dt">file   =</span> <span class="st">&#39;http://www.lock5stat.com/datasets/BodyFat.csv&#39;</span>,  <span class="co"># where the data lives</span></span>
+<span id="cb478-3"><a href="9-importing-data.html#cb478-3"></a>  <span class="dt">header =</span> <span class="ot">TRUE</span>,                                             <span class="co"># first line is column names</span></span>
+<span id="cb478-4"><a href="9-importing-data.html#cb478-4"></a>  <span class="dt">sep    =</span> <span class="st">&#39;,&#39;</span> )                                             <span class="co"># Data is sparated by commas</span></span>
+<span id="cb478-5"><a href="9-importing-data.html#cb478-5"></a></span>
+<span id="cb478-6"><a href="9-importing-data.html#cb478-6"></a><span class="kw">str</span>(BodyFat)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    100 obs. of  10 variables:
 ##  $ Bodyfat: num  32.3 22.5 22 12.3 20.5 22.6 28.7 21.3 29.9 21.3 ...
 ##  $ Age    : int  41 31 42 23 46 54 43 42 37 41 ...
@@ -536,38 +546,38 @@ quotes.</td>
 <p>The simplest package for importing Excel files seems to be the package <code>readxl</code>. Another package that does this is the XLConnect which does the Excel -&gt; .csv conversion using Java. Another package the works well is the <code>xlsx</code> package, but it also requires Java to be installed. The nice thing about these two packages is that they also allow you to write Excel files as well. The RODBC package allows R to connect to various databases and it is possible to make it consider an Excel file as an extremely crude database.</p>
 <p>The <code>readxl</code> package provides a function <code>read_exel()</code> that allows us to specify which sheet within the Excel file to read and what character specifies missing data (it assumes a blank cell is missing data if you don’t specifying anything). One annoying change between <code>read.table()</code> and <code>read_excel()</code> is that the argument for specifying where the file is is different (<code>path=</code> instead of <code>file=</code>). Another difference between the two is that <code>read_excel()</code> does not yet have the capability of handling a path that is a web address.</p>
 <p>From GitHub, download the files <code>Example_1.xls</code>, <code>Example_2.xls</code>, <code>Example_3.xls</code> and <code>Example_4.xls</code> from the directory [<a href="https://github.com/dereksonderegger/570L/tree/master/data-raw" class="uri">https://github.com/dereksonderegger/570L/tree/master/data-raw</a>]. Place these files in the same directory that you store your course work or make a subdirectory data to store the files in. Make sure that the working directory that RStudio is using is that same directory (Session -&gt; Set Working Directory).</p>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" data-line-number="1"><span class="co"># load the library that has the read.xls function. </span></a>
-<a class="sourceLine" id="cb470-2" data-line-number="2"><span class="kw">library</span>(readxl)</a>
-<a class="sourceLine" id="cb470-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb470-4" data-line-number="4"><span class="co"># Where does the data live relative to my current working location? </span></a>
-<a class="sourceLine" id="cb470-5" data-line-number="5"><span class="co">#</span></a>
-<a class="sourceLine" id="cb470-6" data-line-number="6"><span class="co"># In my directory where this Rmarkdown file lives, I have made a subdirectory </span></a>
-<a class="sourceLine" id="cb470-7" data-line-number="7"><span class="co">#    named &#39;data-raw&#39; to store all the data files. So the path to my data</span></a>
-<a class="sourceLine" id="cb470-8" data-line-number="8"><span class="co">#    file will be &#39;data-raw/Example_1.xls&#39;.</span></a>
-<a class="sourceLine" id="cb470-9" data-line-number="9"><span class="co"># If you stored the files in the same directory as your RMarkdown script, you</span></a>
-<a class="sourceLine" id="cb470-10" data-line-number="10"><span class="co">#    don&#39;t have to add any additional information and you can just tell it the</span></a>
-<a class="sourceLine" id="cb470-11" data-line-number="11"><span class="co">#    file name &#39;Example_1.xls&#39;</span></a>
-<a class="sourceLine" id="cb470-12" data-line-number="12"><span class="co"># Alternatively I could give the full path to this file starting at the root</span></a>
-<a class="sourceLine" id="cb470-13" data-line-number="13"><span class="co">#    directory which, for me, is &#39;~/GitHub/STA570L_Book/data-raw/Example_1.xls&#39;</span></a>
-<a class="sourceLine" id="cb470-14" data-line-number="14"><span class="co">#    but for Windows users it might be &#39;Z:/570L/Lab7/Example_1.xls&#39;. This looks</span></a>
-<a class="sourceLine" id="cb470-15" data-line-number="15"><span class="co">#    odd because Windows usually uses a backslash to represent the directory</span></a>
-<a class="sourceLine" id="cb470-16" data-line-number="16"><span class="co">#    structure, but a backslash has special meaning in R and so it wants </span></a>
-<a class="sourceLine" id="cb470-17" data-line-number="17"><span class="co">#    to separate directories via forwardslashes.</span></a>
-<a class="sourceLine" id="cb470-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb470-19" data-line-number="19"><span class="co"># read the first worksheet of the Example_1 file</span></a>
-<a class="sourceLine" id="cb470-20" data-line-number="20">data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>( <span class="st">&#39;data-raw/Example_1.xls&#39;</span>  )   <span class="co"># relative to this Rmarkdown file</span></a>
-<a class="sourceLine" id="cb470-21" data-line-number="21">data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;~/GitHub/570L/data-raw/Example_1.xls&#39;</span>)  <span class="co"># absolute path</span></a>
-<a class="sourceLine" id="cb470-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb470-23" data-line-number="23"><span class="co"># read the second worksheet where the second worksheet is named &#39;data&#39;</span></a>
-<a class="sourceLine" id="cb470-24" data-line-number="24">data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="dv">2</span>     )   </a>
-<a class="sourceLine" id="cb470-25" data-line-number="25">data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   </a></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="9-importing-data.html#cb480-1"></a><span class="co"># load the library that has the read.xls function. </span></span>
+<span id="cb480-2"><a href="9-importing-data.html#cb480-2"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb480-3"><a href="9-importing-data.html#cb480-3"></a></span>
+<span id="cb480-4"><a href="9-importing-data.html#cb480-4"></a><span class="co"># Where does the data live relative to my current working location? </span></span>
+<span id="cb480-5"><a href="9-importing-data.html#cb480-5"></a><span class="co">#</span></span>
+<span id="cb480-6"><a href="9-importing-data.html#cb480-6"></a><span class="co"># In my directory where this Rmarkdown file lives, I have made a subdirectory </span></span>
+<span id="cb480-7"><a href="9-importing-data.html#cb480-7"></a><span class="co">#    named &#39;data-raw&#39; to store all the data files. So the path to my data</span></span>
+<span id="cb480-8"><a href="9-importing-data.html#cb480-8"></a><span class="co">#    file will be &#39;data-raw/Example_1.xls&#39;.</span></span>
+<span id="cb480-9"><a href="9-importing-data.html#cb480-9"></a><span class="co"># If you stored the files in the same directory as your RMarkdown script, you</span></span>
+<span id="cb480-10"><a href="9-importing-data.html#cb480-10"></a><span class="co">#    don&#39;t have to add any additional information and you can just tell it the</span></span>
+<span id="cb480-11"><a href="9-importing-data.html#cb480-11"></a><span class="co">#    file name &#39;Example_1.xls&#39;</span></span>
+<span id="cb480-12"><a href="9-importing-data.html#cb480-12"></a><span class="co"># Alternatively I could give the full path to this file starting at the root</span></span>
+<span id="cb480-13"><a href="9-importing-data.html#cb480-13"></a><span class="co">#    directory which, for me, is &#39;~/GitHub/STA570L_Book/data-raw/Example_1.xls&#39;</span></span>
+<span id="cb480-14"><a href="9-importing-data.html#cb480-14"></a><span class="co">#    but for Windows users it might be &#39;Z:/570L/Lab7/Example_1.xls&#39;. This looks</span></span>
+<span id="cb480-15"><a href="9-importing-data.html#cb480-15"></a><span class="co">#    odd because Windows usually uses a backslash to represent the directory</span></span>
+<span id="cb480-16"><a href="9-importing-data.html#cb480-16"></a><span class="co">#    structure, but a backslash has special meaning in R and so it wants </span></span>
+<span id="cb480-17"><a href="9-importing-data.html#cb480-17"></a><span class="co">#    to separate directories via forwardslashes.</span></span>
+<span id="cb480-18"><a href="9-importing-data.html#cb480-18"></a></span>
+<span id="cb480-19"><a href="9-importing-data.html#cb480-19"></a><span class="co"># read the first worksheet of the Example_1 file</span></span>
+<span id="cb480-20"><a href="9-importing-data.html#cb480-20"></a>data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>( <span class="st">&#39;data-raw/Example_1.xls&#39;</span>  )   <span class="co"># relative to this Rmarkdown file</span></span>
+<span id="cb480-21"><a href="9-importing-data.html#cb480-21"></a>data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;~/GitHub/570L/data-raw/Example_1.xls&#39;</span>)  <span class="co"># absolute path</span></span>
+<span id="cb480-22"><a href="9-importing-data.html#cb480-22"></a></span>
+<span id="cb480-23"><a href="9-importing-data.html#cb480-23"></a><span class="co"># read the second worksheet where the second worksheet is named &#39;data&#39;</span></span>
+<span id="cb480-24"><a href="9-importing-data.html#cb480-24"></a>data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="dv">2</span>     )   </span>
+<span id="cb480-25"><a href="9-importing-data.html#cb480-25"></a>data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   </span></code></pre></div>
 <p>There is one additional problem that shows up while reading in Excel files. Blank columns often show up in Excel files because at some point there was some text in a cell that got deleted but a space remains and Excel still thinks there is data in the column. To fix this, you could find the cell with the space in it, or you can select a bunch of columns at the edge and delete the entire columns. Alternatively, you could remove the column after it is read into R using tools we’ll learn when we get to the <em>Manipulating Data</em> chapter.</p>
 <p>Open up the file <code>Example_4.xls</code> in Excel and confirm that the data sheet has name columns out to carb. Read in the data frame using the following code:</p>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" data-line-number="1">data<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data-raw/Example_4.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   <span class="co"># Extra Column Example</span></a></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="9-importing-data.html#cb481-1"></a>data<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data-raw/Example_4.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   <span class="co"># Extra Column Example</span></span></code></pre></div>
 <pre><code>## New names:
 ## * `` -&gt; ...13
 ## * `` -&gt; ...14</code></pre>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" data-line-number="1"><span class="kw">str</span>(data<span class="fl">.4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="9-importing-data.html#cb483-1"></a><span class="kw">str</span>(data<span class="fl">.4</span>)</span></code></pre></div>
 <pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    34 obs. of  14 variables:
 ##  $ model: chr  &quot;Mazda RX4&quot; &quot;Mazda RX4 Wag&quot; &quot;Datsun 710&quot; &quot;Hornet 4 Drive&quot; ...
 ##  $ mpg  : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
@@ -599,7 +609,7 @@ quotes.</td>
         </div>
       </div>
 <a href="8-data-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="10-user-defined-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="10-functions-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -618,12 +628,12 @@ gitbook.start({
 "github": false,
 "facebook": false,
 "twitter": false,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+"google": false,
 "instapper": false
 },
 "fontsettings": {
@@ -636,6 +646,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

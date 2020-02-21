@@ -1,10 +1,7 @@
 
 
-
-
-
-
 # Data Frames
+
 
 ```r
 # Load my favorite packages: dplyr, ggplot2, forcats, readr, and stringr

@@ -86,7 +86,7 @@ df %>% mutate(C =  A==5,  D =  B==5) %>%
 Next we can summarize a vector of logical values using `any()`, `all()`, and `which()`. These functions do exactly what you would expect them to do.
 
 ```r
-any(6:10 <= 7 )   # Should return TRUE because there are two TRUE result
+any(6:10 <= 7 )   # Should return TRUE because there are two TRUE results
 ```
 
 ```
@@ -110,7 +110,7 @@ which( 6:10 <= 7) # return the indices of the TRUE values
 ```
 
 
-Finally, I often need to figure out if a character string is in some set of values.
+Finally, I often need to figure out if a character string is in some set of values. 
 
 ```r
 df <- data.frame( Type = rep(c('A','B','C','D'), each=2), Value=rnorm(8) )
@@ -118,27 +118,28 @@ df
 ```
 
 ```
-##   Type         Value
-## 1    A  3.765622e-01
-## 2    A -1.013756e+00
-## 3    B -4.682326e-01
-## 4    B -5.245756e-01
-## 5    C  1.443312e+00
-## 6    C  1.136932e+00
-## 7    D -5.517582e-05
-## 8    D  9.943301e-03
+##   Type      Value
+## 1    A  1.0042242
+## 2    A  0.7874783
+## 3    B  0.5275215
+## 4    B -0.1316123
+## 5    C  1.7858772
+## 6    C -0.9401709
+## 7    D  0.1415184
+## 8    D -1.4881822
 ```
 
 ```r
+# df %>% filter( Type == 'A' | Type == 'B' )
 df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='B'
 ```
 
 ```
 ##   Type      Value
-## 1    A  0.3765622
-## 2    A -1.0137560
-## 3    B -0.4682326
-## 4    B -0.5245756
+## 1    A  1.0042242
+## 2    A  0.7874783
+## 3    B  0.5275215
+## 4    B -0.1316123
 ```
 
 
@@ -246,7 +247,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -261,7 +262,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] " in the if statement, got a Tail! "
+## [1] "In the else part!"
 ```
 
 ```r
@@ -269,7 +270,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -301,7 +302,7 @@ p.value
 ```
 
 ```
-## [1] 4.940134e-08
+## [1] 3.769835e-08
 ```
 
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.
@@ -326,7 +327,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "No more unfounded generalizations!"
+## [1] "The third child was spoiled"
 ```
 
 

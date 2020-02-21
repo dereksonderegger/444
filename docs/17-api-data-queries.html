@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 16 Data Scraping | STA 444/5 - Introductory Data Science using R</title>
-  <meta name="description" content="Chapter 16 Data Scraping | STA 444/5 - Introductory Data Science using R" />
+  <title>Chapter 17 API Data Queries | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 17 API Data Queries | STA 444/5 - Introductory Data Science using R" />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 16 Data Scraping | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:title" content="Chapter 17 API Data Queries | STA 444/5 - Introductory Data Science using R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/Cover1.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dereksonderegger/444" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 16 Data Scraping | STA 444/5 - Introductory Data Science using R" />
+  <meta name="twitter:title" content="Chapter 17 API Data Queries | STA 444/5 - Introductory Data Science using R" />
   
   
   <meta name="twitter:image" content="images/Cover1.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="15-r-packages.html"/>
-<link rel="next" href="17-api-data-queries.html"/>
+<link rel="prev" href="16-data-scraping.html"/>
+<link rel="next" href="18-databases.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -409,166 +409,176 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-scraping" class="section level1">
-<h1><span class="header-section-number">Chapter 16</span> Data Scraping</h1>
-<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="16-data-scraping.html#cb750-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb750-2"><a href="16-data-scraping.html#cb750-2"></a><span class="kw">library</span>(rvest)     <span class="co"># rvest is not loaded in the tidyverse Metapackage</span></span></code></pre></div>
-<p>Getting data into R often involves accessing data that is available through non-convenient formats such as web pages or .pdf files. Fortunately those formats still have structure and we can import data from those sources. However to do this, we have to understand a little bit about those file formats.</p>
-<div id="web-pages" class="section level2">
-<h2><span class="header-section-number">16.1</span> Web Pages</h2>
-<p>Posting information on the web is incredibly common. As we first use google to find answers to our problems, it is inevitable that we’ll want to grab at least some of that information and import it as data into R. There are several ways to go about this:</p>
+<div id="api-data-queries" class="section level1">
+<h1><span class="header-section-number">Chapter 17</span> API Data Queries</h1>
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="17-api-data-queries.html#cb765-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb765-2"><a href="17-api-data-queries.html#cb765-2"></a><span class="kw">library</span>(censusapi)</span>
+<span id="cb765-3"><a href="17-api-data-queries.html#cb765-3"></a><span class="kw">library</span>(jsonlite)  </span></code></pre></div>
+<p>With a standard database connection, there is quite a lot we can do. For example we could insert incorrect rows into tables, or even <a href="https://xkcd.com/327/">delete whole tables</a>. Many organizations that deliver data to clients require a way to minimize the types of data base actions that are allowed. For example, consider Twitter. Twitter clients need to connect to the Twitter database, sign in, and download the latest tweets from whomever they follow and accept a database input that adds a tweet from the signed in user. However, the client must not be able to update or insert tweets from somebody else, and to prevent Denial-Of-Service attacks, there should be some limit to the number of rows of information that we ask for. Furthermore, the client shouldn’t have to remember the details of how the data is stored and changes to the database configuration should be completely invisible to clients.</p>
+<p>Application Program Interfaces (APIs) are the specification for how two programs will interface. An API that is well thought out and documented is wonderful to use. In a data query situation, the API will define how we submit a query and the manner in which the result will be returned. Web API queries are usually designed so that the client visits some web page and includes as part of the address, additional arguments that will be used to create a query. The results of the query are then rendered as a very simple web page.</p>
+<div id="web-interface" class="section level2">
+<h2><span class="header-section-number">17.1</span> Web Interface</h2>
+<p>We will consider an example from the US Census Bureau’s web interface. The following web links will cause a query on the Census web site, and then result in some data. Go ahead and click on these!</p>
+<p><a href="http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;for=state" class="uri">http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;for=state</a>:*&amp;DATE_CODE=1</p>
+<p><a href="http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;in=state:01&amp;for=county" class="uri">http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;in=state:01&amp;for=county</a>:*&amp;DATE_CODE=1</p>
 <ol style="list-style-type: decimal">
-<li><p>Human Copy/Paste - Sometimes it is easy to copy/paste the information into a spreadsheet. This works for small datasets, but sometimes the HTML markup attributes get passed along and this suddenly becomes very cumbersome for more than a small amount of data. Furthermore, if the data is updated, we would have to redo all of the work instead of just re-running or tweaking a script.</p></li>
-<li><p>Download the page, parse the HTML, and select the information you want. The difficulty here is knowing what you want in the raw HTML tags.</p></li>
+<li>The base website is <a href="http://api.census.gov/data/2018/pep/population" class="uri">http://api.census.gov/data/2018/pep/population</a>. This is effectively specifying which table we want to query from. The <code>pep</code> part stands for the <em>Population Estimation Program</em>, which is one division of the Census Bureau. The 2018 part of the base address defines the <em>vintage</em> of the estimate. This page will produce estimates for the years 2010-2018, but the Census Bureau is constantly updating those estimates based on new information. So the this is specifying that we are to use the Census’ 2018 estimate of the population.</li>
+<li>Modifiers are included after the <code>?</code> and different modifiers are separated by <code>&amp;</code></li>
+<li><code>get=</code> section defines the variables that you want</li>
+<li>The <code>for=state:*</code> denotes that we want all of the states. <code>for=state:01</code> would have been just Alabama. If we want all the county populations we can use <code>for=county:*</code>. If we just want county populations within a particular state, we would use <code>in=state:01&amp;for=county:*</code></li>
+<li>The <code>DATE_CODE=1</code> indicates that I just want the first estimate in the decadal time series of estimates. If I didn’t include this, we’d end up with estimates for each year between 2010 and 2018.</li>
 </ol>
-<p>Knowing how web pages are generated is certainly extremely helpful in this endeavor, but isn’t absolutely necessary. It is sufficient to know that HTML has open and closing tags for things like tables and lists.</p>
-<pre class="text"><code># Example of HTML code that would generate a table
-# Table Rows    begin and end with &lt;tr&gt; and &lt;/tr&gt;
-# Table Data    begin and end with &lt;td&gt; and &lt;/td&gt;
-# Table Headers begin and end with &lt;th&gt; and &lt;/th&gt; 
-&lt;table style=&quot;width:100%&quot;&gt;
-  &lt;tr&gt; &lt;th&gt;Firstname&lt;/th&gt; &lt;th&gt;Lastname&lt;/th&gt;     &lt;th&gt;Age&lt;/th&gt;  &lt;/tr&gt;
-  &lt;tr&gt; &lt;td&gt;Derek&lt;/td&gt;     &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;43&lt;/td&gt;   &lt;/tr&gt;
-  &lt;tr&gt; &lt;td&gt;Aubrey&lt;/td&gt;    &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;39&lt;/td&gt;   &lt;/tr&gt;
-&lt;/table&gt;</code></pre>
-<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="16-data-scraping.html#cb752-1"></a><span class="co"># Example of an unordered List, which starts and ends with &lt;ul&gt; and &lt;/ul&gt;</span></span>
-<span id="cb752-2"><a href="16-data-scraping.html#cb752-2"></a><span class="co"># Each list item is enclosed by &lt;li&gt; &lt;/li&gt;</span></span>
-<span id="cb752-3"><a href="16-data-scraping.html#cb752-3"></a><span class="op">&lt;</span>ul<span class="op">&gt;</span></span>
-<span id="cb752-4"><a href="16-data-scraping.html#cb752-4"></a><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Coffee<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></span>
-<span id="cb752-5"><a href="16-data-scraping.html#cb752-5"></a><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Tea<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></span>
-<span id="cb752-6"><a href="16-data-scraping.html#cb752-6"></a><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Milk<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></span>
-<span id="cb752-7"><a href="16-data-scraping.html#cb752-7"></a><span class="er">&lt;/</span>ul<span class="op">&gt;</span></span></code></pre></div>
-<p>Given this extremely clear structure it shouldn’t be too hard to grab tables and/or lists from a web page. However HTML has a heirarchical structure so that tables could be nested in lists. In order to control the way the page looks, there is often a <strong>lot</strong> of nesting. For example, we might be in a split pane page that has a side bar, and then a block that centers everything, and then some style blocks that control fonts and colors. Add to this, the need for modern web pages to display well on both mobile devices as well as desktops and the raw HTML typically is extremely complicated.
-In summary the workflow for scraping a web page will be:</p>
+<p>When you go to this website, the database will read the modifier list, do the appropriate database query, and return the result via a webpage that has a very simple structure that is easy to parse into a table.</p>
+<p>The hard part about Web APIs is understanding which tables are available and what each covariate means. For the US Census Bureau, the <a href="https://www.census.gov/data/developers/">developers</a> page is a great place to start.</p>
+</div>
+<div id="r-api-interfaces" class="section level2">
+<h2><span class="header-section-number">17.2</span> R API Interfaces</h2>
+<p>While it is helpful to understand how the web API works, it would be nice to not have to worry about some of the fiddly aspects of parsing the result into a data frame. There are many R packages that provide a convenient interface to some database API. For our US Census Bureau example, we’ll use the R package <code>censusapi</code>. You should read the <a href="https://github.com/hrecht/censusapi">documentation</a> as well. It looks like there is another package, <code>tidycensus</code> that might be even better.</p>
+<p>The Census Bureau wants to identify which developers are accessing their data and you are required to sign up for a <a href="https://api.census.gov/data/key_signup.html">Census Key</a>. It is easy to give them your email and they’ll email you a character string that you’ll use for the rest of these examples.</p>
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="17-api-data-queries.html#cb766-1"></a><span class="co"># I got a Census API key from https://api.census.gov/data/key_signup.html </span></span>
+<span id="cb766-2"><a href="17-api-data-queries.html#cb766-2"></a><span class="co"># and saved it as Census_Key and use that in all the following examples...</span></span>
+<span id="cb766-3"><a href="17-api-data-queries.html#cb766-3"></a><span class="co"># </span></span>
+<span id="cb766-4"><a href="17-api-data-queries.html#cb766-4"></a><span class="co"># This query is the example query first given in the censusapi vignette.</span></span>
+<span id="cb766-5"><a href="17-api-data-queries.html#cb766-5"></a><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;timeseries/healthins/sahie&quot;</span>,</span>
+<span id="cb766-6"><a href="17-api-data-queries.html#cb766-6"></a>    <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&quot;NAME&quot;</span>, <span class="st">&quot;IPRCAT&quot;</span>, <span class="st">&quot;IPR_DESC&quot;</span>, <span class="st">&quot;PCTUI_PT&quot;</span>),      <span class="co"># Define the gets=</span></span>
+<span id="cb766-7"><a href="17-api-data-queries.html#cb766-7"></a>    <span class="dt">region =</span> <span class="st">&quot;state:01&quot;</span>,                                     <span class="co"># Define the for=</span></span>
+<span id="cb766-8"><a href="17-api-data-queries.html#cb766-8"></a>    <span class="dt">time =</span> <span class="dv">2017</span>,                                         </span>
+<span id="cb766-9"><a href="17-api-data-queries.html#cb766-9"></a>    <span class="dt">key =</span> Census_Key)</span></code></pre></div>
+<pre><code>##   time state    NAME IPRCAT                IPR_DESC PCTUI_PT
+## 1 2017    01 Alabama      0             All Incomes     11.0
+## 2 2017    01 Alabama      1      &lt;= 200% of Poverty     18.3
+## 3 2017    01 Alabama      2      &lt;= 250% of Poverty     17.3
+## 4 2017    01 Alabama      3      &lt;= 138% of Poverty     19.4
+## 5 2017    01 Alabama      4      &lt;= 400% of Poverty     14.5
+## 6 2017    01 Alabama      5 138% to 400% of Poverty     11.5</code></pre>
+<p>This is now super easy to query the Census database, except that I have NO IDEA what API names (ie tables) are available and I have no clue what variables I just downloaded. We need to get a better sense of what data sets are available.</p>
+<p>A good place to start is the <a href="https://www.census.gov/data/developers/data-sets.html">developer datasets</a>. In particular I’m interested in both county are municipality level population estimates over time as well as information from the American Community Survey (ACS).</p>
+<div id="population-estimates" class="section level3">
+<h3><span class="header-section-number">17.2.1</span> Population Estimates</h3>
+<p>The Census Bureau’s Population Estimation Program (PEP) is responsible for population estimates. On the <a href="https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html">Census Population API page</a>, it looks like I need to use the <code>pep/population</code> tables.</p>
+<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="17-api-data-queries.html#cb768-1"></a><span class="co"># Code to grab county level population levels.</span></span>
+<span id="cb768-2"><a href="17-api-data-queries.html#cb768-2"></a>County_Populations &lt;-<span class="st"> </span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;pep/population&quot;</span>,</span>
+<span id="cb768-3"><a href="17-api-data-queries.html#cb768-3"></a>  <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&#39;STATE&#39;</span>,<span class="st">&#39;COUNTY&#39;</span>,<span class="st">&#39;GEONAME&#39;</span>,<span class="st">&#39;DATE_CODE&#39;</span>,<span class="st">&#39;DATE_DESC&#39;</span>,<span class="st">&#39;POP&#39;</span>),</span>
+<span id="cb768-4"><a href="17-api-data-queries.html#cb768-4"></a>  <span class="dt">vintage =</span> <span class="st">&#39;2018&#39;</span>,</span>
+<span id="cb768-5"><a href="17-api-data-queries.html#cb768-5"></a>  <span class="dt">regionin =</span> <span class="st">&#39;state:04&#39;</span>,  <span class="co"># Just Arizona, which is coded as 04. I don&#39;t know why...</span></span>
+<span id="cb768-6"><a href="17-api-data-queries.html#cb768-6"></a>  <span class="dt">region =</span> <span class="st">&#39;county:*&#39;</span>,    <span class="co"># All the counties</span></span>
+<span id="cb768-7"><a href="17-api-data-queries.html#cb768-7"></a>  <span class="dt">DATE_CODE=</span><span class="dv">1</span>,            <span class="co"># 2010, Leave this out to get each year 2010-2018</span></span>
+<span id="cb768-8"><a href="17-api-data-queries.html#cb768-8"></a>    <span class="dt">key =</span> Census_Key,</span>
+<span id="cb768-9"><a href="17-api-data-queries.html#cb768-9"></a>  )</span>
+<span id="cb768-10"><a href="17-api-data-queries.html#cb768-10"></a></span>
+<span id="cb768-11"><a href="17-api-data-queries.html#cb768-11"></a>County_Populations <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>)  </span></code></pre></div>
+<pre><code>##   state county STATE COUNTY                  GEONAME DATE_CODE
+## 1    04    001    04    001   Apache County, Arizona         1
+## 2    04    003    04    003  Cochise County, Arizona         1
+## 3    04    005    04    005 Coconino County, Arizona         1
+## 4    04    007    04    007     Gila County, Arizona         1
+## 5    04    009    04    009   Graham County, Arizona         1
+## 6    04    011    04    011 Greenlee County, Arizona         1
+##                    DATE_DESC    POP DATE_CODE_1
+## 1 4/1/2010 Census population  71518           1
+## 2 4/1/2010 Census population 131346           1
+## 3 4/1/2010 Census population 134421           1
+## 4 4/1/2010 Census population  53597           1
+## 5 4/1/2010 Census population  37220           1
+## 6 4/1/2010 Census population   8437           1</code></pre>
+<p>I was looking for population divided up by Race and Sex and it took awhile to figure out that I want to use PEP’s Demographic Characteristics Estimates by Age Groups tables <code>pep/charagegroups</code>. From there I looked at some of the examples and variables.</p>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="17-api-data-queries.html#cb770-1"></a>County_Populations_by_AgeGender &lt;-<span class="st"> </span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;pep/charagegroups&quot;</span>,</span>
+<span id="cb770-2"><a href="17-api-data-queries.html#cb770-2"></a>  <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&#39;GEONAME&#39;</span>,<span class="st">&#39;DATE_CODE&#39;</span>,<span class="st">&#39;AGEGROUP&#39;</span>,<span class="st">&#39;SEX&#39;</span>,<span class="st">&#39;DATE_DESC&#39;</span>,<span class="st">&#39;POP&#39;</span>),</span>
+<span id="cb770-3"><a href="17-api-data-queries.html#cb770-3"></a>  <span class="dt">vintage =</span> <span class="st">&#39;2018&#39;</span>,</span>
+<span id="cb770-4"><a href="17-api-data-queries.html#cb770-4"></a>  <span class="dt">region =</span> <span class="st">&#39;state:04&#39;</span>, </span>
+<span id="cb770-5"><a href="17-api-data-queries.html#cb770-5"></a>    <span class="dt">key =</span> Census_Key)</span>
+<span id="cb770-6"><a href="17-api-data-queries.html#cb770-6"></a></span>
+<span id="cb770-7"><a href="17-api-data-queries.html#cb770-7"></a>County_Populations_by_AgeGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>)</span></code></pre></div>
+<pre><code>##   state GEONAME DATE_CODE AGEGROUP SEX                  DATE_DESC     POP
+## 1    04 Arizona         1        0   0 4/1/2010 Census population 6392017
+## 2    04 Arizona         1        0   1 4/1/2010 Census population 3175823
+## 3    04 Arizona         1        0   2 4/1/2010 Census population 3216194
+## 4    04 Arizona         1        1   0 4/1/2010 Census population  455715
+## 5    04 Arizona         1        1   1 4/1/2010 Census population  232562
+## 6    04 Arizona         1        1   2 4/1/2010 Census population  223153</code></pre>
+<p>As I played around with it, it seems that I can grab Race and Sex information as well. But unfortunately the categories are numerically coded so somehow we have to figure out which are which. It looks like <code>SEX=0</code> is both but I have no idea which is men and which is women. Still looking at the <a href="https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html">Census Population API page</a> and following the link about the variables for demographic characteristics, we can click through each variable to see the .json file that defines the factor levels.</p>
+<p>We can also import those into R directly</p>
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="17-api-data-queries.html#cb772-1"></a><span class="co"># What variables are Available?</span></span>
+<span id="cb772-2"><a href="17-api-data-queries.html#cb772-2"></a>censusapi<span class="op">::</span><span class="kw">listCensusMetadata</span>(<span class="dt">name=</span><span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dt">vintage=</span><span class="dv">2018</span>)</span></code></pre></div>
+<pre><code>##          name                             label          required
+## 1   DATE_CODE                              Date default displayed
+## 2      SUMLEV                     Summary Level              &lt;NA&gt;
+## 3         SEX                               Sex default displayed
+## 4       STATE                   State FIPS code              &lt;NA&gt;
+## 5     GEONAME All geo names seperated by commas              &lt;NA&gt;
+## 6    DIVISION              Census Division Code              &lt;NA&gt;
+## 7      REGION              Census Regional Code              &lt;NA&gt;
+## 8      GEO_ID        Geographic identifier code              &lt;NA&gt;
+## 9         POP                        Population              &lt;NA&gt;
+## 10 LASTUPDATE                       Last Update              &lt;NA&gt;
+## 11     NATION                            Nation              &lt;NA&gt;
+## 12   AGEGROUP                         Age Group default displayed
+## 13       RACE                              Race default displayed
+## 14  DATE_DESC        Description of DATE values              &lt;NA&gt;
+## 15   UNIVERSE                          Universe              &lt;NA&gt;
+## 16     COUNTY                  County FIPS code              &lt;NA&gt;
+## 17       HISP                   Hispanic Origin default displayed
+##    predicateType group limit concept
+## 1            int   N/A     0    &lt;NA&gt;
+## 2         string   N/A     0    &lt;NA&gt;
+## 3            int   N/A     0    &lt;NA&gt;
+## 4           &lt;NA&gt;   N/A     0    &lt;NA&gt;
+## 5           &lt;NA&gt;   N/A     0    &lt;NA&gt;
+## 6            int   N/A     0    &lt;NA&gt;
+## 7            int   N/A     0    &lt;NA&gt;
+## 8         string   N/A     0    &lt;NA&gt;
+## 9           &lt;NA&gt;   N/A     0    &lt;NA&gt;
+## 10        string   N/A     0    &lt;NA&gt;
+## 11          &lt;NA&gt;   N/A     0    &lt;NA&gt;
+## 12           int   N/A     0    &lt;NA&gt;
+## 13           int   N/A     0    &lt;NA&gt;
+## 14        string   N/A     0    &lt;NA&gt;
+## 15        string   N/A     0    &lt;NA&gt;
+## 16          &lt;NA&gt;   N/A     0    &lt;NA&gt;
+## 17           int   N/A     0    &lt;NA&gt;</code></pre>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="17-api-data-queries.html#cb774-1"></a><span class="co"># I can&#39;t figure out how to make the censusapi package import the factor levels. </span></span>
+<span id="cb774-2"><a href="17-api-data-queries.html#cb774-2"></a><span class="co"># So I&#39;ll just import the levels directly from the webpage .json file and then </span></span>
+<span id="cb774-3"><a href="17-api-data-queries.html#cb774-3"></a><span class="co"># clean it up into a nice data frame.</span></span>
+<span id="cb774-4"><a href="17-api-data-queries.html#cb774-4"></a>CensusFactorLevels &lt;-<span class="st"> </span><span class="cf">function</span>(name, vintage, variable){</span>
+<span id="cb774-5"><a href="17-api-data-queries.html#cb774-5"></a>  file &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&#39;https://api.census.gov/data/&#39;</span>,vintage,<span class="st">&#39;/&#39;</span>,name,</span>
+<span id="cb774-6"><a href="17-api-data-queries.html#cb774-6"></a>                <span class="st">&#39;/variables/&#39;</span>,variable,<span class="st">&#39;.json&#39;</span>)</span>
+<span id="cb774-7"><a href="17-api-data-queries.html#cb774-7"></a>  Meta &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">read_json</span>(file) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb774-8"><a href="17-api-data-queries.html#cb774-8"></a><span class="st">    </span>.[[<span class="st">&#39;values&#39;</span>]] <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="st">&#39;item&#39;</span>]] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb774-9"><a href="17-api-data-queries.html#cb774-9"></a><span class="st">    </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span>tibble<span class="op">::</span><span class="kw">enframe</span>() </span>
+<span id="cb774-10"><a href="17-api-data-queries.html#cb774-10"></a>  <span class="kw">colnames</span>(Meta) &lt;-<span class="st"> </span><span class="kw">c</span>(variable, <span class="kw">str_c</span>(variable,<span class="st">&#39;_DESC&#39;</span>))</span>
+<span id="cb774-11"><a href="17-api-data-queries.html#cb774-11"></a>  <span class="kw">return</span>(Meta)</span>
+<span id="cb774-12"><a href="17-api-data-queries.html#cb774-12"></a>}</span>
+<span id="cb774-13"><a href="17-api-data-queries.html#cb774-13"></a></span>
+<span id="cb774-14"><a href="17-api-data-queries.html#cb774-14"></a><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;SEX&#39;</span>) </span></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   SEX   SEX_DESC  
+##   &lt;chr&gt; &lt;chr&gt;     
+## 1 0     Both Sexes
+## 2 1     Male      
+## 3 2     Female</code></pre>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="17-api-data-queries.html#cb776-1"></a><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;RACE&#39;</span>) </span></code></pre></div>
+<pre><code>## # A tibble: 12 x 2
+##    RACE  RACE_DESC                                                         
+##    &lt;chr&gt; &lt;chr&gt;                                                             
+##  1 11    Native Hawaiian and Other Pacific Islander alone or in combination
+##  2 10    Asian alone or in combination                                     
+##  3 9     American Indian and Alaska Native alone or in combination         
+##  4 8     Black alone or in combination                                     
+##  5 7     White alone or in combination                                     
+##  6 6     Two or more races                                                 
+##  7 5     Native Hawaiian and Other Pacific Islander alone                  
+##  8 4     Asian alone                                                       
+##  9 3     American Indian and Alaska Native alone                           
+## 10 2     Black alone                                                       
+## 11 1     White alone                                                       
+## 12 0     All races</code></pre>
+</div>
+</div>
+<div id="exercises-17" class="section level2">
+<h2><span class="header-section-number">17.3</span> Exercises</h2>
 <ol style="list-style-type: decimal">
-<li>Find the webpage you want to pull information from.</li>
-<li>Download the html file</li>
-<li>Parse it for tables or lists (this step could get ugly!)</li>
-<li>Convert the HTML text or table into R data objects.</li>
-</ol>
-<p>Hadley Wickham wrote a package to address the need for web scraping functionality and it happily works with the usual <code>magrittr</code> pipes. The package <code>rvest</code> is intended to <em>harvest</em> data from the web and make working with html pages relatively simple.</p>
-<div id="example-wikipedia-table" class="section level3">
-<h3><span class="header-section-number">16.1.1</span> Example Wikipedia Table</h3>
-<p>Recently I needed to get information about U.S. state population sizes. I did a quick googling and found a
-<a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population">Wikipedia</a>
-page that has the information that I wanted.</p>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="16-data-scraping.html#cb753-1"></a>url =<span class="st"> &#39;https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population&#39;</span></span>
-<span id="cb753-2"><a href="16-data-scraping.html#cb753-2"></a></span>
-<span id="cb753-3"><a href="16-data-scraping.html#cb753-3"></a><span class="co"># Download the web page and save it. I like to do this within a single R Chunk</span></span>
-<span id="cb753-4"><a href="16-data-scraping.html#cb753-4"></a><span class="co"># so that I don&#39;t keep downloading a page repeatedly while I am fine tuning </span></span>
-<span id="cb753-5"><a href="16-data-scraping.html#cb753-5"></a><span class="co"># the subsequent data wrangling steps.</span></span>
-<span id="cb753-6"><a href="16-data-scraping.html#cb753-6"></a>page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</span></code></pre></div>
-<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="16-data-scraping.html#cb754-1"></a><span class="co"># Once the page is downloaded, we need to figure out which table to work with.</span></span>
-<span id="cb754-2"><a href="16-data-scraping.html#cb754-2"></a></span>
-<span id="cb754-3"><a href="16-data-scraping.html#cb754-3"></a><span class="co"># There are 5 tables on the page.</span></span>
-<span id="cb754-4"><a href="16-data-scraping.html#cb754-4"></a>page <span class="op">%&gt;%</span></span>
-<span id="cb754-5"><a href="16-data-scraping.html#cb754-5"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) </span></code></pre></div>
-<pre><code>## {xml_nodeset (5)}
-## [1] &lt;table class=&quot;wikitable sortable&quot; style=&quot;width:100%; text-align:center;&quot;&gt; ...
-## [2] &lt;table class=&quot;wikitable&quot;&gt;&lt;tbody&gt;\n&lt;tr&gt;&lt;th style=&quot;text-align: left;&quot;&gt;Legen ...
-## [3] &lt;table class=&quot;wikitable sortable&quot; style=&quot;text-align: right;&quot;&gt;\n&lt;caption&gt;P ...
-## [4] &lt;table class=&quot;nowraplinks hlist mw-collapsible autocollapse navbox-inner&quot; ...
-## [5] &lt;table class=&quot;nowraplinks hlist mw-collapsible mw-collapsed navbox-inner&quot; ...</code></pre>
-<p>With five tables on the page, I need to go through each table individually and decide if it is the one that I want. To do this, we’ll take each table and convert it into a data.frame and view it to see what information it contains.</p>
-<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="16-data-scraping.html#cb756-1"></a>State_Pop &lt;-<span class="st"> </span></span>
-<span id="cb756-2"><a href="16-data-scraping.html#cb756-2"></a><span class="st">  </span>page <span class="op">%&gt;%</span></span>
-<span id="cb756-3"><a href="16-data-scraping.html#cb756-3"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb756-4"><a href="16-data-scraping.html#cb756-4"></a><span class="st">  </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">                              </span><span class="co"># Grab the first table and </span></span>
-<span id="cb756-5"><a href="16-data-scraping.html#cb756-5"></a><span class="st">  </span><span class="kw">html_table</span>(<span class="dt">header=</span><span class="ot">FALSE</span>, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert it from HTML into a data.frame </span></span>
-<span id="cb756-6"><a href="16-data-scraping.html#cb756-6"></a><span class="st">  </span>magrittr<span class="op">::</span><span class="kw">set_colnames</span>(<span class="kw">c</span>(<span class="st">&#39;Rank_current&#39;</span>,<span class="st">&#39;Rank_2010&#39;</span>,<span class="st">&#39;State&#39;</span>,</span>
-<span id="cb756-7"><a href="16-data-scraping.html#cb756-7"></a>            <span class="st">&#39;Population2019&#39;</span>, <span class="st">&#39;Population2010&#39;</span>,</span>
-<span id="cb756-8"><a href="16-data-scraping.html#cb756-8"></a>            <span class="st">&#39;Percent_Change&#39;</span>,<span class="st">&#39;Absolute_Change&#39;</span>, </span>
-<span id="cb756-9"><a href="16-data-scraping.html#cb756-9"></a>            <span class="st">&#39;House_Seats&#39;</span>, <span class="st">&#39;Population_Per_Electoral_Vote&#39;</span>,</span>
-<span id="cb756-10"><a href="16-data-scraping.html#cb756-10"></a>            <span class="st">&#39;Population_Per_House_Seat&#39;</span>, <span class="st">&#39;Population_Per_House_Seat_2010&#39;</span>,</span>
-<span id="cb756-11"><a href="16-data-scraping.html#cb756-11"></a>            <span class="st">&#39;Percent_US_Population&#39;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb756-12"><a href="16-data-scraping.html#cb756-12"></a><span class="st">  </span><span class="kw">slice</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> )</span>
-<span id="cb756-13"><a href="16-data-scraping.html#cb756-13"></a></span>
-<span id="cb756-14"><a href="16-data-scraping.html#cb756-14"></a></span>
-<span id="cb756-15"><a href="16-data-scraping.html#cb756-15"></a><span class="co"># To view this table, we could use View() or print out just the first few</span></span>
-<span id="cb756-16"><a href="16-data-scraping.html#cb756-16"></a><span class="co"># rows and columns. Converting it to a tibble makes the printing turn out nice.</span></span>
-<span id="cb756-17"><a href="16-data-scraping.html#cb756-17"></a>State_Pop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() </span></code></pre></div>
-<pre><code>## # A tibble: 60 x 12
-##    Rank_current Rank_2010 State Population2019 Population2010 Percent_Change
-##    &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;         
-##  1 1            1         Cali… 39,512,223     37,254,523     6.1%          
-##  2 2            2         Texas 28,995,881     25,145,561     15.3%         
-##  3 3            4         Flor… 21,477,737     18,801,310     14.2%         
-##  4 4            3         New … 19,453,561     19,378,102     0.4%          
-##  5 5            6         Penn… 12,801,989     12,702,379     0.8%          
-##  6 6            5         Illi… 12,671,821     12,830,632     -1.2%         
-##  7 7            7         Ohio  11,689,100     11,536,504     1.3%          
-##  8 8            9         Geor… 10,617,423     9,687,653      9.6%          
-##  9 9            10        Nort… 10,488,084     9,535,483      10.0%         
-## 10 10           8         Mich… 9,986,857      9,883,640      1.0%          
-## # … with 50 more rows, and 6 more variables: Absolute_Change &lt;chr&gt;,
-## #   House_Seats &lt;chr&gt;, Population_Per_Electoral_Vote &lt;chr&gt;,
-## #   Population_Per_House_Seat &lt;chr&gt;, Population_Per_House_Seat_2010 &lt;chr&gt;,
-## #   Percent_US_Population &lt;chr&gt;</code></pre>
-<p>It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we’ll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings. We need to remove those as well.</p>
-<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="16-data-scraping.html#cb758-1"></a>State_Pop &lt;-<span class="st"> </span>State_Pop <span class="op">%&gt;%</span></span>
-<span id="cb758-2"><a href="16-data-scraping.html#cb758-2"></a><span class="st">  </span><span class="kw">select</span>(State, Population2019, Population2010) <span class="op">%&gt;%</span></span>
-<span id="cb758-3"><a href="16-data-scraping.html#cb758-3"></a><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove_all, <span class="st">&#39;,&#39;</span>) <span class="op">%&gt;%</span><span class="st">           </span><span class="co"># remove all commas</span></span>
-<span id="cb758-4"><a href="16-data-scraping.html#cb758-4"></a><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">[[0-9]+</span><span class="ch">\\</span><span class="st">]&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># remove [7] stuff</span></span>
-<span id="cb758-5"><a href="16-data-scraping.html#cb758-5"></a><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>( <span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), as.numeric)                       <span class="co"># convert to numbers</span></span></code></pre></div>
-<p>And just to show off the data we’ve just imported from Wikipedia, we’ll make a nice graph.</p>
-<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="16-data-scraping.html#cb759-1"></a>State_Pop <span class="op">%&gt;%</span></span>
-<span id="cb759-2"><a href="16-data-scraping.html#cb759-2"></a><span class="st">  </span><span class="kw">filter</span>( <span class="op">!</span>(State <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Contiguous United States&#39;</span>, </span>
-<span id="cb759-3"><a href="16-data-scraping.html#cb759-3"></a>                        <span class="st">&#39;The fifty states&#39;</span>,<span class="st">&#39;Fifty states + D.C.&#39;</span>,</span>
-<span id="cb759-4"><a href="16-data-scraping.html#cb759-4"></a>                        <span class="st">&#39;Total U.S. (including D.C. and territories)&#39;</span>) ) )  <span class="op">%&gt;%</span></span>
-<span id="cb759-5"><a href="16-data-scraping.html#cb759-5"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Percent_Change =</span> (Population2019 <span class="op">-</span><span class="st"> </span>Population2010)<span class="op">/</span>Population2010 ) <span class="op">%&gt;%</span></span>
-<span id="cb759-6"><a href="16-data-scraping.html#cb759-6"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">State =</span> <span class="kw">fct_reorder</span>(State, Percent_Change) ) <span class="op">%&gt;%</span></span>
-<span id="cb759-7"><a href="16-data-scraping.html#cb759-7"></a><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Percent_Change) ) <span class="op">+</span></span>
-<span id="cb759-8"><a href="16-data-scraping.html#cb759-8"></a><span class="st">  </span><span class="kw">geom_col</span>( ) <span class="op">+</span></span>
-<span id="cb759-9"><a href="16-data-scraping.html#cb759-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>, <span class="dt">y=</span><span class="st">&#39;% Change&#39;</span>, <span class="dt">title=</span><span class="st">&#39;State Population growth 2010-2019&#39;</span>) <span class="op">+</span></span>
-<span id="cb759-10"><a href="16-data-scraping.html#cb759-10"></a><span class="st">  </span><span class="kw">coord_flip</span>() </span></code></pre></div>
-<p><img src="36_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-</div>
-<div id="lists-1" class="section level3">
-<h3><span class="header-section-number">16.1.2</span> Lists</h3>
-<p>Unfortunately, we don’t always want to get information from a webpage that is nicely organized into a table. Suppose we want to gather the most recent threads on <a href="www.digg.com">Digg</a>.</p>
-<p>We could sift through the HTML tags to find something that will match, but that will be challenging. Instead we will use a CSS selector named <a href="https://selectorgadget.com">SelectorGadget</a>. Install the bookmarklet by dragging this <a href="javascript:(function()%7Bvar%20s=document.createElement(&#39;div&#39;);s.innerHTML=&#39;Loading...&#39;;s.style.color=&#39;black&#39;;s.style.padding=&#39;20px&#39;;s.style.position=&#39;fixed&#39;;s.style.zIndex=&#39;9999&#39;;s.style.fontSize=&#39;3.0em&#39;;s.style.border=&#39;2px%20solid%20black&#39;;s.style.right=&#39;40px&#39;;s.style.top=&#39;40px&#39;;s.setAttribute(&#39;class&#39;,&#39;selector_gadget_loading&#39;);s.style.background=&#39;white&#39;;document.body.appendChild(s);s=document.createElement(&#39;script&#39;);s.setAttribute(&#39;type&#39;,&#39;text/javascript&#39;);s.setAttribute(&#39;src&#39;,&#39;https://dv0akt2986vzh.cloudfront.net/unstable/lib/selectorgadget.js&#39;);document.body.appendChild(s);%7D)();">bookmarklet</a>
-up to your browsers bookmark bar. When you are at the site you are interested in, just click on the bookmarklet to engage the CSS engine. Click on something you want to capture. This will highlight a whole bunch of things that match the HTML tag listed at the bottom of the screen. Select or deselect items by clicking on them and the search string used to refine the selection will be updated. Once you are happy with the items being selected, copy the HTML node selector.</p>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="16-data-scraping.html#cb760-1"></a>url &lt;-<span class="st"> &#39;http://digg.com&#39;</span></span>
-<span id="cb760-2"><a href="16-data-scraping.html#cb760-2"></a>page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</span></code></pre></div>
-<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="16-data-scraping.html#cb761-1"></a><span class="co"># Once the page is downloaded, we use the SelectorGadget Parse string</span></span>
-<span id="cb761-2"><a href="16-data-scraping.html#cb761-2"></a><span class="co"># To just give the headlines, we&#39;ll use html_text()</span></span>
-<span id="cb761-3"><a href="16-data-scraping.html#cb761-3"></a>HeadLines &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></span>
-<span id="cb761-4"><a href="16-data-scraping.html#cb761-4"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># Grab just the headlines</span></span>
-<span id="cb761-5"><a href="16-data-scraping.html#cb761-5"></a><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></span>
-<span id="cb761-6"><a href="16-data-scraping.html#cb761-6"></a>HeadLines <span class="op">%&gt;%</span></span>
-<span id="cb761-7"><a href="16-data-scraping.html#cb761-7"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;\nThe Tragedy On Great Slave Lake\n&quot;                                                             
-## [2] &quot;\nI Criticized &#39;South Park&#39; For Spawning A Generation Of Trolls. And So The Trolls Came For Me\n&quot;
-## [3] &quot;\nDriver Brake Checks Another Car, Ends Up Setting Off Chaotic Chain Of Events\n&quot;                
-## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                                     
-## [5] &quot;\nThis Is What Years, Maybe Decades, Of Cable Mismanagement Looks Like\n&quot;                        
-## [6] &quot;\nHow Google Autocomplete Describes Every State In America\n&quot;</code></pre>
-<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="16-data-scraping.html#cb763-1"></a><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></span>
-<span id="cb763-2"><a href="16-data-scraping.html#cb763-2"></a>Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></span>
-<span id="cb763-3"><a href="16-data-scraping.html#cb763-3"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb763-4"><a href="16-data-scraping.html#cb763-4"></a><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </span>
-<span id="cb763-5"><a href="16-data-scraping.html#cb763-5"></a>Links <span class="op">%&gt;%</span></span>
-<span id="cb763-6"><a href="16-data-scraping.html#cb763-6"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;https://www.mensjournal.com/features/the-tragic-end-of-an-ill-fated-solo-northern-journey-on-great-slave-lake/?utm_source=digg&quot;          
-## [2] &quot;https://www.washingtonpost.com/opinions/2020/02/21/i-criticized-south-park-spawning-generation-trolls-so-trolls-came-me/?utm_source=digg&quot;
-## [3] &quot;/video/brake-check-car-change-lanes-crash&quot;                                                                                               
-## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;                                             
-## [5] &quot;/video/russian-cable-tangle&quot;                                                                                                             
-## [6] &quot;/2020/google-autocomplete-american-states&quot;</code></pre>
-</div>
-</div>
-<div id="scraping-.pdf-files" class="section level2">
-<h2><span class="header-section-number">16.2</span> Scraping .pdf files</h2>
-<p>PDF documents can either be created with software that produce text that is readable, or it can be scanned and everything is effectively an image. The work flow presented in this section assumes that the text is readable as text and is not an image.</p>
-</div>
-<div id="exercises-16" class="section level2">
-<h2><span class="header-section-number">16.3</span> Exercises</h2>
-<ol style="list-style-type: decimal">
-<li><p>At the Insurance Institute for Highway Safety, they have
-<a href="https://www.iihs.org/topics/fatality-statistics/detail/state-by-state">data</a>
-about human fatalities in vehicle crashes. From this web page, import the data from the Fatal Crash Totals data table and produce a bar graph gives the number of deaths per 100,000 individuals.</p></li>
-<li><p>From the same IIHS website, import the data about seat belt use. Join the Fatality data with the seat belt use and make a scatter plot of seat belt use vs number of fatalities per 100,000 people.</p></li>
-<li><p>From the <a href="https://www.reddit.com/r/NAU">NAU sub-reddit</a>, extract the most recent threads.</p></li>
+<li><p>The Census Bureau is constantly running many different surveys and compiling the results. One of the most comprehensive and interesting of these is the <a href="https://www.census.gov/programs-surveys/acs/guidance.html">American Community Survey</a>. I’m interested in using the ACS to get information about educational attainment. The developers overview webpage for the 1 year ACS data is <a href="https://www.census.gov/data/developers/data-sets/acs-1year.html">here</a> and we can get the desired information from the Subject table. Using the on-line documentation, figure out which columns you want and then using the API, download the latest information about educational attainment. Create map or graph summarizing educational attainment in either counties in Arizona or across states within the US. Or if you are feeling ambitious, create a graph or graphs summarizing this across all counties in the US.</p></li>
+<li><p>Pick some API to investigate how to use. Utilizing your interests, pick an API and figure out how to use it. Using the API, download some data and produce an interesting graphic. <em>Many government agencies have data API as well. For example, Centers for Disease Control mortality and disease information at the county level, the National Oceanic and Atmospheric Administration has weather data accessible. If you are a genomics person, the R interface to Kegg would be a fun choice. Many social media apps such as Twitter, Reddit, and Facebook have APIs. Many municipalities are starting to create Open Data and some of them have web APIs. Explore your interests and see if there is an interface to that data!</em></p></li>
 </ol>
 
 </div>
@@ -578,8 +588,8 @@ about human fatalities in vehicle crashes. From this web page, import the data f
           </div>
         </div>
       </div>
-<a href="15-r-packages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="17-api-data-queries.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="16-data-scraping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="18-databases.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -612,7 +622,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dereksonderegger/444/raw/master/36_Scraping.Rmd",
+"link": "https://github.com/dereksonderegger/444/raw/master/37_WebAPIs.Rmd",
 "text": "Edit"
 },
 "history": {

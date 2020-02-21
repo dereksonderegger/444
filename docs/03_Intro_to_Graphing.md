@@ -286,13 +286,12 @@ My recommendation is to just set the `x`, `y`, and `label` attributes manually i
 
 ## Exercises
 
-1. For the dataset `trees`, which should already be pre-loaded. Look at the help file using `?trees` for more information about this data set. We wish to build a scatterplot that compares the height and girth of these cherry trees to the volume of lumber that was produced.  
-    
+1. Examine the dataset `trees`, which should already be pre-loaded. Look at the help file using `?trees` for more information about this data set. We wish to build a scatterplot that compares the height and girth of these cherry trees to the volume of lumber that was produced.  
     a) Create a graph using ggplot2 with Height on the x-axis, Volume on the y-axis, and Girth as the either the size of the data point or the color of the data point. Which do you think is a more intuitive representation?
     b) Add appropriate labels for the main title and the x and y axes.
     c) The R-squared value for a regression through these points is 0.36 and the p-value for the statistical significance of height is 0.00038.  Add text labels "R-squared = 0.36" and "p-value = 0.0004" somewhere on the graph. 
     
-2. Consider the following small dataset that represents the number of times per day my wife played "Ring around the Rosy” with my daughter relative to the number of days since she has learned this game. The column `yhat` represents the best fitting line through the data, and `lwr` and `upr` represent a 95% confidence interval for the predicted value on that day.
+2. Consider the following small dataset that represents the number of times per day my wife played "Ring around the Rosy” with my daughter relative to the number of days since she has learned this game. The column `yhat` represents the best fitting line through the data, and `lwr` and `upr` represent a 95% confidence interval for the predicted value on that day. *Because these questions ask you to produce several graphs and evaluate which is better and why, please include each graph and response with each sub-question.*
     
     ```r
     Rosy <- data.frame(
@@ -321,7 +320,7 @@ My recommendation is to just set the `x`, `y`, and `label` attributes manually i
     g) Add labels for the x-axis and y-axis that are appropriate along with a main title.
 
 
-3. We'll next make some density plots that relate several factors towards the birthweight of a child.
+3. We'll next make some density plots that relate several factors towards the birth weight of a child. *Because these questions ask you to produce several graphs and evaluate which is better and why, please include each graph and response with each sub-question.*
     a) The `MASS` package contains a dataset called `birthwt` which contains information about 189 babies and their mothers. In particular there are columns for the mother's race and smoking status during the pregnancy. Load the `birthwt` by either using the `data()` command or loading the `MASS` library. 
     b) Read the help file for the dataset using `MASS::birthwt`. The covariates `race` and `smoke` are not stored in a user friendly manner. For example, smoking status is labeled using a 0 or a 1. Because it is not obvious which should represent that the mother smoked, we'll add better labels to the `race` and `smoke` variables. For more information about dealing with factors and their levels, see the `Factors` chapter in these notes.
         
@@ -332,7 +331,7 @@ My recommendation is to just set the `x`, `y`, and `label` attributes manually i
           race  = factor(race,  labels=c('White','Black','Other')),
           smoke = factor(smoke, labels=c('No Smoke', 'Smoke')))
         ```
-    c) Graph a histogram of the birthweights `bwt` using `ggplot(birthwt, aes(x=bwt)) + geom_histogram()`.
+    c) Graph a histogram of the birth weights `bwt` using `ggplot(birthwt, aes(x=bwt)) + geom_histogram()`.
     d) Make separate graphs that denote whether a mother smoked during pregnancy by appending `+ facet_grid()` command to your original graphing command.
     e) Perhaps race matters in relation to smoking. Make our grid of graphs vary with smoking status changing vertically, and race changing horizontally (that is the formula in `facet_grid()` should have smoking be the y variable and race as the x).
     f) Remove `race` from the facet grid, (so go back to the graph you had in part d). I'd like to next add an estimated density line to the graphs, but to do that, I need to first change the y-axis to be density (instead of counts), which we do by using `aes(y=..density..)` in the `ggplot()` aesthetics command.
@@ -341,7 +340,7 @@ My recommendation is to just set the `x`, `y`, and `label` attributes manually i
     i) Change the order in which the histogram and the density line are added to the plot. Does it matter and which do you prefer?
     j) Finally consider if you should have the histograms side-by-side or one ontop of the other (i.e. `. ~ smoke` or `smoke ~ .`). Which do you think better displayes the decrease in mean birthweight and why?
 
-4. Load the dataset `ChickWeight` which comes preloaded in R and get the background on the dataset by reading the manual page `?ChickWeight`. 
+4. Load the dataset `ChickWeight` which comes preloaded in R and get the background on the dataset by reading the manual page `?ChickWeight`. *Because these questions ask you to produce several graphs and evaluate which is better and why, please include each graph and response with each sub-question.*
     a) Produce a separate scatter plot of weight vs age for each chick. Use color to distinguish the four different `Diet` treatments.
     b) We could examine this data by producing a scatterplot for each diet. Most of the code below is readable, but if we don't add the `group` aesthetic the lines would not connect the dots for each Chick but would instead connect the dots across different chicks.
         

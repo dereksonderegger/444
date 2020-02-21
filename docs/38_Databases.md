@@ -1,4 +1,4 @@
-# Databases 
+# Databases
 
 
 
@@ -223,7 +223,7 @@ SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amoun
 
 Table: (\#tab:unnamed-chunk-10)3 records
 
-Name                DateTime              Name..3           Amount
+Name                DateTime              Name              Amount
 ------------------  --------------------  ---------------  -------
 Derek Sonderegger   2019-10-01 08:31:23   Kickstand Kafe      5.68
 Derek Sonderegger   2019-10-02 08:26:31   Kickstand Kafe      5.68
@@ -256,7 +256,7 @@ Transactions %>% head(3)
 
 ```
 ## # Source:   lazy query [?? x 4]
-## # Database: sqlite 3.29.0 [:memory:]
+## # Database: sqlite 3.30.1 [:memory:]
 ##   CardID           RetailID DateTime            Amount
 ##   <chr>            <chr>    <chr>                <dbl>
 ## 1 9876768717278723 1        2019-10-01 08:31:23   5.68
@@ -297,7 +297,7 @@ CC_statement
 
 ```
 ## # Source:   lazy query [?? x 3]
-## # Database: sqlite 3.29.0 [:memory:]
+## # Database: sqlite 3.30.1 [:memory:]
 ##   DateTime            Retailer       Amount
 ##   <chr>               <chr>           <dbl>
 ## 1 2019-10-01 08:31:23 Kickstand Kafe   5.68
