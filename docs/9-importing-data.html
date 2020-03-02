@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-02-21" />
+<meta name="date" content="2020-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -266,7 +266,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="9-importing-data.html"><a href="9-importing-data.html#working-directory"><i class="fa fa-check"></i><b>9.1</b> Working directory</a></li>
 <li class="chapter" data-level="9.2" data-path="9-importing-data.html"><a href="9-importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>9.2</b> Comma Separated Data</a></li>
 <li class="chapter" data-level="9.3" data-path="9-importing-data.html"><a href="9-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>9.3</b> MS Excel</a></li>
-<li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.4</b> Exercises</a></li>
+<li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#multiple-files"><i class="fa fa-check"></i><b>9.4</b> Multiple files</a></li>
+<li class="chapter" data-level="9.5" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="10-functions-1.html"><a href="10-functions-1.html"><i class="fa fa-check"></i><b>10</b> Functions</a><ul>
 <li class="chapter" data-level="10.1" data-path="10-functions-1.html"><a href="10-functions-1.html#basic-function-definition"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
@@ -341,6 +342,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.4" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>14.4</b> Mathematical Notation</a></li>
 <li class="chapter" data-level="14.5" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>14.5</b> Geographic Maps</a><ul>
 <li class="chapter" data-level="14.5.1" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>14.5.1</b> Package <code>maps</code></a></li>
+<li class="chapter" data-level="14.5.2" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#packages-sf-and-rnaturalearth"><i class="fa fa-check"></i><b>14.5.2</b> Packages <code>sf</code> and <code>rnaturalearth</code></a></li>
+<li class="chapter" data-level="14.5.3" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#package-leaflet"><i class="fa fa-check"></i><b>14.5.3</b> Package <code>leaflet</code></a></li>
 </ul></li>
 <li class="chapter" data-level="14.6" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>14.6</b> Exercises</a></li>
 </ul></li>
@@ -595,8 +598,19 @@ quotes.</td>
 ##  $ ...14: logi  NA NA NA NA NA NA ...</code></pre>
 <p>We notice that after reading in the data, there is an additional column that just has missing data (the NA stands for not available which means that the data is missing) and a row with just a single blank. Go back to the Excel file and go to row 4 column N and notice that the cell isn’t actually blank, there is a space. Delete the space, save the file, and then reload the data into R. You should notice that the extra columns are now gone.</p>
 </div>
+<div id="multiple-files" class="section level2">
+<h2><span class="header-section-number">9.4</span> Multiple files</h2>
+<p>There are several cases where our data is stored in multiple files and we want to read them in. If the data sources all have an identical column format, we can just stack the data frames together using the <code>rbind</code> command.</p>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="9-importing-data.html#cb485-1"></a>files &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;file1.csv&#39;</span>, <span class="st">&#39;file2.csv&#39;</span>, <span class="st">&#39;file3.csv&#39;</span>)  <span class="co"># Files to be read in.</span></span>
+<span id="cb485-2"><a href="9-importing-data.html#cb485-2"></a>data &lt;-<span class="st"> </span><span class="ot">NULL</span>   <span class="co"># what will the output data frame be named</span></span>
+<span id="cb485-3"><a href="9-importing-data.html#cb485-3"></a><span class="cf">for</span>( file <span class="cf">in</span> files){  <span class="co"># for each element of our files vector</span></span>
+<span id="cb485-4"><a href="9-importing-data.html#cb485-4"></a>  temp.data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(file)     <span class="co"># read in the file </span></span>
+<span id="cb485-5"><a href="9-importing-data.html#cb485-5"></a>  data &lt;-<span class="st"> </span><span class="kw">rbind</span>(data, temp.data)  <span class="co"># Append it to our final data set</span></span>
+<span id="cb485-6"><a href="9-importing-data.html#cb485-6"></a>}</span></code></pre></div>
+<p>In the example above, we might need to modify the <code>read.csv()</code> command, but fortunately it isn’t too hard to combine a <code>for</code> loop with set of statements to read in the dataset.</p>
+</div>
 <div id="exercises-9" class="section level2">
-<h2><span class="header-section-number">9.4</span> Exercises</h2>
+<h2><span class="header-section-number">9.5</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li>Download from GitHub the data file <code>Example_5.xls</code>. Open it in Excel and figure out which sheet of data we should import into R. At the same time figure out how many initial rows need to be skipped. Import the data set into a data frame and show the structure of the imported data using the <code>str()</code> command. Make sure that your data has <span class="math inline">\(n=31\)</span> observations and the three columns are appropriately named.</li>
 </ol>

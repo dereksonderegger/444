@@ -8,6 +8,14 @@
 library(tidyverse)   # loading ggplot2 and dplyr
 library(viridis)     # The viridis color schemes
 library(latex2exp)   # For plotting math notation
+
+library(maps)              # package with data about country borders
+library(sf)                # Simple Features for GIS
+library(rnaturalearth)     # package with detailed information about country &
+library(rnaturalearthdata) # state/province borders, and geographical features
+
+# devtools::install_github('ropensci/rnaturalearthhires')
+library(rnaturalearthhires)
 ```
 
 We have already seen how to create many basic graphs using the `ggplot2` package. However we haven't addressed many common scenarios. In this chapter we cover many graphing tasks that occur.
@@ -321,7 +329,7 @@ ggplot(foo, aes(x=x, y=y) ) +
 We often need to graph countries or U.S. States. We might then fill the color of the state or countries by some variable. To do this, we need information about the shape and location of each country within some geographic coordinate system. The easiest system to work from is Latitude (how far north or south of the equator) and Longitude (how far east or west the prime meridian). 
 
 ### Package `maps`
-The R package `maps` is one of the easiest way to draw a country or state map. I tend to use this package first because I can access world and regional maps fairly easily and I don't have to worry about map projections or coordinate systems or any fancy GIS encoding. Unfortunately it is fairly US specific.
+The R package `maps` is one of the easiest way to draw a country or state map because it is built into the `ggplot` package. Unfortunately it is fairly US specific.
 
 Because we might be interested in continents, countries, states/provinces, or counties, in the following discussion we'll refer to the geographic area of interest as a *region*. For `ggplot2` to interact with GIS type objects, we need a way to convert a GIS database of regions into a `data.frame` of a bunch of data points about the region's borders, where each data point is a Lat/Long coordinate and the region and sub-region identifiers. Then, to produce a map, we just draw a path through the data points. For regions like Hawaii's, which are composed of several non-contiguous areas, we include sub-regions so that the boundary lines don't jump from island to island.
 
@@ -400,9 +408,66 @@ ggplot2::map_data('state', regions='arizona') %>%
 
 <img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-24-1.png" width="480" />
 
+
+### Packages `sf` and `rnaturalearth`
+
 The `maps` package is fairly primitive in the data it has as well as the manner in which it stores the data. Another alternative is to use the *spatial features* package `sf` along with an on-line data base of GIS information from [Natural Earth](https://www.naturalearthdata.com).
 
-There is a nice [tutorial](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html) for the `sf` package. 
+There is a nice set of tutorials for the `sf` package.
+[Part 1](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html),
+[Part 2](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf-2.html), and
+[Part 3](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf-3.html).
+
+From the Natural Earth package, we can more easily obtain information about world countries and state/provinces. There is also information about urban areas and roads as well as geographical details such as rivers and lakes.
+
+
+```r
+ne_countries(continent='Africa', returnclass = 'sf') %>%  # grab country borders in Africa
+  ggplot() + geom_sf() +
+  labs(title='Africa')
+```
+
+<img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+
+
+```r
+ne_states(country='Ghana', returnclass = 'sf') %>% # grab provinces within Ghana
+  ggplot() +
+  geom_sf( ) + 
+  labs(title='Ghana')
+```
+
+<img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+
+
+```r
+# The st_centroid function takes the sf object and returns the center of 
+# the polygon, again as a sf object.
+Ghana <- ne_states(country='Ghana', returnclass = 'sf')  # grab provinces within Ghana
+Ghana %>% ggplot() +
+  geom_sf( ) + 
+  geom_text( data=st_centroid(Ghana), size=2,
+             aes(x=longitude, y=latitude, label=woe_name)) +
+  labs(title='Ghana Administrative Regions')
+```
+
+```
+## Warning in st_centroid.sf(Ghana): st_centroid assumes attributes are constant
+## over geometries of x
+```
+
+```
+## Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =
+## of_largest_polygon): st_centroid does not give correct centroids for longitude/
+## latitude data
+```
+
+<img src="28_Advanced_Graphing_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+
+
+### Package `leaflet`
+
+Leaflet is a popular open-source JavaScript library for interactive maps. The package `leaflet` provides a nice interface to this package. The [tutorial](https://rstudio.github.io/leaflet/) for this package is quite good.
 
 
 ## Exercises

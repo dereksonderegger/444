@@ -196,6 +196,20 @@ str(data.4)
 
 We notice that after reading in the data, there is an additional column that just has missing data (the NA stands for not available which means that the data is missing) and a row with just a single blank. Go back to the Excel file and go to row 4 column N and notice that the cell isn't actually blank, there is a space. Delete the space, save the file, and then reload the data into R. You should notice that the extra columns are now gone. 
 
+## Multiple files
+There are several cases where our data is stored in multiple files and we want to read them in.  If the data sources all have an identical column format, we can just stack the data frames together using the `rbind` command.
+
+
+```r
+files <- c('file1.csv', 'file2.csv', 'file3.csv')  # Files to be read in.
+data <- NULL   # what will the output data frame be named
+for( file in files){  # for each element of our files vector
+  temp.data <- read.csv(file)     # read in the file 
+  data <- rbind(data, temp.data)  # Append it to our final data set
+}
+```
+
+In the example above, we might need to modify the `read.csv()` command, but fortunately it isn't too hard to combine a `for` loop with set of statements to read in the dataset. 
 
 ## Exercises
 

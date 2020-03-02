@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-02-21" />
+<meta name="date" content="2020-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -266,7 +266,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="9-importing-data.html"><a href="9-importing-data.html#working-directory"><i class="fa fa-check"></i><b>9.1</b> Working directory</a></li>
 <li class="chapter" data-level="9.2" data-path="9-importing-data.html"><a href="9-importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>9.2</b> Comma Separated Data</a></li>
 <li class="chapter" data-level="9.3" data-path="9-importing-data.html"><a href="9-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>9.3</b> MS Excel</a></li>
-<li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.4</b> Exercises</a></li>
+<li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#multiple-files"><i class="fa fa-check"></i><b>9.4</b> Multiple files</a></li>
+<li class="chapter" data-level="9.5" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="10-functions-1.html"><a href="10-functions-1.html"><i class="fa fa-check"></i><b>10</b> Functions</a><ul>
 <li class="chapter" data-level="10.1" data-path="10-functions-1.html"><a href="10-functions-1.html#basic-function-definition"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
@@ -341,6 +342,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.4" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>14.4</b> Mathematical Notation</a></li>
 <li class="chapter" data-level="14.5" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>14.5</b> Geographic Maps</a><ul>
 <li class="chapter" data-level="14.5.1" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>14.5.1</b> Package <code>maps</code></a></li>
+<li class="chapter" data-level="14.5.2" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#packages-sf-and-rnaturalearth"><i class="fa fa-check"></i><b>14.5.2</b> Packages <code>sf</code> and <code>rnaturalearth</code></a></li>
+<li class="chapter" data-level="14.5.3" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#package-leaflet"><i class="fa fa-check"></i><b>14.5.3</b> Package <code>leaflet</code></a></li>
 </ul></li>
 <li class="chapter" data-level="14.6" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>14.6</b> Exercises</a></li>
 </ul></li>
@@ -411,8 +414,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-scraping" class="section level1">
 <h1><span class="header-section-number">Chapter 16</span> Data Scraping</h1>
-<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="16-data-scraping.html#cb750-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb750-2"><a href="16-data-scraping.html#cb750-2"></a><span class="kw">library</span>(rvest)     <span class="co"># rvest is not loaded in the tidyverse Metapackage</span></span></code></pre></div>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="16-data-scraping.html#cb756-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb756-2"><a href="16-data-scraping.html#cb756-2"></a><span class="kw">library</span>(rvest)     <span class="co"># rvest is not loaded in the tidyverse Metapackage</span></span></code></pre></div>
 <p>Getting data into R often involves accessing data that is available through non-convenient formats such as web pages or .pdf files. Fortunately those formats still have structure and we can import data from those sources. However to do this, we have to understand a little bit about those file formats.</p>
 <div id="web-pages" class="section level2">
 <h2><span class="header-section-number">16.1</span> Web Pages</h2>
@@ -431,13 +434,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   &lt;tr&gt; &lt;td&gt;Derek&lt;/td&gt;     &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;43&lt;/td&gt;   &lt;/tr&gt;
   &lt;tr&gt; &lt;td&gt;Aubrey&lt;/td&gt;    &lt;td&gt;Sonderegger&lt;/td&gt;  &lt;td&gt;39&lt;/td&gt;   &lt;/tr&gt;
 &lt;/table&gt;</code></pre>
-<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="16-data-scraping.html#cb752-1"></a><span class="co"># Example of an unordered List, which starts and ends with &lt;ul&gt; and &lt;/ul&gt;</span></span>
-<span id="cb752-2"><a href="16-data-scraping.html#cb752-2"></a><span class="co"># Each list item is enclosed by &lt;li&gt; &lt;/li&gt;</span></span>
-<span id="cb752-3"><a href="16-data-scraping.html#cb752-3"></a><span class="op">&lt;</span>ul<span class="op">&gt;</span></span>
-<span id="cb752-4"><a href="16-data-scraping.html#cb752-4"></a><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Coffee<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></span>
-<span id="cb752-5"><a href="16-data-scraping.html#cb752-5"></a><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Tea<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></span>
-<span id="cb752-6"><a href="16-data-scraping.html#cb752-6"></a><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Milk<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></span>
-<span id="cb752-7"><a href="16-data-scraping.html#cb752-7"></a><span class="er">&lt;/</span>ul<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="16-data-scraping.html#cb758-1"></a><span class="co"># Example of an unordered List, which starts and ends with &lt;ul&gt; and &lt;/ul&gt;</span></span>
+<span id="cb758-2"><a href="16-data-scraping.html#cb758-2"></a><span class="co"># Each list item is enclosed by &lt;li&gt; &lt;/li&gt;</span></span>
+<span id="cb758-3"><a href="16-data-scraping.html#cb758-3"></a><span class="op">&lt;</span>ul<span class="op">&gt;</span></span>
+<span id="cb758-4"><a href="16-data-scraping.html#cb758-4"></a><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Coffee<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></span>
+<span id="cb758-5"><a href="16-data-scraping.html#cb758-5"></a><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Tea<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></span>
+<span id="cb758-6"><a href="16-data-scraping.html#cb758-6"></a><span class="st">  </span><span class="er">&lt;</span>li<span class="op">&gt;</span>Milk<span class="op">&lt;</span><span class="er">/</span>li<span class="op">&gt;</span></span>
+<span id="cb758-7"><a href="16-data-scraping.html#cb758-7"></a><span class="er">&lt;/</span>ul<span class="op">&gt;</span></span></code></pre></div>
 <p>Given this extremely clear structure it shouldn’t be too hard to grab tables and/or lists from a web page. However HTML has a heirarchical structure so that tables could be nested in lists. In order to control the way the page looks, there is often a <strong>lot</strong> of nesting. For example, we might be in a split pane page that has a side bar, and then a block that centers everything, and then some style blocks that control fonts and colors. Add to this, the need for modern web pages to display well on both mobile devices as well as desktops and the raw HTML typically is extremely complicated.
 In summary the workflow for scraping a web page will be:</p>
 <ol style="list-style-type: decimal">
@@ -452,17 +455,17 @@ In summary the workflow for scraping a web page will be:</p>
 <p>Recently I needed to get information about U.S. state population sizes. I did a quick googling and found a
 <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population">Wikipedia</a>
 page that has the information that I wanted.</p>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="16-data-scraping.html#cb753-1"></a>url =<span class="st"> &#39;https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population&#39;</span></span>
-<span id="cb753-2"><a href="16-data-scraping.html#cb753-2"></a></span>
-<span id="cb753-3"><a href="16-data-scraping.html#cb753-3"></a><span class="co"># Download the web page and save it. I like to do this within a single R Chunk</span></span>
-<span id="cb753-4"><a href="16-data-scraping.html#cb753-4"></a><span class="co"># so that I don&#39;t keep downloading a page repeatedly while I am fine tuning </span></span>
-<span id="cb753-5"><a href="16-data-scraping.html#cb753-5"></a><span class="co"># the subsequent data wrangling steps.</span></span>
-<span id="cb753-6"><a href="16-data-scraping.html#cb753-6"></a>page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</span></code></pre></div>
-<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="16-data-scraping.html#cb754-1"></a><span class="co"># Once the page is downloaded, we need to figure out which table to work with.</span></span>
-<span id="cb754-2"><a href="16-data-scraping.html#cb754-2"></a></span>
-<span id="cb754-3"><a href="16-data-scraping.html#cb754-3"></a><span class="co"># There are 5 tables on the page.</span></span>
-<span id="cb754-4"><a href="16-data-scraping.html#cb754-4"></a>page <span class="op">%&gt;%</span></span>
-<span id="cb754-5"><a href="16-data-scraping.html#cb754-5"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="16-data-scraping.html#cb759-1"></a>url =<span class="st"> &#39;https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population&#39;</span></span>
+<span id="cb759-2"><a href="16-data-scraping.html#cb759-2"></a></span>
+<span id="cb759-3"><a href="16-data-scraping.html#cb759-3"></a><span class="co"># Download the web page and save it. I like to do this within a single R Chunk</span></span>
+<span id="cb759-4"><a href="16-data-scraping.html#cb759-4"></a><span class="co"># so that I don&#39;t keep downloading a page repeatedly while I am fine tuning </span></span>
+<span id="cb759-5"><a href="16-data-scraping.html#cb759-5"></a><span class="co"># the subsequent data wrangling steps.</span></span>
+<span id="cb759-6"><a href="16-data-scraping.html#cb759-6"></a>page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</span></code></pre></div>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="16-data-scraping.html#cb760-1"></a><span class="co"># Once the page is downloaded, we need to figure out which table to work with.</span></span>
+<span id="cb760-2"><a href="16-data-scraping.html#cb760-2"></a></span>
+<span id="cb760-3"><a href="16-data-scraping.html#cb760-3"></a><span class="co"># There are 5 tables on the page.</span></span>
+<span id="cb760-4"><a href="16-data-scraping.html#cb760-4"></a>page <span class="op">%&gt;%</span></span>
+<span id="cb760-5"><a href="16-data-scraping.html#cb760-5"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) </span></code></pre></div>
 <pre><code>## {xml_nodeset (5)}
 ## [1] &lt;table class=&quot;wikitable sortable&quot; style=&quot;width:100%; text-align:center;&quot;&gt; ...
 ## [2] &lt;table class=&quot;wikitable&quot;&gt;&lt;tbody&gt;\n&lt;tr&gt;&lt;th style=&quot;text-align: left;&quot;&gt;Legen ...
@@ -470,23 +473,23 @@ page that has the information that I wanted.</p>
 ## [4] &lt;table class=&quot;nowraplinks hlist mw-collapsible autocollapse navbox-inner&quot; ...
 ## [5] &lt;table class=&quot;nowraplinks hlist mw-collapsible mw-collapsed navbox-inner&quot; ...</code></pre>
 <p>With five tables on the page, I need to go through each table individually and decide if it is the one that I want. To do this, we’ll take each table and convert it into a data.frame and view it to see what information it contains.</p>
-<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="16-data-scraping.html#cb756-1"></a>State_Pop &lt;-<span class="st"> </span></span>
-<span id="cb756-2"><a href="16-data-scraping.html#cb756-2"></a><span class="st">  </span>page <span class="op">%&gt;%</span></span>
-<span id="cb756-3"><a href="16-data-scraping.html#cb756-3"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb756-4"><a href="16-data-scraping.html#cb756-4"></a><span class="st">  </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">                              </span><span class="co"># Grab the first table and </span></span>
-<span id="cb756-5"><a href="16-data-scraping.html#cb756-5"></a><span class="st">  </span><span class="kw">html_table</span>(<span class="dt">header=</span><span class="ot">FALSE</span>, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert it from HTML into a data.frame </span></span>
-<span id="cb756-6"><a href="16-data-scraping.html#cb756-6"></a><span class="st">  </span>magrittr<span class="op">::</span><span class="kw">set_colnames</span>(<span class="kw">c</span>(<span class="st">&#39;Rank_current&#39;</span>,<span class="st">&#39;Rank_2010&#39;</span>,<span class="st">&#39;State&#39;</span>,</span>
-<span id="cb756-7"><a href="16-data-scraping.html#cb756-7"></a>            <span class="st">&#39;Population2019&#39;</span>, <span class="st">&#39;Population2010&#39;</span>,</span>
-<span id="cb756-8"><a href="16-data-scraping.html#cb756-8"></a>            <span class="st">&#39;Percent_Change&#39;</span>,<span class="st">&#39;Absolute_Change&#39;</span>, </span>
-<span id="cb756-9"><a href="16-data-scraping.html#cb756-9"></a>            <span class="st">&#39;House_Seats&#39;</span>, <span class="st">&#39;Population_Per_Electoral_Vote&#39;</span>,</span>
-<span id="cb756-10"><a href="16-data-scraping.html#cb756-10"></a>            <span class="st">&#39;Population_Per_House_Seat&#39;</span>, <span class="st">&#39;Population_Per_House_Seat_2010&#39;</span>,</span>
-<span id="cb756-11"><a href="16-data-scraping.html#cb756-11"></a>            <span class="st">&#39;Percent_US_Population&#39;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb756-12"><a href="16-data-scraping.html#cb756-12"></a><span class="st">  </span><span class="kw">slice</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> )</span>
-<span id="cb756-13"><a href="16-data-scraping.html#cb756-13"></a></span>
-<span id="cb756-14"><a href="16-data-scraping.html#cb756-14"></a></span>
-<span id="cb756-15"><a href="16-data-scraping.html#cb756-15"></a><span class="co"># To view this table, we could use View() or print out just the first few</span></span>
-<span id="cb756-16"><a href="16-data-scraping.html#cb756-16"></a><span class="co"># rows and columns. Converting it to a tibble makes the printing turn out nice.</span></span>
-<span id="cb756-17"><a href="16-data-scraping.html#cb756-17"></a>State_Pop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="16-data-scraping.html#cb762-1"></a>State_Pop &lt;-<span class="st"> </span></span>
+<span id="cb762-2"><a href="16-data-scraping.html#cb762-2"></a><span class="st">  </span>page <span class="op">%&gt;%</span></span>
+<span id="cb762-3"><a href="16-data-scraping.html#cb762-3"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb762-4"><a href="16-data-scraping.html#cb762-4"></a><span class="st">  </span>.[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st">                              </span><span class="co"># Grab the first table and </span></span>
+<span id="cb762-5"><a href="16-data-scraping.html#cb762-5"></a><span class="st">  </span><span class="kw">html_table</span>(<span class="dt">header=</span><span class="ot">FALSE</span>, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert it from HTML into a data.frame </span></span>
+<span id="cb762-6"><a href="16-data-scraping.html#cb762-6"></a><span class="st">  </span>magrittr<span class="op">::</span><span class="kw">set_colnames</span>(<span class="kw">c</span>(<span class="st">&#39;Rank_current&#39;</span>,<span class="st">&#39;Rank_2010&#39;</span>,<span class="st">&#39;State&#39;</span>,</span>
+<span id="cb762-7"><a href="16-data-scraping.html#cb762-7"></a>            <span class="st">&#39;Population2019&#39;</span>, <span class="st">&#39;Population2010&#39;</span>,</span>
+<span id="cb762-8"><a href="16-data-scraping.html#cb762-8"></a>            <span class="st">&#39;Percent_Change&#39;</span>,<span class="st">&#39;Absolute_Change&#39;</span>, </span>
+<span id="cb762-9"><a href="16-data-scraping.html#cb762-9"></a>            <span class="st">&#39;House_Seats&#39;</span>, <span class="st">&#39;Population_Per_Electoral_Vote&#39;</span>,</span>
+<span id="cb762-10"><a href="16-data-scraping.html#cb762-10"></a>            <span class="st">&#39;Population_Per_House_Seat&#39;</span>, <span class="st">&#39;Population_Per_House_Seat_2010&#39;</span>,</span>
+<span id="cb762-11"><a href="16-data-scraping.html#cb762-11"></a>            <span class="st">&#39;Percent_US_Population&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb762-12"><a href="16-data-scraping.html#cb762-12"></a><span class="st">  </span><span class="kw">slice</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> )</span>
+<span id="cb762-13"><a href="16-data-scraping.html#cb762-13"></a></span>
+<span id="cb762-14"><a href="16-data-scraping.html#cb762-14"></a></span>
+<span id="cb762-15"><a href="16-data-scraping.html#cb762-15"></a><span class="co"># To view this table, we could use View() or print out just the first few</span></span>
+<span id="cb762-16"><a href="16-data-scraping.html#cb762-16"></a><span class="co"># rows and columns. Converting it to a tibble makes the printing turn out nice.</span></span>
+<span id="cb762-17"><a href="16-data-scraping.html#cb762-17"></a>State_Pop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() </span></code></pre></div>
 <pre><code>## # A tibble: 60 x 12
 ##    Rank_current Rank_2010 State Population2019 Population2010 Percent_Change
 ##    &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;         
@@ -505,22 +508,22 @@ page that has the information that I wanted.</p>
 ## #   Population_Per_House_Seat &lt;chr&gt;, Population_Per_House_Seat_2010 &lt;chr&gt;,
 ## #   Percent_US_Population &lt;chr&gt;</code></pre>
 <p>It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we’ll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings. We need to remove those as well.</p>
-<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="16-data-scraping.html#cb758-1"></a>State_Pop &lt;-<span class="st"> </span>State_Pop <span class="op">%&gt;%</span></span>
-<span id="cb758-2"><a href="16-data-scraping.html#cb758-2"></a><span class="st">  </span><span class="kw">select</span>(State, Population2019, Population2010) <span class="op">%&gt;%</span></span>
-<span id="cb758-3"><a href="16-data-scraping.html#cb758-3"></a><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove_all, <span class="st">&#39;,&#39;</span>) <span class="op">%&gt;%</span><span class="st">           </span><span class="co"># remove all commas</span></span>
-<span id="cb758-4"><a href="16-data-scraping.html#cb758-4"></a><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">[[0-9]+</span><span class="ch">\\</span><span class="st">]&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># remove [7] stuff</span></span>
-<span id="cb758-5"><a href="16-data-scraping.html#cb758-5"></a><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>( <span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), as.numeric)                       <span class="co"># convert to numbers</span></span></code></pre></div>
+<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="16-data-scraping.html#cb764-1"></a>State_Pop &lt;-<span class="st"> </span>State_Pop <span class="op">%&gt;%</span></span>
+<span id="cb764-2"><a href="16-data-scraping.html#cb764-2"></a><span class="st">  </span><span class="kw">select</span>(State, Population2019, Population2010) <span class="op">%&gt;%</span></span>
+<span id="cb764-3"><a href="16-data-scraping.html#cb764-3"></a><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove_all, <span class="st">&#39;,&#39;</span>) <span class="op">%&gt;%</span><span class="st">           </span><span class="co"># remove all commas</span></span>
+<span id="cb764-4"><a href="16-data-scraping.html#cb764-4"></a><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>(<span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), str_remove, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">[[0-9]+</span><span class="ch">\\</span><span class="st">]&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># remove [7] stuff</span></span>
+<span id="cb764-5"><a href="16-data-scraping.html#cb764-5"></a><span class="st">  </span><span class="kw">mutate_at</span>( <span class="kw">vars</span>( <span class="kw">matches</span>(<span class="st">&#39;Pop&#39;</span>)), as.numeric)                       <span class="co"># convert to numbers</span></span></code></pre></div>
 <p>And just to show off the data we’ve just imported from Wikipedia, we’ll make a nice graph.</p>
-<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="16-data-scraping.html#cb759-1"></a>State_Pop <span class="op">%&gt;%</span></span>
-<span id="cb759-2"><a href="16-data-scraping.html#cb759-2"></a><span class="st">  </span><span class="kw">filter</span>( <span class="op">!</span>(State <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Contiguous United States&#39;</span>, </span>
-<span id="cb759-3"><a href="16-data-scraping.html#cb759-3"></a>                        <span class="st">&#39;The fifty states&#39;</span>,<span class="st">&#39;Fifty states + D.C.&#39;</span>,</span>
-<span id="cb759-4"><a href="16-data-scraping.html#cb759-4"></a>                        <span class="st">&#39;Total U.S. (including D.C. and territories)&#39;</span>) ) )  <span class="op">%&gt;%</span></span>
-<span id="cb759-5"><a href="16-data-scraping.html#cb759-5"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Percent_Change =</span> (Population2019 <span class="op">-</span><span class="st"> </span>Population2010)<span class="op">/</span>Population2010 ) <span class="op">%&gt;%</span></span>
-<span id="cb759-6"><a href="16-data-scraping.html#cb759-6"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">State =</span> <span class="kw">fct_reorder</span>(State, Percent_Change) ) <span class="op">%&gt;%</span></span>
-<span id="cb759-7"><a href="16-data-scraping.html#cb759-7"></a><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Percent_Change) ) <span class="op">+</span></span>
-<span id="cb759-8"><a href="16-data-scraping.html#cb759-8"></a><span class="st">  </span><span class="kw">geom_col</span>( ) <span class="op">+</span></span>
-<span id="cb759-9"><a href="16-data-scraping.html#cb759-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>, <span class="dt">y=</span><span class="st">&#39;% Change&#39;</span>, <span class="dt">title=</span><span class="st">&#39;State Population growth 2010-2019&#39;</span>) <span class="op">+</span></span>
-<span id="cb759-10"><a href="16-data-scraping.html#cb759-10"></a><span class="st">  </span><span class="kw">coord_flip</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="16-data-scraping.html#cb765-1"></a>State_Pop <span class="op">%&gt;%</span></span>
+<span id="cb765-2"><a href="16-data-scraping.html#cb765-2"></a><span class="st">  </span><span class="kw">filter</span>( <span class="op">!</span>(State <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Contiguous United States&#39;</span>, </span>
+<span id="cb765-3"><a href="16-data-scraping.html#cb765-3"></a>                        <span class="st">&#39;The fifty states&#39;</span>,<span class="st">&#39;Fifty states + D.C.&#39;</span>,</span>
+<span id="cb765-4"><a href="16-data-scraping.html#cb765-4"></a>                        <span class="st">&#39;Total U.S. (including D.C. and territories)&#39;</span>) ) )  <span class="op">%&gt;%</span></span>
+<span id="cb765-5"><a href="16-data-scraping.html#cb765-5"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Percent_Change =</span> (Population2019 <span class="op">-</span><span class="st"> </span>Population2010)<span class="op">/</span>Population2010 ) <span class="op">%&gt;%</span></span>
+<span id="cb765-6"><a href="16-data-scraping.html#cb765-6"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">State =</span> <span class="kw">fct_reorder</span>(State, Percent_Change) ) <span class="op">%&gt;%</span></span>
+<span id="cb765-7"><a href="16-data-scraping.html#cb765-7"></a><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>State, <span class="dt">y=</span>Percent_Change) ) <span class="op">+</span></span>
+<span id="cb765-8"><a href="16-data-scraping.html#cb765-8"></a><span class="st">  </span><span class="kw">geom_col</span>( ) <span class="op">+</span></span>
+<span id="cb765-9"><a href="16-data-scraping.html#cb765-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>, <span class="dt">y=</span><span class="st">&#39;% Change&#39;</span>, <span class="dt">title=</span><span class="st">&#39;State Population growth 2010-2019&#39;</span>) <span class="op">+</span></span>
+<span id="cb765-10"><a href="16-data-scraping.html#cb765-10"></a><span class="st">  </span><span class="kw">coord_flip</span>() </span></code></pre></div>
 <p><img src="36_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="lists-1" class="section level3">
@@ -528,33 +531,33 @@ page that has the information that I wanted.</p>
 <p>Unfortunately, we don’t always want to get information from a webpage that is nicely organized into a table. Suppose we want to gather the most recent threads on <a href="www.digg.com">Digg</a>.</p>
 <p>We could sift through the HTML tags to find something that will match, but that will be challenging. Instead we will use a CSS selector named <a href="https://selectorgadget.com">SelectorGadget</a>. Install the bookmarklet by dragging this <a href="javascript:(function()%7Bvar%20s=document.createElement(&#39;div&#39;);s.innerHTML=&#39;Loading...&#39;;s.style.color=&#39;black&#39;;s.style.padding=&#39;20px&#39;;s.style.position=&#39;fixed&#39;;s.style.zIndex=&#39;9999&#39;;s.style.fontSize=&#39;3.0em&#39;;s.style.border=&#39;2px%20solid%20black&#39;;s.style.right=&#39;40px&#39;;s.style.top=&#39;40px&#39;;s.setAttribute(&#39;class&#39;,&#39;selector_gadget_loading&#39;);s.style.background=&#39;white&#39;;document.body.appendChild(s);s=document.createElement(&#39;script&#39;);s.setAttribute(&#39;type&#39;,&#39;text/javascript&#39;);s.setAttribute(&#39;src&#39;,&#39;https://dv0akt2986vzh.cloudfront.net/unstable/lib/selectorgadget.js&#39;);document.body.appendChild(s);%7D)();">bookmarklet</a>
 up to your browsers bookmark bar. When you are at the site you are interested in, just click on the bookmarklet to engage the CSS engine. Click on something you want to capture. This will highlight a whole bunch of things that match the HTML tag listed at the bottom of the screen. Select or deselect items by clicking on them and the search string used to refine the selection will be updated. Once you are happy with the items being selected, copy the HTML node selector.</p>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="16-data-scraping.html#cb760-1"></a>url &lt;-<span class="st"> &#39;http://digg.com&#39;</span></span>
-<span id="cb760-2"><a href="16-data-scraping.html#cb760-2"></a>page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</span></code></pre></div>
-<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="16-data-scraping.html#cb761-1"></a><span class="co"># Once the page is downloaded, we use the SelectorGadget Parse string</span></span>
-<span id="cb761-2"><a href="16-data-scraping.html#cb761-2"></a><span class="co"># To just give the headlines, we&#39;ll use html_text()</span></span>
-<span id="cb761-3"><a href="16-data-scraping.html#cb761-3"></a>HeadLines &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></span>
-<span id="cb761-4"><a href="16-data-scraping.html#cb761-4"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># Grab just the headlines</span></span>
-<span id="cb761-5"><a href="16-data-scraping.html#cb761-5"></a><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></span>
-<span id="cb761-6"><a href="16-data-scraping.html#cb761-6"></a>HeadLines <span class="op">%&gt;%</span></span>
-<span id="cb761-7"><a href="16-data-scraping.html#cb761-7"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;\nThe Tragedy On Great Slave Lake\n&quot;                                                             
-## [2] &quot;\nI Criticized &#39;South Park&#39; For Spawning A Generation Of Trolls. And So The Trolls Came For Me\n&quot;
-## [3] &quot;\nDriver Brake Checks Another Car, Ends Up Setting Off Chaotic Chain Of Events\n&quot;                
-## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                                     
-## [5] &quot;\nThis Is What Years, Maybe Decades, Of Cable Mismanagement Looks Like\n&quot;                        
-## [6] &quot;\nHow Google Autocomplete Describes Every State In America\n&quot;</code></pre>
-<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="16-data-scraping.html#cb763-1"></a><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></span>
-<span id="cb763-2"><a href="16-data-scraping.html#cb763-2"></a>Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></span>
-<span id="cb763-3"><a href="16-data-scraping.html#cb763-3"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb763-4"><a href="16-data-scraping.html#cb763-4"></a><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </span>
-<span id="cb763-5"><a href="16-data-scraping.html#cb763-5"></a>Links <span class="op">%&gt;%</span></span>
-<span id="cb763-6"><a href="16-data-scraping.html#cb763-6"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;https://www.mensjournal.com/features/the-tragic-end-of-an-ill-fated-solo-northern-journey-on-great-slave-lake/?utm_source=digg&quot;          
-## [2] &quot;https://www.washingtonpost.com/opinions/2020/02/21/i-criticized-south-park-spawning-generation-trolls-so-trolls-came-me/?utm_source=digg&quot;
-## [3] &quot;/video/brake-check-car-change-lanes-crash&quot;                                                                                               
-## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;                                             
-## [5] &quot;/video/russian-cable-tangle&quot;                                                                                                             
-## [6] &quot;/2020/google-autocomplete-american-states&quot;</code></pre>
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="16-data-scraping.html#cb766-1"></a>url &lt;-<span class="st"> &#39;http://digg.com&#39;</span></span>
+<span id="cb766-2"><a href="16-data-scraping.html#cb766-2"></a>page &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</span></code></pre></div>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="16-data-scraping.html#cb767-1"></a><span class="co"># Once the page is downloaded, we use the SelectorGadget Parse string</span></span>
+<span id="cb767-2"><a href="16-data-scraping.html#cb767-2"></a><span class="co"># To just give the headlines, we&#39;ll use html_text()</span></span>
+<span id="cb767-3"><a href="16-data-scraping.html#cb767-3"></a>HeadLines &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></span>
+<span id="cb767-4"><a href="16-data-scraping.html#cb767-4"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># Grab just the headlines</span></span>
+<span id="cb767-5"><a href="16-data-scraping.html#cb767-5"></a><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></span>
+<span id="cb767-6"><a href="16-data-scraping.html#cb767-6"></a>HeadLines <span class="op">%&gt;%</span></span>
+<span id="cb767-7"><a href="16-data-scraping.html#cb767-7"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;\nThe American Restaurant Is On Life Support\n&quot;                                       
+## [2] &quot;\nHow Rebekah Neumann&#39;s Search For Enlightenment Fueled WeWork&#39;s Collapse\n&quot;          
+## [3] &quot;\nGamer Runs His Old PS1 Games In 4K On His PC, With Beautiful Results\n&quot;             
+## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                          
+## [5] &quot;\nBaseball Superstar Mike Trout Goes To The Driving Range, Hits The Ball Into Orbit\n&quot;
+## [6] &quot;\nHow Bloomberg Buys The Silence Of Unhappy Employees\n&quot;</code></pre>
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb769-1"><a href="16-data-scraping.html#cb769-1"></a><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></span>
+<span id="cb769-2"><a href="16-data-scraping.html#cb769-2"></a>Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></span>
+<span id="cb769-3"><a href="16-data-scraping.html#cb769-3"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb769-4"><a href="16-data-scraping.html#cb769-4"></a><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </span>
+<span id="cb769-5"><a href="16-data-scraping.html#cb769-5"></a>Links <span class="op">%&gt;%</span></span>
+<span id="cb769-6"><a href="16-data-scraping.html#cb769-6"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;https://thecounter.org/why-restaurants-are-closing-nyc-los-angeles/?utm_source=digg&quot;                                
+## [2] &quot;https://www.bustle.com/p/rebekah-neumanns-search-for-enlightenment-fueled-weworks-collapse-22581874?utm_source=digg&quot;
+## [3] &quot;/video/playstation-1-games-4k&quot;                                                                                      
+## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;                        
+## [5] &quot;/video/mike-trout-golf-drive&quot;                                                                                       
+## [6] &quot;https://www.nytimes.com/2020/03/02/business/michael-bloomberg-nda.html?utm_source=digg&quot;</code></pre>
 </div>
 </div>
 <div id="scraping-.pdf-files" class="section level2">

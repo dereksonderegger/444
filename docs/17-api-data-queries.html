@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-02-21" />
+<meta name="date" content="2020-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -266,7 +266,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="9-importing-data.html"><a href="9-importing-data.html#working-directory"><i class="fa fa-check"></i><b>9.1</b> Working directory</a></li>
 <li class="chapter" data-level="9.2" data-path="9-importing-data.html"><a href="9-importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>9.2</b> Comma Separated Data</a></li>
 <li class="chapter" data-level="9.3" data-path="9-importing-data.html"><a href="9-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>9.3</b> MS Excel</a></li>
-<li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.4</b> Exercises</a></li>
+<li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#multiple-files"><i class="fa fa-check"></i><b>9.4</b> Multiple files</a></li>
+<li class="chapter" data-level="9.5" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="10-functions-1.html"><a href="10-functions-1.html"><i class="fa fa-check"></i><b>10</b> Functions</a><ul>
 <li class="chapter" data-level="10.1" data-path="10-functions-1.html"><a href="10-functions-1.html#basic-function-definition"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
@@ -341,6 +342,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.4" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>14.4</b> Mathematical Notation</a></li>
 <li class="chapter" data-level="14.5" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>14.5</b> Geographic Maps</a><ul>
 <li class="chapter" data-level="14.5.1" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>14.5.1</b> Package <code>maps</code></a></li>
+<li class="chapter" data-level="14.5.2" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#packages-sf-and-rnaturalearth"><i class="fa fa-check"></i><b>14.5.2</b> Packages <code>sf</code> and <code>rnaturalearth</code></a></li>
+<li class="chapter" data-level="14.5.3" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#package-leaflet"><i class="fa fa-check"></i><b>14.5.3</b> Package <code>leaflet</code></a></li>
 </ul></li>
 <li class="chapter" data-level="14.6" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>14.6</b> Exercises</a></li>
 </ul></li>
@@ -411,9 +414,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="api-data-queries" class="section level1">
 <h1><span class="header-section-number">Chapter 17</span> API Data Queries</h1>
-<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="17-api-data-queries.html#cb765-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb765-2"><a href="17-api-data-queries.html#cb765-2"></a><span class="kw">library</span>(censusapi)</span>
-<span id="cb765-3"><a href="17-api-data-queries.html#cb765-3"></a><span class="kw">library</span>(jsonlite)  </span></code></pre></div>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb771-1"><a href="17-api-data-queries.html#cb771-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb771-2"><a href="17-api-data-queries.html#cb771-2"></a><span class="kw">library</span>(censusapi)</span>
+<span id="cb771-3"><a href="17-api-data-queries.html#cb771-3"></a><span class="kw">library</span>(jsonlite)  </span></code></pre></div>
 <p>With a standard database connection, there is quite a lot we can do. For example we could insert incorrect rows into tables, or even <a href="https://xkcd.com/327/">delete whole tables</a>. Many organizations that deliver data to clients require a way to minimize the types of data base actions that are allowed. For example, consider Twitter. Twitter clients need to connect to the Twitter database, sign in, and download the latest tweets from whomever they follow and accept a database input that adds a tweet from the signed in user. However, the client must not be able to update or insert tweets from somebody else, and to prevent Denial-Of-Service attacks, there should be some limit to the number of rows of information that we ask for. Furthermore, the client shouldn’t have to remember the details of how the data is stored and changes to the database configuration should be completely invisible to clients.</p>
 <p>Application Program Interfaces (APIs) are the specification for how two programs will interface. An API that is well thought out and documented is wonderful to use. In a data query situation, the API will define how we submit a query and the manner in which the result will be returned. Web API queries are usually designed so that the client visits some web page and includes as part of the address, additional arguments that will be used to create a query. The results of the query are then rendered as a very simple web page.</p>
 <div id="web-interface" class="section level2">
@@ -435,15 +438,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">17.2</span> R API Interfaces</h2>
 <p>While it is helpful to understand how the web API works, it would be nice to not have to worry about some of the fiddly aspects of parsing the result into a data frame. There are many R packages that provide a convenient interface to some database API. For our US Census Bureau example, we’ll use the R package <code>censusapi</code>. You should read the <a href="https://github.com/hrecht/censusapi">documentation</a> as well. It looks like there is another package, <code>tidycensus</code> that might be even better.</p>
 <p>The Census Bureau wants to identify which developers are accessing their data and you are required to sign up for a <a href="https://api.census.gov/data/key_signup.html">Census Key</a>. It is easy to give them your email and they’ll email you a character string that you’ll use for the rest of these examples.</p>
-<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="17-api-data-queries.html#cb766-1"></a><span class="co"># I got a Census API key from https://api.census.gov/data/key_signup.html </span></span>
-<span id="cb766-2"><a href="17-api-data-queries.html#cb766-2"></a><span class="co"># and saved it as Census_Key and use that in all the following examples...</span></span>
-<span id="cb766-3"><a href="17-api-data-queries.html#cb766-3"></a><span class="co"># </span></span>
-<span id="cb766-4"><a href="17-api-data-queries.html#cb766-4"></a><span class="co"># This query is the example query first given in the censusapi vignette.</span></span>
-<span id="cb766-5"><a href="17-api-data-queries.html#cb766-5"></a><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;timeseries/healthins/sahie&quot;</span>,</span>
-<span id="cb766-6"><a href="17-api-data-queries.html#cb766-6"></a>    <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&quot;NAME&quot;</span>, <span class="st">&quot;IPRCAT&quot;</span>, <span class="st">&quot;IPR_DESC&quot;</span>, <span class="st">&quot;PCTUI_PT&quot;</span>),      <span class="co"># Define the gets=</span></span>
-<span id="cb766-7"><a href="17-api-data-queries.html#cb766-7"></a>    <span class="dt">region =</span> <span class="st">&quot;state:01&quot;</span>,                                     <span class="co"># Define the for=</span></span>
-<span id="cb766-8"><a href="17-api-data-queries.html#cb766-8"></a>    <span class="dt">time =</span> <span class="dv">2017</span>,                                         </span>
-<span id="cb766-9"><a href="17-api-data-queries.html#cb766-9"></a>    <span class="dt">key =</span> Census_Key)</span></code></pre></div>
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="17-api-data-queries.html#cb772-1"></a><span class="co"># I got a Census API key from https://api.census.gov/data/key_signup.html </span></span>
+<span id="cb772-2"><a href="17-api-data-queries.html#cb772-2"></a><span class="co"># and saved it as Census_Key and use that in all the following examples...</span></span>
+<span id="cb772-3"><a href="17-api-data-queries.html#cb772-3"></a><span class="co"># </span></span>
+<span id="cb772-4"><a href="17-api-data-queries.html#cb772-4"></a><span class="co"># This query is the example query first given in the censusapi vignette.</span></span>
+<span id="cb772-5"><a href="17-api-data-queries.html#cb772-5"></a><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;timeseries/healthins/sahie&quot;</span>,</span>
+<span id="cb772-6"><a href="17-api-data-queries.html#cb772-6"></a>    <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&quot;NAME&quot;</span>, <span class="st">&quot;IPRCAT&quot;</span>, <span class="st">&quot;IPR_DESC&quot;</span>, <span class="st">&quot;PCTUI_PT&quot;</span>),      <span class="co"># Define the gets=</span></span>
+<span id="cb772-7"><a href="17-api-data-queries.html#cb772-7"></a>    <span class="dt">region =</span> <span class="st">&quot;state:01&quot;</span>,                                     <span class="co"># Define the for=</span></span>
+<span id="cb772-8"><a href="17-api-data-queries.html#cb772-8"></a>    <span class="dt">time =</span> <span class="dv">2017</span>,                                         </span>
+<span id="cb772-9"><a href="17-api-data-queries.html#cb772-9"></a>    <span class="dt">key =</span> Census_Key)</span></code></pre></div>
 <pre><code>##   time state    NAME IPRCAT                IPR_DESC PCTUI_PT
 ## 1 2017    01 Alabama      0             All Incomes     11.0
 ## 2 2017    01 Alabama      1      &lt;= 200% of Poverty     18.3
@@ -456,17 +459,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="population-estimates" class="section level3">
 <h3><span class="header-section-number">17.2.1</span> Population Estimates</h3>
 <p>The Census Bureau’s Population Estimation Program (PEP) is responsible for population estimates. On the <a href="https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html">Census Population API page</a>, it looks like I need to use the <code>pep/population</code> tables.</p>
-<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="17-api-data-queries.html#cb768-1"></a><span class="co"># Code to grab county level population levels.</span></span>
-<span id="cb768-2"><a href="17-api-data-queries.html#cb768-2"></a>County_Populations &lt;-<span class="st"> </span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;pep/population&quot;</span>,</span>
-<span id="cb768-3"><a href="17-api-data-queries.html#cb768-3"></a>  <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&#39;STATE&#39;</span>,<span class="st">&#39;COUNTY&#39;</span>,<span class="st">&#39;GEONAME&#39;</span>,<span class="st">&#39;DATE_CODE&#39;</span>,<span class="st">&#39;DATE_DESC&#39;</span>,<span class="st">&#39;POP&#39;</span>),</span>
-<span id="cb768-4"><a href="17-api-data-queries.html#cb768-4"></a>  <span class="dt">vintage =</span> <span class="st">&#39;2018&#39;</span>,</span>
-<span id="cb768-5"><a href="17-api-data-queries.html#cb768-5"></a>  <span class="dt">regionin =</span> <span class="st">&#39;state:04&#39;</span>,  <span class="co"># Just Arizona, which is coded as 04. I don&#39;t know why...</span></span>
-<span id="cb768-6"><a href="17-api-data-queries.html#cb768-6"></a>  <span class="dt">region =</span> <span class="st">&#39;county:*&#39;</span>,    <span class="co"># All the counties</span></span>
-<span id="cb768-7"><a href="17-api-data-queries.html#cb768-7"></a>  <span class="dt">DATE_CODE=</span><span class="dv">1</span>,            <span class="co"># 2010, Leave this out to get each year 2010-2018</span></span>
-<span id="cb768-8"><a href="17-api-data-queries.html#cb768-8"></a>    <span class="dt">key =</span> Census_Key,</span>
-<span id="cb768-9"><a href="17-api-data-queries.html#cb768-9"></a>  )</span>
-<span id="cb768-10"><a href="17-api-data-queries.html#cb768-10"></a></span>
-<span id="cb768-11"><a href="17-api-data-queries.html#cb768-11"></a>County_Populations <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="17-api-data-queries.html#cb774-1"></a><span class="co"># Code to grab county level population levels.</span></span>
+<span id="cb774-2"><a href="17-api-data-queries.html#cb774-2"></a>County_Populations &lt;-<span class="st"> </span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;pep/population&quot;</span>,</span>
+<span id="cb774-3"><a href="17-api-data-queries.html#cb774-3"></a>  <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&#39;STATE&#39;</span>,<span class="st">&#39;COUNTY&#39;</span>,<span class="st">&#39;GEONAME&#39;</span>,<span class="st">&#39;DATE_CODE&#39;</span>,<span class="st">&#39;DATE_DESC&#39;</span>,<span class="st">&#39;POP&#39;</span>),</span>
+<span id="cb774-4"><a href="17-api-data-queries.html#cb774-4"></a>  <span class="dt">vintage =</span> <span class="st">&#39;2018&#39;</span>,</span>
+<span id="cb774-5"><a href="17-api-data-queries.html#cb774-5"></a>  <span class="dt">regionin =</span> <span class="st">&#39;state:04&#39;</span>,  <span class="co"># Just Arizona, which is coded as 04. I don&#39;t know why...</span></span>
+<span id="cb774-6"><a href="17-api-data-queries.html#cb774-6"></a>  <span class="dt">region =</span> <span class="st">&#39;county:*&#39;</span>,    <span class="co"># All the counties</span></span>
+<span id="cb774-7"><a href="17-api-data-queries.html#cb774-7"></a>  <span class="dt">DATE_CODE=</span><span class="dv">1</span>,            <span class="co"># 2010, Leave this out to get each year 2010-2018</span></span>
+<span id="cb774-8"><a href="17-api-data-queries.html#cb774-8"></a>    <span class="dt">key =</span> Census_Key,</span>
+<span id="cb774-9"><a href="17-api-data-queries.html#cb774-9"></a>  )</span>
+<span id="cb774-10"><a href="17-api-data-queries.html#cb774-10"></a></span>
+<span id="cb774-11"><a href="17-api-data-queries.html#cb774-11"></a>County_Populations <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>)  </span></code></pre></div>
 <pre><code>##   state county STATE COUNTY                  GEONAME DATE_CODE
 ## 1    04    001    04    001   Apache County, Arizona         1
 ## 2    04    003    04    003  Cochise County, Arizona         1
@@ -482,13 +485,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 4/1/2010 Census population  37220           1
 ## 6 4/1/2010 Census population   8437           1</code></pre>
 <p>I was looking for population divided up by Race and Sex and it took awhile to figure out that I want to use PEP’s Demographic Characteristics Estimates by Age Groups tables <code>pep/charagegroups</code>. From there I looked at some of the examples and variables.</p>
-<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="17-api-data-queries.html#cb770-1"></a>County_Populations_by_AgeGender &lt;-<span class="st"> </span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;pep/charagegroups&quot;</span>,</span>
-<span id="cb770-2"><a href="17-api-data-queries.html#cb770-2"></a>  <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&#39;GEONAME&#39;</span>,<span class="st">&#39;DATE_CODE&#39;</span>,<span class="st">&#39;AGEGROUP&#39;</span>,<span class="st">&#39;SEX&#39;</span>,<span class="st">&#39;DATE_DESC&#39;</span>,<span class="st">&#39;POP&#39;</span>),</span>
-<span id="cb770-3"><a href="17-api-data-queries.html#cb770-3"></a>  <span class="dt">vintage =</span> <span class="st">&#39;2018&#39;</span>,</span>
-<span id="cb770-4"><a href="17-api-data-queries.html#cb770-4"></a>  <span class="dt">region =</span> <span class="st">&#39;state:04&#39;</span>, </span>
-<span id="cb770-5"><a href="17-api-data-queries.html#cb770-5"></a>    <span class="dt">key =</span> Census_Key)</span>
-<span id="cb770-6"><a href="17-api-data-queries.html#cb770-6"></a></span>
-<span id="cb770-7"><a href="17-api-data-queries.html#cb770-7"></a>County_Populations_by_AgeGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="17-api-data-queries.html#cb776-1"></a>County_Populations_by_AgeGender &lt;-<span class="st"> </span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;pep/charagegroups&quot;</span>,</span>
+<span id="cb776-2"><a href="17-api-data-queries.html#cb776-2"></a>  <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&#39;GEONAME&#39;</span>,<span class="st">&#39;DATE_CODE&#39;</span>,<span class="st">&#39;AGEGROUP&#39;</span>,<span class="st">&#39;SEX&#39;</span>,<span class="st">&#39;DATE_DESC&#39;</span>,<span class="st">&#39;POP&#39;</span>),</span>
+<span id="cb776-3"><a href="17-api-data-queries.html#cb776-3"></a>  <span class="dt">vintage =</span> <span class="st">&#39;2018&#39;</span>,</span>
+<span id="cb776-4"><a href="17-api-data-queries.html#cb776-4"></a>  <span class="dt">region =</span> <span class="st">&#39;state:04&#39;</span>, </span>
+<span id="cb776-5"><a href="17-api-data-queries.html#cb776-5"></a>    <span class="dt">key =</span> Census_Key)</span>
+<span id="cb776-6"><a href="17-api-data-queries.html#cb776-6"></a></span>
+<span id="cb776-7"><a href="17-api-data-queries.html#cb776-7"></a>County_Populations_by_AgeGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##   state GEONAME DATE_CODE AGEGROUP SEX                  DATE_DESC     POP
 ## 1    04 Arizona         1        0   0 4/1/2010 Census population 6392017
 ## 2    04 Arizona         1        0   1 4/1/2010 Census population 3175823
@@ -498,8 +501,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6    04 Arizona         1        1   2 4/1/2010 Census population  223153</code></pre>
 <p>As I played around with it, it seems that I can grab Race and Sex information as well. But unfortunately the categories are numerically coded so somehow we have to figure out which are which. It looks like <code>SEX=0</code> is both but I have no idea which is men and which is women. Still looking at the <a href="https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html">Census Population API page</a> and following the link about the variables for demographic characteristics, we can click through each variable to see the .json file that defines the factor levels.</p>
 <p>We can also import those into R directly</p>
-<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="17-api-data-queries.html#cb772-1"></a><span class="co"># What variables are Available?</span></span>
-<span id="cb772-2"><a href="17-api-data-queries.html#cb772-2"></a>censusapi<span class="op">::</span><span class="kw">listCensusMetadata</span>(<span class="dt">name=</span><span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dt">vintage=</span><span class="dv">2018</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="17-api-data-queries.html#cb778-1"></a><span class="co"># What variables are Available?</span></span>
+<span id="cb778-2"><a href="17-api-data-queries.html#cb778-2"></a>censusapi<span class="op">::</span><span class="kw">listCensusMetadata</span>(<span class="dt">name=</span><span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dt">vintage=</span><span class="dv">2018</span>)</span></code></pre></div>
 <pre><code>##          name                             label          required
 ## 1   DATE_CODE                              Date default displayed
 ## 2      SUMLEV                     Summary Level              &lt;NA&gt;
@@ -536,27 +539,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 15        string   N/A     0    &lt;NA&gt;
 ## 16          &lt;NA&gt;   N/A     0    &lt;NA&gt;
 ## 17           int   N/A     0    &lt;NA&gt;</code></pre>
-<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="17-api-data-queries.html#cb774-1"></a><span class="co"># I can&#39;t figure out how to make the censusapi package import the factor levels. </span></span>
-<span id="cb774-2"><a href="17-api-data-queries.html#cb774-2"></a><span class="co"># So I&#39;ll just import the levels directly from the webpage .json file and then </span></span>
-<span id="cb774-3"><a href="17-api-data-queries.html#cb774-3"></a><span class="co"># clean it up into a nice data frame.</span></span>
-<span id="cb774-4"><a href="17-api-data-queries.html#cb774-4"></a>CensusFactorLevels &lt;-<span class="st"> </span><span class="cf">function</span>(name, vintage, variable){</span>
-<span id="cb774-5"><a href="17-api-data-queries.html#cb774-5"></a>  file &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&#39;https://api.census.gov/data/&#39;</span>,vintage,<span class="st">&#39;/&#39;</span>,name,</span>
-<span id="cb774-6"><a href="17-api-data-queries.html#cb774-6"></a>                <span class="st">&#39;/variables/&#39;</span>,variable,<span class="st">&#39;.json&#39;</span>)</span>
-<span id="cb774-7"><a href="17-api-data-queries.html#cb774-7"></a>  Meta &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">read_json</span>(file) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb774-8"><a href="17-api-data-queries.html#cb774-8"></a><span class="st">    </span>.[[<span class="st">&#39;values&#39;</span>]] <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="st">&#39;item&#39;</span>]] <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb774-9"><a href="17-api-data-queries.html#cb774-9"></a><span class="st">    </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span>tibble<span class="op">::</span><span class="kw">enframe</span>() </span>
-<span id="cb774-10"><a href="17-api-data-queries.html#cb774-10"></a>  <span class="kw">colnames</span>(Meta) &lt;-<span class="st"> </span><span class="kw">c</span>(variable, <span class="kw">str_c</span>(variable,<span class="st">&#39;_DESC&#39;</span>))</span>
-<span id="cb774-11"><a href="17-api-data-queries.html#cb774-11"></a>  <span class="kw">return</span>(Meta)</span>
-<span id="cb774-12"><a href="17-api-data-queries.html#cb774-12"></a>}</span>
-<span id="cb774-13"><a href="17-api-data-queries.html#cb774-13"></a></span>
-<span id="cb774-14"><a href="17-api-data-queries.html#cb774-14"></a><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;SEX&#39;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="17-api-data-queries.html#cb780-1"></a><span class="co"># I can&#39;t figure out how to make the censusapi package import the factor levels. </span></span>
+<span id="cb780-2"><a href="17-api-data-queries.html#cb780-2"></a><span class="co"># So I&#39;ll just import the levels directly from the webpage .json file and then </span></span>
+<span id="cb780-3"><a href="17-api-data-queries.html#cb780-3"></a><span class="co"># clean it up into a nice data frame.</span></span>
+<span id="cb780-4"><a href="17-api-data-queries.html#cb780-4"></a>CensusFactorLevels &lt;-<span class="st"> </span><span class="cf">function</span>(name, vintage, variable){</span>
+<span id="cb780-5"><a href="17-api-data-queries.html#cb780-5"></a>  file &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&#39;https://api.census.gov/data/&#39;</span>,vintage,<span class="st">&#39;/&#39;</span>,name,</span>
+<span id="cb780-6"><a href="17-api-data-queries.html#cb780-6"></a>                <span class="st">&#39;/variables/&#39;</span>,variable,<span class="st">&#39;.json&#39;</span>)</span>
+<span id="cb780-7"><a href="17-api-data-queries.html#cb780-7"></a>  Meta &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">read_json</span>(file) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb780-8"><a href="17-api-data-queries.html#cb780-8"></a><span class="st">    </span>.[[<span class="st">&#39;values&#39;</span>]] <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="st">&#39;item&#39;</span>]] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb780-9"><a href="17-api-data-queries.html#cb780-9"></a><span class="st">    </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span>tibble<span class="op">::</span><span class="kw">enframe</span>() </span>
+<span id="cb780-10"><a href="17-api-data-queries.html#cb780-10"></a>  <span class="kw">colnames</span>(Meta) &lt;-<span class="st"> </span><span class="kw">c</span>(variable, <span class="kw">str_c</span>(variable,<span class="st">&#39;_DESC&#39;</span>))</span>
+<span id="cb780-11"><a href="17-api-data-queries.html#cb780-11"></a>  <span class="kw">return</span>(Meta)</span>
+<span id="cb780-12"><a href="17-api-data-queries.html#cb780-12"></a>}</span>
+<span id="cb780-13"><a href="17-api-data-queries.html#cb780-13"></a></span>
+<span id="cb780-14"><a href="17-api-data-queries.html#cb780-14"></a><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;SEX&#39;</span>) </span></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   SEX   SEX_DESC  
 ##   &lt;chr&gt; &lt;chr&gt;     
 ## 1 0     Both Sexes
 ## 2 1     Male      
 ## 3 2     Female</code></pre>
-<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="17-api-data-queries.html#cb776-1"></a><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;RACE&#39;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="17-api-data-queries.html#cb782-1"></a><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;RACE&#39;</span>) </span></code></pre></div>
 <pre><code>## # A tibble: 12 x 2
 ##    RACE  RACE_DESC                                                         
 ##    &lt;chr&gt; &lt;chr&gt;                                                             

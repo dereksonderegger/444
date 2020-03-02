@@ -185,12 +185,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Tragedy On Great Slave Lake\n"                                                             
-## [2] "\nI Criticized 'South Park' For Spawning A Generation Of Trolls. And So The Trolls Came For Me\n"
-## [3] "\nDriver Brake Checks Another Car, Ends Up Setting Off Chaotic Chain Of Events\n"                
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                     
-## [5] "\nThis Is What Years, Maybe Decades, Of Cable Mismanagement Looks Like\n"                        
-## [6] "\nHow Google Autocomplete Describes Every State In America\n"
+## [1] "\nThe American Restaurant Is On Life Support\n"                                       
+## [2] "\nHow Rebekah Neumann's Search For Enlightenment Fueled WeWork's Collapse\n"          
+## [3] "\nGamer Runs His Old PS1 Games In 4K On His PC, With Beautiful Results\n"             
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                          
+## [5] "\nBaseball Superstar Mike Trout Goes To The Driving Range, Hits The Ball Into Orbit\n"
+## [6] "\nHow Bloomberg Buys The Silence Of Unhappy Employees\n"
 ```
 
 
@@ -205,12 +205,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.mensjournal.com/features/the-tragic-end-of-an-ill-fated-solo-northern-journey-on-great-slave-lake/?utm_source=digg"          
-## [2] "https://www.washingtonpost.com/opinions/2020/02/21/i-criticized-south-park-spawning-generation-trolls-so-trolls-came-me/?utm_source=digg"
-## [3] "/video/brake-check-car-change-lanes-crash"                                                                                               
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                             
-## [5] "/video/russian-cable-tangle"                                                                                                             
-## [6] "/2020/google-autocomplete-american-states"
+## [1] "https://thecounter.org/why-restaurants-are-closing-nyc-los-angeles/?utm_source=digg"                                
+## [2] "https://www.bustle.com/p/rebekah-neumanns-search-for-enlightenment-fueled-weworks-collapse-22581874?utm_source=digg"
+## [3] "/video/playstation-1-games-4k"                                                                                      
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                        
+## [5] "/video/mike-trout-golf-drive"                                                                                       
+## [6] "https://www.nytimes.com/2020/03/02/business/michael-bloomberg-nda.html?utm_source=digg"
 ```
 
 

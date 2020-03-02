@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-02-21" />
+<meta name="date" content="2020-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -266,7 +266,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="9-importing-data.html"><a href="9-importing-data.html#working-directory"><i class="fa fa-check"></i><b>9.1</b> Working directory</a></li>
 <li class="chapter" data-level="9.2" data-path="9-importing-data.html"><a href="9-importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>9.2</b> Comma Separated Data</a></li>
 <li class="chapter" data-level="9.3" data-path="9-importing-data.html"><a href="9-importing-data.html#ms-excel"><i class="fa fa-check"></i><b>9.3</b> MS Excel</a></li>
-<li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.4</b> Exercises</a></li>
+<li class="chapter" data-level="9.4" data-path="9-importing-data.html"><a href="9-importing-data.html#multiple-files"><i class="fa fa-check"></i><b>9.4</b> Multiple files</a></li>
+<li class="chapter" data-level="9.5" data-path="9-importing-data.html"><a href="9-importing-data.html#exercises-9"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="10-functions-1.html"><a href="10-functions-1.html"><i class="fa fa-check"></i><b>10</b> Functions</a><ul>
 <li class="chapter" data-level="10.1" data-path="10-functions-1.html"><a href="10-functions-1.html#basic-function-definition"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
@@ -341,6 +342,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.4" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>14.4</b> Mathematical Notation</a></li>
 <li class="chapter" data-level="14.5" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>14.5</b> Geographic Maps</a><ul>
 <li class="chapter" data-level="14.5.1" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#package-maps"><i class="fa fa-check"></i><b>14.5.1</b> Package <code>maps</code></a></li>
+<li class="chapter" data-level="14.5.2" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#packages-sf-and-rnaturalearth"><i class="fa fa-check"></i><b>14.5.2</b> Packages <code>sf</code> and <code>rnaturalearth</code></a></li>
+<li class="chapter" data-level="14.5.3" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#package-leaflet"><i class="fa fa-check"></i><b>14.5.3</b> Package <code>leaflet</code></a></li>
 </ul></li>
 <li class="chapter" data-level="14.6" data-path="14-graphing-part-ii.html"><a href="14-graphing-part-ii.html#exercises-14"><i class="fa fa-check"></i><b>14.6</b> Exercises</a></li>
 </ul></li>
@@ -469,21 +472,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="6-flow-control.html#cb210-1"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Type =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">Value=</span><span class="kw">rnorm</span>(<span class="dv">8</span>) )</span>
 <span id="cb210-2"><a href="6-flow-control.html#cb210-2"></a>df</span></code></pre></div>
 <pre><code>##   Type      Value
-## 1    A  1.0042242
-## 2    A  0.7874783
-## 3    B  0.5275215
-## 4    B -0.1316123
-## 5    C  1.7858772
-## 6    C -0.9401709
-## 7    D  0.1415184
-## 8    D -1.4881822</code></pre>
+## 1    A  0.5486592
+## 2    A -1.8367782
+## 3    B -1.9523451
+## 4    B -1.1069204
+## 5    C -0.5466451
+## 6    C  2.8709137
+## 7    D -0.6727722
+## 8    D -0.3837167</code></pre>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="6-flow-control.html#cb212-1"></a><span class="co"># df %&gt;% filter( Type == &#39;A&#39; | Type == &#39;B&#39; )</span></span>
 <span id="cb212-2"><a href="6-flow-control.html#cb212-2"></a>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) )   <span class="co"># Only rows with Type == &#39;A&#39; or Type ==&#39;B&#39;</span></span></code></pre></div>
 <pre><code>##   Type      Value
-## 1    A  1.0042242
-## 2    A  0.7874783
-## 3    B  0.5275215
-## 4    B -0.1316123</code></pre>
+## 1    A  0.5486592
+## 2    A -1.8367782
+## 3    B -1.9523451
+## 4    B -1.1069204</code></pre>
 </div>
 <div id="decision-statements" class="section level2">
 <h2><span class="header-section-number">6.2</span> Decision statements</h2>
@@ -551,7 +554,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="6-flow-control.html#cb221-1"></a><span class="co"># Flip the coin, and we get a 0 or 1</span></span>
 <span id="cb221-2"><a href="6-flow-control.html#cb221-2"></a>result &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</span>
 <span id="cb221-3"><a href="6-flow-control.html#cb221-3"></a>result</span></code></pre></div>
-<pre><code>## [1] 1</code></pre>
+<pre><code>## [1] 0</code></pre>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="6-flow-control.html#cb223-1"></a><span class="co"># convert the 0/1 to Tail/Head</span></span>
 <span id="cb223-2"><a href="6-flow-control.html#cb223-2"></a><span class="cf">if</span>( result <span class="op">==</span><span class="st"> </span><span class="dv">0</span> ){</span>
 <span id="cb223-3"><a href="6-flow-control.html#cb223-3"></a>  result &lt;-<span class="st"> &#39;Tail&#39;</span></span>
@@ -560,9 +563,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb223-6"><a href="6-flow-control.html#cb223-6"></a>  result &lt;-<span class="st"> &#39;Head&#39;</span></span>
 <span id="cb223-7"><a href="6-flow-control.html#cb223-7"></a>  <span class="kw">print</span>(<span class="st">&quot;In the else part!&quot;</span>) </span>
 <span id="cb223-8"><a href="6-flow-control.html#cb223-8"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;In the else part!&quot;</code></pre>
+<pre><code>## [1] &quot; in the if statement, got a Tail! &quot;</code></pre>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="6-flow-control.html#cb225-1"></a>result</span></code></pre></div>
-<pre><code>## [1] &quot;Head&quot;</code></pre>
+<pre><code>## [1] &quot;Tail&quot;</code></pre>
 <p>Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable <code>result</code> changes as you execute the code repeatedly.</p>
 <p>To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:</p>
 <ul>
@@ -584,7 +587,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb227-13"><a href="6-flow-control.html#cb227-13"></a></span>
 <span id="cb227-14"><a href="6-flow-control.html#cb227-14"></a><span class="co"># print the resulting p-value</span></span>
 <span id="cb227-15"><a href="6-flow-control.html#cb227-15"></a>p.value</span></code></pre></div>
-<pre><code>## [1] 3.769835e-08</code></pre>
+<pre><code>## [1] 8.005837e-09</code></pre>
 <p>This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the <code>t.test()</code> function.</p>
 <p>Finally we can nest if else statements together to allow you to write code that has many different execution routes.</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="6-flow-control.html#cb229-1"></a><span class="co"># randomly grab a number between 0,5 and round it up to 1,2, ..., 5</span></span>
@@ -599,7 +602,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb229-10"><a href="6-flow-control.html#cb229-10"></a>  <span class="co"># if birth.order is anything other than 1, 2 or 3</span></span>
 <span id="cb229-11"><a href="6-flow-control.html#cb229-11"></a>  <span class="kw">print</span>(<span class="st">&#39;No more unfounded generalizations!&#39;</span>)</span>
 <span id="cb229-12"><a href="6-flow-control.html#cb229-12"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;The third child was spoiled&quot;</code></pre>
+<pre><code>## [1] &quot;The second child was ignored&quot;</code></pre>
 </div>
 </div>
 <div id="loops" class="section level2">
