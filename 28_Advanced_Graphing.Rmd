@@ -11,6 +11,8 @@ if( length(pkgs > 0)){
     detach(pkgs[i], character.only = TRUE, force=TRUE)
   }
 }
+
+knitr::opts_chunk$set(cache=TRUE, fig.height=4, fig.width=6)
 ```
 
 
@@ -19,13 +21,15 @@ library(tidyverse)   # loading ggplot2 and dplyr
 library(viridis)     # The viridis color schemes
 library(latex2exp)   # For plotting math notation
 
+library(plotly)     # for interactive hover-text
+
 library(maps)              # package with data about country borders
 library(sf)                # Simple Features for GIS
 library(rnaturalearth)     # package with detailed information about country &
 library(rnaturalearthdata) # state/province borders, and geographical features
-
 # devtools::install_github('ropensci/rnaturalearthhires')
 library(rnaturalearthhires)
+library(leaflet)
 ```
 
 We have already seen how to create many basic graphs using the `ggplot2` package. However we haven't addressed many common scenarios. In this chapter we cover many graphing tasks that occur.
@@ -308,7 +312,30 @@ ggplot(foo, aes(x=x, y=y) ) +
   geom_label( aes(label=label2), parse=TRUE )   # parse=TRUE forces an expression interpretation 
 ```
 
+## Interactive plots with `plotly`
 
+Plotly is technical computing company that specializes in data visualization. They have created an open source JavaScript library to produce graphs, which is confusingly referred to as plotly. Because plotly is JavaScript, and RStudio's Viewer pane is actually a web browser, it easily provides interactive abilities in RStudios Viewer pane. 
+
+A good tutorial book about using plotly was written by [Carson Sievert](https://plotly-r.com).
+
+```{r}
+P1 <- trees %>%
+  ggplot(aes(y=Volume, x=Height)) +
+  geom_point()
+
+P1 %>% plotly::ggplotly()
+```
+
+We can use the widgets to zoom in and out of the graph. Notice that as we hover over the point, it tells us the x/y coordinates. To add information to the hover-text, we just need to add a `text` aesthetic mapping to the plot. 
+
+```{r}
+P1 <- trees %>%
+  mutate(Obs_ID = paste('Obs Row:', row_number()) ) %>%
+  ggplot(aes(y=Volume, x=Height, text=Obs_ID)) +
+  geom_point()
+
+P1 %>% ggplotly()
+```
 
 ## Geographic Maps
 
@@ -413,6 +440,40 @@ Ghana %>% ggplot() +
 ### Package `leaflet`
 
 Leaflet is a popular open-source JavaScript library for interactive maps. The package `leaflet` provides a nice interface to this package. The [tutorial](https://rstudio.github.io/leaflet/) for this package is quite good.
+
+The basic work flow is:
+
+1. Create a map widget by calling leaflet().
+2. Create and add layers (i.e., features) to the map by using layer functions 
+    a) `addTiles`
+    b) `addMarkers` 
+    c) `addPolygons`
+3. Repeat step 2 as desired.
+4. Print the map widget to display it.
+
+```{r}
+map <- leaflet() %>%  # Build a base map
+  addTiles()  %>%     # Add the default tiles 
+  addMarkers(lng=-1*(111+37/60+52/3600), lat=35+11/60+57/3600, popup="Flagstaff, AZ")
+map %>% print()
+```
+
+Because we have added only one marker, then leaflet has decided to zoom in as much as possible. If we had multiple markers, it would have scaled the map to include all of them.
+
+As an example of an alternative, I've downloaded a GIS shape file of forest service administrative area boundaries.
+
+```{r}
+# The shape file that I downloaded had the CRS format messed up. I need to 
+# indicate the projection so that leaflet doesn't complain.
+Forest_Service <- 
+  sf::st_read('data-raw/Forest_Service_Boundaries/S_USA.AdministrativeRegion.shp') %>%
+  sf::st_transform('+proj=longlat +datum=WGS84')
+
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(data = Forest_Service) %>%
+  setView(-93, 42, zoom=3)
+```
 
 
 ## Exercises

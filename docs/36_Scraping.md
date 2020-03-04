@@ -185,12 +185,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe American Restaurant Is On Life Support\n"                                       
-## [2] "\nHow Rebekah Neumann's Search For Enlightenment Fueled WeWork's Collapse\n"          
-## [3] "\nGamer Runs His Old PS1 Games In 4K On His PC, With Beautiful Results\n"             
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                          
-## [5] "\nBaseball Superstar Mike Trout Goes To The Driving Range, Hits The Ball Into Orbit\n"
-## [6] "\nHow Bloomberg Buys The Silence Of Unhappy Employees\n"
+## [1] "\nThe Official Numbers On Coronavirus Are Wrong, And Everyone Knows It\n"                                     
+## [2] "\nBeginner's Luck: How A Video Gambling Company Worked The Odds And Took Over A State\n"                      
+## [3] "\nHouse Cat Stands Its Ground In Face-Off With A Bobcat\n"                                                    
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                  
+## [5] "\nProfane Irish Storyteller Gets Called Out For Swearing By Young Audience Member And Has The Best Reaction\n"
+## [6] "\nBMW Gets New Logo And The Difference Is Clear\n"
 ```
 
 
@@ -205,12 +205,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://thecounter.org/why-restaurants-are-closing-nyc-los-angeles/?utm_source=digg"                                
-## [2] "https://www.bustle.com/p/rebekah-neumanns-search-for-enlightenment-fueled-weworks-collapse-22581874?utm_source=digg"
-## [3] "/video/playstation-1-games-4k"                                                                                      
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                        
-## [5] "/video/mike-trout-golf-drive"                                                                                       
-## [6] "https://www.nytimes.com/2020/03/02/business/michael-bloomberg-nda.html?utm_source=digg"
+## [1] "https://www.theatlantic.com/technology/archive/2020/03/how-many-americans-really-have-coronavirus/607348/?utm_source=digg"
+## [2] "https://www.propublica.org/article/the-bad-bet-illinois-video-gambling-accel-entertainment#170536?utm_source=digg"        
+## [3] "/video/house-cat-is-completely-petrified-in-standoff-with-a-bobcat"                                                       
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                              
+## [5] "/video/irish-storyteller-cleans-up-language"                                                                              
+## [6] "https://www.caranddriver.com/news/a31106446/bmw-roundel-new-logo/?utm_source=digg"
 ```
 
 
