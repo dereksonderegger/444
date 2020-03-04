@@ -118,15 +118,15 @@ df
 ```
 
 ```
-##   Type      Value
-## 1    A -1.4455697
-## 2    A -1.0728705
-## 3    B  0.4466352
-## 4    B -0.8261017
-## 5    C  1.0916998
-## 6    C  0.6992454
-## 7    D -1.6787219
-## 8    D -1.3050481
+##   Type        Value
+## 1    A  0.004861483
+## 2    A  0.380896172
+## 3    B  0.823686965
+## 4    B -0.382139653
+## 5    C -0.758418997
+## 6    C -0.401237074
+## 7    D -0.272069156
+## 8    D -0.768554274
 ```
 
 ```r
@@ -135,11 +135,11 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 ```
 
 ```
-##   Type      Value
-## 1    A -1.4455697
-## 2    A -1.0728705
-## 3    B  0.4466352
-## 4    B -0.8261017
+##   Type        Value
+## 1    A  0.004861483
+## 2    A  0.380896172
+## 3    B  0.823686965
+## 4    B -0.382139653
 ```
 
 
@@ -247,7 +247,7 @@ result
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 ```r
@@ -262,7 +262,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] "In the else part!"
+## [1] " in the if statement, got a Tail! "
 ```
 
 ```r
@@ -270,7 +270,7 @@ result
 ```
 
 ```
-## [1] "Head"
+## [1] "Tail"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -302,7 +302,7 @@ p.value
 ```
 
 ```
-## [1] 7.99757e-08
+## [1] 2.463392e-07
 ```
 
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.
@@ -327,7 +327,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "No more unfounded generalizations!"
+## [1] "The first child had more rules to follow"
 ```
 
 

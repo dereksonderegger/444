@@ -320,7 +320,7 @@ A good tutorial book about using plotly was written by [Carson Sievert](https://
 
 The simple version is that you can take a ggplot graph and pipe it into the `ggplotly` and it will be rendered into an interactive version of the graph.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 P1 <- trees %>%
   ggplot(aes(y=Volume, x=Height)) +
   geom_point()
@@ -335,7 +335,7 @@ P1 %>% plotly::ggplotly() %>%
 
 We can use the widgets to zoom in and out of the graph. Notice that as we hover over the point, it tells us the x/y coordinates. To add information to the hover-text, we just need to add a `text` aesthetic mapping to the plot. 
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 P1 <- trees %>%
   mutate(Obs_ID = paste('Obs Row:', row_number()) ) %>%
   ggplot(aes(y=Volume, x=Height, text=Obs_ID)) +
