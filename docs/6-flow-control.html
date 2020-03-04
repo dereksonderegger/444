@@ -480,22 +480,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Finally, I often need to figure out if a character string is in some set of values.</p>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="6-flow-control.html#cb210-1"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Type =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">Value=</span><span class="kw">rnorm</span>(<span class="dv">8</span>) )</span>
 <span id="cb210-2"><a href="6-flow-control.html#cb210-2"></a>df</span></code></pre></div>
-<pre><code>##   Type       Value
-## 1    A -1.91006633
-## 2    A  0.59449510
-## 3    B  0.07059712
-## 4    B  0.37900369
-## 5    C -1.82992871
-## 6    C -0.24872960
-## 7    D -0.95152592
-## 8    D  0.63382359</code></pre>
+<pre><code>##   Type      Value
+## 1    A -1.4455697
+## 2    A -1.0728705
+## 3    B  0.4466352
+## 4    B -0.8261017
+## 5    C  1.0916998
+## 6    C  0.6992454
+## 7    D -1.6787219
+## 8    D -1.3050481</code></pre>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="6-flow-control.html#cb212-1"></a><span class="co"># df %&gt;% filter( Type == &#39;A&#39; | Type == &#39;B&#39; )</span></span>
 <span id="cb212-2"><a href="6-flow-control.html#cb212-2"></a>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) )   <span class="co"># Only rows with Type == &#39;A&#39; or Type ==&#39;B&#39;</span></span></code></pre></div>
-<pre><code>##   Type       Value
-## 1    A -1.91006633
-## 2    A  0.59449510
-## 3    B  0.07059712
-## 4    B  0.37900369</code></pre>
+<pre><code>##   Type      Value
+## 1    A -1.4455697
+## 2    A -1.0728705
+## 3    B  0.4466352
+## 4    B -0.8261017</code></pre>
 </div>
 <div id="decision-statements" class="section level2">
 <h2><span class="header-section-number">6.2</span> Decision statements</h2>
@@ -596,7 +596,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb227-13"><a href="6-flow-control.html#cb227-13"></a></span>
 <span id="cb227-14"><a href="6-flow-control.html#cb227-14"></a><span class="co"># print the resulting p-value</span></span>
 <span id="cb227-15"><a href="6-flow-control.html#cb227-15"></a>p.value</span></code></pre></div>
-<pre><code>## [1] 1.496479e-09</code></pre>
+<pre><code>## [1] 7.99757e-08</code></pre>
 <p>This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the <code>t.test()</code> function.</p>
 <p>Finally we can nest if else statements together to allow you to write code that has many different execution routes.</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="6-flow-control.html#cb229-1"></a><span class="co"># randomly grab a number between 0,5 and round it up to 1,2, ..., 5</span></span>

@@ -336,12 +336,12 @@ P1 %>% plotly::ggplotly() %>%
 We can use the widgets to zoom in and out of the graph. Notice that as we hover over the point, it tells us the x/y coordinates. To add information to the hover-text, we just need to add a `text` aesthetic mapping to the plot. 
 
 ```{r}
-P2 <- trees %>%
+P1 <- trees %>%
   mutate(Obs_ID = paste('Obs Row:', row_number()) ) %>%
   ggplot(aes(y=Volume, x=Height, text=Obs_ID)) +
   geom_point() 
 
-P2 %>% ggplotly() %>%
+P1 %>% ggplotly() %>%
   api_create(filename='444_Plotly_Graph_2') # Save to plotly server so it
                                             # it works in the online notes.
                                             # Not necessary for local Rstudio
