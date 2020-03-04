@@ -293,10 +293,10 @@ ggplot(data, aes(x=x)) +
   geom_point(aes(y=y)) +
   geom_line(aes(y=fit), color='blue') +
   annotate('text', x=9, y=9.5, 
-           label=TeX('$\\hat{\\rho}$ = 0.916') ) +   # always double \\
-  labs( x=TeX('X-axis $\\alpha$'), 
-        y=TeX('Y: $\\log_{10}$(Income)'),
-        title=TeX('Linear Models use: $\\hat{\\beta} = (X^TX)^{-1}X^Ty$'))
+           label=latex2exp::TeX('$\\hat{\\rho}$ = 0.916') ) +   # always double \\
+  labs( x=latex2exp::TeX('X-axis $\\alpha$'), 
+        y=latex2exp::TeX('Y: $\\log_{10}$(Income)'),
+        title=latex2exp::TeX('Linear Models use: $\\hat{\\beta} = (X^TX)^{-1}X^Ty$'))
 ```
 
 The warning message that is produced is coming from `ggplot` and I haven't figured out how to avoid it. Because it is giving us the graph we want, I'm just going to ignore the error for now.
@@ -306,7 +306,7 @@ One issue is how to add expression to a data frame. Unfortunately, neither `data
 ```{r}
 foo <- data.frame( x=c(1,2,3), y=c(2,2,2) ) %>%
   mutate( label1 = paste('$\\alpha$ = ', x) ) %>%       # label is a TeX character string
-  mutate( label2 = TeX(label1, output = 'character') )  # label2 is an expression character string
+  mutate( label2 = latex2exp::TeX(label1, output = 'character') )  # label2 is an expression character string
 
 ggplot(foo, aes(x=x, y=y) ) +
   geom_label( aes(label=label2), parse=TRUE )   # parse=TRUE forces an expression interpretation 
@@ -318,24 +318,36 @@ Plotly is technical computing company that specializes in data visualization. Th
 
 A good tutorial book about using plotly was written by [Carson Sievert](https://plotly-r.com).
 
+The simple version is that you can take a ggplot graph and pipe it into the `ggplotly` and it will be rendered into an interactive version of the graph.
+
 ```{r}
 P1 <- trees %>%
   ggplot(aes(y=Volume, x=Height)) +
   geom_point()
 
-P1 %>% plotly::ggplotly()
+P1 %>% plotly::ggplotly() %>%
+    api_create(filename='444_Plotly_Graph_2') # Save to plotly server so
+                                              # it works in the online notes.
+                                              # Not necessary for local Rstudio
+                                              # work.
 ```
+
 
 We can use the widgets to zoom in and out of the graph. Notice that as we hover over the point, it tells us the x/y coordinates. To add information to the hover-text, we just need to add a `text` aesthetic mapping to the plot. 
 
-```{r}
-P1 <- trees %>%
+```{r, eval=FALSE}
+P2 <- trees %>%
   mutate(Obs_ID = paste('Obs Row:', row_number()) ) %>%
   ggplot(aes(y=Volume, x=Height, text=Obs_ID)) +
   geom_point()
 
-P1 %>% ggplotly()
+P2 %>% ggplotly() %>%
+  api_create(filename='444_Plotly_Graph_2') # Save to plotly server so it
+                                            # it works in the online notes.
+                                            # Not necessary for local Rstudio
+                                            # work.
 ```
+
 
 ## Geographic Maps
 

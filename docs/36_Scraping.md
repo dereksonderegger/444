@@ -186,11 +186,11 @@ HeadLines %>%
 
 ```
 ## [1] "\nThe Official Numbers On Coronavirus Are Wrong, And Everyone Knows It\n"                                     
-## [2] "\nBeginner's Luck: How A Video Gambling Company Worked The Odds And Took Over A State\n"                      
-## [3] "\nHouse Cat Stands Its Ground In Face-Off With A Bobcat\n"                                                    
+## [2] "\nFollow The Super Tuesday Results Live\n"                                                                    
+## [3] "\nTake A Tour Around The Geneva Auto Show — Completely Abandoned Because Of Coronavirus\n"                    
 ## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                  
 ## [5] "\nProfane Irish Storyteller Gets Called Out For Swearing By Young Audience Member And Has The Best Reaction\n"
-## [6] "\nBMW Gets New Logo And The Difference Is Clear\n"
+## [6] "\nA Deputy Allegedly Showed Off Gruesome Kobe Bryant Crash Photos At Bar. A Cover-Up Scandal Ensued\n"
 ```
 
 
@@ -205,12 +205,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.theatlantic.com/technology/archive/2020/03/how-many-americans-really-have-coronavirus/607348/?utm_source=digg"
-## [2] "https://www.propublica.org/article/the-bad-bet-illinois-video-gambling-accel-entertainment#170536?utm_source=digg"        
-## [3] "/video/house-cat-is-completely-petrified-in-standoff-with-a-bobcat"                                                       
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                              
-## [5] "/video/irish-storyteller-cleans-up-language"                                                                              
-## [6] "https://www.caranddriver.com/news/a31106446/bmw-roundel-new-logo/?utm_source=digg"
+## [1] "https://www.theatlantic.com/technology/archive/2020/03/how-many-americans-really-have-coronavirus/607348/?utm_source=digg"           
+## [2] "https://www.nytimes.com/interactive/2020/03/03/us/elections/results-super-tuesday-primary-election.html?utm_source=digg"             
+## [3] "/video/tour-walk-around-geneva-auto-motor-show-abandoned-coronavirus-empty"                                                          
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                         
+## [5] "/video/irish-storyteller-cleans-up-language"                                                                                         
+## [6] "https://www.latimes.com/california/story/2020-03-03/kobe-bryant-crash-photos-sheriffs-department-tried-to-keep-quiet?utm_source=digg"
 ```
 
 

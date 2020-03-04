@@ -36,9 +36,9 @@ microbenchmark(
 
 ```
 ## Unit: microseconds
-##     expr   min    lq mean median    uq   max neval cld
-##  sqrt(x)  3.06  3.23  3.5    3.4  3.55  8.23   100  a 
-##  x^(0.5) 41.22 41.44 42.0   41.5 41.71 64.01   100   b
+##     expr   min    lq mean median    uq  max neval cld
+##  sqrt(x)  3.04  3.29 19.6   3.43  3.64 1284   100  a 
+##  x^(0.5) 41.13 41.43 58.1  41.93 43.13 1341   100   b
 ```
 
 What `microbenchmark` does is run the two expressions a number of times and then produces the 5-number summary of those times. By running it multiple times, we account for the randomness associated with a operating system that is also running at the same time.
@@ -136,7 +136,7 @@ microbenchmark(
 ##              f1(data) 3.63 4.17 5.19   4.77 5.79 13.4   100
 ##  f3.AllocOutput(data) 3.62 4.07 5.24   4.61 5.54 13.8   100
 ```
-If anything, allocating the size of output first was slower. So given this, we shouldn't feel to bad being lazy and using `output <- NULL` to initiallize things.
+If anything, allocating the size of output first was slower. So given this, we shouldn't feel to bad being lazy and using `output <- NULL` to initialize things.
 
 ## Vectorizing loops
 In general, `for` loops in R are very slow and we want to avoid them as much as possible. The `apply` family of functions can be quite helpful for applying a function to each row or column of a matrix or data.frame or to each element of a list.
@@ -225,12 +225,12 @@ microbenchmark(
 ##  f4.apply(data) 281.73 328.30 449.92 430.17 542.54 786.79   100
 ##  f5.dplyr(data)   1.97   2.56   3.06   2.82   3.08   9.05   100
 ```
-What just happened? The package `dplyr` is designed to work well for large data sets, and utilizes a modified structure, called a `tibble`, which provides massive benefits for large tables, but at the small scale, the overhead of converting the `data.frame` to a `tibble` overwhelms any speed up.  But because the small sample case is already fast enough to not be noticable, we don't really care about the small `n` case.
+What just happened? The package `dplyr` is designed to work well for large data sets, and utilizes a modified structure, called a `tibble`, which provides massive benefits for large tables, but at the small scale, the overhead of converting the `data.frame` to a `tibble` overwhelms any speed up.  But because the small sample case is already fast enough to not be noticeable, we don't really care about the small `n` case.
 
 
 
 ## Parallel Processing
-Most modern computers have multiple computing cores, and can run muliple processes at the same time. Sometimes this means that you can run multiple programs and switch back and forth easily without lag, but we are now interested in using as many cores as possible to get our statistical calculations completed by using muliple processing cores at the same time. This is referred to as running the process "in parallel" and there are many tasks in modern statistical computing that are "embarrasingly easily parallelized". In particular bootstrapping and cross validation techniques are extremely easy to implement in a parallel fashion.
+Most modern computers have multiple computing cores, and can run muliple processes at the same time. Sometimes this means that you can run multiple programs and switch back and forth easily without lag, but we are now interested in using as many cores as possible to get our statistical calculations completed by using muliple processing cores at the same time. This is referred to as running the process "in parallel" and there are many tasks in modern statistical computing that are "embarrassingly easily parallelized". In particular bootstrapping and cross validation techniques are extremely easy to implement in a parallel fashion.
 
 However, running commands in parallel incurs some overhead cost in set up computation, as well as all the message passing from core to core. For example, to have 5 cores all perform an analysis on a set of data, all 5 cores must have access to the data, and not overwrite any of it. So parallelizing code only makes sense if the individual steps that we pass to each core is of sufficient size that the overhead incurred is substantially less than the time to run the job.
 
@@ -366,10 +366,10 @@ output <- foreach( i=1:1000, .combine=data.frame, .packages='dplyr' ) %dopar% {
 
 ## Parallel Aware Functions
 
-There are many packages that address problems that are "embarassingly easily parallelized" and they will happily work with multiple cores. Methods that rely on resampling certainly fit into this category.
+There are many packages that address problems that are "embarrassingly easily parallelized" and they will happily work with multiple cores. Methods that rely on re-sampling certainly fit into this category.
 
 ### `boot::boot`
-Bootstrapping relys on resampling the dataset and calculating test statistics from each resample.  In R, the most common way to do this is using the package `boot` and we just need to tell the `boot` function, to use the multiple cores available. (Note, we have to have registered the cores first!) 
+Bootstrapping relies on re-sampling the dataset and calculating test statistics from each resample.  In R, the most common way to do this is using the package `boot` and we just need to tell the `boot` function, to use the multiple cores available. (Note, we have to have registered the cores first!) 
 
 
 ```r
