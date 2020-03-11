@@ -678,7 +678,7 @@ stringdist::stringdist('sarah', 'syria')
 With the idea of string distance, we could then match strings with small distances. 
 
 ### N-gram Merge
-The `refinr::n_gram_merge` function will perform a similar algorithm as the `key_collision_merge` but will also match strings with small distances,  
+The `refinr::n_gram_merge` function will perform a similar algorithm as the `key_collision_merge` but will also match strings with small distances. 
 
 1. Change all characters to their lowercase representation
 2. Remove all punctuation, white space, and control characters
@@ -689,6 +689,7 @@ The `refinr::n_gram_merge` function will perform a similar algorithm as the `key
 7. Match strings with distance less than `edit_threshold` (defaults to 2)
 
 Instead of creating tokens using white space, `n-grams` tokenize *every* collection of sequential n-letters. For example the 3-gram of "Frank" is:
+
 1. frank
 3. fra, ran, ank
 4. ank, fra, ran
@@ -697,16 +698,22 @@ Instead of creating tokens using white space, `n-grams` tokenize *every* collect
 
 
 ```r
-strings <- c("Derek Sonderegger", "Derek L Sonderegger", "Derek Sondereger")
-data.frame(Input = strings, stringsAsFactors = FALSE) %>%
-  mutate( Result = n_gram_merge(Input, numgram = 2, edit_threshold = 100) )
+strings <- c("Derek Sonderegger", 
+             "Derk  Sondreger", 
+             "Derek Sooonderegggggger",
+             "John Sonderegger")
+tibble(Input = strings) %>%
+  mutate( Result = n_gram_merge(Input, numgram = 2, edit_threshold = 10) )
 ```
 
 ```
-##                 Input              Result
-## 1   Derek Sonderegger    Derek Sondereger
-## 2 Derek L Sonderegger Derek L Sonderegger
-## 3    Derek Sondereger    Derek Sondereger
+## # A tibble: 4 x 2
+##   Input                   Result           
+##   <chr>                   <chr>            
+## 1 Derek Sonderegger       Derek Sonderegger
+## 2 Derk  Sondreger         Derek Sonderegger
+## 3 Derek Sooonderegggggger Derek Sonderegger
+## 4 John Sonderegger        John Sonderegger
 ```
 
 
@@ -757,8 +764,30 @@ data.frame(Input = strings, stringsAsFactors = FALSE) %>%
         ```r
         strings <- c()
         data.frame( string = strings ) %>%
+          mutate( result = str_detect(string, '\\d+\\s*[aA]') )
+        ```
+    g)  This regular expression matches:  *Insert your answer here...*
+        
+        ```r
+        strings <- c()
+        data.frame( string = strings ) %>%
           mutate( result = str_detect(string, '.*') )
         ```
+    h) This regular expression matches: *Insert your answer here...*
+        
+        ```r
+        strings <- c()
+        data.frame( string = strings ) %>%
+          mutate( result = str_detect(string, '^\\w{2}bar') )
+        ```
+    i) This regular expression matches: *Insert your answer here...*
+        
+        ```r
+        strings <- c()
+        data.frame( string = strings ) %>%
+          mutate( result = str_detect(string, '(foo\\.bar)|(^\\w{2}bar)') )
+        ```
+    
 
 2. The following file names were used in a camera trap study. The S number represents the site, P is the plot within a site, C is the camera number within the plot, the first string of numbers is the YearMonthDay and the second string of numbers is the HourMinuteSecond.
     

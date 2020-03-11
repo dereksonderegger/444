@@ -377,12 +377,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              289.
-## 2 A              291.
-## 3 B              287.
-## 4 B              254.
-## 5 C              257.
-## 6 C              223.
+## 1 A              275.
+## 2 A              239.
+## 3 B              279.
+## 4 B              276.
+## 5 C              231.
+## 6 C              269.
 ```
 
 ```r
@@ -413,12 +413,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              289. <NA>         NA      NA        NA
-## 2 A              291. <NA>         NA      NA        NA
-## 3 B              287. Lake Elaine   6.5    40         8
-## 4 B              254. Lake Elaine   6.5    40         8
-## 5 C              257. Mormon Lake   6.3   210        10
-## 6 C              223. Mormon Lake   6.3   210        10
+## 1 A              275. <NA>         NA      NA        NA
+## 2 A              239. <NA>         NA      NA        NA
+## 3 B              279. Lake Elaine   6.5    40         8
+## 4 B              276. Lake Elaine   6.5    40         8
+## 5 C              231. Mormon Lake   6.3   210        10
+## 6 C              269. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -438,12 +438,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              289. <NA>         NA      NA        NA
-## 2 A              291. <NA>         NA      NA        NA
-## 3 B              287. Lake Elaine   6.5    40         8
-## 4 B              254. Lake Elaine   6.5    40         8
-## 5 C              257. Mormon Lake   6.3   210        10
-## 6 C              223. Mormon Lake   6.3   210        10
+## 1 A              275. <NA>         NA      NA        NA
+## 2 A              239. <NA>         NA      NA        NA
+## 3 B              279. Lake Elaine   6.5    40         8
+## 4 B              276. Lake Elaine   6.5    40         8
+## 5 C              231. Mormon Lake   6.3   210        10
+## 6 C              269. Mormon Lake   6.3   210        10
 ```
 
 
@@ -459,10 +459,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              287. Lake Elaine   6.5    40         8
-## 2 B              254. Lake Elaine   6.5    40         8
-## 3 C              257. Mormon Lake   6.3   210        10
-## 4 C              223. Mormon Lake   6.3   210        10
+## 1 B              279. Lake Elaine   6.5    40         8
+## 2 B              276. Lake Elaine   6.5    40         8
+## 3 C              231. Mormon Lake   6.3   210        10
+## 4 C              269. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
@@ -491,19 +491,36 @@ grade.book %>%
 ## 3 Charles    9    7    9   10   8.75
 ```
 
+This is actually pretty annoying to do. What I prefer to do is to use the base function `apply()` within a `mutate()` command. Recall that the `apply()` function applies a function to each row or column (`MARGIN=1` or `MARGIN=2` respectively). So we just need to put together `select` and `apply` statements.
+
+
+```r
+#        col.name             columns              function
+grade.book %>%
+  mutate( HW.avg = select(., HW.1:HW.4) %>% apply(1, mean)) %>%
+  print() # this print is just to show you can keep the pipeline going...
+```
+
+```
+##      name HW.1 HW.2 HW.3 HW.4 HW.avg
+## 1  Alison    8    5    8    4   6.25
+## 2 Brandon    5    3    6    9   5.75
+## 3 Charles    9    7    9   10   8.75
+```
+
 
 ## Exercises
 
-1.  
+
     
-2. A common task is to take a set of data that has multiple categorical variables and create a table of the number of cases for each combination. An introductory statistics textbook contains a dataset summarizing student surveys from several sections of an intro class. The two variables of interest for us are `Gender` and `Year` which are the students gender and year in college.
-    a. Download the dataset and correctly order the `Year` variable using the following:
+1. A common task is to take a set of data that has multiple categorical variables and create a table of the number of cases for each combination. An introductory statistics textbook contains a dataset summarizing student surveys from several sections of an intro class. The two variables of interest for us are `Gender` and `Year` which are the students gender and year in college.
+    a) Download the dataset and correctly order the `Year` variable using the following:
         
         ```r
         Survey <- read.csv('http://www.lock5stat.com/datasets/StudentSurvey.csv', na.strings=c('',' ')) 
         ```
-    b. Using some combination of `dplyr` functions, produce a data set with eight rows that contains the number of responses for each gender:year combination. Make sure your table orders the `Year` variable in the correct order of `First Year`, `Sophmore`, `Junior`, and then `Senior`. *You might want to look at the following functions: `dplyr::count` and `dplyr::drop_na`.* 
-    c. Using `tidyr` commands, produce a table of the number of responses in the following form:
+    b) Using some combination of `dplyr` functions, produce a data set with eight rows that contains the number of responses for each gender:year combination. Make sure your table orders the `Year` variable in the correct order of `First Year`, `Sophmore`, `Junior`, and then `Senior`. *You might want to look at the following functions: `dplyr::count` and `dplyr::drop_na`.* 
+    c) Using `tidyr` commands, produce a table of the number of responses in the following form:
     
         |   Gender    |  First Year  |  Sophmore  |  Junior   |  Senior   |
         |:-----------:|:------------:|:----------:|:---------:|:---------:|
@@ -511,7 +528,7 @@ grade.book %>%
         |  **Male**   |              |            |           |           | 
     
 
-3. We often are given data in a table format that is easy for a human to parse, but annoying a program. In the following example we have 
+2. We often are given data in a table format that is easy for a human to parse, but annoying a program. In the following example we have 
 [data](https://github.com/dereksonderegger/444/raw/master/data-raw/US_Gov_Budget_1962_2020.xls) 
 of US government expenditures from 1962 to 2015. (I downloaded this data from https://obamawhitehouse.archives.gov/omb/budget/Historicals (Table 3.2) on Sept 22, 2019.) 
 Our goal is to end up with a data frame with columns for `Function`, `Subfunction`, `Year`, and `Amount`. We'll ignore the "On-budget" and "Off-budget" distinction.
@@ -526,7 +543,25 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
     h) Make sure that Year and Amount are numeric. *Hint: it is OK to get rid of the estimate rows for 2016+*
     h) Make a line graph that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for each of the years 2001 through 2015. *Notice you'll have to sum up the sub-functions within each function.*
 
-
+3. For this problem we will consider two simple data sets.
+    
+    ```r
+    A <- tribble(
+      ~Name, ~Car,
+      'Alice', 'Ford F150',
+      'Bob',   'Tesla Model III',
+      'Charlie', 'VW Bug')
+    
+    B <- tribble(
+      ~First.Name, ~Pet,
+      'Bob',  'Cat',
+      'Charlie', 'Dog',
+      'Alice', 'Rabbit')
+    ```
+    a) Squish the data frames together to generate a data set with three rows and three columns. Do two ways: first using `cbind` and then using one of the `dplyr` `join` commands.
+    b) It turns out that Alice also has a pet guinea pig. Add another row to the `B` data set. Do this using either the base function `rbind`, or either of the `dplyr` functions `add_row` or `bind_rows`.
+    c) Squish the `A` and `B` data sets together to generate a data set with four rows and three columns. Do this two ways: first using `cbind` and then using one of the `dplyr` `join` commands. Which was easier to program? Which is more likely to have an error.
+    
 4. Data table joins are extremely common because effective database design almost always involves having multiple tables for different types of objects. To illustrate both the table joins and the usefulness of multiple tables we will develop a set of data frames that will represent a credit card company's customer data base. We will have tables for Customers, Retailers, Cards, and Transactions.  Below is code that will create and populate these tables.
     
     ```r

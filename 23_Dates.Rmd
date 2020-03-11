@@ -14,6 +14,7 @@ if( length(pkgs > 0)){
 ```
 
 ```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
 library( lubridate )
 ```
 
@@ -174,6 +175,20 @@ as.duration( Childless )               # dorky number of seconds answer
 
 While working with dates, I like creating intervals whenever possible and try to NEVER just subtract two data/time objects because that will always just return the number of seconds (aka the `duration` answer). 
 
+As a demonstration, lets consider a data set where we have the individuals birthdays and we are interested in calculated the individuals age in years.
+
+```{r}
+data <- tibble(
+  Name = c('Steve', 'Sergey', 'Melinda', 'Bill', 'Alexa', 'Siri'),
+  dob = c('Feb 24, 1955', 'August 21, 1973', 'Aug 15, 1964', 
+          'October 28, 1955', 'November 6, 2014', 'October 12, 2011') )
+
+
+data %>%
+  mutate( dob = mdy(dob) ) %>%
+  mutate( age = as.period( dob %--% today(), unit = 'years')  ) %>%
+  mutate( age_years = str_extract( age, '\\d+y') %>% str_remove('y') )
+```
 
 ## Exercises
 

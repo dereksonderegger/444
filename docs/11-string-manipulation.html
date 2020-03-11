@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-03-04" />
+<meta name="date" content="2020-03-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -962,7 +962,7 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 </div>
 <div id="n-gram-merge" class="section level3">
 <h3><span class="header-section-number">11.5.3</span> N-gram Merge</h3>
-<p>The <code>refinr::n_gram_merge</code> function will perform a similar algorithm as the <code>key_collision_merge</code> but will also match strings with small distances,</p>
+<p>The <code>refinr::n_gram_merge</code> function will perform a similar algorithm as the <code>key_collision_merge</code> but will also match strings with small distances.</p>
 <ol style="list-style-type: decimal">
 <li>Change all characters to their lowercase representation</li>
 <li>Remove all punctuation, white space, and control characters</li>
@@ -972,18 +972,26 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <li>Normalize extended western characters to their ASCII representation</li>
 <li>Match strings with distance less than <code>edit_threshold</code> (defaults to 2)</li>
 </ol>
-<p>Instead of creating tokens using white space, <code>n-grams</code> tokenize <em>every</em> collection of sequential n-letters. For example the 3-gram of “Frank” is:
-1. frank
-3. fra, ran, ank
-4. ank, fra, ran
-5. ankfraran</p>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="11-string-manipulation.html#cb609-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Derek Sonderegger&quot;</span>, <span class="st">&quot;Derek L Sonderegger&quot;</span>, <span class="st">&quot;Derek Sondereger&quot;</span>)</span>
-<span id="cb609-2"><a href="11-string-manipulation.html#cb609-2"></a><span class="kw">data.frame</span>(<span class="dt">Input =</span> strings, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb609-3"><a href="11-string-manipulation.html#cb609-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">n_gram_merge</span>(Input, <span class="dt">numgram =</span> <span class="dv">2</span>, <span class="dt">edit_threshold =</span> <span class="dv">100</span>) )</span></code></pre></div>
-<pre><code>##                 Input              Result
-## 1   Derek Sonderegger    Derek Sondereger
-## 2 Derek L Sonderegger Derek L Sonderegger
-## 3    Derek Sondereger    Derek Sondereger</code></pre>
+<p>Instead of creating tokens using white space, <code>n-grams</code> tokenize <em>every</em> collection of sequential n-letters. For example the 3-gram of “Frank” is:</p>
+<ol style="list-style-type: decimal">
+<li>frank</li>
+<li>fra, ran, ank</li>
+<li>ank, fra, ran</li>
+<li>ankfraran</li>
+</ol>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="11-string-manipulation.html#cb609-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Derek Sonderegger&quot;</span>, </span>
+<span id="cb609-2"><a href="11-string-manipulation.html#cb609-2"></a>             <span class="st">&quot;Derk  Sondreger&quot;</span>, </span>
+<span id="cb609-3"><a href="11-string-manipulation.html#cb609-3"></a>             <span class="st">&quot;Derek Sooonderegggggger&quot;</span>,</span>
+<span id="cb609-4"><a href="11-string-manipulation.html#cb609-4"></a>             <span class="st">&quot;John Sonderegger&quot;</span>)</span>
+<span id="cb609-5"><a href="11-string-manipulation.html#cb609-5"></a><span class="kw">tibble</span>(<span class="dt">Input =</span> strings) <span class="op">%&gt;%</span></span>
+<span id="cb609-6"><a href="11-string-manipulation.html#cb609-6"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">n_gram_merge</span>(Input, <span class="dt">numgram =</span> <span class="dv">2</span>, <span class="dt">edit_threshold =</span> <span class="dv">10</span>) )</span></code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##   Input                   Result           
+##   &lt;chr&gt;                   &lt;chr&gt;            
+## 1 Derek Sonderegger       Derek Sonderegger
+## 2 Derk  Sondreger         Derek Sonderegger
+## 3 Derek Sooonderegggggger Derek Sonderegger
+## 4 John Sonderegger        John Sonderegger</code></pre>
 </div>
 </div>
 <div id="exercises-11" class="section level2">
@@ -1015,25 +1023,37 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <li><p>This regular expression matches: <em>Insert your answer here…</em></p>
 <div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="11-string-manipulation.html#cb616-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
 <span id="cb616-2"><a href="11-string-manipulation.html#cb616-2"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb616-3"><a href="11-string-manipulation.html#cb616-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;.*&#39;</span>) )</span></code></pre></div></li>
+<span id="cb616-3"><a href="11-string-manipulation.html#cb616-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">s*[aA]&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="11-string-manipulation.html#cb617-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb617-2"><a href="11-string-manipulation.html#cb617-2"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb617-3"><a href="11-string-manipulation.html#cb617-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;.*&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="11-string-manipulation.html#cb618-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb618-2"><a href="11-string-manipulation.html#cb618-2"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb618-3"><a href="11-string-manipulation.html#cb618-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^</span><span class="ch">\\</span><span class="st">w{2}bar&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="11-string-manipulation.html#cb619-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb619-2"><a href="11-string-manipulation.html#cb619-2"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb619-3"><a href="11-string-manipulation.html#cb619-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;(foo</span><span class="ch">\\</span><span class="st">.bar)|(^</span><span class="ch">\\</span><span class="st">w{2}bar)&#39;</span>) )</span></code></pre></div></li>
 </ol></li>
 <li><p>The following file names were used in a camera trap study. The S number represents the site, P is the plot within a site, C is the camera number within the plot, the first string of numbers is the YearMonthDay and the second string of numbers is the HourMinuteSecond.</p>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="11-string-manipulation.html#cb617-1"></a>file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</span>
-<span id="cb617-2"><a href="11-string-manipulation.html#cb617-2"></a>                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</span>
-<span id="cb617-3"><a href="11-string-manipulation.html#cb617-3"></a>                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="11-string-manipulation.html#cb620-1"></a>file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</span>
+<span id="cb620-2"><a href="11-string-manipulation.html#cb620-2"></a>                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</span>
+<span id="cb620-3"><a href="11-string-manipulation.html#cb620-3"></a>                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</span></code></pre></div>
 <p>Use a combination of <code>str_sub()</code> and <code>str_split()</code> to produce a data frame with columns corresponding to the <code>site</code>, <code>plot</code>, <code>camera</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>, and <code>second</code> for these three file names. So we want to produce code that will create the data frame:</p>
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="11-string-manipulation.html#cb618-1"></a> Site Plot Camera Year Month Day Hour Minute Second</span>
-<span id="cb618-2"><a href="11-string-manipulation.html#cb618-2"></a> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></span>
-<span id="cb618-3"><a href="11-string-manipulation.html#cb618-3"></a>  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></span>
-<span id="cb618-4"><a href="11-string-manipulation.html#cb618-4"></a> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="11-string-manipulation.html#cb621-1"></a> Site Plot Camera Year Month Day Hour Minute Second</span>
+<span id="cb621-2"><a href="11-string-manipulation.html#cb621-2"></a> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></span>
+<span id="cb621-3"><a href="11-string-manipulation.html#cb621-3"></a>  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></span>
+<span id="cb621-4"><a href="11-string-manipulation.html#cb621-4"></a> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></span></code></pre></div></li>
 <li><p>Variable names in R may be and combination letters, digits, period, and underscore. However, they may not start with a digit and if they start with a period, they must not be followed by a digit.</p>
-<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="11-string-manipulation.html#cb619-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;foo15&#39;</span>, <span class="st">&#39;Bar&#39;</span>, <span class="st">&#39;.resid&#39;</span>, <span class="st">&#39;_14s&#39;</span>, </span>
-<span id="cb619-2"><a href="11-string-manipulation.html#cb619-2"></a>             <span class="st">&#39;99_Bottles&#39;</span>, <span class="st">&#39;.9Arggh&#39;</span>, <span class="st">&#39;Foo!&#39;</span>,<span class="st">&#39;HIV Rate&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="11-string-manipulation.html#cb622-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;foo15&#39;</span>, <span class="st">&#39;Bar&#39;</span>, <span class="st">&#39;.resid&#39;</span>, <span class="st">&#39;_14s&#39;</span>, </span>
+<span id="cb622-2"><a href="11-string-manipulation.html#cb622-2"></a>             <span class="st">&#39;99_Bottles&#39;</span>, <span class="st">&#39;.9Arggh&#39;</span>, <span class="st">&#39;Foo!&#39;</span>,<span class="st">&#39;HIV Rate&#39;</span>)</span></code></pre></div>
 <p>The first four are valid variable names, but the last four are not.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>First write a regular expression that determines if the string starts with a character (upper or lower case) or underscore and then is followed by zero or more numbers, letters, periods or underscores. <em>Notice I use the start/end of string markers. This is important so that we don’t just match somewhere in the middle of the variable name.</em></p>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="11-string-manipulation.html#cb620-1"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
-<span id="cb620-2"><a href="11-string-manipulation.html#cb620-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^(???what goes here???)$&#39;</span> )) </span></code></pre></div></li>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="11-string-manipulation.html#cb623-1"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb623-2"><a href="11-string-manipulation.html#cb623-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^(???what goes here???)$&#39;</span> )) </span></code></pre></div></li>
 <li><p>Modify your regular expression so that the first group could be either <code>[a-zA-Z_]</code> as before or it could be a period followed by letters or an underscore.</p></li>
 </ol></li>
 </ol>
