@@ -26,6 +26,15 @@ For many years, R users hated dealing with dates because it was difficult to rem
 
 ## Creating Date and Time objects
 
+R gives a mechanism for getting the current date and time.
+```{r}
+lubridate::today()   # Today's date
+
+base::Sys.Date()     # Today's date
+base::Sys.time()     # Current Time and Date 
+```
+
+
 To create a `Date` object, we need to take a string or number that represents a date and tell the computer how to figure out which bits are the year, which are the month, and which are the day. The lubridate package uses the following functions:
 
 +--------------------------+-----+-------------------------------+
@@ -183,12 +192,19 @@ data <- tibble(
   dob = c('Feb 24, 1955', 'August 21, 1973', 'Aug 15, 1964', 
           'October 28, 1955', 'November 6, 2014', 'October 12, 2011') )
 
-
 data %>%
   mutate( dob = mdy(dob) ) %>%
-  mutate( age = as.period( dob %--% today(), unit = 'years')  ) %>%
-  mutate( age_years = str_extract( age, '\\d+y') %>% str_remove('y') )
+  mutate( Life = dob %--% today() ) %>%
+  mutate( Age = as.period(Life, units='years') ) %>%
+  mutate( Age2 = year(Age) )
+
+
+
+
+
 ```
+
+
 
 ## Exercises
 

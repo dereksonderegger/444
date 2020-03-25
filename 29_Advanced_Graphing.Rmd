@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Graphing Part II
 
 ```{r, echo=FALSE}
@@ -320,33 +325,64 @@ A good tutorial book about using plotly was written by [Carson Sievert](https://
 
 The simple version is that you can take a ggplot graph and pipe it into the `ggplotly` and it will be rendered into an interactive version of the graph.
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
 P1 <- trees %>%
   ggplot(aes(y=Volume, x=Height)) +
   geom_point()
 
-P1 %>% plotly::ggplotly() %>%
-    api_create(filename='444_Plotly_Graph_2') # Save to plotly server so
-                                              # it works in the online notes.
-                                              # Not necessary for local Rstudio
-                                              # work.
+P1 %>% plotly::ggplotly()
 ```
 
+```{r, eval=FALSE, echo=FALSE}
+# Previously I signed up for an account with plotly and 
+# then I got an API key for uploading things to the server.
+# 
+# Inside my home directory, I added a .Rprofile file and 
+# in there I have my user name and API key.
+# 
+# Sys.setenv("plotly_username"="zdereksonderegger")
+# Sys.setenv("plotly_api_key"="DQ4Cmsdjklewrkje3pkdhYM") # this isn't correct
+#   
+P1 %>% 
+  plotly::ggplotly() %>%
+  api_create(filename='444_Plotly_Graph_2') 
+
+# The api_create command saves the plot to the
+# plotly server so it works in the online notes.
+# This is not necessary for local Rstudio work.
+# From here, instead of uploading the graph every
+# time I re-knit the notes, I'm just linking to the 
+# plot.
+```
+
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~zdereksonderegger/3.embed"></iframe>
 
 We can use the widgets to zoom in and out of the graph. Notice that as we hover over the point, it tells us the x/y coordinates. To add information to the hover-text, we just need to add a `text` aesthetic mapping to the plot. 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+P1 <- trees %>%
+  mutate(Obs_ID = paste('Obs Row:', row_number()) ) %>%
+  ggplot(aes(y=Volume, x=Height, text=Obs_ID)) +
+  geom_point() 
+
+P1 %>% ggplotly() 
+```
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE, echo=FALSE}
 P1 <- trees %>%
   mutate(Obs_ID = paste('Obs Row:', row_number()) ) %>%
   ggplot(aes(y=Volume, x=Height, text=Obs_ID)) +
   geom_point() 
 
 P1 %>% ggplotly() %>%
-  api_create(filename='444_Plotly_Graph_2') # Save to plotly server so it
+  api_create(filename='444_Plotly_Graph_3') # Save to plotly server so it
                                             # it works in the online notes.
                                             # Not necessary for local Rstudio
                                             # work.
 ```
+
+
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~zdereksonderegger/5.embed"></iframe>
 
 
 ## Geographic Maps
@@ -488,9 +524,14 @@ leaflet() %>%
 ```
 
 
+
 ## Exercises
 
-1. The `infmort` data set from the package `faraway` gives the infant mortality rate for a variety of countries. The information is relatively out of date, but will be fun to graph. T
+1. [Gapminder](https://www.gapminder.org) is a organization devoted to educating people about world facts and dispelling misconceptions between countries. 
+    a) From their [data](https://www.gapminder.org/data/) page, download information about CO2 emissions per person. Import the data and filter out all but the latest year.
+    b) Create a map of CO2 emissions per person . 
+
+2. The `infmort` data set from the package `faraway` gives the infant mortality rate for a variety of countries. The information is relatively out of date, but will be fun to graph. T
     a) The `rownames()` of the dataset give the country names and you should create a new column that contains the country names. 
     b) Save the `ggplot2::map_data('world')` result as `geo.data`. Compare the `infmort` country names to the `region` names in the `geo.data` data set and do whatever is necessary to get the country names to concur. *Hint: `unique(x)` will return the unique items in a vector, `intersect(x,y)`returns the elements common to `x` and `y`, and `setdiff(x,y)`  returns the elements of `x` that are not in `y`. I recommend creating a `Country_Dictionary` that contains the standardized country name and all the weird versions you've run into. Every time you see some new abbreviation, just add it to the dictionary. To start with, you might consider all the ways people commonly refer to the United States of America.*
         ```{r}
@@ -505,11 +546,11 @@ leaflet() %>%
     d) Make a map of the world where we shade in countries based on the country income. Set the color fill scale to be anything other than the default.
     e) Make a map of the world where we shade in the countries based on if they are oil exports. Color the map black if the country is an oil exporter, and a light gray if it is not.
 
-2. The `infmort` data set can also be visualized using by faceting using `region` and `oil` export status. 
+3. The `infmort` data set can also be visualized using by faceting using `region` and `oil` export status. 
     a) Create scatter plots the countries income and infant mortality using a $log_{10}$ transformation for both axes.
     b) The package `ggrepel` contains functions `geom_text_repel()` and `geom_label_repel()` that mimic the basic `geom_text()` and `geom_label()` functions in `ggplot2`, but work to make sure the labels don't overlap. Select 10-15 countries to label and do so using the `geom_text_repel()` function.
 
-3. Using the `datasets::trees` data, complete the following:
+4. Using the `datasets::trees` data, complete the following:
     a) Create a regression model for Volume as a function of Height.
     b) Using the `summary` command, get the y-intercept and slope of the regression line.
     c) Using `ggplot2`, graph the data.
@@ -521,7 +562,7 @@ leaflet() %>%
     e) Add some annotation text to write the equation of the line $\hat{y}_i = -36.94 + 5.1 * x_i$ in the text area.
     f) Add annotation to add $R^2 = 0.934$
     
-4. Using the `datasets::Titanic` data set, create a bar graph showing the number of individuals that survived or not. Make sure to include the passenger `Class`, `Sex`, and `Age` variable information. *Unfortunately, the data is stored as a `table` and to expand it to a data frame, the following code can be used.*
+5. Using the `datasets::Titanic` data set, create a bar graph showing the number of individuals that survived or not. Make sure to include the passenger `Class`, `Sex`, and `Age` variable information. *Unfortunately, the data is stored as a `table` and to expand it to a data frame, the following code can be used.*
     ```{r}
     Titanic <- Titanic %>% as.data.frame()
     ```

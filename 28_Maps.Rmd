@@ -1,0 +1,309 @@
+# Maps{-}
+
+```{r, message=FALSE, warning=FALSE, results='hide'}
+library(tidyverse)   # loading ggplot2 and dplyr
+
+library(sf)                # Simple Features for GIS
+
+library(rnaturalearth)     # package with detailed information about country &
+library(rnaturalearthdata) # state/province borders, and geographical features
+# devtools::install_github('ropensci/rnaturalearthhires')
+library(rnaturalearthhires) # Hi-Resolution Natural Earth
+
+library(leaflet)
+```
+
+## Introduction{-}
+
+This chapter is still a work in progress and unfortunately there is still a bunch of weirdness associated with how `ggplot` interacts with the simple features package. I'm not sure if I just don't understand the paradigm, or if there are still some bugs to be fixed. 
+
+We often have data that is associated with some sort of geographic information. For example, we might have information based on US state counties. It would be nice to be able to produce a graph where we fill in the county with a color shade associated with our data.  Or perhaps put dots at the center of each county and the dots might be color coded or size coded to our data. But the critical aspect is that we already have some data, but we need some additional data relating to the shape of the county or state of interest.
+
+There is a simple [blog style series of posts](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html) that is a quick read. 
+
+The `sf` package vignettes are a really great [resource](https://r-spatial.github.io/sf/reference/sf.html).
+
+Finally there is a great on-line [book](https://keen-swartz-3146c4.netlify.com) by Edzer Pebesma and Roger Bivand about mapping in R. 
+
+
+### Coordinate Reference Systems (CRS){-}
+
+There are many ways to represent a geo-location. 
+
+1. **WGS84 aka Latitude/Longitude** One of the oldest systems, and most well known, is the latitude/longitude grid. The latitude measures north/south where zero is the equator and +90 and -90 are the north and south poles. Longitude is the east/west measurement and the zero is the [Prime Meridian](https://en.wikipedia.org/wiki/Prime_meridian) (which is close to the Greenwich Meridian) and +180 and -180 are the anti-meridian near the Alaska/Russia border. The problem with latitude/longitude is that small differences in lat/long coordinates near the equator are large distance, but near the poles it would be much much smaller. Another weirdness is that lat/long coordinates are often given in a base 60 system of degrees/minutes/seconds.  To get the decimal version we use the formula
+$$\textrm{Decimal Value} = \textrm{Degree} + \frac{\textrm{Minutes}}{60} + \frac{\textrm{Seconds}}{3600}$$
+For example, Flagstaff AZ has lat/long 35°11′57″N 111°37′52″W.  Notice that the longitude is 111 degrees W which should actually be negative.  This gives a lat/long pair of:
+    ```{r}
+    35 + 11/60 + 57/3600
+    -1 * (111 + 37/60 + 52/3600)
+    ```
+
+2. **Reference Point Systems** A better idea is to establish a grid of reference points along the grid of the planet and then use offsets from those reference points. One of the most common projection system is the [Universal Transverse Mercator (UTM)](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system) which uses a grid of 60 reference points. From these reference points, we will denote a location using a northing/easting offsets. The critical concept is that if you are given a set of northing/easting coordinates, we also need the reference point and projection system information. For simplicity we'll refer to both the lat/long or northing/easting as the coordinates. 
+
+
+
+### Spatial Objects{-}
+Regardless of the coordinate reference system (CRS) used, there are three major types of data that we might want to store. 
+
+1. **Points** The simplest type of data object to store is a single location. Storing them simply requires knowing the coordinates and the reference system. It is simple to keep track of a number of points as you just have a data frame of coordinates and then the reference system.
+
+2. **LineString** This maps out a one-dimensional line across the surface of the globe. An obvious example is to define a road.  To do this, we just need to define a sequence of points (where the order matters) and the object implicitely assumes the points are connected with straight lines. To represent an arbitrary curve, we simply need to connect points that are quite close together. As always, this object also needs to keep track of the CRS.
+
+3. **Polygons** These are similar to a LineString in that they are a sequential vector of points, but now we interpret them as forming an enclosed area so the line starts and ends at the same place. As always, we need to keep the CRS information for the points. We also will allow "holes" in the area by having one or more interior polygons cut out of it. To do this, we need to keep a list of removed polygons.
+
+Each of the above type of spatial objects can be grouped together, much as we naturally made a group of points. For example, the object that defines the borders of the United States of America needs to have multiple polygons because each contiguous land mass needs its own polygon. For example the state of Hawaii has 8 main islands and 129 minor islands. Each of those needs to be its own polygon for our "connect the dots" representation to make sense.
+
+Until recently, the spatial data structures in R (e.g. the `sp` package) required users to keep track of the data object type as well as the reference system. This resulted in code that contained many mysterious input strings that were almost always poorly understood by the user. Fortunately there is now a formal ISO standard that describes how spatial objects should be represented digitally and the types of manipulations that users should be able to do. The R package `sf`, which stands for "Simple Features" implements this standard and is quickly becoming the preferred R library for handling spatial data.
+
+There is a nice set of tutorials for the `sf` package.
+[Part 1](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html),
+[Part 2](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf-2.html), and
+[Part 3](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf-3.html).
+
+### Tiles{-}
+Instead of building a map layer by layer, you might want to start with some base level information, perhaps some topological map with country and state names along with major metropolitan areas. Tiles provide a way to get all the background map information for you to then add your data on top. 
+
+Tiles come in two flavors. Rasters are similar to a pictures in that every pixel is stored. Vector based tiles actually only store the underlying spatial information and handle zooming in without pixelation. 
+
+## Obtaining Spatial Data{-}
+
+Often I already have some information associated with some geo-political unit such as state or country level rates of something (e.g. country's average life span, or literacy rate). Given the country name, we want to produce a map with the data we have encoded with colored dots centered on the country or perhaps fill in the country with shading associated with the statistic of interest. To do this, we need data about the shape of each country! 
+
+In general it is a bad idea to rely on spatial data that is static on a user's machine. First, large scale geo-political borders, coastal boundaries can potentially change. Second, fine scale details like roads and building locations are constantly changing. Third, the level of detail needed is quite broad for world maps, but quite small for neighborhood maps. It would be a bad idea to download neighborhood level data for the entire world in the chance the a use might want fine scale detail for a particular neighborhood. However, it is also a bad idea to query a web-service every time I knit a document together. Therefore we will consider ways to obtain the information needed for a particular scale and save it locally but our work flow will always include a data refresh option.
+
+
+### Natural Earth Database{-}
+
+[Natural Earth](https://www.naturalearthdata.com) is a public domain map database and is free for any use, both commercial and non-commercial. There is a nice R package, `rnaturalearth` that provides convenient interface. There is also information about urban areas and roads as well as geographical details such as rivers and lakes. There is a mechanism to download data at different resolutions as well as matching functions for reading in the data from a local copy of it.
+
+There are a number of data sets that are automatically downloaded with the `rnaturalearth` package including country and state/province boarders.
+
+```{r}
+ne_countries(continent='Africa', returnclass = 'sf') %>%  # grab country borders in Africa
+  ggplot() + geom_sf() +
+  labs(title='Africa')
+```
+
+```{r}
+ne_states(country='Ghana', returnclass = 'sf') %>% # grab provinces within Ghana
+  ggplot() +
+  geom_sf( ) + 
+  labs(title='Ghana')
+```
+
+```{r}
+# The st_centroid function takes the sf object and returns the center of 
+# the polygon, again as a sf object.
+Ghana <- ne_states(country='Ghana', returnclass = 'sf')  # grab provinces within Ghana
+Ghana %>% ggplot() +
+  geom_sf( ) + 
+  geom_text( data=st_centroid(Ghana), size=2,
+             aes(x=longitude, y=latitude, label=woe_name)) +
+  labs(title='Ghana Administrative Regions')
+```
+
+
+There is plenty of other geographic information that you can download from Natural Earth. In the table below, scale refers to how large the file is and so scale might more correctly be interpreted as the data resolution.
+
+| category   |  type   |  scale `small`  |  scale `medium` | scale `large`   |
+|:----------:|:-------:|:-------------:|:-------------:|:-------------:|
+| `physical`  | `coastline` |          Yes | Yes | Yes |
+| `physical`  | `land` |               Yes | Yes | Yes |
+| `physical`  | `ocean` |              Yes | Yes | Yes |
+| `physical`  | `lakes` |              Yes | Yes | Yes |
+| `physical`  | `geographic_lines` |   Yes | Yes | Yes |
+| `physical`  | `minor_islands` |      No  | No  | Yes |
+| `physical`  | `reefs` |              No  | No  | Yes |
+| `cultural` | `populated_places` |   Yes | Yes | Yes |
+| `cultural` | `urban_areas`      |   No  | Yes | Yes |
+| `cultural` | `roads`            |   No  | No  | Yes |
+
+
+### Package `maps`{-}
+The R package `maps` is one of the easiest way to draw a country or state maps because it is built into the `ggplot` package. This is one of the easiest ways I know of to get US county information. Unfortunately it is fairly US specific.
+
+Once we have the `data.frame` of regions that we are interested in selected, all we need to do is draw polygons in `ggplot2`.
+```{r, fig.height=4, fig.width=6}
+# ggplot2 function to create a data.frame with world level information
+geo.data <- ggplot2::map_data('world') # Using maps::world database. 
+
+# group: which set of points are contiguous and should be connected
+# order: what order should the dots be connected
+# region: The name of the region of interest
+# subregion: If there are sub-regions with greater region
+head(geo.data)
+
+# Now draw a nice world map, not using Simple Features,
+# but just playing connect the dots.
+ggplot(geo.data, aes(x = long, y = lat, group = group)) +
+  geom_polygon( colour = "white", fill='grey50') 
+```
+
+The `maps` package has several data bases of geographical regions.  
+
+|  Database    |  Description                               |
+|:------------:|:-------------------------------------------|
+| `world`      |  Country borders across the globe          |
+| `usa`        |  The country boundary of the United States |
+| `state`      |  The state boundaries of the United States |
+| `county`     |  The county boundaries within states of the United States |
+| `lakes`      |  Large fresh water lakes across the world  |
+| `italy`      |  Provinces in Italy                        |
+| `france`     |  Provinces in France                       |
+| `nz`         |  North and South Islands of New Zealand    |
+
+
+The `maps` package also has a `data.frame` of major US cities.  
+
+
+## Example{-}
+
+As an example of how to use the Simple Features format, we'll download some information about the state of Arizona. In particular, we'll grab the borders of the state and counties as well as some selected cities. We'll turn all of the data into `sf` objects and then graph those.
+
+
+
+```{r, fig.height=5, fig.width=5, warning=FALSE, message=FALSE}
+# Takes the ggplot2::map_data information and turns it into a
+# Simple Feature  (sf)
+az.border <- 
+  ggplot2::map_data('state', regions='arizona') %>%
+  select(long, lat) %>% as.matrix() %>% list() %>% 
+  st_polygon()   %>%  # This creates a Simple Features Geometry ( -> sfg)
+  st_sfc() %>%        # Turns it into a Simple Features Geometry List Column ( -> sfc)
+  st_sf(              # Join the Geometries to some other useful data. ( -> sf)
+    State = 'Arizona',
+    Population = 7278717,
+    crs="+proj=longlat +ellps=WGS84 +no_defs")
+
+az.border
+```
+```{r, fig.height=5, fig.width=5, warning=FALSE, message=FALSE}
+# Fails because not all the counties have the start and end point the same.
+# az.counties <-
+#   ggplot2::map_data('county', region='Arizona') %>%
+#   group_by(subregion) %>%
+#   select(long, lat, subregion) %>% group_by() %>%
+#   split(., .$subregion)  %>%            # list with elements county data.frame
+#   st_polygon()                          # convert to Simple Features
+
+# I downloaded some information about Education levels from the American Community Survey 
+# website  https://www.census.gov/acs/www/data/data-tables-and-tools/
+# by selecting the Education topic and then used the filter option to select the state
+# and counties that I was interested in. Both the 1 year and 5 year estimates 
+#  didn't include the smaller counties (too much uncertainty).
+# I then had reshape the data a bit to the following
+# format. I ignored the margin-of-error columns and didn't worry about the 
+# the Race, Hispanic, or Gender differences.
+
+AZ_Ed <- read_csv('data-raw/Arizona_Educational_Attainment.csv', skip=1) %>%
+  select('Geographic Area Name', "Estimate!!Percent!!Population 25 years and over!!Bachelor's degree or higher") %>%
+  rename(County = 1, 'BS+' = 2) 
+
+AZ_Education <- read_csv('data-raw/AZ_Population_25+_BS_or_Higher.csv') %>%
+  arrange(County) %>%
+  rename(Percent_BS = 'Percent_BS+') 
+
+# Show the County percent of 25 or older population with BS or higher 
+AZ_Education
+
+```
+```{r, fig.height=5, fig.width=5, warning=FALSE, message=FALSE}
+
+# Now for the county names
+Counties <-   ggplot2::map_data('county', region='Arizona') %>%
+  group_by(subregion) %>% slice(1) %>% 
+  select(subregion) %>% rename(County=subregion)
+
+# So for each county, add a row at the end that is the same as the first
+az.counties <-
+  ggplot2::map_data('county', region='Arizona') %>%
+  group_by(subregion) %>%
+  do({ rbind(., slice(., 1))} ) %>%       # add the first row on the end.
+  select(long, lat, subregion) %>% group_by() %>%
+  split(., .$subregion)  %>%              # list with elements county data.frame 
+  purrr::map(select, -'subregion') %>%    # remove subregion column in each county
+  purrr::map(as.matrix) %>%
+  sf::st_polygon() %>% st_sfc() %>%
+  st_sf(County = Counties$County,               # Include the County Name!
+    crs="+proj=longlat +ellps=WGS84 +no_defs")
+
+# Now add the Education information to the AZ county information using the 
+# standard join! Notice that the ACS information doesn't include information
+# from some of the smaller 
+az.counties <- az.counties %>%
+  left_join(AZ_Education)
+az.counties
+
+
+
+# Take the maps package us.cities and converts them to Simple Features.
+az.cities <- 
+  maps::us.cities %>%                            # Lat/Long of major US cities
+  filter(country.etc == 'AZ') %>%                # Only the Arizona Cities
+  mutate(name = str_remove(name, '\\sAZ') ) %>%  # remove ' AZ' from the city name
+  sf::st_as_sf(                                  # 
+    coords=c('long','lat'),
+    crs="+proj=longlat +ellps=WGS84 +no_defs")   # to a Simple Features Object
+
+# Now just grab a few cities in Arizona that I care about.
+PHX <- c('Phoenix','Tempe','Scottsdale')
+Rest <- c('Flagstaff','Prescott','Lake Havasu City','Yuma','Tucson','Sierra Vista')
+
+PHX.az.cities <- az.cities %>% filter(name %in% PHX)
+Rest.az.cities <- az.cities %>% filter(name %in% Rest)
+```
+```{r, fig.height=5, fig.width=5, warning=FALSE, message=FALSE}
+# I have no idea why the fill is not working! 
+ggplot() +
+  geom_sf() +
+  geom_sf(data=az.border) +
+  geom_sf(data=az.counties, aes(fill=Percent_BS)) +
+  geom_sf(data=PHX.az.cities) +
+  geom_sf(data=Rest.az.cities) +
+  geom_sf_text( data = PHX.az.cities,  aes(label=name), nudge_x=.4) +
+  geom_sf_label( data = Rest.az.cities, aes(label=name), nudge_y=.2) +
+  labs(title = 'Percent Arizona of 25 or older with BS or higher degree')
+```
+
+
+
+### Package `leaflet`{-}
+
+Leaflet is a popular open-source JavaScript library for interactive maps. The package `leaflet` provides a nice interface to this package. The [tutorial](https://rstudio.github.io/leaflet/) for this package is quite good.
+
+The basic work flow is:
+
+1. Create a map widget by calling leaflet().
+2. Create and add layers (i.e., features) to the map by using layer functions 
+    a) `addTiles` - These are the background of the map that we will put stuff on top of.
+    b) `addMarkers` 
+    c) `addPolygons`
+3. Repeat step 2 as desired.
+4. Print the map widget to display it.
+
+```{r, eval=knitr::is_html_output() }
+map <- leaflet() %>%  # Build a base map
+  addTiles()  %>%     # Add the default tiles 
+  addMarkers(lng=-1*(111+37/60+52/3600), 
+             lat=35+11/60+57/3600, 
+             popup="Flagstaff, AZ")
+map %>% print()
+```
+
+Because we have added only one marker, then leaflet has decided to zoom in as much as possible. If we had multiple markers, it would have scaled the map to include all of them.
+
+As an example of an alternative, I've downloaded a GIS shape file of forest service administrative area boundaries.
+
+```{r, eval=knitr::is_html_output()}
+# The shape file that I downloaded had the CRS format messed up. I need to 
+# indicate the projection so that leaflet doesn't complain.
+Forest_Service <- 
+  sf::st_read('data-raw/Forest_Service_Boundaries/S_USA.AdministrativeRegion.shp') %>%
+  sf::st_transform('+proj=longlat +datum=WGS84')
+
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(data = Forest_Service) %>%
+  setView(-93, 42, zoom=3)
+```
+

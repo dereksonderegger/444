@@ -16,6 +16,33 @@ For many years, R users hated dealing with dates because it was difficult to rem
 
 ## Creating Date and Time objects
 
+R gives a mechanism for getting the current date and time.
+
+```r
+lubridate::today()   # Today's date
+```
+
+```
+## [1] "2020-03-24"
+```
+
+```r
+base::Sys.Date()     # Today's date
+```
+
+```
+## [1] "2020-03-24"
+```
+
+```r
+base::Sys.time()     # Current Time and Date 
+```
+
+```
+## [1] "2020-03-24 15:56:20 MST"
+```
+
+
 To create a `Date` object, we need to take a string or number that represents a date and tell the computer how to figure out which bits are the year, which are the month, and which are the day. The lubridate package uses the following functions:
 
 +--------------------------+-----+-------------------------------+
@@ -273,24 +300,26 @@ data <- tibble(
   dob = c('Feb 24, 1955', 'August 21, 1973', 'Aug 15, 1964', 
           'October 28, 1955', 'November 6, 2014', 'October 12, 2011') )
 
-
 data %>%
   mutate( dob = mdy(dob) ) %>%
-  mutate( age = as.period( dob %--% today(), unit = 'years')  ) %>%
-  mutate( age_years = str_extract( age, '\\d+y') %>% str_remove('y') )
+  mutate( Life = dob %--% today() ) %>%
+  mutate( Age = as.period(Life, units='years') ) %>%
+  mutate( Age2 = year(Age) )
 ```
 
 ```
-## # A tibble: 6 x 4
-##   Name    dob        age                 age_years
-##   <chr>   <date>     <Period>            <chr>    
-## 1 Steve   1955-02-24 65y 0m 16d 0H 0M 0S 65       
-## 2 Sergey  1973-08-21 46y 6m 19d 0H 0M 0S 46       
-## 3 Melinda 1964-08-15 55y 6m 25d 0H 0M 0S 55       
-## 4 Bill    1955-10-28 64y 4m 12d 0H 0M 0S 64       
-## 5 Alexa   2014-11-06 5y 4m 5d 0H 0M 0S   5        
-## 6 Siri    2011-10-12 8y 4m 28d 0H 0M 0S  8
+## # A tibble: 6 x 5
+##   Name    dob        Life                           Age                  Age2
+##   <chr>   <date>     <Interval>                     <Period>            <int>
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-03-24 UTC 65y 1m 0d 0H 0M 0S     65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-03-24 UTC 46y 7m 3d 0H 0M 0S     46
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-03-24 UTC 55y 7m 9d 0H 0M 0S     55
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-03-24 UTC 64y 4m 25d 0H 0M 0S    64
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-03-24 UTC 5y 4m 18d 0H 0M 0S      5
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-03-24 UTC 8y 5m 12d 0H 0M 0S      8
 ```
+
+
 
 ## Exercises
 

@@ -185,12 +185,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe New Age Of Freeway Revolts\n"                                                                    
-## [2] "\nEngineers Crack 58-Year-Old Puzzle On Way To Quantum Breakthrough\n"                                 
-## [3] "\nMilitary Historian Explains Why The Design Of The Roman Army's Pilum Spear Was So Brilliant\n"       
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                           
-## [5] "\nHow Cruise Ships Are A Complete Disaster For The Planet And Human Health\n"                          
-## [6] "\nAn Extremely Illuminating (And Scary) Joe Rogan Interview With An Epidemiologist About Coronavirus\n"
+## [1] "\nAll The President's Lies About The Coronavirus\n"                                  
+## [2] "\nHow We Know Ending Social Distancing Will Lead To More Deaths, In One Chart\n"     
+## [3] "\nGuy Powers On His Fox, Can't Figure Out How To Turn It Back Off\n"                 
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                         
+## [5] "\nDaredevil Skydiver Attempts The World's First Free Fall Jump Into The Jet Stream\n"
+## [6] "\nCarefree Amid A Contagion: How To Talk To COVID-19 Skeptics\n"
 ```
 
 
@@ -205,12 +205,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.citylab.com/transportation/2020/03/highway-expansion-congestion-pollution-houston-portland/607462/?utm_source=digg"
-## [2] "https://phys.org/news/2020-03-year-old-puzzle-quantum-breakthrough.html?utm_source=digg"                                       
-## [3] "/video/roman-pilum-spear"                                                                                                      
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                   
-## [5] "/video/the-surprising-damage-to-health-and-the-environment-that-cruise-ships-are-causing"                                      
-## [6] "/video/coronavirus-epidemiologist-interview"
+## [1] "https://www.theatlantic.com/politics/archive/2020/03/trumps-lies-about-coronavirus/608647/?utm_source=digg"             
+## [2] "https://www.vox.com/policy-and-politics/2020/3/24/21192528/coronavirus-social-distancing-economy-deaths?utm_source=digg"
+## [3] "/video/fox-boop"                                                                                                        
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                            
+## [5] "/video/daredevil-skydiver-attempts-the-worlds-first-freefall-jump-into-the-jet-stream"                                  
+## [6] "https://undark.org/2020/03/24/carefree-amid-a-contagion-how-to-talk-to-covid-19-skeptics/?utm_source=digg"
 ```
 
 

@@ -385,16 +385,11 @@ mosaic::tally( c(0,0,0,1,1,1,1,2) )
 ## 3 4 1
 ```
 
-Finally, many researchers and programmers host their packages on GitHub (or equivalent site) and those packages can easily downloaded using tools from the `devtools` pacakge, which can be downloaded from CRAN.
+Finally, many researchers and programmers host their packages on GitHub (or equivalent site) and those packages can easily downloaded using tools from the `devtools` package, which can be downloaded from CRAN.
 
 
 ```r
 devtools::install_github('dereksonderegger/SiZer')
-```
-
-```
-## Skipping install of 'SiZer' from a github remote, the SHA1 (8745f2e4) has not changed since last install.
-##   Use `force = TRUE` to force installation
 ```
 
 ## Finding Help
