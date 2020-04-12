@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-03-24" />
+<meta name="date" content="2020-04-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -554,6 +554,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This package was built by the same people that created dplyr and ggplot2 and there is a nice introduction at: [<a href="http://blog.rstudio.org/2014/07/22/introducing-tidyr/" class="uri">http://blog.rstudio.org/2014/07/22/introducing-tidyr/</a>]</p>
 <div id="verbs-1" class="section level3">
 <h3><span class="header-section-number">13.3.1</span> Verbs</h3>
+<p><em>I need to update this section to use <code>pivot_longer()</code> and <code>pivot_wider()</code>. Hadley recommends people switch to this as it handles a wider set of problems and is a bit easier to remember</em></p>
 <p>As with the dplyr package, there are two main verbs to remember:</p>
 <table>
 <colgroup>
@@ -729,12 +730,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 A              260.
-## 2 A              239.
-## 3 B              215.
-## 4 B              258.
-## 5 C              254.
-## 6 C              286.</code></pre>
+## 1 A              298.
+## 2 A              235.
+## 3 B              287.
+## 4 B              255.
+## 5 C              277.
+## 6 C              299.</code></pre>
 <div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="13-data-reshaping.html#cb705-1"></a>Lake.Data</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   Lake_ID Lake_Name      pH  area avg_depth
@@ -748,12 +749,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              260. &lt;NA&gt;         NA      NA        NA
-## 2 A              239. &lt;NA&gt;         NA      NA        NA
-## 3 B              215. Lake Elaine   6.5    40         8
-## 4 B              258. Lake Elaine   6.5    40         8
-## 5 C              254. Mormon Lake   6.3   210        10
-## 6 C              286. Mormon Lake   6.3   210        10
+## 1 A              298. &lt;NA&gt;         NA      NA        NA
+## 2 A              235. &lt;NA&gt;         NA      NA        NA
+## 3 B              287. Lake Elaine   6.5    40         8
+## 4 B              255. Lake Elaine   6.5    40         8
+## 5 C              277. Mormon Lake   6.3   210        10
+## 6 C              299. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38</code></pre>
 <p>Notice that because we didn’t have any fish caught in lake <code>D</code> and we don’t have any Lake information about lake <code>A</code>, when we join these two tables, we end up introducing missing observations into the resulting data frame.</p>
 <div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="13-data-reshaping.html#cb710-1"></a><span class="kw">left_join</span>(Fish.Data, Lake.Data)</span></code></pre></div>
@@ -761,21 +762,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              260. &lt;NA&gt;         NA      NA        NA
-## 2 A              239. &lt;NA&gt;         NA      NA        NA
-## 3 B              215. Lake Elaine   6.5    40         8
-## 4 B              258. Lake Elaine   6.5    40         8
-## 5 C              254. Mormon Lake   6.3   210        10
-## 6 C              286. Mormon Lake   6.3   210        10</code></pre>
+## 1 A              298. &lt;NA&gt;         NA      NA        NA
+## 2 A              235. &lt;NA&gt;         NA      NA        NA
+## 3 B              287. Lake Elaine   6.5    40         8
+## 4 B              255. Lake Elaine   6.5    40         8
+## 5 C              277. Mormon Lake   6.3   210        10
+## 6 C              299. Mormon Lake   6.3   210        10</code></pre>
 <div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="13-data-reshaping.html#cb713-1"></a><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</span></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 B              215. Lake Elaine   6.5    40         8
-## 2 B              258. Lake Elaine   6.5    40         8
-## 3 C              254. Mormon Lake   6.3   210        10
-## 4 C              286. Mormon Lake   6.3   210        10</code></pre>
+## 1 B              287. Lake Elaine   6.5    40         8
+## 2 B              255. Lake Elaine   6.5    40         8
+## 3 C              277. Mormon Lake   6.3   210        10
+## 4 C              299. Mormon Lake   6.3   210        10</code></pre>
 <p>The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn’t the case. In that situation you can use the <code>by=c("ColName.A"="ColName.B")</code> syntax where <code>ColName.A</code> represents the name of the column in the first data frame and <code>ColName.B</code> is the equivalent column in the second data frame.</p>
 </div>
 <div id="row-summations" class="section level2">
@@ -913,7 +914,7 @@ Our goal is to end up with a data frame with columns for <code>Function</code>, 
 <li><p>Aubrey is using her new card at Kickstand Kafe on Oct 16, 2019 at 2:30:21 PM for coffee with a charge of $4.98. Generate a new transaction for this action. <em>Hint: create temporary variables <code>card</code>,<code>retailid</code>,<code>datetime</code>, and <code>amount</code> that contain the information for this transaction and then write your code to use those. This way in the next question you can just use the same code but modify the temporary variables. Alternatively, you could write a function that takes in these four values and manipulates the tables in the GLOBAL environment using the <code>&lt;&lt;-</code> command to assign a result to a variable defined in the global environment. The reason this is OK is that in a real situation, these data would be stored in a database and we would expect the function to update that database.</em></p></li>
 <li><p>On Oct 17, 2019, some nefarious person is trying to use her OLD credit card at REI. Make sure your code in part (c) first checks to see if the credit card is active before creating a new transaction. Using the same code, verify that the nefarious transaction at REI is denied. <em>Hint: your check ought to look something like this:</em></p>
 <div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="13-data-reshaping.html#cb724-1"></a>card &lt;-<span class="st"> &#39;9876768717278723&#39;</span></span>
-<span id="cb724-2"><a href="13-data-reshaping.html#cb724-2"></a>redailid &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb724-2"><a href="13-data-reshaping.html#cb724-2"></a>retailid &lt;-<span class="st"> </span><span class="dv">2</span></span>
 <span id="cb724-3"><a href="13-data-reshaping.html#cb724-3"></a>datetime &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&#39;2019-10-16 14:30:21&#39;</span>)</span>
 <span id="cb724-4"><a href="13-data-reshaping.html#cb724-4"></a>amount &lt;-<span class="st"> </span><span class="fl">4.98</span></span>
 <span id="cb724-5"><a href="13-data-reshaping.html#cb724-5"></a></span>
@@ -922,14 +923,27 @@ Our goal is to end up with a data frame with columns for <code>Function</code>, 
 <span id="cb724-8"><a href="13-data-reshaping.html#cb724-8"></a><span class="st">  </span><span class="kw">filter</span>(CardID <span class="op">==</span><span class="st"> </span>card, Issue_DateTime <span class="op">&lt;=</span><span class="st"> </span>datetime, datetime <span class="op">&lt;=</span><span class="st"> </span>Exp_DateTime)</span>
 <span id="cb724-9"><a href="13-data-reshaping.html#cb724-9"></a></span>
 <span id="cb724-10"><a href="13-data-reshaping.html#cb724-10"></a><span class="co"># If the transaction is valid, insert the transaction into the table</span></span>
-<span id="cb724-11"><a href="13-data-reshaping.html#cb724-11"></a><span class="cf">if</span>( <span class="kw">nrows</span>(Valid_Cards) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){</span>
+<span id="cb724-11"><a href="13-data-reshaping.html#cb724-11"></a><span class="cf">if</span>( <span class="kw">nrow</span>(Valid_Cards) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){</span>
 <span id="cb724-12"><a href="13-data-reshaping.html#cb724-12"></a>  <span class="co"># Some code to insert the transaction</span></span>
 <span id="cb724-13"><a href="13-data-reshaping.html#cb724-13"></a>}<span class="cf">else</span>{</span>
 <span id="cb724-14"><a href="13-data-reshaping.html#cb724-14"></a>  <span class="kw">print</span>(<span class="st">&#39;Card Denied&#39;</span>)</span>
 <span id="cb724-15"><a href="13-data-reshaping.html#cb724-15"></a>}</span></code></pre></div></li>
 <li><p>Generate a table that gives the credit card statement for Aubrey. It should give all the transactions, amounts, and retailer name for both credit cards she had during this period.</p></li>
 </ol></li>
-<li><p>The package <code>nycflights13</code> contains information about all the flights that arrived in or left from New York City in 2013. This package contains five data tables, but there are three data tables we will work with. The data table <code>flights</code> gives information about a particular flight, <code>airports</code> gives information about a particular airport, and <code>airlines</code> gives information about each airline. Create a table of all the flights on February 14th by Virgin America that has columns for the carrier, destination, departure time, and flight duration. Join this table with the airports information for the destination. Notice that because the column for the destination airport code doesn’t match up between <code>flights</code> and <code>airports</code>, you’ll have to use the <code>by=c("TableA.Col"="TableB.Col")</code> argument where you insert the correct names for <code>TableA.Col</code> and <code>TableB.Col</code>.</p></li>
+</ol>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="13-data-reshaping.html#cb725-1"></a>Customers <span class="op">%&gt;%</span></span>
+<span id="cb725-2"><a href="13-data-reshaping.html#cb725-2"></a><span class="st">  </span><span class="kw">inner_join</span>(Cards) <span class="op">%&gt;%</span></span>
+<span id="cb725-3"><a href="13-data-reshaping.html#cb725-3"></a><span class="st">  </span><span class="kw">inner_join</span>(Transactions) <span class="op">%&gt;%</span></span>
+<span id="cb725-4"><a href="13-data-reshaping.html#cb725-4"></a><span class="st">  </span><span class="kw">inner_join</span>(Retailers) </span></code></pre></div>
+<pre><code>## Joining, by = &quot;PersonID&quot;</code></pre>
+<pre><code>## Joining, by = &quot;CardID&quot;</code></pre>
+<pre><code>## Joining, by = c(&quot;Name&quot;, &quot;Street&quot;, &quot;City&quot;, &quot;State&quot;, &quot;RetailID&quot;)</code></pre>
+<pre><code>## # A tibble: 0 x 11
+## # … with 11 variables: PersonID &lt;dbl&gt;, Name &lt;chr&gt;, Street &lt;chr&gt;, City &lt;chr&gt;,
+## #   State &lt;chr&gt;, CardID &lt;chr&gt;, Issue_DateTime &lt;dttm&gt;, Exp_DateTime &lt;dttm&gt;,
+## #   RetailID &lt;dbl&gt;, DateTime &lt;dttm&gt;, Amount &lt;dbl&gt;</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>The package <code>nycflights13</code> contains information about all the flights that arrived in or left from New York City in 2013. This package contains five data tables, but there are three data tables we will work with. The data table <code>flights</code> gives information about a particular flight, <code>airports</code> gives information about a particular airport, and <code>airlines</code> gives information about each airline. Create a table of all the flights on February 14th by Virgin America that has columns for the carrier, destination, departure time, and flight duration. Join this table with the airports information for the destination. Notice that because the column for the destination airport code doesn’t match up between <code>flights</code> and <code>airports</code>, you’ll have to use the <code>by=c("TableA.Col"="TableB.Col")</code> argument where you insert the correct names for <code>TableA.Col</code> and <code>TableB.Col</code>.</li>
 </ol>
 
 </div>

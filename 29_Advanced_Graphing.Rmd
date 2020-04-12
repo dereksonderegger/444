@@ -180,12 +180,12 @@ For continuous variables, we need to be able to control what tick and grid lines
 
 ```{r}
 ggplot(trees, aes(x=Height, y=Volume)) + geom_point() +
-  scale_x_continuous( breaks=seq(65,90, by=5) ) +
+  scale_x_continuous( breaks=seq(65,90, by=5), minor_breaks=65:90 ) +
   scale_y_continuous( breaks=c(30,50), labels=c('small','big') )
 ```
 
 ### Log Scales
-For this example, we'll use the `ACS` data from the `Lock5Data` package that has information about `Income` (in thousands of dollars) and `Age`. Lets make a scatterplot of the data.
+For this example, we'll use the `ACS` data from the `Lock5Data` package that has information about `Income` (in thousands of dollars) and `Age`. Lets make a scatter plot of the data.
 ```{r, fig.height=3}
 # Import the data and drop any zeros
 data('ACS', package='Lock5Data') 
@@ -355,14 +355,16 @@ P1 %>%
 # plot.
 ```
 
-<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~zdereksonderegger/3.embed"></iframe>
+<iframe width="900" height="400" frameborder="0" scrolling="no" src="//plot.ly/~zdereksonderegger/3.embed"></iframe>
 
 We can use the widgets to zoom in and out of the graph. Notice that as we hover over the point, it tells us the x/y coordinates. To add information to the hover-text, we just need to add a `text` aesthetic mapping to the plot. 
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 P1 <- trees %>%
-  mutate(Obs_ID = paste('Obs Row:', row_number()) ) %>%
-  ggplot(aes(y=Volume, x=Height, text=Obs_ID)) +
+  mutate(Obs_ID = row_number()) %>%  
+  ggplot(aes(y=Volume, x=Height, 
+             text=paste('Girth: ', Girth,   '\n',          # add some extra text
+                        'Obs #: ', Obs_ID,  sep=''))) +    # to the hover information
   geom_point() 
 
 P1 %>% ggplotly() 
@@ -370,19 +372,22 @@ P1 %>% ggplotly()
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE, echo=FALSE}
 P1 <- trees %>%
-  mutate(Obs_ID = paste('Obs Row:', row_number()) ) %>%
-  ggplot(aes(y=Volume, x=Height, text=Obs_ID)) +
+  mutate(Obs_ID = row_number()) %>%  
+  ggplot(aes(y=Volume, x=Height, 
+             text=paste('Girth: ', Girth,   '\n',          # add some extra text
+                        'Obs #: ', Obs_ID,  sep=''))) +    # to the hover information
   geom_point() 
 
 P1 %>% ggplotly() %>%
-  api_create(filename='444_Plotly_Graph_3') # Save to plotly server so it
+  api_create(filename='444_Plotly_Graph_3',
+             overwrite = TRUE)              # Save to plotly server so it
                                             # it works in the online notes.
                                             # Not necessary for local Rstudio
                                             # work.
 ```
 
 
-<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~zdereksonderegger/5.embed"></iframe>
+<iframe width="900" height="400" frameborder="0" scrolling="no" src="//plot.ly/~zdereksonderegger/5.embed"></iframe>
 
 
 ## Geographic Maps

@@ -160,6 +160,9 @@ What we want to do is turn this data frame from a *wide* data frame into a *long
 This package was built by the same people that created dplyr and ggplot2 and there is a nice introduction at: [http://blog.rstudio.org/2014/07/22/introducing-tidyr/]
 
 ### Verbs 
+
+*I need to update this section to use `pivot_longer()` and `pivot_wider()`. Hadley recommends people switch to this as it handles a wider set of problems and is a bit easier to remember*
+
 As with the dplyr package, there are two main verbs to remember:
 
 |  Function     |   Description                                                                    |
@@ -377,12 +380,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              260.
-## 2 A              239.
-## 3 B              215.
-## 4 B              258.
-## 5 C              254.
-## 6 C              286.
+## 1 A              298.
+## 2 A              235.
+## 3 B              287.
+## 4 B              255.
+## 5 C              277.
+## 6 C              299.
 ```
 
 ```r
@@ -413,12 +416,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              260. <NA>         NA      NA        NA
-## 2 A              239. <NA>         NA      NA        NA
-## 3 B              215. Lake Elaine   6.5    40         8
-## 4 B              258. Lake Elaine   6.5    40         8
-## 5 C              254. Mormon Lake   6.3   210        10
-## 6 C              286. Mormon Lake   6.3   210        10
+## 1 A              298. <NA>         NA      NA        NA
+## 2 A              235. <NA>         NA      NA        NA
+## 3 B              287. Lake Elaine   6.5    40         8
+## 4 B              255. Lake Elaine   6.5    40         8
+## 5 C              277. Mormon Lake   6.3   210        10
+## 6 C              299. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -438,12 +441,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              260. <NA>         NA      NA        NA
-## 2 A              239. <NA>         NA      NA        NA
-## 3 B              215. Lake Elaine   6.5    40         8
-## 4 B              258. Lake Elaine   6.5    40         8
-## 5 C              254. Mormon Lake   6.3   210        10
-## 6 C              286. Mormon Lake   6.3   210        10
+## 1 A              298. <NA>         NA      NA        NA
+## 2 A              235. <NA>         NA      NA        NA
+## 3 B              287. Lake Elaine   6.5    40         8
+## 4 B              255. Lake Elaine   6.5    40         8
+## 5 C              277. Mormon Lake   6.3   210        10
+## 6 C              299. Mormon Lake   6.3   210        10
 ```
 
 
@@ -459,10 +462,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              215. Lake Elaine   6.5    40         8
-## 2 B              258. Lake Elaine   6.5    40         8
-## 3 C              254. Mormon Lake   6.3   210        10
-## 4 C              286. Mormon Lake   6.3   210        10
+## 1 B              287. Lake Elaine   6.5    40         8
+## 2 B              255. Lake Elaine   6.5    40         8
+## 3 C              277. Mormon Lake   6.3   210        10
+## 4 C              299. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
@@ -608,7 +611,7 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
         
         ```r
         card <- '9876768717278723'
-        redailid <- 2
+        retailid <- 2
         datetime <- ymd_hms('2019-10-16 14:30:21')
         amount <- 4.98
         
@@ -617,7 +620,7 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
           filter(CardID == card, Issue_DateTime <= datetime, datetime <= Exp_DateTime)
         
         # If the transaction is valid, insert the transaction into the table
-        if( nrows(Valid_Cards) == 1){
+        if( nrow(Valid_Cards) == 1){
           # Some code to insert the transaction
         }else{
           print('Card Denied')
@@ -625,6 +628,33 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
         ```
     e) Generate a table that gives the credit card statement for Aubrey. It should give all the transactions, amounts, and retailer name for both credit cards she had during this period.
 
+
+
+```r
+Customers %>%
+  inner_join(Cards) %>%
+  inner_join(Transactions) %>%
+  inner_join(Retailers) 
+```
+
+```
+## Joining, by = "PersonID"
+```
+
+```
+## Joining, by = "CardID"
+```
+
+```
+## Joining, by = c("Name", "Street", "City", "State", "RetailID")
+```
+
+```
+## # A tibble: 0 x 11
+## # … with 11 variables: PersonID <dbl>, Name <chr>, Street <chr>, City <chr>,
+## #   State <chr>, CardID <chr>, Issue_DateTime <dttm>, Exp_DateTime <dttm>,
+## #   RetailID <dbl>, DateTime <dttm>, Amount <dbl>
+```
 
     
   

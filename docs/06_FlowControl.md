@@ -119,14 +119,14 @@ df
 
 ```
 ##   Type      Value
-## 1    A -0.1862318
-## 2    A -1.3334293
-## 3    B -0.3323939
-## 4    B -1.2655882
-## 5    C  0.2018828
-## 6    C  1.0489252
-## 7    D  1.2024571
-## 8    D  0.5166112
+## 1    A -0.2164750
+## 2    A  0.7064976
+## 3    B  1.4992048
+## 4    B  0.8696057
+## 5    C -0.1714297
+## 6    C -0.8161993
+## 7    D -1.2725655
+## 8    D -0.5291044
 ```
 
 ```r
@@ -136,10 +136,10 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 
 ```
 ##   Type      Value
-## 1    A -0.1862318
-## 2    A -1.3334293
-## 3    B -0.3323939
-## 4    B -1.2655882
+## 1    A -0.2164750
+## 2    A  0.7064976
+## 3    B  1.4992048
+## 4    B  0.8696057
 ```
 
 
@@ -302,7 +302,7 @@ p.value
 ```
 
 ```
-## [1] 2.00886e-11
+## [1] 1.052276e-06
 ```
 
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.

@@ -164,8 +164,10 @@ ggplot( aes(x=State, y=Percent_Change) ) +
 ### Lists
 Unfortunately, we don't always want to get information from a webpage that is nicely organized into a table. Suppose we want to gather the most recent threads on [Digg](www.digg.com).
 
-We could sift through the HTML tags to find something that will match, but that will be challenging.  Instead we will use a CSS selector named [SelectorGadget](https://selectorgadget.com). Install the bookmarklet by dragging this [bookmarklet](javascript:(function(){var%20s=document.createElement('div');s.innerHTML='Loading...';s.style.color='black';s.style.padding='20px';s.style.position='fixed';s.style.zIndex='9999';s.style.fontSize='3.0em';s.style.border='2px%20solid%20black';s.style.right='40px';s.style.top='40px';s.setAttribute('class','selector_gadget_loading');s.style.background='white';document.body.appendChild(s);s=document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('src','https://dv0akt2986vzh.cloudfront.net/unstable/lib/selectorgadget.js');document.body.appendChild(s);})();) 
-up to your browsers bookmark bar.  When you are at the site you are interested in, just click on the bookmarklet to engage the CSS engine. Click on something you want to capture. This will highlight a whole bunch of things that match the HTML tag listed at the bottom of the screen. Select or deselect items by clicking on them and the search string used to refine the selection will be updated. Once you are happy with the items being selected, copy the HTML node selector.
+We could sift through the HTML tags to find something that will match, but that will be challenging.  Instead we will use a CSS selector named [SelectorGadget](https://selectorgadget.com). Install the bookmarklet by dragging the following javascript code  [SelectorGadge](javascript:(function(){var%20s=document.createElement('div');s.innerHTML='Loading...';s.style.color='black';s.style.padding='20px';s.style.position='fixed';s.style.zIndex='9999';s.style.fontSize='3.0em';s.style.border='2px%20solid%20black';s.style.right='40px';s.style.top='40px';s.setAttribute('class','selector_gadget_loading');s.style.background='white';document.body.appendChild(s);s=document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('src','https://dv0akt2986vzh.cloudfront.net/unstable/lib/selectorgadget.js');document.body.appendChild(s);})();) 
+up to your browser's bookmark bar.  When you are at the site you are interested in, just click on the SelectorGadget javascript bookmarklet to engage the CSS engine. Click on something you want to capture. This will highlight a whole bunch of things that match the HTML tag listed at the bottom of the screen. Select or deselect items by clicking on them and the search string used to refine the selection will be updated. Once you are happy with the items being selected, copy the HTML node selector. Things highlighted in green are things you clicked on to select, stuff in yellow is content selected by the current html tags, and things in red are things you chose to NOT select.
+
+
 
 
 ```r
@@ -185,12 +187,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nAll The President's Lies About The Coronavirus\n"                                  
-## [2] "\nHow We Know Ending Social Distancing Will Lead To More Deaths, In One Chart\n"     
-## [3] "\nGuy Powers On His Fox, Can't Figure Out How To Turn It Back Off\n"                 
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                         
-## [5] "\nDaredevil Skydiver Attempts The World's First Free Fall Jump Into The Jet Stream\n"
-## [6] "\nCarefree Amid A Contagion: How To Talk To COVID-19 Skeptics\n"
+## [1] "\nA Secret Family History, Reconstructed In The Present, And More Best Photography Of The Week\n"            
+## [2] "\nGuy Scooped Up A Jar Of Pond Water And Left It On His Window Sill — What Happened Next Was Extraordinary\n"
+## [3] "\nHe Could Have Seen What Was Coming: Behind Trump's Failure On The Virus\n"                                 
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                 
+## [5] "\nWhich 3D Printed Bridge Design Can Handle The Most Force From A Hydraulic Press?\n"                        
+## [6] "\nInside The Coronavirus Hell At Lowe's\n"
 ```
 
 
@@ -205,12 +207,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.theatlantic.com/politics/archive/2020/03/trumps-lies-about-coronavirus/608647/?utm_source=digg"             
-## [2] "https://www.vox.com/policy-and-politics/2020/3/24/21192528/coronavirus-social-distancing-economy-deaths?utm_source=digg"
-## [3] "/video/fox-boop"                                                                                                        
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                            
-## [5] "/video/daredevil-skydiver-attempts-the-worlds-first-freefall-jump-into-the-jet-stream"                                  
-## [6] "https://undark.org/2020/03/24/carefree-amid-a-contagion-how-to-talk-to-covid-19-skeptics/?utm_source=digg"
+## [1] "/2020/best-photos-of-the-week-secret-family-history"                                                          
+## [2] "/video/guy-scooped-up-a-jar-of-pond-water-and-left-it-on-his-window-sill-what-happened-next-was-extraordinary"
+## [3] "https://www.nytimes.com/2020/04/11/us/politics/coronavirus-trump-response.html?utm_source=digg"               
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                  
+## [5] "/video/which-3d-printed-bridge-design-can-handle-the-most-force-from-a-hydraulic-press"                       
+## [6] "https://melmagazine.com/en-us/story/lowes-coronavirus-hell?utm_source=digg"
 ```
 
 

@@ -108,6 +108,9 @@ What we want to do is turn this data frame from a *wide* data frame into a *long
 This package was built by the same people that created dplyr and ggplot2 and there is a nice introduction at: [http://blog.rstudio.org/2014/07/22/introducing-tidyr/]
 
 ### Verbs 
+
+*I need to update this section to use `pivot_longer()` and `pivot_wider()`. Hadley recommends people switch to this as it handles a wider set of problems and is a bit easier to remember*
+
 As with the dplyr package, there are two main verbs to remember:
 
 |  Function     |   Description                                                                    |
@@ -379,7 +382,7 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
     d) On Oct 17, 2019, some nefarious person is trying to use her OLD credit card at REI. Make sure your code in part (c) first checks to see if the credit card is active before creating a new transaction. Using the same code, verify that the nefarious transaction at REI is denied. *Hint: your check ought to look something like this:*
         ```{r, eval=FALSE}
         card <- '9876768717278723'
-        redailid <- 2
+        retailid <- 2
         datetime <- ymd_hms('2019-10-16 14:30:21')
         amount <- 4.98
         
@@ -388,7 +391,7 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
           filter(CardID == card, Issue_DateTime <= datetime, datetime <= Exp_DateTime)
         
         # If the transaction is valid, insert the transaction into the table
-        if( nrows(Valid_Cards) == 1){
+        if( nrow(Valid_Cards) == 1){
           # Some code to insert the transaction
         }else{
           print('Card Denied')
@@ -396,6 +399,13 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
         ```
     e) Generate a table that gives the credit card statement for Aubrey. It should give all the transactions, amounts, and retailer name for both credit cards she had during this period.
 
+
+```{r}
+Customers %>%
+  inner_join(Cards) %>%
+  inner_join(Transactions) %>%
+  inner_join(Retailers) 
+```
 
     
   
