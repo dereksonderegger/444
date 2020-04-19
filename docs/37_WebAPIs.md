@@ -6,7 +6,8 @@
 ```r
 library(tidyverse)
 library(censusapi)
-library(jsonlite)  
+library(jsonlite) 
+library(tidycensus)
 ```
 
 ## Introduction
