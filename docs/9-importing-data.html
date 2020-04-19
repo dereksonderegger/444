@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-04-11" />
+<meta name="date" content="2020-04-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -397,11 +397,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.3" data-path="16-data-scraping.html"><a href="16-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html"><i class="fa fa-check"></i><b>17</b> API Data Queries</a><ul>
-<li class="chapter" data-level="17.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>17.1</b> Web Interface</a></li>
-<li class="chapter" data-level="17.2" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>17.2</b> R API Interfaces</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.2.1</b> Population Estimates</a></li>
+<li class="chapter" data-level="17.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#introduction-3"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#census-bureau-api"><i class="fa fa-check"></i><b>17.2</b> Census Bureau API</a></li>
+<li class="chapter" data-level="17.3" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#package-censusapi"><i class="fa fa-check"></i><b>17.3</b> Package <code>censusapi</code></a><ul>
+<li class="chapter" data-level="17.3.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.3.1</b> Population Estimates</a></li>
 </ul></li>
-<li class="chapter" data-level="17.3" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
+<li class="chapter" data-level="17.4" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#package-tidycensus"><i class="fa fa-check"></i><b>17.4</b> Package <code>tidycensus</code></a></li>
+<li class="chapter" data-level="17.5" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="18-databases.html"><a href="18-databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
 <li class="chapter" data-level="18.1" data-path="18-databases.html"><a href="18-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
@@ -541,12 +543,12 @@ quotes.</td>
 </tbody>
 </table>
 <p>To read in the “Body Fat” dataset we could run the R command:</p>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="9-importing-data.html#cb477-1"></a>BodyFat &lt;-<span class="st"> </span><span class="kw">read.table</span>( </span>
-<span id="cb477-2"><a href="9-importing-data.html#cb477-2"></a>  <span class="dt">file   =</span> <span class="st">&#39;http://www.lock5stat.com/datasets/BodyFat.csv&#39;</span>,  <span class="co"># where the data lives</span></span>
-<span id="cb477-3"><a href="9-importing-data.html#cb477-3"></a>  <span class="dt">header =</span> <span class="ot">TRUE</span>,                                             <span class="co"># first line is column names</span></span>
-<span id="cb477-4"><a href="9-importing-data.html#cb477-4"></a>  <span class="dt">sep    =</span> <span class="st">&#39;,&#39;</span> )                                             <span class="co"># Data is sparated by commas</span></span>
-<span id="cb477-5"><a href="9-importing-data.html#cb477-5"></a></span>
-<span id="cb477-6"><a href="9-importing-data.html#cb477-6"></a><span class="kw">str</span>(BodyFat)</span></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="9-importing-data.html#cb478-1"></a>BodyFat &lt;-<span class="st"> </span><span class="kw">read.table</span>( </span>
+<span id="cb478-2"><a href="9-importing-data.html#cb478-2"></a>  <span class="dt">file   =</span> <span class="st">&#39;http://www.lock5stat.com/datasets/BodyFat.csv&#39;</span>,  <span class="co"># where the data lives</span></span>
+<span id="cb478-3"><a href="9-importing-data.html#cb478-3"></a>  <span class="dt">header =</span> <span class="ot">TRUE</span>,                                             <span class="co"># first line is column names</span></span>
+<span id="cb478-4"><a href="9-importing-data.html#cb478-4"></a>  <span class="dt">sep    =</span> <span class="st">&#39;,&#39;</span> )                                             <span class="co"># Data is sparated by commas</span></span>
+<span id="cb478-5"><a href="9-importing-data.html#cb478-5"></a></span>
+<span id="cb478-6"><a href="9-importing-data.html#cb478-6"></a><span class="kw">str</span>(BodyFat)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    100 obs. of  10 variables:
 ##  $ Bodyfat: num  32.3 22.5 22 12.3 20.5 22.6 28.7 21.3 29.9 21.3 ...
 ##  $ Age    : int  41 31 42 23 46 54 43 42 37 41 ...
@@ -572,64 +574,64 @@ quotes.</td>
 <p>The simplest package for importing Excel files seems to be the package <code>readxl</code>. Another package that does this is the XLConnect which does the Excel -&gt; .csv conversion using Java. Another package the works well is the <code>xlsx</code> package, but it also requires Java to be installed. The nice thing about these two packages is that they also allow you to write Excel files as well. The RODBC package allows R to connect to various databases and it is possible to make it consider an Excel file as an extremely crude database.</p>
 <p>The <code>readxl</code> package provides a function <code>read_exel()</code> that allows us to specify which sheet within the Excel file to read and what character specifies missing data (it assumes a blank cell is missing data if you don’t specifying anything). One annoying change between <code>read.table()</code> and <code>read_excel()</code> is that the argument for specifying where the file is is different (<code>path=</code> instead of <code>file=</code>). Another difference between the two is that <code>read_excel()</code> does not yet have the capability of handling a path that is a web address.</p>
 <p>From GitHub, download the files <code>Example_1.xls</code>, <code>Example_2.xls</code>, <code>Example_3.xls</code> and <code>Example_4.xls</code> from the directory [<a href="https://github.com/dereksonderegger/570L/tree/master/data-raw" class="uri">https://github.com/dereksonderegger/570L/tree/master/data-raw</a>]. Place these files in the same directory that you store your course work or make a subdirectory data to store the files in. Make sure that the working directory that RStudio is using is that same directory (Session -&gt; Set Working Directory).</p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="9-importing-data.html#cb479-1"></a><span class="co"># load the library that has the read.xls function. </span></span>
-<span id="cb479-2"><a href="9-importing-data.html#cb479-2"></a><span class="kw">library</span>(readxl)</span>
-<span id="cb479-3"><a href="9-importing-data.html#cb479-3"></a></span>
-<span id="cb479-4"><a href="9-importing-data.html#cb479-4"></a><span class="co"># Where does the data live relative to my current working location? </span></span>
-<span id="cb479-5"><a href="9-importing-data.html#cb479-5"></a><span class="co">#</span></span>
-<span id="cb479-6"><a href="9-importing-data.html#cb479-6"></a><span class="co"># In my directory where this Rmarkdown file lives, I have made a subdirectory </span></span>
-<span id="cb479-7"><a href="9-importing-data.html#cb479-7"></a><span class="co">#    named &#39;data-raw&#39; to store all the data files. So the path to my data</span></span>
-<span id="cb479-8"><a href="9-importing-data.html#cb479-8"></a><span class="co">#    file will be &#39;data-raw/Example_1.xls&#39;.</span></span>
-<span id="cb479-9"><a href="9-importing-data.html#cb479-9"></a><span class="co"># If you stored the files in the same directory as your RMarkdown script, you</span></span>
-<span id="cb479-10"><a href="9-importing-data.html#cb479-10"></a><span class="co">#    don&#39;t have to add any additional information and you can just tell it the</span></span>
-<span id="cb479-11"><a href="9-importing-data.html#cb479-11"></a><span class="co">#    file name &#39;Example_1.xls&#39;</span></span>
-<span id="cb479-12"><a href="9-importing-data.html#cb479-12"></a><span class="co"># Alternatively I could give the full path to this file starting at the root</span></span>
-<span id="cb479-13"><a href="9-importing-data.html#cb479-13"></a><span class="co">#    directory which, for me, is &#39;~/GitHub/STA570L_Book/data-raw/Example_1.xls&#39;</span></span>
-<span id="cb479-14"><a href="9-importing-data.html#cb479-14"></a><span class="co">#    but for Windows users it might be &#39;Z:/570L/Lab7/Example_1.xls&#39;. This looks</span></span>
-<span id="cb479-15"><a href="9-importing-data.html#cb479-15"></a><span class="co">#    odd because Windows usually uses a backslash to represent the directory</span></span>
-<span id="cb479-16"><a href="9-importing-data.html#cb479-16"></a><span class="co">#    structure, but a backslash has special meaning in R and so it wants </span></span>
-<span id="cb479-17"><a href="9-importing-data.html#cb479-17"></a><span class="co">#    to separate directories via forwardslashes.</span></span>
-<span id="cb479-18"><a href="9-importing-data.html#cb479-18"></a></span>
-<span id="cb479-19"><a href="9-importing-data.html#cb479-19"></a><span class="co"># read the first worksheet of the Example_1 file</span></span>
-<span id="cb479-20"><a href="9-importing-data.html#cb479-20"></a>data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>( <span class="st">&#39;data-raw/Example_1.xls&#39;</span>  )   <span class="co"># relative to this Rmarkdown file</span></span>
-<span id="cb479-21"><a href="9-importing-data.html#cb479-21"></a>data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;~/GitHub/570L/data-raw/Example_1.xls&#39;</span>)  <span class="co"># absolute path</span></span>
-<span id="cb479-22"><a href="9-importing-data.html#cb479-22"></a></span>
-<span id="cb479-23"><a href="9-importing-data.html#cb479-23"></a><span class="co"># read the second worksheet where the second worksheet is named &#39;data&#39;</span></span>
-<span id="cb479-24"><a href="9-importing-data.html#cb479-24"></a>data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="dv">2</span>     )   </span>
-<span id="cb479-25"><a href="9-importing-data.html#cb479-25"></a>data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   </span></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="9-importing-data.html#cb480-1"></a><span class="co"># load the library that has the read.xls function. </span></span>
+<span id="cb480-2"><a href="9-importing-data.html#cb480-2"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb480-3"><a href="9-importing-data.html#cb480-3"></a></span>
+<span id="cb480-4"><a href="9-importing-data.html#cb480-4"></a><span class="co"># Where does the data live relative to my current working location? </span></span>
+<span id="cb480-5"><a href="9-importing-data.html#cb480-5"></a><span class="co">#</span></span>
+<span id="cb480-6"><a href="9-importing-data.html#cb480-6"></a><span class="co"># In my directory where this Rmarkdown file lives, I have made a subdirectory </span></span>
+<span id="cb480-7"><a href="9-importing-data.html#cb480-7"></a><span class="co">#    named &#39;data-raw&#39; to store all the data files. So the path to my data</span></span>
+<span id="cb480-8"><a href="9-importing-data.html#cb480-8"></a><span class="co">#    file will be &#39;data-raw/Example_1.xls&#39;.</span></span>
+<span id="cb480-9"><a href="9-importing-data.html#cb480-9"></a><span class="co"># If you stored the files in the same directory as your RMarkdown script, you</span></span>
+<span id="cb480-10"><a href="9-importing-data.html#cb480-10"></a><span class="co">#    don&#39;t have to add any additional information and you can just tell it the</span></span>
+<span id="cb480-11"><a href="9-importing-data.html#cb480-11"></a><span class="co">#    file name &#39;Example_1.xls&#39;</span></span>
+<span id="cb480-12"><a href="9-importing-data.html#cb480-12"></a><span class="co"># Alternatively I could give the full path to this file starting at the root</span></span>
+<span id="cb480-13"><a href="9-importing-data.html#cb480-13"></a><span class="co">#    directory which, for me, is &#39;~/GitHub/STA570L_Book/data-raw/Example_1.xls&#39;</span></span>
+<span id="cb480-14"><a href="9-importing-data.html#cb480-14"></a><span class="co">#    but for Windows users it might be &#39;Z:/570L/Lab7/Example_1.xls&#39;. This looks</span></span>
+<span id="cb480-15"><a href="9-importing-data.html#cb480-15"></a><span class="co">#    odd because Windows usually uses a backslash to represent the directory</span></span>
+<span id="cb480-16"><a href="9-importing-data.html#cb480-16"></a><span class="co">#    structure, but a backslash has special meaning in R and so it wants </span></span>
+<span id="cb480-17"><a href="9-importing-data.html#cb480-17"></a><span class="co">#    to separate directories via forwardslashes.</span></span>
+<span id="cb480-18"><a href="9-importing-data.html#cb480-18"></a></span>
+<span id="cb480-19"><a href="9-importing-data.html#cb480-19"></a><span class="co"># read the first worksheet of the Example_1 file</span></span>
+<span id="cb480-20"><a href="9-importing-data.html#cb480-20"></a>data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>( <span class="st">&#39;data-raw/Example_1.xls&#39;</span>  )   <span class="co"># relative to this Rmarkdown file</span></span>
+<span id="cb480-21"><a href="9-importing-data.html#cb480-21"></a>data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;~/GitHub/570L/data-raw/Example_1.xls&#39;</span>)  <span class="co"># absolute path</span></span>
+<span id="cb480-22"><a href="9-importing-data.html#cb480-22"></a></span>
+<span id="cb480-23"><a href="9-importing-data.html#cb480-23"></a><span class="co"># read the second worksheet where the second worksheet is named &#39;data&#39;</span></span>
+<span id="cb480-24"><a href="9-importing-data.html#cb480-24"></a>data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="dv">2</span>     )   </span>
+<span id="cb480-25"><a href="9-importing-data.html#cb480-25"></a>data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   </span></code></pre></div>
 <p>There is one additional problem that shows up while reading in Excel files. Blank columns often show up in Excel files because at some point there was some text in a cell that got deleted but a space remains and Excel still thinks there is data in the column. To fix this, you could find the cell with the space in it, or you can select a bunch of columns at the edge and delete the entire columns. Alternatively, you could remove the column after it is read into R using tools we’ll learn when we get to the <em>Manipulating Data</em> chapter.</p>
 <p>Open up the file <code>Example_4.xls</code> in Excel and confirm that the data sheet has name columns out to carb. Read in the data frame using the following code:</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="9-importing-data.html#cb480-1"></a>data<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data-raw/Example_4.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   <span class="co"># Extra Column Example</span></span></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="9-importing-data.html#cb481-1"></a>data<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data-raw/Example_4.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   <span class="co"># Extra Column Example</span></span></code></pre></div>
 <pre><code>## New names:
 ## * `` -&gt; ...13
 ## * `` -&gt; ...14</code></pre>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="9-importing-data.html#cb482-1"></a><span class="kw">str</span>(data<span class="fl">.4</span>)</span></code></pre></div>
-<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    34 obs. of  14 variables:
-##  $ model: chr  &quot;Mazda RX4&quot; &quot;Mazda RX4 Wag&quot; &quot;Datsun 710&quot; &quot;Hornet 4 Drive&quot; ...
-##  $ mpg  : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
-##  $ cyl  : num  6 6 4 6 8 6 8 4 4 6 ...
-##  $ disp : num  160 160 108 258 360 ...
-##  $ hp   : num  110 110 93 110 175 105 245 62 95 123 ...
-##  $ drat : num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
-##  $ wt   : num  2.62 2.88 2.32 3.21 3.44 ...
-##  $ qsec : num  16.5 17 18.6 19.4 17 ...
-##  $ vs   : num  0 0 1 1 0 1 0 1 1 1 ...
-##  $ am   : num  1 1 1 0 0 0 0 0 0 0 ...
-##  $ gear : num  4 4 4 3 3 3 3 4 4 4 ...
-##  $ carb : num  4 4 1 1 2 1 4 2 2 4 ...
-##  $ ...13: logi  NA NA NA NA NA NA ...
-##  $ ...14: logi  NA NA NA NA NA NA ...</code></pre>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="9-importing-data.html#cb483-1"></a><span class="kw">str</span>(data<span class="fl">.4</span>)</span></code></pre></div>
+<pre><code>## tibble [34 × 14] (S3: tbl_df/tbl/data.frame)
+##  $ model: chr [1:34] &quot;Mazda RX4&quot; &quot;Mazda RX4 Wag&quot; &quot;Datsun 710&quot; &quot;Hornet 4 Drive&quot; ...
+##  $ mpg  : num [1:34] 21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl  : num [1:34] 6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp : num [1:34] 160 160 108 258 360 ...
+##  $ hp   : num [1:34] 110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat : num [1:34] 3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt   : num [1:34] 2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec : num [1:34] 16.5 17 18.6 19.4 17 ...
+##  $ vs   : num [1:34] 0 0 1 1 0 1 0 1 1 1 ...
+##  $ am   : num [1:34] 1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear : num [1:34] 4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb : num [1:34] 4 4 1 1 2 1 4 2 2 4 ...
+##  $ ...13: logi [1:34] NA NA NA NA NA NA ...
+##  $ ...14: logi [1:34] NA NA NA NA NA NA ...</code></pre>
 <p>We notice that after reading in the data, there is an additional column that just has missing data (the NA stands for not available which means that the data is missing) and a row with just a single blank. Go back to the Excel file and go to row 4 column N and notice that the cell isn’t actually blank, there is a space. Delete the space, save the file, and then reload the data into R. You should notice that the extra columns are now gone.</p>
 </div>
 <div id="multiple-files" class="section level2">
 <h2><span class="header-section-number">9.4</span> Multiple files</h2>
 <p>There are several cases where our data is stored in multiple files and we want to read them in. If the data sources all have an identical column format, we can just stack the data frames together using the <code>rbind</code> command.</p>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="9-importing-data.html#cb484-1"></a>files &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;file1.csv&#39;</span>, <span class="st">&#39;file2.csv&#39;</span>, <span class="st">&#39;file3.csv&#39;</span>)  <span class="co"># Files to be read in.</span></span>
-<span id="cb484-2"><a href="9-importing-data.html#cb484-2"></a>data &lt;-<span class="st"> </span><span class="ot">NULL</span>   <span class="co"># what will the output data frame be named</span></span>
-<span id="cb484-3"><a href="9-importing-data.html#cb484-3"></a><span class="cf">for</span>( file <span class="cf">in</span> files){  <span class="co"># for each element of our files vector</span></span>
-<span id="cb484-4"><a href="9-importing-data.html#cb484-4"></a>  temp.data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(file)     <span class="co"># read in the file </span></span>
-<span id="cb484-5"><a href="9-importing-data.html#cb484-5"></a>  data &lt;-<span class="st"> </span><span class="kw">rbind</span>(data, temp.data)  <span class="co"># Append it to our final data set</span></span>
-<span id="cb484-6"><a href="9-importing-data.html#cb484-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="9-importing-data.html#cb485-1"></a>files &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;file1.csv&#39;</span>, <span class="st">&#39;file2.csv&#39;</span>, <span class="st">&#39;file3.csv&#39;</span>)  <span class="co"># Files to be read in.</span></span>
+<span id="cb485-2"><a href="9-importing-data.html#cb485-2"></a>data &lt;-<span class="st"> </span><span class="ot">NULL</span>   <span class="co"># what will the output data frame be named</span></span>
+<span id="cb485-3"><a href="9-importing-data.html#cb485-3"></a><span class="cf">for</span>( file <span class="cf">in</span> files){  <span class="co"># for each element of our files vector</span></span>
+<span id="cb485-4"><a href="9-importing-data.html#cb485-4"></a>  temp.data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(file)     <span class="co"># read in the file </span></span>
+<span id="cb485-5"><a href="9-importing-data.html#cb485-5"></a>  data &lt;-<span class="st"> </span><span class="kw">rbind</span>(data, temp.data)  <span class="co"># Append it to our final data set</span></span>
+<span id="cb485-6"><a href="9-importing-data.html#cb485-6"></a>}</span></code></pre></div>
 <p>In the example above, we might need to modify the <code>read.csv()</code> command, but fortunately it isn’t too hard to combine a <code>for</code> loop with set of statements to read in the dataset.</p>
 </div>
 <div id="exercises-9" class="section level2">

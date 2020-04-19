@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-04-11" />
+<meta name="date" content="2020-04-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -397,11 +397,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.3" data-path="16-data-scraping.html"><a href="16-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html"><i class="fa fa-check"></i><b>17</b> API Data Queries</a><ul>
-<li class="chapter" data-level="17.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>17.1</b> Web Interface</a></li>
-<li class="chapter" data-level="17.2" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>17.2</b> R API Interfaces</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.2.1</b> Population Estimates</a></li>
+<li class="chapter" data-level="17.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#introduction-3"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#census-bureau-api"><i class="fa fa-check"></i><b>17.2</b> Census Bureau API</a></li>
+<li class="chapter" data-level="17.3" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#package-censusapi"><i class="fa fa-check"></i><b>17.3</b> Package <code>censusapi</code></a><ul>
+<li class="chapter" data-level="17.3.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.3.1</b> Population Estimates</a></li>
 </ul></li>
-<li class="chapter" data-level="17.3" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
+<li class="chapter" data-level="17.4" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#package-tidycensus"><i class="fa fa-check"></i><b>17.4</b> Package <code>tidycensus</code></a></li>
+<li class="chapter" data-level="17.5" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="18-databases.html"><a href="18-databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
 <li class="chapter" data-level="18.1" data-path="18-databases.html"><a href="18-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
@@ -437,121 +439,121 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="functions-1" class="section level1">
 <h1><span class="header-section-number">Chapter 10</span> Functions</h1>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="10-functions-1.html#cb485-1"></a><span class="kw">library</span>(tidyverse)  </span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="10-functions-1.html#cb486-1"></a><span class="kw">library</span>(tidyverse)  </span></code></pre></div>
 <p>It is very important to be able to define a piece of programming logic that is repeated often. For example, I don’t want to have to always program the mathematical code for calculating the sample variance of a vector of data. Instead I just want to call a function that does everything for me and I don’t have to worry about the details.</p>
 <p>While hiding the computational details is nice, fundamentally writing functions allows us to think about our problems at a higher layer of abstraction. For example, most scientists just want to run a t-test on their data and get the appropriate p-value out; they want to focus on their problem and not how to calculate what the appropriate degrees of freedom are. Functions let us do that.</p>
 <div id="basic-function-definition" class="section level2">
 <h2><span class="header-section-number">10.1</span> Basic function definition</h2>
 <p>In the course of your analysis, it can be useful to define your own functions. The format for defining your own function is</p>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="10-functions-1.html#cb486-1"></a>function.name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, arg3){</span>
-<span id="cb486-2"><a href="10-functions-1.html#cb486-2"></a>  statement1</span>
-<span id="cb486-3"><a href="10-functions-1.html#cb486-3"></a>  statement2</span>
-<span id="cb486-4"><a href="10-functions-1.html#cb486-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="10-functions-1.html#cb487-1"></a>function.name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, arg3){</span>
+<span id="cb487-2"><a href="10-functions-1.html#cb487-2"></a>  statement1</span>
+<span id="cb487-3"><a href="10-functions-1.html#cb487-3"></a>  statement2</span>
+<span id="cb487-4"><a href="10-functions-1.html#cb487-4"></a>}</span></code></pre></div>
 <p>where <code>arg1</code> is the first argument passed to the function and <code>arg2</code> is the second.</p>
 <p>To illustrate how to define your own function, we will define a variance calculating function.</p>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="10-functions-1.html#cb487-1"></a><span class="co"># define my function</span></span>
-<span id="cb487-2"><a href="10-functions-1.html#cb487-2"></a>my.var &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb487-3"><a href="10-functions-1.html#cb487-3"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)                <span class="co"># calculate sample size</span></span>
-<span id="cb487-4"><a href="10-functions-1.html#cb487-4"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(x)               <span class="co"># calculate sample mean</span></span>
-<span id="cb487-5"><a href="10-functions-1.html#cb487-5"></a>  SSE &lt;-<span class="st"> </span><span class="kw">sum</span>( (x<span class="op">-</span>xbar)<span class="op">^</span><span class="dv">2</span> )      <span class="co"># calculate sum of squared error</span></span>
-<span id="cb487-6"><a href="10-functions-1.html#cb487-6"></a>  v &lt;-<span class="st"> </span>SSE <span class="op">/</span><span class="st"> </span>( n <span class="op">-</span><span class="st"> </span><span class="dv">1</span> )          <span class="co"># &quot;average&quot; squared error</span></span>
-<span id="cb487-7"><a href="10-functions-1.html#cb487-7"></a>  <span class="kw">return</span>(v)                     <span class="co"># result of function is v</span></span>
-<span id="cb487-8"><a href="10-functions-1.html#cb487-8"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="10-functions-1.html#cb488-1"></a><span class="co"># create a vector that I wish to calculate the variance of</span></span>
-<span id="cb488-2"><a href="10-functions-1.html#cb488-2"></a>test.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
-<span id="cb488-3"><a href="10-functions-1.html#cb488-3"></a></span>
-<span id="cb488-4"><a href="10-functions-1.html#cb488-4"></a><span class="co"># calculate the variance using my function</span></span>
-<span id="cb488-5"><a href="10-functions-1.html#cb488-5"></a>calculated.var &lt;-<span class="st"> </span><span class="kw">my.var</span>( test.vector )</span>
-<span id="cb488-6"><a href="10-functions-1.html#cb488-6"></a>calculated.var</span></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="10-functions-1.html#cb488-1"></a><span class="co"># define my function</span></span>
+<span id="cb488-2"><a href="10-functions-1.html#cb488-2"></a>my.var &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb488-3"><a href="10-functions-1.html#cb488-3"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)                <span class="co"># calculate sample size</span></span>
+<span id="cb488-4"><a href="10-functions-1.html#cb488-4"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(x)               <span class="co"># calculate sample mean</span></span>
+<span id="cb488-5"><a href="10-functions-1.html#cb488-5"></a>  SSE &lt;-<span class="st"> </span><span class="kw">sum</span>( (x<span class="op">-</span>xbar)<span class="op">^</span><span class="dv">2</span> )      <span class="co"># calculate sum of squared error</span></span>
+<span id="cb488-6"><a href="10-functions-1.html#cb488-6"></a>  v &lt;-<span class="st"> </span>SSE <span class="op">/</span><span class="st"> </span>( n <span class="op">-</span><span class="st"> </span><span class="dv">1</span> )          <span class="co"># &quot;average&quot; squared error</span></span>
+<span id="cb488-7"><a href="10-functions-1.html#cb488-7"></a>  <span class="kw">return</span>(v)                     <span class="co"># result of function is v</span></span>
+<span id="cb488-8"><a href="10-functions-1.html#cb488-8"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="10-functions-1.html#cb489-1"></a><span class="co"># create a vector that I wish to calculate the variance of</span></span>
+<span id="cb489-2"><a href="10-functions-1.html#cb489-2"></a>test.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb489-3"><a href="10-functions-1.html#cb489-3"></a></span>
+<span id="cb489-4"><a href="10-functions-1.html#cb489-4"></a><span class="co"># calculate the variance using my function</span></span>
+<span id="cb489-5"><a href="10-functions-1.html#cb489-5"></a>calculated.var &lt;-<span class="st"> </span><span class="kw">my.var</span>( test.vector )</span>
+<span id="cb489-6"><a href="10-functions-1.html#cb489-6"></a>calculated.var</span></code></pre></div>
 <pre><code>## [1] 2.7</code></pre>
 <p>Notice that even though I defined my function using <code>x</code> as my vector of data, and passed my function something named <code>test.vector</code>, R does the appropriate renaming.If my function doesn’t modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable <code>x</code> as a placeholder, with it being replaced by whatever gets passed into the function.</p>
 <p>When I call a function, the function might cause something to happen (e.g. draw a plot) or it might do some calculates the result is returned by the function and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the <code>return</code> statement. (Actually R doesn’t completely require this. But the alternative method is less intuitive and I strongly recommend using the <code>return()</code> statement for readability.)</p>
 <p>By writing a function, I can use the same chunk of code repeatedly. This means that I can do all my tedious calculations inside the function and just call the function whenever I want and happily ignore the details. Consider the function <code>t.test()</code> which we have used to do all the calculations in a t-test. We could write a similar function using the following code:</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="10-functions-1.html#cb490-1"></a><span class="co"># define my function</span></span>
-<span id="cb490-2"><a href="10-functions-1.html#cb490-2"></a>one.sample.t.test &lt;-<span class="st"> </span><span class="cf">function</span>(input.data, mu0){</span>
-<span id="cb490-3"><a href="10-functions-1.html#cb490-3"></a>  n    &lt;-<span class="st"> </span><span class="kw">length</span>(input.data)</span>
-<span id="cb490-4"><a href="10-functions-1.html#cb490-4"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(input.data)</span>
-<span id="cb490-5"><a href="10-functions-1.html#cb490-5"></a>  s    &lt;-<span class="st"> </span><span class="kw">sd</span>(input.data)</span>
-<span id="cb490-6"><a href="10-functions-1.html#cb490-6"></a>  t    &lt;-<span class="st"> </span>(xbar <span class="op">-</span><span class="st"> </span>mu0)<span class="op">/</span>(s <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(n))</span>
-<span id="cb490-7"><a href="10-functions-1.html#cb490-7"></a>  <span class="cf">if</span>( t <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> ){</span>
-<span id="cb490-8"><a href="10-functions-1.html#cb490-8"></a>    p.value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(t, <span class="dt">df=</span>n<span class="dv">-1</span>)</span>
-<span id="cb490-9"><a href="10-functions-1.html#cb490-9"></a>  }<span class="cf">else</span>{</span>
-<span id="cb490-10"><a href="10-functions-1.html#cb490-10"></a>    p.value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pt</span>(t, <span class="dt">df=</span>n<span class="dv">-1</span>))</span>
-<span id="cb490-11"><a href="10-functions-1.html#cb490-11"></a>  }</span>
-<span id="cb490-12"><a href="10-functions-1.html#cb490-12"></a>  <span class="co"># we haven&#39;t addressed how to print things in a organized </span></span>
-<span id="cb490-13"><a href="10-functions-1.html#cb490-13"></a>  <span class="co"># fashion, the following is ugly, but works...</span></span>
-<span id="cb490-14"><a href="10-functions-1.html#cb490-14"></a>  <span class="co"># Notice that this function returns a character string</span></span>
-<span id="cb490-15"><a href="10-functions-1.html#cb490-15"></a>  <span class="co"># with the necessary information in the string.</span></span>
-<span id="cb490-16"><a href="10-functions-1.html#cb490-16"></a>  <span class="kw">return</span>( <span class="kw">paste</span>(<span class="st">&#39;t =&#39;</span>, <span class="kw">round</span>(t, <span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39; and p.value =&#39;</span>, <span class="kw">round</span>(p.value, <span class="dv">3</span>)) )</span>
-<span id="cb490-17"><a href="10-functions-1.html#cb490-17"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="10-functions-1.html#cb491-1"></a><span class="co"># create a vector that I wish apply a one-sample t-test on.</span></span>
-<span id="cb491-2"><a href="10-functions-1.html#cb491-2"></a>test.data &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
-<span id="cb491-3"><a href="10-functions-1.html#cb491-3"></a><span class="kw">one.sample.t.test</span>( test.data, <span class="dt">mu0=</span><span class="dv">2</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="10-functions-1.html#cb491-1"></a><span class="co"># define my function</span></span>
+<span id="cb491-2"><a href="10-functions-1.html#cb491-2"></a>one.sample.t.test &lt;-<span class="st"> </span><span class="cf">function</span>(input.data, mu0){</span>
+<span id="cb491-3"><a href="10-functions-1.html#cb491-3"></a>  n    &lt;-<span class="st"> </span><span class="kw">length</span>(input.data)</span>
+<span id="cb491-4"><a href="10-functions-1.html#cb491-4"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(input.data)</span>
+<span id="cb491-5"><a href="10-functions-1.html#cb491-5"></a>  s    &lt;-<span class="st"> </span><span class="kw">sd</span>(input.data)</span>
+<span id="cb491-6"><a href="10-functions-1.html#cb491-6"></a>  t    &lt;-<span class="st"> </span>(xbar <span class="op">-</span><span class="st"> </span>mu0)<span class="op">/</span>(s <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(n))</span>
+<span id="cb491-7"><a href="10-functions-1.html#cb491-7"></a>  <span class="cf">if</span>( t <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> ){</span>
+<span id="cb491-8"><a href="10-functions-1.html#cb491-8"></a>    p.value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(t, <span class="dt">df=</span>n<span class="dv">-1</span>)</span>
+<span id="cb491-9"><a href="10-functions-1.html#cb491-9"></a>  }<span class="cf">else</span>{</span>
+<span id="cb491-10"><a href="10-functions-1.html#cb491-10"></a>    p.value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pt</span>(t, <span class="dt">df=</span>n<span class="dv">-1</span>))</span>
+<span id="cb491-11"><a href="10-functions-1.html#cb491-11"></a>  }</span>
+<span id="cb491-12"><a href="10-functions-1.html#cb491-12"></a>  <span class="co"># we haven&#39;t addressed how to print things in a organized </span></span>
+<span id="cb491-13"><a href="10-functions-1.html#cb491-13"></a>  <span class="co"># fashion, the following is ugly, but works...</span></span>
+<span id="cb491-14"><a href="10-functions-1.html#cb491-14"></a>  <span class="co"># Notice that this function returns a character string</span></span>
+<span id="cb491-15"><a href="10-functions-1.html#cb491-15"></a>  <span class="co"># with the necessary information in the string.</span></span>
+<span id="cb491-16"><a href="10-functions-1.html#cb491-16"></a>  <span class="kw">return</span>( <span class="kw">paste</span>(<span class="st">&#39;t =&#39;</span>, <span class="kw">round</span>(t, <span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39; and p.value =&#39;</span>, <span class="kw">round</span>(p.value, <span class="dv">3</span>)) )</span>
+<span id="cb491-17"><a href="10-functions-1.html#cb491-17"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="10-functions-1.html#cb492-1"></a><span class="co"># create a vector that I wish apply a one-sample t-test on.</span></span>
+<span id="cb492-2"><a href="10-functions-1.html#cb492-2"></a>test.data &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb492-3"><a href="10-functions-1.html#cb492-3"></a><span class="kw">one.sample.t.test</span>( test.data, <span class="dt">mu0=</span><span class="dv">2</span> )</span></code></pre></div>
 <pre><code>## [1] &quot;t = 3.157  and p.value = 0.008&quot;</code></pre>
 <p>Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something similar to the above function, but is a bit grander in scope. Even if you don’t end up writing any of your own functions, knowing how to will help you understand why certain functions you use are designed the way they are.</p>
 </div>
 <div id="parameter-defaults" class="section level2">
 <h2><span class="header-section-number">10.2</span> Parameter Defaults</h2>
 <p>When I define a function and can let it take as many arguments as I want and I can also give default values to the arguments. For example we can define the normal density function using the following code which gives a default mean of <span class="math inline">\(0\)</span> and default standard deviation of <span class="math inline">\(1\)</span>.</p>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="10-functions-1.html#cb493-1"></a><span class="co"># a function that defines the shape of a normal distribution.</span></span>
-<span id="cb493-2"><a href="10-functions-1.html#cb493-2"></a><span class="co"># by including mu=0, we give a default value that the function</span></span>
-<span id="cb493-3"><a href="10-functions-1.html#cb493-3"></a><span class="co"># user can override</span></span>
-<span id="cb493-4"><a href="10-functions-1.html#cb493-4"></a>dnorm.alternate &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">mu=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>){</span>
-<span id="cb493-5"><a href="10-functions-1.html#cb493-5"></a>  out &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(sd <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi)) <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>( <span class="op">-</span>(x<span class="op">-</span>mu)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>sd<span class="op">^</span><span class="dv">2</span>) )</span>
-<span id="cb493-6"><a href="10-functions-1.html#cb493-6"></a>  <span class="kw">return</span>(out)</span>
-<span id="cb493-7"><a href="10-functions-1.html#cb493-7"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="10-functions-1.html#cb494-1"></a><span class="co"># test the function to see if it works</span></span>
-<span id="cb494-2"><a href="10-functions-1.html#cb494-2"></a><span class="kw">dnorm.alternate</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="10-functions-1.html#cb494-1"></a><span class="co"># a function that defines the shape of a normal distribution.</span></span>
+<span id="cb494-2"><a href="10-functions-1.html#cb494-2"></a><span class="co"># by including mu=0, we give a default value that the function</span></span>
+<span id="cb494-3"><a href="10-functions-1.html#cb494-3"></a><span class="co"># user can override</span></span>
+<span id="cb494-4"><a href="10-functions-1.html#cb494-4"></a>dnorm.alternate &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">mu=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>){</span>
+<span id="cb494-5"><a href="10-functions-1.html#cb494-5"></a>  out &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(sd <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi)) <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>( <span class="op">-</span>(x<span class="op">-</span>mu)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>sd<span class="op">^</span><span class="dv">2</span>) )</span>
+<span id="cb494-6"><a href="10-functions-1.html#cb494-6"></a>  <span class="kw">return</span>(out)</span>
+<span id="cb494-7"><a href="10-functions-1.html#cb494-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="10-functions-1.html#cb495-1"></a><span class="co"># test the function to see if it works</span></span>
+<span id="cb495-2"><a href="10-functions-1.html#cb495-2"></a><span class="kw">dnorm.alternate</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2419707</code></pre>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="10-functions-1.html#cb496-1"></a><span class="kw">dnorm.alternate</span>(<span class="dv">1</span>, <span class="dt">mu=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="10-functions-1.html#cb497-1"></a><span class="kw">dnorm.alternate</span>(<span class="dv">1</span>, <span class="dt">mu=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.3989423</code></pre>
-<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="10-functions-1.html#cb498-1"></a><span class="co"># Lets test the function a bit more by drawing the height</span></span>
-<span id="cb498-2"><a href="10-functions-1.html#cb498-2"></a><span class="co"># of the normal distribution a lots of different points</span></span>
-<span id="cb498-3"><a href="10-functions-1.html#cb498-3"></a><span class="co"># ... First the standard normal!</span></span>
-<span id="cb498-4"><a href="10-functions-1.html#cb498-4"></a><span class="kw">data.frame</span>( <span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">length=</span><span class="dv">601</span>) ) <span class="op">%&gt;%</span></span>
-<span id="cb498-5"><a href="10-functions-1.html#cb498-5"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">y =</span> <span class="kw">dnorm.alternate</span>(x) )       <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># use default mu=0, sd=1</span></span>
-<span id="cb498-6"><a href="10-functions-1.html#cb498-6"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y) ) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="10-functions-1.html#cb499-1"></a><span class="co"># Lets test the function a bit more by drawing the height</span></span>
+<span id="cb499-2"><a href="10-functions-1.html#cb499-2"></a><span class="co"># of the normal distribution a lots of different points</span></span>
+<span id="cb499-3"><a href="10-functions-1.html#cb499-3"></a><span class="co"># ... First the standard normal!</span></span>
+<span id="cb499-4"><a href="10-functions-1.html#cb499-4"></a><span class="kw">data.frame</span>( <span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">length=</span><span class="dv">601</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb499-5"><a href="10-functions-1.html#cb499-5"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">y =</span> <span class="kw">dnorm.alternate</span>(x) )       <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># use default mu=0, sd=1</span></span>
+<span id="cb499-6"><a href="10-functions-1.html#cb499-6"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y) ) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</span></code></pre></div>
 <p><img src="21_Functions_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="10-functions-1.html#cb499-1"></a><span class="co"># next a normal with mean 1, and standard deviation 1</span></span>
-<span id="cb499-2"><a href="10-functions-1.html#cb499-2"></a><span class="kw">data.frame</span>( <span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">length=</span><span class="dv">601</span>) ) <span class="op">%&gt;%</span></span>
-<span id="cb499-3"><a href="10-functions-1.html#cb499-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">y =</span> <span class="kw">dnorm.alternate</span>(x, <span class="dt">mu=</span><span class="dv">1</span>) )       <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># use mu=1, sd=1</span></span>
-<span id="cb499-4"><a href="10-functions-1.html#cb499-4"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y) ) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="10-functions-1.html#cb500-1"></a><span class="co"># next a normal with mean 1, and standard deviation 1</span></span>
+<span id="cb500-2"><a href="10-functions-1.html#cb500-2"></a><span class="kw">data.frame</span>( <span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">length=</span><span class="dv">601</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb500-3"><a href="10-functions-1.html#cb500-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">y =</span> <span class="kw">dnorm.alternate</span>(x, <span class="dt">mu=</span><span class="dv">1</span>) )       <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># use mu=1, sd=1</span></span>
+<span id="cb500-4"><a href="10-functions-1.html#cb500-4"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y) ) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</span></code></pre></div>
 <p><img src="21_Functions_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Many functions that we use have defaults that we don’t normally mess with. For example, the function <code>mean()</code> has an option the specifies what it should do if your vector of data has missing data. The common solution is to remove those observations, but we might have wanted to say that the mean is unknown one component of it was unknown.</p>
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="10-functions-1.html#cb500-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="ot">NA</span>)     <span class="co"># fourth element is missing</span></span>
-<span id="cb500-2"><a href="10-functions-1.html#cb500-2"></a><span class="kw">mean</span>(x)              <span class="co"># default is to return NA if any element is missing</span></span></code></pre></div>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="10-functions-1.html#cb501-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="ot">NA</span>)     <span class="co"># fourth element is missing</span></span>
+<span id="cb501-2"><a href="10-functions-1.html#cb501-2"></a><span class="kw">mean</span>(x)              <span class="co"># default is to return NA if any element is missing</span></span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="10-functions-1.html#cb502-1"></a><span class="kw">mean</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)  <span class="co"># Only average the non-missing data</span></span></code></pre></div>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="10-functions-1.html#cb503-1"></a><span class="kw">mean</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)  <span class="co"># Only average the non-missing data</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>As you look at the help pages for different functions, you’ll see in the function definitions what the default values are. For example, the function <code>mean</code> has another option, <code>trim</code>, which specifies what percent of the data to trim at the extremes. Because we would expect mean to not do any trimming by default, the authors have appropriately defined the default amount of trimming to be zero via the definition <code>trim=0</code>.</p>
 </div>
 <div id="ellipses" class="section level2">
 <h2><span class="header-section-number">10.3</span> Ellipses</h2>
 <p>When writing functions, I occasionally have a situation where I call function <code>a()</code> and function <code>a()</code> needs to call another function, say <code>b()</code>, and I want to pass an unusual parameter to that function. To do this, I’ll use a set of three periods called an <em>ellipses</em>. What these do is represent a set of parameter values that will be passed along to a subsequent function.For example the following code takes the result of a simple linear regression and plots the data and the regression line and confidence region (basically I’m recreating a function that does the same thing as ggplot2’s geom_smooth() layer). I might not want to specify (and give good defaults) to every single graphical parameter that the plot() function supports. Instead I’ll just use the ‘…’ argument and pass any additional parameters to the plot function.</p>
-<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="10-functions-1.html#cb504-1"></a><span class="co"># a function that draws the regression line and confidence interval</span></span>
-<span id="cb504-2"><a href="10-functions-1.html#cb504-2"></a><span class="co"># notice it doesn&#39;t return anything... all it does is draw a plot</span></span>
-<span id="cb504-3"><a href="10-functions-1.html#cb504-3"></a>show.lm &lt;-<span class="st"> </span><span class="cf">function</span>(m, <span class="dt">interval.type=</span><span class="st">&#39;confidence&#39;</span>, <span class="dt">fill.col=</span><span class="st">&#39;light grey&#39;</span>, ...){</span>
-<span id="cb504-4"><a href="10-functions-1.html#cb504-4"></a>  df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb504-5"><a href="10-functions-1.html#cb504-5"></a>    <span class="dt">x =</span> m<span class="op">$</span>model[,<span class="dv">2</span>],     <span class="co"># extract the predictor variable</span></span>
-<span id="cb504-6"><a href="10-functions-1.html#cb504-6"></a>    <span class="dt">y =</span> m<span class="op">$</span>model[,<span class="dv">1</span>]       <span class="co"># extract the response</span></span>
-<span id="cb504-7"><a href="10-functions-1.html#cb504-7"></a>  )</span>
-<span id="cb504-8"><a href="10-functions-1.html#cb504-8"></a>  df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cbind</span>( <span class="kw">predict</span>(m, <span class="dt">interval=</span>interval.type) )</span>
-<span id="cb504-9"><a href="10-functions-1.html#cb504-9"></a>  P &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x=</span>x) ) <span class="op">+</span></span>
-<span id="cb504-10"><a href="10-functions-1.html#cb504-10"></a><span class="st">    </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>(<span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">fill=</span>fill.col ) <span class="op">+</span></span>
-<span id="cb504-11"><a href="10-functions-1.html#cb504-11"></a><span class="st">    </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>fit), ... ) <span class="op">+</span></span>
-<span id="cb504-12"><a href="10-functions-1.html#cb504-12"></a><span class="st">    </span><span class="kw">geom_point</span>( <span class="kw">aes</span>(<span class="dt">y=</span>y), ... ) <span class="op">+</span></span>
-<span id="cb504-13"><a href="10-functions-1.html#cb504-13"></a><span class="st">    </span><span class="kw">labs</span>(...)</span>
-<span id="cb504-14"><a href="10-functions-1.html#cb504-14"></a>  <span class="kw">print</span>(P)</span>
-<span id="cb504-15"><a href="10-functions-1.html#cb504-15"></a>} </span></code></pre></div>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="10-functions-1.html#cb505-1"></a><span class="co"># a function that draws the regression line and confidence interval</span></span>
+<span id="cb505-2"><a href="10-functions-1.html#cb505-2"></a><span class="co"># notice it doesn&#39;t return anything... all it does is draw a plot</span></span>
+<span id="cb505-3"><a href="10-functions-1.html#cb505-3"></a>show.lm &lt;-<span class="st"> </span><span class="cf">function</span>(m, <span class="dt">interval.type=</span><span class="st">&#39;confidence&#39;</span>, <span class="dt">fill.col=</span><span class="st">&#39;light grey&#39;</span>, ...){</span>
+<span id="cb505-4"><a href="10-functions-1.html#cb505-4"></a>  df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb505-5"><a href="10-functions-1.html#cb505-5"></a>    <span class="dt">x =</span> m<span class="op">$</span>model[,<span class="dv">2</span>],     <span class="co"># extract the predictor variable</span></span>
+<span id="cb505-6"><a href="10-functions-1.html#cb505-6"></a>    <span class="dt">y =</span> m<span class="op">$</span>model[,<span class="dv">1</span>]       <span class="co"># extract the response</span></span>
+<span id="cb505-7"><a href="10-functions-1.html#cb505-7"></a>  )</span>
+<span id="cb505-8"><a href="10-functions-1.html#cb505-8"></a>  df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cbind</span>( <span class="kw">predict</span>(m, <span class="dt">interval=</span>interval.type) )</span>
+<span id="cb505-9"><a href="10-functions-1.html#cb505-9"></a>  P &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x=</span>x) ) <span class="op">+</span></span>
+<span id="cb505-10"><a href="10-functions-1.html#cb505-10"></a><span class="st">    </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>(<span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">fill=</span>fill.col ) <span class="op">+</span></span>
+<span id="cb505-11"><a href="10-functions-1.html#cb505-11"></a><span class="st">    </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>fit), ... ) <span class="op">+</span></span>
+<span id="cb505-12"><a href="10-functions-1.html#cb505-12"></a><span class="st">    </span><span class="kw">geom_point</span>( <span class="kw">aes</span>(<span class="dt">y=</span>y), ... ) <span class="op">+</span></span>
+<span id="cb505-13"><a href="10-functions-1.html#cb505-13"></a><span class="st">    </span><span class="kw">labs</span>(...)</span>
+<span id="cb505-14"><a href="10-functions-1.html#cb505-14"></a>  <span class="kw">print</span>(P)</span>
+<span id="cb505-15"><a href="10-functions-1.html#cb505-15"></a>} </span></code></pre></div>
 <p>This function looks daunting, but we experiment to see what it does.</p>
-<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="10-functions-1.html#cb505-1"></a><span class="co"># first define a simple linear model from our cherry tree data</span></span>
-<span id="cb505-2"><a href="10-functions-1.html#cb505-2"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )</span>
-<span id="cb505-3"><a href="10-functions-1.html#cb505-3"></a></span>
-<span id="cb505-4"><a href="10-functions-1.html#cb505-4"></a><span class="co"># call the function with no extraneous parameters</span></span>
-<span id="cb505-5"><a href="10-functions-1.html#cb505-5"></a><span class="kw">show.lm</span>( m )</span></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="10-functions-1.html#cb506-1"></a><span class="co"># first define a simple linear model from our cherry tree data</span></span>
+<span id="cb506-2"><a href="10-functions-1.html#cb506-2"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )</span>
+<span id="cb506-3"><a href="10-functions-1.html#cb506-3"></a></span>
+<span id="cb506-4"><a href="10-functions-1.html#cb506-4"></a><span class="co"># call the function with no extraneous parameters</span></span>
+<span id="cb506-5"><a href="10-functions-1.html#cb506-5"></a><span class="kw">show.lm</span>( m )</span></code></pre></div>
 <p><img src="21_Functions_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="10-functions-1.html#cb506-1"></a><span class="co"># Pass arguments that will just be passed along to the geom layers </span></span>
-<span id="cb506-2"><a href="10-functions-1.html#cb506-2"></a><span class="kw">show.lm</span>( m, <span class="dt">color=</span><span class="st">&#39;Red&#39;</span>, <span class="dt">title=</span><span class="st">&#39;Relationship between Girth and Volume&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="10-functions-1.html#cb507-1"></a><span class="co"># Pass arguments that will just be passed along to the geom layers </span></span>
+<span id="cb507-2"><a href="10-functions-1.html#cb507-2"></a><span class="kw">show.lm</span>( m, <span class="dt">color=</span><span class="st">&#39;Red&#39;</span>, <span class="dt">title=</span><span class="st">&#39;Relationship between Girth and Volume&#39;</span>)</span></code></pre></div>
 <pre><code>## Warning: Ignoring unknown parameters: title
 
 ## Warning: Ignoring unknown parameters: title</code></pre>
@@ -563,15 +565,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Frequently the user wants to inspect the results of some calculation and display a variable or object to the screen. The <code>print()</code> function does exactly that, but it acts differently for matrices than it does for vectors. It especially acts different for lists that I obtained from a call like <code>lm()</code> or <code>aov()</code>.</p>
 <p>The reason that the print function can act differently depending on the object type that I pass it is because the function <code>print()</code> is <em>overloaded</em>. What this means is that there is a <code>print.lm()</code> function that is called whenever I call <code>print(obj)</code> when <code>obj</code> is the output of an <code>lm()</code> command.</p>
 <p>Recall that we initially introduced a few different classes of data, Numerical, Factors, and Logicals. It turns out that I can create more types of classes.</p>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="10-functions-1.html#cb508-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span>
-<span id="cb508-2"><a href="10-functions-1.html#cb508-2"></a>y &lt;-<span class="st"> </span><span class="dv">3</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>x<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">10</span>)</span>
-<span id="cb508-3"><a href="10-functions-1.html#cb508-3"></a></span>
-<span id="cb508-4"><a href="10-functions-1.html#cb508-4"></a>h &lt;-<span class="st"> </span><span class="kw">hist</span>(y)  <span class="co"># h should be of class &quot;Histogram&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="10-functions-1.html#cb509-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span>
+<span id="cb509-2"><a href="10-functions-1.html#cb509-2"></a>y &lt;-<span class="st"> </span><span class="dv">3</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>x<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb509-3"><a href="10-functions-1.html#cb509-3"></a></span>
+<span id="cb509-4"><a href="10-functions-1.html#cb509-4"></a>h &lt;-<span class="st"> </span><span class="kw">hist</span>(y)  <span class="co"># h should be of class &quot;Histogram&quot;</span></span></code></pre></div>
 <p><img src="21_Functions_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="10-functions-1.html#cb509-1"></a><span class="kw">class</span>(h)</span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="10-functions-1.html#cb510-1"></a><span class="kw">class</span>(h)</span></code></pre></div>
 <pre><code>## [1] &quot;histogram&quot;</code></pre>
-<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="10-functions-1.html#cb511-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>( y <span class="op">~</span><span class="st"> </span>x ) <span class="co"># model is something of class &quot;lm&quot;</span></span>
-<span id="cb511-2"><a href="10-functions-1.html#cb511-2"></a><span class="kw">class</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="10-functions-1.html#cb512-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>( y <span class="op">~</span><span class="st"> </span>x ) <span class="co"># model is something of class &quot;lm&quot;</span></span>
+<span id="cb512-2"><a href="10-functions-1.html#cb512-2"></a><span class="kw">class</span>(model)</span></code></pre></div>
 <pre><code>## [1] &quot;lm&quot;</code></pre>
 <p>Many common functions such as <code>plot()</code> are overloaded so that when I call the plot function with an object, it will in turn call <code>plot.lm()</code> or <code>plot.histogram()</code> as appropriate. When building statistical models I am often interested in different quantities and would like to get those regardless of the model I am using. Below are a list of functions that work whether I fit a model via <code>aov()</code>, <code>lm()</code>, <code>glm()</code>, or <code>gam()</code>.</p>
 <table style="width:64%;">
@@ -621,46 +623,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="step-wise-execution" class="section level3">
 <h3><span class="header-section-number">10.5.2</span> Step-wise Execution</h3>
 <p>Often we can understand where an error is being introduced by simply running each step individually and inspecting the result. This is where the <code>Evironment</code> tab in the top right panel (unless you’ve moved it…) becomes helpful. By watching how the objects of interest change as we step through the code, we can more easily see where errors have occurred. For complicated objects such as <code>data.frames</code>, I find it helpful to have them opened in a <code>View</code> tab.</p>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="10-functions-1.html#cb513-1"></a>iris.summary &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span></span>
-<span id="cb513-2"><a href="10-functions-1.html#cb513-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Sepal.Area =</span> Sepal.Width <span class="op">*</span><span class="st"> </span>Sepal.Length,</span>
-<span id="cb513-3"><a href="10-functions-1.html#cb513-3"></a>         <span class="dt">Petal.Area =</span> Petal.Width <span class="op">*</span><span class="st"> </span>Petal.Length) <span class="op">%&gt;%</span></span>
-<span id="cb513-4"><a href="10-functions-1.html#cb513-4"></a><span class="st">  </span><span class="kw">select</span>(Species, Sepal.Area, Petal.Area) <span class="op">%&gt;%</span></span>
-<span id="cb513-5"><a href="10-functions-1.html#cb513-5"></a><span class="st">  </span><span class="kw">group_by</span>(Speces) <span class="op">%&gt;%</span></span>
-<span id="cb513-6"><a href="10-functions-1.html#cb513-6"></a><span class="st">  </span><span class="kw">summarize</span>( <span class="dt">Mean.Sepal.Area =</span> <span class="kw">mean</span>(Sepal.Area),</span>
-<span id="cb513-7"><a href="10-functions-1.html#cb513-7"></a>             <span class="dt">Mean.Petal.Area =</span> <span class="kw">mean</span>(Petal.Area) )</span></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="10-functions-1.html#cb514-1"></a>iris.summary &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span></span>
+<span id="cb514-2"><a href="10-functions-1.html#cb514-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Sepal.Area =</span> Sepal.Width <span class="op">*</span><span class="st"> </span>Sepal.Length,</span>
+<span id="cb514-3"><a href="10-functions-1.html#cb514-3"></a>         <span class="dt">Petal.Area =</span> Petal.Width <span class="op">*</span><span class="st"> </span>Petal.Length) <span class="op">%&gt;%</span></span>
+<span id="cb514-4"><a href="10-functions-1.html#cb514-4"></a><span class="st">  </span><span class="kw">select</span>(Species, Sepal.Area, Petal.Area) <span class="op">%&gt;%</span></span>
+<span id="cb514-5"><a href="10-functions-1.html#cb514-5"></a><span class="st">  </span><span class="kw">group_by</span>(Speces) <span class="op">%&gt;%</span></span>
+<span id="cb514-6"><a href="10-functions-1.html#cb514-6"></a><span class="st">  </span><span class="kw">summarize</span>( <span class="dt">Mean.Sepal.Area =</span> <span class="kw">mean</span>(Sepal.Area),</span>
+<span id="cb514-7"><a href="10-functions-1.html#cb514-7"></a>             <span class="dt">Mean.Petal.Area =</span> <span class="kw">mean</span>(Petal.Area) )</span></code></pre></div>
 <p>In this case, I would execute the <code>iris %&gt;% ...</code> section of code and add one command after another until I finally found the line of code that produces the error. Once the line containing the error has been identified, I look for misspellings, misplaced parentheses, or a disconnect between what the input structure is versus what the code expects.</p>
 </div>
 <div id="print-statements" class="section level3">
 <h3><span class="header-section-number">10.5.3</span> Print Statements</h3>
 <p>Once we start writing code with loops and functions, a simple step-by-step evaluation won’t suffice. An easy way to quickly see what the state of a variable is at some point in the code is to add a <code>print()</code> command that outputs some useful information about the environment.</p>
-<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="10-functions-1.html#cb514-1"></a><span class="co">#&#39; Compute a Factorial. e.g. 5! = 5*4*3*2*1 </span></span>
-<span id="cb514-2"><a href="10-functions-1.html#cb514-2"></a><span class="co">#&#39; @param n A positive integer</span></span>
-<span id="cb514-3"><a href="10-functions-1.html#cb514-3"></a><span class="co">#&#39; @return The value of n!</span></span>
-<span id="cb514-4"><a href="10-functions-1.html#cb514-4"></a>factorial &lt;-<span class="st"> </span><span class="cf">function</span>(n){</span>
-<span id="cb514-5"><a href="10-functions-1.html#cb514-5"></a>  output &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb514-6"><a href="10-functions-1.html#cb514-6"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n ){</span>
-<span id="cb514-7"><a href="10-functions-1.html#cb514-7"></a>    output &lt;-<span class="st"> </span>output<span class="op">*</span>i</span>
-<span id="cb514-8"><a href="10-functions-1.html#cb514-8"></a>  }</span>
-<span id="cb514-9"><a href="10-functions-1.html#cb514-9"></a>  <span class="kw">return</span>(output)</span>
-<span id="cb514-10"><a href="10-functions-1.html#cb514-10"></a>}</span>
-<span id="cb514-11"><a href="10-functions-1.html#cb514-11"></a></span>
-<span id="cb514-12"><a href="10-functions-1.html#cb514-12"></a><span class="kw">factorial</span>(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="10-functions-1.html#cb515-1"></a><span class="co">#&#39; Compute a Factorial. e.g. 5! = 5*4*3*2*1 </span></span>
+<span id="cb515-2"><a href="10-functions-1.html#cb515-2"></a><span class="co">#&#39; @param n A positive integer</span></span>
+<span id="cb515-3"><a href="10-functions-1.html#cb515-3"></a><span class="co">#&#39; @return The value of n!</span></span>
+<span id="cb515-4"><a href="10-functions-1.html#cb515-4"></a>factorial &lt;-<span class="st"> </span><span class="cf">function</span>(n){</span>
+<span id="cb515-5"><a href="10-functions-1.html#cb515-5"></a>  output &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb515-6"><a href="10-functions-1.html#cb515-6"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n ){</span>
+<span id="cb515-7"><a href="10-functions-1.html#cb515-7"></a>    output &lt;-<span class="st"> </span>output<span class="op">*</span>i</span>
+<span id="cb515-8"><a href="10-functions-1.html#cb515-8"></a>  }</span>
+<span id="cb515-9"><a href="10-functions-1.html#cb515-9"></a>  <span class="kw">return</span>(output)</span>
+<span id="cb515-10"><a href="10-functions-1.html#cb515-10"></a>}</span>
+<span id="cb515-11"><a href="10-functions-1.html#cb515-11"></a></span>
+<span id="cb515-12"><a href="10-functions-1.html#cb515-12"></a><span class="kw">factorial</span>(<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## integer(0)</code></pre>
 <p>In this case, I would add a few print statements such as the following:</p>
-<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="10-functions-1.html#cb516-1"></a><span class="co">#&#39; Compute a Factorial. e.g. 5! = 5*4*3*2*1 </span></span>
-<span id="cb516-2"><a href="10-functions-1.html#cb516-2"></a><span class="co">#&#39; @param n A positive integer</span></span>
-<span id="cb516-3"><a href="10-functions-1.html#cb516-3"></a><span class="co">#&#39; @return The value of n!</span></span>
-<span id="cb516-4"><a href="10-functions-1.html#cb516-4"></a>factorial &lt;-<span class="st"> </span><span class="cf">function</span>(n){</span>
-<span id="cb516-5"><a href="10-functions-1.html#cb516-5"></a>  output &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb516-6"><a href="10-functions-1.html#cb516-6"></a>  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;At Start and output = &#39;</span>, output))</span>
-<span id="cb516-7"><a href="10-functions-1.html#cb516-7"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n ){</span>
-<span id="cb516-8"><a href="10-functions-1.html#cb516-8"></a>    output &lt;-<span class="st"> </span>output<span class="op">*</span>i</span>
-<span id="cb516-9"><a href="10-functions-1.html#cb516-9"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;In Loop and i = &#39;</span>, i,<span class="st">&#39; and output = &#39;</span>, output))</span>
-<span id="cb516-10"><a href="10-functions-1.html#cb516-10"></a>  }</span>
-<span id="cb516-11"><a href="10-functions-1.html#cb516-11"></a>  <span class="kw">return</span>(output)</span>
-<span id="cb516-12"><a href="10-functions-1.html#cb516-12"></a>}</span>
-<span id="cb516-13"><a href="10-functions-1.html#cb516-13"></a></span>
-<span id="cb516-14"><a href="10-functions-1.html#cb516-14"></a><span class="kw">factorial</span>(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="10-functions-1.html#cb517-1"></a><span class="co">#&#39; Compute a Factorial. e.g. 5! = 5*4*3*2*1 </span></span>
+<span id="cb517-2"><a href="10-functions-1.html#cb517-2"></a><span class="co">#&#39; @param n A positive integer</span></span>
+<span id="cb517-3"><a href="10-functions-1.html#cb517-3"></a><span class="co">#&#39; @return The value of n!</span></span>
+<span id="cb517-4"><a href="10-functions-1.html#cb517-4"></a>factorial &lt;-<span class="st"> </span><span class="cf">function</span>(n){</span>
+<span id="cb517-5"><a href="10-functions-1.html#cb517-5"></a>  output &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb517-6"><a href="10-functions-1.html#cb517-6"></a>  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;At Start and output = &#39;</span>, output))</span>
+<span id="cb517-7"><a href="10-functions-1.html#cb517-7"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n ){</span>
+<span id="cb517-8"><a href="10-functions-1.html#cb517-8"></a>    output &lt;-<span class="st"> </span>output<span class="op">*</span>i</span>
+<span id="cb517-9"><a href="10-functions-1.html#cb517-9"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;In Loop and i = &#39;</span>, i,<span class="st">&#39; and output = &#39;</span>, output))</span>
+<span id="cb517-10"><a href="10-functions-1.html#cb517-10"></a>  }</span>
+<span id="cb517-11"><a href="10-functions-1.html#cb517-11"></a>  <span class="kw">return</span>(output)</span>
+<span id="cb517-12"><a href="10-functions-1.html#cb517-12"></a>}</span>
+<span id="cb517-13"><a href="10-functions-1.html#cb517-13"></a></span>
+<span id="cb517-14"><a href="10-functions-1.html#cb517-14"></a><span class="kw">factorial</span>(<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;At Start and output =  &quot;
 ## [1] &quot;In Loop and i =  1  and output =  &quot;
 ## [1] &quot;In Loop and i =  2  and output =  &quot;
@@ -674,67 +676,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">10.5.4</span> <code>browser</code></h3>
 <p>Debugging is best done by stepping through the code while paying attention to the current values of all the variables of interest. Modern developer environments include a debugger which allows you to step through your code, one command at a time, while simultaneously showing you the variables of interest. To get into this environment, we need to set a <em>breakpoint</em>. This can be done in R-scripts by clicking on the line number, but in Rmarkdown files, it is done by including the command <code>browser()</code> into your code.</p>
 <p>In our factorial function, we can set a breakpoint via the following</p>
-<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="10-functions-1.html#cb519-1"></a><span class="co">#&#39; Compute a Factorial. e.g. 5! = 5*4*3*2*1 </span></span>
-<span id="cb519-2"><a href="10-functions-1.html#cb519-2"></a><span class="co">#&#39; @param n A positive integer</span></span>
-<span id="cb519-3"><a href="10-functions-1.html#cb519-3"></a><span class="co">#&#39; @return The value of n!</span></span>
-<span id="cb519-4"><a href="10-functions-1.html#cb519-4"></a>factorial &lt;-<span class="st"> </span><span class="cf">function</span>(n){</span>
-<span id="cb519-5"><a href="10-functions-1.html#cb519-5"></a>  <span class="kw">browser</span>()</span>
-<span id="cb519-6"><a href="10-functions-1.html#cb519-6"></a>  output &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb519-7"><a href="10-functions-1.html#cb519-7"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n ){</span>
-<span id="cb519-8"><a href="10-functions-1.html#cb519-8"></a>    output &lt;-<span class="st"> </span>output<span class="op">*</span>i</span>
-<span id="cb519-9"><a href="10-functions-1.html#cb519-9"></a>  }</span>
-<span id="cb519-10"><a href="10-functions-1.html#cb519-10"></a>  <span class="kw">return</span>(output)</span>
-<span id="cb519-11"><a href="10-functions-1.html#cb519-11"></a>}</span>
-<span id="cb519-12"><a href="10-functions-1.html#cb519-12"></a></span>
-<span id="cb519-13"><a href="10-functions-1.html#cb519-13"></a><span class="co"># Now run the function</span></span>
-<span id="cb519-14"><a href="10-functions-1.html#cb519-14"></a><span class="kw">factorial</span>(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="10-functions-1.html#cb520-1"></a><span class="co">#&#39; Compute a Factorial. e.g. 5! = 5*4*3*2*1 </span></span>
+<span id="cb520-2"><a href="10-functions-1.html#cb520-2"></a><span class="co">#&#39; @param n A positive integer</span></span>
+<span id="cb520-3"><a href="10-functions-1.html#cb520-3"></a><span class="co">#&#39; @return The value of n!</span></span>
+<span id="cb520-4"><a href="10-functions-1.html#cb520-4"></a>factorial &lt;-<span class="st"> </span><span class="cf">function</span>(n){</span>
+<span id="cb520-5"><a href="10-functions-1.html#cb520-5"></a>  <span class="kw">browser</span>()</span>
+<span id="cb520-6"><a href="10-functions-1.html#cb520-6"></a>  output &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb520-7"><a href="10-functions-1.html#cb520-7"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n ){</span>
+<span id="cb520-8"><a href="10-functions-1.html#cb520-8"></a>    output &lt;-<span class="st"> </span>output<span class="op">*</span>i</span>
+<span id="cb520-9"><a href="10-functions-1.html#cb520-9"></a>  }</span>
+<span id="cb520-10"><a href="10-functions-1.html#cb520-10"></a>  <span class="kw">return</span>(output)</span>
+<span id="cb520-11"><a href="10-functions-1.html#cb520-11"></a>}</span>
+<span id="cb520-12"><a href="10-functions-1.html#cb520-12"></a></span>
+<span id="cb520-13"><a href="10-functions-1.html#cb520-13"></a><span class="co"># Now run the function</span></span>
+<span id="cb520-14"><a href="10-functions-1.html#cb520-14"></a><span class="kw">factorial</span>(<span class="dv">5</span>)</span></code></pre></div>
 <p>This allows us to step through the function while simultaneously keeping track of all the variables we are interested in.</p>
 </div>
 </div>
 <div id="scope" class="section level2">
 <h2><span class="header-section-number">10.6</span> Scope</h2>
 <p>Consider the case where we make a function that calculates the trimmed mean. A good implementation of the function is given here.</p>
-<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="10-functions-1.html#cb520-1"></a><span class="co">#&#39; Define a function for the trimmed mean</span></span>
-<span id="cb520-2"><a href="10-functions-1.html#cb520-2"></a><span class="co">#&#39; @param x A vector of values to be averaged</span></span>
-<span id="cb520-3"><a href="10-functions-1.html#cb520-3"></a><span class="co">#&#39; @param k The number of elements to trim on either side</span></span>
-<span id="cb520-4"><a href="10-functions-1.html#cb520-4"></a><span class="co">#&#39; @return A scalar</span></span>
-<span id="cb520-5"><a href="10-functions-1.html#cb520-5"></a>trimmed.mean &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">k=</span><span class="dv">0</span>){</span>
-<span id="cb520-6"><a href="10-functions-1.html#cb520-6"></a>  x &lt;-<span class="st"> </span><span class="kw">sort</span>(x)      <span class="co"># arrange the input according magnitude</span></span>
-<span id="cb520-7"><a href="10-functions-1.html#cb520-7"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)    <span class="co"># n = how many observations</span></span>
-<span id="cb520-8"><a href="10-functions-1.html#cb520-8"></a>  <span class="cf">if</span>( k <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>){</span>
-<span id="cb520-9"><a href="10-functions-1.html#cb520-9"></a>    x &lt;-<span class="st"> </span>x[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span><span class="op">*</span>(<span class="dv">1</span><span class="op">:</span>k), <span class="dv">-1</span><span class="op">*</span>((n<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n))]  <span class="co"># remove first k, last k</span></span>
-<span id="cb520-10"><a href="10-functions-1.html#cb520-10"></a>  }</span>
-<span id="cb520-11"><a href="10-functions-1.html#cb520-11"></a>  tm &lt;-<span class="st"> </span><span class="kw">sum</span>(x) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(x)  <span class="co"># mean of the remaining observations</span></span>
-<span id="cb520-12"><a href="10-functions-1.html#cb520-12"></a>  <span class="kw">return</span>( tm )</span>
-<span id="cb520-13"><a href="10-functions-1.html#cb520-13"></a>} </span>
-<span id="cb520-14"><a href="10-functions-1.html#cb520-14"></a></span>
-<span id="cb520-15"><a href="10-functions-1.html#cb520-15"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">1</span>,<span class="dv">50</span>)                        <span class="co"># 10, 9, 8, ..., 1</span></span>
-<span id="cb520-16"><a href="10-functions-1.html#cb520-16"></a>output &lt;-<span class="st"> </span><span class="kw">trimmed.mean</span>(x, <span class="dt">k=</span><span class="dv">2</span>)</span>
-<span id="cb520-17"><a href="10-functions-1.html#cb520-17"></a>output</span></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="10-functions-1.html#cb521-1"></a><span class="co">#&#39; Define a function for the trimmed mean</span></span>
+<span id="cb521-2"><a href="10-functions-1.html#cb521-2"></a><span class="co">#&#39; @param x A vector of values to be averaged</span></span>
+<span id="cb521-3"><a href="10-functions-1.html#cb521-3"></a><span class="co">#&#39; @param k The number of elements to trim on either side</span></span>
+<span id="cb521-4"><a href="10-functions-1.html#cb521-4"></a><span class="co">#&#39; @return A scalar</span></span>
+<span id="cb521-5"><a href="10-functions-1.html#cb521-5"></a>trimmed.mean &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">k=</span><span class="dv">0</span>){</span>
+<span id="cb521-6"><a href="10-functions-1.html#cb521-6"></a>  x &lt;-<span class="st"> </span><span class="kw">sort</span>(x)      <span class="co"># arrange the input according magnitude</span></span>
+<span id="cb521-7"><a href="10-functions-1.html#cb521-7"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)    <span class="co"># n = how many observations</span></span>
+<span id="cb521-8"><a href="10-functions-1.html#cb521-8"></a>  <span class="cf">if</span>( k <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>){</span>
+<span id="cb521-9"><a href="10-functions-1.html#cb521-9"></a>    x &lt;-<span class="st"> </span>x[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span><span class="op">*</span>(<span class="dv">1</span><span class="op">:</span>k), <span class="dv">-1</span><span class="op">*</span>((n<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n))]  <span class="co"># remove first k, last k</span></span>
+<span id="cb521-10"><a href="10-functions-1.html#cb521-10"></a>  }</span>
+<span id="cb521-11"><a href="10-functions-1.html#cb521-11"></a>  tm &lt;-<span class="st"> </span><span class="kw">sum</span>(x) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(x)  <span class="co"># mean of the remaining observations</span></span>
+<span id="cb521-12"><a href="10-functions-1.html#cb521-12"></a>  <span class="kw">return</span>( tm )</span>
+<span id="cb521-13"><a href="10-functions-1.html#cb521-13"></a>} </span>
+<span id="cb521-14"><a href="10-functions-1.html#cb521-14"></a></span>
+<span id="cb521-15"><a href="10-functions-1.html#cb521-15"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">1</span>,<span class="dv">50</span>)                        <span class="co"># 10, 9, 8, ..., 1</span></span>
+<span id="cb521-16"><a href="10-functions-1.html#cb521-16"></a>output &lt;-<span class="st"> </span><span class="kw">trimmed.mean</span>(x, <span class="dt">k=</span><span class="dv">2</span>)</span>
+<span id="cb521-17"><a href="10-functions-1.html#cb521-17"></a>output</span></code></pre></div>
 <pre><code>## [1] 6</code></pre>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="10-functions-1.html#cb522-1"></a>x                                <span class="co"># notice x is unchanged</span></span></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="10-functions-1.html#cb523-1"></a>x                                <span class="co"># notice x is unchanged</span></span></code></pre></div>
 <pre><code>##  [1] 10  9  8  7  6  5  4  3  2  1 50</code></pre>
 <p>Notice that even though I passed <code>x</code> into the function and then sorted it, <code>x</code> remained unsorted outside the function. When I modified <code>x</code>, R made a copy of <code>x</code> and sorted the <em>copy</em> that belonged to the function so that I didn’t modify a variable that was defined outside of the scope of my function. But what if I didn’t bother with passing x and k. If I don’t pass in the values of x and k, then R will try to find them in my current work space.</p>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="10-functions-1.html#cb524-1"></a><span class="co"># a horribly defined function that has no parameters</span></span>
-<span id="cb524-2"><a href="10-functions-1.html#cb524-2"></a><span class="co"># but still accesses something called &quot;x&quot;</span></span>
-<span id="cb524-3"><a href="10-functions-1.html#cb524-3"></a>trimmed.mean &lt;-<span class="st"> </span><span class="cf">function</span>(){</span>
-<span id="cb524-4"><a href="10-functions-1.html#cb524-4"></a>  x &lt;-<span class="st"> </span><span class="kw">sort</span>(x)              <span class="co"># Access global x, sort and save in local environment</span></span>
-<span id="cb524-5"><a href="10-functions-1.html#cb524-5"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb524-6"><a href="10-functions-1.html#cb524-6"></a>  <span class="cf">if</span>( k <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>){               <span class="co"># Accessing the Global k</span></span>
-<span id="cb524-7"><a href="10-functions-1.html#cb524-7"></a>    x &lt;-<span class="st"> </span>x[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span><span class="op">*</span>(<span class="dv">1</span><span class="op">:</span>k), <span class="dv">-1</span><span class="op">*</span>((n<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n))]</span>
-<span id="cb524-8"><a href="10-functions-1.html#cb524-8"></a>  }</span>
-<span id="cb524-9"><a href="10-functions-1.html#cb524-9"></a>  tm &lt;-<span class="st"> </span><span class="kw">sum</span>(x)<span class="op">/</span><span class="kw">length</span>(x)</span>
-<span id="cb524-10"><a href="10-functions-1.html#cb524-10"></a>  <span class="kw">return</span>( tm )</span>
-<span id="cb524-11"><a href="10-functions-1.html#cb524-11"></a>} </span>
-<span id="cb524-12"><a href="10-functions-1.html#cb524-12"></a></span>
-<span id="cb524-13"><a href="10-functions-1.html#cb524-13"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">50</span>, <span class="dv">10</span><span class="op">:</span><span class="dv">1</span> )    <span class="co"># data to trim</span></span>
-<span id="cb524-14"><a href="10-functions-1.html#cb524-14"></a>k &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb524-15"><a href="10-functions-1.html#cb524-15"></a></span>
-<span id="cb524-16"><a href="10-functions-1.html#cb524-16"></a><span class="kw">trimmed.mean</span>()  <span class="co"># amazingly this still works</span></span></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="10-functions-1.html#cb525-1"></a><span class="co"># a horribly defined function that has no parameters</span></span>
+<span id="cb525-2"><a href="10-functions-1.html#cb525-2"></a><span class="co"># but still accesses something called &quot;x&quot;</span></span>
+<span id="cb525-3"><a href="10-functions-1.html#cb525-3"></a>trimmed.mean &lt;-<span class="st"> </span><span class="cf">function</span>(){</span>
+<span id="cb525-4"><a href="10-functions-1.html#cb525-4"></a>  x &lt;-<span class="st"> </span><span class="kw">sort</span>(x)              <span class="co"># Access global x, sort and save in local environment</span></span>
+<span id="cb525-5"><a href="10-functions-1.html#cb525-5"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb525-6"><a href="10-functions-1.html#cb525-6"></a>  <span class="cf">if</span>( k <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>){               <span class="co"># Accessing the Global k</span></span>
+<span id="cb525-7"><a href="10-functions-1.html#cb525-7"></a>    x &lt;-<span class="st"> </span>x[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span><span class="op">*</span>(<span class="dv">1</span><span class="op">:</span>k), <span class="dv">-1</span><span class="op">*</span>((n<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n))]</span>
+<span id="cb525-8"><a href="10-functions-1.html#cb525-8"></a>  }</span>
+<span id="cb525-9"><a href="10-functions-1.html#cb525-9"></a>  tm &lt;-<span class="st"> </span><span class="kw">sum</span>(x)<span class="op">/</span><span class="kw">length</span>(x)</span>
+<span id="cb525-10"><a href="10-functions-1.html#cb525-10"></a>  <span class="kw">return</span>( tm )</span>
+<span id="cb525-11"><a href="10-functions-1.html#cb525-11"></a>} </span>
+<span id="cb525-12"><a href="10-functions-1.html#cb525-12"></a></span>
+<span id="cb525-13"><a href="10-functions-1.html#cb525-13"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">50</span>, <span class="dv">10</span><span class="op">:</span><span class="dv">1</span> )    <span class="co"># data to trim</span></span>
+<span id="cb525-14"><a href="10-functions-1.html#cb525-14"></a>k &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb525-15"><a href="10-functions-1.html#cb525-15"></a></span>
+<span id="cb525-16"><a href="10-functions-1.html#cb525-16"></a><span class="kw">trimmed.mean</span>()  <span class="co"># amazingly this still works</span></span></code></pre></div>
 <pre><code>## [1] 6</code></pre>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="10-functions-1.html#cb526-1"></a><span class="co"># but what if k wasn&#39;t defined?</span></span>
-<span id="cb526-2"><a href="10-functions-1.html#cb526-2"></a><span class="kw">rm</span>(k)           <span class="co"># remove k </span></span>
-<span id="cb526-3"><a href="10-functions-1.html#cb526-3"></a><span class="kw">trimmed.mean</span>()  <span class="co"># now the function can&#39;t find anything named k and throws and error.</span></span></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="10-functions-1.html#cb527-1"></a><span class="co"># but what if k wasn&#39;t defined?</span></span>
+<span id="cb527-2"><a href="10-functions-1.html#cb527-2"></a><span class="kw">rm</span>(k)           <span class="co"># remove k </span></span>
+<span id="cb527-3"><a href="10-functions-1.html#cb527-3"></a><span class="kw">trimmed.mean</span>()  <span class="co"># now the function can&#39;t find anything named k and throws and error.</span></span></code></pre></div>
 <pre><code>## Error in trimmed.mean(): object &#39;k&#39; not found</code></pre>
 <p>So if I forget to pass some variable into a function, but it happens to be defined outside the function, R will find it. It is not good practice to rely on that because how do I take the trimmed mean of a vector named <code>z</code>? Worse yet, what if the variable <code>x</code> changes between runs of your function? What should be consistently giving the same result keeps changing. This is especially insidious when you have defined most of the arguments the function uses, but missed one. Your function happily goes to the next higher scope and sometimes finds it.</p>
 <p>When executing a function, R will have access to all the variables defined in the function, all the variables defined in the function that called your function and so on until the base work space. However, you should never let your function refer to something that is not either created in your function or passed in via a parameter.</p>
@@ -753,82 +755,82 @@ We want to write a function <code>duniform(x, a, b)</code> that takes an arbitra
 <ol style="list-style-type: lower-alpha">
 <li><p>Write your function without regard for it working with vectors of data. Demonstrate that it works by calling the function three times, once where x&lt; a, once where a &lt; x and x &lt; b, and finally once where b &lt; x.</p></li>
 <li><p>Next we force our function to work correctly for a vector of <code>x</code> values. Modify your function in part (a) so that the core logic is inside a <code>for</code> statement and the loop moves through each element of <code>x</code> in succession. Your function should look something like this:</p>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="10-functions-1.html#cb528-1"></a>duniform &lt;-<span class="st"> </span><span class="cf">function</span>(x, a, b){</span>
-<span id="cb528-2"><a href="10-functions-1.html#cb528-2"></a>  output &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb528-3"><a href="10-functions-1.html#cb528-3"></a>  <span class="cf">for</span>( i <span class="cf">in</span> ??? ){  <span class="co"># Set the for loop to look at each element of x</span></span>
-<span id="cb528-4"><a href="10-functions-1.html#cb528-4"></a>    <span class="cf">if</span>( x[i] ??? ){  <span class="co"># What should this logical expression be?</span></span>
-<span id="cb528-5"><a href="10-functions-1.html#cb528-5"></a>      <span class="co"># ???  Something ought to be saved in output[i]</span></span>
-<span id="cb528-6"><a href="10-functions-1.html#cb528-6"></a>    }<span class="cf">else</span>{</span>
-<span id="cb528-7"><a href="10-functions-1.html#cb528-7"></a>      <span class="co"># ???  Something else ought to be saved in output[i]</span></span>
-<span id="cb528-8"><a href="10-functions-1.html#cb528-8"></a>    }</span>
-<span id="cb528-9"><a href="10-functions-1.html#cb528-9"></a>  }</span>
-<span id="cb528-10"><a href="10-functions-1.html#cb528-10"></a>  <span class="kw">return</span>(output)</span>
-<span id="cb528-11"><a href="10-functions-1.html#cb528-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="10-functions-1.html#cb529-1"></a>duniform &lt;-<span class="st"> </span><span class="cf">function</span>(x, a, b){</span>
+<span id="cb529-2"><a href="10-functions-1.html#cb529-2"></a>  output &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb529-3"><a href="10-functions-1.html#cb529-3"></a>  <span class="cf">for</span>( i <span class="cf">in</span> ??? ){  <span class="co"># Set the for loop to look at each element of x</span></span>
+<span id="cb529-4"><a href="10-functions-1.html#cb529-4"></a>    <span class="cf">if</span>( x[i] ??? ){  <span class="co"># What should this logical expression be?</span></span>
+<span id="cb529-5"><a href="10-functions-1.html#cb529-5"></a>      <span class="co"># ???  Something ought to be saved in output[i]</span></span>
+<span id="cb529-6"><a href="10-functions-1.html#cb529-6"></a>    }<span class="cf">else</span>{</span>
+<span id="cb529-7"><a href="10-functions-1.html#cb529-7"></a>      <span class="co"># ???  Something else ought to be saved in output[i]</span></span>
+<span id="cb529-8"><a href="10-functions-1.html#cb529-8"></a>    }</span>
+<span id="cb529-9"><a href="10-functions-1.html#cb529-9"></a>  }</span>
+<span id="cb529-10"><a href="10-functions-1.html#cb529-10"></a>  <span class="kw">return</span>(output)</span>
+<span id="cb529-11"><a href="10-functions-1.html#cb529-11"></a>}</span></code></pre></div>
 <p>Verify that your function works correctly by running the following code:</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="10-functions-1.html#cb529-1"></a><span class="kw">data.frame</span>( <span class="dt">x=</span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">12</span>, <span class="dt">by=</span>.<span class="dv">001</span>) ) <span class="op">%&gt;%</span></span>
-<span id="cb529-2"><a href="10-functions-1.html#cb529-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">y =</span> <span class="kw">duniform</span>(x, <span class="dv">4</span>, <span class="dv">8</span>) ) <span class="op">%&gt;%</span></span>
-<span id="cb529-3"><a href="10-functions-1.html#cb529-3"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y) ) <span class="op">+</span></span>
-<span id="cb529-4"><a href="10-functions-1.html#cb529-4"></a><span class="st">  </span><span class="kw">geom_step</span>()</span></code></pre></div></li>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="10-functions-1.html#cb530-1"></a><span class="kw">data.frame</span>( <span class="dt">x=</span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">12</span>, <span class="dt">by=</span>.<span class="dv">001</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb530-2"><a href="10-functions-1.html#cb530-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">y =</span> <span class="kw">duniform</span>(x, <span class="dv">4</span>, <span class="dv">8</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb530-3"><a href="10-functions-1.html#cb530-3"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y) ) <span class="op">+</span></span>
+<span id="cb530-4"><a href="10-functions-1.html#cb530-4"></a><span class="st">  </span><span class="kw">geom_step</span>()</span></code></pre></div></li>
 <li><p>Install the R package <code>microbenchmark</code>. We will use this to discover the average duration your function takes.</p>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="10-functions-1.html#cb530-1"></a>microbenchmark<span class="op">::</span><span class="kw">microbenchmark</span>( <span class="kw">duniform</span>( <span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">12</span>,<span class="dt">by=</span>.<span class="dv">0001</span>), <span class="dv">4</span>, <span class="dv">8</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="10-functions-1.html#cb531-1"></a>microbenchmark<span class="op">::</span><span class="kw">microbenchmark</span>( <span class="kw">duniform</span>( <span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">12</span>,<span class="dt">by=</span>.<span class="dv">0001</span>), <span class="dv">4</span>, <span class="dv">8</span>) )</span></code></pre></div>
 <p>In particular, look at the median time for evaluation.</p></li>
 <li><p>Instead of using a <code>for</code> loop, it might have been easier to use our standard <code>dplyr::mutate</code> command with an <code>ifelse()</code> command. Rewrite your function to run the <code>dplyr::mutate</code> command with an <code>ifelse()</code> command to produce a new results column and return that results column. Verify that your function works correctly by producing a plot, and also run the <code>microbenchmark()</code>. Which version of your function was easier to write? Which ran faster?</p></li>
 </ol></li>
 <li><p>I very often want to provide default values to a parameter that I pass to a function. For example, it is so common for me to use the <code>pnorm()</code> and <code>qnorm()</code> functions on the standard normal, that R will automatically use <code>mean=0</code> and <code>sd=1</code> parameters unless you tell R otherwise. To get that behavior, we just set the default parameter values in the definition. When the function is called, the user specified value is used, but if none is specified, the defaults are used. Look at the help page for the functions <code>dunif()</code>, and notice that there are a number of default parameters. For your <code>duniform()</code> function provide default values of <code>0</code> and <code>1</code> for <code>a</code> and <code>b</code>. Demonstrate that your function is appropriately using the given default values.</p></li>
 <li><p>A common data processing step is to <em>standardize</em> numeric variables by subtracting the mean and dividing by the standard deviation. Create a function that takes a vector of numerical values and produces an output vector of the standardized values. We will then apply this function to each numeric column in a data frame using the <code>dplyr::mutate_if()</code> command. <em>This is often done in model algorithms that rely on numerical optimization methods to find a solution. By keeping the scales of different predictor covariates the same, the numerical optimization routines generally work better.</em></p>
-<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="10-functions-1.html#cb531-1"></a>standardize &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb531-2"><a href="10-functions-1.html#cb531-2"></a>  <span class="co">## What goes here?</span></span>
-<span id="cb531-3"><a href="10-functions-1.html#cb531-3"></a>}</span>
-<span id="cb531-4"><a href="10-functions-1.html#cb531-4"></a></span>
-<span id="cb531-5"><a href="10-functions-1.html#cb531-5"></a><span class="kw">data</span>( <span class="st">&#39;iris&#39;</span> )</span>
-<span id="cb531-6"><a href="10-functions-1.html#cb531-6"></a><span class="co"># Graph the pre-transformed data.</span></span>
-<span id="cb531-7"><a href="10-functions-1.html#cb531-7"></a><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Sepal.Width, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
-<span id="cb531-8"><a href="10-functions-1.html#cb531-8"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb531-9"><a href="10-functions-1.html#cb531-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Pre-Transformation&#39;</span>)</span>
-<span id="cb531-10"><a href="10-functions-1.html#cb531-10"></a></span>
-<span id="cb531-11"><a href="10-functions-1.html#cb531-11"></a><span class="co"># Standardize the numeric columns</span></span>
-<span id="cb531-12"><a href="10-functions-1.html#cb531-12"></a>iris.z &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_if</span>( is.numeric, standardize )</span>
-<span id="cb531-13"><a href="10-functions-1.html#cb531-13"></a></span>
-<span id="cb531-14"><a href="10-functions-1.html#cb531-14"></a><span class="co"># Graph the post-transformed data.</span></span>
-<span id="cb531-15"><a href="10-functions-1.html#cb531-15"></a><span class="kw">ggplot</span>(iris.z, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Sepal.Width, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
-<span id="cb531-16"><a href="10-functions-1.html#cb531-16"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb531-17"><a href="10-functions-1.html#cb531-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Post-Transformation&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="10-functions-1.html#cb532-1"></a>standardize &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb532-2"><a href="10-functions-1.html#cb532-2"></a>  <span class="co">## What goes here?</span></span>
+<span id="cb532-3"><a href="10-functions-1.html#cb532-3"></a>}</span>
+<span id="cb532-4"><a href="10-functions-1.html#cb532-4"></a></span>
+<span id="cb532-5"><a href="10-functions-1.html#cb532-5"></a><span class="kw">data</span>( <span class="st">&#39;iris&#39;</span> )</span>
+<span id="cb532-6"><a href="10-functions-1.html#cb532-6"></a><span class="co"># Graph the pre-transformed data.</span></span>
+<span id="cb532-7"><a href="10-functions-1.html#cb532-7"></a><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Sepal.Width, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
+<span id="cb532-8"><a href="10-functions-1.html#cb532-8"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb532-9"><a href="10-functions-1.html#cb532-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Pre-Transformation&#39;</span>)</span>
+<span id="cb532-10"><a href="10-functions-1.html#cb532-10"></a></span>
+<span id="cb532-11"><a href="10-functions-1.html#cb532-11"></a><span class="co"># Standardize the numeric columns</span></span>
+<span id="cb532-12"><a href="10-functions-1.html#cb532-12"></a>iris.z &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_if</span>( is.numeric, standardize )</span>
+<span id="cb532-13"><a href="10-functions-1.html#cb532-13"></a></span>
+<span id="cb532-14"><a href="10-functions-1.html#cb532-14"></a><span class="co"># Graph the post-transformed data.</span></span>
+<span id="cb532-15"><a href="10-functions-1.html#cb532-15"></a><span class="kw">ggplot</span>(iris.z, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Sepal.Width, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
+<span id="cb532-16"><a href="10-functions-1.html#cb532-16"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb532-17"><a href="10-functions-1.html#cb532-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Post-Transformation&#39;</span>)</span></code></pre></div></li>
 <li><p>In this example, we’ll write a function that will output a vector of the first <span class="math inline">\(n\)</span> terms in the child’s game <em>Fizz Buzz</em>. The goal is to count as high as you can, but for any number evenly divisible by 3, substitute “Fizz” and any number evenly divisible by 5, substitute “Buzz”, and if it is divisible by both, substitute “Fizz Buzz”. So the sequence will look like 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, … <em>Hint: The <code>paste()</code> function will squish strings together, the remainder operator is <code>%%</code> where it is used as <code>9 %% 3 = 0</code>. This problem was inspired by a wonderful YouTube <a href="https://www.youtube.com/watch?v=QPZ0pIK_wsc">video</a> that describes how to write an appropriate loop to do this in JavaScript, but it should be easy enough to interpret what to do in R. I encourage you to try to write your function first before watching the video.</em></p></li>
 <li><p>A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest. Below is a function <code>boot.lm</code> that bootstraps the linear model using case re-sampling.</p>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="10-functions-1.html#cb532-1"></a><span class="co">#&#39; Calculate bootstrap CI for an lm object</span></span>
-<span id="cb532-2"><a href="10-functions-1.html#cb532-2"></a><span class="co">#&#39; </span></span>
-<span id="cb532-3"><a href="10-functions-1.html#cb532-3"></a><span class="co">#&#39; @param model</span></span>
-<span id="cb532-4"><a href="10-functions-1.html#cb532-4"></a><span class="co">#&#39; @param N</span></span>
-<span id="cb532-5"><a href="10-functions-1.html#cb532-5"></a>boot.lm &lt;-<span class="st"> </span><span class="cf">function</span>(model, <span class="dt">N=</span><span class="dv">1000</span>){</span>
-<span id="cb532-6"><a href="10-functions-1.html#cb532-6"></a>  data    &lt;-<span class="st"> </span>model<span class="op">$</span>model  <span class="co"># Extract the original data</span></span>
-<span id="cb532-7"><a href="10-functions-1.html#cb532-7"></a>  formula &lt;-<span class="st"> </span>model<span class="op">$</span>terms  <span class="co"># and model formula used</span></span>
-<span id="cb532-8"><a href="10-functions-1.html#cb532-8"></a></span>
-<span id="cb532-9"><a href="10-functions-1.html#cb532-9"></a>  <span class="co"># Start the output data frame with the full sample statistic</span></span>
-<span id="cb532-10"><a href="10-functions-1.html#cb532-10"></a>  output &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb532-11"><a href="10-functions-1.html#cb532-11"></a><span class="st">    </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb532-12"><a href="10-functions-1.html#cb532-12"></a><span class="st">    </span><span class="kw">spread</span>(term, estimate)</span>
-<span id="cb532-13"><a href="10-functions-1.html#cb532-13"></a></span>
-<span id="cb532-14"><a href="10-functions-1.html#cb532-14"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N ){</span>
-<span id="cb532-15"><a href="10-functions-1.html#cb532-15"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>( <span class="dt">replace=</span><span class="ot">TRUE</span> )</span>
-<span id="cb532-16"><a href="10-functions-1.html#cb532-16"></a>    model.boot &lt;-<span class="st"> </span><span class="kw">lm</span>( formula, <span class="dt">data=</span>data)</span>
-<span id="cb532-17"><a href="10-functions-1.html#cb532-17"></a>    coefs &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model.boot) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb532-18"><a href="10-functions-1.html#cb532-18"></a><span class="st">      </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb532-19"><a href="10-functions-1.html#cb532-19"></a><span class="st">      </span><span class="kw">spread</span>(term, estimate)</span>
-<span id="cb532-20"><a href="10-functions-1.html#cb532-20"></a>    output &lt;-<span class="st"> </span>output <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rbind</span>( coefs )</span>
-<span id="cb532-21"><a href="10-functions-1.html#cb532-21"></a>  }  </span>
-<span id="cb532-22"><a href="10-functions-1.html#cb532-22"></a></span>
-<span id="cb532-23"><a href="10-functions-1.html#cb532-23"></a>  <span class="kw">return</span>(output)</span>
-<span id="cb532-24"><a href="10-functions-1.html#cb532-24"></a>}</span>
-<span id="cb532-25"><a href="10-functions-1.html#cb532-25"></a></span>
-<span id="cb532-26"><a href="10-functions-1.html#cb532-26"></a><span class="co"># Run the function on a model</span></span>
-<span id="cb532-27"><a href="10-functions-1.html#cb532-27"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )</span>
-<span id="cb532-28"><a href="10-functions-1.html#cb532-28"></a>boot.dist &lt;-<span class="st"> </span><span class="kw">boot.lm</span>(m)</span>
-<span id="cb532-29"><a href="10-functions-1.html#cb532-29"></a></span>
-<span id="cb532-30"><a href="10-functions-1.html#cb532-30"></a><span class="co"># If boot.lm() works, then the following produces a nice graph</span></span>
-<span id="cb532-31"><a href="10-functions-1.html#cb532-31"></a>boot.dist <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="st">&#39;term&#39;</span>,<span class="st">&#39;estimate&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb532-32"><a href="10-functions-1.html#cb532-32"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>estimate) ) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb532-33"><a href="10-functions-1.html#cb532-33"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb532-34"><a href="10-functions-1.html#cb532-34"></a><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>term, <span class="dt">scales=</span><span class="st">&#39;free&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="10-functions-1.html#cb533-1"></a><span class="co">#&#39; Calculate bootstrap CI for an lm object</span></span>
+<span id="cb533-2"><a href="10-functions-1.html#cb533-2"></a><span class="co">#&#39; </span></span>
+<span id="cb533-3"><a href="10-functions-1.html#cb533-3"></a><span class="co">#&#39; @param model</span></span>
+<span id="cb533-4"><a href="10-functions-1.html#cb533-4"></a><span class="co">#&#39; @param N</span></span>
+<span id="cb533-5"><a href="10-functions-1.html#cb533-5"></a>boot.lm &lt;-<span class="st"> </span><span class="cf">function</span>(model, <span class="dt">N=</span><span class="dv">1000</span>){</span>
+<span id="cb533-6"><a href="10-functions-1.html#cb533-6"></a>  data    &lt;-<span class="st"> </span>model<span class="op">$</span>model  <span class="co"># Extract the original data</span></span>
+<span id="cb533-7"><a href="10-functions-1.html#cb533-7"></a>  formula &lt;-<span class="st"> </span>model<span class="op">$</span>terms  <span class="co"># and model formula used</span></span>
+<span id="cb533-8"><a href="10-functions-1.html#cb533-8"></a></span>
+<span id="cb533-9"><a href="10-functions-1.html#cb533-9"></a>  <span class="co"># Start the output data frame with the full sample statistic</span></span>
+<span id="cb533-10"><a href="10-functions-1.html#cb533-10"></a>  output &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb533-11"><a href="10-functions-1.html#cb533-11"></a><span class="st">    </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb533-12"><a href="10-functions-1.html#cb533-12"></a><span class="st">    </span><span class="kw">spread</span>(term, estimate)</span>
+<span id="cb533-13"><a href="10-functions-1.html#cb533-13"></a></span>
+<span id="cb533-14"><a href="10-functions-1.html#cb533-14"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N ){</span>
+<span id="cb533-15"><a href="10-functions-1.html#cb533-15"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>( <span class="dt">replace=</span><span class="ot">TRUE</span> )</span>
+<span id="cb533-16"><a href="10-functions-1.html#cb533-16"></a>    model.boot &lt;-<span class="st"> </span><span class="kw">lm</span>( formula, <span class="dt">data=</span>data)</span>
+<span id="cb533-17"><a href="10-functions-1.html#cb533-17"></a>    coefs &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model.boot) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb533-18"><a href="10-functions-1.html#cb533-18"></a><span class="st">      </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb533-19"><a href="10-functions-1.html#cb533-19"></a><span class="st">      </span><span class="kw">spread</span>(term, estimate)</span>
+<span id="cb533-20"><a href="10-functions-1.html#cb533-20"></a>    output &lt;-<span class="st"> </span>output <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rbind</span>( coefs )</span>
+<span id="cb533-21"><a href="10-functions-1.html#cb533-21"></a>  }  </span>
+<span id="cb533-22"><a href="10-functions-1.html#cb533-22"></a></span>
+<span id="cb533-23"><a href="10-functions-1.html#cb533-23"></a>  <span class="kw">return</span>(output)</span>
+<span id="cb533-24"><a href="10-functions-1.html#cb533-24"></a>}</span>
+<span id="cb533-25"><a href="10-functions-1.html#cb533-25"></a></span>
+<span id="cb533-26"><a href="10-functions-1.html#cb533-26"></a><span class="co"># Run the function on a model</span></span>
+<span id="cb533-27"><a href="10-functions-1.html#cb533-27"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )</span>
+<span id="cb533-28"><a href="10-functions-1.html#cb533-28"></a>boot.dist &lt;-<span class="st"> </span><span class="kw">boot.lm</span>(m)</span>
+<span id="cb533-29"><a href="10-functions-1.html#cb533-29"></a></span>
+<span id="cb533-30"><a href="10-functions-1.html#cb533-30"></a><span class="co"># If boot.lm() works, then the following produces a nice graph</span></span>
+<span id="cb533-31"><a href="10-functions-1.html#cb533-31"></a>boot.dist <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="st">&#39;term&#39;</span>,<span class="st">&#39;estimate&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb533-32"><a href="10-functions-1.html#cb533-32"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>estimate) ) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb533-33"><a href="10-functions-1.html#cb533-33"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb533-34"><a href="10-functions-1.html#cb533-34"></a><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>term, <span class="dt">scales=</span><span class="st">&#39;free&#39;</span>)</span></code></pre></div>
 <p>This code does not correctly calculate a bootstrap sample for the model coefficients. Figure out where the mistake is. <em>Hint: Even if you haven’t studied the bootstrap, my description above gives enough information about the bootstrap algorithm to figure this out.</em></p></li>
 </ol>
 

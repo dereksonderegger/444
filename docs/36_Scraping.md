@@ -187,12 +187,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nA Secret Family History, Reconstructed In The Present, And More Best Photography Of The Week\n"            
-## [2] "\nGuy Scooped Up A Jar Of Pond Water And Left It On His Window Sill — What Happened Next Was Extraordinary\n"
-## [3] "\nHe Could Have Seen What Was Coming: Behind Trump's Failure On The Virus\n"                                 
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                 
-## [5] "\nWhich 3D Printed Bridge Design Can Handle The Most Force From A Hydraulic Press?\n"                        
-## [6] "\nInside The Coronavirus Hell At Lowe's\n"
+## [1] "\nSpain's Strangest Hotspots, And More Best Photography Of The Week\n"                   
+## [2] "\nThe Slow Mo Guys Attempt To Break The Upper Limit Of YouTube's Compression Algorithm\n"
+## [3] "\nA Beloved Bar Owner Was Skeptical About The Virus. Then He Took A Cruise\n"            
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                             
+## [5] "\nGenius Designed A Basketball Hoop Where The Ball Always Goes In\n"                     
+## [6] "\nThe Quiet Revolution Of Animal Crossing\n"
 ```
 
 
@@ -207,12 +207,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2020/best-photos-of-the-week-secret-family-history"                                                          
-## [2] "/video/guy-scooped-up-a-jar-of-pond-water-and-left-it-on-his-window-sill-what-happened-next-was-extraordinary"
-## [3] "https://www.nytimes.com/2020/04/11/us/politics/coronavirus-trump-response.html?utm_source=digg"               
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                  
-## [5] "/video/which-3d-printed-bridge-design-can-handle-the-most-force-from-a-hydraulic-press"                       
-## [6] "https://melmagazine.com/en-us/story/lowes-coronavirus-hell?utm_source=digg"
+## [1] "/2020/best-photos-of-the-week-spain-strangest-hotspots"                                                                
+## [2] "/video/the-slow-mo-guys-attempt-to-break-the-upper-limit-of-youtubes-compression-algorithm"                            
+## [3] "https://www.nytimes.com/2020/04/18/nyregion/coronavirus-jjbubbles-joe-joyce.html?utm_source=digg"                      
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                           
+## [5] "/video/genius-designed-a-basketball-hoop-where-the-ball-always-goes-in"                                                
+## [6] "https://www.theatlantic.com/family/archive/2020/04/animal-crossing-isnt-escapist-its-political/610012/?utm_source=digg"
 ```
 
 

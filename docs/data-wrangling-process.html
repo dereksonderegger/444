@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-04-11" />
+<meta name="date" content="2020-04-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -397,11 +397,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.3" data-path="16-data-scraping.html"><a href="16-data-scraping.html#exercises-16"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html"><i class="fa fa-check"></i><b>17</b> API Data Queries</a><ul>
-<li class="chapter" data-level="17.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#web-interface"><i class="fa fa-check"></i><b>17.1</b> Web Interface</a></li>
-<li class="chapter" data-level="17.2" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#r-api-interfaces"><i class="fa fa-check"></i><b>17.2</b> R API Interfaces</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.2.1</b> Population Estimates</a></li>
+<li class="chapter" data-level="17.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#introduction-3"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#census-bureau-api"><i class="fa fa-check"></i><b>17.2</b> Census Bureau API</a></li>
+<li class="chapter" data-level="17.3" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#package-censusapi"><i class="fa fa-check"></i><b>17.3</b> Package <code>censusapi</code></a><ul>
+<li class="chapter" data-level="17.3.1" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.3.1</b> Population Estimates</a></li>
 </ul></li>
-<li class="chapter" data-level="17.3" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.3</b> Exercises</a></li>
+<li class="chapter" data-level="17.4" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#package-tidycensus"><i class="fa fa-check"></i><b>17.4</b> Package <code>tidycensus</code></a></li>
+<li class="chapter" data-level="17.5" data-path="17-api-data-queries.html"><a href="17-api-data-queries.html#exercises-17"><i class="fa fa-check"></i><b>17.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="18-databases.html"><a href="18-databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
 <li class="chapter" data-level="18.1" data-path="18-databases.html"><a href="18-databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
@@ -437,8 +439,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-wrangling-process" class="section level1 unnumbered">
 <h1>Data Wrangling Process</h1>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="data-wrangling-process.html#cb346-1"></a><span class="co"># Chapter packages we will use</span></span>
-<span id="cb346-2"><a href="data-wrangling-process.html#cb346-2"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="data-wrangling-process.html#cb347-1"></a><span class="co"># Chapter packages we will use</span></span>
+<span id="cb347-2"><a href="data-wrangling-process.html#cb347-2"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">7.6</span> Introduction</h2>
 <p>The process of data wrangling often seems very situation dependent and there isn’t a unifying process. However this isn’t completely true. The process can be thought of as having four distinct steps.</p>
@@ -479,12 +481,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>I tend to break my data cleaning scripts into three chunks and the cleaning script looks something like this:</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="data-wrangling-process.html#cb347-1"></a><span class="co"># Script for reading in Flagstaff Weather Data</span></span>
-<span id="cb347-2"><a href="data-wrangling-process.html#cb347-2"></a>Weather_raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;~/GitHub/444/data-raw/Flagstaff_Temp.csv&#39;</span>)</span>
-<span id="cb347-3"><a href="data-wrangling-process.html#cb347-3"></a></span>
-<span id="cb347-4"><a href="data-wrangling-process.html#cb347-4"></a>Weather_tidy &lt;-<span class="st"> </span>Weather_raw <span class="op">%&gt;%</span><span class="st"> </span>...</span>
-<span id="cb347-5"><a href="data-wrangling-process.html#cb347-5"></a></span>
-<span id="cb347-6"><a href="data-wrangling-process.html#cb347-6"></a>Weather &lt;-<span class="st"> </span>Weather_tidy <span class="op">%&gt;%</span><span class="st"> </span>...</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="data-wrangling-process.html#cb348-1"></a><span class="co"># Script for reading in Flagstaff Weather Data</span></span>
+<span id="cb348-2"><a href="data-wrangling-process.html#cb348-2"></a>Weather_raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;~/GitHub/444/data-raw/Flagstaff_Temp.csv&#39;</span>)</span>
+<span id="cb348-3"><a href="data-wrangling-process.html#cb348-3"></a></span>
+<span id="cb348-4"><a href="data-wrangling-process.html#cb348-4"></a>Weather_tidy &lt;-<span class="st"> </span>Weather_raw <span class="op">%&gt;%</span><span class="st"> </span>...</span>
+<span id="cb348-5"><a href="data-wrangling-process.html#cb348-5"></a></span>
+<span id="cb348-6"><a href="data-wrangling-process.html#cb348-6"></a>Weather &lt;-<span class="st"> </span>Weather_tidy <span class="op">%&gt;%</span><span class="st"> </span>...</span></code></pre></div>
 <p>In the above script the <code>...</code> represent a bunch commands that I pipe together. The clean data set doesn’t include any <code>_modifier</code> tag because that clean data set is the one that I want to save and then subsequently use in any analysis.</p>
 <p>In many real world examples, the data wrangling work is concentrated in only one first three steps. Typically you might be able to skip one or more steps, but I would encourage using the naming convention above so that it is clear where the skipped steps are and what step you are on.</p>
 </div>
