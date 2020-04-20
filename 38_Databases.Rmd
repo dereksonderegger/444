@@ -29,6 +29,9 @@ As our data grows larger and is being updated more frequently, we need to stop u
 Fortunately, reading information from a database instead of an in-memory table won't change our current work flow and superficially the change is trivial. However, the impact can be quite profound in the timeliness and re-usability of our work. However, the package `dbplyr` is really only intended for *reading* from the data base and does not support *writing* to the data base. 
 
 ## Tutorial Set-Up
+
+Databases should be run on a server that is ALWAYS on and available via an internet connection. To connect to a database, we'll need to know the internet address and be able to authenticate with a username/password combination.
+
 To demonstrate how a database works, we unfortunately need to have a live database to connect to. In real situations this would already be done (probably by somebody else) and you would just need to install some DataBase Interface (DBI) package that will negotiate creating a connection between your R-session and the database.
 
 However for this example, we need to start up a data base before we can start working with.
@@ -115,10 +118,15 @@ rm(Cards, Customers, Retailers, Transactions)     # Remove all the setup except 
 
 The traditional way to interact with a database is by using SQL syntax. SQL stands for Structured Query Language and some understanding of SQL is mandatory for anyone that interacts with databases.  There are many good introduction to SQL but we'll present the basics here.
 
-Within an Rmarkdown file, we can insert a SQL chunk just as we insert an R chunk
+Within an Rmarkdown file, we can insert a SQL chunk just as we insert an R chunk. Critically in the chunk options we have to specify that it is a `sql` command. The two important things the chunk needs is 
+
+| Chunk Option    |    Option Description   |
+|:---------:|:---------------------------|
+|`con`      | This is the database connection object that we've previously opened. |
+| `output.var` | What is the name of the `data.frame` object that we want to store the result of the SQL command. If this is missing, the result is just printed to the screen. |
 
 ```
-```{sql, connection=con}
+```{sql, connection=con, output.var="transactions"}
 /* SQL code Chunk, notice comments are marked in C++ style */
 SELECT * FROM Transactions
 ```
@@ -132,11 +140,11 @@ SELECT * FROM Transactions
 ```
 
 
-
-```{sql, connection=con}
+```{sql, connection=con, output.var="transactions", echo=FALSE}
 /* SQL code Chunk, notice comments are marked in C++ style */
 SELECT * FROM Transactions
 ```
+
 
 |  SQL Function    |  Description                                |
 |:----------------:|:--------------------------------------------|
@@ -145,15 +153,44 @@ SELECT * FROM Transactions
 | `FROM`           | A keyword indicating that whatever follows is the table (or tables) being selected from. Any table joins need to be constrained in the WHERE clause to tell us what columns need to match.  |
 | `WHERE`          | A keyword indicating the following logical statements will be used to filter rows. Boolean operators `AND`, `OR`, and `NOT` can be used to create complex filter statements. |
 
-Typical SQL statements can be quite long and sometimes difficult to read because the table join instructions are mixed in with the filtering instructions. For example, the following is the SQL command to generate my credit card statement
-```{sql, connection=con}
-/* SQL code Chunk, notice comments are marked in C++ style */
+
+
+```{r}
+# This is another standard R chunk.  In our environment, there is
+# now an object called "transactions" that is the result of the 
+# previous SQL Chunk.
+transactions
+```
+
+
+
+Typical SQL statements can be quite long and sometimes difficult to read because the table join instructions are mixed in with the filtering instructions. For example, the following is the SQL command to generate my credit card statement, and then saves the resulting table to the 
+R object `DereksTransactions`.
+
+
+```{r}
+# in a regular R chunk, I might want to specify what customer we want 
+# to generate the Transactions from.
+customer = 'Derek Sonderegger'
+```
+
+
+```{sql, connection=con, output.var="DereksTransactions"}
+/* SQL Chunk with output.var="DereksTransactions */
+/* Anything precedded with a `?` is interpreted as something from  */
+/* the R enviroment of the script.                                 */
 SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount
   FROM Customers, Cards, Transactions, Retailers
   WHERE Customers.PersonID = Cards.PersonID AND 
         Cards.CardID = Transactions.CardID AND
         Transactions.RetailID = Retailers.RetailID AND
-        Customers.Name = 'Derek Sonderegger'
+        Customers.Name = ?customer
+```
+
+And now in another R chunk, we can manipulate the resulting data frame however we'd like.
+```{r}
+# This is in a regular R Chunk
+DereksTransactions
 ```
 
 
@@ -180,7 +217,7 @@ Transactions %>% head(3)
 
 The guiding principle of `dbplyr` is to delay as much work for as long as possible actually pulling the data from the database. The rational is that we spend a great deal of time figuring out what the query should look like and too often we write a query that accidentally downloads millions of lines of data and slows down our network connection. Instead `dbplyr` returns just the first few rows of whatever query we are working on until we finish the pipeline with a `collect()` command that will cause us to download ALL of the query results and save them as a local `data.frame`.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 CC_statement <- Customers %>% 
   filter(Name == 'Derek Sonderegger') %>% select(PersonID) %>%
   left_join(Cards) %>% left_join(Transactions) %>% left_join(Retailers) %>%
@@ -190,7 +227,16 @@ CC_statement <- Customers %>%
 CC_statement
 ```
 
-At this point, we *still* haven't downloaded all of the rows. Instead this is still a *lazy* query. It can be fun to see what the SQL code that is being generated is.
+At this point, we *still* haven't downloaded all of the rows. Instead this is still a *lazy* query. To actually download everything, we'll pipe this into the `collect` function.
+
+```{r}
+CC_statement %>%
+  collect()
+```
+
+
+It can be fun to see what the SQL code that is being generated is.
+
 
 ```{r}
 CC_statement %>% show_query()
@@ -199,6 +245,7 @@ CC_statement %>% show_query()
 The algorithm used to convert my `dplyr` statement into a SQL statement doesn't mind nesting SQL statements and isn't the same as what I generated by hand, but it works.
 
 
+The last step of a script should be to close the database connection.
 ```{r}
 # Close our database connection when we are through...
 dbDisconnect(con)

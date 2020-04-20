@@ -19,6 +19,9 @@ As our data grows larger and is being updated more frequently, we need to stop u
 Fortunately, reading information from a database instead of an in-memory table won't change our current work flow and superficially the change is trivial. However, the impact can be quite profound in the timeliness and re-usability of our work. However, the package `dbplyr` is really only intended for *reading* from the data base and does not support *writing* to the data base. 
 
 ## Tutorial Set-Up
+
+Databases should be run on a server that is ALWAYS on and available via an internet connection. To connect to a database, we'll need to know the internet address and be able to authenticate with a username/password combination.
+
 To demonstrate how a database works, we unfortunately need to have a live database to connect to. In real situations this would already be done (probably by somebody else) and you would just need to install some DataBase Interface (DBI) package that will negotiate creating a connection between your R-session and the database.
 
 However for this example, we need to start up a data base before we can start working with.
@@ -161,10 +164,15 @@ rm(Cards, Customers, Retailers, Transactions)     # Remove all the setup except 
 
 The traditional way to interact with a database is by using SQL syntax. SQL stands for Structured Query Language and some understanding of SQL is mandatory for anyone that interacts with databases.  There are many good introduction to SQL but we'll present the basics here.
 
-Within an Rmarkdown file, we can insert a SQL chunk just as we insert an R chunk
+Within an Rmarkdown file, we can insert a SQL chunk just as we insert an R chunk. Critically in the chunk options we have to specify that it is a `sql` command. The two important things the chunk needs is 
+
+| Chunk Option    |    Option Description   |
+|:---------:|:---------------------------|
+|`con`      | This is the database connection object that we've previously opened. |
+| `output.var` | What is the name of the `data.frame` object that we want to store the result of the SQL command. If this is missing, the resuult is just printed to the screen. |
 
 ```
-```{sql, connection=con}
+```{sql, connection=con, output.var="transactions"}
 /* SQL code Chunk, notice comments are marked in C++ style */
 SELECT * FROM Transactions
 ```
@@ -174,29 +182,6 @@ SELECT * FROM Transactions
 
 
 
-```sql
-/* SQL code Chunk, notice comments are marked in C++ style */
-SELECT * FROM Transactions
-```
-
-
-<div class="knitsql-table">
-
-
-Table: (\#tab:unnamed-chunk-9)8 records
-
-CardID             RetailID   DateTime               Amount
------------------  ---------  --------------------  -------
-9876768717278723   1          2019-10-01 08:31:23      5.68
-9876765498122734   2          2019-10-01 12:45:45     25.67
-9876768717278723   1          2019-10-02 08:26:31      5.68
-9876768717278723   1          2019-10-02 08:30:09      9.23
-9876765798212987   3          2019-10-05 18:58:57     68.54
-9876765498122734   2          2019-10-05 12:39:26     31.84
-9876768965231926   2          2019-10-10 19:02:20     42.83
-9876765798212988   1          2019-10-16 14:30:21      4.98
-
-</div>
 
 |  SQL Function    |  Description                                |
 |:----------------:|:--------------------------------------------|
@@ -205,31 +190,68 @@ CardID             RetailID   DateTime               Amount
 | `FROM`           | A keyword indicating that whatever follows is the table (or tables) being selected from. Any table joins need to be constrained in the WHERE clause to tell us what columns need to match.  |
 | `WHERE`          | A keyword indicating the following logical statements will be used to filter rows. Boolean operators `AND`, `OR`, and `NOT` can be used to create complex filter statements. |
 
-Typical SQL statements can be quite long and sometimes difficult to read because the table join instructions are mixed in with the filtering instructions. For example, the following is the SQL command to generate my credit card statement
+
+
+
+```r
+# This is another standard R chunk.  In our environment, there is
+# now an object called "transactions" that is the result of the 
+# previous SQL Chunk.
+transactions
+```
+
+```
+##             CardID RetailID            DateTime Amount
+## 1 9876768717278723        1 2019-10-01 08:31:23   5.68
+## 2 9876765498122734        2 2019-10-01 12:45:45  25.67
+## 3 9876768717278723        1 2019-10-02 08:26:31   5.68
+## 4 9876768717278723        1 2019-10-02 08:30:09   9.23
+## 5 9876765798212987        3 2019-10-05 18:58:57  68.54
+## 6 9876765498122734        2 2019-10-05 12:39:26  31.84
+## 7 9876768965231926        2 2019-10-10 19:02:20  42.83
+## 8 9876765798212988        1 2019-10-16 14:30:21   4.98
+```
+
+
+
+Typical SQL statements can be quite long and sometimes difficult to read because the table join instructions are mixed in with the filtering instructions. For example, the following is the SQL command to generate my credit card statement, and then saves the resulting table to the 
+R object `DereksTransactions`.
+
+
+
+```r
+# in a regular R chunk, I might want to specify what customer we want 
+# to generate the Transactions from.
+customer = 'Derek Sonderegger'
+```
+
+
 
 ```sql
-/* SQL code Chunk, notice comments are marked in C++ style */
+/* SQL Chunk with output.var="DereksTransactions */
+/* Anything precedded with a `?` is interpreted as something from  */
+/* the R enviroment of the script.                                 */
 SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount
   FROM Customers, Cards, Transactions, Retailers
   WHERE Customers.PersonID = Cards.PersonID AND 
         Cards.CardID = Transactions.CardID AND
         Transactions.RetailID = Retailers.RetailID AND
-        Customers.Name = 'Derek Sonderegger'
+        Customers.Name = ?customer
 ```
 
+And now in another R chunk, we can manipulate the resulting data frame however we'd like.
 
-<div class="knitsql-table">
+```r
+# This is in a regular R Chunk
+DereksTransactions
+```
 
-
-Table: (\#tab:unnamed-chunk-10)3 records
-
-Name                DateTime              Name              Amount
-------------------  --------------------  ---------------  -------
-Derek Sonderegger   2019-10-01 08:31:23   Kickstand Kafe      5.68
-Derek Sonderegger   2019-10-02 08:26:31   Kickstand Kafe      5.68
-Derek Sonderegger   2019-10-02 08:30:09   Kickstand Kafe      9.23
-
-</div>
+```
+##                Name            DateTime           Name Amount
+## 1 Derek Sonderegger 2019-10-01 08:31:23 Kickstand Kafe   5.68
+## 2 Derek Sonderegger 2019-10-02 08:26:31 Kickstand Kafe   5.68
+## 3 Derek Sonderegger 2019-10-02 08:30:09 Kickstand Kafe   9.23
+```
 
 
 
@@ -277,21 +299,7 @@ CC_statement <- Customers %>%
   left_join(Cards) %>% left_join(Transactions) %>% left_join(Retailers) %>%
   select(DateTime, Name, Amount) %>%
   rename(Retailer = Name) 
-```
 
-```
-## Joining, by = "PersonID"
-```
-
-```
-## Joining, by = "CardID"
-```
-
-```
-## Joining, by = "RetailID"
-```
-
-```r
 CC_statement
 ```
 
@@ -305,7 +313,26 @@ CC_statement
 ## 3 2019-10-02 08:30:09 Kickstand Kafe   9.23
 ```
 
-At this point, we *still* haven't downloaded all of the rows. Instead this is still a *lazy* query. It can be fun to see what the SQL code that is being generated is.
+At this point, we *still* haven't downloaded all of the rows. Instead this is still a *lazy* query. To actually download everything, we'll pipe this into the `collect` function.
+
+
+```r
+CC_statement %>%
+  collect()
+```
+
+```
+## # A tibble: 3 x 3
+##   DateTime            Retailer       Amount
+##   <chr>               <chr>           <dbl>
+## 1 2019-10-01 08:31:23 Kickstand Kafe   5.68
+## 2 2019-10-02 08:26:31 Kickstand Kafe   5.68
+## 3 2019-10-02 08:30:09 Kickstand Kafe   9.23
+```
+
+
+It can be fun to see what the SQL code that is being generated is.
+
 
 
 ```r
@@ -335,6 +362,7 @@ CC_statement %>% show_query()
 The algorithm used to convert my `dplyr` statement into a SQL statement doesn't mind nesting SQL statements and isn't the same as what I generated by hand, but it works.
 
 
+The last step of a script should be to close the database connection.
 
 ```r
 # Close our database connection when we are through...
