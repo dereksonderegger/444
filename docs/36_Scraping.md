@@ -187,12 +187,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nSpain's Strangest Hotspots, And More Best Photography Of The Week\n"                   
-## [2] "\nThe Slow Mo Guys Attempt To Break The Upper Limit Of YouTube's Compression Algorithm\n"
-## [3] "\nA Beloved Bar Owner Was Skeptical About The Virus. Then He Took A Cruise\n"            
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                             
-## [5] "\nGenius Designed A Basketball Hoop Where The Ball Always Goes In\n"                     
-## [6] "\nThe Quiet Revolution Of Animal Crossing\n"
+## [1] "\nThe Infection That's Silently Killing Coronavirus Patients\n"         
+## [2] "\nNew COVID-19 Antibody Study Results Are In. Are They Right?\n"        
+## [3] "\nSkier's GoPro Captures Insane Footage Of Avalanche Chasing Him Down\n"
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"            
+## [5] "\nHow Much Core Strength Do Olympic Swimmers Have? This Much\n"         
+## [6] "\nThe US Cities With The Worst Air Pollution Have Something In Common\n"
 ```
 
 
@@ -207,12 +207,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2020/best-photos-of-the-week-spain-strangest-hotspots"                                                                
-## [2] "/video/the-slow-mo-guys-attempt-to-break-the-upper-limit-of-youtubes-compression-algorithm"                            
-## [3] "https://www.nytimes.com/2020/04/18/nyregion/coronavirus-jjbubbles-joe-joyce.html?utm_source=digg"                      
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                           
-## [5] "/video/genius-designed-a-basketball-hoop-where-the-ball-always-goes-in"                                                
-## [6] "https://www.theatlantic.com/family/archive/2020/04/animal-crossing-isnt-escapist-its-political/610012/?utm_source=digg"
+## [1] "https://www.nytimes.com/2020/04/20/opinion/coronavirus-testing-pneumonia.html?utm_source=digg"                 
+## [2] "https://www.wired.com/story/new-covid-19-antibody-study-results-are-in-are-they-right/?utm_source=digg"        
+## [3] "/video/gopro-records-shocking-footage-of-a-skiers-near-death-experience-with-an-avalanche"                     
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                   
+## [5] "/2020/russian-olympic-swimmer-swim-kitchen"                                                                    
+## [6] "https://earther.gizmodo.com/the-us-cities-with-the-worst-air-pollution-all-have-som-1842980607?utm_source=digg"
 ```
 
 

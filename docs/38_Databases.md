@@ -16,7 +16,11 @@ As our data grows larger and is being updated more frequently, we need to stop u
 2. No Local Storage. Because the data lives on the database, I don't have to occupy gigabytes of space on my laptop to hold an out-of-date copy of the data.
 3. Database actions are atomic. Whenever I update the database, the action either happens or it doesn't and the database should never be left in an inconsistent state. This extremely important when processing financial transactions, for example.
 
-Fortunately, reading information from a database instead of an in-memory table won't change our current work flow and superficially the change is trivial. However, the impact can be quite profound in the timeliness and re-usability of our work. However, the package `dbplyr` is really only intended for *reading* from the data base and does not support *writing* to the data base. 
+Fortunately, reading information from a database instead of an in-memory table won't change our current work flow and superficially the change is trivial. However, the impact can be quite profound in the timeliness and re-usability of our work. 
+
+The great people at Rstudio have created a [great website](https://db.rstudio.com/overview/) for using databases using their `dbplyr` package.
+
+However, the package `dbplyr` is really only intended for *reading* from the data base and does not support *writing* to the data base. 
 
 ## Tutorial Set-Up
 
@@ -145,14 +149,14 @@ Critically, using the ID columns, we can take an individual transaction figure o
 ```r
 # Copy the tables to our newly set up database. The dbWriteTable() function is intended
 # for database examples and is NOT how you would in practice create a database.
-DBI::dbWriteTable(con, 'Cards', Cards,
+DBI::dbCreateTable(con, 'Cards', Cards,
                   field.types=c(CardID='character',PersonID='character',
                                 Issue_DateTime='time',Exp_DateTime='time') )
-DBI::dbWriteTable(con, 'Customers', Customers,
+DBI::dbCreateTable(con, 'Customers', Customers,
                   field.types=c(PersonID='character'))
-DBI::dbWriteTable(con, 'Retailers', Retailers,
+DBI::dbCreateTable(con, 'Retailers', Retailers,
                   field.types=c(RetailID='character'))
-DBI::dbWriteTable(con, 'Transactions', Transactions,
+DBI::dbCreateTable(con, 'Transactions', Transactions,
                   field.types=c(CardID='character', RetailID='character',
                                 DateTime='time'))
 
@@ -162,26 +166,23 @@ rm(Cards, Customers, Retailers, Transactions)     # Remove all the setup except 
 
 ## SQL
 
-The traditional way to interact with a database is by using SQL syntax. SQL stands for Structured Query Language and some understanding of SQL is mandatory for anyone that interacts with databases.  There are many good introduction to SQL but we'll present the basics here.
+The traditional way to interact with a database is by using SQL syntax. SQL stands for Structured Query Language and some understanding of SQL is mandatory for anyone that interacts with databases.  There are many good introduction to SQL but we'll cover a few basics here.
 
-Within an Rmarkdown file, we can insert a SQL chunk just as we insert an R chunk. Critically in the chunk options we have to specify that it is a `sql` command. The two important things the chunk needs is 
+To begin, lets run a simple SQL query.
 
-| Chunk Option    |    Option Description   |
-|:---------:|:---------------------------|
-|`con`      | This is the database connection object that we've previously opened. |
-| `output.var` | What is the name of the `data.frame` object that we want to store the result of the SQL command. If this is missing, the resuult is just printed to the screen. |
 
-```
-```{sql, connection=con, output.var="transactions"}
-/* SQL code Chunk, notice comments are marked in C++ style */
-SELECT * FROM Transactions
-```
+```r
+sql_cmd <- 'SELECT * FROM Transactions'
+transactions <- DBI::dbGetQuery(con, sql_cmd)
+transactions
 ```
 
+```
+## [1] CardID   RetailID DateTime Amount  
+## <0 rows> (or 0-length row.names)
+```
 
-
-
-
+We can examine the SQL command as follows:
 
 |  SQL Function    |  Description                                |
 |:----------------:|:--------------------------------------------|
@@ -191,66 +192,35 @@ SELECT * FROM Transactions
 | `WHERE`          | A keyword indicating the following logical statements will be used to filter rows. Boolean operators `AND`, `OR`, and `NOT` can be used to create complex filter statements. |
 
 
-
-
-```r
-# This is another standard R chunk.  In our environment, there is
-# now an object called "transactions" that is the result of the 
-# previous SQL Chunk.
-transactions
-```
-
-```
-##             CardID RetailID            DateTime Amount
-## 1 9876768717278723        1 2019-10-01 08:31:23   5.68
-## 2 9876765498122734        2 2019-10-01 12:45:45  25.67
-## 3 9876768717278723        1 2019-10-02 08:26:31   5.68
-## 4 9876768717278723        1 2019-10-02 08:30:09   9.23
-## 5 9876765798212987        3 2019-10-05 18:58:57  68.54
-## 6 9876765498122734        2 2019-10-05 12:39:26  31.84
-## 7 9876768965231926        2 2019-10-10 19:02:20  42.83
-## 8 9876765798212988        1 2019-10-16 14:30:21   4.98
-```
+There is a way to insert a SQL code chunk and have it appropriately run when knitting the document together. I don't really like that method because I've found it difficult to use while working with the Rmarkdown file interactively, so I generally don't recommend doing that.
 
 
 
-Typical SQL statements can be quite long and sometimes difficult to read because the table join instructions are mixed in with the filtering instructions. For example, the following is the SQL command to generate my credit card statement, and then saves the resulting table to the 
-R object `DereksTransactions`.
+Typical SQL statements can be quite long and sometimes difficult to read because the table join instructions are mixed in with the filtering instructions. For example, the following is the SQL command to generate my credit card statement, and then saves the resulting table to the R object `DereksTransactions`.
 
 
 
 ```r
-# in a regular R chunk, I might want to specify what customer we want 
-# to generate the Transactions from.
-customer = 'Derek Sonderegger'
-```
+# given some other R object that specifies part of the SQL command, I can 
+# generate the full SQL command string by pasting the parts together
+customer = "'Derek Sonderegger'"  # Notice the quotes inside so that there are
+                                  # quotes surrounding the name inside the SQL
 
-
-
-```sql
-/* SQL Chunk with output.var="DereksTransactions */
-/* Anything precedded with a `?` is interpreted as something from  */
-/* the R enviroment of the script.                                 */
+sql_cmd <- paste('
 SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount
   FROM Customers, Cards, Transactions, Retailers
   WHERE Customers.PersonID = Cards.PersonID AND 
         Cards.CardID = Transactions.CardID AND
         Transactions.RetailID = Retailers.RetailID AND
-        Customers.Name = ?customer
-```
+        Customers.Name = ', customer) 
 
-And now in another R chunk, we can manipulate the resulting data frame however we'd like.
-
-```r
-# This is in a regular R Chunk
+DereksTransactions <- DBI::dbGetQuery(con, sql_cmd)
 DereksTransactions
 ```
 
 ```
-##                Name            DateTime           Name Amount
-## 1 Derek Sonderegger 2019-10-01 08:31:23 Kickstand Kafe   5.68
-## 2 Derek Sonderegger 2019-10-02 08:26:31 Kickstand Kafe   5.68
-## 3 Derek Sonderegger 2019-10-02 08:30:09 Kickstand Kafe   9.23
+## [1] Name     DateTime Name     Amount  
+## <0 rows> (or 0-length row.names)
 ```
 
 
@@ -279,11 +249,8 @@ Transactions %>% head(3)
 ```
 ## # Source:   lazy query [?? x 4]
 ## # Database: sqlite 3.30.1 [:memory:]
-##   CardID           RetailID DateTime            Amount
-##   <chr>            <chr>    <chr>                <dbl>
-## 1 9876768717278723 1        2019-10-01 08:31:23   5.68
-## 2 9876765498122734 2        2019-10-01 12:45:45  25.7 
-## 3 9876768717278723 1        2019-10-02 08:26:31   5.68
+## # … with 4 variables: CardID <chr>, RetailID <chr>, DateTime <chr>,
+## #   Amount <dbl>
 ```
 
 ```r
@@ -306,11 +273,7 @@ CC_statement
 ```
 ## # Source:   lazy query [?? x 3]
 ## # Database: sqlite 3.30.1 [:memory:]
-##   DateTime            Retailer       Amount
-##   <chr>               <chr>           <dbl>
-## 1 2019-10-01 08:31:23 Kickstand Kafe   5.68
-## 2 2019-10-02 08:26:31 Kickstand Kafe   5.68
-## 3 2019-10-02 08:30:09 Kickstand Kafe   9.23
+## # … with 3 variables: DateTime <chr>, Retailer <chr>, Amount <dbl>
 ```
 
 At this point, we *still* haven't downloaded all of the rows. Instead this is still a *lazy* query. To actually download everything, we'll pipe this into the `collect` function.
@@ -322,12 +285,8 @@ CC_statement %>%
 ```
 
 ```
-## # A tibble: 3 x 3
-##   DateTime            Retailer       Amount
-##   <chr>               <chr>           <dbl>
-## 1 2019-10-01 08:31:23 Kickstand Kafe   5.68
-## 2 2019-10-02 08:26:31 Kickstand Kafe   5.68
-## 3 2019-10-02 08:30:09 Kickstand Kafe   9.23
+## # A tibble: 0 x 3
+## # … with 3 variables: DateTime <chr>, Retailer <chr>, Amount <dbl>
 ```
 
 
@@ -369,4 +328,30 @@ The last step of a script should be to close the database connection.
 dbDisconnect(con)
 ```
 
+## Exercises
+1. In this exercise, you'll create a database containing the `nycflights13` data. Make sure that you've already downloaded the `nycflights13` package.
+    a. Create a SQLite database and connect to it using the following code: 
+    
+    ```r
+    library(dplyr)
+    
+    # Start up a SQL-Lite database with the NYCFlights13 data pre-loaded
+    con <- nycflights13_sqlite(path = tempdir() )
+    ```
+    b. Through the `con` connection object, create links to the `flights` and `airlines` tables.
+    c. From the `flights` table, summarize the percent of flights that are delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.
+    d. Using the `dbDisconnect()` command to close the connection `con`. 
+    
+2. For this exercise, we'll start a SQLite database and see that the SQLite application stores the data in a very specialized file structure, which usually has a file extension of `.db` or `.sqlite`.
+    a. Create the SQLite database file in your current working directory using the following:
+    
+    ```r
+    con <- DBI::dbConnect(RSQLite::SQLite(), dbname = "TestSQLiteFile.db")
+    
+    # Create a table using the iris data
+    dbCreateTable(con, 'IRIS', iris)
+    dbListTables(con)
+    dbDisconnect(con)
+    ```
+    b) Now check the files in your current working directory as there should now be a `TestSQLiteFile.db`. The SQLite file structure for data is extremely stable and works across platform types (Unix/Windows, 32/64 bit, big/little endian, etc).  As such, it is a good file type choice for storing lots of data in a compact format across different systems (e.g. applications that work on a mobile device vs a computer)
 
