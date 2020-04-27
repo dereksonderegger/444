@@ -27,6 +27,11 @@ First we need some way of measuring how long our code took to run. For this we w
 
 
 ```r
+# The expressions can be as many lines as you'd like, enclosed by { }. 
+# For a single line, you can skip the enclosing { }.
+# 
+# For evaluating large chunks of code, I like to 
+# just wrap the code up in a function.
 x <- runif(1000)
 microbenchmark(
   sqrt(x),         # First expression to compare
@@ -36,35 +41,61 @@ microbenchmark(
 
 ```
 ## Unit: microseconds
-##     expr   min    lq mean median    uq  max neval cld
-##  sqrt(x)  3.04  3.29 19.6   3.43  3.64 1284   100  a 
-##  x^(0.5) 41.13 41.43 58.1  41.93 43.13 1341   100   b
+##     expr   min    lq  mean median    uq   max neval cld
+##  sqrt(x)  2.06  2.21  2.41   2.29  2.41  5.21   100  a 
+##  x^(0.5) 23.22 23.33 23.61  23.40 23.51 38.43   100   b
 ```
 
-What `microbenchmark` does is run the two expressions a number of times and then produces the 5-number summary of those times. By running it multiple times, we account for the randomness associated with a operating system that is also running at the same time.
+What `microbenchmark` does is run the two expressions a number of times and then
+produces the 5-number summary of those times. By running it multiple times (by 
+default, 100 times), we 
+account for the randomness associated with a operating system that is also running 
+at the same time. Being good statisticians, the `cld` column stands for compact 
+letter display and if the letters are different, there is a statistically 
+significant difference in the timing. If cause the `microbenchmark()` function to 
+run more times (1000s or 100,000s times), we could eventually end up with the smallest
+difference to be statistically significant, but I think we shouldn't complain about 
+speed differences if a sample of 100 runs can't detect the difference.
 
 
 ## Faster for loops?
-Often we need to perform some simple action repeatedly. It is natural to write a `for` loop to do the action and we wish to speed the up. In this first case, we will consider having to do the action millions of times and each chunk of computation within the `for` takes very little time.
+Often we need to perform some simple action repeatedly. It is natural to write 
+a `for` loop to do the action and we wish to speed the up. In this first case, 
+we will consider having to do the action millions of times and each chunk of 
+computation within the `for` takes very little time.
 
-Consider frame of 4 columns, and for each of $n$ rows, we wish to know which column has the largest value.
+Consider frame of 4 columns, and for each of $n$ rows, we wish to know which 
+column has the largest value.
 
 
 ```r
 make.data <- function(n){
-  data <- cbind(
-    rnorm(n, mean=5, sd=2),
-    rpois(n, lambda = 5),
-    rgamma(n, shape = 2, scale = 3),
-    rexp(n, rate = 1/5))
+  data <- data.frame(
+    Norm  = rnorm(n, mean=5, sd=2),
+    Pois  = rpois(n, lambda = 5),
+    Gamma = rgamma(n, shape = 2, scale = 3),
+    Exp   = rexp(n, rate = 1/5))
   data <- data.frame(data)
   return(data)
 }
 
 data <- make.data(100)
+
+data %>% head()
 ```
 
-The way that you might first think about solving this problem is to write a for loop and, for each row, figure it out.
+```
+##       Norm Pois     Gamma       Exp
+## 1 5.079136    5  4.467645 10.572709
+## 2 5.598038    4  2.663141  5.109479
+## 3 3.707923    9  2.332693  7.482434
+## 4 4.661450    7  8.380918 23.012721
+## 5 5.312595    1  7.578882  2.100814
+## 6 9.158192    3 12.257352  5.731017
+```
+
+The way that you might first think about solving this problem is to write a for 
+loop and, for each row, figure it out.
 
 
 ```r
@@ -77,7 +108,9 @@ f1 <- function( input ){
 }
 ```
 
-We might consider that there are two ways to return a value from a function (using the `return` function and just printing it). In fact, I've always heard that using the `return` statement is a touch slower.
+We might consider that there are two ways to return a value from a function 
+(using the `return` function and just printing it). In fact, I've always heard 
+that using the `return` statement is a touch slower.
 
 
 ```r
@@ -124,6 +157,7 @@ f3.AllocOutput <- function( input ){
 
 
 ```r
+data <- make.data(10000)   # Moderately large sample size
 microbenchmark(
   f1(data),
   f3.AllocOutput(data)
@@ -132,11 +166,11 @@ microbenchmark(
 
 ```
 ## Unit: milliseconds
-##                  expr  min   lq mean median   uq  max neval
-##              f1(data) 3.63 4.17 5.19   4.77 5.79 13.4   100
-##  f3.AllocOutput(data) 3.62 4.07 5.24   4.61 5.54 13.8   100
+##                  expr min  lq mean median  uq max neval cld
+##              f1(data) 395 408  418    411 416 748   100  a 
+##  f3.AllocOutput(data) 395 407  439    411 419 872   100   b
 ```
-If anything, allocating the size of output first was slower. So given this, we shouldn't feel to bad being lazy and using `output <- NULL` to initialize things.
+There isn't a significant improvement allocating the size of output first. So given this, we shouldn't feel to bad being lazy and using `output <- NULL` to initialize things.
 
 ## Vectorizing loops
 In general, `for` loops in R are very slow and we want to avoid them as much as possible. The `apply` family of functions can be quite helpful for applying a function to each row or column of a matrix or data.frame or to each element of a list.
@@ -242,7 +276,9 @@ We should think of executing code in parallel as having three major steps:
 
 ## Parallelizing for loops
 
-There are a number of packages that allow you to tell R how many cores you have access to.  One of the easiest ways to parallelize a for loop is using a package called `foreach`. The registration of multiple cores is actually pretty easy.
+There are a number of packages that allow you to tell R how many cores you have access to.  One of the easiest ways to parallelize a for loop is using a package called `foreach`. This package was created by R-Revolutions company that was subsequently bought by Microsoft. They have a nice introduction to the package [here](https://docs.microsoft.com/en-us/machine-learning-server/r/how-to-revoscaler-distributed-computing-foreach). 
+
+The registration of multiple cores is actually pretty easy.
 
 
 ```r
@@ -352,7 +388,7 @@ output <- foreach( i=1:100, .combine=data.frame ) %dopar% {
 }
 ```
 
-It is important to recognize that the data.frame `trees` was utilized inside the `foreach` loop. So when we called the `foreach` loop and distributed the workload across the cores, it was smart enough to distribute the data to each core.  However, if there were functions that we utilized inside the foor loop that came from a packege, we need to tell each core to load the function.
+It is important to recognize that the data.frame `trees` was utilized inside the `foreach` loop. So when we called the `foreach` loop and distributed the workload across the cores, it was smart enough to distribute the data to each core.  However, if there were functions that we utilized inside the for loop that came from a package, we need to tell each core to load the function.
 
 
 ```r
@@ -413,10 +449,12 @@ grid <- data.frame(
 
 microbenchmark(
   model <- train( lpsa ~ ., data=prostate, method='glmnet',
-                  trControl=ctrl.serial, tuneGrid=grid, 
+                  trControl=ctrl.serial, 
+                  tuneGrid=grid, 
                   lambda = grid$lambda ),
   model <- train( lpsa ~ ., data=prostate, method='glmnet',
-                  trControl=ctrl.parallel, tuneGrid=grid, 
+                  trControl=ctrl.parallel, 
+                  tuneGrid=grid, 
                   lambda = grid$lambda )
 ) %>% print(digits=3)
 ```
@@ -426,9 +464,9 @@ microbenchmark(
 ##                                                                                                                                 expr
 ##    model <- train(lpsa ~ ., data = prostate, method = "glmnet",      trControl = ctrl.serial, tuneGrid = grid, lambda = grid$lambda)
 ##  model <- train(lpsa ~ ., data = prostate, method = "glmnet",      trControl = ctrl.parallel, tuneGrid = grid, lambda = grid$lambda)
-##   min   lq mean median   uq  max neval
-##  1.13 1.24 1.33   1.25 1.31 3.00   100
-##  1.21 1.29 1.37   1.31 1.35 2.66   100
+##   min   lq mean median   uq  max neval cld
+##  1.12 1.18 1.20   1.20 1.21 1.66   100   a
+##  1.12 1.18 1.19   1.19 1.21 1.38   100   a
 ```
 
 Again, we saw only moderate gains by using both cores, however it didn't really cost us anything. Because the `caret` package by default allows parallel processing, it doesn't hurt to just load the `doMC` package and register the number of cores. Even in just the two core case, it is a good habit to get into so that when you port your code to a huge computer with many cores, the only thing to change is how many cores you have access to.

@@ -149,14 +149,14 @@ Critically, using the ID columns, we can take an individual transaction figure o
 ```r
 # Copy the tables to our newly set up database. The dbWriteTable() function is intended
 # for database examples and is NOT how you would in practice create a database.
-DBI::dbCreateTable(con, 'Cards', Cards,
+DBI::dbWriteTable(con, 'Cards', Cards,
                   field.types=c(CardID='character',PersonID='character',
                                 Issue_DateTime='time',Exp_DateTime='time') )
-DBI::dbCreateTable(con, 'Customers', Customers,
+DBI::dbWriteTable(con, 'Customers', Customers,
                   field.types=c(PersonID='character'))
-DBI::dbCreateTable(con, 'Retailers', Retailers,
+DBI::dbWriteTable(con, 'Retailers', Retailers,
                   field.types=c(RetailID='character'))
-DBI::dbCreateTable(con, 'Transactions', Transactions,
+DBI::dbWriteTable(con, 'Transactions', Transactions,
                   field.types=c(CardID='character', RetailID='character',
                                 DateTime='time'))
 
@@ -178,8 +178,15 @@ transactions
 ```
 
 ```
-## [1] CardID   RetailID DateTime Amount  
-## <0 rows> (or 0-length row.names)
+##             CardID RetailID            DateTime Amount
+## 1 9876768717278723        1 2019-10-01 08:31:23   5.68
+## 2 9876765498122734        2 2019-10-01 12:45:45  25.67
+## 3 9876768717278723        1 2019-10-02 08:26:31   5.68
+## 4 9876768717278723        1 2019-10-02 08:30:09   9.23
+## 5 9876765798212987        3 2019-10-05 18:58:57  68.54
+## 6 9876765498122734        2 2019-10-05 12:39:26  31.84
+## 7 9876768965231926        2 2019-10-10 19:02:20  42.83
+## 8 9876765798212988        1 2019-10-16 14:30:21   4.98
 ```
 
 We can examine the SQL command as follows:
@@ -219,8 +226,10 @@ DereksTransactions
 ```
 
 ```
-## [1] Name     DateTime Name     Amount  
-## <0 rows> (or 0-length row.names)
+##                Name            DateTime           Name Amount
+## 1 Derek Sonderegger 2019-10-01 08:31:23 Kickstand Kafe   5.68
+## 2 Derek Sonderegger 2019-10-02 08:26:31 Kickstand Kafe   5.68
+## 3 Derek Sonderegger 2019-10-02 08:30:09 Kickstand Kafe   9.23
 ```
 
 
@@ -249,8 +258,11 @@ Transactions %>% head(3)
 ```
 ## # Source:   lazy query [?? x 4]
 ## # Database: sqlite 3.30.1 [:memory:]
-## # … with 4 variables: CardID <chr>, RetailID <chr>, DateTime <chr>,
-## #   Amount <dbl>
+##   CardID           RetailID DateTime            Amount
+##   <chr>            <chr>    <chr>                <dbl>
+## 1 9876768717278723 1        2019-10-01 08:31:23   5.68
+## 2 9876765498122734 2        2019-10-01 12:45:45  25.7 
+## 3 9876768717278723 1        2019-10-02 08:26:31   5.68
 ```
 
 ```r
@@ -261,7 +273,8 @@ The guiding principle of `dbplyr` is to delay as much work for as long as possib
 
 
 ```r
-CC_statement <- Customers %>% 
+CC_statement <- 
+  Customers %>% 
   filter(Name == 'Derek Sonderegger') %>% select(PersonID) %>%
   left_join(Cards) %>% left_join(Transactions) %>% left_join(Retailers) %>%
   select(DateTime, Name, Amount) %>%
@@ -273,7 +286,11 @@ CC_statement
 ```
 ## # Source:   lazy query [?? x 3]
 ## # Database: sqlite 3.30.1 [:memory:]
-## # … with 3 variables: DateTime <chr>, Retailer <chr>, Amount <dbl>
+##   DateTime            Retailer       Amount
+##   <chr>               <chr>           <dbl>
+## 1 2019-10-01 08:31:23 Kickstand Kafe   5.68
+## 2 2019-10-02 08:26:31 Kickstand Kafe   5.68
+## 3 2019-10-02 08:30:09 Kickstand Kafe   9.23
 ```
 
 At this point, we *still* haven't downloaded all of the rows. Instead this is still a *lazy* query. To actually download everything, we'll pipe this into the `collect` function.
@@ -285,8 +302,12 @@ CC_statement %>%
 ```
 
 ```
-## # A tibble: 0 x 3
-## # … with 3 variables: DateTime <chr>, Retailer <chr>, Amount <dbl>
+## # A tibble: 3 x 3
+##   DateTime            Retailer       Amount
+##   <chr>               <chr>           <dbl>
+## 1 2019-10-01 08:31:23 Kickstand Kafe   5.68
+## 2 2019-10-02 08:26:31 Kickstand Kafe   5.68
+## 3 2019-10-02 08:30:09 Kickstand Kafe   9.23
 ```
 
 
