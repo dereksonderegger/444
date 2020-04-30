@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-04-27" />
+<meta name="date" content="2020-04-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -252,8 +252,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html"><i class="fa fa-check"></i>Data Wrangling Process</a><ul>
 <li class="chapter" data-level="7.6" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>7.6</b> Introduction</a></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.7</b> Tidying</a></li>
-<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.8</b> Cleaning</a></li>
+<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#import"><i class="fa fa-check"></i><b>7.7</b> Import</a></li>
+<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.8</b> Tidying</a></li>
+<li class="chapter" data-level="7.9" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.9</b> Cleaning</a></li>
+<li class="chapter" data-level="7.10" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#use"><i class="fa fa-check"></i><b>7.10</b> Use</a></li>
 </ul></li>
 <li class="part"><span><b>Deeper Details</b></span></li>
 <li class="chapter" data-level="8" data-path="8-data-structures.html"><a href="8-data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
@@ -415,11 +417,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
 <li class="chapter" data-level="19.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
 <li class="chapter" data-level="19.3" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="19.5.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.4</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.4.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.4.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.4.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.4.2</b> <code>caret::train</code></a></li>
 </ul></li>
+<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.5</b> Parallelizing <code>for</code> loops</a></li>
 </ul></li>
 </ul>
 
@@ -449,11 +451,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">12.1</span> Creating Date and Time objects</h2>
 <p>R gives a mechanism for getting the current date and time.</p>
 <div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="12-dates-and-times.html#cb625-1"></a>lubridate<span class="op">::</span><span class="kw">today</span>()   <span class="co"># Today&#39;s date</span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-04-27&quot;</code></pre>
+<pre><code>## [1] &quot;2020-04-30&quot;</code></pre>
 <div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="12-dates-and-times.html#cb627-1"></a>base<span class="op">::</span><span class="kw">Sys.Date</span>()     <span class="co"># Today&#39;s date</span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-04-27&quot;</code></pre>
+<pre><code>## [1] &quot;2020-04-30&quot;</code></pre>
 <div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="12-dates-and-times.html#cb629-1"></a>base<span class="op">::</span><span class="kw">Sys.time</span>()     <span class="co"># Current Time and Date </span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-04-27 14:07:00 MST&quot;</code></pre>
+<pre><code>## [1] &quot;2020-04-30 16:32:27 MST&quot;</code></pre>
 <p>To create a <code>Date</code> object, we need to take a string or number that represents a date and tell the computer how to figure out which bits are the year, which are the month, and which are the day. The lubridate package uses the following functions:</p>
 <table style="width:90%;">
 <colgroup>
@@ -679,12 +681,12 @@ is a good reference.</p>
 <pre><code>## # A tibble: 6 x 5
 ##   Name    dob        Life                           Age                  Age2
 ##   &lt;chr&gt;   &lt;date&gt;     &lt;Interval&gt;                     &lt;Period&gt;            &lt;int&gt;
-## 1 Steve   1955-02-24 1955-02-24 UTC--2020-04-27 UTC 65y 2m 3d 0H 0M 0S     65
-## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-04-27 UTC 46y 8m 6d 0H 0M 0S     46
-## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-04-27 UTC 55y 8m 12d 0H 0M 0S    55
-## 4 Bill    1955-10-28 1955-10-28 UTC--2020-04-27 UTC 64y 5m 30d 0H 0M 0S    64
-## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-04-27 UTC 5y 5m 21d 0H 0M 0S      5
-## 6 Siri    2011-10-12 2011-10-12 UTC--2020-04-27 UTC 8y 6m 15d 0H 0M 0S      8</code></pre>
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-04-30 UTC 65y 2m 6d 0H 0M 0S     65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-04-30 UTC 46y 8m 9d 0H 0M 0S     46
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-04-30 UTC 55y 8m 15d 0H 0M 0S    55
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-04-30 UTC 64y 6m 2d 0H 0M 0S     64
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-04-30 UTC 5y 5m 24d 0H 0M 0S      5
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-04-30 UTC 8y 6m 18d 0H 0M 0S      8</code></pre>
 </div>
 <div id="exercises-12" class="section level2">
 <h2><span class="header-section-number">12.4</span> Exercises</h2>

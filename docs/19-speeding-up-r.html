@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-04-27" />
+<meta name="date" content="2020-04-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -252,8 +252,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html"><i class="fa fa-check"></i>Data Wrangling Process</a><ul>
 <li class="chapter" data-level="7.6" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>7.6</b> Introduction</a></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.7</b> Tidying</a></li>
-<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.8</b> Cleaning</a></li>
+<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#import"><i class="fa fa-check"></i><b>7.7</b> Import</a></li>
+<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.8</b> Tidying</a></li>
+<li class="chapter" data-level="7.9" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.9</b> Cleaning</a></li>
+<li class="chapter" data-level="7.10" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#use"><i class="fa fa-check"></i><b>7.10</b> Use</a></li>
 </ul></li>
 <li class="part"><span><b>Deeper Details</b></span></li>
 <li class="chapter" data-level="8" data-path="8-data-structures.html"><a href="8-data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
@@ -415,11 +417,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
 <li class="chapter" data-level="19.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
 <li class="chapter" data-level="19.3" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="19.5.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.4</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.4.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.4.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.4.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.4.2</b> <code>caret::train</code></a></li>
 </ul></li>
+<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.5</b> Parallelizing <code>for</code> loops</a></li>
 </ul></li>
 </ul>
 
@@ -460,22 +462,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb882-3"><a href="19-speeding-up-r.html#cb882-3"></a><span class="co"># </span></span>
 <span id="cb882-4"><a href="19-speeding-up-r.html#cb882-4"></a><span class="co"># For evaluating large chunks of code, I like to </span></span>
 <span id="cb882-5"><a href="19-speeding-up-r.html#cb882-5"></a><span class="co"># just wrap the code up in a function.</span></span>
-<span id="cb882-6"><a href="19-speeding-up-r.html#cb882-6"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)</span>
+<span id="cb882-6"><a href="19-speeding-up-r.html#cb882-6"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)  <span class="co"># x vector of 1000 numbers between 0 and 1.</span></span>
 <span id="cb882-7"><a href="19-speeding-up-r.html#cb882-7"></a><span class="kw">microbenchmark</span>(</span>
 <span id="cb882-8"><a href="19-speeding-up-r.html#cb882-8"></a>  <span class="kw">sqrt</span>(x),         <span class="co"># First expression to compare</span></span>
 <span id="cb882-9"><a href="19-speeding-up-r.html#cb882-9"></a>  x<span class="op">^</span>(<span class="fl">0.5</span>)          <span class="co"># second expression to compare</span></span>
 <span id="cb882-10"><a href="19-speeding-up-r.html#cb882-10"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Unit: microseconds
-##     expr   min    lq  mean median    uq   max neval cld
-##  sqrt(x)  2.06  2.21  2.41   2.29  2.41  5.21   100  a 
-##  x^(0.5) 23.22 23.33 23.61  23.40 23.51 38.43   100   b</code></pre>
+##     expr   min   lq  mean median    uq   max neval cld
+##  sqrt(x)  2.22  2.4  3.31   2.64  3.39  12.6   100  a 
+##  x^(0.5) 24.72 25.6 31.95  26.01 32.89 131.4   100   b</code></pre>
 <p>What <code>microbenchmark</code> does is run the two expressions a number of times and then
 produces the 5-number summary of those times. By running it multiple times (by
 default, 100 times), we
 account for the randomness associated with a operating system that is also running
 at the same time. Being good statisticians, the <code>cld</code> column stands for compact
 letter display and if the letters are different, there is a statistically
-significant difference in the timing. If cause the <code>microbenchmark()</code> function to
+significant difference in the timing. If we cause the <code>microbenchmark()</code> function to
 run more times (1000s or 100,000s times), we could eventually end up with the smallest
 difference to be statistically significant, but I think we shouldn’t complain about
 speed differences if a sample of 100 runs can’t detect the difference.</p>
@@ -493,20 +495,18 @@ column has the largest value.</p>
 <span id="cb884-4"><a href="19-speeding-up-r.html#cb884-4"></a>    <span class="dt">Pois  =</span> <span class="kw">rpois</span>(n, <span class="dt">lambda =</span> <span class="dv">5</span>),</span>
 <span id="cb884-5"><a href="19-speeding-up-r.html#cb884-5"></a>    <span class="dt">Gamma =</span> <span class="kw">rgamma</span>(n, <span class="dt">shape =</span> <span class="dv">2</span>, <span class="dt">scale =</span> <span class="dv">3</span>),</span>
 <span id="cb884-6"><a href="19-speeding-up-r.html#cb884-6"></a>    <span class="dt">Exp   =</span> <span class="kw">rexp</span>(n, <span class="dt">rate =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>))</span>
-<span id="cb884-7"><a href="19-speeding-up-r.html#cb884-7"></a>  data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data)</span>
-<span id="cb884-8"><a href="19-speeding-up-r.html#cb884-8"></a>  <span class="kw">return</span>(data)</span>
-<span id="cb884-9"><a href="19-speeding-up-r.html#cb884-9"></a>}</span>
-<span id="cb884-10"><a href="19-speeding-up-r.html#cb884-10"></a></span>
-<span id="cb884-11"><a href="19-speeding-up-r.html#cb884-11"></a>data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">100</span>)</span>
-<span id="cb884-12"><a href="19-speeding-up-r.html#cb884-12"></a></span>
-<span id="cb884-13"><a href="19-speeding-up-r.html#cb884-13"></a>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
+<span id="cb884-7"><a href="19-speeding-up-r.html#cb884-7"></a>  <span class="kw">return</span>(data)</span>
+<span id="cb884-8"><a href="19-speeding-up-r.html#cb884-8"></a>}</span>
+<span id="cb884-9"><a href="19-speeding-up-r.html#cb884-9"></a></span>
+<span id="cb884-10"><a href="19-speeding-up-r.html#cb884-10"></a>data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">6</span>)</span>
+<span id="cb884-11"><a href="19-speeding-up-r.html#cb884-11"></a>data</span></code></pre></div>
 <pre><code>##       Norm Pois     Gamma       Exp
-## 1 5.079136    5  4.467645 10.572709
-## 2 5.598038    4  2.663141  5.109479
-## 3 3.707923    9  2.332693  7.482434
-## 4 4.661450    7  8.380918 23.012721
-## 5 5.312595    1  7.578882  2.100814
-## 6 9.158192    3 12.257352  5.731017</code></pre>
+## 1 5.079136    7 0.7644054  2.780193
+## 2 5.598038    5 7.7653753  1.231766
+## 3 3.707923    2 8.6443491 11.591930
+## 4 4.661450    7 1.7702589  1.181605
+## 5 5.312595    3 5.2059087  9.864848
+## 6 9.158192    6 7.9529147  1.590383</code></pre>
 <p>The way that you might first think about solving this problem is to write a for
 loop and, for each row, figure it out.</p>
 <div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="19-speeding-up-r.html#cb886-1"></a>f1 &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</span>
@@ -526,15 +526,15 @@ that using the <code>return</code> statement is a touch slower.</p>
 <span id="cb887-5"><a href="19-speeding-up-r.html#cb887-5"></a>  }</span>
 <span id="cb887-6"><a href="19-speeding-up-r.html#cb887-6"></a>  output</span>
 <span id="cb887-7"><a href="19-speeding-up-r.html#cb887-7"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="19-speeding-up-r.html#cb888-1"></a>data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">100</span>)</span>
+<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="19-speeding-up-r.html#cb888-1"></a>data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">1000</span>)</span>
 <span id="cb888-2"><a href="19-speeding-up-r.html#cb888-2"></a><span class="kw">microbenchmark</span>(</span>
 <span id="cb888-3"><a href="19-speeding-up-r.html#cb888-3"></a>  <span class="kw">f1</span>(data),</span>
 <span id="cb888-4"><a href="19-speeding-up-r.html#cb888-4"></a>  <span class="kw">f2.noReturn</span>(data)</span>
 <span id="cb888-5"><a href="19-speeding-up-r.html#cb888-5"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Unit: milliseconds
-##               expr  min   lq mean median   uq  max neval
-##           f1(data) 3.71 4.24 5.50   4.58 5.87 15.1   100
-##  f2.noReturn(data) 3.69 4.20 5.38   4.73 6.03 10.5   100</code></pre>
+##               expr  min   lq mean median   uq max neval cld
+##           f1(data) 43.9 46.6 52.9   49.2 52.8 176   100   a
+##  f2.noReturn(data) 44.2 46.6 50.6   48.3 51.4 105   100   a</code></pre>
 <p>In fact, it looks like it is a touch slower, but not massively compared to the run-to-run variability. I prefer to use the <code>return</code> statement for readability, but if we agree have the last line of code in the function be whatever needs to be returned, readability isn’t strongly effected.</p>
 <p>We next consider whether it would be faster to allocate the output vector once we figure out the number of rows needed, or just build it on the fly?</p>
 <div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="19-speeding-up-r.html#cb890-1"></a>f3.AllocOutput &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</span>
@@ -551,9 +551,9 @@ that using the <code>return</code> statement is a touch slower.</p>
 <span id="cb891-4"><a href="19-speeding-up-r.html#cb891-4"></a>  <span class="kw">f3.AllocOutput</span>(data)</span>
 <span id="cb891-5"><a href="19-speeding-up-r.html#cb891-5"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Unit: milliseconds
-##                  expr min  lq mean median  uq max neval cld
-##              f1(data) 395 408  418    411 416 748   100  a 
-##  f3.AllocOutput(data) 395 407  439    411 419 872   100   b</code></pre>
+##                  expr min  lq mean median  uq  max neval cld
+##              f1(data) 441 470  545    482 523 2484   100   a
+##  f3.AllocOutput(data) 454 477  545    506 546 1440   100   a</code></pre>
 <p>There isn’t a significant improvement allocating the size of output first. So given this, we shouldn’t feel to bad being lazy and using <code>output &lt;- NULL</code> to initialize things.</p>
 </div>
 <div id="vectorizing-loops" class="section level2">
@@ -561,7 +561,7 @@ that using the <code>return</code> statement is a touch slower.</p>
 <p>In general, <code>for</code> loops in R are very slow and we want to avoid them as much as possible. The <code>apply</code> family of functions can be quite helpful for applying a function to each row or column of a matrix or data.frame or to each element of a list.</p>
 <p>To test this, instead of a <code>for</code> loop, we will use <code>apply</code>.</p>
 <div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb893-1"><a href="19-speeding-up-r.html#cb893-1"></a>f4.apply &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</span>
-<span id="cb893-2"><a href="19-speeding-up-r.html#cb893-2"></a>  output &lt;-<span class="st"> </span><span class="kw">apply</span>(input, <span class="dv">1</span>, which.max)</span>
+<span id="cb893-2"><a href="19-speeding-up-r.html#cb893-2"></a>  output &lt;-<span class="st"> </span><span class="kw">apply</span>(input, <span class="dv">1</span>, which.max)  <span class="co"># 1 = apply to rows</span></span>
 <span id="cb893-3"><a href="19-speeding-up-r.html#cb893-3"></a>  <span class="kw">return</span>(output)</span>
 <span id="cb893-4"><a href="19-speeding-up-r.html#cb893-4"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="19-speeding-up-r.html#cb894-1"></a><span class="kw">microbenchmark</span>(</span>
@@ -573,39 +573,40 @@ that using the <code>return</code> statement is a touch slower.</p>
 ##        f1(data) 3638 4223 5169   4697 5506 10765   100
 ##  f4.apply(data)  282  340  478    391  516  2959   100</code></pre>
 <p>This is the type of speed up that matters. We have a 10-fold speed up in execution time and particularly the maximum time has dropped impressively.</p>
-<p>Unfortunately, I have always found the <code>apply</code> functions a little cumbersome and I prefer to use <code>dplyr</code> instead strictly for readability.</p>
-<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb896-1"><a href="19-speeding-up-r.html#cb896-1"></a>f5.dplyr &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</span>
-<span id="cb896-2"><a href="19-speeding-up-r.html#cb896-2"></a>  output &lt;-<span class="st"> </span>input <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb896-3"><a href="19-speeding-up-r.html#cb896-3"></a><span class="st">    </span><span class="kw">mutate</span>( <span class="dt">max.col=</span><span class="kw">which.max</span>( <span class="kw">c</span>(X1, X2, X3, X4) ) ) </span>
-<span id="cb896-4"><a href="19-speeding-up-r.html#cb896-4"></a>  <span class="kw">return</span>(output<span class="op">$</span>max.col)</span>
-<span id="cb896-5"><a href="19-speeding-up-r.html#cb896-5"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb897"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb897-1"><a href="19-speeding-up-r.html#cb897-1"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb897-2"><a href="19-speeding-up-r.html#cb897-2"></a>  <span class="kw">f4.apply</span>(data),</span>
-<span id="cb897-3"><a href="19-speeding-up-r.html#cb897-3"></a>  <span class="kw">f5.dplyr</span>(data)</span>
-<span id="cb897-4"><a href="19-speeding-up-r.html#cb897-4"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<p>Unfortunately, I have always found the <code>apply</code> functions a little cumbersome and I prefer to use <code>dplyr</code> functions for readability. For this example, we’ll compare summarizing each column by calculating the mean.</p>
+<p>First for a small sample sized data:</p>
+<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb896-1"><a href="19-speeding-up-r.html#cb896-1"></a>data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">1000</span>)</span>
+<span id="cb896-2"><a href="19-speeding-up-r.html#cb896-2"></a><span class="kw">microbenchmark</span>(</span>
+<span id="cb896-3"><a href="19-speeding-up-r.html#cb896-3"></a>  data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">apply</span>(<span class="dv">2</span>, mean),</span>
+<span id="cb896-4"><a href="19-speeding-up-r.html#cb896-4"></a>  data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize_all</span>(mean) </span>
+<span id="cb896-5"><a href="19-speeding-up-r.html#cb896-5"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Unit: microseconds
-##            expr min  lq mean median   uq  max neval
-##  f4.apply(data) 313 376  581    474  662 3118   100
-##  f5.dplyr(data) 459 579  906    688 1005 5549   100</code></pre>
+##                          expr min  lq mean median   uq  max neval cld
+##       data %&gt;% apply(2, mean) 243 280  369    337  413  855   100  a 
+##  data %&gt;% summarize_all(mean) 724 915 1334   1192 1429 7023   100   b</code></pre>
 <p>Unfortunately <code>dplyr</code> is a lot slower than <code>apply</code> in this case. I wonder if the dynamics would change with a larger <code>n</code>?</p>
-<div class="sourceCode" id="cb899"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb899-1"><a href="19-speeding-up-r.html#cb899-1"></a>data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">10000</span>)</span>
-<span id="cb899-2"><a href="19-speeding-up-r.html#cb899-2"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb899-3"><a href="19-speeding-up-r.html#cb899-3"></a>  <span class="kw">f4.apply</span>(data),</span>
-<span id="cb899-4"><a href="19-speeding-up-r.html#cb899-4"></a>  <span class="kw">f5.dplyr</span>(data)</span>
-<span id="cb899-5"><a href="19-speeding-up-r.html#cb899-5"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## Unit: microseconds
-##            expr   min    lq  mean median    uq   max neval
-##  f4.apply(data) 26109 28992 34380  32313 36794 68252   100
-##  f5.dplyr(data)   630   948  1143   1097  1252  2593   100</code></pre>
-<div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb901-1"><a href="19-speeding-up-r.html#cb901-1"></a>data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">100000</span>)</span>
-<span id="cb901-2"><a href="19-speeding-up-r.html#cb901-2"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb901-3"><a href="19-speeding-up-r.html#cb901-3"></a>  <span class="kw">f4.apply</span>(data),</span>
-<span id="cb901-4"><a href="19-speeding-up-r.html#cb901-4"></a>  <span class="kw">f5.dplyr</span>(data)</span>
-<span id="cb901-5"><a href="19-speeding-up-r.html#cb901-5"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb898-1"><a href="19-speeding-up-r.html#cb898-1"></a>data &lt;-<span class="st"> </span><span class="kw">make.data</span>(<span class="dv">1000000</span>)</span>
+<span id="cb898-2"><a href="19-speeding-up-r.html#cb898-2"></a><span class="kw">microbenchmark</span>(</span>
+<span id="cb898-3"><a href="19-speeding-up-r.html#cb898-3"></a>  data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">apply</span>(<span class="dv">2</span>, mean),</span>
+<span id="cb898-4"><a href="19-speeding-up-r.html#cb898-4"></a>  data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize_all</span>(mean) </span>
+<span id="cb898-5"><a href="19-speeding-up-r.html#cb898-5"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Unit: milliseconds
-##            expr    min     lq   mean median     uq    max neval
-##  f4.apply(data) 281.73 328.30 449.92 430.17 542.54 786.79   100
-##  f5.dplyr(data)   1.97   2.56   3.06   2.82   3.08   9.05   100</code></pre>
+##                          expr  min   lq  mean median    uq max neval cld
+##       data %&gt;% apply(2, mean) 67.1 81.1 151.9   97.0 190.5 677   100   b
+##  data %&gt;% summarize_all(mean)  9.6 11.1  16.9   12.9  18.8 123   100  a</code></pre>
+<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb900-1"><a href="19-speeding-up-r.html#cb900-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">apply</span>(<span class="dv">2</span>, mean)</span></code></pre></div>
+<pre><code>##     Norm     Pois    Gamma      Exp 
+## 5.000913 5.000311 6.007382 4.993895</code></pre>
+<div class="sourceCode" id="cb902"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb902-1"><a href="19-speeding-up-r.html#cb902-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize_all</span>(mean) </span></code></pre></div>
+<pre><code>##       Norm     Pois    Gamma      Exp
+## 1 5.000913 5.000311 6.007382 4.993895</code></pre>
+<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb904-1"><a href="19-speeding-up-r.html#cb904-1"></a>f5.dplyr &lt;-<span class="st"> </span><span class="cf">function</span>( input ){</span>
+<span id="cb904-2"><a href="19-speeding-up-r.html#cb904-2"></a>  input <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb904-3"><a href="19-speeding-up-r.html#cb904-3"></a><span class="st">    </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># equivalent to group_by( each row )</span></span>
+<span id="cb904-4"><a href="19-speeding-up-r.html#cb904-4"></a><span class="st">    </span><span class="kw">mutate</span>( <span class="dt">max.col=</span><span class="kw">which.max</span>(<span class="kw">c</span>(Norm, Pois, Gamma, Exp) ) ) <span class="op">%&gt;%</span></span>
+<span id="cb904-5"><a href="19-speeding-up-r.html#cb904-5"></a><span class="st">    </span><span class="kw">pull</span>(max.col) <span class="op">%&gt;%</span></span>
+<span id="cb904-6"><a href="19-speeding-up-r.html#cb904-6"></a><span class="st">    </span><span class="kw">return</span>()</span>
+<span id="cb904-7"><a href="19-speeding-up-r.html#cb904-7"></a>}</span></code></pre></div>
 <p>What just happened? The package <code>dplyr</code> is designed to work well for large data sets, and utilizes a modified structure, called a <code>tibble</code>, which provides massive benefits for large tables, but at the small scale, the overhead of converting the <code>data.frame</code> to a <code>tibble</code> overwhelms any speed up. But because the small sample case is already fast enough to not be noticeable, we don’t really care about the small <code>n</code> case.</p>
 </div>
 <div id="parallel-processing" class="section level2">
@@ -617,142 +618,168 @@ that using the <code>return</code> statement is a touch slower.</p>
 2. Decide what ‘computational chunk’ should be sent to each core and distribute all necessary data, libraries, etc to each core.
 3. Combine the results of each core back into a unified object.</p>
 </div>
-<div id="parallelizing-for-loops" class="section level2">
-<h2><span class="header-section-number">19.4</span> Parallelizing for loops</h2>
-<p>There are a number of packages that allow you to tell R how many cores you have access to. One of the easiest ways to parallelize a for loop is using a package called <code>foreach</code>. This package was created by R-Revolutions company that was subsequently bought by Microsoft. They have a nice introduction to the package <a href="https://docs.microsoft.com/en-us/machine-learning-server/r/how-to-revoscaler-distributed-computing-foreach">here</a>.</p>
-<p>The registration of multiple cores is actually pretty easy.</p>
-<div class="sourceCode" id="cb903"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb903-1"><a href="19-speeding-up-r.html#cb903-1"></a>doMC<span class="op">::</span><span class="kw">registerDoMC</span>(<span class="dt">cores =</span> <span class="dv">2</span>)  <span class="co"># my laptop only has two cores.</span></span></code></pre></div>
-<p>We will consider an example that is common in modern statistics. We will examine parallel computing utilizing a bootstrap example where we create bootstrap samples for calculating confidence intervals for regression coefficients.</p>
-<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb904-1"><a href="19-speeding-up-r.html#cb904-1"></a><span class="kw">ggplot</span>(trees, <span class="kw">aes</span>(<span class="dt">x=</span>Girth, <span class="dt">y=</span>Volume)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</span></code></pre></div>
-<p><img src="41_SpeedingUpR_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<div class="sourceCode" id="cb905"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb905-1"><a href="19-speeding-up-r.html#cb905-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees)</span></code></pre></div>
-<p>This is how we would do this previously.</p>
-<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb906-1"><a href="19-speeding-up-r.html#cb906-1"></a><span class="co"># f is a formula</span></span>
-<span id="cb906-2"><a href="19-speeding-up-r.html#cb906-2"></a><span class="co"># df is the input data frame</span></span>
-<span id="cb906-3"><a href="19-speeding-up-r.html#cb906-3"></a><span class="co"># M is the number of bootstrap iterations</span></span>
-<span id="cb906-4"><a href="19-speeding-up-r.html#cb906-4"></a>boot.for &lt;-<span class="st"> </span><span class="cf">function</span>( f, df, <span class="dt">M=</span><span class="dv">999</span>){</span>
-<span id="cb906-5"><a href="19-speeding-up-r.html#cb906-5"></a>  output &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
-<span id="cb906-6"><a href="19-speeding-up-r.html#cb906-6"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span> ){</span>
-<span id="cb906-7"><a href="19-speeding-up-r.html#cb906-7"></a>    <span class="co"># Do stuff</span></span>
-<span id="cb906-8"><a href="19-speeding-up-r.html#cb906-8"></a>    model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( f, <span class="dt">data=</span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</span>
-<span id="cb906-9"><a href="19-speeding-up-r.html#cb906-9"></a>    output[[i]] &lt;-<span class="st"> </span>model.star<span class="op">$</span>coefficients </span>
-<span id="cb906-10"><a href="19-speeding-up-r.html#cb906-10"></a>  }</span>
-<span id="cb906-11"><a href="19-speeding-up-r.html#cb906-11"></a></span>
-<span id="cb906-12"><a href="19-speeding-up-r.html#cb906-12"></a>  <span class="co"># use rbind to put the list of results together into a data.frame</span></span>
-<span id="cb906-13"><a href="19-speeding-up-r.html#cb906-13"></a>  output &lt;-<span class="st"> </span><span class="kw">sapply</span>(output, rbind) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data.frame</span>()</span>
-<span id="cb906-14"><a href="19-speeding-up-r.html#cb906-14"></a>  <span class="kw">return</span>(output)</span>
-<span id="cb906-15"><a href="19-speeding-up-r.html#cb906-15"></a>}</span></code></pre></div>
-<p>We will first ask about how to do the same thing using the function <code>foreach</code></p>
-<div class="sourceCode" id="cb907"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb907-1"><a href="19-speeding-up-r.html#cb907-1"></a><span class="co"># f is a formula</span></span>
-<span id="cb907-2"><a href="19-speeding-up-r.html#cb907-2"></a><span class="co"># df is the input data frame</span></span>
-<span id="cb907-3"><a href="19-speeding-up-r.html#cb907-3"></a><span class="co"># M is the number of bootstrap iterations</span></span>
-<span id="cb907-4"><a href="19-speeding-up-r.html#cb907-4"></a>boot.foreach &lt;-<span class="st"> </span><span class="cf">function</span>(f, df, <span class="dt">M=</span><span class="dv">999</span>){</span>
-<span id="cb907-5"><a href="19-speeding-up-r.html#cb907-5"></a>  output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span> ) <span class="op">%dopar%</span><span class="st"> </span>{</span>
-<span id="cb907-6"><a href="19-speeding-up-r.html#cb907-6"></a>    <span class="co"># Do stuff</span></span>
-<span id="cb907-7"><a href="19-speeding-up-r.html#cb907-7"></a>    model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( f, <span class="dt">data=</span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</span>
-<span id="cb907-8"><a href="19-speeding-up-r.html#cb907-8"></a>    model.star<span class="op">$</span>coefficients </span>
-<span id="cb907-9"><a href="19-speeding-up-r.html#cb907-9"></a>  }</span>
-<span id="cb907-10"><a href="19-speeding-up-r.html#cb907-10"></a>  </span>
-<span id="cb907-11"><a href="19-speeding-up-r.html#cb907-11"></a>  <span class="co"># use rbind to put the list of results together into a data.frame</span></span>
-<span id="cb907-12"><a href="19-speeding-up-r.html#cb907-12"></a>  output &lt;-<span class="st"> </span><span class="kw">sapply</span>(output, rbind) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data.frame</span>()</span>
-<span id="cb907-13"><a href="19-speeding-up-r.html#cb907-13"></a>  <span class="kw">return</span>(output)</span>
-<span id="cb907-14"><a href="19-speeding-up-r.html#cb907-14"></a>}</span></code></pre></div>
-<p>Not much has changed in our code. Lets see which is faster.</p>
-<div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb908-1"><a href="19-speeding-up-r.html#cb908-1"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb908-2"><a href="19-speeding-up-r.html#cb908-2"></a>  <span class="kw">boot.for</span>( Volume<span class="op">~</span>Girth, trees ),</span>
-<span id="cb908-3"><a href="19-speeding-up-r.html#cb908-3"></a>  <span class="kw">boot.foreach</span>( Volume<span class="op">~</span>Girth, trees )</span>
-<span id="cb908-4"><a href="19-speeding-up-r.html#cb908-4"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## Unit: milliseconds
-##                                 expr min  lq mean median  uq max neval
-##      boot.for(Volume ~ Girth, trees) 115 134  153    154 159 387   100
-##  boot.foreach(Volume ~ Girth, trees) 159 178  209    184 220 733   100</code></pre>
-<p>In this case, the overhead associated with splitting the job across two cores, copying the data over, and then combining the results back together was more than we saved by using both cores. If the nugget of computation within each pass of the <code>for</code> loop was larger, then it would pay to use both cores.</p>
-<div class="sourceCode" id="cb910"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb910-1"><a href="19-speeding-up-r.html#cb910-1"></a><span class="co"># massiveTrees has 31000 observations</span></span>
-<span id="cb910-2"><a href="19-speeding-up-r.html#cb910-2"></a>massiveTrees &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb910-3"><a href="19-speeding-up-r.html#cb910-3"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span> ){</span>
-<span id="cb910-4"><a href="19-speeding-up-r.html#cb910-4"></a>  massiveTrees &lt;-<span class="st"> </span><span class="kw">rbind</span>(massiveTrees, trees)</span>
-<span id="cb910-5"><a href="19-speeding-up-r.html#cb910-5"></a>}</span>
-<span id="cb910-6"><a href="19-speeding-up-r.html#cb910-6"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb910-7"><a href="19-speeding-up-r.html#cb910-7"></a>  <span class="kw">boot.for</span>( Volume<span class="op">~</span>Girth, massiveTrees )  ,</span>
-<span id="cb910-8"><a href="19-speeding-up-r.html#cb910-8"></a>  <span class="kw">boot.foreach</span>( Volume<span class="op">~</span>Girth, massiveTrees )</span>
-<span id="cb910-9"><a href="19-speeding-up-r.html#cb910-9"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## Unit: milliseconds
-##                                        expr  min   lq mean median   uq
-##      boot.for(Volume ~ Girth, massiveTrees) 1181 1270 1449   1439 1580
-##  boot.foreach(Volume ~ Girth, massiveTrees)  721  758 1103   1232 1262
-##   max neval
-##  2179   100
-##  2226   100</code></pre>
-<p>Because we often generate a bunch of results that we want to see as a data.frame, the <code>foreach</code> function includes and option to do it for us.</p>
-<div class="sourceCode" id="cb912"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb912-1"><a href="19-speeding-up-r.html#cb912-1"></a>output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, <span class="dt">.combine=</span>data.frame ) <span class="op">%dopar%</span><span class="st"> </span>{</span>
-<span id="cb912-2"><a href="19-speeding-up-r.html#cb912-2"></a>  <span class="co"># Do stuff</span></span>
-<span id="cb912-3"><a href="19-speeding-up-r.html#cb912-3"></a>  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</span>
-<span id="cb912-4"><a href="19-speeding-up-r.html#cb912-4"></a>  model<span class="op">$</span>coefficients </span>
-<span id="cb912-5"><a href="19-speeding-up-r.html#cb912-5"></a>}</span></code></pre></div>
-<p>It is important to recognize that the data.frame <code>trees</code> was utilized inside the <code>foreach</code> loop. So when we called the <code>foreach</code> loop and distributed the workload across the cores, it was smart enough to distribute the data to each core. However, if there were functions that we utilized inside the for loop that came from a package, we need to tell each core to load the function.</p>
-<div class="sourceCode" id="cb913"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb913-1"><a href="19-speeding-up-r.html#cb913-1"></a>output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="dt">.combine=</span>data.frame, <span class="dt">.packages=</span><span class="st">&#39;dplyr&#39;</span> ) <span class="op">%dopar%</span><span class="st"> </span>{</span>
-<span id="cb913-2"><a href="19-speeding-up-r.html#cb913-2"></a>  <span class="co"># Do stuff</span></span>
-<span id="cb913-3"><a href="19-speeding-up-r.html#cb913-3"></a>  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</span>
-<span id="cb913-4"><a href="19-speeding-up-r.html#cb913-4"></a>  model.star<span class="op">$</span>coefficients </span>
-<span id="cb913-5"><a href="19-speeding-up-r.html#cb913-5"></a>}</span></code></pre></div>
-</div>
 <div id="parallel-aware-functions" class="section level2">
-<h2><span class="header-section-number">19.5</span> Parallel Aware Functions</h2>
+<h2><span class="header-section-number">19.4</span> Parallel Aware Functions</h2>
 <p>There are many packages that address problems that are “embarrassingly easily parallelized” and they will happily work with multiple cores. Methods that rely on re-sampling certainly fit into this category.</p>
+<p>The first step is letting R know it has access to multiple cores. This is quite simple using the <code>doMC</code> package (aka the <em>do Multi-Core</em> package).</p>
+<p>The registration of multiple cores is actually pretty easy.</p>
+<div class="sourceCode" id="cb905"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb905-1"><a href="19-speeding-up-r.html#cb905-1"></a>doMC<span class="op">::</span><span class="kw">registerDoMC</span>(<span class="dt">cores =</span> <span class="dv">2</span>)  <span class="co"># my laptop only has two cores.</span></span></code></pre></div>
 <div id="bootboot" class="section level3">
-<h3><span class="header-section-number">19.5.1</span> <code>boot::boot</code></h3>
-<p>Bootstrapping relies on re-sampling the dataset and calculating test statistics from each resample. In R, the most common way to do this is using the package <code>boot</code> and we just need to tell the <code>boot</code> function, to use the multiple cores available. (Note, we have to have registered the cores first!)</p>
-<div class="sourceCode" id="cb914"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb914-1"><a href="19-speeding-up-r.html#cb914-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees)</span>
-<span id="cb914-2"><a href="19-speeding-up-r.html#cb914-2"></a>my.fun &lt;-<span class="st"> </span><span class="cf">function</span>(df, index){</span>
-<span id="cb914-3"><a href="19-speeding-up-r.html#cb914-3"></a>  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees[index,] )</span>
-<span id="cb914-4"><a href="19-speeding-up-r.html#cb914-4"></a>  model.star<span class="op">$</span>coefficients </span>
-<span id="cb914-5"><a href="19-speeding-up-r.html#cb914-5"></a>}</span>
-<span id="cb914-6"><a href="19-speeding-up-r.html#cb914-6"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb914-7"><a href="19-speeding-up-r.html#cb914-7"></a>  <span class="dt">serial   =</span> boot<span class="op">::</span><span class="kw">boot</span>( trees, my.fun, <span class="dt">R=</span><span class="dv">1000</span> ),</span>
-<span id="cb914-8"><a href="19-speeding-up-r.html#cb914-8"></a>  <span class="dt">parallel =</span> boot<span class="op">::</span><span class="kw">boot</span>( trees, my.fun, <span class="dt">R=</span><span class="dv">1000</span>, </span>
-<span id="cb914-9"><a href="19-speeding-up-r.html#cb914-9"></a>                         <span class="dt">parallel=</span><span class="st">&#39;multicore&#39;</span>, <span class="dt">ncpus=</span><span class="dv">2</span> ) </span>
-<span id="cb914-10"><a href="19-speeding-up-r.html#cb914-10"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<h3><span class="header-section-number">19.4.1</span> <code>boot::boot</code></h3>
+<p>Bootstrapping relies on re-sampling the dataset and calculating test statistics from each re-sample. In R, the most common way to do this is using the package <code>boot</code> and we just need to tell the <code>boot</code> function, to use the multiple cores available. (Note, we have to have registered the cores first!)</p>
+<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb906-1"><a href="19-speeding-up-r.html#cb906-1"></a><span class="co"># make the trees dataset a bit larger,</span></span>
+<span id="cb906-2"><a href="19-speeding-up-r.html#cb906-2"></a><span class="co"># just so the overhead cost isn&#39;t as large</span></span>
+<span id="cb906-3"><a href="19-speeding-up-r.html#cb906-3"></a><span class="co"># compared to the computation of the regression</span></span>
+<span id="cb906-4"><a href="19-speeding-up-r.html#cb906-4"></a><span class="co"># coefficients.</span></span>
+<span id="cb906-5"><a href="19-speeding-up-r.html#cb906-5"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>){</span>
+<span id="cb906-6"><a href="19-speeding-up-r.html#cb906-6"></a>  trees &lt;-<span class="st"> </span><span class="kw">rbind</span>(trees, trees)</span>
+<span id="cb906-7"><a href="19-speeding-up-r.html#cb906-7"></a>}</span>
+<span id="cb906-8"><a href="19-speeding-up-r.html#cb906-8"></a></span>
+<span id="cb906-9"><a href="19-speeding-up-r.html#cb906-9"></a><span class="co"># define the model using the original sample data</span></span>
+<span id="cb906-10"><a href="19-speeding-up-r.html#cb906-10"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees)</span>
+<span id="cb906-11"><a href="19-speeding-up-r.html#cb906-11"></a></span>
+<span id="cb906-12"><a href="19-speeding-up-r.html#cb906-12"></a><span class="co"># define a function that calculates the model parameters</span></span>
+<span id="cb906-13"><a href="19-speeding-up-r.html#cb906-13"></a><span class="co"># given an index of which data points to use.</span></span>
+<span id="cb906-14"><a href="19-speeding-up-r.html#cb906-14"></a>my.fun &lt;-<span class="st"> </span><span class="cf">function</span>(df, index){</span>
+<span id="cb906-15"><a href="19-speeding-up-r.html#cb906-15"></a>  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees[index,] )</span>
+<span id="cb906-16"><a href="19-speeding-up-r.html#cb906-16"></a>  model.star<span class="op">$</span>coefficients </span>
+<span id="cb906-17"><a href="19-speeding-up-r.html#cb906-17"></a>}</span>
+<span id="cb906-18"><a href="19-speeding-up-r.html#cb906-18"></a></span>
+<span id="cb906-19"><a href="19-speeding-up-r.html#cb906-19"></a><span class="co"># the boot::boot() function has a parallel option we just need </span></span>
+<span id="cb906-20"><a href="19-speeding-up-r.html#cb906-20"></a><span class="co"># to switch on</span></span>
+<span id="cb906-21"><a href="19-speeding-up-r.html#cb906-21"></a><span class="kw">microbenchmark</span>(</span>
+<span id="cb906-22"><a href="19-speeding-up-r.html#cb906-22"></a>  <span class="dt">serial   =</span> boot<span class="op">::</span><span class="kw">boot</span>( trees, my.fun, <span class="dt">R=</span><span class="dv">1000</span> ),</span>
+<span id="cb906-23"><a href="19-speeding-up-r.html#cb906-23"></a>  <span class="dt">parallel =</span> boot<span class="op">::</span><span class="kw">boot</span>( trees, my.fun, <span class="dt">R=</span><span class="dv">1000</span>, </span>
+<span id="cb906-24"><a href="19-speeding-up-r.html#cb906-24"></a>                         <span class="dt">parallel=</span><span class="st">&#39;multicore&#39;</span>, <span class="dt">ncpus=</span><span class="dv">2</span> ) </span>
+<span id="cb906-25"><a href="19-speeding-up-r.html#cb906-25"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Unit: milliseconds
-##      expr min  lq mean median  uq  max neval
-##    serial 681 706  790    790 810 1249   100
-##  parallel 593 636  682    667 689 1325   100</code></pre>
-<p>In this case, we had a bit of a spead up, but not a factor of 2. This is due to the overhead of splitting the job across both cores.</p>
+##      expr min  lq mean median   uq  max neval cld
+##    serial 829 898  985    931 1076 1554   100   b
+##  parallel 629 653  759    675  739 1391   100  a</code></pre>
+<p>In this case, we had a bit of a speed up, but not a factor of 2. This is due to the overhead of splitting the job across both cores.</p>
 </div>
 <div id="carettrain" class="section level3">
-<h3><span class="header-section-number">19.5.2</span> <code>caret::train</code></h3>
+<h3><span class="header-section-number">19.4.2</span> <code>caret::train</code></h3>
 <p>The statistical learning package <code>caret</code> also handles all the work to do cross validation in a parallel computing environment. The functions in <code>caret</code> have an option <code>allowParallel</code> which by default is TRUE, which controls if we should use all the cores. Assuming we have already registered the number of cores, then by default <code>caret</code> will use them all.</p>
-<div class="sourceCode" id="cb916"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb916-1"><a href="19-speeding-up-r.html#cb916-1"></a><span class="kw">library</span>(faraway)</span>
-<span id="cb916-2"><a href="19-speeding-up-r.html#cb916-2"></a><span class="kw">library</span>(caret)</span>
-<span id="cb916-3"><a href="19-speeding-up-r.html#cb916-3"></a>ctrl.serial &lt;-<span class="st"> </span><span class="kw">trainControl</span>( <span class="dt">method=</span><span class="st">&#39;repeatedcv&#39;</span>, <span class="dt">number=</span><span class="dv">5</span>, <span class="dt">repeats=</span><span class="dv">4</span>,  </span>
-<span id="cb916-4"><a href="19-speeding-up-r.html#cb916-4"></a>                      <span class="dt">preProcOptions =</span> <span class="kw">c</span>(<span class="st">&#39;center&#39;</span>,<span class="st">&#39;scale&#39;</span>),</span>
-<span id="cb916-5"><a href="19-speeding-up-r.html#cb916-5"></a>                      <span class="dt">allowParallel =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb916-6"><a href="19-speeding-up-r.html#cb916-6"></a>ctrl.parallel &lt;-<span class="st"> </span><span class="kw">trainControl</span>( <span class="dt">method=</span><span class="st">&#39;repeatedcv&#39;</span>, <span class="dt">number=</span><span class="dv">5</span>, <span class="dt">repeats=</span><span class="dv">4</span>,  </span>
-<span id="cb916-7"><a href="19-speeding-up-r.html#cb916-7"></a>                      <span class="dt">preProcOptions =</span> <span class="kw">c</span>(<span class="st">&#39;center&#39;</span>,<span class="st">&#39;scale&#39;</span>),</span>
-<span id="cb916-8"><a href="19-speeding-up-r.html#cb916-8"></a>                      <span class="dt">allowParallel =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb916-9"><a href="19-speeding-up-r.html#cb916-9"></a>grid &lt;-<span class="st"> </span><span class="kw">data.frame</span>( </span>
-<span id="cb916-10"><a href="19-speeding-up-r.html#cb916-10"></a>  <span class="dt">alpha  =</span> <span class="dv">1</span>,  <span class="co"># 1 =&gt; Lasso Regression</span></span>
-<span id="cb916-11"><a href="19-speeding-up-r.html#cb916-11"></a>  <span class="dt">lambda =</span> <span class="kw">exp</span>(<span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>, <span class="dv">1</span>, <span class="dt">length=</span><span class="dv">50</span>)))</span>
-<span id="cb916-12"><a href="19-speeding-up-r.html#cb916-12"></a></span>
-<span id="cb916-13"><a href="19-speeding-up-r.html#cb916-13"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb916-14"><a href="19-speeding-up-r.html#cb916-14"></a>  model &lt;-<span class="st"> </span><span class="kw">train</span>( lpsa <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>prostate, <span class="dt">method=</span><span class="st">&#39;glmnet&#39;</span>,</span>
-<span id="cb916-15"><a href="19-speeding-up-r.html#cb916-15"></a>                  <span class="dt">trControl=</span>ctrl.serial, </span>
-<span id="cb916-16"><a href="19-speeding-up-r.html#cb916-16"></a>                  <span class="dt">tuneGrid=</span>grid, </span>
-<span id="cb916-17"><a href="19-speeding-up-r.html#cb916-17"></a>                  <span class="dt">lambda =</span> grid<span class="op">$</span>lambda ),</span>
-<span id="cb916-18"><a href="19-speeding-up-r.html#cb916-18"></a>  model &lt;-<span class="st"> </span><span class="kw">train</span>( lpsa <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>prostate, <span class="dt">method=</span><span class="st">&#39;glmnet&#39;</span>,</span>
-<span id="cb916-19"><a href="19-speeding-up-r.html#cb916-19"></a>                  <span class="dt">trControl=</span>ctrl.parallel, </span>
-<span id="cb916-20"><a href="19-speeding-up-r.html#cb916-20"></a>                  <span class="dt">tuneGrid=</span>grid, </span>
-<span id="cb916-21"><a href="19-speeding-up-r.html#cb916-21"></a>                  <span class="dt">lambda =</span> grid<span class="op">$</span>lambda )</span>
-<span id="cb916-22"><a href="19-speeding-up-r.html#cb916-22"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb908-1"><a href="19-speeding-up-r.html#cb908-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb908-2"><a href="19-speeding-up-r.html#cb908-2"></a></span>
+<span id="cb908-3"><a href="19-speeding-up-r.html#cb908-3"></a><span class="co"># Remember to register how many cores to use!</span></span>
+<span id="cb908-4"><a href="19-speeding-up-r.html#cb908-4"></a>doMC<span class="op">::</span><span class="kw">registerDoMC</span>(<span class="dt">cores =</span> <span class="dv">2</span>)  <span class="co"># my laptop only has two cores.</span></span>
+<span id="cb908-5"><a href="19-speeding-up-r.html#cb908-5"></a></span>
+<span id="cb908-6"><a href="19-speeding-up-r.html#cb908-6"></a>caret.model &lt;-<span class="st"> </span><span class="cf">function</span>(parallel){</span>
+<span id="cb908-7"><a href="19-speeding-up-r.html#cb908-7"></a>  grid &lt;-<span class="st"> </span><span class="kw">data.frame</span>( </span>
+<span id="cb908-8"><a href="19-speeding-up-r.html#cb908-8"></a>    <span class="dt">alpha  =</span> <span class="dv">1</span>,  <span class="co"># 1 =&gt; Lasso Regression</span></span>
+<span id="cb908-9"><a href="19-speeding-up-r.html#cb908-9"></a>    <span class="dt">lambda =</span> <span class="kw">exp</span>(<span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>, <span class="dv">1</span>, <span class="dt">length=</span><span class="dv">50</span>)))</span>
+<span id="cb908-10"><a href="19-speeding-up-r.html#cb908-10"></a>  ctrl &lt;-<span class="st"> </span><span class="kw">trainControl</span>( </span>
+<span id="cb908-11"><a href="19-speeding-up-r.html#cb908-11"></a>    <span class="dt">method=</span><span class="st">&#39;repeatedcv&#39;</span>, <span class="dt">number=</span><span class="dv">5</span>, <span class="dt">repeats=</span><span class="dv">4</span>,  </span>
+<span id="cb908-12"><a href="19-speeding-up-r.html#cb908-12"></a>    <span class="dt">preProcOptions =</span> <span class="kw">c</span>(<span class="st">&#39;center&#39;</span>,<span class="st">&#39;scale&#39;</span>),</span>
+<span id="cb908-13"><a href="19-speeding-up-r.html#cb908-13"></a>    <span class="dt">allowParallel =</span> parallel)</span>
+<span id="cb908-14"><a href="19-speeding-up-r.html#cb908-14"></a>  model &lt;-<span class="st"> </span><span class="kw">train</span>( </span>
+<span id="cb908-15"><a href="19-speeding-up-r.html#cb908-15"></a>    lpsa <span class="op">~</span><span class="st"> </span>. <span class="op">-</span>svi, <span class="dt">data=</span>prostate, <span class="dt">method=</span><span class="st">&#39;glmnet&#39;</span>,</span>
+<span id="cb908-16"><a href="19-speeding-up-r.html#cb908-16"></a>    <span class="dt">trControl=</span>ctrl, </span>
+<span id="cb908-17"><a href="19-speeding-up-r.html#cb908-17"></a>    <span class="dt">tuneGrid=</span>grid, </span>
+<span id="cb908-18"><a href="19-speeding-up-r.html#cb908-18"></a>    <span class="dt">lambda =</span> grid<span class="op">$</span>lambda )</span>
+<span id="cb908-19"><a href="19-speeding-up-r.html#cb908-19"></a>  <span class="kw">return</span>(model)</span>
+<span id="cb908-20"><a href="19-speeding-up-r.html#cb908-20"></a>}</span>
+<span id="cb908-21"><a href="19-speeding-up-r.html#cb908-21"></a>  </span>
+<span id="cb908-22"><a href="19-speeding-up-r.html#cb908-22"></a><span class="co"># make the dataset a bit larger, just so the overhead</span></span>
+<span id="cb908-23"><a href="19-speeding-up-r.html#cb908-23"></a><span class="co"># of moving to multi-core doesn&#39;t overwhelm the benefits</span></span>
+<span id="cb908-24"><a href="19-speeding-up-r.html#cb908-24"></a><span class="co"># of using two processors. You should never do this</span></span>
+<span id="cb908-25"><a href="19-speeding-up-r.html#cb908-25"></a><span class="co"># in a real analysis!</span></span>
+<span id="cb908-26"><a href="19-speeding-up-r.html#cb908-26"></a><span class="kw">data</span>(<span class="st">&#39;prostate&#39;</span>, <span class="dt">package=</span><span class="st">&#39;faraway&#39;</span>)</span>
+<span id="cb908-27"><a href="19-speeding-up-r.html#cb908-27"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span> ){</span>
+<span id="cb908-28"><a href="19-speeding-up-r.html#cb908-28"></a>  prostate &lt;-<span class="st"> </span><span class="kw">rbind</span>(prostate,prostate)</span>
+<span id="cb908-29"><a href="19-speeding-up-r.html#cb908-29"></a>}</span>
+<span id="cb908-30"><a href="19-speeding-up-r.html#cb908-30"></a></span>
+<span id="cb908-31"><a href="19-speeding-up-r.html#cb908-31"></a><span class="kw">microbenchmark</span>(</span>
+<span id="cb908-32"><a href="19-speeding-up-r.html#cb908-32"></a>  <span class="kw">caret.model</span>(<span class="dt">parallel =</span> <span class="ot">FALSE</span>),</span>
+<span id="cb908-33"><a href="19-speeding-up-r.html#cb908-33"></a>  <span class="kw">caret.model</span>(<span class="dt">parallel =</span> <span class="ot">TRUE</span> )</span>
+<span id="cb908-34"><a href="19-speeding-up-r.html#cb908-34"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Unit: seconds
-##                                                                                                                                 expr
-##    model &lt;- train(lpsa ~ ., data = prostate, method = &quot;glmnet&quot;,      trControl = ctrl.serial, tuneGrid = grid, lambda = grid$lambda)
-##  model &lt;- train(lpsa ~ ., data = prostate, method = &quot;glmnet&quot;,      trControl = ctrl.parallel, tuneGrid = grid, lambda = grid$lambda)
-##   min   lq mean median   uq  max neval cld
-##  1.12 1.18 1.20   1.20 1.21 1.66   100   a
-##  1.12 1.18 1.19   1.19 1.21 1.38   100   a</code></pre>
+##                           expr  min   lq mean median   uq  max neval cld
+##  caret.model(parallel = FALSE) 2.68 2.72 2.87   2.77 2.91 4.42   100   b
+##   caret.model(parallel = TRUE) 1.98 2.05 2.19   2.09 2.20 3.94   100  a</code></pre>
 <p>Again, we saw only moderate gains by using both cores, however it didn’t really cost us anything. Because the <code>caret</code> package by default allows parallel processing, it doesn’t hurt to just load the <code>doMC</code> package and register the number of cores. Even in just the two core case, it is a good habit to get into so that when you port your code to a huge computer with many cores, the only thing to change is how many cores you have access to.</p>
-
 </div>
+</div>
+<div id="parallelizing-for-loops" class="section level2">
+<h2><span class="header-section-number">19.5</span> Parallelizing <code>for</code> loops</h2>
+<p>One of the easiest ways to parallelize a <code>for</code> loop is using a package called <code>foreach</code>. This package was created by R-Revolutions company that was subsequently bought by Microsoft. They have a nice introduction to the package <a href="https://docs.microsoft.com/en-us/machine-learning-server/r/how-to-revoscaler-distributed-computing-foreach">here</a>.</p>
+<p>We will consider an example that is common in modern statistics. We will examine parallel computing utilizing a bootstrap example where we create bootstrap samples for calculating confidence intervals for regression coefficients.</p>
+<div class="sourceCode" id="cb910"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb910-1"><a href="19-speeding-up-r.html#cb910-1"></a><span class="kw">ggplot</span>(trees, <span class="kw">aes</span>(<span class="dt">x=</span>Girth, <span class="dt">y=</span>Volume)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&#39;lm&#39;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="41_SpeedingUpR_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb912"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb912-1"><a href="19-speeding-up-r.html#cb912-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees)</span></code></pre></div>
+<p>This is how we would do this previously.</p>
+<div class="sourceCode" id="cb913"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb913-1"><a href="19-speeding-up-r.html#cb913-1"></a><span class="co"># f is a formula</span></span>
+<span id="cb913-2"><a href="19-speeding-up-r.html#cb913-2"></a><span class="co"># df is the input data frame</span></span>
+<span id="cb913-3"><a href="19-speeding-up-r.html#cb913-3"></a><span class="co"># M is the number of bootstrap iterations</span></span>
+<span id="cb913-4"><a href="19-speeding-up-r.html#cb913-4"></a>boot.for &lt;-<span class="st"> </span><span class="cf">function</span>( f, df, <span class="dt">M=</span><span class="dv">999</span>){</span>
+<span id="cb913-5"><a href="19-speeding-up-r.html#cb913-5"></a>  output &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb913-6"><a href="19-speeding-up-r.html#cb913-6"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span> ){</span>
+<span id="cb913-7"><a href="19-speeding-up-r.html#cb913-7"></a>    <span class="co"># Do stuff</span></span>
+<span id="cb913-8"><a href="19-speeding-up-r.html#cb913-8"></a>    model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( f, <span class="dt">data=</span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</span>
+<span id="cb913-9"><a href="19-speeding-up-r.html#cb913-9"></a>    output[[i]] &lt;-<span class="st"> </span>model.star<span class="op">$</span>coefficients </span>
+<span id="cb913-10"><a href="19-speeding-up-r.html#cb913-10"></a>  }</span>
+<span id="cb913-11"><a href="19-speeding-up-r.html#cb913-11"></a></span>
+<span id="cb913-12"><a href="19-speeding-up-r.html#cb913-12"></a>  <span class="co"># use rbind to put the list of results together into a data.frame</span></span>
+<span id="cb913-13"><a href="19-speeding-up-r.html#cb913-13"></a>  output &lt;-<span class="st"> </span><span class="kw">sapply</span>(output, rbind) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data.frame</span>()</span>
+<span id="cb913-14"><a href="19-speeding-up-r.html#cb913-14"></a>  <span class="kw">return</span>(output)</span>
+<span id="cb913-15"><a href="19-speeding-up-r.html#cb913-15"></a>}</span></code></pre></div>
+<p>We will first ask about how to do the same thing using the function <code>foreach</code></p>
+<div class="sourceCode" id="cb914"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb914-1"><a href="19-speeding-up-r.html#cb914-1"></a><span class="co"># f is a formula</span></span>
+<span id="cb914-2"><a href="19-speeding-up-r.html#cb914-2"></a><span class="co"># df is the input data frame</span></span>
+<span id="cb914-3"><a href="19-speeding-up-r.html#cb914-3"></a><span class="co"># M is the number of bootstrap iterations</span></span>
+<span id="cb914-4"><a href="19-speeding-up-r.html#cb914-4"></a>boot.foreach &lt;-<span class="st"> </span><span class="cf">function</span>(f, df, <span class="dt">M=</span><span class="dv">999</span>){</span>
+<span id="cb914-5"><a href="19-speeding-up-r.html#cb914-5"></a>  output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span> ) <span class="op">%dopar%</span><span class="st"> </span>{</span>
+<span id="cb914-6"><a href="19-speeding-up-r.html#cb914-6"></a>    <span class="co"># Do stuff</span></span>
+<span id="cb914-7"><a href="19-speeding-up-r.html#cb914-7"></a>    model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( f, <span class="dt">data=</span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</span>
+<span id="cb914-8"><a href="19-speeding-up-r.html#cb914-8"></a>    model.star<span class="op">$</span>coefficients </span>
+<span id="cb914-9"><a href="19-speeding-up-r.html#cb914-9"></a>  }</span>
+<span id="cb914-10"><a href="19-speeding-up-r.html#cb914-10"></a>  </span>
+<span id="cb914-11"><a href="19-speeding-up-r.html#cb914-11"></a>  <span class="co"># use rbind to put the list of results together into a data.frame</span></span>
+<span id="cb914-12"><a href="19-speeding-up-r.html#cb914-12"></a>  output &lt;-<span class="st"> </span><span class="kw">sapply</span>(output, rbind) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data.frame</span>()</span>
+<span id="cb914-13"><a href="19-speeding-up-r.html#cb914-13"></a>  <span class="kw">return</span>(output)</span>
+<span id="cb914-14"><a href="19-speeding-up-r.html#cb914-14"></a>}</span></code></pre></div>
+<p>Not much has changed in our code. Lets see which is faster.</p>
+<div class="sourceCode" id="cb915"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb915-1"><a href="19-speeding-up-r.html#cb915-1"></a><span class="kw">microbenchmark</span>(</span>
+<span id="cb915-2"><a href="19-speeding-up-r.html#cb915-2"></a>  <span class="kw">boot.for</span>( Volume<span class="op">~</span>Girth, trees ),</span>
+<span id="cb915-3"><a href="19-speeding-up-r.html#cb915-3"></a>  <span class="kw">boot.foreach</span>( Volume<span class="op">~</span>Girth, trees )</span>
+<span id="cb915-4"><a href="19-speeding-up-r.html#cb915-4"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## Unit: milliseconds
+##                                 expr min  lq mean median  uq  max neval cld
+##      boot.for(Volume ~ Girth, trees) 302 335  388    354 389  790   100   a
+##  boot.foreach(Volume ~ Girth, trees) 272 327  406    338 393 1232   100   a</code></pre>
+<p>In this case, the overhead associated with splitting the job across two cores, copying the data over, and then combining the results back together was more than we saved by using both cores. If the nugget of computation within each pass of the <code>for</code> loop was larger, then it would pay to use both cores.</p>
+<div class="sourceCode" id="cb917"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb917-1"><a href="19-speeding-up-r.html#cb917-1"></a><span class="co"># massiveTrees has 31000 observations</span></span>
+<span id="cb917-2"><a href="19-speeding-up-r.html#cb917-2"></a>massiveTrees &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb917-3"><a href="19-speeding-up-r.html#cb917-3"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span> ){</span>
+<span id="cb917-4"><a href="19-speeding-up-r.html#cb917-4"></a>  massiveTrees &lt;-<span class="st"> </span><span class="kw">rbind</span>(massiveTrees, trees)</span>
+<span id="cb917-5"><a href="19-speeding-up-r.html#cb917-5"></a>}</span>
+<span id="cb917-6"><a href="19-speeding-up-r.html#cb917-6"></a><span class="kw">microbenchmark</span>(</span>
+<span id="cb917-7"><a href="19-speeding-up-r.html#cb917-7"></a>  <span class="kw">boot.for</span>( Volume<span class="op">~</span>Girth, massiveTrees )  ,</span>
+<span id="cb917-8"><a href="19-speeding-up-r.html#cb917-8"></a>  <span class="kw">boot.foreach</span>( Volume<span class="op">~</span>Girth, massiveTrees )</span>
+<span id="cb917-9"><a href="19-speeding-up-r.html#cb917-9"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## Unit: seconds
+##                                        expr  min    lq  mean median    uq  max
+##      boot.for(Volume ~ Girth, massiveTrees) 14.2 14.87 15.35  15.21 15.58 21.3
+##  boot.foreach(Volume ~ Girth, massiveTrees)  7.7  8.73  9.12   9.02  9.33 11.7
+##  neval cld
+##    100   b
+##    100  a</code></pre>
+<p>Because we often generate a bunch of results that we want to see as a data.frame, the <code>foreach</code> function includes a <code>.combine</code> option which allows us to specify a function to do the combining.</p>
+<div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb919-1"><a href="19-speeding-up-r.html#cb919-1"></a>output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="dt">.combine=</span>rbind ) <span class="op">%dopar%</span><span class="st"> </span>{</span>
+<span id="cb919-2"><a href="19-speeding-up-r.html#cb919-2"></a>  <span class="co"># Do stuff</span></span>
+<span id="cb919-3"><a href="19-speeding-up-r.html#cb919-3"></a>  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</span>
+<span id="cb919-4"><a href="19-speeding-up-r.html#cb919-4"></a>  model.star<span class="op">$</span>coefficients <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
+<span id="cb919-5"><a href="19-speeding-up-r.html#cb919-5"></a>}</span></code></pre></div>
+<p>It is important to recognize that the data.frame <code>trees</code> was utilized inside the <code>foreach</code> loop. So when we called the <code>foreach</code> loop and distributed the workload across the cores, it was smart enough to distribute the data to each core. However, if there were functions that we utilized inside the for loop that came from a package, we need to tell each core to load the function.</p>
+<div class="sourceCode" id="cb920"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb920-1"><a href="19-speeding-up-r.html#cb920-1"></a>output &lt;-<span class="st"> </span><span class="kw">foreach</span>( <span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="dt">.combine=</span>rbind, <span class="dt">.packages=</span><span class="st">&#39;dplyr&#39;</span> ) <span class="op">%dopar%</span><span class="st"> </span>{</span>
+<span id="cb920-2"><a href="19-speeding-up-r.html#cb920-2"></a>  <span class="co"># Do stuff</span></span>
+<span id="cb920-3"><a href="19-speeding-up-r.html#cb920-3"></a>  model.star &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span> trees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dv">1</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) )</span>
+<span id="cb920-4"><a href="19-speeding-up-r.html#cb920-4"></a>  model.star<span class="op">$</span>coefficients <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
+<span id="cb920-5"><a href="19-speeding-up-r.html#cb920-5"></a>}</span></code></pre></div>
+
 </div>
 </div>
             </section>

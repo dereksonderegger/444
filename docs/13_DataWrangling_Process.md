@@ -31,7 +31,10 @@ Weather <- Weather_tidy %>% ...
 
 In the above script the `...` represent a bunch commands that I pipe together. The clean data set doesn't include any `_modifier` tag because that clean data set is the one that I want to save and then subsequently use in any analysis. 
 
-In many real world examples, the data wrangling work is concentrated in only one first three steps. Typically you might be able to skip one or more steps, but I would encourage using the naming convention above so that it is clear where the skipped steps are and what step you are on.
+In many real world examples, the data wrangling work is concentrated in only one or two of the first three steps. Typically you might be able to skip one or more steps, but I would encourage using the naming convention above so that it is clear where the skipped steps are and what step you are on.
+
+## Import
+Obviously getting the data into R is an obvious first step. Often this is a simple step of reading a `.csv` file, but more complicated scenarios such as messy excel files, importing data tables from a database, or pulling data out of web pages or pdf documents are common.  Another case is when the data is spread across a bunch of files (e.g. one excel file per month of data) and we need to read multiple files and squish them together before proceeding to the next step.
 
 ## Tidying 
 
@@ -96,10 +99,18 @@ The cleaning step is usually highly dependent on the data set content. This step
 
 1. Making sure every variable has the right type. For example, make sure that dates are dates, not character strings. 
 2. Fix factor labels and sort order.
-3. Verify numeric values are reasonable.
+3. Verify numeric values are reasonable. I often do this by examining summary statistics and/or histograms for each column.
 4. Create any calculated variables we need.
 
 Most of our data frame manipulation tools are designed to work with tidy data. As a result, cleaning is most easily done after the data set structure has been tidied. Therefore,I recommend first performing the reshaping tidying step and *then* perform the cleaning. 
+
+
+## Use
+In the previous three steps, we tried to keep all of the data present and not filter anything out. In this step we transition to using data to build a much deeper understanding. 
+
+In the simplest case, we just take the full dataset and pass it into a graph or statistical model. But in a more complicated situation, we might want to filter out a bunch of data and focus on a particular subset. For example, we might make a graph for a particular subgroup comparing two covariates. 
+
+In this step, the data manipulation is often to just filter the final cleaned up data. Because I often want to consider many different small filtered sets, it can be convenient to not actually save these sets, but rather just pipe them into the graphing or modeling function.
 
 
 

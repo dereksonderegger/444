@@ -43,7 +43,7 @@ First we need some way of measuring how long our code took to run. For this we w
 # 
 # For evaluating large chunks of code, I like to 
 # just wrap the code up in a function.
-x <- runif(1000)
+x <- runif(1000)  # x vector of 1000 numbers between 0 and 1.
 microbenchmark(
   sqrt(x),         # First expression to compare
   x^(0.5)          # second expression to compare
@@ -56,7 +56,7 @@ default, 100 times), we
 account for the randomness associated with a operating system that is also running 
 at the same time. Being good statisticians, the `cld` column stands for compact 
 letter display and if the letters are different, there is a statistically 
-significant difference in the timing. If cause the `microbenchmark()` function to 
+significant difference in the timing. If we cause the `microbenchmark()` function to 
 run more times (1000s or 100,000s times), we could eventually end up with the smallest
 difference to be statistically significant, but I think we shouldn't complain about 
 speed differences if a sample of 100 runs can't detect the difference.
@@ -78,13 +78,11 @@ make.data <- function(n){
     Pois  = rpois(n, lambda = 5),
     Gamma = rgamma(n, shape = 2, scale = 3),
     Exp   = rexp(n, rate = 1/5))
-  data <- data.frame(data)
   return(data)
 }
 
-data <- make.data(100)
-
-data %>% head()
+data <- make.data(6)
+data
 ```
 
 The way that you might first think about solving this problem is to write a for 
@@ -115,7 +113,7 @@ f2.noReturn <- function( input ){
 ```
 
 ```{r}
-data <- make.data(100)
+data <- make.data(1000)
 microbenchmark(
   f1(data),
   f2.noReturn(data)
@@ -143,7 +141,6 @@ microbenchmark(
   f1(data),
   f3.AllocOutput(data)
 ) %>% print(digits=3)
-
 ```
 There isn't a significant improvement allocating the size of output first. So given this, we shouldn't feel to bad being lazy and using `output <- NULL` to initialize things.
 
@@ -153,7 +150,7 @@ In general, `for` loops in R are very slow and we want to avoid them as much as 
 To test this, instead of a `for` loop, we will use `apply`.
 ```{r}
 f4.apply <- function( input ){
-  output <- apply(input, 1, which.max)
+  output <- apply(input, 1, which.max)  # 1 = apply to rows
   return(output)
 }
 ```
@@ -167,38 +164,39 @@ microbenchmark(
 
 This is the type of speed up that matters.  We have a 10-fold speed up in execution time and particularly the maximum time has dropped impressively.
 
-Unfortunately, I have always found the `apply` functions a little cumbersome and I prefer to use `dplyr` instead strictly for readability.
+Unfortunately, I have always found the `apply` functions a little cumbersome and I prefer to use `dplyr` functions for readability. For this example, we'll compare summarizing each column by calculating the mean.
 
+First for a small sample sized data:
 ```{r}
-f5.dplyr <- function( input ){
-  output <- input %>% 
-    mutate( max.col=which.max( c(X1, X2, X3, X4) ) ) 
-  return(output$max.col)
-}
-```
-
-```{r, cache=TRUE}
+data <- make.data(1000)
 microbenchmark(
-  f4.apply(data),
-  f5.dplyr(data)
+  data %>% apply(2, mean),
+  data %>% summarize_all(mean) 
 ) %>% print(digits=3)
 ```
 
 Unfortunately `dplyr` is a lot slower than `apply` in this case. I wonder if the dynamics would change with a larger `n`?
 
-```{r, cache=TRUE}
-data <- make.data(10000)
+```{r}
+data <- make.data(1000000)
 microbenchmark(
-  f4.apply(data),
-  f5.dplyr(data)
+  data %>% apply(2, mean),
+  data %>% summarize_all(mean) 
 ) %>% print(digits=3)
 
-data <- make.data(100000)
-microbenchmark(
-  f4.apply(data),
-  f5.dplyr(data)
-) %>% print(digits=3)
+data %>% apply(2, mean)
+data %>% summarize_all(mean) 
+
+f5.dplyr <- function( input ){
+  input %>% 
+    rowwise() %>%  # equivalent to group_by( each row )
+    mutate( max.col=which.max(c(Norm, Pois, Gamma, Exp) ) ) %>%
+    pull(max.col) %>%
+    return()
+}
 ```
+
+
 What just happened? The package `dplyr` is designed to work well for large data sets, and utilizes a modified structure, called a `tibble`, which provides massive benefits for large tables, but at the small scale, the overhead of converting the `data.frame` to a `tibble` overwhelms any speed up.  But because the small sample case is already fast enough to not be noticeable, we don't really care about the small `n` case.
 
 
@@ -214,15 +212,99 @@ We should think of executing code in parallel as having three major steps:
 3. Combine the results of each core back into a unified object.
 
 
-## Parallelizing for loops
+## Parallel Aware Functions
 
-There are a number of packages that allow you to tell R how many cores you have access to.  One of the easiest ways to parallelize a for loop is using a package called `foreach`. This package was created by R-Revolutions company that was subsequently bought by Microsoft. They have a nice introduction to the package [here](https://docs.microsoft.com/en-us/machine-learning-server/r/how-to-revoscaler-distributed-computing-foreach). 
+There are many packages that address problems that are "embarrassingly easily parallelized" and they will happily work with multiple cores. Methods that rely on re-sampling certainly fit into this category.
+
+The first step is letting R know it has access to multiple cores.  This is quite simple using the `doMC` package (aka the *do Multi-Core* package).
 
 The registration of multiple cores is actually pretty easy.
 
 ```{r, warning = FALSE, message=FALSE}
 doMC::registerDoMC(cores = 2)  # my laptop only has two cores.
 ```
+
+
+### `boot::boot`
+Bootstrapping relies on re-sampling the dataset and calculating test statistics from each re-sample.  In R, the most common way to do this is using the package `boot` and we just need to tell the `boot` function, to use the multiple cores available. (Note, we have to have registered the cores first!) 
+
+```{r, cache=TRUE}
+# make the trees dataset a bit larger,
+# just so the overhead cost isn't as large
+# compared to the computation of the regression
+# coefficients.
+for(i in 1:4){
+  trees <- rbind(trees, trees)
+}
+
+# define the model using the original sample data
+model <- lm( Volume ~ Girth, data=trees)
+
+# define a function that calculates the model parameters
+# given an index of which data points to use.
+my.fun <- function(df, index){
+  model.star <- lm( Volume ~ Girth, data= trees[index,] )
+  model.star$coefficients 
+}
+
+# the boot::boot() function has a parallel option we just need 
+# to switch on
+microbenchmark(
+  serial   = boot::boot( trees, my.fun, R=1000 ),
+  parallel = boot::boot( trees, my.fun, R=1000, 
+                         parallel='multicore', ncpus=2 ) 
+) %>% print(digits=3)
+```
+
+In this case, we had a bit of a speed up, but not a factor of 2.  This is due to the overhead of splitting the job across both cores.
+
+### `caret::train`
+The statistical learning package `caret` also handles all the work to do cross validation in a parallel computing environment.  The functions in `caret` have an option `allowParallel` which by default is TRUE, which controls if we should use all the cores. Assuming we have already registered the number of cores, then by default `caret` will use them all. 
+
+```{r, cache=TRUE, warning=FALSE}
+library(caret)
+
+# Remember to register how many cores to use!
+doMC::registerDoMC(cores = 2)  # my laptop only has two cores.
+
+caret.model <- function(parallel){
+  grid <- data.frame( 
+    alpha  = 1,  # 1 => Lasso Regression
+    lambda = exp(seq(-6, 1, length=50)))
+  ctrl <- trainControl( 
+    method='repeatedcv', number=5, repeats=4,  
+    preProcOptions = c('center','scale'),
+    allowParallel = parallel)
+  model <- train( 
+    lpsa ~ . -svi, data=prostate, method='glmnet',
+    trControl=ctrl, 
+    tuneGrid=grid, 
+    lambda = grid$lambda )
+  return(model)
+}
+  
+# make the dataset a bit larger, just so the overhead
+# of moving to multi-core doesn't overwhelm the benefits
+# of using two processors. You should never do this
+# in a real analysis!
+data('prostate', package='faraway')
+for( i in 1:7 ){
+  prostate <- rbind(prostate,prostate)
+}
+
+microbenchmark(
+  caret.model(parallel = FALSE),
+  caret.model(parallel = TRUE )
+) %>% print(digits=3)
+```
+
+Again, we saw only moderate gains by using both cores, however it didn't really cost us anything. Because the `caret` package by default allows parallel processing, it doesn't hurt to just load the `doMC` package and register the number of cores. Even in just the two core case, it is a good habit to get into so that when you port your code to a huge computer with many cores, the only thing to change is how many cores you have access to.
+
+
+## Parallelizing `for` loops
+
+One of the easiest ways to parallelize a `for` loop is using a package called `foreach`. This package was created by R-Revolutions company that was subsequently bought by Microsoft. They have a nice introduction to the package [here](https://docs.microsoft.com/en-us/machine-learning-server/r/how-to-revoscaler-distributed-computing-foreach). 
+
 
 We will consider an example that is common in modern statistics. We will examine parallel computing utilizing a bootstrap example where we create bootstrap samples for calculating confidence intervals for regression coefficients.
 
@@ -290,74 +372,23 @@ microbenchmark(
 ) %>% print(digits=3)
 ```
 
-Because we often generate a bunch of results that we want to see as a data.frame, the `foreach` function includes and option to do it for us.
+Because we often generate a bunch of results that we want to see as a data.frame, the `foreach` function includes a `.combine` option which allows us to specify a function to do the combining.
 ```{r, cache=TRUE}
-output <- foreach( i=1:100, .combine=data.frame ) %dopar% {
+output <- foreach( i=1:1000, .combine=rbind ) %dopar% {
   # Do stuff
   model.star <- lm( Volume ~ Girth, data= trees %>% sample_frac(1, replace=TRUE) )
-  model$coefficients 
+  model.star$coefficients %>% t() %>% as.data.frame()
 }
 ```
 
 It is important to recognize that the data.frame `trees` was utilized inside the `foreach` loop. So when we called the `foreach` loop and distributed the workload across the cores, it was smart enough to distribute the data to each core.  However, if there were functions that we utilized inside the for loop that came from a package, we need to tell each core to load the function.
 
 ```{r, cache=TRUE}
-output <- foreach( i=1:1000, .combine=data.frame, .packages='dplyr' ) %dopar% {
+output <- foreach( i=1:1000, .combine=rbind, .packages='dplyr' ) %dopar% {
   # Do stuff
   model.star <- lm( Volume ~ Girth, data= trees %>% sample_frac(1, replace=TRUE) )
-  model.star$coefficients 
+  model.star$coefficients %>% t() %>% as.data.frame()
 }
 ```
 
 
-## Parallel Aware Functions
-
-There are many packages that address problems that are "embarrassingly easily parallelized" and they will happily work with multiple cores. Methods that rely on re-sampling certainly fit into this category.
-
-### `boot::boot`
-Bootstrapping relies on re-sampling the dataset and calculating test statistics from each resample.  In R, the most common way to do this is using the package `boot` and we just need to tell the `boot` function, to use the multiple cores available. (Note, we have to have registered the cores first!) 
-
-```{r, cache=TRUE}
-model <- lm( Volume ~ Girth, data=trees)
-my.fun <- function(df, index){
-  model.star <- lm( Volume ~ Girth, data= trees[index,] )
-  model.star$coefficients 
-}
-microbenchmark(
-  serial   = boot::boot( trees, my.fun, R=1000 ),
-  parallel = boot::boot( trees, my.fun, R=1000, 
-                         parallel='multicore', ncpus=2 ) 
-) %>% print(digits=3)
-```
-
-In this case, we had a bit of a spead up, but not a factor of 2.  This is due to the overhead of splitting the job across both cores.
-
-### `caret::train`
-The statistical learning package `caret` also handles all the work to do cross validation in a parallel computing environment.  The functions in `caret` have an option `allowParallel` which by default is TRUE, which controls if we should use all the cores. Assuming we have already registered the number of cores, then by default `caret` will use them all. 
-
-```{r, cache=TRUE, warning=FALSE}
-library(faraway)
-library(caret)
-ctrl.serial <- trainControl( method='repeatedcv', number=5, repeats=4,  
-                      preProcOptions = c('center','scale'),
-                      allowParallel = FALSE)
-ctrl.parallel <- trainControl( method='repeatedcv', number=5, repeats=4,  
-                      preProcOptions = c('center','scale'),
-                      allowParallel = TRUE)
-grid <- data.frame( 
-  alpha  = 1,  # 1 => Lasso Regression
-  lambda = exp(seq(-6, 1, length=50)))
-
-microbenchmark(
-  model <- train( lpsa ~ ., data=prostate, method='glmnet',
-                  trControl=ctrl.serial, 
-                  tuneGrid=grid, 
-                  lambda = grid$lambda ),
-  model <- train( lpsa ~ ., data=prostate, method='glmnet',
-                  trControl=ctrl.parallel, 
-                  tuneGrid=grid, 
-                  lambda = grid$lambda )
-) %>% print(digits=3)
-```
-
-Again, we saw only moderate gains by using both cores, however it didn't really cost us anything. Because the `caret` package by default allows parallel processing, it doesn't hurt to just load the `doMC` package and register the number of cores. Even in just the two core case, it is a good habit to get into so that when you port your code to a huge computer with many cores, the only thing to change is how many cores you have access to.

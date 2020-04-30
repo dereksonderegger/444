@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-04-27" />
+<meta name="date" content="2020-04-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -252,8 +252,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html"><i class="fa fa-check"></i>Data Wrangling Process</a><ul>
 <li class="chapter" data-level="7.6" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>7.6</b> Introduction</a></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.7</b> Tidying</a></li>
-<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.8</b> Cleaning</a></li>
+<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#import"><i class="fa fa-check"></i><b>7.7</b> Import</a></li>
+<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.8</b> Tidying</a></li>
+<li class="chapter" data-level="7.9" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.9</b> Cleaning</a></li>
+<li class="chapter" data-level="7.10" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#use"><i class="fa fa-check"></i><b>7.10</b> Use</a></li>
 </ul></li>
 <li class="part"><span><b>Deeper Details</b></span></li>
 <li class="chapter" data-level="8" data-path="8-data-structures.html"><a href="8-data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
@@ -415,11 +417,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
 <li class="chapter" data-level="19.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
 <li class="chapter" data-level="19.3" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="19.5.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.4</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.4.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.4.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.4.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.4.2</b> <code>caret::train</code></a></li>
 </ul></li>
+<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.5</b> Parallelizing <code>for</code> loops</a></li>
 </ul></li>
 </ul>
 
@@ -696,7 +698,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb879"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb879-1"><a href="18-databases.html#cb879-1"></a><span class="kw">library</span>(dplyr)</span>
 <span id="cb879-2"><a href="18-databases.html#cb879-2"></a></span>
 <span id="cb879-3"><a href="18-databases.html#cb879-3"></a><span class="co"># Start up a SQL-Lite database with the NYCFlights13 data pre-loaded</span></span>
-<span id="cb879-4"><a href="18-databases.html#cb879-4"></a>con &lt;-<span class="st"> </span><span class="kw">nycflights13_sqlite</span>(<span class="dt">path =</span> <span class="kw">tempdir</span>() )</span></code></pre></div>
+<span id="cb879-4"><a href="18-databases.html#cb879-4"></a><span class="co"># </span></span>
+<span id="cb879-5"><a href="18-databases.html#cb879-5"></a><span class="co">## This handy function to load up the nycflights13 dataset unfortunately</span></span>
+<span id="cb879-6"><a href="18-databases.html#cb879-6"></a><span class="co">## causes an error when we try to close the connection.  I&#39;ve submitted</span></span>
+<span id="cb879-7"><a href="18-databases.html#cb879-7"></a><span class="co">## a bug report to Hadley. We&#39;ll see what happens.</span></span>
+<span id="cb879-8"><a href="18-databases.html#cb879-8"></a><span class="co"># con &lt;- nycflights13_sqlite( )</span></span>
+<span id="cb879-9"><a href="18-databases.html#cb879-9"></a><span class="co"># </span></span>
+<span id="cb879-10"><a href="18-databases.html#cb879-10"></a><span class="co">## So instead we&#39;ll use this somewhat longer and more annoying startup</span></span>
+<span id="cb879-11"><a href="18-databases.html#cb879-11"></a><span class="co">## set of code.</span></span>
+<span id="cb879-12"><a href="18-databases.html#cb879-12"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;:memory:&quot;</span>)</span>
+<span id="cb879-13"><a href="18-databases.html#cb879-13"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>airlines)</span>
+<span id="cb879-14"><a href="18-databases.html#cb879-14"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>airports)</span>
+<span id="cb879-15"><a href="18-databases.html#cb879-15"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>flights)</span>
+<span id="cb879-16"><a href="18-databases.html#cb879-16"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>planes)</span>
+<span id="cb879-17"><a href="18-databases.html#cb879-17"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>weather)</span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Through the <code>con</code> connection object, create links to the <code>flights</code> and <code>airlines</code> tables.</li>
 <li>From the <code>flights</code> table, summarize the percent of flights that are delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.</li>

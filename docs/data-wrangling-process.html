@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-04-27" />
+<meta name="date" content="2020-04-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -252,8 +252,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html"><i class="fa fa-check"></i>Data Wrangling Process</a><ul>
 <li class="chapter" data-level="7.6" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>7.6</b> Introduction</a></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.7</b> Tidying</a></li>
-<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.8</b> Cleaning</a></li>
+<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#import"><i class="fa fa-check"></i><b>7.7</b> Import</a></li>
+<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.8</b> Tidying</a></li>
+<li class="chapter" data-level="7.9" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.9</b> Cleaning</a></li>
+<li class="chapter" data-level="7.10" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#use"><i class="fa fa-check"></i><b>7.10</b> Use</a></li>
 </ul></li>
 <li class="part"><span><b>Deeper Details</b></span></li>
 <li class="chapter" data-level="8" data-path="8-data-structures.html"><a href="8-data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
@@ -415,11 +417,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
 <li class="chapter" data-level="19.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
 <li class="chapter" data-level="19.3" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="19.5.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.4</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.4.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.4.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.4.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.4.2</b> <code>caret::train</code></a></li>
 </ul></li>
+<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.5</b> Parallelizing <code>for</code> loops</a></li>
 </ul></li>
 </ul>
 
@@ -489,10 +491,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb348-5"><a href="data-wrangling-process.html#cb348-5"></a></span>
 <span id="cb348-6"><a href="data-wrangling-process.html#cb348-6"></a>Weather &lt;-<span class="st"> </span>Weather_tidy <span class="op">%&gt;%</span><span class="st"> </span>...</span></code></pre></div>
 <p>In the above script the <code>...</code> represent a bunch commands that I pipe together. The clean data set doesn’t include any <code>_modifier</code> tag because that clean data set is the one that I want to save and then subsequently use in any analysis.</p>
-<p>In many real world examples, the data wrangling work is concentrated in only one first three steps. Typically you might be able to skip one or more steps, but I would encourage using the naming convention above so that it is clear where the skipped steps are and what step you are on.</p>
+<p>In many real world examples, the data wrangling work is concentrated in only one or two of the first three steps. Typically you might be able to skip one or more steps, but I would encourage using the naming convention above so that it is clear where the skipped steps are and what step you are on.</p>
+</div>
+<div id="import" class="section level2">
+<h2><span class="header-section-number">7.7</span> Import</h2>
+<p>Obviously getting the data into R is an obvious first step. Often this is a simple step of reading a <code>.csv</code> file, but more complicated scenarios such as messy excel files, importing data tables from a database, or pulling data out of web pages or pdf documents are common. Another case is when the data is spread across a bunch of files (e.g. one excel file per month of data) and we need to read multiple files and squish them together before proceeding to the next step.</p>
 </div>
 <div id="tidying" class="section level2">
-<h2><span class="header-section-number">7.7</span> Tidying</h2>
+<h2><span class="header-section-number">7.8</span> Tidying</h2>
 <p>The terminology of “tidy data” popularized by Hadley Wickham and his introduction to the concept lives in a <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html">vignette</a> in the <code>tidyr</code> package. I highly recommend reading Hadley’s introduction as well as what I present here.</p>
 <p>Data is usually described as “tidy” if it satisfies the following:</p>
 <ol style="list-style-type: decimal">
@@ -532,15 +538,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Either representation is fine in this case, because each student should have the same number of assignments. However, if I was combining grade books from multiple times I’ve taught the course, the first option won’t work because sometimes I assign projects and sometimes not. So the tidy version of the data would be to have a table <code>scores</code> where each row represents a single assignment from a particular student.</p>
 </div>
 <div id="cleaning" class="section level2">
-<h2><span class="header-section-number">7.8</span> Cleaning</h2>
+<h2><span class="header-section-number">7.9</span> Cleaning</h2>
 <p>The cleaning step is usually highly dependent on the data set content. This step involves</p>
 <ol style="list-style-type: decimal">
 <li>Making sure every variable has the right type. For example, make sure that dates are dates, not character strings.</li>
 <li>Fix factor labels and sort order.</li>
-<li>Verify numeric values are reasonable.</li>
+<li>Verify numeric values are reasonable. I often do this by examining summary statistics and/or histograms for each column.</li>
 <li>Create any calculated variables we need.</li>
 </ol>
 <p>Most of our data frame manipulation tools are designed to work with tidy data. As a result, cleaning is most easily done after the data set structure has been tidied. Therefore,I recommend first performing the reshaping tidying step and <em>then</em> perform the cleaning.</p>
+</div>
+<div id="use" class="section level2">
+<h2><span class="header-section-number">7.10</span> Use</h2>
+<p>In the previous three steps, we tried to keep all of the data present and not filter anything out. In this step we transition to using data to build a much deeper understanding.</p>
+<p>In the simplest case, we just take the full dataset and pass it into a graph or statistical model. But in a more complicated situation, we might want to filter out a bunch of data and focus on a particular subset. For example, we might make a graph for a particular subgroup comparing two covariates.</p>
+<p>In this step, the data manipulation is often to just filter the final cleaned up data. Because I often want to consider many different small filtered sets, it can be convenient to not actually save these sets, but rather just pipe them into the graphing or modeling function.</p>
 
 </div>
 </div>

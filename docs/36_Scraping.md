@@ -187,12 +187,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nWhen Your Freedom Depends On An App\n"                                                                                               
-## [2] "\nSweden And Denmark Took Very Different Approaches To Fighting The Coronavirus. The Data Shows Many More People Are Dying In Sweden\n"
-## [3] "\nFred Armisen Nails An Uncanny Impression Of Every North American Accent You Can Think Of\n"                                          
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                           
-## [5] "\nOwner Of $250K McLaren Takes It Out In Heavy Rain, Deeply Regrets It\n"                                                              
-## [6] "\nHe Found One Of Stalin's Mass Graves. Now He's In Jail\n"
+## [1] "\nCharting The Generational Gaps In Music Knowledge\n"                                                
+## [2] "\nAnatomy Of A Well-Crafted Rental Phishing Scam\n"                                                   
+## [3] "\nThis Footage Of A Cameraman Filming A Nuclear Test And Getting Hit By The Shockwave Is Truly Wild\n"
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                          
+## [5] "\nYou Can Really Hear In This Video How Deserted The Las Vegas Strip Is\n"                            
+## [6] "\nA Visualization Of The Projected Deaths Of COVID-19 Compared To Other Leading Causes\n"
 ```
 
 
@@ -207,12 +207,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://gizmodo.com/when-your-freedom-depends-on-an-app-1843109198?utm_source=digg"                                                       
-## [2] "https://www.buzzfeed.com/albertonardelli/coronavirus-deaths-sweden-denmark?utm_source=dynamic&utm_campaign=bfsharetwitter?utm_source=digg"
-## [3] "/video/fred-armisen-impression-north-american-accents"                                                                                    
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                                              
-## [5] "/2020/mclaren-rain"                                                                                                                       
-## [6] "https://www.nytimes.com/2020/04/27/world/europe/russia-historian-stalin-mass-graves.html?utm_source=digg"
+## [1] "https://pudding.cool/2020/04/music-challenge/?utm_source=digg"                                             
+## [2] "https://jeffreyladish.com/anatomy-of-a-rental-phishing-scam/?utm_source=digg"                              
+## [3] "/video/this-footage-of-a-cameraman-filming-a-nuclear-test-and-getting-hit-by-the-shockwave-is-truly-wild"  
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"               
+## [5] "/2020/las-vegas-strip-quiet-birds"                                                                         
+## [6] "https://www.statnews.com/2020/04/30/coronavirus-death-projections-compare-causes-of-death/?utm_source=digg"
 ```
 
 

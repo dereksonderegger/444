@@ -357,7 +357,20 @@ dbDisconnect(con)
     library(dplyr)
     
     # Start up a SQL-Lite database with the NYCFlights13 data pre-loaded
-    con <- nycflights13_sqlite(path = tempdir() )
+    # 
+    ## This handy function to load up the nycflights13 dataset unfortunately
+    ## causes an error when we try to close the connection.  I've submitted
+    ## a bug report to Hadley. We'll see what happens.
+    # con <- nycflights13_sqlite( )
+    # 
+    ## So instead we'll use this somewhat longer and more annoying startup
+    ## set of code.
+    con <- DBI::dbConnect(RSQLite::SQLite(), dbname = ":memory:")
+    dplyr::copy_to(con, nycflights13::airlines)
+    dplyr::copy_to(con, nycflights13::airports)
+    dplyr::copy_to(con, nycflights13::flights)
+    dplyr::copy_to(con, nycflights13::planes)
+    dplyr::copy_to(con, nycflights13::weather)
     ```
     b. Through the `con` connection object, create links to the `flights` and `airlines` tables.
     c. From the `flights` table, summarize the percent of flights that are delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.

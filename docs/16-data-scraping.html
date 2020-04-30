@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-04-27" />
+<meta name="date" content="2020-04-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -252,8 +252,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html"><i class="fa fa-check"></i>Data Wrangling Process</a><ul>
 <li class="chapter" data-level="7.6" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>7.6</b> Introduction</a></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.7</b> Tidying</a></li>
-<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.8</b> Cleaning</a></li>
+<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#import"><i class="fa fa-check"></i><b>7.7</b> Import</a></li>
+<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.8</b> Tidying</a></li>
+<li class="chapter" data-level="7.9" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.9</b> Cleaning</a></li>
+<li class="chapter" data-level="7.10" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#use"><i class="fa fa-check"></i><b>7.10</b> Use</a></li>
 </ul></li>
 <li class="part"><span><b>Deeper Details</b></span></li>
 <li class="chapter" data-level="8" data-path="8-data-structures.html"><a href="8-data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
@@ -415,11 +417,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
 <li class="chapter" data-level="19.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
 <li class="chapter" data-level="19.3" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
-<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.4</b> Parallelizing for loops</a></li>
-<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.5</b> Parallel Aware Functions</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.5.1</b> <code>boot::boot</code></a></li>
-<li class="chapter" data-level="19.5.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.5.2</b> <code>caret::train</code></a></li>
+<li class="chapter" data-level="19.4" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.4</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.4.1" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.4.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.4.2" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.4.2</b> <code>caret::train</code></a></li>
 </ul></li>
+<li class="chapter" data-level="19.5" data-path="19-speeding-up-r.html"><a href="19-speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.5</b> Parallelizing <code>for</code> loops</a></li>
 </ul></li>
 </ul>
 
@@ -566,24 +568,24 @@ up to your browser’s bookmark bar. When you are at the site you are interested
 <span id="cb817-5"><a href="16-data-scraping.html#cb817-5"></a><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></span>
 <span id="cb817-6"><a href="16-data-scraping.html#cb817-6"></a>HeadLines <span class="op">%&gt;%</span></span>
 <span id="cb817-7"><a href="16-data-scraping.html#cb817-7"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;\nWhen Your Freedom Depends On An App\n&quot;                                                                                               
-## [2] &quot;\nSweden And Denmark Took Very Different Approaches To Fighting The Coronavirus. The Data Shows Many More People Are Dying In Sweden\n&quot;
-## [3] &quot;\nFred Armisen Nails An Uncanny Impression Of Every North American Accent You Can Think Of\n&quot;                                          
-## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                                                                           
-## [5] &quot;\nOwner Of $250K McLaren Takes It Out In Heavy Rain, Deeply Regrets It\n&quot;                                                              
-## [6] &quot;\nHe Found One Of Stalin&#39;s Mass Graves. Now He&#39;s In Jail\n&quot;</code></pre>
+<pre><code>## [1] &quot;\nCharting The Generational Gaps In Music Knowledge\n&quot;                                                
+## [2] &quot;\nAnatomy Of A Well-Crafted Rental Phishing Scam\n&quot;                                                   
+## [3] &quot;\nThis Footage Of A Cameraman Filming A Nuclear Test And Getting Hit By The Shockwave Is Truly Wild\n&quot;
+## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                                          
+## [5] &quot;\nYou Can Really Hear In This Video How Deserted The Las Vegas Strip Is\n&quot;                            
+## [6] &quot;\nA Visualization Of The Projected Deaths Of COVID-19 Compared To Other Leading Causes\n&quot;</code></pre>
 <div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="16-data-scraping.html#cb819-1"></a><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></span>
 <span id="cb819-2"><a href="16-data-scraping.html#cb819-2"></a>Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></span>
 <span id="cb819-3"><a href="16-data-scraping.html#cb819-3"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></span>
 <span id="cb819-4"><a href="16-data-scraping.html#cb819-4"></a><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </span>
 <span id="cb819-5"><a href="16-data-scraping.html#cb819-5"></a>Links <span class="op">%&gt;%</span></span>
 <span id="cb819-6"><a href="16-data-scraping.html#cb819-6"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;https://gizmodo.com/when-your-freedom-depends-on-an-app-1843109198?utm_source=digg&quot;                                                       
-## [2] &quot;https://www.buzzfeed.com/albertonardelli/coronavirus-deaths-sweden-denmark?utm_source=dynamic&amp;utm_campaign=bfsharetwitter?utm_source=digg&quot;
-## [3] &quot;/video/fred-armisen-impression-north-american-accents&quot;                                                                                    
-## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;                                              
-## [5] &quot;/2020/mclaren-rain&quot;                                                                                                                       
-## [6] &quot;https://www.nytimes.com/2020/04/27/world/europe/russia-historian-stalin-mass-graves.html?utm_source=digg&quot;</code></pre>
+<pre><code>## [1] &quot;https://pudding.cool/2020/04/music-challenge/?utm_source=digg&quot;                                             
+## [2] &quot;https://jeffreyladish.com/anatomy-of-a-rental-phishing-scam/?utm_source=digg&quot;                              
+## [3] &quot;/video/this-footage-of-a-cameraman-filming-a-nuclear-test-and-getting-hit-by-the-shockwave-is-truly-wild&quot;  
+## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;               
+## [5] &quot;/2020/las-vegas-strip-quiet-birds&quot;                                                                         
+## [6] &quot;https://www.statnews.com/2020/04/30/coronavirus-death-projections-compare-causes-of-death/?utm_source=digg&quot;</code></pre>
 </div>
 </div>
 <div id="scraping-.pdf-files" class="section level2">
