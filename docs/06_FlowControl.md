@@ -118,15 +118,15 @@ df
 ```
 
 ```
-##   Type      Value
-## 1    A -0.2851417
-## 2    A  0.1654349
-## 3    B  1.2839702
-## 4    B -1.5993753
-## 5    C -0.1458194
-## 6    C -0.5401576
-## 7    D  0.3485899
-## 8    D  0.9812176
+##   Type       Value
+## 1    A  0.50736902
+## 2    A -1.86691086
+## 3    B  0.13603914
+## 4    B  0.35592541
+## 5    C  0.83943665
+## 6    C -0.08145564
+## 7    D  0.05275422
+## 8    D  0.40210293
 ```
 
 ```r
@@ -136,10 +136,10 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 
 ```
 ##   Type      Value
-## 1    A -0.2851417
-## 2    A  0.1654349
-## 3    B  1.2839702
-## 4    B -1.5993753
+## 1    A  0.5073690
+## 2    A -1.8669109
+## 3    B  0.1360391
+## 4    B  0.3559254
 ```
 
 
@@ -302,7 +302,7 @@ p.value
 ```
 
 ```
-## [1] 3.537985e-08
+## [1] 1.911781e-06
 ```
 
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.
@@ -327,7 +327,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "No more unfounded generalizations!"
+## [1] "The second child was ignored"
 ```
 
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-04-30" />
+<meta name="date" content="2020-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -568,24 +568,24 @@ up to your browser’s bookmark bar. When you are at the site you are interested
 <span id="cb817-5"><a href="16-data-scraping.html#cb817-5"></a><span class="st">  </span><span class="kw">html_text</span>()                      <span class="co"># Convert the &lt;a&gt;Text&lt;/a&gt; to just Text</span></span>
 <span id="cb817-6"><a href="16-data-scraping.html#cb817-6"></a>HeadLines <span class="op">%&gt;%</span></span>
 <span id="cb817-7"><a href="16-data-scraping.html#cb817-7"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;\nCharting The Generational Gaps In Music Knowledge\n&quot;                                                
-## [2] &quot;\nAnatomy Of A Well-Crafted Rental Phishing Scam\n&quot;                                                   
-## [3] &quot;\nThis Footage Of A Cameraman Filming A Nuclear Test And Getting Hit By The Shockwave Is Truly Wild\n&quot;
-## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                                          
-## [5] &quot;\nYou Can Really Hear In This Video How Deserted The Las Vegas Strip Is\n&quot;                            
-## [6] &quot;\nA Visualization Of The Projected Deaths Of COVID-19 Compared To Other Leading Causes\n&quot;</code></pre>
+<pre><code>## [1] &quot;\nThe Flukish, Fascinating Rise — And Sudden Disappearance — Of The 2019 Kentucky Derby Champ\n&quot;
+## [2] &quot;\nFlorida Lawyer Finds The Most Florida Way To Protest The Re-Opening Of Beaches\n&quot;             
+## [3] &quot;\nThe Nine Best Movies You Can Now Watch At Home\n&quot;                                             
+## [4] &quot;\nQuickly Collect Signatures. Anywhere And On Any Device.\n&quot;                                    
+## [5] &quot;\nWill Ferrell Crashes Seattle Seahawk Zoom Meeting By Joining As New Team Member\n&quot;            
+## [6] &quot;\nThe Battle That Chicago Forgot\n&quot;</code></pre>
 <div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="16-data-scraping.html#cb819-1"></a><span class="co"># Each headline is also a link.  I might want to harvest those as well</span></span>
 <span id="cb819-2"><a href="16-data-scraping.html#cb819-2"></a>Links &lt;-<span class="st"> </span>page <span class="op">%&gt;%</span></span>
 <span id="cb819-3"><a href="16-data-scraping.html#cb819-3"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;.headline a&#39;</span>) <span class="op">%&gt;%</span></span>
 <span id="cb819-4"><a href="16-data-scraping.html#cb819-4"></a><span class="st">  </span><span class="kw">html_attr</span>(<span class="st">&#39;href&#39;</span>)  </span>
 <span id="cb819-5"><a href="16-data-scraping.html#cb819-5"></a>Links <span class="op">%&gt;%</span></span>
 <span id="cb819-6"><a href="16-data-scraping.html#cb819-6"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;https://pudding.cool/2020/04/music-challenge/?utm_source=digg&quot;                                             
-## [2] &quot;https://jeffreyladish.com/anatomy-of-a-rental-phishing-scam/?utm_source=digg&quot;                              
-## [3] &quot;/video/this-footage-of-a-cameraman-filming-a-nuclear-test-and-getting-hit-by-the-shockwave-is-truly-wild&quot;  
-## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;               
-## [5] &quot;/2020/las-vegas-strip-quiet-birds&quot;                                                                         
-## [6] &quot;https://www.statnews.com/2020/04/30/coronavirus-death-projections-compare-causes-of-death/?utm_source=digg&quot;</code></pre>
+<pre><code>## [1] &quot;https://www.si.com/horse-racing/2020/05/01/country-house-2019-kentucky-derby-one-year-later?utm_source=digg&quot;
+## [2] &quot;/2020/daniel-uhlfelder-grim-reaper-florida-protest&quot;                                                         
+## [3] &quot;https://www.vox.com/culture/2020/5/1/21242628/best-movies-streaming-netflix-hbo?utm_source=digg&quot;            
+## [4] &quot;https://clk.tradedoubler.com/click?p=264355&amp;a=2947467&amp;g=24578838&amp;epi=digghp?utm_source=digg&quot;                
+## [5] &quot;/2020/will-ferrell-crashes-seattle-seahawk-meeting&quot;                                                         
+## [6] &quot;http://www.chicagomag.com/city-life/May-2020/The-Battle-of-the-Viaduct-1877/?utm_source=digg&quot;</code></pre>
 </div>
 </div>
 <div id="scraping-.pdf-files" class="section level2">

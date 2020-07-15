@@ -366,14 +366,14 @@ dbDisconnect(con)
     ## So instead we'll use this somewhat longer and more annoying startup
     ## set of code.
     con <- DBI::dbConnect(RSQLite::SQLite(), dbname = ":memory:")
-    dplyr::copy_to(con, nycflights13::airlines)
-    dplyr::copy_to(con, nycflights13::airports)
-    dplyr::copy_to(con, nycflights13::flights)
-    dplyr::copy_to(con, nycflights13::planes)
-    dplyr::copy_to(con, nycflights13::weather)
+    dplyr::copy_to(con, nycflights13::airlines, 'airlines')
+    dplyr::copy_to(con, nycflights13::airports, 'airports')
+    dplyr::copy_to(con, nycflights13::flights,  'flights')
+    dplyr::copy_to(con, nycflights13::planes,   'planes')
+    dplyr::copy_to(con, nycflights13::weather,  'weather')
     ```
     b. Through the `con` connection object, create links to the `flights` and `airlines` tables.
-    c. From the `flights` table, summarize the percent of flights that are delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.
+    c. From the `flights` table, summarize the percent of flights with a departure delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.
     d. Using the `dbDisconnect()` command to close the connection `con`. 
     
 2. For this exercise, we'll start a SQLite database and see that the SQLite application stores the data in a very specialized file structure, which usually has a file extension of `.db` or `.sqlite`.

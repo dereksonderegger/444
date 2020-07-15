@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-04-30" />
+<meta name="date" content="2020-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -707,14 +707,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb879-10"><a href="18-databases.html#cb879-10"></a><span class="co">## So instead we&#39;ll use this somewhat longer and more annoying startup</span></span>
 <span id="cb879-11"><a href="18-databases.html#cb879-11"></a><span class="co">## set of code.</span></span>
 <span id="cb879-12"><a href="18-databases.html#cb879-12"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;:memory:&quot;</span>)</span>
-<span id="cb879-13"><a href="18-databases.html#cb879-13"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>airlines)</span>
-<span id="cb879-14"><a href="18-databases.html#cb879-14"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>airports)</span>
-<span id="cb879-15"><a href="18-databases.html#cb879-15"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>flights)</span>
-<span id="cb879-16"><a href="18-databases.html#cb879-16"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>planes)</span>
-<span id="cb879-17"><a href="18-databases.html#cb879-17"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>weather)</span></code></pre></div>
+<span id="cb879-13"><a href="18-databases.html#cb879-13"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>airlines, <span class="st">&#39;airlines&#39;</span>)</span>
+<span id="cb879-14"><a href="18-databases.html#cb879-14"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>airports, <span class="st">&#39;airports&#39;</span>)</span>
+<span id="cb879-15"><a href="18-databases.html#cb879-15"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>flights,  <span class="st">&#39;flights&#39;</span>)</span>
+<span id="cb879-16"><a href="18-databases.html#cb879-16"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>planes,   <span class="st">&#39;planes&#39;</span>)</span>
+<span id="cb879-17"><a href="18-databases.html#cb879-17"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>weather,  <span class="st">&#39;weather&#39;</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Through the <code>con</code> connection object, create links to the <code>flights</code> and <code>airlines</code> tables.</li>
-<li>From the <code>flights</code> table, summarize the percent of flights that are delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.</li>
+<li>From the <code>flights</code> table, summarize the percent of flights with a departure delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.</li>
 <li>Using the <code>dbDisconnect()</code> command to close the connection <code>con</code>.</li>
 </ol></li>
 <li>For this exercise, we’ll start a SQLite database and see that the SQLite application stores the data in a very specialized file structure, which usually has a file extension of <code>.db</code> or <code>.sqlite</code>.

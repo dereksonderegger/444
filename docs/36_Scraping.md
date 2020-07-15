@@ -187,12 +187,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nCharting The Generational Gaps In Music Knowledge\n"                                                
-## [2] "\nAnatomy Of A Well-Crafted Rental Phishing Scam\n"                                                   
-## [3] "\nThis Footage Of A Cameraman Filming A Nuclear Test And Getting Hit By The Shockwave Is Truly Wild\n"
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                          
-## [5] "\nYou Can Really Hear In This Video How Deserted The Las Vegas Strip Is\n"                            
-## [6] "\nA Visualization Of The Projected Deaths Of COVID-19 Compared To Other Leading Causes\n"
+## [1] "\nThe Flukish, Fascinating Rise — And Sudden Disappearance — Of The 2019 Kentucky Derby Champ\n"
+## [2] "\nFlorida Lawyer Finds The Most Florida Way To Protest The Re-Opening Of Beaches\n"             
+## [3] "\nThe Nine Best Movies You Can Now Watch At Home\n"                                             
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                    
+## [5] "\nWill Ferrell Crashes Seattle Seahawk Zoom Meeting By Joining As New Team Member\n"            
+## [6] "\nThe Battle That Chicago Forgot\n"
 ```
 
 
@@ -207,12 +207,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://pudding.cool/2020/04/music-challenge/?utm_source=digg"                                             
-## [2] "https://jeffreyladish.com/anatomy-of-a-rental-phishing-scam/?utm_source=digg"                              
-## [3] "/video/this-footage-of-a-cameraman-filming-a-nuclear-test-and-getting-hit-by-the-shockwave-is-truly-wild"  
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"               
-## [5] "/2020/las-vegas-strip-quiet-birds"                                                                         
-## [6] "https://www.statnews.com/2020/04/30/coronavirus-death-projections-compare-causes-of-death/?utm_source=digg"
+## [1] "https://www.si.com/horse-racing/2020/05/01/country-house-2019-kentucky-derby-one-year-later?utm_source=digg"
+## [2] "/2020/daniel-uhlfelder-grim-reaper-florida-protest"                                                         
+## [3] "https://www.vox.com/culture/2020/5/1/21242628/best-movies-streaming-netflix-hbo?utm_source=digg"            
+## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                
+## [5] "/2020/will-ferrell-crashes-seattle-seahawk-meeting"                                                         
+## [6] "http://www.chicagomag.com/city-life/May-2020/The-Battle-of-the-Viaduct-1877/?utm_source=digg"
 ```
 
 
