@@ -1,7 +1,7 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 # Graphing Part II
 
@@ -16,6 +16,9 @@ if( length(pkgs > 0)){
     detach(pkgs[i], character.only = TRUE, force=TRUE)
   }
 }
+
+# library(webshot)  # when I knit to pdf, I need the web stuff to be 
+# webshot::install_phantomjs(force=TRUE)  # rendered as still images.
 
 knitr::opts_chunk$set(cache=TRUE, fig.height=4, fig.width=6)
 ```

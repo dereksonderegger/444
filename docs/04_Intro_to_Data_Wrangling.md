@@ -26,6 +26,31 @@ For example, if we wanted to start with `x`, and first apply function `f()`, the
 | `b %>% f(a, .)`     |   `f(a, b)`    |
 | `x %>% f() %>% g()` |  `g( f(x) )`   |
 
+
+```r
+# This code is not particularly readable because
+# the order of summing vs taking absolute value isn't 
+# completely obvious. 
+sum(abs(c(-1,0,1)))
+```
+
+```
+## [1] 2
+```
+
+```r
+# But using the pipe function, it is blatantly obvious
+# what order the operations are done in. 
+c( -1, 0, 1) %>%  # take a vector of values
+  abs()  %>%      # take the absolute value of each
+  sum()           # add them up.
+```
+
+```
+## [1] 2
+```
+
+
 In `dplyr`, all the functions below take a _data set as its first argument_ and _outputs an appropriately modified data set_. This will allow me to chain together commands in a readable fashion. The pipe command works with any function, not just the `dplyr` functions and I often find myself using it all over the place.
 
 
@@ -33,7 +58,9 @@ In `dplyr`, all the functions below take a _data set as its first argument_ and 
 
 The foundational operations to perform on a data set are:
 
-* `add_row` - Add an additional row of data.
+* Adding rows 
+    - `add_row` - Add an additional single row of data, specified by cell
+    - `bind_rows` - Add additional rows of data, specified by a single data frame.
 
 * Subsetting - Returns a data set with particular columns or rows
 
@@ -57,23 +84,14 @@ To demonstrate all of these actions, we will consider a tiny dataset of a gradeb
 
 ```r
 # Create a tiny data frame that is easy to see what is happening
-grades <- tribble(
+Mentors <- tribble(
   ~l.name, ~Gender, ~Exam1, ~Exam2, ~Final,
   'Cox',     'M',     93,     98,     96,
+  'Kelso',   'M',     80,     82,     81)
+Residents <- tribble(
+  ~l.name, ~Gender, ~Exam1, ~Exam2, ~Final,
   'Dorian',  'M',     89,     70,     85,
-  'Kelso',   'M',     80,     82,     81,
   'Turk',    'M',     70,     85,     92)
-grades
-```
-
-```
-## # A tibble: 4 x 5
-##   l.name Gender Exam1 Exam2 Final
-##   <chr>  <chr>  <dbl> <dbl> <dbl>
-## 1 Cox    M         93    98    96
-## 2 Dorian M         89    70    85
-## 3 Kelso  M         80    82    81
-## 4 Turk   M         70    85    92
 ```
 
 
@@ -81,25 +99,44 @@ grades
 Suppose that we want to add a row to our dataset. We can give it as much or as little information as we want and any missing information will be denoted as missing using a `NA` which stands for *N*ot *A*vailable.
 
 ```r
-grades %>% add_row( l.name='Reid', Exam1=95, Exam2=92)
+Residents  %>% 
+  add_row( l.name='Reid', Exam1=95, Exam2=92)
 ```
 
 ```
-## # A tibble: 5 x 5
+## # A tibble: 3 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   <chr>  <chr>  <dbl> <dbl> <dbl>
-## 1 Cox    M         93    98    96
-## 2 Dorian M         89    70    85
-## 3 Kelso  M         80    82    81
-## 4 Turk   M         70    85    92
-## 5 Reid   <NA>      95    92    NA
+## 1 Dorian M         89    70    85
+## 2 Turk   M         70    85    92
+## 3 Reid   <NA>      95    92    NA
 ```
 
 Because we didn't assign the result of our previous calculation to any object name, R just printed the result. Instead, lets add all of Dr Reid's information and save the result by *overwritting* the `grades` data.frame with the new version.
 
 ```r
-grades <- grades %>%
+Residents <- Residents %>%
   add_row( l.name='Reid', Gender='F', Exam1=95, Exam2=92, Final=100)
+Residents
+```
+
+```
+## # A tibble: 3 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Dorian M         89    70    85
+## 2 Turk   M         70    85    92
+## 3 Reid   F         95    92   100
+```
+
+### `bind_rows`
+To combine two data frames together, we'll bind them together using `bind_rows()`. We just need to specify the order to stack them. 
+
+```r
+# now to combine two data frames by stacking Mentors first and then Residents
+grades <- Mentors %>%
+  bind_rows(Residents)
+
 grades
 ```
 
@@ -108,8 +145,8 @@ grades
 ##   l.name Gender Exam1 Exam2 Final
 ##   <chr>  <chr>  <dbl> <dbl> <dbl>
 ## 1 Cox    M         93    98    96
-## 2 Dorian M         89    70    85
-## 3 Kelso  M         80    82    81
+## 2 Kelso  M         80    82    81
+## 3 Dorian M         89    70    85
 ## 4 Turk   M         70    85    92
 ## 5 Reid   F         95    92   100
 ```
@@ -121,8 +158,7 @@ These function allows you select certain columns and rows of a data frame.
 
 #### `select()`
 
-Often you only want to work with a small number of columns of a data frame and want to be able to *select* a subset of columns or perhaps remove a subset. The function to do that is `dplyr::select()`  
-
+Often you only want to work with a small number of columns of a data frame and want to be able to *select* a subset of columns or perhaps remove a subset. The function to do that is `dplyr::select()`. 
 
 I could select the columns Exam columns by hand, or by using an extension of the `:` operator
 
@@ -136,8 +172,8 @@ grades %>% select( Exam1, Exam2 )   # Exam1 and Exam2
 ##   Exam1 Exam2
 ##   <dbl> <dbl>
 ## 1    93    98
-## 2    89    70
-## 3    80    82
+## 2    80    82
+## 3    89    70
 ## 4    70    85
 ## 5    95    92
 ```
@@ -151,8 +187,8 @@ grades %>% select( Exam1:Final )    # Columns Exam1 through Final
 ##   Exam1 Exam2 Final
 ##   <dbl> <dbl> <dbl>
 ## 1    93    98    96
-## 2    89    70    85
-## 3    80    82    81
+## 2    80    82    81
+## 3    89    70    85
 ## 4    70    85    92
 ## 5    95    92   100
 ```
@@ -166,8 +202,8 @@ grades %>% select( -Exam1 )         # Negative indexing by name drops a column
 ##   l.name Gender Exam2 Final
 ##   <chr>  <chr>  <dbl> <dbl>
 ## 1 Cox    M         98    96
-## 2 Dorian M         70    85
-## 3 Kelso  M         82    81
+## 2 Kelso  M         82    81
+## 3 Dorian M         70    85
 ## 4 Turk   M         85    92
 ## 5 Reid   F         92   100
 ```
@@ -181,8 +217,8 @@ grades %>% select( 1:2 )            # Can select column by column position
 ##   l.name Gender
 ##   <chr>  <chr> 
 ## 1 Cox    M     
-## 2 Dorian M     
-## 3 Kelso  M     
+## 2 Kelso  M     
+## 3 Dorian M     
 ## 4 Turk   M     
 ## 5 Reid   F
 ```
@@ -198,8 +234,8 @@ grades %>% select( starts_with('Exam') )   # Exam1 and Exam2
 ##   Exam1 Exam2
 ##   <dbl> <dbl>
 ## 1    93    98
-## 2    89    70
-## 3    80    82
+## 2    80    82
+## 3    89    70
 ## 4    70    85
 ## 5    95    92
 ```
@@ -213,8 +249,8 @@ grades %>% select( starts_with('Exam'), starts_with('F') )
 ##   Exam1 Exam2 Final
 ##   <dbl> <dbl> <dbl>
 ## 1    93    98    96
-## 2    89    70    85
-## 3    80    82    81
+## 2    80    82    81
+## 3    89    70    85
 ## 4    70    85    92
 ## 5    95    92   100
 ```
@@ -282,7 +318,7 @@ grades %>% slice(1:2)
 ##   l.name Gender Exam1 Exam2 Final
 ##   <chr>  <chr>  <dbl> <dbl> <dbl>
 ## 1 Cox    M         93    98    96
-## 2 Dorian M         89    70    85
+## 2 Kelso  M         80    82    81
 ```
 
 ### `arrange()`
@@ -321,38 +357,25 @@ grades %>% arrange(desc(Final))
 ## 5 Kelso  M         80    82    81
 ```
 
-In a more complicated example, consider the following data and we want to order it first by Treatment Level and secondarily by the y-value. I want the Treatment level in the default ascending order (Low, Medium, High), but the y variable in descending order.
+We can also order a data frame by multiple columns.
 
 ```r
-# make some data
-dd <- data.frame(
-  Trt = factor(c("High", "Med", "High", "Low"),        
-               levels = c("Low", "Med", "High")),
-  y = c(8, 3, 9, 9),      
-  z = c(1, 1, 1, 2)) 
-dd
+# Arrange by Gender first, then within each gender, order by Exam2
+grades %>% arrange(Gender, desc(Exam2))  
 ```
 
 ```
-##    Trt y z
-## 1 High 8 1
-## 2  Med 3 1
-## 3 High 9 1
-## 4  Low 9 2
+## # A tibble: 5 x 5
+##   l.name Gender Exam1 Exam2 Final
+##   <chr>  <chr>  <dbl> <dbl> <dbl>
+## 1 Reid   F         95    92   100
+## 2 Cox    M         93    98    96
+## 3 Turk   M         70    85    92
+## 4 Kelso  M         80    82    81
+## 5 Dorian M         89    70    85
 ```
 
-```r
-# arrange the rows first by treatment, and then by y (y in descending order)
-dd %>% arrange(Trt, desc(y))
-```
 
-```
-##    Trt y z
-## 1  Low 9 2
-## 2  Med 3 1
-## 3 High 9 1
-## 4 High 8 1
-```
 
 ### mutate()
 
@@ -373,8 +396,8 @@ grades
 ##   l.name Gender Exam1 Exam2 Final average grade
 ##   <chr>  <chr>  <dbl> <dbl> <dbl>   <dbl> <fct>
 ## 1 Cox    M         93    98    96    95.7 A    
-## 2 Dorian M         89    70    85    81.3 B    
-## 3 Kelso  M         80    82    81    81   B    
+## 2 Kelso  M         80    82    81    81   B    
+## 3 Dorian M         89    70    85    81.3 B    
 ## 4 Turk   M         70    85    92    82.3 B    
 ## 5 Reid   F         95    92   100    95.7 A
 ```
@@ -385,7 +408,7 @@ The `if_else` syntax is `if_else( logical.expression, TrueValue, FalseValue )`. 
 
 
 ```r
-# Update Doctor Reids Final Exam score to be a 98, leave everybody elses the same.
+# Update Doctor Reids Final Exam score to be a 98, leave everybody else's the same.
 grades <- grades %>%
   mutate( Final = if_else(l.name == 'Reid', 98, Final ) )
 grades
@@ -396,8 +419,8 @@ grades
 ##   l.name Gender Exam1 Exam2 Final average grade
 ##   <chr>  <chr>  <dbl> <dbl> <dbl>   <dbl> <fct>
 ## 1 Cox    M         93    98    96    95.7 A    
-## 2 Dorian M         89    70    85    81.3 B    
-## 3 Kelso  M         80    82    81    81   B    
+## 2 Kelso  M         80    82    81    81   B    
+## 3 Dorian M         89    70    85    81.3 B    
 ## 4 Turk   M         70    85    92    82.3 B    
 ## 5 Reid   F         95    92    98    95.7 A
 ```
@@ -417,16 +440,16 @@ grades
 ##   l.name Gender Exam1 Exam2 Final average grade
 ##   <chr>  <chr>  <dbl> <dbl> <dbl>   <dbl> <fct>
 ## 1 Cox    Male      93    98    96    95.7 A    
-## 2 Dorian Male      89    70    85    81.3 B    
-## 3 Kelso  Male      80    82    81    81   B    
+## 2 Kelso  Male      80    82    81    81   B    
+## 3 Dorian Male      89    70    85    81.3 B    
 ## 4 Turk   Male      70    85    92    82.3 B    
 ## 5 Reid   Female    95    92    98    95.7 A
 ```
 
 
-To do something similar for the case where we have 3 or more categories, we could use the `ifelse()` command repeatedly to address each category level seperately. However because the `ifelse` command is limited to just two cases, it would be nice if there was a generalization to multiple categories. The  `dplyr::case_when` function is that generalization. The synax is `case_when( logicalExpression1~Value1, logicalExpression2~Value2, ... )`. We can have as many `LogicalExpression ~ Value` pairs as we want. 
+To do something similar for the case where we have 3 or more categories, we could use the `ifelse()` command repeatedly to address each category level separately. However because the `ifelse` command is limited to just two cases, it would be nice if there was a generalization to multiple categories. The  `dplyr::case_when` function is that generalization. The syntax is `case_when( logicalExpression1~Value1, logicalExpression2~Value2, ... )`. We can have as many `LogicalExpression ~ Value` pairs as we want. 
 
- Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we'ved coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
+Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we've coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
 
 
 ```r
@@ -448,7 +471,7 @@ people
 ## 6  Deborah      0     3
 ```
 
-
+Now we'll update the gender and party columns to code these columns in a readable fashion.
 
 ```r
 people <- people %>%
@@ -479,6 +502,7 @@ As another alternative to the problem of recoding factor levels, we could use th
 ### summarise()
 
 By itself, this function is quite boring, but will become useful later on. Its purpose is to calculate summary statistics using any or all of the data columns. Notice that we get to chose the name of the new column. The way to think about this is that we are collapsing information stored in multiple rows into a single row of values.
+
 
 ```r
 # calculate the mean of exam 1
@@ -524,7 +548,9 @@ str(warpbreaks)
 ##  $ tension: Factor w/ 3 levels "L","M","H": 1 1 1 1 1 1 1 1 1 2 ...
 ```
 
-<img src="04_Intro_to_Data_Wrangling_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="04_Intro_to_Data_Wrangling_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+
+
 
 The first we must do is to create a data frame with additional information about how to break the data into sub-data frames. In this case, I want to break the data up into the 6 wool-by-tension combinations. Initially we will just figure out how many rows are in each wool-by-tension combination.
 
@@ -535,6 +561,10 @@ The first we must do is to create a data frame with additional information about
 warpbreaks %>% 
   group_by( wool, tension) %>%    # grouping
   summarise(n = n() )             # how many in each group
+```
+
+```
+## `summarise()` regrouping output by 'wool' (override with `.groups` argument)
 ```
 
 ```
@@ -561,6 +591,10 @@ warpbreaks %>%
   summarise( n           = n(),             # I added some formatting to show the
              mean.breaks = mean(breaks),    # reader I am calculating several
              sd.breaks   = sd(breaks))      # statistics.
+```
+
+```
+## `summarise()` regrouping output by 'wool' (override with `.groups` argument)
 ```
 
 ```

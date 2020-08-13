@@ -115,16 +115,16 @@ State_Pop %>% as_tibble()
 ## # A tibble: 60 x 12
 ##    Rank_current Rank_2010 State Population2019 Population2010 Percent_Change
 ##    <chr>        <chr>     <chr> <chr>          <chr>          <chr>         
-##  1 1            1         Cali… 39,512,223     37,254,523     6.1%          
+##  1 1            1         Cali… 39,512,223     37,253,956     6.1%          
 ##  2 2            2         Texas 28,995,881     25,145,561     15.3%         
 ##  3 3            4         Flor… 21,477,737     18,801,310     14.2%         
 ##  4 4            3         New … 19,453,561     19,378,102     0.4%          
 ##  5 5            6         Penn… 12,801,989     12,702,379     0.8%          
-##  6 6            5         Illi… 12,671,821     12,830,632     -1.2%         
+##  6 6            5         Illi… 12,671,821     12,830,632     –1.2%         
 ##  7 7            7         Ohio  11,689,100     11,536,504     1.3%          
 ##  8 8            9         Geor… 10,617,423     9,687,653      9.6%          
 ##  9 9            10        Nort… 10,488,084     9,535,483      10.0%         
-## 10 10           8         Mich… 9,986,857      9,883,640      1.0%          
+## 10 10           8         Mich… 9,986,857      9,883,640      1.04%         
 ## # … with 50 more rows, and 6 more variables: Absolute_Change <chr>,
 ## #   House_Seats <chr>, Population_Per_Electoral_Vote <chr>,
 ## #   Population_Per_House_Seat <chr>, Population_Per_House_Seat_2010 <chr>,
@@ -187,12 +187,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Flukish, Fascinating Rise — And Sudden Disappearance — Of The 2019 Kentucky Derby Champ\n"
-## [2] "\nFlorida Lawyer Finds The Most Florida Way To Protest The Re-Opening Of Beaches\n"             
-## [3] "\nThe Nine Best Movies You Can Now Watch At Home\n"                                             
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                    
-## [5] "\nWill Ferrell Crashes Seattle Seahawk Zoom Meeting By Joining As New Team Member\n"            
-## [6] "\nThe Battle That Chicago Forgot\n"
+## [1] "\nChevron Is Trying To Crush A Prominent Climate Lawyer — And Maybe The World\n"             
+## [2] "\nIt's Way Too Soon To Count Trump Out\n"                                                    
+## [3] "\nThe Most Common Birthdays In The US, Visualized\n"                                         
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                 
+## [5] "\nYouTuber Spends A Million Dollars On Lottery Tickets And Ends Up Winning An Absurd Prize\n"
+## [6] "\nWhat To Do, Scientifically, When Everyone Is Wrong\n"
 ```
 
 
@@ -207,12 +207,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.si.com/horse-racing/2020/05/01/country-house-2019-kentucky-derby-one-year-later?utm_source=digg"
-## [2] "/2020/daniel-uhlfelder-grim-reaper-florida-protest"                                                         
-## [3] "https://www.vox.com/culture/2020/5/1/21242628/best-movies-streaming-netflix-hbo?utm_source=digg"            
-## [4] "https://clk.tradedoubler.com/click?p=264355&a=2947467&g=24578838&epi=digghp?utm_source=digg"                
-## [5] "/2020/will-ferrell-crashes-seattle-seahawk-meeting"                                                         
-## [6] "http://www.chicagomag.com/city-life/May-2020/The-Battle-of-the-Viaduct-1877/?utm_source=digg"
+## [1] "https://earther.gizmodo.com/chevron-is-trying-to-crush-a-prominent-climate-lawyer-a-1844685508?utm_source=digg"                        
+## [2] "https://fivethirtyeight.com/features/its-way-too-soon-to-count-trump-out/?utm_source=digg"                                             
+## [3] "/2020/the-most-common-birthdays-in-the-us-visualized"                                                                                  
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                           
+## [5] "/video/youtuber-spends-a-million-dollars-on-lottery-ticket"                                                                            
+## [6] "https://www.forbes.com/sites/startswithabang/2020/08/11/what-to-do-scientifically-when-everyone-is-wrong/#75e6924a8aea?utm_source=digg"
 ```
 
 

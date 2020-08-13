@@ -279,6 +279,10 @@ Dems %>%
   ggplot( aes(x=Candidate, y=Percent)) + geom_col() + coord_flip()
 ```
 
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
 <img src="07_Factors_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 

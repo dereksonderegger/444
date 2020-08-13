@@ -496,8 +496,7 @@ data$Name       # The $-sign means to reference a column by its label
 ```
 
 ```
-## [1] Bob  Jeff Mary
-## Levels: Bob Jeff Mary
+## [1] "Bob"  "Jeff" "Mary"
 ```
 
 ```r
@@ -505,8 +504,7 @@ data$Name[2]    # Notice that data$Name results in a vector, which I can manipul
 ```
 
 ```
-## [1] Jeff
-## Levels: Bob Jeff Mary
+## [1] "Jeff"
 ```
 
 I can mix the `[ ]` notation with the column names. The following is also acceptable:
@@ -517,8 +515,7 @@ data[, 'Name']   # Grab the column labeled 'Name'
 ```
 
 ```
-## [1] Bob  Jeff Mary
-## Levels: Bob Jeff Mary
+## [1] "Bob"  "Jeff" "Mary"
 ```
 
 
@@ -688,7 +685,7 @@ str(Derek)
 ##  $ Pets           : chr [1:3] "Beau" "Tess" "Kaylee"
 ##  $ Spawn          : chr [1:2] "Elise" "Casey"
 ##  $ RandomDataFrame:'data.frame':	3 obs. of  4 variables:
-##   ..$ Name  : Factor w/ 3 levels "Bob","Jeff","Mary": 1 2 3
+##   ..$ Name  : chr [1:3] "Bob" "Jeff" "Mary"
 ##   ..$ Score : num [1:3] 90 75 92
 ##   ..$ Score2: num [1:3] 41 42 43
 ##   ..$ Score3: num [1:3] 61 62 63

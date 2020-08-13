@@ -36,6 +36,20 @@ For example, if we wanted to start with `x`, and first apply function `f()`, the
 | `b %>% f(a, .)`     |   `f(a, b)`    |
 | `x %>% f() %>% g()` |  `g( f(x) )`   |
 
+```{r}
+# This code is not particularly readable because
+# the order of summing vs taking absolute value isn't 
+# completely obvious. 
+sum(abs(c(-1,0,1)))
+
+# But using the pipe function, it is blatantly obvious
+# what order the operations are done in. 
+c( -1, 0, 1) %>%  # take a vector of values
+  abs()  %>%      # take the absolute value of each
+  sum()           # add them up.
+```
+
+
 In `dplyr`, all the functions below take a _data set as its first argument_ and _outputs an appropriately modified data set_. This will allow me to chain together commands in a readable fashion. The pipe command works with any function, not just the `dplyr` functions and I often find myself using it all over the place.
 
 
@@ -43,7 +57,9 @@ In `dplyr`, all the functions below take a _data set as its first argument_ and 
 
 The foundational operations to perform on a data set are:
 
-* `add_row` - Add an additional row of data.
+* Adding rows 
+    - `add_row` - Add an additional single row of data, specified by cell
+    - `bind_rows` - Add additional rows of data, specified by a single data frame.
 
 * Subsetting - Returns a data set with particular columns or rows
 
@@ -66,26 +82,38 @@ To demonstrate all of these actions, we will consider a tiny dataset of a gradeb
 
 ```{r}
 # Create a tiny data frame that is easy to see what is happening
-grades <- tribble(
+Mentors <- tribble(
   ~l.name, ~Gender, ~Exam1, ~Exam2, ~Final,
   'Cox',     'M',     93,     98,     96,
+  'Kelso',   'M',     80,     82,     81)
+Residents <- tribble(
+  ~l.name, ~Gender, ~Exam1, ~Exam2, ~Final,
   'Dorian',  'M',     89,     70,     85,
-  'Kelso',   'M',     80,     82,     81,
   'Turk',    'M',     70,     85,     92)
-grades
 ```
 
 
 ### `add_row`
 Suppose that we want to add a row to our dataset. We can give it as much or as little information as we want and any missing information will be denoted as missing using a `NA` which stands for *N*ot *A*vailable.
 ```{r}
-grades %>% add_row( l.name='Reid', Exam1=95, Exam2=92)
+Residents  %>% 
+  add_row( l.name='Reid', Exam1=95, Exam2=92)
 ```
 
 Because we didn't assign the result of our previous calculation to any object name, R just printed the result. Instead, lets add all of Dr Reid's information and save the result by *overwritting* the `grades` data.frame with the new version.
 ```{r}
-grades <- grades %>%
+Residents <- Residents %>%
   add_row( l.name='Reid', Gender='F', Exam1=95, Exam2=92, Final=100)
+Residents
+```
+
+### `bind_rows`
+To combine two data frames together, we'll bind them together using `bind_rows()`. We just need to specify the order to stack them. 
+```{r}
+# now to combine two data frames by stacking Mentors first and then Residents
+grades <- Mentors %>%
+  bind_rows(Residents)
+
 grades
 ```
 
@@ -96,8 +124,7 @@ These function allows you select certain columns and rows of a data frame.
 
 #### `select()`
 
-Often you only want to work with a small number of columns of a data frame and want to be able to *select* a subset of columns or perhaps remove a subset. The function to do that is `dplyr::select()`  
-
+Often you only want to work with a small number of columns of a data frame and want to be able to *select* a subset of columns or perhaps remove a subset. The function to do that is `dplyr::select()`. 
 
 I could select the columns Exam columns by hand, or by using an extension of the `:` operator
 ```{r}
@@ -154,18 +181,13 @@ The default sorting is in ascending order, so to sort the grades with the highes
 grades %>% arrange(desc(Final))
 ```
 
-In a more complicated example, consider the following data and we want to order it first by Treatment Level and secondarily by the y-value. I want the Treatment level in the default ascending order (Low, Medium, High), but the y variable in descending order.
+We can also order a data frame by multiple columns.
 ```{r}
-# make some data
-dd <- data.frame(
-  Trt = factor(c("High", "Med", "High", "Low"),        
-               levels = c("Low", "Med", "High")),
-  y = c(8, 3, 9, 9),      
-  z = c(1, 1, 1, 2)) 
-dd
-# arrange the rows first by treatment, and then by y (y in descending order)
-dd %>% arrange(Trt, desc(y))
+# Arrange by Gender first, then within each gender, order by Exam2
+grades %>% arrange(Gender, desc(Exam2))  
 ```
+
+
 
 ### mutate()
 
@@ -185,7 +207,7 @@ If we want to update some column information we will also use the `mutate` comma
 The `if_else` syntax is `if_else( logical.expression, TrueValue, FalseValue )`. We can use this to update a score in our gradebook.
 
 ```{r}
-# Update Doctor Reids Final Exam score to be a 98, leave everybody elses the same.
+# Update Doctor Reids Final Exam score to be a 98, leave everybody else's the same.
 grades <- grades %>%
   mutate( Final = if_else(l.name == 'Reid', 98, Final ) )
 grades
@@ -201,9 +223,9 @@ grades
 ```
 
 
-To do something similar for the case where we have 3 or more categories, we could use the `ifelse()` command repeatedly to address each category level seperately. However because the `ifelse` command is limited to just two cases, it would be nice if there was a generalization to multiple categories. The  `dplyr::case_when` function is that generalization. The synax is `case_when( logicalExpression1~Value1, logicalExpression2~Value2, ... )`. We can have as many `LogicalExpression ~ Value` pairs as we want. 
+To do something similar for the case where we have 3 or more categories, we could use the `ifelse()` command repeatedly to address each category level separately. However because the `ifelse` command is limited to just two cases, it would be nice if there was a generalization to multiple categories. The  `dplyr::case_when` function is that generalization. The syntax is `case_when( logicalExpression1~Value1, logicalExpression2~Value2, ... )`. We can have as many `LogicalExpression ~ Value` pairs as we want. 
 
- Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we'ved coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
+Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we've coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
 
 ```{r}
 people <- data.frame(
@@ -214,7 +236,7 @@ people <- data.frame(
 people
 ```
 
-
+Now we'll update the gender and party columns to code these columns in a readable fashion.
 ```{r}
 people <- people %>%
   mutate( gender = if_else( gender == 0, 'Female', 'Male') ) %>%
@@ -223,7 +245,6 @@ people <- people %>%
                              party == 3 ~ 'Independent',
                              TRUE       ~ 'None Stated' ) )
 people
-
 ```
 
 Often the last case is a catch all case where the logical expression will ALWAYS evaluate to TRUE and this is the value for all other input.
@@ -235,6 +256,7 @@ As another alternative to the problem of recoding factor levels, we could use th
 ### summarise()
 
 By itself, this function is quite boring, but will become useful later on. Its purpose is to calculate summary statistics using any or all of the data columns. Notice that we get to chose the name of the new column. The way to think about this is that we are collapsing information stored in multiple rows into a single row of values.
+
 ```{r}
 # calculate the mean of exam 1
 grades %>% summarise( mean.E1=mean(Exam1) )
@@ -258,8 +280,12 @@ str(warpbreaks)
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE, fig.height=2.5}
 library(ggplot2)
-ggplot2::ggplot(warpbreaks, aes(x=tension, y=breaks, color=wool)) + ggplot2::geom_point() + facet_grid(~wool)
+ggplot2::ggplot(warpbreaks, aes(x=tension, y=breaks, color=wool)) +
+  ggplot2::geom_point() + 
+  facet_grid(~wool)
 ```
+
+
 
 The first we must do is to create a data frame with additional information about how to break the data into sub-data frames. In this case, I want to break the data up into the 6 wool-by-tension combinations. Initially we will just figure out how many rows are in each wool-by-tension combination.
 ```{r}
