@@ -501,22 +501,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Finally, I often need to figure out if a character string is in some set of values.</p>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="6-flow-control.html#cb214-1"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Type =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">Value=</span><span class="kw">rnorm</span>(<span class="dv">8</span>) )</span>
 <span id="cb214-2"><a href="6-flow-control.html#cb214-2"></a>df</span></code></pre></div>
-<pre><code>##   Type      Value
-## 1    A -0.5621961
-## 2    A -0.0547407
-## 3    B -0.7492064
-## 4    B -0.3718418
-## 5    C -0.9654920
-## 6    C  2.1985459
-## 7    D  1.2373905
-## 8    D -0.7724640</code></pre>
+<pre><code>##   Type       Value
+## 1    A -0.13104751
+## 2    A -0.89974967
+## 3    B -0.63214498
+## 4    B -0.38783167
+## 5    C -0.09342882
+## 6    C -0.10343588
+## 7    D  1.77136100
+## 8    D  0.02009946</code></pre>
 <div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="6-flow-control.html#cb216-1"></a><span class="co"># df %&gt;% filter( Type == &#39;A&#39; | Type == &#39;B&#39; )</span></span>
 <span id="cb216-2"><a href="6-flow-control.html#cb216-2"></a>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) )   <span class="co"># Only rows with Type == &#39;A&#39; or Type ==&#39;B&#39;</span></span></code></pre></div>
 <pre><code>##   Type      Value
-## 1    A -0.5621961
-## 2    A -0.0547407
-## 3    B -0.7492064
-## 4    B -0.3718418</code></pre>
+## 1    A -0.1310475
+## 2    A -0.8997497
+## 3    B -0.6321450
+## 4    B -0.3878317</code></pre>
 </div>
 <div id="decision-statements" class="section level2">
 <h2><span class="header-section-number">6.2</span> Decision statements</h2>
@@ -584,7 +584,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="6-flow-control.html#cb225-1"></a><span class="co"># Flip the coin, and we get a 0 or 1</span></span>
 <span id="cb225-2"><a href="6-flow-control.html#cb225-2"></a>result &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</span>
 <span id="cb225-3"><a href="6-flow-control.html#cb225-3"></a>result</span></code></pre></div>
-<pre><code>## [1] 0</code></pre>
+<pre><code>## [1] 1</code></pre>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="6-flow-control.html#cb227-1"></a><span class="co"># convert the 0/1 to Tail/Head</span></span>
 <span id="cb227-2"><a href="6-flow-control.html#cb227-2"></a><span class="cf">if</span>( result <span class="op">==</span><span class="st"> </span><span class="dv">0</span> ){</span>
 <span id="cb227-3"><a href="6-flow-control.html#cb227-3"></a>  result &lt;-<span class="st"> &#39;Tail&#39;</span></span>
@@ -593,9 +593,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb227-6"><a href="6-flow-control.html#cb227-6"></a>  result &lt;-<span class="st"> &#39;Head&#39;</span></span>
 <span id="cb227-7"><a href="6-flow-control.html#cb227-7"></a>  <span class="kw">print</span>(<span class="st">&quot;In the else part!&quot;</span>) </span>
 <span id="cb227-8"><a href="6-flow-control.html#cb227-8"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot; in the if statement, got a Tail! &quot;</code></pre>
+<pre><code>## [1] &quot;In the else part!&quot;</code></pre>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="6-flow-control.html#cb229-1"></a>result</span></code></pre></div>
-<pre><code>## [1] &quot;Tail&quot;</code></pre>
+<pre><code>## [1] &quot;Head&quot;</code></pre>
 <p>Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable <code>result</code> changes as you execute the code repeatedly.</p>
 <p>To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:</p>
 <ul>
@@ -617,7 +617,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb231-13"><a href="6-flow-control.html#cb231-13"></a></span>
 <span id="cb231-14"><a href="6-flow-control.html#cb231-14"></a><span class="co"># print the resulting p-value</span></span>
 <span id="cb231-15"><a href="6-flow-control.html#cb231-15"></a>p.value</span></code></pre></div>
-<pre><code>## [1] 2.806523e-08</code></pre>
+<pre><code>## [1] 8.949734e-09</code></pre>
 <p>This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the <code>t.test()</code> function.</p>
 <p>Finally we can nest if else statements together to allow you to write code that has many different execution routes.</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="6-flow-control.html#cb233-1"></a><span class="co"># randomly grab a number between 0,5 and round it up to 1,2, ..., 5</span></span>
@@ -632,7 +632,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb233-10"><a href="6-flow-control.html#cb233-10"></a>  <span class="co"># if birth.order is anything other than 1, 2 or 3</span></span>
 <span id="cb233-11"><a href="6-flow-control.html#cb233-11"></a>  <span class="kw">print</span>(<span class="st">&#39;No more unfounded generalizations!&#39;</span>)</span>
 <span id="cb233-12"><a href="6-flow-control.html#cb233-12"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;No more unfounded generalizations!&quot;</code></pre>
+<pre><code>## [1] &quot;The second child was ignored&quot;</code></pre>
 </div>
 </div>
 <div id="loops" class="section level2">
@@ -962,7 +962,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": [["Introduction_to_DataScience_with_R.pdf", "PDF"], ["Introduction_to_DataScience_with_R.epub", "EPUB"]],
+"download": [["Introduction_to_DataScience_with_R.pdf", "PDF"]],
 "toc": {
 "collapse": "section",
 "scroll_highlight": true

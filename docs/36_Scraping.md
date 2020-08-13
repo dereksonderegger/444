@@ -187,11 +187,11 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nChevron Is Trying To Crush A Prominent Climate Lawyer — And Maybe The World\n"             
-## [2] "\nIt's Way Too Soon To Count Trump Out\n"                                                    
-## [3] "\nThe Most Common Birthdays In The US, Visualized\n"                                         
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                 
-## [5] "\nYouTuber Spends A Million Dollars On Lottery Tickets And Ends Up Winning An Absurd Prize\n"
+## [1] "\nChevron Is Trying To Crush A Prominent Climate Lawyer — And Maybe The World\n"                                   
+## [2] "\nIt's Way Too Soon To Count Trump Out\n"                                                                          
+## [3] "\nThe Most Common Birthdays In The US, Visualized\n"                                                               
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                       
+## [5] "\nHere Were All The Highlights From Joe Biden And Kamala Harris's First Campaign Event Together In Three Minutes\n"
 ## [6] "\nWhat To Do, Scientifically, When Everyone Is Wrong\n"
 ```
 
@@ -211,7 +211,7 @@ Links %>%
 ## [2] "https://fivethirtyeight.com/features/its-way-too-soon-to-count-trump-out/?utm_source=digg"                                             
 ## [3] "/2020/the-most-common-birthdays-in-the-us-visualized"                                                                                  
 ## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                           
-## [5] "/video/youtuber-spends-a-million-dollars-on-lottery-ticket"                                                                            
+## [5] "/video/all-the-highlights-from-joe-biden-and-kamala-harriss-first-campaign-event-together"                                             
 ## [6] "https://www.forbes.com/sites/startswithabang/2020/08/11/what-to-do-scientifically-when-everyone-is-wrong/#75e6924a8aea?utm_source=digg"
 ```
 
