@@ -187,12 +187,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nChevron Is Trying To Crush A Prominent Climate Lawyer — And Maybe The World\n"                                   
-## [2] "\nIt's Way Too Soon To Count Trump Out\n"                                                                          
-## [3] "\nThe Most Common Birthdays In The US, Visualized\n"                                                               
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                       
-## [5] "\nHere Were All The Highlights From Joe Biden And Kamala Harris's First Campaign Event Together In Three Minutes\n"
-## [6] "\nWhat To Do, Scientifically, When Everyone Is Wrong\n"
+## [1] "\nThe Most Tremendous Reelection Campaign In American History Ever\n"                                    
+## [2] "\nThe Number Of COVID-19 Deaths Per Million People In Countries Around The World, Visualized\n"          
+## [3] "\nPolish Guy Documents The Effects Of Taking Russia's COVID-19 Vaccine. Things Take An Unexpected Turn\n"
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                             
+## [5] "\nGuy Buys A 5-Ton Truck That's 10 Feet Tall, And It's Monstrous To Look At\n"                           
+## [6] "\nThe Hero We Need Built A Gun That Shoots Masks Onto People's Faces\n"
 ```
 
 
@@ -207,12 +207,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://earther.gizmodo.com/chevron-is-trying-to-crush-a-prominent-climate-lawyer-a-1844685508?utm_source=digg"                        
-## [2] "https://fivethirtyeight.com/features/its-way-too-soon-to-count-trump-out/?utm_source=digg"                                             
-## [3] "/2020/the-most-common-birthdays-in-the-us-visualized"                                                                                  
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                           
-## [5] "/video/all-the-highlights-from-joe-biden-and-kamala-harriss-first-campaign-event-together"                                             
-## [6] "https://www.forbes.com/sites/startswithabang/2020/08/11/what-to-do-scientifically-when-everyone-is-wrong/#75e6924a8aea?utm_source=digg"
+## [1] "https://nymag.com/intelligencer/article/donald-trump-reelection-campaign-2020.html?utm_source=digg"    
+## [2] "/2020/the-number-of-covid-19-deaths-per-million-people-in-countries-around-the-world-visualized"       
+## [3] "/video/guy-takes-russia-covid-19-vaccine-side-effect"                                                  
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                           
+## [5] "/video/5-ton-10-feet-truck"                                                                            
+## [6] "https://gizmodo.com/the-hero-we-need-built-a-gun-that-shoots-masks-onto-peo-1844748082?utm_source=digg"
 ```
 
 

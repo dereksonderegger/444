@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-08-12" />
+<meta name="date" content="2020-08-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -747,7 +747,7 @@ and the formula interpretation.</td>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="5-statistical-models.html#cb195-1"></a><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
 <span id="cb195-2"><a href="5-statistical-models.html#cb195-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb195-3"><a href="5-statistical-models.html#cb195-3"></a><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>fit) ) <span class="op">+</span></span>
-<span id="cb195-4"><a href="5-statistical-models.html#cb195-4"></a><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>( <span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">alpha=</span>.<span class="dv">3</span> )   <span class="co"># alpha is the ribbon transparency</span></span></code></pre></div>
+<span id="cb195-4"><a href="5-statistical-models.html#cb195-4"></a><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>( <span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr, <span class="dt">fill=</span>Species), <span class="dt">alpha=</span>.<span class="dv">3</span> )   <span class="co"># alpha is the ribbon transparency</span></span></code></pre></div>
 <p><img src="05_Model_Building_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Now to add the R-squared value to the graph, we need to add a simple text layer. To do that, I’ll make a data frame that has the information, and then add the x and y coordinates for where it should go.</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="5-statistical-models.html#cb196-1"></a>Rsq_string &lt;-<span class="st"> </span></span>

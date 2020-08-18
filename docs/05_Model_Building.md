@@ -332,7 +332,7 @@ Now that the fitted values that define the regression lines and the associated c
 ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
   geom_point() +
   geom_line( aes(y=fit) ) +
-  geom_ribbon( aes( ymin=lwr, ymax=upr), alpha=.3 )   # alpha is the ribbon transparency
+  geom_ribbon( aes( ymin=lwr, ymax=upr, fill=Species), alpha=.3 )   # alpha is the ribbon transparency
 ```
 
 <img src="05_Model_Building_files/figure-html/unnamed-chunk-13-1.png" width="672" />

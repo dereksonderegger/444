@@ -64,11 +64,11 @@ All the probability distributions available in R are accessed in exactly the sam
 +--------------------+-------------------------------------------------------------------+
 | Function           |    Result                                                         |
 +====================+===================================================================+
-| `d`-function(x)    | The height of the probability distribution/density at given $x$   |
+| `d`-function(x)    | The distance from the x-axis to the curve at a given $x$.         |
 +--------------------+-------------------------------------------------------------------+
-| `p`-function(x)    |  Probability less than or equal to `x`                            |
+| `p`-function(x)    |  Probability of an outcome less than or equal to `x`              |
 +--------------------+-------------------------------------------------------------------+
-| `q`-function(q)    |  The `q` quantile of the distribution.                            |
+| `q`-function(q)    |  The `q` quantile of the distribution (opposite of p-function).   |
 +--------------------+-------------------------------------------------------------------+
 | `r`-function(n)    |  Generate $n$ random observations from the distribution           |
 +--------------------+-------------------------------------------------------------------+
@@ -77,7 +77,7 @@ For each distribution in R, there will be this set of functions but we replace t
 
 ### d-function{-}
 
-The purpose of the d-function is to calculate the height of a probability mass function or a density function (The “d” actually stands for density).  Notice that for discrete distributions, this is the probability of observing that particular value, while for continuous distributions, the height doesn't have a nice physical interpretation.
+The purpose of the d-function is to calculate the distance from the x-axis to the density curve or height of a probability mass function. The “d” actually stands for density.  Notice that for discrete distributions, this is the probability of observing that particular value, while for continuous distributions, the height doesn't have a nice physical interpretation.
 
 We start with an example of the Binomial distribution. For $X\sim Binomial\left(n=10,\pi=.2\right)$ suppose we wanted to know $P(X=0)$? We know the probability mass function is 
 $$P\left(X=x\right)={n \choose x}\pi^{x}\left(1-\pi\right)^{n-x}$$ 
@@ -243,7 +243,7 @@ rnorm(5, mean=20, sd=2)
 ```
 
 ```
-## [1] 18.28607 21.71292 21.12989 18.60448 21.23558
+## [1] 18.59792 21.63808 22.36842 22.61581 19.03180
 ```
 
 ```r
@@ -251,7 +251,7 @@ rbinom(4, size=10, prob=.8)
 ```
 
 ```
-## [1]  6  7 10  8
+## [1] 9 8 8 9
 ```
 
 
