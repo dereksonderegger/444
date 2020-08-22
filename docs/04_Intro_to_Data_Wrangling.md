@@ -402,7 +402,7 @@ grades
 ## 5 Reid   F         95    92   100    95.7 A
 ```
 
-If we want to update some column information we will also use the `mutate` command, but we need some mechanism to selct the rows to change, while keeping all the other row values the same. The functions `if_else()` and `case_when()` are ideal for this task. 
+If we want to update some column information we will also use the `mutate` command, but we need some mechanism to select the rows to change, while keeping all the other row values the same. The functions `if_else()` and `case_when()` are ideal for this task. 
 
 The `if_else` syntax is `if_else( logical.expression, TrueValue, FalseValue )`. We can use this to update a score in our gradebook.
 
@@ -586,28 +586,16 @@ The `group_by` function takes a data.frame and returns the same data.frame, but 
 Using the same `summarise` function, we could calculate the group mean and standard deviation for each wool-by-tension group.
 
 ```r
-warpbreaks %>% 
+summary_table <- 
+  warpbreaks %>% 
   group_by(wool, tension) %>%
-  summarise( n           = n(),             # I added some formatting to show the
-             mean.breaks = mean(breaks),    # reader I am calculating several
-             sd.breaks   = sd(breaks))      # statistics.
+  summarise( n           = n() ,             # I added some formatting to show the
+             mean.breaks = mean(breaks),     # reader I am calculating several
+             sd.breaks   = sd(breaks) )      # statistics.
 ```
 
 ```
 ## `summarise()` regrouping output by 'wool' (override with `.groups` argument)
-```
-
-```
-## # A tibble: 6 x 5
-## # Groups:   wool [2]
-##   wool  tension     n mean.breaks sd.breaks
-##   <fct> <fct>   <int>       <dbl>     <dbl>
-## 1 A     L           9        44.6     18.1 
-## 2 A     M           9        24        8.66
-## 3 A     H           9        24.6     10.3 
-## 4 B     L           9        28.2      9.86
-## 5 B     M           9        28.8      9.43
-## 6 B     H           9        18.8      4.89
 ```
 
 If instead of summarizing each split, we might want to just do some calculation and the output should have the same number of rows as the input data frame. In this case I'll tell `dplyr` that we are mutating the data frame instead of summarizing it. For example, suppose that I want to calculate the residual value $$e_{ijk}=y_{ijk}-\bar{y}_{ij\cdot}$$ where $\bar{y}_{ij\cdot}$ is the mean of each `wool:tension` combination.

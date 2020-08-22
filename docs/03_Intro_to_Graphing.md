@@ -24,22 +24,23 @@ These notes are sufficient for creating simple graphs using `ggplot2`, but are n
 
 One way that `ggplot2` makes it easy to form very complicated graphs is that it provides a large number of basic building blocks that, when stacked upon each other, can produce extremely complicated graphs. A full list is available at [http://docs.ggplot2.org/current/](http://docs.ggplot2.org/current/) but the following list gives some idea of different building blocks. These different geometries are different ways to display the relationship between variables and can be combined in many interesting ways.
 
-| Geom	           |    Description	                                    |   Required Aesthetics  |
-|:-----------------|:---------------------------------------------------|:-----------------------|
-|`geom_histogram`	 |  A histogram                                       |	`x`                    |
-|`geom_bar`        |	A barplot (y is number of rows)                   |	`x`                    |
-|`geom_col`        |	A barplot (y is given by a column)                |	`x, y`                 |
-|`geom_density`    |  A density plot of data. (smoothed histogram)      | `x`                    |
-|`geom_boxplot`    | 	Boxplots                                          | `x, y`                 |
-|`geom_line`	     |  Draw a line (after sorting x-values)	            | `x, y`                 |
-|`geom_path`	     |  Draw a line (without sorting x-values)	          | `x, y`                 |
-|`geom_point`	     |  Draw points (for a scatterplot)	                  | `x, y`                 |
-|`geom_smooth`	   |  Add a ribbon that summarizes a scatterplot	      | `x, y`                 |
-|`geom_ribbon`	   |  Enclose a region, and color the interior          |	`ymin, ymax`           |
-|`geom_errorbar`   |	Error bars	                                      | `ymin, ymax`           |
-|`geom_text`	     |  Add text to a graph	                              | `x, y, label`          |
-|`geom_label`	     |  Add text to a graph	                              | `x, y, label`          |
-|`geom_tile`       |  Create Heat map                                   | `x, y, fill`           |
+|  Geom	           |    Description                                     |   Required Aesthetics  |
+|------------------|----------------------------------------------------|------------------------|
+| `geom_histogram` | A histogram                                        | `x`    |
+| `geom_bar`       | A barplot (y is number of rows)                    | `x`    |
+| `geom_col`       | A barplot (y is given by a column)                 | `x, y` |
+| `geom_density`   | A density plot of data. (smoothed histogram)       | `x`    |
+| `geom_boxplot`   | Boxplots                                           | `x, y` |
+| `geom_line`      | Draw a line (after sorting x-values)               | `x, y` |
+| `geom_path`      | Draw a line (without sorting x-values)             | `x, y` |
+| `geom_point`     | Draw points (for a scatterplot)                    | `x, y`                 |
+| `geom_smooth`	   |  Add a ribbon that summarizes a scatterplot        | `x, y`                 |
+| `geom_ribbon`	   | Enclose a region, and color the interior           | `ymin, ymax` |
+| `geom_errorbar`  | Error bars                                         | `ymin, ymax` |
+| `geom_text`      |  Add text to a graph                               | `x, y, label` |
+| `geom_label`     | Add text to a graph                                | `x, y, label`          |
+| `geom_tile`      |  Create Heat map                                   | `x, y, fill`           |
+
 
 A graph can be built up layer by layer, where:
 
@@ -75,7 +76,7 @@ str(iris)   # what columns do we have to play with...
 
 ```r
 ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length) ) +  
-	geom_point(  )
+	geom_point(  ) 
 ```
 
 <img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-4-1.png" width="672" />
@@ -182,12 +183,17 @@ ggplot(tips, aes(x = total_bill, y = tip / total_bill )) +
 
 <img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
-Sometimes we want multiple rows and columns of facets, but there is only one categorical variable with many levels. In that case we use facet_wrap which takes a one-sided formula.
+```r
+#  facet_grid( day ~ sex )  # changing orientation emphasizes certain comparisons!
+```
+
+Sometimes we want multiple rows and columns of the facets, but there is only one categorical variable with many levels. In that case we use facet_wrap which takes a one-sided formula.
 
 ```r
 ggplot(tips, aes(x = total_bill, y = tip / total_bill )) +
   geom_point() +
-  facet_wrap( ~ day )
+#  facet_grid( . ~ day)  # Four graphs in a row, Too Squished left/right!
+  facet_wrap( ~ day )   # spread graphs out both left/right and up/down.
 ```
 
 <img src="03_Intro_to_Graphing_files/figure-html/unnamed-chunk-12-1.png" width="672" />

@@ -98,11 +98,11 @@ State_Pop <-
   .[[1]] %>%                              # Grab the first table and 
   html_table(header=FALSE, fill=TRUE) %>% # convert it from HTML into a data.frame 
   magrittr::set_colnames(c('Rank_current','Rank_2010','State',
-            'Population2019', 'Population2010',
+            'Population2020', 'Population2010',
             'Percent_Change','Absolute_Change', 
-            'House_Seats', 'Population_Per_Electoral_Vote',
-            'Population_Per_House_Seat', 'Population_Per_House_Seat_2010',
-            'Percent_US_Population')) %>%
+            'House_Seats', 'Population_Per_Electoral_Vote')) %>%
+            # 'Population_Per_House_Seat', 'Population_Per_House_Seat_2010', # Wikipedia keeps changing this table
+            # 'Percent_US_Population')) %>%                                  # and the columns keep changing!  Aaarggh!
   slice(-1 * 1:2 )
 
 
@@ -112,8 +112,8 @@ State_Pop %>% as_tibble()
 ```
 
 ```
-## # A tibble: 60 x 12
-##    Rank_current Rank_2010 State Population2019 Population2010 Percent_Change
+## # A tibble: 60 x 9
+##    Rank_current Rank_2010 State Population2020 Population2010 Percent_Change
 ##    <chr>        <chr>     <chr> <chr>          <chr>          <chr>         
 ##  1 1            1         Cali… 39,512,223     37,253,956     6.1%          
 ##  2 2            2         Texas 28,995,881     25,145,561     15.3%         
@@ -121,14 +121,12 @@ State_Pop %>% as_tibble()
 ##  4 4            3         New … 19,453,561     19,378,102     0.4%          
 ##  5 5            6         Penn… 12,801,989     12,702,379     0.8%          
 ##  6 6            5         Illi… 12,671,821     12,830,632     –1.2%         
-##  7 7            7         Ohio  11,689,100     11,536,504     1.3%          
-##  8 8            9         Geor… 10,617,423     9,687,653      9.6%          
-##  9 9            10        Nort… 10,488,084     9,535,483      10.0%         
-## 10 10           8         Mich… 9,986,857      9,883,640      1.04%         
-## # … with 50 more rows, and 6 more variables: Absolute_Change <chr>,
-## #   House_Seats <chr>, Population_Per_Electoral_Vote <chr>,
-## #   Population_Per_House_Seat <chr>, Population_Per_House_Seat_2010 <chr>,
-## #   Percent_US_Population <chr>
+##  7 7            9         Geor… 11,689,100     9,536,504      10.3%         
+##  8 8            10        Nort… 11,609,423     9,471,653      9.9%          
+##  9 9            7         Ohio  11,580,084     11,486,483     1.2%          
+## 10 10           8         Mich… 10,198,857     9,883,640      1.04%         
+## # … with 50 more rows, and 3 more variables: Absolute_Change <chr>,
+## #   House_Seats <chr>, Population_Per_Electoral_Vote <chr>
 ```
 
 It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we'll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings.  We need to remove those as well.
@@ -136,7 +134,7 @@ It turns out that the first table on the page is the one that I want. Now we nee
 
 ```r
 State_Pop <- State_Pop %>%
-  select(State, Population2019, Population2010) %>%
+  select(State, Population2020, Population2010) %>%
   mutate_at( vars(matches('Pop')), str_remove_all, ',') %>%           # remove all commas
   mutate_at( vars(matches('Pop')), str_remove, '\\[[0-9]+\\]') %>%    # remove [7] stuff
   mutate_at( vars( matches('Pop')), as.numeric)                       # convert to numbers
@@ -150,11 +148,11 @@ State_Pop %>%
   filter( !(State %in% c('Contiguous United States', 
                         'The fifty states','Fifty states + D.C.',
                         'Total U.S. (including D.C. and territories)') ) )  %>%
-  mutate( Percent_Change = (Population2019 - Population2010)/Population2010 ) %>%
+  mutate( Percent_Change = (Population2020 - Population2010)/Population2010 ) %>%
   mutate( State = fct_reorder(State, Percent_Change) ) %>%
 ggplot( aes(x=State, y=Percent_Change) ) +
   geom_col( ) +
-  labs(x=NULL, y='% Change', title='State Population growth 2010-2019') +
+  labs(x=NULL, y='% Change', title='State Population growth 2010-2020') +
   coord_flip() 
 ```
 
@@ -187,12 +185,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Most Tremendous Reelection Campaign In American History Ever\n"                                    
-## [2] "\nThe Number Of COVID-19 Deaths Per Million People In Countries Around The World, Visualized\n"          
-## [3] "\nPolish Guy Documents The Effects Of Taking Russia's COVID-19 Vaccine. Things Take An Unexpected Turn\n"
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                             
-## [5] "\nGuy Buys A 5-Ton Truck That's 10 Feet Tall, And It's Monstrous To Look At\n"                           
-## [6] "\nThe Hero We Need Built A Gun That Shoots Masks Onto People's Faces\n"
+## [1] "\nLong-Haulers Are Redefining COVID-19\n"                                      
+## [2] "\n'Wonder Woman 1984' Trailer Reveals Kristen Wiig As The Villainous Cheetah\n"
+## [3] "\nThe Worst Tourist Attraction In Every State In America, Visualized\n"        
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                   
+## [5] "\nHere's What You're Getting With The World's Most Expensive Luxury Sedan\n"   
+## [6] "\nHow A Day Trip To Tulsa In June Upended Donald Trump's Reelection Campaign\n"
 ```
 
 
@@ -207,12 +205,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://nymag.com/intelligencer/article/donald-trump-reelection-campaign-2020.html?utm_source=digg"    
-## [2] "/2020/the-number-of-covid-19-deaths-per-million-people-in-countries-around-the-world-visualized"       
-## [3] "/video/guy-takes-russia-covid-19-vaccine-side-effect"                                                  
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                           
-## [5] "/video/5-ton-10-feet-truck"                                                                            
-## [6] "https://gizmodo.com/the-hero-we-need-built-a-gun-that-shoots-masks-onto-peo-1844748082?utm_source=digg"
+## [1] "https://www.theatlantic.com/health/archive/2020/08/long-haulers-covid-19-recognition-support-groups-symptoms/615382/?utm_source=digg"
+## [2] "/video/wonder-woman-1984-trailer-kristen-wiig"                                                                                       
+## [3] "/2020/the-worst-tourist-attraction-in-every-state-in-america-visualized"                                                             
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                         
+## [5] "/video/lagonda-taraf-doug-demuro-explained"                                                                                          
+## [6] "https://www.bbc.co.uk/news/extra/58ewrgxuoa/us-election-2020-donald-trump?utm_source=digg"
 ```
 
 

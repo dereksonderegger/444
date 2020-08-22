@@ -94,11 +94,11 @@ State_Pop <-
   .[[1]] %>%                              # Grab the first table and 
   html_table(header=FALSE, fill=TRUE) %>% # convert it from HTML into a data.frame 
   magrittr::set_colnames(c('Rank_current','Rank_2010','State',
-            'Population2019', 'Population2010',
+            'Population2020', 'Population2010',
             'Percent_Change','Absolute_Change', 
-            'House_Seats', 'Population_Per_Electoral_Vote',
-            'Population_Per_House_Seat', 'Population_Per_House_Seat_2010',
-            'Percent_US_Population')) %>%
+            'House_Seats', 'Population_Per_Electoral_Vote')) %>%
+            # 'Population_Per_House_Seat', 'Population_Per_House_Seat_2010', # Wikipedia keeps changing this table
+            # 'Percent_US_Population')) %>%                                  # and the columns keep changing!  Aaarggh!
   slice(-1 * 1:2 )
 
 
@@ -111,7 +111,7 @@ It turns out that the first table on the page is the one that I want. Now we nee
 
 ```{r}
 State_Pop <- State_Pop %>%
-  select(State, Population2019, Population2010) %>%
+  select(State, Population2020, Population2010) %>%
   mutate_at( vars(matches('Pop')), str_remove_all, ',') %>%           # remove all commas
   mutate_at( vars(matches('Pop')), str_remove, '\\[[0-9]+\\]') %>%    # remove [7] stuff
   mutate_at( vars( matches('Pop')), as.numeric)                       # convert to numbers
@@ -124,11 +124,11 @@ State_Pop %>%
   filter( !(State %in% c('Contiguous United States', 
                         'The fifty states','Fifty states + D.C.',
                         'Total U.S. (including D.C. and territories)') ) )  %>%
-  mutate( Percent_Change = (Population2019 - Population2010)/Population2010 ) %>%
+  mutate( Percent_Change = (Population2020 - Population2010)/Population2010 ) %>%
   mutate( State = fct_reorder(State, Percent_Change) ) %>%
 ggplot( aes(x=State, y=Percent_Change) ) +
   geom_col( ) +
-  labs(x=NULL, y='% Change', title='State Population growth 2010-2019') +
+  labs(x=NULL, y='% Change', title='State Population growth 2010-2020') +
   coord_flip() 
 ```
 

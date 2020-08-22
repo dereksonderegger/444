@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-08-17" />
+<meta name="date" content="2020-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -444,7 +444,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-wrangling" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Data Wrangling</h1>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="4-data-wrangling.html#cb101-1"></a><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)   <span class="co"># loading ggplot2 and dplyr</span></span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="4-data-wrangling.html#cb102-1"></a><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)   <span class="co"># loading ggplot2 and dplyr</span></span></code></pre></div>
 <p>Many of the tools to manipulate data frames in R were written without a consistent syntax and are difficult use together. To remedy this, Hadley Wickham (the writer of <code>ggplot2</code>) introduced a package called plyr which was quite useful. As with many projects, his first version was good but not great and he introduced an improved version that works exclusively with data.frames called <code>dplyr</code> which we will investigate. The package <code>dplyr</code> strives to provide a convenient and consistent set of functions to handle the most common data frame manipulations and a mechanism for chaining these operations together to perform complex tasks.</p>
 <p>The Dr Wickham has put together a very nice introduction to the package that explains in more detail how the various pieces work and I encourage you to read it at some point. [<a href="http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html" class="uri">http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html</a>].</p>
 <p>One of the aspects about the <code>data.frame</code> object is that R does some simplification for you, but it does not do it in a consistent manner. Somewhat obnoxiously character strings are always converted to factors and subsetting might return a <code>data.frame</code> or a <code>vector</code> or a <code>scalar</code>. This is fine at the command line, but can be problematic when programming. Furthermore, many operations are pretty slow using <code>data.frame</code>. To get around this, Dr Wickham introduced a modified version of the <code>data.frame</code> called a <code>tibble</code>. A <code>tibble</code> is a <code>data.frame</code> but with a few extra bits. For now we can ignore the differences.</p>
@@ -472,16 +472,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="4-data-wrangling.html#cb102-1"></a><span class="co"># This code is not particularly readable because</span></span>
-<span id="cb102-2"><a href="4-data-wrangling.html#cb102-2"></a><span class="co"># the order of summing vs taking absolute value isn&#39;t </span></span>
-<span id="cb102-3"><a href="4-data-wrangling.html#cb102-3"></a><span class="co"># completely obvious. </span></span>
-<span id="cb102-4"><a href="4-data-wrangling.html#cb102-4"></a><span class="kw">sum</span>(<span class="kw">abs</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="4-data-wrangling.html#cb103-1"></a><span class="co"># This code is not particularly readable because</span></span>
+<span id="cb103-2"><a href="4-data-wrangling.html#cb103-2"></a><span class="co"># the order of summing vs taking absolute value isn&#39;t </span></span>
+<span id="cb103-3"><a href="4-data-wrangling.html#cb103-3"></a><span class="co"># completely obvious. </span></span>
+<span id="cb103-4"><a href="4-data-wrangling.html#cb103-4"></a><span class="kw">sum</span>(<span class="kw">abs</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)))</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="4-data-wrangling.html#cb104-1"></a><span class="co"># But using the pipe function, it is blatantly obvious</span></span>
-<span id="cb104-2"><a href="4-data-wrangling.html#cb104-2"></a><span class="co"># what order the operations are done in. </span></span>
-<span id="cb104-3"><a href="4-data-wrangling.html#cb104-3"></a><span class="kw">c</span>( <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># take a vector of values</span></span>
-<span id="cb104-4"><a href="4-data-wrangling.html#cb104-4"></a><span class="st">  </span><span class="kw">abs</span>()  <span class="op">%&gt;%</span><span class="st">      </span><span class="co"># take the absolute value of each</span></span>
-<span id="cb104-5"><a href="4-data-wrangling.html#cb104-5"></a><span class="st">  </span><span class="kw">sum</span>()           <span class="co"># add them up.</span></span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="4-data-wrangling.html#cb105-1"></a><span class="co"># But using the pipe function, it is blatantly obvious</span></span>
+<span id="cb105-2"><a href="4-data-wrangling.html#cb105-2"></a><span class="co"># what order the operations are done in. </span></span>
+<span id="cb105-3"><a href="4-data-wrangling.html#cb105-3"></a><span class="kw">c</span>( <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># take a vector of values</span></span>
+<span id="cb105-4"><a href="4-data-wrangling.html#cb105-4"></a><span class="st">  </span><span class="kw">abs</span>()  <span class="op">%&gt;%</span><span class="st">      </span><span class="co"># take the absolute value of each</span></span>
+<span id="cb105-5"><a href="4-data-wrangling.html#cb105-5"></a><span class="st">  </span><span class="kw">sum</span>()           <span class="co"># add them up.</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>In <code>dplyr</code>, all the functions below take a <em>data set as its first argument</em> and <em>outputs an appropriately modified data set</em>. This will allow me to chain together commands in a readable fashion. The pipe command works with any function, not just the <code>dplyr</code> functions and I often find myself using it all over the place.</p>
 <div id="verbs" class="section level2">
@@ -503,20 +503,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Each of these operations is a function in the package <code>dplyr</code>. These functions all have a similar calling syntax, the first argument is a data set, subsequent arguments describe what to do with the input data frame and you can refer to the columns without using the <code>df$column</code> notation. All of these functions will return a data set.</p>
 <p>To demonstrate all of these actions, we will consider a tiny dataset of a gradebook of doctors at a Sacred Heart Hospital.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="4-data-wrangling.html#cb106-1"></a><span class="co"># Create a tiny data frame that is easy to see what is happening</span></span>
-<span id="cb106-2"><a href="4-data-wrangling.html#cb106-2"></a>Mentors &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb106-3"><a href="4-data-wrangling.html#cb106-3"></a>  <span class="op">~</span>l.name, <span class="op">~</span>Gender, <span class="op">~</span>Exam1, <span class="op">~</span>Exam2, <span class="op">~</span>Final,</span>
-<span id="cb106-4"><a href="4-data-wrangling.html#cb106-4"></a>  <span class="st">&#39;Cox&#39;</span>,     <span class="st">&#39;M&#39;</span>,     <span class="dv">93</span>,     <span class="dv">98</span>,     <span class="dv">96</span>,</span>
-<span id="cb106-5"><a href="4-data-wrangling.html#cb106-5"></a>  <span class="st">&#39;Kelso&#39;</span>,   <span class="st">&#39;M&#39;</span>,     <span class="dv">80</span>,     <span class="dv">82</span>,     <span class="dv">81</span>)</span>
-<span id="cb106-6"><a href="4-data-wrangling.html#cb106-6"></a>Residents &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb106-7"><a href="4-data-wrangling.html#cb106-7"></a>  <span class="op">~</span>l.name, <span class="op">~</span>Gender, <span class="op">~</span>Exam1, <span class="op">~</span>Exam2, <span class="op">~</span>Final,</span>
-<span id="cb106-8"><a href="4-data-wrangling.html#cb106-8"></a>  <span class="st">&#39;Dorian&#39;</span>,  <span class="st">&#39;M&#39;</span>,     <span class="dv">89</span>,     <span class="dv">70</span>,     <span class="dv">85</span>,</span>
-<span id="cb106-9"><a href="4-data-wrangling.html#cb106-9"></a>  <span class="st">&#39;Turk&#39;</span>,    <span class="st">&#39;M&#39;</span>,     <span class="dv">70</span>,     <span class="dv">85</span>,     <span class="dv">92</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="4-data-wrangling.html#cb107-1"></a><span class="co"># Create a tiny data frame that is easy to see what is happening</span></span>
+<span id="cb107-2"><a href="4-data-wrangling.html#cb107-2"></a>Mentors &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb107-3"><a href="4-data-wrangling.html#cb107-3"></a>  <span class="op">~</span>l.name, <span class="op">~</span>Gender, <span class="op">~</span>Exam1, <span class="op">~</span>Exam2, <span class="op">~</span>Final,</span>
+<span id="cb107-4"><a href="4-data-wrangling.html#cb107-4"></a>  <span class="st">&#39;Cox&#39;</span>,     <span class="st">&#39;M&#39;</span>,     <span class="dv">93</span>,     <span class="dv">98</span>,     <span class="dv">96</span>,</span>
+<span id="cb107-5"><a href="4-data-wrangling.html#cb107-5"></a>  <span class="st">&#39;Kelso&#39;</span>,   <span class="st">&#39;M&#39;</span>,     <span class="dv">80</span>,     <span class="dv">82</span>,     <span class="dv">81</span>)</span>
+<span id="cb107-6"><a href="4-data-wrangling.html#cb107-6"></a>Residents &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb107-7"><a href="4-data-wrangling.html#cb107-7"></a>  <span class="op">~</span>l.name, <span class="op">~</span>Gender, <span class="op">~</span>Exam1, <span class="op">~</span>Exam2, <span class="op">~</span>Final,</span>
+<span id="cb107-8"><a href="4-data-wrangling.html#cb107-8"></a>  <span class="st">&#39;Dorian&#39;</span>,  <span class="st">&#39;M&#39;</span>,     <span class="dv">89</span>,     <span class="dv">70</span>,     <span class="dv">85</span>,</span>
+<span id="cb107-9"><a href="4-data-wrangling.html#cb107-9"></a>  <span class="st">&#39;Turk&#39;</span>,    <span class="st">&#39;M&#39;</span>,     <span class="dv">70</span>,     <span class="dv">85</span>,     <span class="dv">92</span>)</span></code></pre></div>
 <div id="add_row" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> <code>add_row</code></h3>
 <p>Suppose that we want to add a row to our dataset. We can give it as much or as little information as we want and any missing information will be denoted as missing using a <code>NA</code> which stands for <em>N</em>ot <em>A</em>vailable.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="4-data-wrangling.html#cb107-1"></a>Residents  <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb107-2"><a href="4-data-wrangling.html#cb107-2"></a><span class="st">  </span><span class="kw">add_row</span>( <span class="dt">l.name=</span><span class="st">&#39;Reid&#39;</span>, <span class="dt">Exam1=</span><span class="dv">95</span>, <span class="dt">Exam2=</span><span class="dv">92</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="4-data-wrangling.html#cb108-1"></a>Residents  <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb108-2"><a href="4-data-wrangling.html#cb108-2"></a><span class="st">  </span><span class="kw">add_row</span>( <span class="dt">l.name=</span><span class="st">&#39;Reid&#39;</span>, <span class="dt">Exam1=</span><span class="dv">95</span>, <span class="dt">Exam2=</span><span class="dv">92</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -524,9 +524,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 Turk   M         70    85    92
 ## 3 Reid   &lt;NA&gt;      95    92    NA</code></pre>
 <p>Because we didn’t assign the result of our previous calculation to any object name, R just printed the result. Instead, lets add all of Dr Reid’s information and save the result by <em>overwritting</em> the <code>grades</code> data.frame with the new version.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="4-data-wrangling.html#cb109-1"></a>Residents &lt;-<span class="st"> </span>Residents <span class="op">%&gt;%</span></span>
-<span id="cb109-2"><a href="4-data-wrangling.html#cb109-2"></a><span class="st">  </span><span class="kw">add_row</span>( <span class="dt">l.name=</span><span class="st">&#39;Reid&#39;</span>, <span class="dt">Gender=</span><span class="st">&#39;F&#39;</span>, <span class="dt">Exam1=</span><span class="dv">95</span>, <span class="dt">Exam2=</span><span class="dv">92</span>, <span class="dt">Final=</span><span class="dv">100</span>)</span>
-<span id="cb109-3"><a href="4-data-wrangling.html#cb109-3"></a>Residents</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="4-data-wrangling.html#cb110-1"></a>Residents &lt;-<span class="st"> </span>Residents <span class="op">%&gt;%</span></span>
+<span id="cb110-2"><a href="4-data-wrangling.html#cb110-2"></a><span class="st">  </span><span class="kw">add_row</span>( <span class="dt">l.name=</span><span class="st">&#39;Reid&#39;</span>, <span class="dt">Gender=</span><span class="st">&#39;F&#39;</span>, <span class="dt">Exam1=</span><span class="dv">95</span>, <span class="dt">Exam2=</span><span class="dv">92</span>, <span class="dt">Final=</span><span class="dv">100</span>)</span>
+<span id="cb110-3"><a href="4-data-wrangling.html#cb110-3"></a>Residents</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -537,11 +537,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="bind_rows" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> <code>bind_rows</code></h3>
 <p>To combine two data frames together, we’ll bind them together using <code>bind_rows()</code>. We just need to specify the order to stack them.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="4-data-wrangling.html#cb111-1"></a><span class="co"># now to combine two data frames by stacking Mentors first and then Residents</span></span>
-<span id="cb111-2"><a href="4-data-wrangling.html#cb111-2"></a>grades &lt;-<span class="st"> </span>Mentors <span class="op">%&gt;%</span></span>
-<span id="cb111-3"><a href="4-data-wrangling.html#cb111-3"></a><span class="st">  </span><span class="kw">bind_rows</span>(Residents)</span>
-<span id="cb111-4"><a href="4-data-wrangling.html#cb111-4"></a></span>
-<span id="cb111-5"><a href="4-data-wrangling.html#cb111-5"></a>grades</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="4-data-wrangling.html#cb112-1"></a><span class="co"># now to combine two data frames by stacking Mentors first and then Residents</span></span>
+<span id="cb112-2"><a href="4-data-wrangling.html#cb112-2"></a>grades &lt;-<span class="st"> </span>Mentors <span class="op">%&gt;%</span></span>
+<span id="cb112-3"><a href="4-data-wrangling.html#cb112-3"></a><span class="st">  </span><span class="kw">bind_rows</span>(Residents)</span>
+<span id="cb112-4"><a href="4-data-wrangling.html#cb112-4"></a></span>
+<span id="cb112-5"><a href="4-data-wrangling.html#cb112-5"></a>grades</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -558,8 +558,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">4.1.3.1</span> <code>select()</code></h4>
 <p>Often you only want to work with a small number of columns of a data frame and want to be able to <em>select</em> a subset of columns or perhaps remove a subset. The function to do that is <code>dplyr::select()</code>.</p>
 <p>I could select the columns Exam columns by hand, or by using an extension of the <code>:</code> operator</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="4-data-wrangling.html#cb113-1"></a><span class="co"># select( grades,  Exam1, Exam2 )   # from `grades`, select columns Exam1, Exam2</span></span>
-<span id="cb113-2"><a href="4-data-wrangling.html#cb113-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( Exam1, Exam2 )   <span class="co"># Exam1 and Exam2</span></span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="4-data-wrangling.html#cb114-1"></a><span class="co"># select( grades,  Exam1, Exam2 )   # from `grades`, select columns Exam1, Exam2</span></span>
+<span id="cb114-2"><a href="4-data-wrangling.html#cb114-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( Exam1, Exam2 )   <span class="co"># Exam1 and Exam2</span></span></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##   Exam1 Exam2
 ##   &lt;dbl&gt; &lt;dbl&gt;
@@ -568,7 +568,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3    89    70
 ## 4    70    85
 ## 5    95    92</code></pre>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="4-data-wrangling.html#cb115-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( Exam1<span class="op">:</span>Final )    <span class="co"># Columns Exam1 through Final</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="4-data-wrangling.html#cb116-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( Exam1<span class="op">:</span>Final )    <span class="co"># Columns Exam1 through Final</span></span></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   Exam1 Exam2 Final
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -577,7 +577,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3    89    70    85
 ## 4    70    85    92
 ## 5    95    92   100</code></pre>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="4-data-wrangling.html#cb117-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="op">-</span>Exam1 )         <span class="co"># Negative indexing by name drops a column</span></span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="4-data-wrangling.html#cb118-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="op">-</span>Exam1 )         <span class="co"># Negative indexing by name drops a column</span></span></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
 ##   l.name Gender Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -586,7 +586,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 Dorian M         70    85
 ## 4 Turk   M         85    92
 ## 5 Reid   F         92   100</code></pre>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="4-data-wrangling.html#cb119-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> )            <span class="co"># Can select column by column position</span></span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="4-data-wrangling.html#cb120-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> )            <span class="co"># Can select column by column position</span></span></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##   l.name Gender
 ##   &lt;chr&gt;  &lt;chr&gt; 
@@ -596,7 +596,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Turk   M     
 ## 5 Reid   F</code></pre>
 <p>The <code>select()</code> command has a few other tricks. There are functional calls that describe the columns you wish to select that take advantage of pattern matching. I generally can get by with <code>starts_with()</code>, <code>ends_with()</code>, and <code>contains()</code>, but there is a final operator <code>matches()</code> that takes a regular expression.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="4-data-wrangling.html#cb121-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="kw">starts_with</span>(<span class="st">&#39;Exam&#39;</span>) )   <span class="co"># Exam1 and Exam2</span></span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="4-data-wrangling.html#cb122-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="kw">starts_with</span>(<span class="st">&#39;Exam&#39;</span>) )   <span class="co"># Exam1 and Exam2</span></span></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##   Exam1 Exam2
 ##   &lt;dbl&gt; &lt;dbl&gt;
@@ -605,7 +605,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3    89    70
 ## 4    70    85
 ## 5    95    92</code></pre>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="4-data-wrangling.html#cb123-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="kw">starts_with</span>(<span class="st">&#39;Exam&#39;</span>), <span class="kw">starts_with</span>(<span class="st">&#39;F&#39;</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="4-data-wrangling.html#cb124-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="kw">starts_with</span>(<span class="st">&#39;Exam&#39;</span>), <span class="kw">starts_with</span>(<span class="st">&#39;F&#39;</span>) )</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   Exam1 Exam2 Final
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -619,8 +619,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="filter" class="section level4">
 <h4><span class="header-section-number">4.1.3.2</span> <code>filter()</code></h4>
 <p>It is common to want to select particular rows where we have some logical expression to pick the rows.</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="4-data-wrangling.html#cb125-1"></a><span class="co"># select students with Final grades greater than 90</span></span>
-<span id="cb125-2"><a href="4-data-wrangling.html#cb125-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Final <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="4-data-wrangling.html#cb126-1"></a><span class="co"># select students with Final grades greater than 90</span></span>
+<span id="cb126-2"><a href="4-data-wrangling.html#cb126-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Final <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -628,16 +628,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 Turk   M         70    85    92
 ## 3 Reid   F         95    92   100</code></pre>
 <p>You can have multiple logical expressions to select rows and they will be logically combined so that only rows that satisfy all of the conditions are selected. The logicals are joined together using <code>&amp;</code> (and) operator or the <code>|</code> (or) operator and you may explicitly use other logicals. For example a factor column type might be used to select rows where type is either one or two via the following: <code>type==1 | type==2</code>.</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="4-data-wrangling.html#cb127-1"></a><span class="co"># select students with Final grades above 90 and</span></span>
-<span id="cb127-2"><a href="4-data-wrangling.html#cb127-2"></a><span class="co"># average score also above 90</span></span>
-<span id="cb127-3"><a href="4-data-wrangling.html#cb127-3"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Exam2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>, Final <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="4-data-wrangling.html#cb128-1"></a><span class="co"># select students with Final grades above 90 and</span></span>
+<span id="cb128-2"><a href="4-data-wrangling.html#cb128-2"></a><span class="co"># average score also above 90</span></span>
+<span id="cb128-3"><a href="4-data-wrangling.html#cb128-3"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Exam2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>, Final <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 Cox    M         93    98    96
 ## 2 Reid   F         95    92   100</code></pre>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="4-data-wrangling.html#cb129-1"></a><span class="co"># we could also use an &quot;and&quot; condition</span></span>
-<span id="cb129-2"><a href="4-data-wrangling.html#cb129-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Exam2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span> <span class="op">&amp;</span><span class="st"> </span>Final <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="4-data-wrangling.html#cb130-1"></a><span class="co"># we could also use an &quot;and&quot; condition</span></span>
+<span id="cb130-2"><a href="4-data-wrangling.html#cb130-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Exam2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span> <span class="op">&amp;</span><span class="st"> </span>Final <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -647,8 +647,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="slice" class="section level4">
 <h4><span class="header-section-number">4.1.3.3</span> <code>slice()</code></h4>
 <p>When you want to filter rows based on row number, this is called slicing.</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="4-data-wrangling.html#cb131-1"></a><span class="co"># grab the first 2 rows</span></span>
-<span id="cb131-2"><a href="4-data-wrangling.html#cb131-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="4-data-wrangling.html#cb132-1"></a><span class="co"># grab the first 2 rows</span></span>
+<span id="cb132-2"><a href="4-data-wrangling.html#cb132-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -659,7 +659,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="arrange" class="section level3">
 <h3><span class="header-section-number">4.1.4</span> <code>arrange()</code></h3>
 <p>We often need to re-order the rows of a data frame. For example, we might wish to take our grade book and sort the rows by the average score, or perhaps alphabetically. The <code>arrange()</code> function does exactly that. The first argument is the data frame to re-order, and the subsequent arguments are the columns to sort on. The order of the sorting column determines the precedent… the first sorting column is first used and the second sorting column is only used to break ties.</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="4-data-wrangling.html#cb133-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(l.name)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="4-data-wrangling.html#cb134-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(l.name)</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -669,7 +669,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Reid   F         95    92   100
 ## 5 Turk   M         70    85    92</code></pre>
 <p>The default sorting is in ascending order, so to sort the grades with the highest scoring person in the first row, we must tell arrange to do it in descending order using <code>desc(column.name)</code>.</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="4-data-wrangling.html#cb135-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Final))</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="4-data-wrangling.html#cb136-1"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Final))</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -679,8 +679,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Dorian M         89    70    85
 ## 5 Kelso  M         80    82    81</code></pre>
 <p>We can also order a data frame by multiple columns.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="4-data-wrangling.html#cb137-1"></a><span class="co"># Arrange by Gender first, then within each gender, order by Exam2</span></span>
-<span id="cb137-2"><a href="4-data-wrangling.html#cb137-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(Gender, <span class="kw">desc</span>(Exam2))  </span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="4-data-wrangling.html#cb138-1"></a><span class="co"># Arrange by Gender first, then within each gender, order by Exam2</span></span>
+<span id="cb138-2"><a href="4-data-wrangling.html#cb138-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(Gender, <span class="kw">desc</span>(Exam2))  </span></code></pre></div>
 <pre><code>## # A tibble: 5 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -694,11 +694,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.1.5</span> mutate()</h3>
 <p>The mutate command either creates a <em>new</em> column in the data frame or <em>updates</em> an already existing column.</p>
 <p>I often need to create a new column that is some function of the old columns. In the <code>dplyr</code> package, this is a <code>mutate</code> command. To do ths, we give a <code>mutate( NewColumn = Function of Old Columns )</code> command. You can do multiple calculations within the same <code>mutate()</code> command, and you can even refer to columns that were created in the same <code>mutate()</code> command.</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="4-data-wrangling.html#cb139-1"></a>grades &lt;-<span class="st"> </span>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>( </span>
-<span id="cb139-2"><a href="4-data-wrangling.html#cb139-2"></a>  <span class="dt">average =</span> (Exam1 <span class="op">+</span><span class="st"> </span>Exam2 <span class="op">+</span><span class="st"> </span>Final)<span class="op">/</span><span class="dv">3</span>,</span>
-<span id="cb139-3"><a href="4-data-wrangling.html#cb139-3"></a>  <span class="dt">grade =</span> <span class="kw">cut</span>(average, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>),  <span class="co"># cut takes numeric variable</span></span>
-<span id="cb139-4"><a href="4-data-wrangling.html#cb139-4"></a>                       <span class="kw">c</span>( <span class="st">&#39;F&#39;</span>,<span class="st">&#39;D&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>)) )  <span class="co"># and makes a factor</span></span>
-<span id="cb139-5"><a href="4-data-wrangling.html#cb139-5"></a>grades</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="4-data-wrangling.html#cb140-1"></a>grades &lt;-<span class="st"> </span>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>( </span>
+<span id="cb140-2"><a href="4-data-wrangling.html#cb140-2"></a>  <span class="dt">average =</span> (Exam1 <span class="op">+</span><span class="st"> </span>Exam2 <span class="op">+</span><span class="st"> </span>Final)<span class="op">/</span><span class="dv">3</span>,</span>
+<span id="cb140-3"><a href="4-data-wrangling.html#cb140-3"></a>  <span class="dt">grade =</span> <span class="kw">cut</span>(average, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>),  <span class="co"># cut takes numeric variable</span></span>
+<span id="cb140-4"><a href="4-data-wrangling.html#cb140-4"></a>                       <span class="kw">c</span>( <span class="st">&#39;F&#39;</span>,<span class="st">&#39;D&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>)) )  <span class="co"># and makes a factor</span></span>
+<span id="cb140-5"><a href="4-data-wrangling.html#cb140-5"></a>grades</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   l.name Gender Exam1 Exam2 Final average grade
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;
@@ -707,12 +707,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 Dorian M         89    70    85    81.3 B    
 ## 4 Turk   M         70    85    92    82.3 B    
 ## 5 Reid   F         95    92   100    95.7 A</code></pre>
-<p>If we want to update some column information we will also use the <code>mutate</code> command, but we need some mechanism to selct the rows to change, while keeping all the other row values the same. The functions <code>if_else()</code> and <code>case_when()</code> are ideal for this task.</p>
+<p>If we want to update some column information we will also use the <code>mutate</code> command, but we need some mechanism to select the rows to change, while keeping all the other row values the same. The functions <code>if_else()</code> and <code>case_when()</code> are ideal for this task.</p>
 <p>The <code>if_else</code> syntax is <code>if_else( logical.expression, TrueValue, FalseValue )</code>. We can use this to update a score in our gradebook.</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="4-data-wrangling.html#cb141-1"></a><span class="co"># Update Doctor Reids Final Exam score to be a 98, leave everybody else&#39;s the same.</span></span>
-<span id="cb141-2"><a href="4-data-wrangling.html#cb141-2"></a>grades &lt;-<span class="st"> </span>grades <span class="op">%&gt;%</span></span>
-<span id="cb141-3"><a href="4-data-wrangling.html#cb141-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Final =</span> <span class="kw">if_else</span>(l.name <span class="op">==</span><span class="st"> &#39;Reid&#39;</span>, <span class="dv">98</span>, Final ) )</span>
-<span id="cb141-4"><a href="4-data-wrangling.html#cb141-4"></a>grades</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="4-data-wrangling.html#cb142-1"></a><span class="co"># Update Doctor Reids Final Exam score to be a 98, leave everybody else&#39;s the same.</span></span>
+<span id="cb142-2"><a href="4-data-wrangling.html#cb142-2"></a>grades &lt;-<span class="st"> </span>grades <span class="op">%&gt;%</span></span>
+<span id="cb142-3"><a href="4-data-wrangling.html#cb142-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Final =</span> <span class="kw">if_else</span>(l.name <span class="op">==</span><span class="st"> &#39;Reid&#39;</span>, <span class="dv">98</span>, Final ) )</span>
+<span id="cb142-4"><a href="4-data-wrangling.html#cb142-4"></a>grades</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   l.name Gender Exam1 Exam2 Final average grade
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;
@@ -722,10 +722,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Turk   M         70    85    92    82.3 B    
 ## 5 Reid   F         95    92    98    95.7 A</code></pre>
 <p>We could also use this to modify all the rows. For example, perhaps we want to change the <code>gender</code> column information to have levels <code>Male</code> and <code>Female</code>.</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="4-data-wrangling.html#cb143-1"></a><span class="co"># Update the Gender column labels</span></span>
-<span id="cb143-2"><a href="4-data-wrangling.html#cb143-2"></a>grades &lt;-<span class="st"> </span>grades <span class="op">%&gt;%</span></span>
-<span id="cb143-3"><a href="4-data-wrangling.html#cb143-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">if_else</span>(Gender <span class="op">==</span><span class="st"> &#39;M&#39;</span>, <span class="st">&#39;Male&#39;</span>, <span class="st">&#39;Female&#39;</span> ) )</span>
-<span id="cb143-4"><a href="4-data-wrangling.html#cb143-4"></a>grades</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="4-data-wrangling.html#cb144-1"></a><span class="co"># Update the Gender column labels</span></span>
+<span id="cb144-2"><a href="4-data-wrangling.html#cb144-2"></a>grades &lt;-<span class="st"> </span>grades <span class="op">%&gt;%</span></span>
+<span id="cb144-3"><a href="4-data-wrangling.html#cb144-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">if_else</span>(Gender <span class="op">==</span><span class="st"> &#39;M&#39;</span>, <span class="st">&#39;Male&#39;</span>, <span class="st">&#39;Female&#39;</span> ) )</span>
+<span id="cb144-4"><a href="4-data-wrangling.html#cb144-4"></a>grades</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   l.name Gender Exam1 Exam2 Final average grade
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;
@@ -736,12 +736,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 Reid   Female    95    92    98    95.7 A</code></pre>
 <p>To do something similar for the case where we have 3 or more categories, we could use the <code>ifelse()</code> command repeatedly to address each category level separately. However because the <code>ifelse</code> command is limited to just two cases, it would be nice if there was a generalization to multiple categories. The <code>dplyr::case_when</code> function is that generalization. The syntax is <code>case_when( logicalExpression1~Value1, logicalExpression2~Value2, ... )</code>. We can have as many <code>LogicalExpression ~ Value</code> pairs as we want.</p>
 <p>Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we’ve coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="4-data-wrangling.html#cb145-1"></a>people &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb145-2"><a href="4-data-wrangling.html#cb145-2"></a>  <span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&#39;Barack&#39;</span>,<span class="st">&#39;Michelle&#39;</span>, <span class="st">&#39;George&#39;</span>, <span class="st">&#39;Laura&#39;</span>, <span class="st">&#39;Bernie&#39;</span>, <span class="st">&#39;Deborah&#39;</span>),</span>
-<span id="cb145-3"><a href="4-data-wrangling.html#cb145-3"></a>  <span class="dt">gender =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>),</span>
-<span id="cb145-4"><a href="4-data-wrangling.html#cb145-4"></a>  <span class="dt">party =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
-<span id="cb145-5"><a href="4-data-wrangling.html#cb145-5"></a>)</span>
-<span id="cb145-6"><a href="4-data-wrangling.html#cb145-6"></a>people</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="4-data-wrangling.html#cb146-1"></a>people &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb146-2"><a href="4-data-wrangling.html#cb146-2"></a>  <span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&#39;Barack&#39;</span>,<span class="st">&#39;Michelle&#39;</span>, <span class="st">&#39;George&#39;</span>, <span class="st">&#39;Laura&#39;</span>, <span class="st">&#39;Bernie&#39;</span>, <span class="st">&#39;Deborah&#39;</span>),</span>
+<span id="cb146-3"><a href="4-data-wrangling.html#cb146-3"></a>  <span class="dt">gender =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>),</span>
+<span id="cb146-4"><a href="4-data-wrangling.html#cb146-4"></a>  <span class="dt">party =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb146-5"><a href="4-data-wrangling.html#cb146-5"></a>)</span>
+<span id="cb146-6"><a href="4-data-wrangling.html#cb146-6"></a>people</span></code></pre></div>
 <pre><code>##       name gender party
 ## 1   Barack      1     1
 ## 2 Michelle      0     1
@@ -750,13 +750,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5   Bernie      1     3
 ## 6  Deborah      0     3</code></pre>
 <p>Now we’ll update the gender and party columns to code these columns in a readable fashion.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="4-data-wrangling.html#cb147-1"></a>people &lt;-<span class="st"> </span>people <span class="op">%&gt;%</span></span>
-<span id="cb147-2"><a href="4-data-wrangling.html#cb147-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">gender =</span> <span class="kw">if_else</span>( gender <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&#39;Female&#39;</span>, <span class="st">&#39;Male&#39;</span>) ) <span class="op">%&gt;%</span></span>
-<span id="cb147-3"><a href="4-data-wrangling.html#cb147-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">party =</span> <span class="kw">case_when</span>( party <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &#39;Democratic&#39;</span>, </span>
-<span id="cb147-4"><a href="4-data-wrangling.html#cb147-4"></a>                             party <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">~</span><span class="st"> &#39;Republican&#39;</span>, </span>
-<span id="cb147-5"><a href="4-data-wrangling.html#cb147-5"></a>                             party <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">~</span><span class="st"> &#39;Independent&#39;</span>,</span>
-<span id="cb147-6"><a href="4-data-wrangling.html#cb147-6"></a>                             <span class="ot">TRUE</span>       <span class="op">~</span><span class="st"> &#39;None Stated&#39;</span> ) )</span>
-<span id="cb147-7"><a href="4-data-wrangling.html#cb147-7"></a>people</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="4-data-wrangling.html#cb148-1"></a>people &lt;-<span class="st"> </span>people <span class="op">%&gt;%</span></span>
+<span id="cb148-2"><a href="4-data-wrangling.html#cb148-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">gender =</span> <span class="kw">if_else</span>( gender <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&#39;Female&#39;</span>, <span class="st">&#39;Male&#39;</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb148-3"><a href="4-data-wrangling.html#cb148-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">party =</span> <span class="kw">case_when</span>( party <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &#39;Democratic&#39;</span>, </span>
+<span id="cb148-4"><a href="4-data-wrangling.html#cb148-4"></a>                             party <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">~</span><span class="st"> &#39;Republican&#39;</span>, </span>
+<span id="cb148-5"><a href="4-data-wrangling.html#cb148-5"></a>                             party <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">~</span><span class="st"> &#39;Independent&#39;</span>,</span>
+<span id="cb148-6"><a href="4-data-wrangling.html#cb148-6"></a>                             <span class="ot">TRUE</span>       <span class="op">~</span><span class="st"> &#39;None Stated&#39;</span> ) )</span>
+<span id="cb148-7"><a href="4-data-wrangling.html#cb148-7"></a>people</span></code></pre></div>
 <pre><code>##       name gender       party
 ## 1   Barack   Male  Democratic
 ## 2 Michelle Female  Democratic
@@ -770,15 +770,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="summarise" class="section level3">
 <h3><span class="header-section-number">4.1.6</span> summarise()</h3>
 <p>By itself, this function is quite boring, but will become useful later on. Its purpose is to calculate summary statistics using any or all of the data columns. Notice that we get to chose the name of the new column. The way to think about this is that we are collapsing information stored in multiple rows into a single row of values.</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="4-data-wrangling.html#cb149-1"></a><span class="co"># calculate the mean of exam 1</span></span>
-<span id="cb149-2"><a href="4-data-wrangling.html#cb149-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>( <span class="dt">mean.E1=</span><span class="kw">mean</span>(Exam1) )</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="4-data-wrangling.html#cb150-1"></a><span class="co"># calculate the mean of exam 1</span></span>
+<span id="cb150-2"><a href="4-data-wrangling.html#cb150-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>( <span class="dt">mean.E1=</span><span class="kw">mean</span>(Exam1) )</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 1
 ##   mean.E1
 ##     &lt;dbl&gt;
 ## 1    85.4</code></pre>
 <p>We could calculate multiple summary statistics if we like.</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="4-data-wrangling.html#cb151-1"></a><span class="co"># calculate the mean and standard deviation </span></span>
-<span id="cb151-2"><a href="4-data-wrangling.html#cb151-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>( <span class="dt">mean.E1=</span><span class="kw">mean</span>(Exam1), <span class="dt">stddev.E1=</span><span class="kw">sd</span>(Exam1) )</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="4-data-wrangling.html#cb152-1"></a><span class="co"># calculate the mean and standard deviation </span></span>
+<span id="cb152-2"><a href="4-data-wrangling.html#cb152-2"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>( <span class="dt">mean.E1=</span><span class="kw">mean</span>(Exam1), <span class="dt">stddev.E1=</span><span class="kw">sd</span>(Exam1) )</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
 ##   mean.E1 stddev.E1
 ##     &lt;dbl&gt;     &lt;dbl&gt;
@@ -788,20 +788,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="split-apply-combine" class="section level2">
 <h2><span class="header-section-number">4.2</span> Split, apply, combine</h2>
 <p>Aside from unifying the syntax behind the common operations, the major strength of the <code>dplyr</code> package is the ability to split a data frame into a bunch of sub-data frames, apply a sequence of one or more of the operations we just described, and then combine results back together. We’ll consider data from an experiment from spinning wool into yarn. This experiment considered two different types of wool (A or B) and three different levels of tension on the thread. The response variable is the number of breaks in the resulting yarn. For each of the 6 <code>wool:tension</code> combinations, there are 9 replicated observations per <code>wool:tension</code> level.</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="4-data-wrangling.html#cb153-1"></a><span class="kw">data</span>(warpbreaks)</span>
-<span id="cb153-2"><a href="4-data-wrangling.html#cb153-2"></a><span class="kw">str</span>(warpbreaks)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="4-data-wrangling.html#cb154-1"></a><span class="kw">data</span>(warpbreaks)</span>
+<span id="cb154-2"><a href="4-data-wrangling.html#cb154-2"></a><span class="kw">str</span>(warpbreaks)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:	54 obs. of  3 variables:
 ##  $ breaks : num  26 30 54 25 70 52 51 26 67 18 ...
 ##  $ wool   : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ tension: Factor w/ 3 levels &quot;L&quot;,&quot;M&quot;,&quot;H&quot;: 1 1 1 1 1 1 1 1 1 2 ...</code></pre>
 <p><img src="04_Intro_to_Data_Wrangling_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>The first we must do is to create a data frame with additional information about how to break the data into sub-data frames. In this case, I want to break the data up into the 6 wool-by-tension combinations. Initially we will just figure out how many rows are in each wool-by-tension combination.</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="4-data-wrangling.html#cb155-1"></a><span class="co"># group_by:  what variable(s) shall we group on.</span></span>
-<span id="cb155-2"><a href="4-data-wrangling.html#cb155-2"></a><span class="co"># n() is a function that returns how many rows are in the </span></span>
-<span id="cb155-3"><a href="4-data-wrangling.html#cb155-3"></a><span class="co">#   currently selected sub-dataframe</span></span>
-<span id="cb155-4"><a href="4-data-wrangling.html#cb155-4"></a>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb155-5"><a href="4-data-wrangling.html#cb155-5"></a><span class="st">  </span><span class="kw">group_by</span>( wool, tension) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># grouping</span></span>
-<span id="cb155-6"><a href="4-data-wrangling.html#cb155-6"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>() )             <span class="co"># how many in each group</span></span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="4-data-wrangling.html#cb156-1"></a><span class="co"># group_by:  what variable(s) shall we group on.</span></span>
+<span id="cb156-2"><a href="4-data-wrangling.html#cb156-2"></a><span class="co"># n() is a function that returns how many rows are in the </span></span>
+<span id="cb156-3"><a href="4-data-wrangling.html#cb156-3"></a><span class="co">#   currently selected sub-dataframe</span></span>
+<span id="cb156-4"><a href="4-data-wrangling.html#cb156-4"></a>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb156-5"><a href="4-data-wrangling.html#cb156-5"></a><span class="st">  </span><span class="kw">group_by</span>( wool, tension) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># grouping</span></span>
+<span id="cb156-6"><a href="4-data-wrangling.html#cb156-6"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>() )             <span class="co"># how many in each group</span></span></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;wool&#39; (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ## # Groups:   wool [2]
@@ -815,22 +815,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6 B     H           9</code></pre>
 <p>The <code>group_by</code> function takes a data.frame and returns the same data.frame, but with some extra information so that any subsequent function acts on each unique combination defined in the <code>group_by</code>. If you wish to remove this behavior, use <code>group_by()</code> to reset the grouping to have no grouping variable.</p>
 <p>Using the same <code>summarise</code> function, we could calculate the group mean and standard deviation for each wool-by-tension group.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="4-data-wrangling.html#cb158-1"></a>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb158-2"><a href="4-data-wrangling.html#cb158-2"></a><span class="st">  </span><span class="kw">group_by</span>(wool, tension) <span class="op">%&gt;%</span></span>
-<span id="cb158-3"><a href="4-data-wrangling.html#cb158-3"></a><span class="st">  </span><span class="kw">summarise</span>( <span class="dt">n           =</span> <span class="kw">n</span>(),             <span class="co"># I added some formatting to show the</span></span>
-<span id="cb158-4"><a href="4-data-wrangling.html#cb158-4"></a>             <span class="dt">mean.breaks =</span> <span class="kw">mean</span>(breaks),    <span class="co"># reader I am calculating several</span></span>
-<span id="cb158-5"><a href="4-data-wrangling.html#cb158-5"></a>             <span class="dt">sd.breaks   =</span> <span class="kw">sd</span>(breaks))      <span class="co"># statistics.</span></span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="4-data-wrangling.html#cb159-1"></a>summary_table &lt;-<span class="st"> </span></span>
+<span id="cb159-2"><a href="4-data-wrangling.html#cb159-2"></a><span class="st">  </span>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb159-3"><a href="4-data-wrangling.html#cb159-3"></a><span class="st">  </span><span class="kw">group_by</span>(wool, tension) <span class="op">%&gt;%</span></span>
+<span id="cb159-4"><a href="4-data-wrangling.html#cb159-4"></a><span class="st">  </span><span class="kw">summarise</span>( <span class="dt">n           =</span> <span class="kw">n</span>() ,             <span class="co"># I added some formatting to show the</span></span>
+<span id="cb159-5"><a href="4-data-wrangling.html#cb159-5"></a>             <span class="dt">mean.breaks =</span> <span class="kw">mean</span>(breaks),     <span class="co"># reader I am calculating several</span></span>
+<span id="cb159-6"><a href="4-data-wrangling.html#cb159-6"></a>             <span class="dt">sd.breaks   =</span> <span class="kw">sd</span>(breaks) )      <span class="co"># statistics.</span></span></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;wool&#39; (override with `.groups` argument)</code></pre>
-<pre><code>## # A tibble: 6 x 5
-## # Groups:   wool [2]
-##   wool  tension     n mean.breaks sd.breaks
-##   &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;       &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A     L           9        44.6     18.1 
-## 2 A     M           9        24        8.66
-## 3 A     H           9        24.6     10.3 
-## 4 B     L           9        28.2      9.86
-## 5 B     M           9        28.8      9.43
-## 6 B     H           9        18.8      4.89</code></pre>
 <p>If instead of summarizing each split, we might want to just do some calculation and the output should have the same number of rows as the input data frame. In this case I’ll tell <code>dplyr</code> that we are mutating the data frame instead of summarizing it. For example, suppose that I want to calculate the residual value <span class="math display">\[e_{ijk}=y_{ijk}-\bar{y}_{ij\cdot}\]</span> where <span class="math inline">\(\bar{y}_{ij\cdot}\)</span> is the mean of each <code>wool:tension</code> combination.</p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="4-data-wrangling.html#cb161-1"></a>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb161-2"><a href="4-data-wrangling.html#cb161-2"></a><span class="st">   </span><span class="kw">group_by</span>(wool, tension) <span class="op">%&gt;%</span><span class="st">                 </span><span class="co"># group by wool:tension</span></span>

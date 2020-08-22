@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-08-17" />
+<meta name="date" content="2020-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1067,14 +1067,22 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <span id="cb626-2"><a href="11-string-manipulation.html#cb626-2"></a> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></span>
 <span id="cb626-3"><a href="11-string-manipulation.html#cb626-3"></a>  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></span>
 <span id="cb626-4"><a href="11-string-manipulation.html#cb626-4"></a> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></span></code></pre></div></li>
+<li><p>The full text from Lincoln’s Gettysburg Address is given below. Calculate the mean word length <em>Note: consider ‘battle-field’ as one word with 11 letters</em>).</p></li>
+</ol>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="11-string-manipulation.html#cb627-1"></a>Gettysburg &lt;-<span class="st"> &#39;Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.</span></span>
+<span id="cb627-2"><a href="11-string-manipulation.html#cb627-2"></a></span>
+<span id="cb627-3"><a href="11-string-manipulation.html#cb627-3"></a><span class="st">Now we are engaged in a great civil war, testing whether that nation, or any nation so conceived and so dedicated, can long endure. We are met on a great battle-field of that war. We have come to dedicate a portion of that field, as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.</span></span>
+<span id="cb627-4"><a href="11-string-manipulation.html#cb627-4"></a></span>
+<span id="cb627-5"><a href="11-string-manipulation.html#cb627-5"></a><span class="st">But, in a larger sense, we can not dedicate -- we can not consecrate -- we can not hallow -- this ground. The brave men, living and dead, who struggled here, have consecrated it, far above our poor power to add or detract. The world will little note, nor long remember what we say here, but it can never forget what they did here. It is for us the living, rather, to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us -- that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion -- that we here highly resolve that these dead shall not have died in vain -- that this nation, under God, shall have a new birth of freedom -- and that government of the people, by the people, for the people, shall not perish from the earth.&#39;</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
 <li><p>Variable names in R may be and combination letters, digits, period, and underscore. However, they may not start with a digit and if they start with a period, they must not be followed by a digit.</p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="11-string-manipulation.html#cb627-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;foo15&#39;</span>, <span class="st">&#39;Bar&#39;</span>, <span class="st">&#39;.resid&#39;</span>, <span class="st">&#39;_14s&#39;</span>, </span>
-<span id="cb627-2"><a href="11-string-manipulation.html#cb627-2"></a>             <span class="st">&#39;99_Bottles&#39;</span>, <span class="st">&#39;.9Arggh&#39;</span>, <span class="st">&#39;Foo!&#39;</span>,<span class="st">&#39;HIV Rate&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="11-string-manipulation.html#cb628-1"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;foo15&#39;</span>, <span class="st">&#39;Bar&#39;</span>, <span class="st">&#39;.resid&#39;</span>, <span class="st">&#39;_14s&#39;</span>, </span>
+<span id="cb628-2"><a href="11-string-manipulation.html#cb628-2"></a>             <span class="st">&#39;99_Bottles&#39;</span>, <span class="st">&#39;.9Arggh&#39;</span>, <span class="st">&#39;Foo!&#39;</span>,<span class="st">&#39;HIV Rate&#39;</span>)</span></code></pre></div>
 <p>The first four are valid variable names, but the last four are not.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>First write a regular expression that determines if the string starts with a character (upper or lower case) or underscore and then is followed by zero or more numbers, letters, periods or underscores. <em>Notice I use the start/end of string markers. This is important so that we don’t just match somewhere in the middle of the variable name.</em></p>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="11-string-manipulation.html#cb628-1"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
-<span id="cb628-2"><a href="11-string-manipulation.html#cb628-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^(???what goes here???)$&#39;</span> )) </span></code></pre></div></li>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="11-string-manipulation.html#cb629-1"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb629-2"><a href="11-string-manipulation.html#cb629-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^(???what goes here???)$&#39;</span> )) </span></code></pre></div></li>
 <li><p>Modify your regular expression so that the first group could be either <code>[a-zA-Z_]</code> as before or it could be a period followed by letters or an underscore.</p></li>
 </ol></li>
 </ol>
