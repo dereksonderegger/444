@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-08-22" />
+<meta name="date" content="2020-08-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -444,9 +444,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-reshaping" class="section level1">
 <h1><span class="header-section-number">Chapter 13</span> Data Reshaping</h1>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="13-data-reshaping.html#cb676-1"></a><span class="co"># library(tidyr)   # for the gather/spread commands</span></span>
-<span id="cb676-2"><a href="13-data-reshaping.html#cb676-2"></a><span class="co"># library(dplyr)   # for the join stuff</span></span>
-<span id="cb676-3"><a href="13-data-reshaping.html#cb676-3"></a><span class="kw">library</span>(tidyverse) <span class="co"># dplyr, tidyr, ggplot2, etc.</span></span></code></pre></div>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="13-data-reshaping.html#cb673-1"></a><span class="co"># library(tidyr)   # for the gather/spread commands</span></span>
+<span id="cb673-2"><a href="13-data-reshaping.html#cb673-2"></a><span class="co"># library(dplyr)   # for the join stuff</span></span>
+<span id="cb673-3"><a href="13-data-reshaping.html#cb673-3"></a><span class="kw">library</span>(tidyverse) <span class="co"># dplyr, tidyr, ggplot2, etc.</span></span></code></pre></div>
+<p>I have a YouTube <a href="https://youtu.be/sVTfG2TH_gU">Video Lecture</a> for this chapter.</p>
 <p>Most of the time, our data is in the form of a data frame and we are interested in exploring the relationships. However most procedures in R expect the data to show up in a ‘long’ format where each row is an observation and each column is a covariate. In practice, the data is often not stored like that and the data comes to us with repeated observations included on a single row. This is often done as a memory saving technique or because there is some structure in the data that makes the ‘wide’ format attractive. As a result, we need a way to convert data from ‘wide’ to ‘long’ and vice-versa.</p>
 <p>Next we need a way to squish two data frames together. It is often advantageous to store data that would be be repeated separately in a different table so that a particular piece of information lives in only one location. This makes the data easier to modify, and more likely to maintain consistence. However, this practice requires that, when necessary, we can add information to a table, that might involve a lot of duplicated rows.</p>
 <div id="data.frames-vs-tibbles" class="section level2">
@@ -480,12 +481,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>Third, <code>tibbles</code> support column names that would be rejected by a data frame. For example, a data frame will not allow columns to begin with a number, nor can column names contain a space. These are allowable by <code>tibbles</code>, although they are required to be enclosed by back-quotes when referring to them.</p>
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="13-data-reshaping.html#cb677-1"></a>example &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb677-2"><a href="13-data-reshaping.html#cb677-2"></a>  <span class="op">~</span><span class="st">&#39;1984&#39;</span>, <span class="op">~</span><span class="st">&quot;Is Awesome&quot;</span>,</span>
-<span id="cb677-3"><a href="13-data-reshaping.html#cb677-3"></a>  <span class="st">&#39;George&#39;</span>,   <span class="dv">20</span>,</span>
-<span id="cb677-4"><a href="13-data-reshaping.html#cb677-4"></a>  <span class="st">&#39;Orwell&#39;</span>,   <span class="dv">87</span>)</span>
-<span id="cb677-5"><a href="13-data-reshaping.html#cb677-5"></a></span>
-<span id="cb677-6"><a href="13-data-reshaping.html#cb677-6"></a>example <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="st">`</span><span class="dt">1984</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Is Awesome</span><span class="st">`</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="13-data-reshaping.html#cb674-1"></a>example &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb674-2"><a href="13-data-reshaping.html#cb674-2"></a>  <span class="op">~</span><span class="st">&#39;1984&#39;</span>, <span class="op">~</span><span class="st">&quot;Is Awesome&quot;</span>,</span>
+<span id="cb674-3"><a href="13-data-reshaping.html#cb674-3"></a>  <span class="st">&#39;George&#39;</span>,   <span class="dv">20</span>,</span>
+<span id="cb674-4"><a href="13-data-reshaping.html#cb674-4"></a>  <span class="st">&#39;Orwell&#39;</span>,   <span class="dv">87</span>)</span>
+<span id="cb674-5"><a href="13-data-reshaping.html#cb674-5"></a></span>
+<span id="cb674-6"><a href="13-data-reshaping.html#cb674-6"></a>example <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( <span class="st">`</span><span class="dt">1984</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Is Awesome</span><span class="st">`</span> )</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   `1984` `Is Awesome`
 ##   &lt;chr&gt;         &lt;dbl&gt;
@@ -495,28 +496,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="cbind-rbind" class="section level2">
 <h2><span class="header-section-number">13.2</span> <code>cbind</code> &amp; <code>rbind</code></h2>
 <p>Base R has two functions for squishing two data frames together, but they assume that the data frames are aligned correctly. The <code>c</code> and <code>r</code> parts of <code>cbind</code> and <code>rbind</code> correspond to if we are pushing columns together or rows together.</p>
-<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="13-data-reshaping.html#cb679-1"></a><span class="co"># Define a tibble using a row-wise layout.</span></span>
-<span id="cb679-2"><a href="13-data-reshaping.html#cb679-2"></a>df1 &lt;-<span class="st"> </span><span class="kw">tribble</span>(            </span>
-<span id="cb679-3"><a href="13-data-reshaping.html#cb679-3"></a>  <span class="op">~</span>ID,  <span class="op">~</span>First,</span>
-<span id="cb679-4"><a href="13-data-reshaping.html#cb679-4"></a>  <span class="dv">1</span>,   <span class="st">&#39;Alice&#39;</span>,</span>
-<span id="cb679-5"><a href="13-data-reshaping.html#cb679-5"></a>  <span class="dv">2</span>,   <span class="st">&#39;Bob&#39;</span>,</span>
-<span id="cb679-6"><a href="13-data-reshaping.html#cb679-6"></a>  <span class="dv">3</span>,   <span class="st">&#39;Charlie&#39;</span>)</span>
-<span id="cb679-7"><a href="13-data-reshaping.html#cb679-7"></a></span>
-<span id="cb679-8"><a href="13-data-reshaping.html#cb679-8"></a><span class="co"># Define a tibble by columns</span></span>
-<span id="cb679-9"><a href="13-data-reshaping.html#cb679-9"></a>df2 &lt;-<span class="st"> </span><span class="kw">tibble</span>( <span class="dt">Last =</span> <span class="kw">c</span>(<span class="st">&#39;Anderson&#39;</span>, <span class="st">&#39;Barker&#39;</span>, <span class="st">&#39;Cooper&#39;</span>) )</span>
-<span id="cb679-10"><a href="13-data-reshaping.html#cb679-10"></a></span>
-<span id="cb679-11"><a href="13-data-reshaping.html#cb679-11"></a><span class="co"># Squish the two tibbles together by columns - results in a data.frame</span></span>
-<span id="cb679-12"><a href="13-data-reshaping.html#cb679-12"></a>People &lt;-<span class="st"> </span><span class="kw">cbind</span>( df1, df2 )</span>
-<span id="cb679-13"><a href="13-data-reshaping.html#cb679-13"></a>People</span></code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="13-data-reshaping.html#cb676-1"></a><span class="co"># Define a tibble using a row-wise layout.</span></span>
+<span id="cb676-2"><a href="13-data-reshaping.html#cb676-2"></a>df1 &lt;-<span class="st"> </span><span class="kw">tribble</span>(            </span>
+<span id="cb676-3"><a href="13-data-reshaping.html#cb676-3"></a>  <span class="op">~</span>ID,  <span class="op">~</span>First,</span>
+<span id="cb676-4"><a href="13-data-reshaping.html#cb676-4"></a>  <span class="dv">1</span>,   <span class="st">&#39;Alice&#39;</span>,</span>
+<span id="cb676-5"><a href="13-data-reshaping.html#cb676-5"></a>  <span class="dv">2</span>,   <span class="st">&#39;Bob&#39;</span>,</span>
+<span id="cb676-6"><a href="13-data-reshaping.html#cb676-6"></a>  <span class="dv">3</span>,   <span class="st">&#39;Charlie&#39;</span>)</span>
+<span id="cb676-7"><a href="13-data-reshaping.html#cb676-7"></a></span>
+<span id="cb676-8"><a href="13-data-reshaping.html#cb676-8"></a><span class="co"># Define a tibble by columns</span></span>
+<span id="cb676-9"><a href="13-data-reshaping.html#cb676-9"></a>df2 &lt;-<span class="st"> </span><span class="kw">tibble</span>( <span class="dt">Last =</span> <span class="kw">c</span>(<span class="st">&#39;Anderson&#39;</span>, <span class="st">&#39;Barker&#39;</span>, <span class="st">&#39;Cooper&#39;</span>) )</span>
+<span id="cb676-10"><a href="13-data-reshaping.html#cb676-10"></a></span>
+<span id="cb676-11"><a href="13-data-reshaping.html#cb676-11"></a><span class="co"># Squish the two tibbles together by columns - results in a data.frame</span></span>
+<span id="cb676-12"><a href="13-data-reshaping.html#cb676-12"></a>People &lt;-<span class="st"> </span><span class="kw">cbind</span>( df1, df2 )</span>
+<span id="cb676-13"><a href="13-data-reshaping.html#cb676-13"></a>People</span></code></pre></div>
 <pre><code>##   ID   First     Last
 ## 1  1   Alice Anderson
 ## 2  2     Bob   Barker
 ## 3  3 Charlie   Cooper</code></pre>
 <p>Squishing together by rows is easy as well.</p>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="13-data-reshaping.html#cb681-1"></a>df3 &lt;-<span class="st"> </span><span class="kw">tibble</span>( <span class="dt">ID=</span><span class="dv">4</span>, <span class="dt">First=</span><span class="st">&#39;Daniel&#39;</span>, <span class="dt">Last=</span><span class="st">&#39;Davidson&#39;</span> )</span>
-<span id="cb681-2"><a href="13-data-reshaping.html#cb681-2"></a></span>
-<span id="cb681-3"><a href="13-data-reshaping.html#cb681-3"></a>People &lt;-<span class="st"> </span><span class="kw">rbind</span>( People, df3 )</span>
-<span id="cb681-4"><a href="13-data-reshaping.html#cb681-4"></a>People</span></code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="13-data-reshaping.html#cb678-1"></a>df3 &lt;-<span class="st"> </span><span class="kw">tibble</span>( <span class="dt">ID=</span><span class="dv">4</span>, <span class="dt">First=</span><span class="st">&#39;Daniel&#39;</span>, <span class="dt">Last=</span><span class="st">&#39;Davidson&#39;</span> )</span>
+<span id="cb678-2"><a href="13-data-reshaping.html#cb678-2"></a></span>
+<span id="cb678-3"><a href="13-data-reshaping.html#cb678-3"></a>People &lt;-<span class="st"> </span><span class="kw">rbind</span>( People, df3 )</span>
+<span id="cb678-4"><a href="13-data-reshaping.html#cb678-4"></a>People</span></code></pre></div>
 <pre><code>##   ID   First     Last
 ## 1  1   Alice Anderson
 ## 2  2     Bob   Barker
@@ -524,18 +525,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4  4  Daniel Davidson</code></pre>
 <p>If both inputs have row or column names, then they don’t need to be appropriate arranged as <code>rbind</code> and <code>cbind</code> can figure out how to order them.</p>
 <p>There are equivalent functions in the <code>dplyr</code> package that do the same job, but will work more consistently. For example, if we try to bind a row of data that has more columns, <code>bind_rows()</code> will introduce a column of <code>NA</code> values to the smaller data set. Furthermore, if the column orders are mixed up</p>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="13-data-reshaping.html#cb683-1"></a>df4 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">First=</span><span class="st">&#39;Elise&#39;</span>, <span class="dt">ID=</span><span class="dv">5</span>, <span class="dt">Last=</span><span class="st">&#39;Erikson&#39;</span>) <span class="co"># Notice changed columns order! </span></span>
-<span id="cb683-2"><a href="13-data-reshaping.html#cb683-2"></a><span class="kw">rbind</span>(People, df4)  <span class="co"># but rbind() can still figure it out!</span></span></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="13-data-reshaping.html#cb680-1"></a>df4 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">First=</span><span class="st">&#39;Elise&#39;</span>, <span class="dt">ID=</span><span class="dv">5</span>, <span class="dt">Last=</span><span class="st">&#39;Erikson&#39;</span>) <span class="co"># Notice changed columns order! </span></span>
+<span id="cb680-2"><a href="13-data-reshaping.html#cb680-2"></a><span class="kw">rbind</span>(People, df4)  <span class="co"># but rbind() can still figure it out!</span></span></code></pre></div>
 <pre><code>##   ID   First     Last
 ## 1  1   Alice Anderson
 ## 2  2     Bob   Barker
 ## 3  3 Charlie   Cooper
 ## 4  4  Daniel Davidson
 ## 5  5   Elise  Erikson</code></pre>
-<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="13-data-reshaping.html#cb685-1"></a>df5 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">First=</span><span class="st">&#39;Frank&#39;</span>, <span class="dt">ID=</span><span class="dv">6</span>, <span class="dt">Last=</span><span class="st">&#39;Fredrick&#39;</span>, <span class="dt">dob=</span>lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="st">&#39;1980-7-21&#39;</span>))</span>
-<span id="cb685-2"><a href="13-data-reshaping.html#cb685-2"></a><span class="kw">rbind</span>(People, df5)   <span class="co"># throws an error</span></span></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="13-data-reshaping.html#cb682-1"></a>df5 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">First=</span><span class="st">&#39;Frank&#39;</span>, <span class="dt">ID=</span><span class="dv">6</span>, <span class="dt">Last=</span><span class="st">&#39;Fredrick&#39;</span>, <span class="dt">dob=</span>lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="st">&#39;1980-7-21&#39;</span>))</span>
+<span id="cb682-2"><a href="13-data-reshaping.html#cb682-2"></a><span class="kw">rbind</span>(People, df5)   <span class="co"># throws an error</span></span></code></pre></div>
 <pre><code>## Error in rbind(deparse.level, ...): numbers of columns of arguments do not match</code></pre>
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="13-data-reshaping.html#cb687-1"></a><span class="kw">bind_rows</span>( People, df4, df5) <span class="co"># Inserts NA values as appropriate.</span></span></code></pre></div>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="13-data-reshaping.html#cb684-1"></a><span class="kw">bind_rows</span>( People, df4, df5) <span class="co"># Inserts NA values as appropriate.</span></span></code></pre></div>
 <pre><code>##   ID   First     Last        dob
 ## 1  1   Alice Anderson       &lt;NA&gt;
 ## 2  2     Bob   Barker       &lt;NA&gt;
@@ -548,11 +549,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tidyr" class="section level2">
 <h2><span class="header-section-number">13.3</span> <code>tidyr</code></h2>
 <p>There is a common issue with obtaining data with many columns that you wish were organized as rows. For example, I might have data in a grade book that has several homework scores and I’d like to produce a nice graph that has assignment number on the x-axis and score on the y-axis. Unfortunately this is incredibly hard to do when the data is arranged in the following way:</p>
-<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="13-data-reshaping.html#cb689-1"></a>grade.book &lt;-<span class="st"> </span><span class="kw">rbind</span>(</span>
-<span id="cb689-2"><a href="13-data-reshaping.html#cb689-2"></a>  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Alison&#39;</span>,  <span class="dt">HW.1=</span><span class="dv">8</span>, <span class="dt">HW.2=</span><span class="dv">5</span>, <span class="dt">HW.3=</span><span class="dv">8</span>, <span class="dt">HW.4=</span><span class="dv">4</span>),</span>
-<span id="cb689-3"><a href="13-data-reshaping.html#cb689-3"></a>  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Brandon&#39;</span>, <span class="dt">HW.1=</span><span class="dv">5</span>, <span class="dt">HW.2=</span><span class="dv">3</span>, <span class="dt">HW.3=</span><span class="dv">6</span>, <span class="dt">HW.4=</span><span class="dv">9</span>),</span>
-<span id="cb689-4"><a href="13-data-reshaping.html#cb689-4"></a>  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Charles&#39;</span>, <span class="dt">HW.1=</span><span class="dv">9</span>, <span class="dt">HW.2=</span><span class="dv">7</span>, <span class="dt">HW.3=</span><span class="dv">9</span>, <span class="dt">HW.4=</span><span class="dv">10</span>))</span>
-<span id="cb689-5"><a href="13-data-reshaping.html#cb689-5"></a>grade.book</span></code></pre></div>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="13-data-reshaping.html#cb686-1"></a>grade.book &lt;-<span class="st"> </span><span class="kw">rbind</span>(</span>
+<span id="cb686-2"><a href="13-data-reshaping.html#cb686-2"></a>  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Alison&#39;</span>,  <span class="dt">HW.1=</span><span class="dv">8</span>, <span class="dt">HW.2=</span><span class="dv">5</span>, <span class="dt">HW.3=</span><span class="dv">8</span>, <span class="dt">HW.4=</span><span class="dv">4</span>),</span>
+<span id="cb686-3"><a href="13-data-reshaping.html#cb686-3"></a>  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Brandon&#39;</span>, <span class="dt">HW.1=</span><span class="dv">5</span>, <span class="dt">HW.2=</span><span class="dv">3</span>, <span class="dt">HW.3=</span><span class="dv">6</span>, <span class="dt">HW.4=</span><span class="dv">9</span>),</span>
+<span id="cb686-4"><a href="13-data-reshaping.html#cb686-4"></a>  <span class="kw">data.frame</span>(<span class="dt">name=</span><span class="st">&#39;Charles&#39;</span>, <span class="dt">HW.1=</span><span class="dv">9</span>, <span class="dt">HW.2=</span><span class="dv">7</span>, <span class="dt">HW.3=</span><span class="dv">9</span>, <span class="dt">HW.4=</span><span class="dv">10</span>))</span>
+<span id="cb686-5"><a href="13-data-reshaping.html#cb686-5"></a>grade.book</span></code></pre></div>
 <pre><code>##      name HW.1 HW.2 HW.3 HW.4
 ## 1  Alison    8    5    8    4
 ## 2 Brandon    5    3    6    9
@@ -586,12 +587,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="13-data-reshaping.html#cb691-1"></a><span class="co"># first we gather the score columns into columns we&#39;ll name Homework and Score</span></span>
-<span id="cb691-2"><a href="13-data-reshaping.html#cb691-2"></a>tidy.scores &lt;-<span class="st"> </span>grade.book <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb691-3"><a href="13-data-reshaping.html#cb691-3"></a><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework,     <span class="co"># What should I call the key column</span></span>
-<span id="cb691-4"><a href="13-data-reshaping.html#cb691-4"></a>          <span class="dt">value=</span>Score,      <span class="co"># What should I call the values column</span></span>
-<span id="cb691-5"><a href="13-data-reshaping.html#cb691-5"></a>          HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span>)        <span class="co"># which columns to apply this to</span></span>
-<span id="cb691-6"><a href="13-data-reshaping.html#cb691-6"></a>tidy.scores</span></code></pre></div>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="13-data-reshaping.html#cb688-1"></a><span class="co"># first we gather the score columns into columns we&#39;ll name Homework and Score</span></span>
+<span id="cb688-2"><a href="13-data-reshaping.html#cb688-2"></a>tidy.scores &lt;-<span class="st"> </span>grade.book <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb688-3"><a href="13-data-reshaping.html#cb688-3"></a><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework,     <span class="co"># What should I call the key column</span></span>
+<span id="cb688-4"><a href="13-data-reshaping.html#cb688-4"></a>          <span class="dt">value=</span>Score,      <span class="co"># What should I call the values column</span></span>
+<span id="cb688-5"><a href="13-data-reshaping.html#cb688-5"></a>          HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span>)        <span class="co"># which columns to apply this to</span></span>
+<span id="cb688-6"><a href="13-data-reshaping.html#cb688-6"></a>tidy.scores</span></code></pre></div>
 <pre><code>##       name Homework Score
 ## 1   Alison     HW.1     8
 ## 2  Brandon     HW.1     5
@@ -606,8 +607,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 11 Brandon     HW.4     9
 ## 12 Charles     HW.4    10</code></pre>
 <p>To spread the key:value pairs out into a matrix, we use the <code>spread()</code> command.</p>
-<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="13-data-reshaping.html#cb693-1"></a><span class="co"># Turn the Homework/Score pair of columns into one column per factor level of Homework</span></span>
-<span id="cb693-2"><a href="13-data-reshaping.html#cb693-2"></a>tidy.scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score )</span></code></pre></div>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="13-data-reshaping.html#cb690-1"></a><span class="co"># Turn the Homework/Score pair of columns into one column per factor level of Homework</span></span>
+<span id="cb690-2"><a href="13-data-reshaping.html#cb690-2"></a>tidy.scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score )</span></code></pre></div>
 <pre><code>##      name HW.1 HW.2 HW.3 HW.4
 ## 1  Alison    8    5    8    4
 ## 2 Brandon    5    3    6    9
@@ -624,14 +625,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To see the rational why we might do this, consider building a data set of blood donations by a variety of donors across several years. For each blood donation, we will perform some assay and measure certain qualities about the blood and the patients health at the donation. But should we contain the donor’s address, phone number, and email address in the same data table that holds the information about the blood donated.</p>
 <p>I would like to include additional information about the donor where that information doesn’t change overtime. For example we might want to have information about the donor’s birthdate, sex, blood type. However, I don’t want that information in <em>every single donation line</em>. Otherwise if I mistype a birthday and have to correct it, I would have to correct it <em>everywhere</em>. For information about the donor, should live in a <code>donors</code> table, while information about a particular donation should live in the <code>donations</code> table.</p>
 <p>Furthermore, there are many Jeffs and Dereks in the world and to maintain a unique identifier (without using Social Security numbers) I will just create a <code>Donor_ID</code> code that will uniquely identify a person. Similarly I will create a <code>Blood_ID</code> that will uniquely identify a blood donation.</p>
-<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="13-data-reshaping.html#cb696-1"></a>Donors</span></code></pre></div>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="13-data-reshaping.html#cb693-1"></a>Donors</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 7
 ##   Donor_ID Name   Blood_Type Birthday   Street       City      State
 ##   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;
 ## 1 D1       Derek  O+         1976-09-17 7392 Willard Flagstaff AZ   
 ## 2 D2       Jeff   A-         1974-06-23 873 Vine     Bozeman   MT   
 ## 3 D3       Aubrey O+         1976-09-17 7392 Willard Flagstaff AZ</code></pre>
-<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="13-data-reshaping.html#cb698-1"></a>Blood_Donations </span></code></pre></div>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="13-data-reshaping.html#cb695-1"></a>Blood_Donations </span></code></pre></div>
 <pre><code>## # A tibble: 5 x 6
 ##   Blood_ID Donor_ID Date       Hemoglobin Systolic Diastolic
 ##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
@@ -678,41 +679,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>For a practical example</p>
-<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="13-data-reshaping.html#cb700-1"></a>A &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb700-2"><a href="13-data-reshaping.html#cb700-2"></a>  <span class="op">~</span>ID, <span class="op">~</span>x,</span>
-<span id="cb700-3"><a href="13-data-reshaping.html#cb700-3"></a>  <span class="st">&#39;a&#39;</span>, <span class="dv">34</span>,    <span class="co"># Notice that A doesn&#39;t have ID = d</span></span>
-<span id="cb700-4"><a href="13-data-reshaping.html#cb700-4"></a>  <span class="st">&#39;b&#39;</span>, <span class="dv">36</span>,</span>
-<span id="cb700-5"><a href="13-data-reshaping.html#cb700-5"></a>  <span class="st">&#39;c&#39;</span>, <span class="dv">38</span>)</span>
-<span id="cb700-6"><a href="13-data-reshaping.html#cb700-6"></a>B &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb700-7"><a href="13-data-reshaping.html#cb700-7"></a>  <span class="op">~</span>ID, <span class="op">~</span>y,</span>
-<span id="cb700-8"><a href="13-data-reshaping.html#cb700-8"></a>  <span class="st">&#39;b&#39;</span>, <span class="dv">56</span>,   <span class="co"># Notice that B doesn&#39;t have ID = a</span></span>
-<span id="cb700-9"><a href="13-data-reshaping.html#cb700-9"></a>  <span class="st">&#39;c&#39;</span>, <span class="dv">57</span>,</span>
-<span id="cb700-10"><a href="13-data-reshaping.html#cb700-10"></a>  <span class="st">&#39;d&#39;</span>, <span class="dv">59</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="13-data-reshaping.html#cb701-1"></a><span class="co"># only include rows with IDs that are in both tables</span></span>
-<span id="cb701-2"><a href="13-data-reshaping.html#cb701-2"></a><span class="kw">inner_join</span>(A,B)</span></code></pre></div>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="13-data-reshaping.html#cb697-1"></a>A &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb697-2"><a href="13-data-reshaping.html#cb697-2"></a>  <span class="op">~</span>ID, <span class="op">~</span>x,</span>
+<span id="cb697-3"><a href="13-data-reshaping.html#cb697-3"></a>  <span class="st">&#39;a&#39;</span>, <span class="dv">34</span>,    <span class="co"># Notice that A doesn&#39;t have ID = d</span></span>
+<span id="cb697-4"><a href="13-data-reshaping.html#cb697-4"></a>  <span class="st">&#39;b&#39;</span>, <span class="dv">36</span>,</span>
+<span id="cb697-5"><a href="13-data-reshaping.html#cb697-5"></a>  <span class="st">&#39;c&#39;</span>, <span class="dv">38</span>)</span>
+<span id="cb697-6"><a href="13-data-reshaping.html#cb697-6"></a>B &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb697-7"><a href="13-data-reshaping.html#cb697-7"></a>  <span class="op">~</span>ID, <span class="op">~</span>y,</span>
+<span id="cb697-8"><a href="13-data-reshaping.html#cb697-8"></a>  <span class="st">&#39;b&#39;</span>, <span class="dv">56</span>,   <span class="co"># Notice that B doesn&#39;t have ID = a</span></span>
+<span id="cb697-9"><a href="13-data-reshaping.html#cb697-9"></a>  <span class="st">&#39;c&#39;</span>, <span class="dv">57</span>,</span>
+<span id="cb697-10"><a href="13-data-reshaping.html#cb697-10"></a>  <span class="st">&#39;d&#39;</span>, <span class="dv">59</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="13-data-reshaping.html#cb698-1"></a><span class="co"># only include rows with IDs that are in both tables</span></span>
+<span id="cb698-2"><a href="13-data-reshaping.html#cb698-2"></a><span class="kw">inner_join</span>(A,B)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 3
 ##   ID        x     y
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 b        36    56
 ## 2 c        38    57</code></pre>
-<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="13-data-reshaping.html#cb703-1"></a><span class="co"># All the rows in table A, insert NA if the B info is missing</span></span>
-<span id="cb703-2"><a href="13-data-reshaping.html#cb703-2"></a><span class="kw">left_join</span>(A,B)</span></code></pre></div>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="13-data-reshaping.html#cb700-1"></a><span class="co"># All the rows in table A, insert NA if the B info is missing</span></span>
+<span id="cb700-2"><a href="13-data-reshaping.html#cb700-2"></a><span class="kw">left_join</span>(A,B)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   ID        x     y
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 a        34    NA
 ## 2 b        36    56
 ## 3 c        38    57</code></pre>
-<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="13-data-reshaping.html#cb705-1"></a><span class="co"># All the rows in table B, insert NA if the A info is missing</span></span>
-<span id="cb705-2"><a href="13-data-reshaping.html#cb705-2"></a><span class="kw">right_join</span>(A,B)</span></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="13-data-reshaping.html#cb702-1"></a><span class="co"># All the rows in table B, insert NA if the A info is missing</span></span>
+<span id="cb702-2"><a href="13-data-reshaping.html#cb702-2"></a><span class="kw">right_join</span>(A,B)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   ID        x     y
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 b        36    56
 ## 2 c        38    57
 ## 3 d        NA    59</code></pre>
-<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="13-data-reshaping.html#cb707-1"></a><span class="co"># All the rows possible, insert NA if the matching info is missing</span></span>
-<span id="cb707-2"><a href="13-data-reshaping.html#cb707-2"></a><span class="kw">full_join</span>(A,B)</span></code></pre></div>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="13-data-reshaping.html#cb704-1"></a><span class="co"># All the rows possible, insert NA if the matching info is missing</span></span>
+<span id="cb704-2"><a href="13-data-reshaping.html#cb704-2"></a><span class="kw">full_join</span>(A,B)</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 3
 ##   ID        x     y
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -722,29 +723,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 d        NA    59</code></pre>
 <p>Consider the case where we have a data frame of observations of fish and a separate data frame that contains information about lake (perhaps surface area, max depth, pH, etc). I want to store them as two separate tables so that when I have to record a lake level observation, I only input it <em>one</em> place. This decreases the chance that I make a copy/paste error.</p>
 <p>To illustrate the different types of table joins, we’ll consider two different tables.</p>
-<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="13-data-reshaping.html#cb709-1"></a><span class="co"># tibbles are just data.frames that print a bit nicer and don&#39;t automatically</span></span>
-<span id="cb709-2"><a href="13-data-reshaping.html#cb709-2"></a><span class="co"># convert character columns into factors.  They behave a bit more consistently</span></span>
-<span id="cb709-3"><a href="13-data-reshaping.html#cb709-3"></a><span class="co"># in a wide variety of situations compared to data.frames.</span></span>
-<span id="cb709-4"><a href="13-data-reshaping.html#cb709-4"></a>Fish.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
-<span id="cb709-5"><a href="13-data-reshaping.html#cb709-5"></a>  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;C&#39;</span>), </span>
-<span id="cb709-6"><a href="13-data-reshaping.html#cb709-6"></a>  <span class="dt">Fish.Weight=</span><span class="kw">rnorm</span>(<span class="dv">6</span>, <span class="dt">mean=</span><span class="dv">260</span>, <span class="dt">sd=</span><span class="dv">25</span>) ) <span class="co"># make up some data</span></span>
-<span id="cb709-7"><a href="13-data-reshaping.html#cb709-7"></a>Lake.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
-<span id="cb709-8"><a href="13-data-reshaping.html#cb709-8"></a>  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(    <span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>),   </span>
-<span id="cb709-9"><a href="13-data-reshaping.html#cb709-9"></a>  <span class="dt">Lake_Name =</span> <span class="kw">c</span>(<span class="st">&#39;Lake Elaine&#39;</span>, <span class="st">&#39;Mormon Lake&#39;</span>, <span class="st">&#39;Lake Mary&#39;</span>),   </span>
-<span id="cb709-10"><a href="13-data-reshaping.html#cb709-10"></a>  <span class="dt">pH=</span><span class="kw">c</span>(<span class="fl">6.5</span>, <span class="fl">6.3</span>, <span class="fl">6.1</span>),</span>
-<span id="cb709-11"><a href="13-data-reshaping.html#cb709-11"></a>  <span class="dt">area =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">210</span>, <span class="dv">240</span>),</span>
-<span id="cb709-12"><a href="13-data-reshaping.html#cb709-12"></a>  <span class="dt">avg_depth =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">38</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="13-data-reshaping.html#cb710-1"></a>Fish.Data</span></code></pre></div>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="13-data-reshaping.html#cb706-1"></a><span class="co"># tibbles are just data.frames that print a bit nicer and don&#39;t automatically</span></span>
+<span id="cb706-2"><a href="13-data-reshaping.html#cb706-2"></a><span class="co"># convert character columns into factors.  They behave a bit more consistently</span></span>
+<span id="cb706-3"><a href="13-data-reshaping.html#cb706-3"></a><span class="co"># in a wide variety of situations compared to data.frames.</span></span>
+<span id="cb706-4"><a href="13-data-reshaping.html#cb706-4"></a>Fish.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb706-5"><a href="13-data-reshaping.html#cb706-5"></a>  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;C&#39;</span>), </span>
+<span id="cb706-6"><a href="13-data-reshaping.html#cb706-6"></a>  <span class="dt">Fish.Weight=</span><span class="kw">rnorm</span>(<span class="dv">6</span>, <span class="dt">mean=</span><span class="dv">260</span>, <span class="dt">sd=</span><span class="dv">25</span>) ) <span class="co"># make up some data</span></span>
+<span id="cb706-7"><a href="13-data-reshaping.html#cb706-7"></a>Lake.Data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb706-8"><a href="13-data-reshaping.html#cb706-8"></a>  <span class="dt">Lake_ID =</span> <span class="kw">c</span>(    <span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>),   </span>
+<span id="cb706-9"><a href="13-data-reshaping.html#cb706-9"></a>  <span class="dt">Lake_Name =</span> <span class="kw">c</span>(<span class="st">&#39;Lake Elaine&#39;</span>, <span class="st">&#39;Mormon Lake&#39;</span>, <span class="st">&#39;Lake Mary&#39;</span>),   </span>
+<span id="cb706-10"><a href="13-data-reshaping.html#cb706-10"></a>  <span class="dt">pH=</span><span class="kw">c</span>(<span class="fl">6.5</span>, <span class="fl">6.3</span>, <span class="fl">6.1</span>),</span>
+<span id="cb706-11"><a href="13-data-reshaping.html#cb706-11"></a>  <span class="dt">area =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">210</span>, <span class="dv">240</span>),</span>
+<span id="cb706-12"><a href="13-data-reshaping.html#cb706-12"></a>  <span class="dt">avg_depth =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">38</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="13-data-reshaping.html#cb707-1"></a>Fish.Data</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 A              295.
-## 2 A              248.
-## 3 B              263.
-## 4 B              270.
-## 5 C              234.
-## 6 C              278.</code></pre>
-<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="13-data-reshaping.html#cb712-1"></a>Lake.Data</span></code></pre></div>
+## 1 A              266.
+## 2 A              216.
+## 3 B              277.
+## 4 B              236.
+## 5 C              268.
+## 6 C              254.</code></pre>
+<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="13-data-reshaping.html#cb709-1"></a>Lake.Data</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   Lake_ID Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
@@ -752,49 +753,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 C       Mormon Lake   6.3   210        10
 ## 3 D       Lake Mary     6.1   240        38</code></pre>
 <p>Notice that each of these tables has a column labeled <code>Lake_ID</code>. When we join these two tables, the row that describes lake <code>A</code> should be duplicated for each row in the <code>Fish.Data</code> that corresponds with fish caught from lake <code>A</code>.</p>
-<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="13-data-reshaping.html#cb714-1"></a><span class="kw">full_join</span>(Fish.Data, Lake.Data)</span></code></pre></div>
+<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb711-1"><a href="13-data-reshaping.html#cb711-1"></a><span class="kw">full_join</span>(Fish.Data, Lake.Data)</span></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              295. &lt;NA&gt;         NA      NA        NA
-## 2 A              248. &lt;NA&gt;         NA      NA        NA
-## 3 B              263. Lake Elaine   6.5    40         8
-## 4 B              270. Lake Elaine   6.5    40         8
-## 5 C              234. Mormon Lake   6.3   210        10
-## 6 C              278. Mormon Lake   6.3   210        10
+## 1 A              266. &lt;NA&gt;         NA      NA        NA
+## 2 A              216. &lt;NA&gt;         NA      NA        NA
+## 3 B              277. Lake Elaine   6.5    40         8
+## 4 B              236. Lake Elaine   6.5    40         8
+## 5 C              268. Mormon Lake   6.3   210        10
+## 6 C              254. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38</code></pre>
 <p>Notice that because we didn’t have any fish caught in lake <code>D</code> and we don’t have any Lake information about lake <code>A</code>, when we join these two tables, we end up introducing missing observations into the resulting data frame.</p>
-<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="13-data-reshaping.html#cb717-1"></a><span class="kw">left_join</span>(Fish.Data, Lake.Data)</span></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="13-data-reshaping.html#cb714-1"></a><span class="kw">left_join</span>(Fish.Data, Lake.Data)</span></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 A              295. &lt;NA&gt;         NA      NA        NA
-## 2 A              248. &lt;NA&gt;         NA      NA        NA
-## 3 B              263. Lake Elaine   6.5    40         8
-## 4 B              270. Lake Elaine   6.5    40         8
-## 5 C              234. Mormon Lake   6.3   210        10
-## 6 C              278. Mormon Lake   6.3   210        10</code></pre>
-<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="13-data-reshaping.html#cb720-1"></a><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</span></code></pre></div>
+## 1 A              266. &lt;NA&gt;         NA      NA        NA
+## 2 A              216. &lt;NA&gt;         NA      NA        NA
+## 3 B              277. Lake Elaine   6.5    40         8
+## 4 B              236. Lake Elaine   6.5    40         8
+## 5 C              268. Mormon Lake   6.3   210        10
+## 6 C              254. Mormon Lake   6.3   210        10</code></pre>
+<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="13-data-reshaping.html#cb717-1"></a><span class="kw">inner_join</span>(Fish.Data, Lake.Data)</span></code></pre></div>
 <pre><code>## Joining, by = &quot;Lake_ID&quot;</code></pre>
 <pre><code>## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1 B              263. Lake Elaine   6.5    40         8
-## 2 B              270. Lake Elaine   6.5    40         8
-## 3 C              234. Mormon Lake   6.3   210        10
-## 4 C              278. Mormon Lake   6.3   210        10</code></pre>
+## 1 B              277. Lake Elaine   6.5    40         8
+## 2 B              236. Lake Elaine   6.5    40         8
+## 3 C              268. Mormon Lake   6.3   210        10
+## 4 C              254. Mormon Lake   6.3   210        10</code></pre>
 <p>The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn’t the case. In that situation you can use the <code>by=c("ColName.A"="ColName.B")</code> syntax where <code>ColName.A</code> represents the name of the column in the first data frame and <code>ColName.B</code> is the equivalent column in the second data frame.</p>
 </div>
 <div id="row-summations" class="section level2">
 <h2><span class="header-section-number">13.6</span> Row summations</h2>
 <p>Finally, the combination of <code>gather</code> and <code>join</code> allows me to do some very complex calculations across many columns of a data set. For example, I might gather up a set of columns, calculate some summary statistics, and then join the result back to original data set.</p>
-<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="13-data-reshaping.html#cb723-1"></a>grade.book <span class="op">%&gt;%</span></span>
-<span id="cb723-2"><a href="13-data-reshaping.html#cb723-2"></a><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></span>
-<span id="cb723-3"><a href="13-data-reshaping.html#cb723-3"></a><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score, HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span> ) <span class="op">%&gt;%</span></span>
-<span id="cb723-4"><a href="13-data-reshaping.html#cb723-4"></a><span class="st">  </span><span class="kw">summarise</span>( <span class="dt">HW.avg =</span> <span class="kw">mean</span>(Score) ) <span class="op">%&gt;%</span></span>
-<span id="cb723-5"><a href="13-data-reshaping.html#cb723-5"></a><span class="st">  </span><span class="kw">left_join</span>( grade.book, . )</span></code></pre></div>
+<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="13-data-reshaping.html#cb720-1"></a>grade.book <span class="op">%&gt;%</span></span>
+<span id="cb720-2"><a href="13-data-reshaping.html#cb720-2"></a><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></span>
+<span id="cb720-3"><a href="13-data-reshaping.html#cb720-3"></a><span class="st">  </span><span class="kw">gather</span>( <span class="dt">key=</span>Homework, <span class="dt">value=</span>Score, HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span> ) <span class="op">%&gt;%</span></span>
+<span id="cb720-4"><a href="13-data-reshaping.html#cb720-4"></a><span class="st">  </span><span class="kw">summarise</span>( <span class="dt">HW.avg =</span> <span class="kw">mean</span>(Score) ) <span class="op">%&gt;%</span></span>
+<span id="cb720-5"><a href="13-data-reshaping.html#cb720-5"></a><span class="st">  </span><span class="kw">left_join</span>( grade.book, . )</span></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## Joining, by = &quot;name&quot;</code></pre>
 <pre><code>##      name HW.1 HW.2 HW.3 HW.4 HW.avg
@@ -802,10 +803,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 Brandon    5    3    6    9   5.75
 ## 3 Charles    9    7    9   10   8.75</code></pre>
 <p>This is actually pretty annoying to do. What I prefer to do is to use the base function <code>apply()</code> within a <code>mutate()</code> command. Recall that the <code>apply()</code> function applies a function to each row or column (<code>MARGIN=1</code> or <code>MARGIN=2</code> respectively). So we just need to put together <code>select</code> and <code>apply</code> statements.</p>
-<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="13-data-reshaping.html#cb727-1"></a><span class="co">#        col.name             columns              function</span></span>
-<span id="cb727-2"><a href="13-data-reshaping.html#cb727-2"></a>grade.book <span class="op">%&gt;%</span></span>
-<span id="cb727-3"><a href="13-data-reshaping.html#cb727-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">HW.avg =</span> <span class="kw">select</span>(., HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">apply</span>(<span class="dv">1</span>, mean)) <span class="op">%&gt;%</span></span>
-<span id="cb727-4"><a href="13-data-reshaping.html#cb727-4"></a><span class="st">  </span><span class="kw">print</span>() <span class="co"># this print is just to show you can keep the pipeline going...</span></span></code></pre></div>
+<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="13-data-reshaping.html#cb724-1"></a><span class="co">#        col.name             columns              function</span></span>
+<span id="cb724-2"><a href="13-data-reshaping.html#cb724-2"></a>grade.book <span class="op">%&gt;%</span></span>
+<span id="cb724-3"><a href="13-data-reshaping.html#cb724-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">HW.avg =</span> <span class="kw">select</span>(., HW<span class="fl">.1</span><span class="op">:</span>HW<span class="fl">.4</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">apply</span>(<span class="dv">1</span>, mean)) <span class="op">%&gt;%</span></span>
+<span id="cb724-4"><a href="13-data-reshaping.html#cb724-4"></a><span class="st">  </span><span class="kw">print</span>() <span class="co"># this print is just to show you can keep the pipeline going...</span></span></code></pre></div>
 <pre><code>##      name HW.1 HW.2 HW.3 HW.4 HW.avg
 ## 1  Alison    8    5    8    4   6.25
 ## 2 Brandon    5    3    6    9   5.75
@@ -817,7 +818,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A common task is to take a set of data that has multiple categorical variables and create a table of the number of cases for each combination. An introductory statistics textbook contains a dataset summarizing student surveys from several sections of an intro class. The two variables of interest for us are <code>Gender</code> and <code>Year</code> which are the students gender and year in college.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Download the dataset and correctly order the <code>Year</code> variable using the following:</p>
-<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="13-data-reshaping.html#cb729-1"></a>Survey &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.lock5stat.com/datasets/StudentSurvey.csv&#39;</span>, <span class="dt">na.strings=</span><span class="kw">c</span>(<span class="st">&#39;&#39;</span>,<span class="st">&#39; &#39;</span>)) </span></code></pre></div></li>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="13-data-reshaping.html#cb726-1"></a>Survey &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.lock5stat.com/datasets/StudentSurvey.csv&#39;</span>, <span class="dt">na.strings=</span><span class="kw">c</span>(<span class="st">&#39;&#39;</span>,<span class="st">&#39; &#39;</span>)) </span></code></pre></div></li>
 <li><p>Using some combination of <code>dplyr</code> functions, produce a data set with eight rows that contains the number of responses for each gender:year combination. Make sure your table orders the <code>Year</code> variable in the correct order of <code>First Year</code>, <code>Sophmore</code>, <code>Junior</code>, and then <code>Senior</code>. <em>You might want to look at the following functions: <code>dplyr::count</code> and <code>dplyr::drop_na</code>.</em></p></li>
 <li><p>Using <code>tidyr</code> commands, produce a table of the number of responses in the following form:</p>
 <table>
@@ -865,85 +866,85 @@ Our goal is to end up with a data frame with columns for <code>Function</code>, 
 <li>Make a line graph that compares spending for National Defense, Health, Medicare, Income Security, and Social Security for each of the years 2001 through 2015. <em>Notice you’ll have to sum up the sub-functions within each function.</em></li>
 </ol></li>
 <li><p>For this problem we will consider two simple data sets.</p>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="13-data-reshaping.html#cb730-1"></a>A &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb730-2"><a href="13-data-reshaping.html#cb730-2"></a>  <span class="op">~</span>Name, <span class="op">~</span>Car,</span>
-<span id="cb730-3"><a href="13-data-reshaping.html#cb730-3"></a>  <span class="st">&#39;Alice&#39;</span>, <span class="st">&#39;Ford F150&#39;</span>,</span>
-<span id="cb730-4"><a href="13-data-reshaping.html#cb730-4"></a>  <span class="st">&#39;Bob&#39;</span>,   <span class="st">&#39;Tesla Model III&#39;</span>,</span>
-<span id="cb730-5"><a href="13-data-reshaping.html#cb730-5"></a>  <span class="st">&#39;Charlie&#39;</span>, <span class="st">&#39;VW Bug&#39;</span>)</span>
-<span id="cb730-6"><a href="13-data-reshaping.html#cb730-6"></a></span>
-<span id="cb730-7"><a href="13-data-reshaping.html#cb730-7"></a>B &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb730-8"><a href="13-data-reshaping.html#cb730-8"></a>  <span class="op">~</span>First.Name, <span class="op">~</span>Pet,</span>
-<span id="cb730-9"><a href="13-data-reshaping.html#cb730-9"></a>  <span class="st">&#39;Bob&#39;</span>,  <span class="st">&#39;Cat&#39;</span>,</span>
-<span id="cb730-10"><a href="13-data-reshaping.html#cb730-10"></a>  <span class="st">&#39;Charlie&#39;</span>, <span class="st">&#39;Dog&#39;</span>,</span>
-<span id="cb730-11"><a href="13-data-reshaping.html#cb730-11"></a>  <span class="st">&#39;Alice&#39;</span>, <span class="st">&#39;Rabbit&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="13-data-reshaping.html#cb727-1"></a>A &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb727-2"><a href="13-data-reshaping.html#cb727-2"></a>  <span class="op">~</span>Name, <span class="op">~</span>Car,</span>
+<span id="cb727-3"><a href="13-data-reshaping.html#cb727-3"></a>  <span class="st">&#39;Alice&#39;</span>, <span class="st">&#39;Ford F150&#39;</span>,</span>
+<span id="cb727-4"><a href="13-data-reshaping.html#cb727-4"></a>  <span class="st">&#39;Bob&#39;</span>,   <span class="st">&#39;Tesla Model III&#39;</span>,</span>
+<span id="cb727-5"><a href="13-data-reshaping.html#cb727-5"></a>  <span class="st">&#39;Charlie&#39;</span>, <span class="st">&#39;VW Bug&#39;</span>)</span>
+<span id="cb727-6"><a href="13-data-reshaping.html#cb727-6"></a></span>
+<span id="cb727-7"><a href="13-data-reshaping.html#cb727-7"></a>B &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb727-8"><a href="13-data-reshaping.html#cb727-8"></a>  <span class="op">~</span>First.Name, <span class="op">~</span>Pet,</span>
+<span id="cb727-9"><a href="13-data-reshaping.html#cb727-9"></a>  <span class="st">&#39;Bob&#39;</span>,  <span class="st">&#39;Cat&#39;</span>,</span>
+<span id="cb727-10"><a href="13-data-reshaping.html#cb727-10"></a>  <span class="st">&#39;Charlie&#39;</span>, <span class="st">&#39;Dog&#39;</span>,</span>
+<span id="cb727-11"><a href="13-data-reshaping.html#cb727-11"></a>  <span class="st">&#39;Alice&#39;</span>, <span class="st">&#39;Rabbit&#39;</span>)</span></code></pre></div>
 <ol style="list-style-type: lower-alpha">
 <li>Squish the data frames together to generate a data set with three rows and three columns. Do two ways: first using <code>cbind</code> and then using one of the <code>dplyr</code> <code>join</code> commands.</li>
 <li>It turns out that Alice also has a pet guinea pig. Add another row to the <code>B</code> data set. Do this using either the base function <code>rbind</code>, or either of the <code>dplyr</code> functions <code>add_row</code> or <code>bind_rows</code>.</li>
 <li>Squish the <code>A</code> and <code>B</code> data sets together to generate a data set with four rows and three columns. Do this two ways: first using <code>cbind</code> and then using one of the <code>dplyr</code> <code>join</code> commands. Which was easier to program? Which is more likely to have an error.</li>
 </ol></li>
 <li><p>Data table joins are extremely common because effective database design almost always involves having multiple tables for different types of objects. To illustrate both the table joins and the usefulness of multiple tables we will develop a set of data frames that will represent a credit card company’s customer data base. We will have tables for Customers, Retailers, Cards, and Transactions. Below is code that will create and populate these tables.</p>
-<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="13-data-reshaping.html#cb731-1"></a>Customers &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb731-2"><a href="13-data-reshaping.html#cb731-2"></a>  <span class="op">~</span>PersonID, <span class="op">~</span>Name, <span class="op">~</span>Street, <span class="op">~</span>City, <span class="op">~</span>State,</span>
-<span id="cb731-3"><a href="13-data-reshaping.html#cb731-3"></a>  <span class="dv">1</span>, <span class="st">&#39;Derek Sonderegger&#39;</span>,  <span class="st">&#39;231 River Run&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</span>
-<span id="cb731-4"><a href="13-data-reshaping.html#cb731-4"></a>  <span class="dv">2</span>, <span class="st">&#39;Aubrey Sonderegger&#39;</span>, <span class="st">&#39;231 River Run&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</span>
-<span id="cb731-5"><a href="13-data-reshaping.html#cb731-5"></a>  <span class="dv">3</span>, <span class="st">&#39;Robert Buscaglia&#39;</span>, <span class="st">&#39;754 Forest Heights&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</span>
-<span id="cb731-6"><a href="13-data-reshaping.html#cb731-6"></a>  <span class="dv">4</span>, <span class="st">&#39;Roy St Laurent&#39;</span>, <span class="st">&#39;845 Elk View&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>)</span>
-<span id="cb731-7"><a href="13-data-reshaping.html#cb731-7"></a></span>
-<span id="cb731-8"><a href="13-data-reshaping.html#cb731-8"></a>Retailers &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb731-9"><a href="13-data-reshaping.html#cb731-9"></a>  <span class="op">~</span>RetailID, <span class="op">~</span>Name, <span class="op">~</span>Street, <span class="op">~</span>City, <span class="op">~</span>State,</span>
-<span id="cb731-10"><a href="13-data-reshaping.html#cb731-10"></a>  <span class="dv">1</span>, <span class="st">&#39;Kickstand Kafe&#39;</span>, <span class="st">&#39;719 N Humphreys St&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</span>
-<span id="cb731-11"><a href="13-data-reshaping.html#cb731-11"></a>  <span class="dv">2</span>, <span class="st">&#39;MartAnnes&#39;</span>, <span class="st">&#39;112 E Route 66&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</span>
-<span id="cb731-12"><a href="13-data-reshaping.html#cb731-12"></a>  <span class="dv">3</span>, <span class="st">&#39;REI&#39;</span>, <span class="st">&#39;323 S Windsor Ln&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span> )</span>
-<span id="cb731-13"><a href="13-data-reshaping.html#cb731-13"></a></span>
-<span id="cb731-14"><a href="13-data-reshaping.html#cb731-14"></a>Cards &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb731-15"><a href="13-data-reshaping.html#cb731-15"></a>  <span class="op">~</span>CardID, <span class="op">~</span>PersonID, <span class="op">~</span>Issue_DateTime, <span class="op">~</span>Exp_DateTime,</span>
-<span id="cb731-16"><a href="13-data-reshaping.html#cb731-16"></a>  <span class="st">&#39;9876768717278723&#39;</span>,  <span class="dv">1</span>,  <span class="st">&#39;2019-9-20 0:00:00&#39;</span>, <span class="st">&#39;2022-9-20 0:00:00&#39;</span>,</span>
-<span id="cb731-17"><a href="13-data-reshaping.html#cb731-17"></a>  <span class="st">&#39;5628927579821287&#39;</span>,  <span class="dv">2</span>,  <span class="st">&#39;2019-9-20 0:00:00&#39;</span>, <span class="st">&#39;2022-9-20 0:00:00&#39;</span>,</span>
-<span id="cb731-18"><a href="13-data-reshaping.html#cb731-18"></a>  <span class="st">&#39;7295825498122734&#39;</span>,  <span class="dv">3</span>,  <span class="st">&#39;2019-9-28 0:00:00&#39;</span>, <span class="st">&#39;2022-9-28 0:00:00&#39;</span>,</span>
-<span id="cb731-19"><a href="13-data-reshaping.html#cb731-19"></a>  <span class="st">&#39;8723768965231926&#39;</span>,  <span class="dv">4</span>,  <span class="st">&#39;2019-9-30 0:00:00&#39;</span>, <span class="st">&#39;2022-9-30 0:00:00&#39;</span> ) </span>
-<span id="cb731-20"><a href="13-data-reshaping.html#cb731-20"></a></span>
-<span id="cb731-21"><a href="13-data-reshaping.html#cb731-21"></a>Transactions &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb731-22"><a href="13-data-reshaping.html#cb731-22"></a>  <span class="op">~</span>CardID, <span class="op">~</span>RetailID, <span class="op">~</span>DateTime, <span class="op">~</span>Amount,</span>
-<span id="cb731-23"><a href="13-data-reshaping.html#cb731-23"></a>  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-1 8:31:23&#39;</span>,    <span class="fl">5.68</span>,</span>
-<span id="cb731-24"><a href="13-data-reshaping.html#cb731-24"></a>  <span class="st">&#39;7295825498122734&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-1 12:45:45&#39;</span>,  <span class="fl">25.67</span>,</span>
-<span id="cb731-25"><a href="13-data-reshaping.html#cb731-25"></a>  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-2 8:26:31&#39;</span>,    <span class="fl">5.68</span>,</span>
-<span id="cb731-26"><a href="13-data-reshaping.html#cb731-26"></a>  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-2 8:30:09&#39;</span>,    <span class="fl">9.23</span>,</span>
-<span id="cb731-27"><a href="13-data-reshaping.html#cb731-27"></a>  <span class="st">&#39;5628927579821287&#39;</span>, <span class="dv">3</span>, <span class="st">&#39;2019-10-5 18:58:57&#39;</span>,  <span class="fl">68.54</span>,</span>
-<span id="cb731-28"><a href="13-data-reshaping.html#cb731-28"></a>  <span class="st">&#39;7295825498122734&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-5 12:39:26&#39;</span>,  <span class="fl">31.84</span>,</span>
-<span id="cb731-29"><a href="13-data-reshaping.html#cb731-29"></a>  <span class="st">&#39;8723768965231926&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-10 19:02:20&#39;</span>, <span class="fl">42.83</span>) </span>
-<span id="cb731-30"><a href="13-data-reshaping.html#cb731-30"></a></span>
-<span id="cb731-31"><a href="13-data-reshaping.html#cb731-31"></a>Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb731-32"><a href="13-data-reshaping.html#cb731-32"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Issue_DateTime =</span> lubridate<span class="op">::</span><span class="kw">ymd_hms</span>(Issue_DateTime),</span>
-<span id="cb731-33"><a href="13-data-reshaping.html#cb731-33"></a>          <span class="dt">Exp_DateTime   =</span> lubridate<span class="op">::</span><span class="kw">ymd_hms</span>(Exp_DateTime) )</span>
-<span id="cb731-34"><a href="13-data-reshaping.html#cb731-34"></a>Transactions &lt;-<span class="st"> </span>Transactions <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb731-35"><a href="13-data-reshaping.html#cb731-35"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">DateTime =</span> lubridate<span class="op">::</span><span class="kw">ymd_hms</span>(DateTime))</span></code></pre></div>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="13-data-reshaping.html#cb728-1"></a>Customers &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb728-2"><a href="13-data-reshaping.html#cb728-2"></a>  <span class="op">~</span>PersonID, <span class="op">~</span>Name, <span class="op">~</span>Street, <span class="op">~</span>City, <span class="op">~</span>State,</span>
+<span id="cb728-3"><a href="13-data-reshaping.html#cb728-3"></a>  <span class="dv">1</span>, <span class="st">&#39;Derek Sonderegger&#39;</span>,  <span class="st">&#39;231 River Run&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</span>
+<span id="cb728-4"><a href="13-data-reshaping.html#cb728-4"></a>  <span class="dv">2</span>, <span class="st">&#39;Aubrey Sonderegger&#39;</span>, <span class="st">&#39;231 River Run&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</span>
+<span id="cb728-5"><a href="13-data-reshaping.html#cb728-5"></a>  <span class="dv">3</span>, <span class="st">&#39;Robert Buscaglia&#39;</span>, <span class="st">&#39;754 Forest Heights&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</span>
+<span id="cb728-6"><a href="13-data-reshaping.html#cb728-6"></a>  <span class="dv">4</span>, <span class="st">&#39;Roy St Laurent&#39;</span>, <span class="st">&#39;845 Elk View&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>)</span>
+<span id="cb728-7"><a href="13-data-reshaping.html#cb728-7"></a></span>
+<span id="cb728-8"><a href="13-data-reshaping.html#cb728-8"></a>Retailers &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb728-9"><a href="13-data-reshaping.html#cb728-9"></a>  <span class="op">~</span>RetailID, <span class="op">~</span>Name, <span class="op">~</span>Street, <span class="op">~</span>City, <span class="op">~</span>State,</span>
+<span id="cb728-10"><a href="13-data-reshaping.html#cb728-10"></a>  <span class="dv">1</span>, <span class="st">&#39;Kickstand Kafe&#39;</span>, <span class="st">&#39;719 N Humphreys St&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</span>
+<span id="cb728-11"><a href="13-data-reshaping.html#cb728-11"></a>  <span class="dv">2</span>, <span class="st">&#39;MartAnnes&#39;</span>, <span class="st">&#39;112 E Route 66&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span>,</span>
+<span id="cb728-12"><a href="13-data-reshaping.html#cb728-12"></a>  <span class="dv">3</span>, <span class="st">&#39;REI&#39;</span>, <span class="st">&#39;323 S Windsor Ln&#39;</span>, <span class="st">&#39;Flagstaff&#39;</span>, <span class="st">&#39;AZ&#39;</span> )</span>
+<span id="cb728-13"><a href="13-data-reshaping.html#cb728-13"></a></span>
+<span id="cb728-14"><a href="13-data-reshaping.html#cb728-14"></a>Cards &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb728-15"><a href="13-data-reshaping.html#cb728-15"></a>  <span class="op">~</span>CardID, <span class="op">~</span>PersonID, <span class="op">~</span>Issue_DateTime, <span class="op">~</span>Exp_DateTime,</span>
+<span id="cb728-16"><a href="13-data-reshaping.html#cb728-16"></a>  <span class="st">&#39;9876768717278723&#39;</span>,  <span class="dv">1</span>,  <span class="st">&#39;2019-9-20 0:00:00&#39;</span>, <span class="st">&#39;2022-9-20 0:00:00&#39;</span>,</span>
+<span id="cb728-17"><a href="13-data-reshaping.html#cb728-17"></a>  <span class="st">&#39;5628927579821287&#39;</span>,  <span class="dv">2</span>,  <span class="st">&#39;2019-9-20 0:00:00&#39;</span>, <span class="st">&#39;2022-9-20 0:00:00&#39;</span>,</span>
+<span id="cb728-18"><a href="13-data-reshaping.html#cb728-18"></a>  <span class="st">&#39;7295825498122734&#39;</span>,  <span class="dv">3</span>,  <span class="st">&#39;2019-9-28 0:00:00&#39;</span>, <span class="st">&#39;2022-9-28 0:00:00&#39;</span>,</span>
+<span id="cb728-19"><a href="13-data-reshaping.html#cb728-19"></a>  <span class="st">&#39;8723768965231926&#39;</span>,  <span class="dv">4</span>,  <span class="st">&#39;2019-9-30 0:00:00&#39;</span>, <span class="st">&#39;2022-9-30 0:00:00&#39;</span> ) </span>
+<span id="cb728-20"><a href="13-data-reshaping.html#cb728-20"></a></span>
+<span id="cb728-21"><a href="13-data-reshaping.html#cb728-21"></a>Transactions &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb728-22"><a href="13-data-reshaping.html#cb728-22"></a>  <span class="op">~</span>CardID, <span class="op">~</span>RetailID, <span class="op">~</span>DateTime, <span class="op">~</span>Amount,</span>
+<span id="cb728-23"><a href="13-data-reshaping.html#cb728-23"></a>  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-1 8:31:23&#39;</span>,    <span class="fl">5.68</span>,</span>
+<span id="cb728-24"><a href="13-data-reshaping.html#cb728-24"></a>  <span class="st">&#39;7295825498122734&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-1 12:45:45&#39;</span>,  <span class="fl">25.67</span>,</span>
+<span id="cb728-25"><a href="13-data-reshaping.html#cb728-25"></a>  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-2 8:26:31&#39;</span>,    <span class="fl">5.68</span>,</span>
+<span id="cb728-26"><a href="13-data-reshaping.html#cb728-26"></a>  <span class="st">&#39;9876768717278723&#39;</span>, <span class="dv">1</span>, <span class="st">&#39;2019-10-2 8:30:09&#39;</span>,    <span class="fl">9.23</span>,</span>
+<span id="cb728-27"><a href="13-data-reshaping.html#cb728-27"></a>  <span class="st">&#39;5628927579821287&#39;</span>, <span class="dv">3</span>, <span class="st">&#39;2019-10-5 18:58:57&#39;</span>,  <span class="fl">68.54</span>,</span>
+<span id="cb728-28"><a href="13-data-reshaping.html#cb728-28"></a>  <span class="st">&#39;7295825498122734&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-5 12:39:26&#39;</span>,  <span class="fl">31.84</span>,</span>
+<span id="cb728-29"><a href="13-data-reshaping.html#cb728-29"></a>  <span class="st">&#39;8723768965231926&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;2019-10-10 19:02:20&#39;</span>, <span class="fl">42.83</span>) </span>
+<span id="cb728-30"><a href="13-data-reshaping.html#cb728-30"></a></span>
+<span id="cb728-31"><a href="13-data-reshaping.html#cb728-31"></a>Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb728-32"><a href="13-data-reshaping.html#cb728-32"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Issue_DateTime =</span> lubridate<span class="op">::</span><span class="kw">ymd_hms</span>(Issue_DateTime),</span>
+<span id="cb728-33"><a href="13-data-reshaping.html#cb728-33"></a>          <span class="dt">Exp_DateTime   =</span> lubridate<span class="op">::</span><span class="kw">ymd_hms</span>(Exp_DateTime) )</span>
+<span id="cb728-34"><a href="13-data-reshaping.html#cb728-34"></a>Transactions &lt;-<span class="st"> </span>Transactions <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb728-35"><a href="13-data-reshaping.html#cb728-35"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">DateTime =</span> lubridate<span class="op">::</span><span class="kw">ymd_hms</span>(DateTime))</span></code></pre></div>
 <ol style="list-style-type: lower-alpha">
 <li><p>Create a table that gives the credit card statement for Derek. It should give all the transactions, the amounts, and the store name. Write your code as if the only initial information you have is the customer’s name. <em>Hint: Do a bunch of table joins, and then filter for the desired customer name.</em></p></li>
 <li><p>Aubrey has lost her credit card on Oct 15, 2019. Close her credit card at 4:28:21 PM and issue her a new credit card in the <code>Cards</code> table. <em>Hint: Using the Aubrey’s name, get necessary CardID and PersonID and save those as <code>cardID</code> and <code>personID</code>. Then update the <code>Cards</code> table row that corresponds to the <code>cardID</code> so that the expiration date is set to the time that the card is closed. Then insert a new row with the <code>personID</code> for Aubrey and a new <code>CardID</code> number that you make up.</em></p></li>
 <li><p>Aubrey is using her new card at Kickstand Kafe on Oct 16, 2019 at 2:30:21 PM for coffee with a charge of $4.98. Generate a new transaction for this action. <em>Hint: create temporary variables <code>card</code>,<code>retailid</code>,<code>datetime</code>, and <code>amount</code> that contain the information for this transaction and then write your code to use those. This way in the next question you can just use the same code but modify the temporary variables. Alternatively, you could write a function that takes in these four values and manipulates the tables in the GLOBAL environment using the <code>&lt;&lt;-</code> command to assign a result to a variable defined in the global environment. The reason this is OK is that in a real situation, these data would be stored in a database and we would expect the function to update that database.</em></p></li>
 <li><p>On Oct 17, 2019, some nefarious person is trying to use her OLD credit card at REI. Make sure your code in part (c) first checks to see if the credit card is active before creating a new transaction. Using the same code, verify that the nefarious transaction at REI is denied. <em>Hint: your check ought to look something like this:</em></p>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="13-data-reshaping.html#cb732-1"></a>card &lt;-<span class="st"> &#39;9876768717278723&#39;</span></span>
-<span id="cb732-2"><a href="13-data-reshaping.html#cb732-2"></a>retailid &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb732-3"><a href="13-data-reshaping.html#cb732-3"></a>datetime &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&#39;2019-10-16 14:30:21&#39;</span>)</span>
-<span id="cb732-4"><a href="13-data-reshaping.html#cb732-4"></a>amount &lt;-<span class="st"> </span><span class="fl">4.98</span></span>
-<span id="cb732-5"><a href="13-data-reshaping.html#cb732-5"></a></span>
-<span id="cb732-6"><a href="13-data-reshaping.html#cb732-6"></a><span class="co"># If the card is currently valid, this should return exactly 1 row.</span></span>
-<span id="cb732-7"><a href="13-data-reshaping.html#cb732-7"></a>Valid_Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb732-8"><a href="13-data-reshaping.html#cb732-8"></a><span class="st">  </span><span class="kw">filter</span>(CardID <span class="op">==</span><span class="st"> </span>card, Issue_DateTime <span class="op">&lt;=</span><span class="st"> </span>datetime, datetime <span class="op">&lt;=</span><span class="st"> </span>Exp_DateTime)</span>
-<span id="cb732-9"><a href="13-data-reshaping.html#cb732-9"></a></span>
-<span id="cb732-10"><a href="13-data-reshaping.html#cb732-10"></a><span class="co"># If the transaction is valid, insert the transaction into the table</span></span>
-<span id="cb732-11"><a href="13-data-reshaping.html#cb732-11"></a><span class="cf">if</span>( <span class="kw">nrow</span>(Valid_Cards) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){</span>
-<span id="cb732-12"><a href="13-data-reshaping.html#cb732-12"></a>  <span class="co"># Some code to insert the transaction</span></span>
-<span id="cb732-13"><a href="13-data-reshaping.html#cb732-13"></a>}<span class="cf">else</span>{</span>
-<span id="cb732-14"><a href="13-data-reshaping.html#cb732-14"></a>  <span class="kw">print</span>(<span class="st">&#39;Card Denied&#39;</span>)</span>
-<span id="cb732-15"><a href="13-data-reshaping.html#cb732-15"></a>}</span></code></pre></div></li>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="13-data-reshaping.html#cb729-1"></a>card &lt;-<span class="st"> &#39;9876768717278723&#39;</span></span>
+<span id="cb729-2"><a href="13-data-reshaping.html#cb729-2"></a>retailid &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb729-3"><a href="13-data-reshaping.html#cb729-3"></a>datetime &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&#39;2019-10-16 14:30:21&#39;</span>)</span>
+<span id="cb729-4"><a href="13-data-reshaping.html#cb729-4"></a>amount &lt;-<span class="st"> </span><span class="fl">4.98</span></span>
+<span id="cb729-5"><a href="13-data-reshaping.html#cb729-5"></a></span>
+<span id="cb729-6"><a href="13-data-reshaping.html#cb729-6"></a><span class="co"># If the card is currently valid, this should return exactly 1 row.</span></span>
+<span id="cb729-7"><a href="13-data-reshaping.html#cb729-7"></a>Valid_Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb729-8"><a href="13-data-reshaping.html#cb729-8"></a><span class="st">  </span><span class="kw">filter</span>(CardID <span class="op">==</span><span class="st"> </span>card, Issue_DateTime <span class="op">&lt;=</span><span class="st"> </span>datetime, datetime <span class="op">&lt;=</span><span class="st"> </span>Exp_DateTime)</span>
+<span id="cb729-9"><a href="13-data-reshaping.html#cb729-9"></a></span>
+<span id="cb729-10"><a href="13-data-reshaping.html#cb729-10"></a><span class="co"># If the transaction is valid, insert the transaction into the table</span></span>
+<span id="cb729-11"><a href="13-data-reshaping.html#cb729-11"></a><span class="cf">if</span>( <span class="kw">nrow</span>(Valid_Cards) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){</span>
+<span id="cb729-12"><a href="13-data-reshaping.html#cb729-12"></a>  <span class="co"># Some code to insert the transaction</span></span>
+<span id="cb729-13"><a href="13-data-reshaping.html#cb729-13"></a>}<span class="cf">else</span>{</span>
+<span id="cb729-14"><a href="13-data-reshaping.html#cb729-14"></a>  <span class="kw">print</span>(<span class="st">&#39;Card Denied&#39;</span>)</span>
+<span id="cb729-15"><a href="13-data-reshaping.html#cb729-15"></a>}</span></code></pre></div></li>
 <li><p>Generate a table that gives the credit card statement for Aubrey. It should give all the transactions, amounts, and retailer name for both credit cards she had during this period.</p></li>
 </ol></li>
 </ol>
-<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="13-data-reshaping.html#cb733-1"></a>Customers <span class="op">%&gt;%</span></span>
-<span id="cb733-2"><a href="13-data-reshaping.html#cb733-2"></a><span class="st">  </span><span class="kw">inner_join</span>(Cards) <span class="op">%&gt;%</span></span>
-<span id="cb733-3"><a href="13-data-reshaping.html#cb733-3"></a><span class="st">  </span><span class="kw">inner_join</span>(Transactions) <span class="op">%&gt;%</span></span>
-<span id="cb733-4"><a href="13-data-reshaping.html#cb733-4"></a><span class="st">  </span><span class="kw">inner_join</span>(Retailers) </span></code></pre></div>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="13-data-reshaping.html#cb730-1"></a>Customers <span class="op">%&gt;%</span></span>
+<span id="cb730-2"><a href="13-data-reshaping.html#cb730-2"></a><span class="st">  </span><span class="kw">inner_join</span>(Cards) <span class="op">%&gt;%</span></span>
+<span id="cb730-3"><a href="13-data-reshaping.html#cb730-3"></a><span class="st">  </span><span class="kw">inner_join</span>(Transactions) <span class="op">%&gt;%</span></span>
+<span id="cb730-4"><a href="13-data-reshaping.html#cb730-4"></a><span class="st">  </span><span class="kw">inner_join</span>(Retailers) </span></code></pre></div>
 <pre><code>## Joining, by = &quot;PersonID&quot;</code></pre>
 <pre><code>## Joining, by = &quot;CardID&quot;</code></pre>
 <pre><code>## Joining, by = c(&quot;Name&quot;, &quot;Street&quot;, &quot;City&quot;, &quot;State&quot;, &quot;RetailID&quot;)</code></pre>

@@ -9,6 +9,7 @@
 library(tidyverse) # dplyr, tidyr, ggplot2, etc.
 ```
 
+I have a YouTube [Video Lecture](https://youtu.be/sVTfG2TH_gU) for this chapter. 
 
 Most of the time, our data is in the form of a data frame and we are interested in exploring the relationships. However most procedures in R expect the data to show up in a 'long' format where each row is an observation and each column is a covariate. In practice, the data is often not stored like that and the data comes to us with repeated observations included on a single row. This is often done as a memory saving technique or because there is some structure in the data that makes the 'wide' format attractive. As a result, we need a way to convert data from 'wide' to 'long' and vice-versa.
 
@@ -382,12 +383,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              295.
-## 2 A              248.
-## 3 B              263.
-## 4 B              270.
-## 5 C              234.
-## 6 C              278.
+## 1 A              266.
+## 2 A              216.
+## 3 B              277.
+## 4 B              236.
+## 5 C              268.
+## 6 C              254.
 ```
 
 ```r
@@ -418,12 +419,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              295. <NA>         NA      NA        NA
-## 2 A              248. <NA>         NA      NA        NA
-## 3 B              263. Lake Elaine   6.5    40         8
-## 4 B              270. Lake Elaine   6.5    40         8
-## 5 C              234. Mormon Lake   6.3   210        10
-## 6 C              278. Mormon Lake   6.3   210        10
+## 1 A              266. <NA>         NA      NA        NA
+## 2 A              216. <NA>         NA      NA        NA
+## 3 B              277. Lake Elaine   6.5    40         8
+## 4 B              236. Lake Elaine   6.5    40         8
+## 5 C              268. Mormon Lake   6.3   210        10
+## 6 C              254. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -443,12 +444,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              295. <NA>         NA      NA        NA
-## 2 A              248. <NA>         NA      NA        NA
-## 3 B              263. Lake Elaine   6.5    40         8
-## 4 B              270. Lake Elaine   6.5    40         8
-## 5 C              234. Mormon Lake   6.3   210        10
-## 6 C              278. Mormon Lake   6.3   210        10
+## 1 A              266. <NA>         NA      NA        NA
+## 2 A              216. <NA>         NA      NA        NA
+## 3 B              277. Lake Elaine   6.5    40         8
+## 4 B              236. Lake Elaine   6.5    40         8
+## 5 C              268. Mormon Lake   6.3   210        10
+## 6 C              254. Mormon Lake   6.3   210        10
 ```
 
 
@@ -464,10 +465,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              263. Lake Elaine   6.5    40         8
-## 2 B              270. Lake Elaine   6.5    40         8
-## 3 C              234. Mormon Lake   6.3   210        10
-## 4 C              278. Mormon Lake   6.3   210        10
+## 1 B              277. Lake Elaine   6.5    40         8
+## 2 B              236. Lake Elaine   6.5    40         8
+## 3 C              268. Mormon Lake   6.3   210        10
+## 4 C              254. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.

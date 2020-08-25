@@ -2,6 +2,8 @@
 
 ## Introduction
 
+As usual, I have a YouTube [Video Lecture](https://youtu.be/NZK2X46Me8M) for this chapter. 
+
 R packages are documented and consistent format for storing data, functions, documentation, and analysis. We use a consistent format so that other researchers (or ourselves in six months) know exactly where the raw data should be, where to find any functions that are written, and document the data cleaning process.
 
 In principle, all of these steps could be accomplished by a single data file and a single analysis Rmarkdown file. However as projects get larger in scope, the number of data files, the complexity of data cleaning, and the number of people working with the data will grow. With more complexity, the need to impose order on it becomes critical.

@@ -7,6 +7,9 @@
 library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
 ```
 
+As always, there is a [Video Lecture](https://youtu.be/bPZKP_yYFLo) that accompanies this chapter.
+
+
 Often it is necessary to write scripts that perform different action depending on the data or to automate a task that must be repeated many times. To address these issues we will introduce the `if` statement and its closely related cousin `if else`. To address repeated tasks we will define two types of loops, a `while` loop and a `for` loop. 
 
 ## Logical Expressions
@@ -118,15 +121,15 @@ df
 ```
 
 ```
-##   Type      Value
-## 1    A  0.1209293
-## 2    A  0.1059011
-## 3    B  1.0629161
-## 4    B  0.9868358
-## 5    C -0.5871977
-## 6    C -0.3959035
-## 7    D  1.3290458
-## 8    D  1.2301583
+##   Type       Value
+## 1    A -1.37980926
+## 2    A  0.46292109
+## 3    B -0.32760171
+## 4    B -0.09279361
+## 5    C -0.06762659
+## 6    C -0.56398930
+## 7    D -0.43280376
+## 8    D  0.08148027
 ```
 
 ```r
@@ -135,11 +138,11 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 ```
 
 ```
-##   Type     Value
-## 1    A 0.1209293
-## 2    A 0.1059011
-## 3    B 1.0629161
-## 4    B 0.9868358
+##   Type       Value
+## 1    A -1.37980926
+## 2    A  0.46292109
+## 3    B -0.32760171
+## 4    B -0.09279361
 ```
 
 
@@ -302,7 +305,7 @@ p.value
 ```
 
 ```
-## [1] 7.784271e-06
+## [1] 3.336264e-08
 ```
 
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.

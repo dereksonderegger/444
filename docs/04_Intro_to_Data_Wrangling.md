@@ -5,9 +5,11 @@
 
 
 ```r
-library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
+library(tidyverse, quietly = TRUE)    # loading ggplot2 and dplyr
+options(dplyr.summarise.inform=FALSE) # Don't annoy me with summaris messages
 ```
 
+As always, there is a [Video Lecture](https://youtu.be/99Q7AunWuk0) that accompanies this chapter.
   
 Many of the tools to manipulate data frames in R were written without a consistent syntax and are difficult use together. To remedy this, Hadley Wickham (the writer of `ggplot2`) introduced a package called plyr which was quite useful. As with many projects, his first version was good but not great and he introduced an improved version that works exclusively with data.frames called `dplyr` which we will investigate. The package `dplyr` strives to provide a convenient and consistent set of functions to handle the most common data frame manipulations and a mechanism for chaining these operations together to perform complex tasks. 
 
@@ -564,10 +566,6 @@ warpbreaks %>%
 ```
 
 ```
-## `summarise()` regrouping output by 'wool' (override with `.groups` argument)
-```
-
-```
 ## # A tibble: 6 x 3
 ## # Groups:   wool [2]
 ##   wool  tension     n
@@ -592,10 +590,6 @@ summary_table <-
   summarise( n           = n() ,             # I added some formatting to show the
              mean.breaks = mean(breaks),     # reader I am calculating several
              sd.breaks   = sd(breaks) )      # statistics.
-```
-
-```
-## `summarise()` regrouping output by 'wool' (override with `.groups` argument)
 ```
 
 If instead of summarizing each split, we might want to just do some calculation and the output should have the same number of rows as the input data frame. In this case I'll tell `dplyr` that we are mutating the data frame instead of summarizing it. For example, suppose that I want to calculate the residual value $$e_{ijk}=y_{ijk}-\bar{y}_{ij\cdot}$$ where $\bar{y}_{ij\cdot}$ is the mean of each `wool:tension` combination.

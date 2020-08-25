@@ -9,6 +9,7 @@ library(DBI)         # DataBase Interface Package
 library(dbplyr)      # dplyr with databases!
 ```
 
+There is a YouTube [Video Lecture](https://youtu.be/ElDmEwslJw0) for the chapter.
 
 As our data grows larger and is being updated more frequently, we need to stop using static input files and instead learn to interact with databases. There are a many reasons for using a database, but these are my favorite:
 

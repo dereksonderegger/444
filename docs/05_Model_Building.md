@@ -8,6 +8,8 @@ library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
 options(tibble.width = Inf)   # Print all the columns of a tibble (data.frame)
 ```
 
+As always, there is a [Video Lecture](https://youtu.be/9RCo2ByHTgY) that accompanies this chapter.
+
 
 While R is a full programming language, it was first developed by statisticians for statisticians. There are several functions to do common statistical tests but because those functions were developed early in R's history, there is some inconsistency in how those functions work. There have been some attempts to standardize modeling object interfaces, but there were always be a little weirdness.
 

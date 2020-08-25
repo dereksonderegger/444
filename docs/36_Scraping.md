@@ -8,6 +8,8 @@ library(tidyverse)
 library(rvest)     # rvest is not loaded in the tidyverse Metapackage
 ```
 
+I have a YouTube [Video Lecture](https://youtu.be/_ydwXGVGtug) for this chapter, as usual.
+
 Getting data into R often involves accessing data that is available through non-convenient formats such as web pages or .pdf files. Fortunately those formats still have structure and we can import data from those sources. However to do this, we have to understand a little bit about those file formats.
 
 ## Web Pages
@@ -185,12 +187,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nLong-Haulers Are Redefining COVID-19\n"                                      
-## [2] "\n'Wonder Woman 1984' Trailer Reveals Kristen Wiig As The Villainous Cheetah\n"
-## [3] "\nThe Worst Tourist Attraction In Every State In America, Visualized\n"        
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                   
-## [5] "\nHere's What You're Getting With The World's Most Expensive Luxury Sedan\n"   
-## [6] "\nHow A Day Trip To Tulsa In June Upended Donald Trump's Reelection Campaign\n"
+## [1] "\nThe Worst Animal In The World\n"                                                                 
+## [2] "\nGoodbye To 'Patriot Act', A Comedy Show That Was A Different Kind Of Angry\n"                    
+## [3] "\nThe First Trailer Of Robert Pattinson's 'The Batman,' Introduces A Dark And Gritty Gotham City\n"
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                       
+## [5] "\nThis Stop-Motion Basketball Short That Uses Sunlight And Water Is A Slam Dunk\n"                 
+## [6] "\nThe Man With The Stolen Name (2018)\n"
 ```
 
 
@@ -205,12 +207,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.theatlantic.com/health/archive/2020/08/long-haulers-covid-19-recognition-support-groups-symptoms/615382/?utm_source=digg"
-## [2] "/video/wonder-woman-1984-trailer-kristen-wiig"                                                                                       
-## [3] "/2020/the-worst-tourist-attraction-in-every-state-in-america-visualized"                                                             
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                         
-## [5] "/video/lagonda-taraf-doug-demuro-explained"                                                                                          
-## [6] "https://www.bbc.co.uk/news/extra/58ewrgxuoa/us-election-2020-donald-trump?utm_source=digg"
+## [1] "https://www.theatlantic.com/health/archive/2020/08/how-aedes-aegypti-mosquito-took-over-world/615328/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+TheAtlantic+%28The+Atlantic+-+Master+Feed%29?utm_source=digg"
+## [2] "https://www.theverge.com/2020/8/20/21377250/patriot-act-hasan-minhaj-show-canceled-netflix?utm_source=digg"                                                                                                                   
+## [3] "/video/the-first-trailer-of-robert-pattinsons-the-batman-introduces-a-dark-and-gritty-gotham-city"                                                                                                                            
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                                                                                                  
+## [5] "/2020/stop-motion-sun-water-basketball"                                                                                                                                                                                       
+## [6] "https://www.themarshallproject.org/2018/05/14/the-man-with-the-stolen-name/?utm_source=digg"
 ```
 
 

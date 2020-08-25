@@ -18,6 +18,8 @@ if( length(pkgs > 0)){
 library(tidyverse)   # loading ggplot2 and dplyr
 ```
 
+As always, there is a [Video Lecture](https://youtu.be/eJT9EdiWlEg) that accompanies this chapter.
+
 There are three major “systems” of making graphs in R. The basic plotting commands in R are quite effective but the commands do not have a way of being combined in easy ways. Lattice graphics (which the `mosaic` package uses) makes it possible to create some quite complicated graphs but it is very difficult to do make non-standard graphs. The last package, `ggplot2` tries to not anticipate what the user wants to do, but rather provide the mechanisms for pulling together different graphical concepts and the user gets to decide which elements to combine. 
 
 To make the most of `ggplot2` it is important to wrap your mind around “The Grammar of Graphics”. Briefly, the act of building a graph can be broken down into three steps. 
@@ -146,7 +148,7 @@ ggplot(tips, aes(x = total_bill, y = tip / total_bill )) +
 Next we ask if there is a difference in tipping percent based on gender or day of the week by plotting this relationship for each combination of gender and day.
 
 ```{r, fig.height=3}
-ggplot(tips, aes(x = total_bill, y = tip / total_bill )) +
+ggplot(tips, aes(x = total_bill, y = tip / total_bill, color=time )) +
   geom_point() +
   facet_grid( sex ~ day )
 #  facet_grid( day ~ sex )  # changing orientation emphasizes certain comparisons!
@@ -174,11 +176,12 @@ ggplot(tips, aes(x = total_bill, y = tip / total_bill )) +
 To make a graph more understandable, it is necessary to tweak the axis labels and add a main title and such. Here we'll adjust labels in a graph, including the legend labels.
 ```{r, fig.height=3}
 # Save the graph before I add more to it.
-P <- ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length, color=Species) ) +  
+P <-
+  ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length, color=Species) ) +  
 	geom_point( aes(color=Species)  ) +
-  labs( title='Sepal Length vs Petal Length') +
+  labs( title='Sepal Length vs Petal Length' ) +
   labs( x="Sepal Length (cm)", y="Petal Length (cm)" ) +
-  labs( color="Species Name")  +
+  labs( color="Species Name")  + 
   labs( caption = "Iris data from Edgar Anderson (1935)" )
 
 # Print out the plot

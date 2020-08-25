@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-08-22" />
+<meta name="date" content="2020-08-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -444,7 +444,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-wrangling" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Data Wrangling</h1>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="4-data-wrangling.html#cb102-1"></a><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)   <span class="co"># loading ggplot2 and dplyr</span></span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="4-data-wrangling.html#cb102-1"></a><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)    <span class="co"># loading ggplot2 and dplyr</span></span>
+<span id="cb102-2"><a href="4-data-wrangling.html#cb102-2"></a><span class="kw">options</span>(<span class="dt">dplyr.summarise.inform=</span><span class="ot">FALSE</span>) <span class="co"># Don&#39;t annoy me with summaris messages</span></span></code></pre></div>
+<p>As always, there is a <a href="https://youtu.be/99Q7AunWuk0">Video Lecture</a> that accompanies this chapter.</p>
 <p>Many of the tools to manipulate data frames in R were written without a consistent syntax and are difficult use together. To remedy this, Hadley Wickham (the writer of <code>ggplot2</code>) introduced a package called plyr which was quite useful. As with many projects, his first version was good but not great and he introduced an improved version that works exclusively with data.frames called <code>dplyr</code> which we will investigate. The package <code>dplyr</code> strives to provide a convenient and consistent set of functions to handle the most common data frame manipulations and a mechanism for chaining these operations together to perform complex tasks.</p>
 <p>The Dr Wickham has put together a very nice introduction to the package that explains in more detail how the various pieces work and I encourage you to read it at some point. [<a href="http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html" class="uri">http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html</a>].</p>
 <p>One of the aspects about the <code>data.frame</code> object is that R does some simplification for you, but it does not do it in a consistent manner. Somewhat obnoxiously character strings are always converted to factors and subsetting might return a <code>data.frame</code> or a <code>vector</code> or a <code>scalar</code>. This is fine at the command line, but can be problematic when programming. Furthermore, many operations are pretty slow using <code>data.frame</code>. To get around this, Dr Wickham introduced a modified version of the <code>data.frame</code> called a <code>tibble</code>. A <code>tibble</code> is a <code>data.frame</code> but with a few extra bits. For now we can ignore the differences.</p>
@@ -802,7 +804,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb156-4"><a href="4-data-wrangling.html#cb156-4"></a>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb156-5"><a href="4-data-wrangling.html#cb156-5"></a><span class="st">  </span><span class="kw">group_by</span>( wool, tension) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># grouping</span></span>
 <span id="cb156-6"><a href="4-data-wrangling.html#cb156-6"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>() )             <span class="co"># how many in each group</span></span></code></pre></div>
-<pre><code>## `summarise()` regrouping output by &#39;wool&#39; (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ## # Groups:   wool [2]
 ##   wool  tension     n
@@ -815,18 +816,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6 B     H           9</code></pre>
 <p>The <code>group_by</code> function takes a data.frame and returns the same data.frame, but with some extra information so that any subsequent function acts on each unique combination defined in the <code>group_by</code>. If you wish to remove this behavior, use <code>group_by()</code> to reset the grouping to have no grouping variable.</p>
 <p>Using the same <code>summarise</code> function, we could calculate the group mean and standard deviation for each wool-by-tension group.</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="4-data-wrangling.html#cb159-1"></a>summary_table &lt;-<span class="st"> </span></span>
-<span id="cb159-2"><a href="4-data-wrangling.html#cb159-2"></a><span class="st">  </span>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb159-3"><a href="4-data-wrangling.html#cb159-3"></a><span class="st">  </span><span class="kw">group_by</span>(wool, tension) <span class="op">%&gt;%</span></span>
-<span id="cb159-4"><a href="4-data-wrangling.html#cb159-4"></a><span class="st">  </span><span class="kw">summarise</span>( <span class="dt">n           =</span> <span class="kw">n</span>() ,             <span class="co"># I added some formatting to show the</span></span>
-<span id="cb159-5"><a href="4-data-wrangling.html#cb159-5"></a>             <span class="dt">mean.breaks =</span> <span class="kw">mean</span>(breaks),     <span class="co"># reader I am calculating several</span></span>
-<span id="cb159-6"><a href="4-data-wrangling.html#cb159-6"></a>             <span class="dt">sd.breaks   =</span> <span class="kw">sd</span>(breaks) )      <span class="co"># statistics.</span></span></code></pre></div>
-<pre><code>## `summarise()` regrouping output by &#39;wool&#39; (override with `.groups` argument)</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="4-data-wrangling.html#cb158-1"></a>summary_table &lt;-<span class="st"> </span></span>
+<span id="cb158-2"><a href="4-data-wrangling.html#cb158-2"></a><span class="st">  </span>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb158-3"><a href="4-data-wrangling.html#cb158-3"></a><span class="st">  </span><span class="kw">group_by</span>(wool, tension) <span class="op">%&gt;%</span></span>
+<span id="cb158-4"><a href="4-data-wrangling.html#cb158-4"></a><span class="st">  </span><span class="kw">summarise</span>( <span class="dt">n           =</span> <span class="kw">n</span>() ,             <span class="co"># I added some formatting to show the</span></span>
+<span id="cb158-5"><a href="4-data-wrangling.html#cb158-5"></a>             <span class="dt">mean.breaks =</span> <span class="kw">mean</span>(breaks),     <span class="co"># reader I am calculating several</span></span>
+<span id="cb158-6"><a href="4-data-wrangling.html#cb158-6"></a>             <span class="dt">sd.breaks   =</span> <span class="kw">sd</span>(breaks) )      <span class="co"># statistics.</span></span></code></pre></div>
 <p>If instead of summarizing each split, we might want to just do some calculation and the output should have the same number of rows as the input data frame. In this case I’ll tell <code>dplyr</code> that we are mutating the data frame instead of summarizing it. For example, suppose that I want to calculate the residual value <span class="math display">\[e_{ijk}=y_{ijk}-\bar{y}_{ij\cdot}\]</span> where <span class="math inline">\(\bar{y}_{ij\cdot}\)</span> is the mean of each <code>wool:tension</code> combination.</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="4-data-wrangling.html#cb161-1"></a>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb161-2"><a href="4-data-wrangling.html#cb161-2"></a><span class="st">   </span><span class="kw">group_by</span>(wool, tension) <span class="op">%&gt;%</span><span class="st">                 </span><span class="co"># group by wool:tension</span></span>
-<span id="cb161-3"><a href="4-data-wrangling.html#cb161-3"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">resid =</span> breaks <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(breaks)) <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># mean(breaks) of the group!</span></span>
-<span id="cb161-4"><a href="4-data-wrangling.html#cb161-4"></a><span class="st">   </span><span class="kw">head</span>(  )                                    <span class="co"># show the first couple of rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="4-data-wrangling.html#cb159-1"></a>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb159-2"><a href="4-data-wrangling.html#cb159-2"></a><span class="st">   </span><span class="kw">group_by</span>(wool, tension) <span class="op">%&gt;%</span><span class="st">                 </span><span class="co"># group by wool:tension</span></span>
+<span id="cb159-3"><a href="4-data-wrangling.html#cb159-3"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">resid =</span> breaks <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(breaks)) <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># mean(breaks) of the group!</span></span>
+<span id="cb159-4"><a href="4-data-wrangling.html#cb159-4"></a><span class="st">   </span><span class="kw">head</span>(  )                                    <span class="co"># show the first couple of rows</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ## # Groups:   wool, tension [1]
 ##   breaks wool  tension  resid
@@ -844,7 +844,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The dataset <code>ChickWeight</code> tracks the weights of 48 baby chickens (chicks) feed four different diets. <em>Feel free to complete all parts of the exercise in a single R pipeline at the end of the problem.</em>
 <ol style="list-style-type: lower-alpha">
 <li><p>Load the dataset using</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="4-data-wrangling.html#cb163-1"></a><span class="kw">data</span>(ChickWeight)</span></code></pre></div></li>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="4-data-wrangling.html#cb161-1"></a><span class="kw">data</span>(ChickWeight)</span></code></pre></div></li>
 <li><p>Look at the help files for the description of the columns.</p></li>
 </ol>
 <ol start="3" style="list-style-type: lower-alpha">
@@ -854,39 +854,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The OpenIntro textbook on statistics includes a data set on body dimensions. Instead of creating an R chunk for each step of this problem, create a single R pipeline that performs each of the following tasks. Y
 <ol style="list-style-type: lower-alpha">
 <li><p>Load the file using</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="4-data-wrangling.html#cb164-1"></a>Body &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.openintro.org/stat/data/bdims.csv&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="4-data-wrangling.html#cb162-1"></a>Body &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.openintro.org/stat/data/bdims.csv&#39;</span>)</span></code></pre></div></li>
 <li><p>The column sex is coded as a 1 if the individual is male and 0 if female. This is a non-intuitive labeling system. Create a new column <code>sex.MF</code> that uses labels Male and Female. _Hint: the ifelse() command will be very convenient here. The ifelse() command in R functions similarly to the same command in Excel. Feel free to complete all parts of the exercise in a single R pipeline at the end of the problem.*_</p></li>
 <li><p>The columns <code>wgt</code> and <code>hgt</code> measure weight and height in kilograms and centimeters (respectively). Use these to calculate the Body Mass Index (BMI) for each individual where
 <span class="math display">\[BMI=\frac{Weight\,(kg)}{\left[Height\,(m)\right]^{2}}\]</span></p></li>
 <li><p>Double check that your calculated BMI column is correct by examining the summary statistics of the column (e.g. <code>summary(Body)</code>). BMI values should be between 18 to 40 or so. Did you make an error in your calculation?<br />
 </p></li>
 <li><p>The function <code>cut</code> takes a vector of continuous numerical data and creates a factor based on your give cut-points.</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="4-data-wrangling.html#cb165-1"></a><span class="co"># Define a continuous vector to convert to a factor</span></span>
-<span id="cb165-2"><a href="4-data-wrangling.html#cb165-2"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
-<span id="cb165-3"><a href="4-data-wrangling.html#cb165-3"></a></span>
-<span id="cb165-4"><a href="4-data-wrangling.html#cb165-4"></a><span class="co"># divide range of x into three groups of equal length</span></span>
-<span id="cb165-5"><a href="4-data-wrangling.html#cb165-5"></a><span class="kw">cut</span>(x, <span class="dt">breaks=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="4-data-wrangling.html#cb163-1"></a><span class="co"># Define a continuous vector to convert to a factor</span></span>
+<span id="cb163-2"><a href="4-data-wrangling.html#cb163-2"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb163-3"><a href="4-data-wrangling.html#cb163-3"></a></span>
+<span id="cb163-4"><a href="4-data-wrangling.html#cb163-4"></a><span class="co"># divide range of x into three groups of equal length</span></span>
+<span id="cb163-5"><a href="4-data-wrangling.html#cb163-5"></a><span class="kw">cut</span>(x, <span class="dt">breaks=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##  [1] (0.991,4] (0.991,4] (0.991,4] (0.991,4] (4,7]     (4,7]     (4,7]    
 ##  [8] (7,10]    (7,10]    (7,10]   
 ## Levels: (0.991,4] (4,7] (7,10]</code></pre>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="4-data-wrangling.html#cb167-1"></a><span class="co"># divide x into four groups, where I specify all 5 break points </span></span>
-<span id="cb167-2"><a href="4-data-wrangling.html#cb167-2"></a><span class="kw">cut</span>(x, <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">2.5</span>, <span class="fl">5.0</span>, <span class="fl">7.5</span>, <span class="dv">10</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="4-data-wrangling.html#cb165-1"></a><span class="co"># divide x into four groups, where I specify all 5 break points </span></span>
+<span id="cb165-2"><a href="4-data-wrangling.html#cb165-2"></a><span class="kw">cut</span>(x, <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">2.5</span>, <span class="fl">5.0</span>, <span class="fl">7.5</span>, <span class="dv">10</span>))</span></code></pre></div>
 <pre><code>##  [1] (0,2.5]  (0,2.5]  (2.5,5]  (2.5,5]  (2.5,5]  (5,7.5]  (5,7.5]  (7.5,10]
 ##  [9] (7.5,10] (7.5,10]
 ## Levels: (0,2.5] (2.5,5] (5,7.5] (7.5,10]</code></pre>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="4-data-wrangling.html#cb169-1"></a><span class="co"># (0,2.5] (2.5,5] means 2.5 is included in first group</span></span>
-<span id="cb169-2"><a href="4-data-wrangling.html#cb169-2"></a><span class="co"># right=FALSE changes this to make 2.5 included in the second  </span></span>
-<span id="cb169-3"><a href="4-data-wrangling.html#cb169-3"></a></span>
-<span id="cb169-4"><a href="4-data-wrangling.html#cb169-4"></a><span class="co"># divide x into 3 groups, but give them a nicer</span></span>
-<span id="cb169-5"><a href="4-data-wrangling.html#cb169-5"></a><span class="co"># set of group names</span></span>
-<span id="cb169-6"><a href="4-data-wrangling.html#cb169-6"></a><span class="kw">cut</span>(x, <span class="dt">breaks=</span><span class="dv">3</span>, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;Low&#39;</span>,<span class="st">&#39;Medium&#39;</span>,<span class="st">&#39;High&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="4-data-wrangling.html#cb167-1"></a><span class="co"># (0,2.5] (2.5,5] means 2.5 is included in first group</span></span>
+<span id="cb167-2"><a href="4-data-wrangling.html#cb167-2"></a><span class="co"># right=FALSE changes this to make 2.5 included in the second  </span></span>
+<span id="cb167-3"><a href="4-data-wrangling.html#cb167-3"></a></span>
+<span id="cb167-4"><a href="4-data-wrangling.html#cb167-4"></a><span class="co"># divide x into 3 groups, but give them a nicer</span></span>
+<span id="cb167-5"><a href="4-data-wrangling.html#cb167-5"></a><span class="co"># set of group names</span></span>
+<span id="cb167-6"><a href="4-data-wrangling.html#cb167-6"></a><span class="kw">cut</span>(x, <span class="dt">breaks=</span><span class="dv">3</span>, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;Low&#39;</span>,<span class="st">&#39;Medium&#39;</span>,<span class="st">&#39;High&#39;</span>))</span></code></pre></div>
 <pre><code>##  [1] Low    Low    Low    Low    Medium Medium Medium High   High   High  
 ## Levels: Low Medium High</code></pre>
 <p>Create a new column of in the data frame that divides the age into decades (10-19, 20-29, 30-39, etc). Notice the oldest person in the study is 67.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="4-data-wrangling.html#cb171-1"></a>Body &lt;-<span class="st"> </span>Body <span class="op">%&gt;%</span></span>
-<span id="cb171-2"><a href="4-data-wrangling.html#cb171-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Age.Grp =</span> <span class="kw">cut</span>(age,</span>
-<span id="cb171-3"><a href="4-data-wrangling.html#cb171-3"></a>                        <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">70</span>),</span>
-<span id="cb171-4"><a href="4-data-wrangling.html#cb171-4"></a>                        <span class="dt">right=</span><span class="ot">FALSE</span>))</span></code></pre></div></li>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="4-data-wrangling.html#cb169-1"></a>Body &lt;-<span class="st"> </span>Body <span class="op">%&gt;%</span></span>
+<span id="cb169-2"><a href="4-data-wrangling.html#cb169-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Age.Grp =</span> <span class="kw">cut</span>(age,</span>
+<span id="cb169-3"><a href="4-data-wrangling.html#cb169-3"></a>                        <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">70</span>),</span>
+<span id="cb169-4"><a href="4-data-wrangling.html#cb169-4"></a>                        <span class="dt">right=</span><span class="ot">FALSE</span>))</span></code></pre></div></li>
 <li><p>Find the average BMI for each <code>Sex</code> by <code>Age.Grp</code> combination.</p></li>
 </ol></li>
 </ol>

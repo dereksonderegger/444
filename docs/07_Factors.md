@@ -5,7 +5,10 @@
 
 ```r
 library(tidyverse)   # loading ggplot2 and dplyr
+options(dplyr.summarise.inform=FALSE) # Don't annoy me with summarise messages
 ```
+
+As always, there is a [Video Lecture](https://youtu.be/ID2hx2ySAEE) that accompanies this chapter.
 
 In R we can store categorical information as either strings or as factors. To a casual user, it often doesn't matter how the information is stored because the modeling and graphing programs happily convert strings into factors whenever necessary. However a deeper understanding of how factors are stored and manipulated allows a user much finer control in the modeling and graphing.
 
@@ -57,16 +60,16 @@ str(drinks)
 # convert the vector of character strings into a factor vector
 drinks <- factor(drinks)
 
-# Category and Label mapping table
-data.frame( Category=1:4, labels=levels(drinks))
+# Levels and Label mapping table
+data.frame( Levels=1:4, Labels=levels(drinks))
 ```
 
 ```
-##   Category   labels
-## 1        1     Coke
-## 2        2 DietCoke
-## 3        3    Pepsi
-## 4        4   Sprite
+##   Levels   Labels
+## 1      1     Coke
+## 2      2 DietCoke
+## 3      3    Pepsi
+## 4      4   Sprite
 ```
 
 ```r
@@ -177,7 +180,8 @@ Students %>%
 # positive values move the first to the end. Negative values move the end to the front.
 Students %>%
   mutate( Year = fct_relevel(Year, 'senior', 'junior','sophomore','first year') ) %>%
-  mutate( Year = fct_shift(Year, +1) ) %>%
+  mutate( Year = fct_rev(Year) ) %>%
+  mutate( Year = fct_shift(Year, -1) ) %>%
   ggplot( aes(x=Year, fill=Gender)) + geom_bar() + coord_flip()
 ```
 
@@ -193,7 +197,7 @@ Students %>%
 <img src="07_Factors_files/figure-html/unnamed-chunk-7-5.png" width="672" />
 
 
-For a second example data set, consider a [poll](https://www.monmouth.edu/polling-institute/reports/monmouthpoll_NH_092419/) 
+For a second example data set, consider a September 2019  [poll](https://www.monmouth.edu/polling-institute/reports/monmouthpoll_NH_092419/) 
 from Monmouth University of New Hampshire Democrats and Independents.
 
 ```r
@@ -277,10 +281,6 @@ Dems %>%
   mutate( Candidate = fct_reorder(Candidate, Percent) ) %>%
   mutate( Candidate = fct_relevel(Candidate, 'other', after=0) ) %>%
   ggplot( aes(x=Candidate, y=Percent)) + geom_col() + coord_flip()
-```
-
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 <img src="07_Factors_files/figure-html/unnamed-chunk-11-1.png" width="672" />

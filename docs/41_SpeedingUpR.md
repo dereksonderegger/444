@@ -17,6 +17,7 @@ library(caret)
 library(glmnet)
 ```
 
+There is a YouTube [Video Lecture](https://youtu.be/XaoYfmPbxSA) for this chapter.
 
 Eventually if you have large enough data sets, an R user eventually writes code that is slow to execute and needs to be sped up. This chapter tries to lay out common problems and bad habits and shows how to correct them.  However, the correctness and maintainability of code should take precedence over speed. Too often, misguided attempts to obtain efficient code results in an un-maintainable mess that is no faster that the initial code.
 

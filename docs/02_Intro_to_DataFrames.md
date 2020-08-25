@@ -8,6 +8,7 @@
 library(tidyverse, quietly = TRUE)  
 ```
 
+As always, there is a [Video Lecture](https://youtu.be/4IzqPTuHycc) that accompanies this chapter.
 
 Data frames are the fundamental unit of data storage that casual users of R need to work with. Conceptually they are just like a single tab in a spreadsheet (e.g. Excel) file. There are multiple rows and columns and each column is of the same type of information (e.g. numerical values, dates, or character strings) and each row represents a single observation.
 

@@ -3,6 +3,7 @@
 
 
 
+As always, there is a [Video Lecture](https://youtu.be/7_kK4QdoA4k) that accompanies this chapter.
 
 R is a open-source program that is commonly used in statistics and machine learning. It runs on almost every platform and is completely free and is available at [www.r-project.org](www.r-project.org). Most cutting-edge statistical research is first available on R. 
 

@@ -15,9 +15,11 @@ if( length(pkgs > 0)){
 
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
+library(tidyverse, quietly = TRUE)    # loading ggplot2 and dplyr
+options(dplyr.summarise.inform=FALSE) # Don't annoy me with summaris messages
 ```
 
+As always, there is a [Video Lecture](https://youtu.be/99Q7AunWuk0) that accompanies this chapter.
   
 Many of the tools to manipulate data frames in R were written without a consistent syntax and are difficult use together. To remedy this, Hadley Wickham (the writer of `ggplot2`) introduced a package called plyr which was quite useful. As with many projects, his first version was good but not great and he introduced an improved version that works exclusively with data.frames called `dplyr` which we will investigate. The package `dplyr` strives to provide a convenient and consistent set of functions to handle the most common data frame manipulations and a mechanism for chaining these operations together to perform complex tasks. 
 
