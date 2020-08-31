@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 17 API Data Queries | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 17 API Data Queries | STA 444/5 - Introductory Data Science using R" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 17 API Data Queries | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/Cover1.png" />
+  
+  <meta name="github-repo" content="dereksonderegger/444" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 17 API Data Queries | STA 444/5 - Introductory Data Science using R" />
+  
+  
+  <meta name="twitter:image" content="images/Cover1.png" />
+
+<meta name="author" content="Derek L. Sonderegger" />
+
+
+<meta name="date" content="2020-08-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-scraping.html"/>
+<link rel="next" href="databases.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="part"><span><b>Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="familiarization.html"><a href="familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
+<li class="chapter" data-level="1.1" data-path="familiarization.html"><a href="familiarization.html#working-within-an-rmarkdown-file"><i class="fa fa-check"></i><b>1.1</b> Working within an Rmarkdown File</a></li>
+<li class="chapter" data-level="1.2" data-path="familiarization.html"><a href="familiarization.html#r-file-types"><i class="fa fa-check"></i><b>1.2</b> R file Types</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="familiarization.html"><a href="familiarization.html#r-scripts-.r-files"><i class="fa fa-check"></i><b>1.2.1</b> R Scripts (.R files)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="familiarization.html"><a href="familiarization.html#r-markdown-.rmd-files"><i class="fa fa-check"></i><b>1.2.2</b> R Markdown (.Rmd files)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="familiarization.html"><a href="familiarization.html#r-notebooks-.rmd-files"><i class="fa fa-check"></i><b>1.2.3</b> R Notebooks (.Rmd files)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="familiarization.html"><a href="familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.3</b> R as a simple calculator</a></li>
+<li class="chapter" data-level="1.4" data-path="familiarization.html"><a href="familiarization.html#assignment"><i class="fa fa-check"></i><b>1.4</b> Assignment</a></li>
+<li class="chapter" data-level="1.5" data-path="familiarization.html"><a href="familiarization.html#vectors"><i class="fa fa-check"></i><b>1.5</b> Vectors</a></li>
+<li class="chapter" data-level="1.6" data-path="familiarization.html"><a href="familiarization.html#packages"><i class="fa fa-check"></i><b>1.6</b> Packages</a></li>
+<li class="chapter" data-level="1.7" data-path="familiarization.html"><a href="familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.7</b> Finding Help</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="familiarization.html"><a href="familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.7.1</b> How does this function work?</a></li>
+<li class="chapter" data-level="1.7.2" data-path="familiarization.html"><a href="familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.7.2</b> How does this package work?</a></li>
+<li class="chapter" data-level="1.7.3" data-path="familiarization.html"><a href="familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.7.3</b> How do I do XXX?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="familiarization.html"><a href="familiarization.html#Exercises_Familiarization"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-frames.html"><a href="data-frames.html"><i class="fa fa-check"></i><b>2</b> Data Frames</a><ul>
+<li class="chapter" data-level="2.1" data-path="data-frames.html"><a href="data-frames.html#introduction-to-importing-data"><i class="fa fa-check"></i><b>2.1</b> Introduction to Importing Data</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="data-frames.html"><a href="data-frames.html#from-a-package"><i class="fa fa-check"></i><b>2.1.1</b> From a Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data-frames.html"><a href="data-frames.html#import-from-.csv-or-.xls-files"><i class="fa fa-check"></i><b>2.1.2</b> Import from <code>.csv</code> or <code>.xls</code> files</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="data-frames.html"><a href="data-frames.html#data-types"><i class="fa fa-check"></i><b>2.2</b> Data Types</a></li>
+<li class="chapter" data-level="2.3" data-path="data-frames.html"><a href="data-frames.html#basic-manipulation"><i class="fa fa-check"></i><b>2.3</b> Basic Manipulation</a></li>
+<li class="chapter" data-level="2.4" data-path="data-frames.html"><a href="data-frames.html#Exercises_IntroDataFrames"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>3</b> Graphing</a><ul>
+<li class="chapter" data-level="3.1" data-path="graphing.html"><a href="graphing.html#basic-graphs"><i class="fa fa-check"></i><b>3.1</b> Basic Graphs</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="graphing.html"><a href="graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.1.2" data-path="graphing.html"><a href="graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="graphing.html"><a href="graphing.html#faceting"><i class="fa fa-check"></i><b>3.2</b> Faceting</a></li>
+<li class="chapter" data-level="3.3" data-path="graphing.html"><a href="graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="graphing.html"><a href="graphing.html#axis-labels-and-titles"><i class="fa fa-check"></i><b>3.3.1</b> Axis Labels and Titles</a></li>
+<li class="chapter" data-level="3.3.2" data-path="graphing.html"><a href="graphing.html#text-labels"><i class="fa fa-check"></i><b>3.3.2</b> Text Labels</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="graphing.html"><a href="graphing.html#Exercises_IntroGraphing"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#add_row"><i class="fa fa-check"></i><b>4.1.1</b> <code>add_row</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#bind_rows"><i class="fa fa-check"></i><b>4.1.2</b> <code>bind_rows</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting"><i class="fa fa-check"></i><b>4.1.3</b> Subsetting</a></li>
+<li class="chapter" data-level="4.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#arrange"><i class="fa fa-check"></i><b>4.1.4</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#mutate"><i class="fa fa-check"></i><b>4.1.5</b> mutate()</a></li>
+<li class="chapter" data-level="4.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#summarise"><i class="fa fa-check"></i><b>4.1.6</b> summarise()</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#split-apply-combine"><i class="fa fa-check"></i><b>4.2</b> Split, apply, combine</a></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling.html"><a href="data-wrangling.html#Exercises_IntroDataWrangling"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>5</b> Statistical Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="statistical-models.html"><a href="statistical-models.html#formula-notation"><i class="fa fa-check"></i><b>5.1</b> Formula Notation</a></li>
+<li class="chapter" data-level="5.2" data-path="statistical-models.html"><a href="statistical-models.html#basic-models"><i class="fa fa-check"></i><b>5.2</b> Basic Models</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="statistical-models.html"><a href="statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
+<li class="chapter" data-level="5.2.2" data-path="statistical-models.html"><a href="statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-function"><i class="fa fa-check"></i><b>5.3</b> Accessor function</a></li>
+<li class="chapter" data-level="5.4" data-path="statistical-models.html"><a href="statistical-models.html#Exercises_ModelBuilding"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="flow-control.html"><a href="flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a><ul>
+<li class="chapter" data-level="6.1" data-path="flow-control.html"><a href="flow-control.html#logical-expressions"><i class="fa fa-check"></i><b>6.1</b> Logical Expressions</a></li>
+<li class="chapter" data-level="6.2" data-path="flow-control.html"><a href="flow-control.html#decision-statements"><i class="fa fa-check"></i><b>6.2</b> Decision statements</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="flow-control.html"><a href="flow-control.html#in-dplyr-wrangling"><i class="fa fa-check"></i><b>6.2.1</b> In <code>dplyr</code> wrangling</a></li>
+<li class="chapter" data-level="6.2.2" data-path="flow-control.html"><a href="flow-control.html#general-if-else"><i class="fa fa-check"></i><b>6.2.2</b> General <code>if else</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="flow-control.html"><a href="flow-control.html#loops"><i class="fa fa-check"></i><b>6.3</b> Loops</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="flow-control.html"><a href="flow-control.html#while-loops"><i class="fa fa-check"></i><b>6.3.1</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="6.3.2" data-path="flow-control.html"><a href="flow-control.html#for-loops"><i class="fa fa-check"></i><b>6.3.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="6.3.3" data-path="flow-control.html"><a href="flow-control.html#mosaicdo-loops"><i class="fa fa-check"></i><b>6.3.3</b> <code>mosaic::do()</code> loops</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="flow-control.html"><a href="flow-control.html#functions"><i class="fa fa-check"></i><b>6.4</b> Functions</a></li>
+<li class="chapter" data-level="6.5" data-path="flow-control.html"><a href="flow-control.html#Exercises_FlowControl"><i class="fa fa-check"></i><b>6.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a><ul>
+<li class="chapter" data-level="7.1" data-path="factors.html"><a href="factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
+<li class="chapter" data-level="7.2" data-path="factors.html"><a href="factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
+<li class="chapter" data-level="7.3" data-path="factors.html"><a href="factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
+<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.5" data-path="factors.html"><a href="factors.html#Exercises_Factors"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+</ul></li>
+<li class="part"><span><b>Miscellaneous</b></span></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html"><i class="fa fa-check"></i>Statistical Tables</a><ul>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#example-distributions"><i class="fa fa-check"></i>Example Distributions</a></li>
+<li><a href="statistical-tables.html#mosaicplotdist-function"><code>mosaic::plotDist()</code> function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#base-r-functions"><i class="fa fa-check"></i>Base R functions</a><ul>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#d-function"><i class="fa fa-check"></i>d-function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#p-function"><i class="fa fa-check"></i>p-function</a></li>
+<li><a href="statistical-tables.html#q-function"><code>q</code>-function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#r-function"><i class="fa fa-check"></i>r-function</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="statistical-tables.html"><a href="statistical-tables.html#Exercises_Statistical_Tables"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html"><i class="fa fa-check"></i>Rmarkdown Tricks</a><ul>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#chunk-options"><i class="fa fa-check"></i>Chunk Options</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#verbatim-list-environments"><i class="fa fa-check"></i>Verbatim &amp; List Environments</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#mathematical-expressions"><i class="fa fa-check"></i>Mathematical expressions</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#tables"><i class="fa fa-check"></i>Tables</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#simple-tables"><i class="fa fa-check"></i><b>7.6.1</b> Simple Tables</a></li>
+<li class="chapter" data-level="7.6.2" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#grid-tables"><i class="fa fa-check"></i><b>7.6.2</b> Grid Tables</a></li>
+<li class="chapter" data-level="7.6.3" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#pipe-tables"><i class="fa fa-check"></i><b>7.6.3</b> Pipe Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#r-functions-to-produce-table-code."><i class="fa fa-check"></i>R functions to produce table code.</a><ul>
+<li class="chapter" data-level="7.6.4" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#knitrkable"><i class="fa fa-check"></i><b>7.6.4</b> <code class="unnumbered">knitr::kable</code></a></li>
+<li class="chapter" data-level="7.6.5" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#package-pander"><i class="fa fa-check"></i><b>7.6.5</b> Package <code class="unnumbered">pander</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#code-appendix"><i class="fa fa-check"></i>Code Appendix</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html"><i class="fa fa-check"></i>Data Wrangling Process</a><ul>
+<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>7.7</b> Introduction</a></li>
+<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#import"><i class="fa fa-check"></i><b>7.8</b> Import</a></li>
+<li class="chapter" data-level="7.9" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.9</b> Tidying</a></li>
+<li class="chapter" data-level="7.10" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.10</b> Cleaning</a></li>
+<li class="chapter" data-level="7.11" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#use"><i class="fa fa-check"></i><b>7.11</b> Use</a></li>
+</ul></li>
+<li class="part"><span><b>Deeper Details</b></span></li>
+<li class="chapter" data-level="8" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
+<li class="chapter" data-level="8.1" data-path="familiarization.html"><a href="familiarization.html#vectors"><i class="fa fa-check"></i><b>8.1</b> Vectors</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="data-structures.html"><a href="data-structures.html#accessing-vector-elements"><i class="fa fa-check"></i><b>8.1.1</b> Accessing Vector Elements</a></li>
+<li class="chapter" data-level="8.1.2" data-path="data-structures.html"><a href="data-structures.html#scalar-functions-applied-to-vectors"><i class="fa fa-check"></i><b>8.1.2</b> Scalar Functions Applied to Vectors</a></li>
+<li class="chapter" data-level="8.1.3" data-path="data-structures.html"><a href="data-structures.html#vector-algebra"><i class="fa fa-check"></i><b>8.1.3</b> Vector Algebra</a></li>
+<li class="chapter" data-level="8.1.4" data-path="data-structures.html"><a href="data-structures.html#commonly-used-vector-functions"><i class="fa fa-check"></i><b>8.1.4</b> Commonly Used Vector Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="data-structures.html"><a href="data-structures.html#matrices"><i class="fa fa-check"></i><b>8.2</b> Matrices</a></li>
+<li class="chapter" data-level="8.3" data-path="data-frames.html"><a href="data-frames.html#data-frames"><i class="fa fa-check"></i><b>8.3</b> Data Frames</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="data-structures.html"><a href="data-structures.html#data.frames-vs-tibbles"><i class="fa fa-check"></i><b>8.3.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="data-structures.html"><a href="data-structures.html#lists"><i class="fa fa-check"></i><b>8.4</b> Lists</a></li>
+<li class="chapter" data-level="8.5" data-path="data-structures.html"><a href="data-structures.html#Exercises_DataStructures"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>9</b> Importing Data</a><ul>
+<li class="chapter" data-level="9.1" data-path="importing-data.html"><a href="importing-data.html#working-directory"><i class="fa fa-check"></i><b>9.1</b> Working directory</a></li>
+<li class="chapter" data-level="9.2" data-path="importing-data.html"><a href="importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>9.2</b> Comma Separated Data</a></li>
+<li class="chapter" data-level="9.3" data-path="importing-data.html"><a href="importing-data.html#ms-excel"><i class="fa fa-check"></i><b>9.3</b> MS Excel</a></li>
+<li class="chapter" data-level="9.4" data-path="importing-data.html"><a href="importing-data.html#multiple-files"><i class="fa fa-check"></i><b>9.4</b> Multiple files</a></li>
+<li class="chapter" data-level="9.5" data-path="importing-data.html"><a href="importing-data.html#Exercises_DataImport"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="flow-control.html"><a href="flow-control.html#functions"><i class="fa fa-check"></i><b>10</b> Functions</a><ul>
+<li class="chapter" data-level="10.1" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
+<li class="chapter" data-level="10.2" data-path="functions.html"><a href="functions.html#parameter-defaults"><i class="fa fa-check"></i><b>10.2</b> Parameter Defaults</a></li>
+<li class="chapter" data-level="10.3" data-path="functions.html"><a href="functions.html#ellipses"><i class="fa fa-check"></i><b>10.3</b> Ellipses</a></li>
+<li class="chapter" data-level="10.4" data-path="functions.html"><a href="functions.html#function-overloading"><i class="fa fa-check"></i><b>10.4</b> Function Overloading</a></li>
+<li class="chapter" data-level="10.5" data-path="functions.html"><a href="functions.html#debugging"><i class="fa fa-check"></i><b>10.5</b> Debugging</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="functions.html"><a href="functions.html#rmarkdown-recommendations"><i class="fa fa-check"></i><b>10.5.1</b> Rmarkdown Recommendations</a></li>
+<li class="chapter" data-level="10.5.2" data-path="functions.html"><a href="functions.html#step-wise-execution"><i class="fa fa-check"></i><b>10.5.2</b> Step-wise Execution</a></li>
+<li class="chapter" data-level="10.5.3" data-path="functions.html"><a href="functions.html#print-statements"><i class="fa fa-check"></i><b>10.5.3</b> Print Statements</a></li>
+<li class="chapter" data-level="10.5.4" data-path="functions.html"><a href="functions.html#browser"><i class="fa fa-check"></i><b>10.5.4</b> <code>browser</code></a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="functions.html"><a href="functions.html#scope"><i class="fa fa-check"></i><b>10.6</b> Scope</a></li>
+<li class="chapter" data-level="10.7" data-path="functions.html"><a href="functions.html#Exercises_Functions"><i class="fa fa-check"></i><b>10.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="string-manipulation.html"><a href="string-manipulation.html"><i class="fa fa-check"></i><b>11</b> String Manipulation</a><ul>
+<li class="chapter" data-level="11.1" data-path="string-manipulation.html"><a href="string-manipulation.html#base-function"><i class="fa fa-check"></i><b>11.1</b> Base function</a></li>
+<li class="chapter" data-level="11.2" data-path="string-manipulation.html"><a href="string-manipulation.html#stringr-basic-operations"><i class="fa fa-check"></i><b>11.2</b> <code>stringr</code>: Basic operations</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="string-manipulation.html"><a href="string-manipulation.html#concatenating-with-str_c-or-str_join"><i class="fa fa-check"></i><b>11.2.1</b> Concatenating with <code>str_c()</code> or <code>str_join()</code></a></li>
+<li class="chapter" data-level="11.2.2" data-path="string-manipulation.html"><a href="string-manipulation.html#calculating-string-length-with-str_length"><i class="fa fa-check"></i><b>11.2.2</b> Calculating string length with <code>str_length()</code></a></li>
+<li class="chapter" data-level="11.2.3" data-path="string-manipulation.html"><a href="string-manipulation.html#extracting-substrings-with-str_sub"><i class="fa fa-check"></i><b>11.2.3</b> Extracting substrings with <code>str_sub()</code></a></li>
+<li class="chapter" data-level="11.2.4" data-path="string-manipulation.html"><a href="string-manipulation.html#pad-a-string-with-str_pad"><i class="fa fa-check"></i><b>11.2.4</b> Pad a string with <code>str_pad()</code></a></li>
+<li class="chapter" data-level="11.2.5" data-path="string-manipulation.html"><a href="string-manipulation.html#trim-a-string-with-str_trim"><i class="fa fa-check"></i><b>11.2.5</b> Trim a string with <code>str_trim()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="string-manipulation.html"><a href="string-manipulation.html#stringr-pattern-matching-tools"><i class="fa fa-check"></i><b>11.3</b> <code>stringr</code>: Pattern Matching Tools</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="string-manipulation.html"><a href="string-manipulation.html#detecting-a-pattern-using-str_detect"><i class="fa fa-check"></i><b>11.3.1</b> Detecting a pattern using str_detect()</a></li>
+<li class="chapter" data-level="11.3.2" data-path="string-manipulation.html"><a href="string-manipulation.html#locating-a-pattern-using-str_locate"><i class="fa fa-check"></i><b>11.3.2</b> Locating a pattern using str_locate()</a></li>
+<li class="chapter" data-level="11.3.3" data-path="string-manipulation.html"><a href="string-manipulation.html#replacing-sub-strings-using-str_replace"><i class="fa fa-check"></i><b>11.3.3</b> Replacing sub-strings using <code>str_replace()</code></a></li>
+<li class="chapter" data-level="11.3.4" data-path="string-manipulation.html"><a href="string-manipulation.html#splitting-into-sub-strings-using-str_split"><i class="fa fa-check"></i><b>11.3.4</b> Splitting into sub-strings using <code>str_split()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="string-manipulation.html"><a href="string-manipulation.html#regular-expressions"><i class="fa fa-check"></i><b>11.4</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="string-manipulation.html"><a href="string-manipulation.html#regular-expression-ingredients"><i class="fa fa-check"></i><b>11.4.1</b> Regular Expression Ingredients</a></li>
+<li class="chapter" data-level="11.4.2" data-path="string-manipulation.html"><a href="string-manipulation.html#matching-a-specific-string"><i class="fa fa-check"></i><b>11.4.2</b> Matching a specific string</a></li>
+<li class="chapter" data-level="11.4.3" data-path="string-manipulation.html"><a href="string-manipulation.html#matching-arbitrary-numbers"><i class="fa fa-check"></i><b>11.4.3</b> Matching arbitrary numbers</a></li>
+<li class="chapter" data-level="11.4.4" data-path="string-manipulation.html"><a href="string-manipulation.html#greedy-matching"><i class="fa fa-check"></i><b>11.4.4</b> Greedy matching</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="string-manipulation.html"><a href="string-manipulation.html#fuzzy-pattern-matching"><i class="fa fa-check"></i><b>11.5</b> Fuzzy Pattern Matching</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="string-manipulation.html"><a href="string-manipulation.html#key-collision-merge"><i class="fa fa-check"></i><b>11.5.1</b> Key Collision Merge</a></li>
+<li class="chapter" data-level="11.5.2" data-path="string-manipulation.html"><a href="string-manipulation.html#string-distances"><i class="fa fa-check"></i><b>11.5.2</b> String Distances</a></li>
+<li class="chapter" data-level="11.5.3" data-path="string-manipulation.html"><a href="string-manipulation.html#n-gram-merge"><i class="fa fa-check"></i><b>11.5.3</b> N-gram Merge</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="string-manipulation.html"><a href="string-manipulation.html#Exercises_Strings"><i class="fa fa-check"></i><b>11.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
+<li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>12.1</b> Creating Date and Time objects</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.2</b> Extracting information</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.3</b> Arithmetic on Dates</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="data-reshaping.html"><a href="data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a><ul>
+<li class="chapter" data-level="13.1" data-path="data-structures.html"><a href="data-structures.html#data.frames-vs-tibbles"><i class="fa fa-check"></i><b>13.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+<li class="chapter" data-level="13.2" data-path="data-reshaping.html"><a href="data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>13.2</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
+<li class="chapter" data-level="13.3" data-path="data-reshaping.html"><a href="data-reshaping.html#tidyr"><i class="fa fa-check"></i><b>13.3</b> <code>tidyr</code></a><ul>
+<li class="chapter" data-level="13.3.1" data-path="data-wrangling.html"><a href="data-wrangling.html#verbs"><i class="fa fa-check"></i><b>13.3.1</b> Verbs</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="data-reshaping.html"><a href="data-reshaping.html#storing-data-in-multiple-tables"><i class="fa fa-check"></i><b>13.4</b> Storing Data in Multiple Tables</a></li>
+<li class="chapter" data-level="13.5" data-path="data-reshaping.html"><a href="data-reshaping.html#table-joins"><i class="fa fa-check"></i><b>13.5</b> Table Joins</a></li>
+<li class="chapter" data-level="13.6" data-path="data-reshaping.html"><a href="data-reshaping.html#row-summations"><i class="fa fa-check"></i><b>13.6</b> Row summations</a></li>
+<li class="chapter" data-level="13.7" data-path="data-reshaping.html"><a href="data-reshaping.html#Exercises_DataReshaping"><i class="fa fa-check"></i><b>13.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i>Maps</a><ul>
+<li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i>Introduction</a><ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#coordinate-reference-systems-crs"><i class="fa fa-check"></i>Coordinate Reference Systems (CRS)</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#spatial-objects"><i class="fa fa-check"></i>Spatial Objects</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#tiles"><i class="fa fa-check"></i>Tiles</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#obtaining-spatial-data"><i class="fa fa-check"></i>Obtaining Spatial Data</a><ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#natural-earth-database"><i class="fa fa-check"></i>Natural Earth Database</a></li>
+<li class="chapter" data-level="13.7.1" data-path="maps.html"><a href="maps.html#package-maps"><i class="fa fa-check"></i><b>13.7.1</b> Package <code class="unnumbered">maps</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#example"><i class="fa fa-check"></i>Example</a><ul>
+<li class="chapter" data-level="13.7.2" data-path="maps.html"><a href="maps.html#package-leaflet"><i class="fa fa-check"></i><b>13.7.2</b> Package <code class="unnumbered">leaflet</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html"><i class="fa fa-check"></i><b>14</b> Graphing Part II</a><ul>
+<li class="chapter" data-level="14.1" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#multi-plots"><i class="fa fa-check"></i><b>14.1</b> Multi-plots</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#cowplot-package"><i class="fa fa-check"></i><b>14.1.1</b> <code>cowplot</code> package</a></li>
+<li class="chapter" data-level="14.1.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#multiplot-in-rmisc"><i class="fa fa-check"></i><b>14.1.2</b> <code>multiplot</code> in <code>Rmisc</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#customized-scales"><i class="fa fa-check"></i><b>14.2</b> Customized Scales</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#color-scales"><i class="fa fa-check"></i><b>14.2.1</b> Color Scales</a></li>
+<li class="chapter" data-level="14.2.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#setting-major-minor-ticks"><i class="fa fa-check"></i><b>14.2.2</b> Setting major &amp; minor ticks</a></li>
+<li class="chapter" data-level="14.2.3" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#log-scales"><i class="fa fa-check"></i><b>14.2.3</b> Log Scales</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#themes"><i class="fa fa-check"></i><b>14.3</b> Themes</a></li>
+<li class="chapter" data-level="14.4" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>14.4</b> Mathematical Notation</a></li>
+<li class="chapter" data-level="14.5" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>14.5</b> Interactive plots with <code>plotly</code></a></li>
+<li class="chapter" data-level="14.6" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>14.6</b> Geographic Maps</a><ul>
+<li class="chapter" data-level="14.6.1" data-path="maps.html"><a href="maps.html#package-maps"><i class="fa fa-check"></i><b>14.6.1</b> Package <code>maps</code></a></li>
+<li class="chapter" data-level="14.6.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#packages-sf-and-rnaturalearth"><i class="fa fa-check"></i><b>14.6.2</b> Packages <code>sf</code> and <code>rnaturalearth</code></a></li>
+<li class="chapter" data-level="14.6.3" data-path="maps.html"><a href="maps.html#package-leaflet"><i class="fa fa-check"></i><b>14.6.3</b> Package <code>leaflet</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#Exercises_Advanced_Graphing"><i class="fa fa-check"></i><b>14.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="r-packages.html"><a href="r-packages.html"><i class="fa fa-check"></i><b>15</b> R Packages</a><ul>
+<li class="chapter" data-level="15.1" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>15.1</b> Introduction</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="r-packages.html"><a href="r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>15.1.1</b> Useful packages and books</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="r-packages.html"><a href="r-packages.html#package-structure"><i class="fa fa-check"></i><b>15.2</b> Package Structure</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="r-packages.html"><a href="r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>15.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="15.2.2" data-path="r-packages.html"><a href="r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="r-packages.html"><a href="r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="r-packages.html"><a href="r-packages.html#data-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Data Documentation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="r-packages.html"><a href="r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="r-packages.html"><a href="r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
+<li class="chapter" data-level="15.5" data-path="r-packages.html"><a href="r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a></li>
+<li class="chapter" data-level="15.6" data-path="r-packages.html"><a href="r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.6</b> Sharing your Package</a></li>
+<li class="chapter" data-level="15.7" data-path="r-packages.html"><a href="r-packages.html#an-example-package"><i class="fa fa-check"></i><b>15.7</b> An Example Package</a></li>
+<li class="chapter" data-level="15.8" data-path="r-packages.html"><a href="r-packages.html#Exercises_Packages"><i class="fa fa-check"></i><b>15.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="data-scraping.html"><a href="data-scraping.html"><i class="fa fa-check"></i><b>16</b> Data Scraping</a><ul>
+<li class="chapter" data-level="16.1" data-path="data-scraping.html"><a href="data-scraping.html#web-pages"><i class="fa fa-check"></i><b>16.1</b> Web Pages</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="data-scraping.html"><a href="data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>16.1.1</b> Example Wikipedia Table</a></li>
+<li class="chapter" data-level="16.1.2" data-path="data-structures.html"><a href="data-structures.html#lists"><i class="fa fa-check"></i><b>16.1.2</b> Lists</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="data-scraping.html"><a href="data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>16.2</b> Scraping .pdf files</a></li>
+<li class="chapter" data-level="16.3" data-path="data-scraping.html"><a href="data-scraping.html#Exercises_WebScraping"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="api-data-queries.html"><a href="api-data-queries.html"><i class="fa fa-check"></i><b>17</b> API Data Queries</a><ul>
+<li class="chapter" data-level="17.1" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="api-data-queries.html"><a href="api-data-queries.html#census-bureau-api"><i class="fa fa-check"></i><b>17.2</b> Census Bureau API</a></li>
+<li class="chapter" data-level="17.3" data-path="api-data-queries.html"><a href="api-data-queries.html#package-censusapi"><i class="fa fa-check"></i><b>17.3</b> Package <code>censusapi</code></a><ul>
+<li class="chapter" data-level="17.3.1" data-path="api-data-queries.html"><a href="api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.3.1</b> Population Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="api-data-queries.html"><a href="api-data-queries.html#package-tidycensus"><i class="fa fa-check"></i><b>17.4</b> Package <code>tidycensus</code></a></li>
+<li class="chapter" data-level="17.5" data-path="api-data-queries.html"><a href="api-data-queries.html#Exercises_APIs"><i class="fa fa-check"></i><b>17.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="databases.html"><a href="databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
+<li class="chapter" data-level="18.1" data-path="databases.html"><a href="databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
+<li class="chapter" data-level="18.2" data-path="databases.html"><a href="databases.html#sql"><i class="fa fa-check"></i><b>18.2</b> SQL</a></li>
+<li class="chapter" data-level="18.3" data-path="databases.html"><a href="databases.html#dbplyr"><i class="fa fa-check"></i><b>18.3</b> <code>dbplyr</code></a></li>
+<li class="chapter" data-level="18.4" data-path="databases.html"><a href="databases.html#Exercises_DataBases"><i class="fa fa-check"></i><b>18.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="speeding-up-r.html"><a href="speeding-up-r.html"><i class="fa fa-check"></i><b>19</b> Speeding up R</a><ul>
+<li class="chapter" data-level="19.1" data-path="speeding-up-r.html"><a href="speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="19.2" data-path="speeding-up-r.html"><a href="speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="19.3" data-path="speeding-up-r.html"><a href="speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="19.4" data-path="speeding-up-r.html"><a href="speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.4</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.4.1" data-path="speeding-up-r.html"><a href="speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.4.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.4.2" data-path="speeding-up-r.html"><a href="speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.4.2</b> <code>caret::train</code></a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="speeding-up-r.html"><a href="speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.5</b> Parallelizing <code>for</code> loops</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 444/5 - Introductory Data Science using R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="api-data-queries" class="section level1">
+<h1><span class="header-section-number">Chapter 17</span> API Data Queries</h1>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="api-data-queries.html#cb826-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb826-2"><a href="api-data-queries.html#cb826-2"></a><span class="kw">library</span>(censusapi)</span>
+<span id="cb826-3"><a href="api-data-queries.html#cb826-3"></a><span class="kw">library</span>(jsonlite) </span>
+<span id="cb826-4"><a href="api-data-queries.html#cb826-4"></a><span class="kw">library</span>(tidycensus)</span></code></pre></div>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">17.1</span> Introduction</h2>
+<p>As usual, I have a YouTube <a href="https://youtu.be/BlWk25GI3HY">Video Lecture</a> for the chapter.</p>
+<p>With a standard database connection, there is quite a lot we can do. For example we could insert incorrect rows into tables, or even <a href="https://xkcd.com/327/">delete whole tables</a>. Many organizations that deliver data to clients require a way to minimize the types of data base actions that are allowed. For example, consider Twitter. Twitter clients need to connect to the Twitter database, sign in, and download the latest tweets from whomever they follow and accept a database input that adds a tweet from the signed in user. However, the client must not be able to update or insert tweets from somebody else, and to prevent Denial-Of-Service attacks, there should be some limit to the number of rows of information that we ask for. Furthermore, the client shouldn’t have to remember the details of how the data is stored and changes to the database configuration should be completely invisible to clients.</p>
+<p>Application Program Interfaces (APIs) are the specification for how two programs will interface. An API that is well thought out and documented is wonderful to use. In a data query situation, the API will define how we submit a query and the manner in which the result will be returned.</p>
+<p>As the internet has become more sophisticated and companies have begun to understand the economics and risks associated with releasing their data, APIs have generally become more restrictive and <a href="https://www.youtube.com/watch?v=BxV14h0kFs0">Tom Scott</a> has a great video about this change, titled “This Video Has XXX,XXX,XXX Views”.</p>
+<p>The US Census Bureau has a really nice Web Page interface to their data and arguable, these is the easiest way to get data from the Census Bureau.</p>
+<p>The tool we’ll be using next is still in beta version, so it might change, but using the search function at <a href="https://data.census.gov/cedsci/">https://data.census.gov/cedsci/</a> we can search for whatever we want. For example we might be interested in the percent of residents that have health insurance and so we’ll search for ‘health insurance’. Several tables show up and we can look through all of the results for a table that gives us what we’d like. Note the table name!</p>
+<p>From there we could customize the table and download it.</p>
+</div>
+<div id="census-bureau-api" class="section level2">
+<h2><span class="header-section-number">17.2</span> Census Bureau API</h2>
+<p>The US Census Bureau’s API interface works by having users visit websites with extremely carfully craften URL strings. The following web links will cause a query on the Census web site, and then result in some data. Go ahead and click on these!</p>
+<p><a href="http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;for=state:*&amp;DATE_CODE=1">http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;for=state:*&amp;DATE_CODE=1</a></p>
+<p><a href="http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;in=state:01&amp;for=county:*&amp;DATE_CODE=1">http://api.census.gov/data/2018/pep/population?get=DATE_CODE,DATE_DESC,DENSITY,POP,GEONAME,STATE&amp;in=state:01&amp;for=county:*&amp;DATE_CODE=1</a></p>
+<ol style="list-style-type: decimal">
+<li>The base website is <a href="http://api.census.gov/data/2018/pep/population" class="uri">http://api.census.gov/data/2018/pep/population</a>. This is effectively specifying which table we want to query from. The <code>pep</code> part stands for the <em>Population Estimation Program</em>, which is one division of the Census Bureau. The 2018 part of the base address defines the <em>vintage</em> of the estimate. This page will produce estimates for the years 2010-2018, but the Census Bureau is constantly updating those estimates based on new information. So the this is specifying that we are to use the Census’ 2018 estimate of the population.</li>
+<li>Modifiers are included after the <code>?</code> and different modifiers are separated by <code>&amp;</code></li>
+<li><code>get=</code> section defines the variables that you want</li>
+<li>The <code>for=state:*</code> denotes that we want all of the states. <code>for=state:01</code> would have been just Alabama. If we want all the county populations we can use <code>for=county:*</code>. If we just want county populations within a particular state, we would use <code>in=state:01&amp;for=county:*</code></li>
+<li>The <code>DATE_CODE=1</code> indicates that I just want the first estimate in the decadal time series of estimates. If I didn’t include this, we’d end up with estimates for each year between 2010 and 2018.</li>
+</ol>
+<p>When you go to this website, the database will read the modifier list, do the appropriate database query, and return the result via a webpage that has a very simple structure that is easy to parse into a table.</p>
+<p>The hard part about Web APIs is understanding which tables are available and what each covariate means. For the US Census Bureau, the <a href="https://www.census.gov/data/developers/">developers</a> page is a great place to start.</p>
+</div>
+<div id="package-censusapi" class="section level2">
+<h2><span class="header-section-number">17.3</span> Package <code>censusapi</code></h2>
+<p>While it is helpful to understand how the web API works, it would be nice to not have to worry about some of the fiddly aspects of parsing the result into a data frame. There are many R packages that provide a convenient interface to some database API. For our US Census Bureau example, we’ll use the R package <code>censusapi</code>. You should read the <a href="https://github.com/hrecht/censusapi">documentation</a> as well. It looks like there is another package, <code>tidycensus</code> that might be even better.</p>
+<p>The Census Bureau wants to identify which developers are accessing their data and you are required to sign up for a <a href="https://api.census.gov/data/key_signup.html">Census Key</a>. It is easy to give them your email and they’ll email you a character string that you’ll use for the rest of these examples.</p>
+<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="api-data-queries.html#cb827-1"></a><span class="co"># I got a Census API key from https://api.census.gov/data/key_signup.html </span></span>
+<span id="cb827-2"><a href="api-data-queries.html#cb827-2"></a><span class="co"># and saved it as Census_API_Key in my .Rprofile file in my home directory. </span></span>
+<span id="cb827-3"><a href="api-data-queries.html#cb827-3"></a>CENSUS_API_KEY =<span class="st"> </span><span class="kw">Sys.getenv</span>(<span class="st">&#39;CENSUS_API_KEY&#39;</span>)</span>
+<span id="cb827-4"><a href="api-data-queries.html#cb827-4"></a> </span>
+<span id="cb827-5"><a href="api-data-queries.html#cb827-5"></a><span class="co"># This query is the example query first given in the censusapi vignette.</span></span>
+<span id="cb827-6"><a href="api-data-queries.html#cb827-6"></a>censusapi<span class="op">::</span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;timeseries/healthins/sahie&quot;</span>,</span>
+<span id="cb827-7"><a href="api-data-queries.html#cb827-7"></a>	<span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&quot;NAME&quot;</span>, <span class="st">&quot;IPRCAT&quot;</span>, <span class="st">&quot;IPR_DESC&quot;</span>, <span class="st">&quot;PCTUI_PT&quot;</span>),      <span class="co"># Define the gets=</span></span>
+<span id="cb827-8"><a href="api-data-queries.html#cb827-8"></a>	<span class="dt">region =</span> <span class="st">&quot;state:01&quot;</span>,                                     <span class="co"># Define the for=</span></span>
+<span id="cb827-9"><a href="api-data-queries.html#cb827-9"></a>	<span class="dt">time =</span> <span class="dv">2017</span>,                                         </span>
+<span id="cb827-10"><a href="api-data-queries.html#cb827-10"></a>	<span class="dt">key =</span> CENSUS_API_KEY)</span></code></pre></div>
+<pre><code>##   time state    NAME IPRCAT                IPR_DESC PCTUI_PT
+## 1 2017    01 Alabama      0             All Incomes     11.0
+## 2 2017    01 Alabama      1      &lt;= 200% of Poverty     18.3
+## 3 2017    01 Alabama      2      &lt;= 250% of Poverty     17.3
+## 4 2017    01 Alabama      3      &lt;= 138% of Poverty     19.4
+## 5 2017    01 Alabama      4      &lt;= 400% of Poverty     14.5
+## 6 2017    01 Alabama      5 138% to 400% of Poverty     11.5</code></pre>
+<p>This is now super easy to query the Census database, except that I have NO IDEA what API names (ie tables) are available and I have no clue what variables I just downloaded. We need to get a better sense of what data sets are available.</p>
+<p>A good place to start is the <a href="https://www.census.gov/data/developers/data-sets.html">developer datasets</a>. In particular I’m interested in both county are municipality level population estimates over time as well as information from the American Community Survey (ACS).</p>
+<div id="population-estimates" class="section level3">
+<h3><span class="header-section-number">17.3.1</span> Population Estimates</h3>
+<p>The Census Bureau’s Population Estimation Program (PEP) is responsible for population estimates. On the <a href="https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html">Census Population API page</a>, it looks like I need to use the <code>pep/population</code> tables.</p>
+<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb829-1"><a href="api-data-queries.html#cb829-1"></a><span class="co"># Code to grab county level population levels.</span></span>
+<span id="cb829-2"><a href="api-data-queries.html#cb829-2"></a>County_Populations &lt;-<span class="st"> </span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;pep/population&quot;</span>,</span>
+<span id="cb829-3"><a href="api-data-queries.html#cb829-3"></a>  <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&#39;STATE&#39;</span>,<span class="st">&#39;COUNTY&#39;</span>,<span class="st">&#39;GEONAME&#39;</span>,<span class="st">&#39;DATE_CODE&#39;</span>,<span class="st">&#39;DATE_DESC&#39;</span>,<span class="st">&#39;POP&#39;</span>),</span>
+<span id="cb829-4"><a href="api-data-queries.html#cb829-4"></a>  <span class="dt">vintage =</span> <span class="st">&#39;2018&#39;</span>,</span>
+<span id="cb829-5"><a href="api-data-queries.html#cb829-5"></a>  <span class="dt">regionin =</span> <span class="st">&#39;state:04&#39;</span>,  <span class="co"># Just Arizona, which is coded as 04. I don&#39;t know why...</span></span>
+<span id="cb829-6"><a href="api-data-queries.html#cb829-6"></a>  <span class="dt">region =</span> <span class="st">&#39;county:*&#39;</span>,    <span class="co"># All the counties</span></span>
+<span id="cb829-7"><a href="api-data-queries.html#cb829-7"></a>  <span class="dt">DATE_CODE=</span><span class="dv">1</span>,            <span class="co"># 2010, Leave this out to get each year 2010-2018</span></span>
+<span id="cb829-8"><a href="api-data-queries.html#cb829-8"></a>  <span class="dt">key =</span> CENSUS_API_KEY)   <span class="co"># If key is missing, it will look in System Environment </span></span>
+<span id="cb829-9"><a href="api-data-queries.html#cb829-9"></a></span>
+<span id="cb829-10"><a href="api-data-queries.html#cb829-10"></a>County_Populations <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>)  </span></code></pre></div>
+<pre><code>##   state county STATE COUNTY                  GEONAME DATE_CODE
+## 1    04    001    04    001   Apache County, Arizona         1
+## 2    04    003    04    003  Cochise County, Arizona         1
+## 3    04    005    04    005 Coconino County, Arizona         1
+## 4    04    007    04    007     Gila County, Arizona         1
+## 5    04    009    04    009   Graham County, Arizona         1
+## 6    04    011    04    011 Greenlee County, Arizona         1
+##                    DATE_DESC    POP DATE_CODE_1
+## 1 4/1/2010 Census population  71518           1
+## 2 4/1/2010 Census population 131346           1
+## 3 4/1/2010 Census population 134421           1
+## 4 4/1/2010 Census population  53597           1
+## 5 4/1/2010 Census population  37220           1
+## 6 4/1/2010 Census population   8437           1</code></pre>
+<p>I was looking for population divided up by Age and Sex and it took awhile to figure out that I want to use PEP’s Demographic Characteristics Estimates by Age Groups tables <code>pep/charagegroups</code>. From there I looked at some of the examples and variables.</p>
+<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb831-1"><a href="api-data-queries.html#cb831-1"></a>County_Populations_by_AgeGender &lt;-<span class="st"> </span><span class="kw">getCensus</span>(<span class="dt">name =</span> <span class="st">&quot;pep/charagegroups&quot;</span>,</span>
+<span id="cb831-2"><a href="api-data-queries.html#cb831-2"></a>  <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&#39;GEONAME&#39;</span>,<span class="st">&#39;DATE_CODE&#39;</span>,<span class="st">&#39;AGEGROUP&#39;</span>,<span class="st">&#39;SEX&#39;</span>,<span class="st">&#39;DATE_DESC&#39;</span>,<span class="st">&#39;POP&#39;</span>),</span>
+<span id="cb831-3"><a href="api-data-queries.html#cb831-3"></a>  <span class="dt">vintage =</span> <span class="st">&#39;2018&#39;</span>,</span>
+<span id="cb831-4"><a href="api-data-queries.html#cb831-4"></a>  <span class="dt">region =</span> <span class="st">&#39;state:04&#39;</span>, </span>
+<span id="cb831-5"><a href="api-data-queries.html#cb831-5"></a>	<span class="dt">key =</span> CENSUS_API_KEY)</span>
+<span id="cb831-6"><a href="api-data-queries.html#cb831-6"></a></span>
+<span id="cb831-7"><a href="api-data-queries.html#cb831-7"></a>County_Populations_by_AgeGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>)</span></code></pre></div>
+<pre><code>##   state GEONAME DATE_CODE AGEGROUP SEX                  DATE_DESC     POP
+## 1    04 Arizona         1        0   0 4/1/2010 Census population 6392017
+## 2    04 Arizona         1        0   1 4/1/2010 Census population 3175823
+## 3    04 Arizona         1        0   2 4/1/2010 Census population 3216194
+## 4    04 Arizona         1        1   0 4/1/2010 Census population  455715
+## 5    04 Arizona         1        1   1 4/1/2010 Census population  232562
+## 6    04 Arizona         1        1   2 4/1/2010 Census population  223153</code></pre>
+<p>As I played around with it, it seems that I can grab Race and Sex information as well. But unfortunately the categories are numerically coded so somehow we have to figure out which are which. It looks like <code>SEX=0</code> is both but I have no idea which is men and which is women. Still looking at the <a href="https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html">Census Population API page</a> and following the link about the variables for demographic characteristics, we can click through each variable to see the .json file that defines the factor levels.</p>
+<p>We can also import those into R directly</p>
+<div class="sourceCode" id="cb833"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb833-1"><a href="api-data-queries.html#cb833-1"></a><span class="co"># What variables are Available?</span></span>
+<span id="cb833-2"><a href="api-data-queries.html#cb833-2"></a>censusapi<span class="op">::</span><span class="kw">listCensusMetadata</span>(<span class="dt">name=</span><span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dt">vintage=</span><span class="dv">2018</span>)</span></code></pre></div>
+<pre><code>##          name                             label          required predicateType
+## 1   DATE_CODE                              Date default displayed           int
+## 2      SUMLEV                     Summary Level              &lt;NA&gt;        string
+## 3         SEX                               Sex default displayed           int
+## 4       STATE                   State FIPS code              &lt;NA&gt;          &lt;NA&gt;
+## 5     GEONAME All geo names seperated by commas              &lt;NA&gt;          &lt;NA&gt;
+## 6    DIVISION              Census Division Code              &lt;NA&gt;           int
+## 7      REGION              Census Regional Code              &lt;NA&gt;           int
+## 8      GEO_ID        Geographic identifier code              &lt;NA&gt;        string
+## 9         POP                        Population              &lt;NA&gt;          &lt;NA&gt;
+## 10 LASTUPDATE                       Last Update              &lt;NA&gt;        string
+## 11     NATION                            Nation              &lt;NA&gt;          &lt;NA&gt;
+## 12   AGEGROUP                         Age Group default displayed           int
+## 13       RACE                              Race default displayed           int
+## 14  DATE_DESC        Description of DATE values              &lt;NA&gt;        string
+## 15   UNIVERSE                          Universe              &lt;NA&gt;        string
+## 16     COUNTY                  County FIPS code              &lt;NA&gt;          &lt;NA&gt;
+## 17       HISP                   Hispanic Origin default displayed           int
+##    group limit concept
+## 1    N/A     0    &lt;NA&gt;
+## 2    N/A     0    &lt;NA&gt;
+## 3    N/A     0    &lt;NA&gt;
+## 4    N/A     0    &lt;NA&gt;
+## 5    N/A     0    &lt;NA&gt;
+## 6    N/A     0    &lt;NA&gt;
+## 7    N/A     0    &lt;NA&gt;
+## 8    N/A     0    &lt;NA&gt;
+## 9    N/A     0    &lt;NA&gt;
+## 10   N/A     0    &lt;NA&gt;
+## 11   N/A     0    &lt;NA&gt;
+## 12   N/A     0    &lt;NA&gt;
+## 13   N/A     0    &lt;NA&gt;
+## 14   N/A     0    &lt;NA&gt;
+## 15   N/A     0    &lt;NA&gt;
+## 16   N/A     0    &lt;NA&gt;
+## 17   N/A     0    &lt;NA&gt;</code></pre>
+<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="api-data-queries.html#cb835-1"></a><span class="co"># I can&#39;t figure out how to make the censusapi package import the factor levels. </span></span>
+<span id="cb835-2"><a href="api-data-queries.html#cb835-2"></a><span class="co"># So I&#39;ll just import the levels directly from the webpage .json file and then </span></span>
+<span id="cb835-3"><a href="api-data-queries.html#cb835-3"></a><span class="co"># clean it up into a nice data frame.</span></span>
+<span id="cb835-4"><a href="api-data-queries.html#cb835-4"></a>CensusFactorLevels &lt;-<span class="st"> </span><span class="cf">function</span>(name, vintage, variable){</span>
+<span id="cb835-5"><a href="api-data-queries.html#cb835-5"></a>  file &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&#39;https://api.census.gov/data/&#39;</span>,vintage,<span class="st">&#39;/&#39;</span>,name,</span>
+<span id="cb835-6"><a href="api-data-queries.html#cb835-6"></a>                <span class="st">&#39;/variables/&#39;</span>,variable,<span class="st">&#39;.json&#39;</span>)</span>
+<span id="cb835-7"><a href="api-data-queries.html#cb835-7"></a>  Meta &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">read_json</span>(file) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb835-8"><a href="api-data-queries.html#cb835-8"></a><span class="st">    </span>.[[<span class="st">&#39;values&#39;</span>]] <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="st">&#39;item&#39;</span>]] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb835-9"><a href="api-data-queries.html#cb835-9"></a><span class="st">    </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span>tibble<span class="op">::</span><span class="kw">enframe</span>() </span>
+<span id="cb835-10"><a href="api-data-queries.html#cb835-10"></a>  <span class="kw">colnames</span>(Meta) &lt;-<span class="st"> </span><span class="kw">c</span>(variable, <span class="kw">str_c</span>(variable,<span class="st">&#39;_DESC&#39;</span>))</span>
+<span id="cb835-11"><a href="api-data-queries.html#cb835-11"></a>  <span class="kw">return</span>(Meta)</span>
+<span id="cb835-12"><a href="api-data-queries.html#cb835-12"></a>}</span>
+<span id="cb835-13"><a href="api-data-queries.html#cb835-13"></a></span>
+<span id="cb835-14"><a href="api-data-queries.html#cb835-14"></a><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;SEX&#39;</span>) </span></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   SEX   SEX_DESC  
+##   &lt;chr&gt; &lt;chr&gt;     
+## 1 0     Both Sexes
+## 2 1     Male      
+## 3 2     Female</code></pre>
+<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="api-data-queries.html#cb837-1"></a><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;RACE&#39;</span>) </span></code></pre></div>
+<pre><code>## # A tibble: 12 x 2
+##    RACE  RACE_DESC                                                         
+##    &lt;chr&gt; &lt;chr&gt;                                                             
+##  1 11    Native Hawaiian and Other Pacific Islander alone or in combination
+##  2 10    Asian alone or in combination                                     
+##  3 9     American Indian and Alaska Native alone or in combination         
+##  4 8     Black alone or in combination                                     
+##  5 7     White alone or in combination                                     
+##  6 6     Two or more races                                                 
+##  7 5     Native Hawaiian and Other Pacific Islander alone                  
+##  8 4     Asian alone                                                       
+##  9 3     American Indian and Alaska Native alone                           
+## 10 2     Black alone                                                       
+## 11 1     White alone                                                       
+## 12 0     All races</code></pre>
+<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="api-data-queries.html#cb839-1"></a><span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;AGEGROUP&#39;</span>) </span></code></pre></div>
+<pre><code>## # A tibble: 32 x 2
+##    AGEGROUP AGEGROUP_DESC    
+##    &lt;chr&gt;    &lt;chr&gt;            
+##  1 31       Median age       
+##  2 30       15 to 44 years   
+##  3 29       18 years and over
+##  4 28       16 years and over
+##  5 27       85 years and over
+##  6 26       65 years and over
+##  7 25       45 to 64 years   
+##  8 24       25 to 44 years   
+##  9 23       18 to 24 years   
+## 10 22       18 to 64 years   
+## # … with 22 more rows</code></pre>
+<p>Using these factor levels, we can add the description onto our county populations by AGE and SEX by simply doing some table joins.</p>
+<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb841-1"><a href="api-data-queries.html#cb841-1"></a>County_Populations_by_AgeGender <span class="op">%&gt;%</span></span>
+<span id="cb841-2"><a href="api-data-queries.html#cb841-2"></a><span class="st">  </span><span class="kw">left_join</span>(<span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;SEX&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb841-3"><a href="api-data-queries.html#cb841-3"></a><span class="st">  </span><span class="kw">left_join</span>(<span class="kw">CensusFactorLevels</span>(<span class="st">&#39;pep/charagegroups&#39;</span>, <span class="dv">2018</span>, <span class="st">&#39;AGEGROUP&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb841-4"><a href="api-data-queries.html#cb841-4"></a><span class="st">  </span><span class="kw">head</span>(<span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## Joining, by = &quot;SEX&quot;</code></pre>
+<pre><code>## Joining, by = &quot;AGEGROUP&quot;</code></pre>
+<pre><code>##   state GEONAME DATE_CODE AGEGROUP SEX                  DATE_DESC     POP
+## 1    04 Arizona         1        0   0 4/1/2010 Census population 6392017
+## 2    04 Arizona         1        0   1 4/1/2010 Census population 3175823
+## 3    04 Arizona         1        0   2 4/1/2010 Census population 3216194
+## 4    04 Arizona         1        1   0 4/1/2010 Census population  455715
+## 5    04 Arizona         1        1   1 4/1/2010 Census population  232562
+## 6    04 Arizona         1        1   2 4/1/2010 Census population  223153
+##     SEX_DESC    AGEGROUP_DESC
+## 1 Both Sexes         All Ages
+## 2       Male         All Ages
+## 3     Female         All Ages
+## 4 Both Sexes Age 0 to 4 years
+## 5       Male Age 0 to 4 years
+## 6     Female Age 0 to 4 years</code></pre>
+</div>
+</div>
+<div id="package-tidycensus" class="section level2">
+<h2><span class="header-section-number">17.4</span> Package <code>tidycensus</code></h2>
+<p>The <code>tidycensus</code> package is a little easier to work with. By default, <code>tidycensus</code> functions will look for the API Key in the System Environment.</p>
+<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="api-data-queries.html#cb845-1"></a><span class="co"># The tidycensus package has a nice way of installing the </span></span>
+<span id="cb845-2"><a href="api-data-queries.html#cb845-2"></a><span class="co"># API key in your .Rprofile file. </span></span>
+<span id="cb845-3"><a href="api-data-queries.html#cb845-3"></a>tidycensus<span class="op">::</span><span class="kw">census_api_key</span>(<span class="st">&#39;adoiYOURadsKEYmcvGOESsdljHERE&#39;</span>, <span class="dt">install=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p>There are three major functions that will get used. The</p>
+<table>
+<colgroup>
+<col width="29%" />
+<col width="70%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Function</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>get_estimates()</code></td>
+<td align="left">Gives information from the Population Estimates Program.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>get_acs()</code></td>
+<td align="left">Gives information from the American Community Survey</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>load_variables()</code></td>
+<td align="left">Gives the mapping between the variable code and the description</td>
+</tr>
+</tbody>
+</table>
+<p>For our first example, we’ll grab the county population totals in Arizona broken down by sex and ethnicity.</p>
+<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="api-data-queries.html#cb846-1"></a>AZ_County_Populations &lt;-<span class="st"> </span>tidycensus<span class="op">::</span><span class="kw">get_estimates</span>(</span>
+<span id="cb846-2"><a href="api-data-queries.html#cb846-2"></a>  <span class="dt">geography =</span> <span class="st">&quot;county&quot;</span>,</span>
+<span id="cb846-3"><a href="api-data-queries.html#cb846-3"></a>  <span class="dt">state=</span><span class="kw">c</span>(<span class="st">&#39;AZ&#39;</span>),  <span class="co"># leave this out for all state/county combinations</span></span>
+<span id="cb846-4"><a href="api-data-queries.html#cb846-4"></a>  <span class="dt">product =</span> <span class="st">&quot;characteristics&quot;</span>,</span>
+<span id="cb846-5"><a href="api-data-queries.html#cb846-5"></a>  <span class="dt">breakdown =</span> <span class="kw">c</span>(<span class="st">&#39;SEX&#39;</span>,<span class="st">&#39;HISP&#39;</span>),</span>
+<span id="cb846-6"><a href="api-data-queries.html#cb846-6"></a>  <span class="dt">breakdown_labels =</span> <span class="ot">TRUE</span>)      <span class="co"># Give the variable labels, not the Census Variable code </span></span>
+<span id="cb846-7"><a href="api-data-queries.html#cb846-7"></a></span>
+<span id="cb846-8"><a href="api-data-queries.html#cb846-8"></a><span class="kw">head</span>(AZ_County_Populations)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 5
+##   GEOID NAME                   value SEX        HISP                 
+##   &lt;chr&gt; &lt;chr&gt;                  &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;                
+## 1 04001 Apache County, Arizona 71818 Both sexes Both Hispanic Origins
+## 2 04001 Apache County, Arizona 67228 Both sexes Non-Hispanic         
+## 3 04001 Apache County, Arizona  4590 Both sexes Hispanic             
+## 4 04001 Apache County, Arizona 35310 Male       Both Hispanic Origins
+## 5 04001 Apache County, Arizona 32902 Male       Non-Hispanic         
+## 6 04001 Apache County, Arizona  2408 Male       Hispanic</code></pre>
+<p>For our next example, we’ll grab the number of people with or without Insurance in each state.</p>
+<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="api-data-queries.html#cb848-1"></a><span class="co"># We want to get the Number of people with or without Insurance in each state</span></span>
+<span id="cb848-2"><a href="api-data-queries.html#cb848-2"></a>US_State_Health_Insurance &lt;-<span class="st"> </span></span>
+<span id="cb848-3"><a href="api-data-queries.html#cb848-3"></a><span class="st">  </span>tidycensus<span class="op">::</span><span class="kw">get_acs</span>(</span>
+<span id="cb848-4"><a href="api-data-queries.html#cb848-4"></a>    <span class="dt">table =</span> <span class="st">&#39;B27003&#39;</span>,        <span class="co"># Found the table from Census Website</span></span>
+<span id="cb848-5"><a href="api-data-queries.html#cb848-5"></a>    <span class="dt">geography =</span> <span class="st">&quot;state&quot;</span>,</span>
+<span id="cb848-6"><a href="api-data-queries.html#cb848-6"></a>    <span class="dt">cache_table=</span><span class="ot">TRUE</span>)        <span class="co"># On multiple runs, don&#39;t ask Census Bureau over and over.</span></span></code></pre></div>
+<pre><code>## Getting data from the 2014-2018 5-year ACS</code></pre>
+<pre><code>## Loading ACS5 variables for 2018 from table B27003 and caching the dataset for faster future access.</code></pre>
+<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="api-data-queries.html#cb851-1"></a><span class="co"># Grab the Variable Names so we can convert from the variable codes</span></span>
+<span id="cb851-2"><a href="api-data-queries.html#cb851-2"></a><span class="co"># to variable labels, i.e., something I can understand by reading.  </span></span>
+<span id="cb851-3"><a href="api-data-queries.html#cb851-3"></a>ACS_Variables &lt;-<span class="st"> </span>tidycensus<span class="op">::</span><span class="kw">load_variables</span>(<span class="dv">2018</span>, <span class="st">&#39;acs1&#39;</span>, <span class="dt">cache =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb851-4"><a href="api-data-queries.html#cb851-4"></a><span class="kw">head</span>(ACS_Variables)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   name       label                           concept                            
+##   &lt;chr&gt;      &lt;chr&gt;                           &lt;chr&gt;                              
+## 1 B00001_001 Estimate!!Total                 UNWEIGHTED SAMPLE COUNT OF THE POP…
+## 2 B00002_001 Estimate!!Total                 UNWEIGHTED SAMPLE HOUSING UNITS    
+## 3 B01001_001 Estimate!!Total                 SEX BY AGE                         
+## 4 B01001_002 Estimate!!Total!!Male           SEX BY AGE                         
+## 5 B01001_003 Estimate!!Total!!Male!!Under 5… SEX BY AGE                         
+## 6 B01001_004 Estimate!!Total!!Male!!5 to 9 … SEX BY AGE</code></pre>
+<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="api-data-queries.html#cb853-1"></a><span class="co"># Join the data with the readable variable names</span></span>
+<span id="cb853-2"><a href="api-data-queries.html#cb853-2"></a>US_State_Health_Insurance &lt;-<span class="st"> </span>US_State_Health_Insurance <span class="op">%&gt;%</span></span>
+<span id="cb853-3"><a href="api-data-queries.html#cb853-3"></a><span class="st">  </span><span class="kw">left_join</span>( ACS_Variables, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&#39;variable&#39;</span> =<span class="st"> &#39;name&#39;</span>) )</span>
+<span id="cb853-4"><a href="api-data-queries.html#cb853-4"></a></span>
+<span id="cb853-5"><a href="api-data-queries.html#cb853-5"></a><span class="co"># Now for some cleaning</span></span>
+<span id="cb853-6"><a href="api-data-queries.html#cb853-6"></a>US_State_Health_Insurance <span class="op">%&gt;%</span></span>
+<span id="cb853-7"><a href="api-data-queries.html#cb853-7"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">separate</span>(label, <span class="kw">c</span>(<span class="st">&#39;Estimate&#39;</span>,<span class="st">&#39;Total&#39;</span>,<span class="st">&#39;Gender&#39;</span>,<span class="st">&#39;Age&#39;</span>,<span class="st">&#39;Insurance&#39;</span>), <span class="dt">sep =</span><span class="st">&#39;!!&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb853-8"><a href="api-data-queries.html#cb853-8"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span></span>
+<span id="cb853-9"><a href="api-data-queries.html#cb853-9"></a><span class="st">  </span><span class="kw">select</span>(NAME, Gender, Age, Insurance, estimate, moe)</span></code></pre></div>
+<pre><code>## Warning: Expected 5 pieces. Missing pieces filled with `NA` in 1092 rows [1, 2,
+## 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 31, 34, 37, 40, 43, 46, 49, 52, ...].</code></pre>
+<pre><code>## # A tibble: 1,872 x 6
+##    NAME    Gender Age            Insurance            estimate   moe
+##    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt;
+##  1 Alabama Male   Under 6 years  With public coverage    88350  1955
+##  2 Alabama Male   Under 6 years  No public coverage      89308  1894
+##  3 Alabama Male   6 to 18 years  With public coverage   173031  2754
+##  4 Alabama Male   6 to 18 years  No public coverage     241916  3076
+##  5 Alabama Male   19 to 25 years With public coverage    20568  1165
+##  6 Alabama Male   19 to 25 years No public coverage     209313  2169
+##  7 Alabama Male   26 to 34 years With public coverage    30831  1350
+##  8 Alabama Male   26 to 34 years No public coverage     229595  2077
+##  9 Alabama Male   35 to 44 years With public coverage    32959  1429
+## 10 Alabama Male   35 to 44 years No public coverage     244980  1613
+## # … with 1,862 more rows</code></pre>
+</div>
+<div id="Exercises_APIs" class="section level2">
+<h2><span class="header-section-number">17.5</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><p>The Census Bureau is constantly running many different surveys and compiling the results. One of the most comprehensive and interesting of these is the <a href="https://www.census.gov/programs-surveys/acs/guidance.html">American Community Survey</a>. I’m interested in using the ACS to get information about educational attainment. Use the Census Bureau’s Data <a href="https://data.census.gov/cedsci/">search page</a>, find a table that gives you information about educational attainment. With this table information, use the <code>tidycensus</code> package to
+download the latest information about educational attainment. Create map or graph summarizing educational attainment in either counties in Arizona or across states within the US. Or if you are feeling ambitious, create a graph or graphs summarizing this across all counties in the US. <em>Perhaps you could break the educational level into high school, some college, bachelors, advanced degree. Then maybe make a map of counties/states colored by percent with BS or higher. Or maybe stacked barcharts ordered by percent BS or higher.</em></p></li>
+<li><p>Pick some API to investigate how to use. Utilizing your interests, pick an API and figure out how to use it. Using the API, download some data and produce an interesting graphic. <em>Many government agencies have data API as well. For example, Centers for Disease Control mortality and disease information at the county level, the National Oceanic and Atmospheric Administration has weather data accessible. If you are a genomics person, the R interface to Kegg would be a fun choice. Many social media apps such as Twitter, Reddit, and Facebook have APIs. Many municipalities are starting to create Open Data and some of them have web APIs. Explore your interests and see if there is an interface to that data!</em></p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-scraping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="databases.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+"google": false,
+"instapper": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dereksonderegger/444/blob/master/37_WebAPIs.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/dereksonderegger/444/raw/master/37_WebAPIs.Rmd",
+"text": null
+},
+"download": [["Introduction_to_DataScience_with_R.pdf", "PDF"]],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

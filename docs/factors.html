@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Factors | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 7 Factors | STA 444/5 - Introductory Data Science using R" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Factors | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/Cover1.png" />
+  
+  <meta name="github-repo" content="dereksonderegger/444" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Factors | STA 444/5 - Introductory Data Science using R" />
+  
+  
+  <meta name="twitter:image" content="images/Cover1.png" />
+
+<meta name="author" content="Derek L. Sonderegger" />
+
+
+<meta name="date" content="2020-08-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="flow-control.html"/>
+<link rel="next" href="statistical-tables.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="part"><span><b>Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="familiarization.html"><a href="familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a><ul>
+<li class="chapter" data-level="1.1" data-path="familiarization.html"><a href="familiarization.html#working-within-an-rmarkdown-file"><i class="fa fa-check"></i><b>1.1</b> Working within an Rmarkdown File</a></li>
+<li class="chapter" data-level="1.2" data-path="familiarization.html"><a href="familiarization.html#r-file-types"><i class="fa fa-check"></i><b>1.2</b> R file Types</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="familiarization.html"><a href="familiarization.html#r-scripts-.r-files"><i class="fa fa-check"></i><b>1.2.1</b> R Scripts (.R files)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="familiarization.html"><a href="familiarization.html#r-markdown-.rmd-files"><i class="fa fa-check"></i><b>1.2.2</b> R Markdown (.Rmd files)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="familiarization.html"><a href="familiarization.html#r-notebooks-.rmd-files"><i class="fa fa-check"></i><b>1.2.3</b> R Notebooks (.Rmd files)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="familiarization.html"><a href="familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.3</b> R as a simple calculator</a></li>
+<li class="chapter" data-level="1.4" data-path="familiarization.html"><a href="familiarization.html#assignment"><i class="fa fa-check"></i><b>1.4</b> Assignment</a></li>
+<li class="chapter" data-level="1.5" data-path="familiarization.html"><a href="familiarization.html#vectors"><i class="fa fa-check"></i><b>1.5</b> Vectors</a></li>
+<li class="chapter" data-level="1.6" data-path="familiarization.html"><a href="familiarization.html#packages"><i class="fa fa-check"></i><b>1.6</b> Packages</a></li>
+<li class="chapter" data-level="1.7" data-path="familiarization.html"><a href="familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.7</b> Finding Help</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="familiarization.html"><a href="familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.7.1</b> How does this function work?</a></li>
+<li class="chapter" data-level="1.7.2" data-path="familiarization.html"><a href="familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.7.2</b> How does this package work?</a></li>
+<li class="chapter" data-level="1.7.3" data-path="familiarization.html"><a href="familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.7.3</b> How do I do XXX?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="familiarization.html"><a href="familiarization.html#Exercises_Familiarization"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-frames.html"><a href="data-frames.html"><i class="fa fa-check"></i><b>2</b> Data Frames</a><ul>
+<li class="chapter" data-level="2.1" data-path="data-frames.html"><a href="data-frames.html#introduction-to-importing-data"><i class="fa fa-check"></i><b>2.1</b> Introduction to Importing Data</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="data-frames.html"><a href="data-frames.html#from-a-package"><i class="fa fa-check"></i><b>2.1.1</b> From a Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data-frames.html"><a href="data-frames.html#import-from-.csv-or-.xls-files"><i class="fa fa-check"></i><b>2.1.2</b> Import from <code>.csv</code> or <code>.xls</code> files</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="data-frames.html"><a href="data-frames.html#data-types"><i class="fa fa-check"></i><b>2.2</b> Data Types</a></li>
+<li class="chapter" data-level="2.3" data-path="data-frames.html"><a href="data-frames.html#basic-manipulation"><i class="fa fa-check"></i><b>2.3</b> Basic Manipulation</a></li>
+<li class="chapter" data-level="2.4" data-path="data-frames.html"><a href="data-frames.html#Exercises_IntroDataFrames"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>3</b> Graphing</a><ul>
+<li class="chapter" data-level="3.1" data-path="graphing.html"><a href="graphing.html#basic-graphs"><i class="fa fa-check"></i><b>3.1</b> Basic Graphs</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="graphing.html"><a href="graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.1.2" data-path="graphing.html"><a href="graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="graphing.html"><a href="graphing.html#faceting"><i class="fa fa-check"></i><b>3.2</b> Faceting</a></li>
+<li class="chapter" data-level="3.3" data-path="graphing.html"><a href="graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="graphing.html"><a href="graphing.html#axis-labels-and-titles"><i class="fa fa-check"></i><b>3.3.1</b> Axis Labels and Titles</a></li>
+<li class="chapter" data-level="3.3.2" data-path="graphing.html"><a href="graphing.html#text-labels"><i class="fa fa-check"></i><b>3.3.2</b> Text Labels</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="graphing.html"><a href="graphing.html#Exercises_IntroGraphing"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#add_row"><i class="fa fa-check"></i><b>4.1.1</b> <code>add_row</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#bind_rows"><i class="fa fa-check"></i><b>4.1.2</b> <code>bind_rows</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting"><i class="fa fa-check"></i><b>4.1.3</b> Subsetting</a></li>
+<li class="chapter" data-level="4.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#arrange"><i class="fa fa-check"></i><b>4.1.4</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#mutate"><i class="fa fa-check"></i><b>4.1.5</b> mutate()</a></li>
+<li class="chapter" data-level="4.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#summarise"><i class="fa fa-check"></i><b>4.1.6</b> summarise()</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#split-apply-combine"><i class="fa fa-check"></i><b>4.2</b> Split, apply, combine</a></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling.html"><a href="data-wrangling.html#Exercises_IntroDataWrangling"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>5</b> Statistical Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="statistical-models.html"><a href="statistical-models.html#formula-notation"><i class="fa fa-check"></i><b>5.1</b> Formula Notation</a></li>
+<li class="chapter" data-level="5.2" data-path="statistical-models.html"><a href="statistical-models.html#basic-models"><i class="fa fa-check"></i><b>5.2</b> Basic Models</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="statistical-models.html"><a href="statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
+<li class="chapter" data-level="5.2.2" data-path="statistical-models.html"><a href="statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-function"><i class="fa fa-check"></i><b>5.3</b> Accessor function</a></li>
+<li class="chapter" data-level="5.4" data-path="statistical-models.html"><a href="statistical-models.html#Exercises_ModelBuilding"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="flow-control.html"><a href="flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a><ul>
+<li class="chapter" data-level="6.1" data-path="flow-control.html"><a href="flow-control.html#logical-expressions"><i class="fa fa-check"></i><b>6.1</b> Logical Expressions</a></li>
+<li class="chapter" data-level="6.2" data-path="flow-control.html"><a href="flow-control.html#decision-statements"><i class="fa fa-check"></i><b>6.2</b> Decision statements</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="flow-control.html"><a href="flow-control.html#in-dplyr-wrangling"><i class="fa fa-check"></i><b>6.2.1</b> In <code>dplyr</code> wrangling</a></li>
+<li class="chapter" data-level="6.2.2" data-path="flow-control.html"><a href="flow-control.html#general-if-else"><i class="fa fa-check"></i><b>6.2.2</b> General <code>if else</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="flow-control.html"><a href="flow-control.html#loops"><i class="fa fa-check"></i><b>6.3</b> Loops</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="flow-control.html"><a href="flow-control.html#while-loops"><i class="fa fa-check"></i><b>6.3.1</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="6.3.2" data-path="flow-control.html"><a href="flow-control.html#for-loops"><i class="fa fa-check"></i><b>6.3.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="6.3.3" data-path="flow-control.html"><a href="flow-control.html#mosaicdo-loops"><i class="fa fa-check"></i><b>6.3.3</b> <code>mosaic::do()</code> loops</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="flow-control.html"><a href="flow-control.html#functions"><i class="fa fa-check"></i><b>6.4</b> Functions</a></li>
+<li class="chapter" data-level="6.5" data-path="flow-control.html"><a href="flow-control.html#Exercises_FlowControl"><i class="fa fa-check"></i><b>6.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a><ul>
+<li class="chapter" data-level="7.1" data-path="factors.html"><a href="factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
+<li class="chapter" data-level="7.2" data-path="factors.html"><a href="factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
+<li class="chapter" data-level="7.3" data-path="factors.html"><a href="factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
+<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.5" data-path="factors.html"><a href="factors.html#Exercises_Factors"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+</ul></li>
+<li class="part"><span><b>Miscellaneous</b></span></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html"><i class="fa fa-check"></i>Statistical Tables</a><ul>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#example-distributions"><i class="fa fa-check"></i>Example Distributions</a></li>
+<li><a href="statistical-tables.html#mosaicplotdist-function"><code>mosaic::plotDist()</code> function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#base-r-functions"><i class="fa fa-check"></i>Base R functions</a><ul>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#d-function"><i class="fa fa-check"></i>d-function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#p-function"><i class="fa fa-check"></i>p-function</a></li>
+<li><a href="statistical-tables.html#q-function"><code>q</code>-function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#r-function"><i class="fa fa-check"></i>r-function</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="statistical-tables.html"><a href="statistical-tables.html#Exercises_Statistical_Tables"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html"><i class="fa fa-check"></i>Rmarkdown Tricks</a><ul>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#chunk-options"><i class="fa fa-check"></i>Chunk Options</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#verbatim-list-environments"><i class="fa fa-check"></i>Verbatim &amp; List Environments</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#mathematical-expressions"><i class="fa fa-check"></i>Mathematical expressions</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#tables"><i class="fa fa-check"></i>Tables</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#simple-tables"><i class="fa fa-check"></i><b>7.6.1</b> Simple Tables</a></li>
+<li class="chapter" data-level="7.6.2" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#grid-tables"><i class="fa fa-check"></i><b>7.6.2</b> Grid Tables</a></li>
+<li class="chapter" data-level="7.6.3" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#pipe-tables"><i class="fa fa-check"></i><b>7.6.3</b> Pipe Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#r-functions-to-produce-table-code."><i class="fa fa-check"></i>R functions to produce table code.</a><ul>
+<li class="chapter" data-level="7.6.4" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#knitrkable"><i class="fa fa-check"></i><b>7.6.4</b> <code class="unnumbered">knitr::kable</code></a></li>
+<li class="chapter" data-level="7.6.5" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#package-pander"><i class="fa fa-check"></i><b>7.6.5</b> Package <code class="unnumbered">pander</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#code-appendix"><i class="fa fa-check"></i>Code Appendix</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html"><i class="fa fa-check"></i>Data Wrangling Process</a><ul>
+<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>7.7</b> Introduction</a></li>
+<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#import"><i class="fa fa-check"></i><b>7.8</b> Import</a></li>
+<li class="chapter" data-level="7.9" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.9</b> Tidying</a></li>
+<li class="chapter" data-level="7.10" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.10</b> Cleaning</a></li>
+<li class="chapter" data-level="7.11" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#use"><i class="fa fa-check"></i><b>7.11</b> Use</a></li>
+</ul></li>
+<li class="part"><span><b>Deeper Details</b></span></li>
+<li class="chapter" data-level="8" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a><ul>
+<li class="chapter" data-level="8.1" data-path="familiarization.html"><a href="familiarization.html#vectors"><i class="fa fa-check"></i><b>8.1</b> Vectors</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="data-structures.html"><a href="data-structures.html#accessing-vector-elements"><i class="fa fa-check"></i><b>8.1.1</b> Accessing Vector Elements</a></li>
+<li class="chapter" data-level="8.1.2" data-path="data-structures.html"><a href="data-structures.html#scalar-functions-applied-to-vectors"><i class="fa fa-check"></i><b>8.1.2</b> Scalar Functions Applied to Vectors</a></li>
+<li class="chapter" data-level="8.1.3" data-path="data-structures.html"><a href="data-structures.html#vector-algebra"><i class="fa fa-check"></i><b>8.1.3</b> Vector Algebra</a></li>
+<li class="chapter" data-level="8.1.4" data-path="data-structures.html"><a href="data-structures.html#commonly-used-vector-functions"><i class="fa fa-check"></i><b>8.1.4</b> Commonly Used Vector Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="data-structures.html"><a href="data-structures.html#matrices"><i class="fa fa-check"></i><b>8.2</b> Matrices</a></li>
+<li class="chapter" data-level="8.3" data-path="data-frames.html"><a href="data-frames.html#data-frames"><i class="fa fa-check"></i><b>8.3</b> Data Frames</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="data-structures.html"><a href="data-structures.html#data.frames-vs-tibbles"><i class="fa fa-check"></i><b>8.3.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="data-structures.html"><a href="data-structures.html#lists"><i class="fa fa-check"></i><b>8.4</b> Lists</a></li>
+<li class="chapter" data-level="8.5" data-path="data-structures.html"><a href="data-structures.html#Exercises_DataStructures"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>9</b> Importing Data</a><ul>
+<li class="chapter" data-level="9.1" data-path="importing-data.html"><a href="importing-data.html#working-directory"><i class="fa fa-check"></i><b>9.1</b> Working directory</a></li>
+<li class="chapter" data-level="9.2" data-path="importing-data.html"><a href="importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>9.2</b> Comma Separated Data</a></li>
+<li class="chapter" data-level="9.3" data-path="importing-data.html"><a href="importing-data.html#ms-excel"><i class="fa fa-check"></i><b>9.3</b> MS Excel</a></li>
+<li class="chapter" data-level="9.4" data-path="importing-data.html"><a href="importing-data.html#multiple-files"><i class="fa fa-check"></i><b>9.4</b> Multiple files</a></li>
+<li class="chapter" data-level="9.5" data-path="importing-data.html"><a href="importing-data.html#Exercises_DataImport"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="flow-control.html"><a href="flow-control.html#functions"><i class="fa fa-check"></i><b>10</b> Functions</a><ul>
+<li class="chapter" data-level="10.1" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
+<li class="chapter" data-level="10.2" data-path="functions.html"><a href="functions.html#parameter-defaults"><i class="fa fa-check"></i><b>10.2</b> Parameter Defaults</a></li>
+<li class="chapter" data-level="10.3" data-path="functions.html"><a href="functions.html#ellipses"><i class="fa fa-check"></i><b>10.3</b> Ellipses</a></li>
+<li class="chapter" data-level="10.4" data-path="functions.html"><a href="functions.html#function-overloading"><i class="fa fa-check"></i><b>10.4</b> Function Overloading</a></li>
+<li class="chapter" data-level="10.5" data-path="functions.html"><a href="functions.html#debugging"><i class="fa fa-check"></i><b>10.5</b> Debugging</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="functions.html"><a href="functions.html#rmarkdown-recommendations"><i class="fa fa-check"></i><b>10.5.1</b> Rmarkdown Recommendations</a></li>
+<li class="chapter" data-level="10.5.2" data-path="functions.html"><a href="functions.html#step-wise-execution"><i class="fa fa-check"></i><b>10.5.2</b> Step-wise Execution</a></li>
+<li class="chapter" data-level="10.5.3" data-path="functions.html"><a href="functions.html#print-statements"><i class="fa fa-check"></i><b>10.5.3</b> Print Statements</a></li>
+<li class="chapter" data-level="10.5.4" data-path="functions.html"><a href="functions.html#browser"><i class="fa fa-check"></i><b>10.5.4</b> <code>browser</code></a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="functions.html"><a href="functions.html#scope"><i class="fa fa-check"></i><b>10.6</b> Scope</a></li>
+<li class="chapter" data-level="10.7" data-path="functions.html"><a href="functions.html#Exercises_Functions"><i class="fa fa-check"></i><b>10.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="string-manipulation.html"><a href="string-manipulation.html"><i class="fa fa-check"></i><b>11</b> String Manipulation</a><ul>
+<li class="chapter" data-level="11.1" data-path="string-manipulation.html"><a href="string-manipulation.html#base-function"><i class="fa fa-check"></i><b>11.1</b> Base function</a></li>
+<li class="chapter" data-level="11.2" data-path="string-manipulation.html"><a href="string-manipulation.html#stringr-basic-operations"><i class="fa fa-check"></i><b>11.2</b> <code>stringr</code>: Basic operations</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="string-manipulation.html"><a href="string-manipulation.html#concatenating-with-str_c-or-str_join"><i class="fa fa-check"></i><b>11.2.1</b> Concatenating with <code>str_c()</code> or <code>str_join()</code></a></li>
+<li class="chapter" data-level="11.2.2" data-path="string-manipulation.html"><a href="string-manipulation.html#calculating-string-length-with-str_length"><i class="fa fa-check"></i><b>11.2.2</b> Calculating string length with <code>str_length()</code></a></li>
+<li class="chapter" data-level="11.2.3" data-path="string-manipulation.html"><a href="string-manipulation.html#extracting-substrings-with-str_sub"><i class="fa fa-check"></i><b>11.2.3</b> Extracting substrings with <code>str_sub()</code></a></li>
+<li class="chapter" data-level="11.2.4" data-path="string-manipulation.html"><a href="string-manipulation.html#pad-a-string-with-str_pad"><i class="fa fa-check"></i><b>11.2.4</b> Pad a string with <code>str_pad()</code></a></li>
+<li class="chapter" data-level="11.2.5" data-path="string-manipulation.html"><a href="string-manipulation.html#trim-a-string-with-str_trim"><i class="fa fa-check"></i><b>11.2.5</b> Trim a string with <code>str_trim()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="string-manipulation.html"><a href="string-manipulation.html#stringr-pattern-matching-tools"><i class="fa fa-check"></i><b>11.3</b> <code>stringr</code>: Pattern Matching Tools</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="string-manipulation.html"><a href="string-manipulation.html#detecting-a-pattern-using-str_detect"><i class="fa fa-check"></i><b>11.3.1</b> Detecting a pattern using str_detect()</a></li>
+<li class="chapter" data-level="11.3.2" data-path="string-manipulation.html"><a href="string-manipulation.html#locating-a-pattern-using-str_locate"><i class="fa fa-check"></i><b>11.3.2</b> Locating a pattern using str_locate()</a></li>
+<li class="chapter" data-level="11.3.3" data-path="string-manipulation.html"><a href="string-manipulation.html#replacing-sub-strings-using-str_replace"><i class="fa fa-check"></i><b>11.3.3</b> Replacing sub-strings using <code>str_replace()</code></a></li>
+<li class="chapter" data-level="11.3.4" data-path="string-manipulation.html"><a href="string-manipulation.html#splitting-into-sub-strings-using-str_split"><i class="fa fa-check"></i><b>11.3.4</b> Splitting into sub-strings using <code>str_split()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="string-manipulation.html"><a href="string-manipulation.html#regular-expressions"><i class="fa fa-check"></i><b>11.4</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="string-manipulation.html"><a href="string-manipulation.html#regular-expression-ingredients"><i class="fa fa-check"></i><b>11.4.1</b> Regular Expression Ingredients</a></li>
+<li class="chapter" data-level="11.4.2" data-path="string-manipulation.html"><a href="string-manipulation.html#matching-a-specific-string"><i class="fa fa-check"></i><b>11.4.2</b> Matching a specific string</a></li>
+<li class="chapter" data-level="11.4.3" data-path="string-manipulation.html"><a href="string-manipulation.html#matching-arbitrary-numbers"><i class="fa fa-check"></i><b>11.4.3</b> Matching arbitrary numbers</a></li>
+<li class="chapter" data-level="11.4.4" data-path="string-manipulation.html"><a href="string-manipulation.html#greedy-matching"><i class="fa fa-check"></i><b>11.4.4</b> Greedy matching</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="string-manipulation.html"><a href="string-manipulation.html#fuzzy-pattern-matching"><i class="fa fa-check"></i><b>11.5</b> Fuzzy Pattern Matching</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="string-manipulation.html"><a href="string-manipulation.html#key-collision-merge"><i class="fa fa-check"></i><b>11.5.1</b> Key Collision Merge</a></li>
+<li class="chapter" data-level="11.5.2" data-path="string-manipulation.html"><a href="string-manipulation.html#string-distances"><i class="fa fa-check"></i><b>11.5.2</b> String Distances</a></li>
+<li class="chapter" data-level="11.5.3" data-path="string-manipulation.html"><a href="string-manipulation.html#n-gram-merge"><i class="fa fa-check"></i><b>11.5.3</b> N-gram Merge</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="string-manipulation.html"><a href="string-manipulation.html#Exercises_Strings"><i class="fa fa-check"></i><b>11.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
+<li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>12.1</b> Creating Date and Time objects</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.2</b> Extracting information</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.3</b> Arithmetic on Dates</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="data-reshaping.html"><a href="data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a><ul>
+<li class="chapter" data-level="13.1" data-path="data-structures.html"><a href="data-structures.html#data.frames-vs-tibbles"><i class="fa fa-check"></i><b>13.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+<li class="chapter" data-level="13.2" data-path="data-reshaping.html"><a href="data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>13.2</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
+<li class="chapter" data-level="13.3" data-path="data-reshaping.html"><a href="data-reshaping.html#tidyr"><i class="fa fa-check"></i><b>13.3</b> <code>tidyr</code></a><ul>
+<li class="chapter" data-level="13.3.1" data-path="data-wrangling.html"><a href="data-wrangling.html#verbs"><i class="fa fa-check"></i><b>13.3.1</b> Verbs</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="data-reshaping.html"><a href="data-reshaping.html#storing-data-in-multiple-tables"><i class="fa fa-check"></i><b>13.4</b> Storing Data in Multiple Tables</a></li>
+<li class="chapter" data-level="13.5" data-path="data-reshaping.html"><a href="data-reshaping.html#table-joins"><i class="fa fa-check"></i><b>13.5</b> Table Joins</a></li>
+<li class="chapter" data-level="13.6" data-path="data-reshaping.html"><a href="data-reshaping.html#row-summations"><i class="fa fa-check"></i><b>13.6</b> Row summations</a></li>
+<li class="chapter" data-level="13.7" data-path="data-reshaping.html"><a href="data-reshaping.html#Exercises_DataReshaping"><i class="fa fa-check"></i><b>13.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i>Maps</a><ul>
+<li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i>Introduction</a><ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#coordinate-reference-systems-crs"><i class="fa fa-check"></i>Coordinate Reference Systems (CRS)</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#spatial-objects"><i class="fa fa-check"></i>Spatial Objects</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#tiles"><i class="fa fa-check"></i>Tiles</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#obtaining-spatial-data"><i class="fa fa-check"></i>Obtaining Spatial Data</a><ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#natural-earth-database"><i class="fa fa-check"></i>Natural Earth Database</a></li>
+<li class="chapter" data-level="13.7.1" data-path="maps.html"><a href="maps.html#package-maps"><i class="fa fa-check"></i><b>13.7.1</b> Package <code class="unnumbered">maps</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#example"><i class="fa fa-check"></i>Example</a><ul>
+<li class="chapter" data-level="13.7.2" data-path="maps.html"><a href="maps.html#package-leaflet"><i class="fa fa-check"></i><b>13.7.2</b> Package <code class="unnumbered">leaflet</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html"><i class="fa fa-check"></i><b>14</b> Graphing Part II</a><ul>
+<li class="chapter" data-level="14.1" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#multi-plots"><i class="fa fa-check"></i><b>14.1</b> Multi-plots</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#cowplot-package"><i class="fa fa-check"></i><b>14.1.1</b> <code>cowplot</code> package</a></li>
+<li class="chapter" data-level="14.1.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#multiplot-in-rmisc"><i class="fa fa-check"></i><b>14.1.2</b> <code>multiplot</code> in <code>Rmisc</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#customized-scales"><i class="fa fa-check"></i><b>14.2</b> Customized Scales</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#color-scales"><i class="fa fa-check"></i><b>14.2.1</b> Color Scales</a></li>
+<li class="chapter" data-level="14.2.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#setting-major-minor-ticks"><i class="fa fa-check"></i><b>14.2.2</b> Setting major &amp; minor ticks</a></li>
+<li class="chapter" data-level="14.2.3" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#log-scales"><i class="fa fa-check"></i><b>14.2.3</b> Log Scales</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#themes"><i class="fa fa-check"></i><b>14.3</b> Themes</a></li>
+<li class="chapter" data-level="14.4" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>14.4</b> Mathematical Notation</a></li>
+<li class="chapter" data-level="14.5" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>14.5</b> Interactive plots with <code>plotly</code></a></li>
+<li class="chapter" data-level="14.6" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>14.6</b> Geographic Maps</a><ul>
+<li class="chapter" data-level="14.6.1" data-path="maps.html"><a href="maps.html#package-maps"><i class="fa fa-check"></i><b>14.6.1</b> Package <code>maps</code></a></li>
+<li class="chapter" data-level="14.6.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#packages-sf-and-rnaturalearth"><i class="fa fa-check"></i><b>14.6.2</b> Packages <code>sf</code> and <code>rnaturalearth</code></a></li>
+<li class="chapter" data-level="14.6.3" data-path="maps.html"><a href="maps.html#package-leaflet"><i class="fa fa-check"></i><b>14.6.3</b> Package <code>leaflet</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#Exercises_Advanced_Graphing"><i class="fa fa-check"></i><b>14.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="r-packages.html"><a href="r-packages.html"><i class="fa fa-check"></i><b>15</b> R Packages</a><ul>
+<li class="chapter" data-level="15.1" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>15.1</b> Introduction</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="r-packages.html"><a href="r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>15.1.1</b> Useful packages and books</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="r-packages.html"><a href="r-packages.html#package-structure"><i class="fa fa-check"></i><b>15.2</b> Package Structure</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="r-packages.html"><a href="r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>15.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="15.2.2" data-path="r-packages.html"><a href="r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="r-packages.html"><a href="r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="r-packages.html"><a href="r-packages.html#data-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Data Documentation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="r-packages.html"><a href="r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="r-packages.html"><a href="r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
+<li class="chapter" data-level="15.5" data-path="r-packages.html"><a href="r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a></li>
+<li class="chapter" data-level="15.6" data-path="r-packages.html"><a href="r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.6</b> Sharing your Package</a></li>
+<li class="chapter" data-level="15.7" data-path="r-packages.html"><a href="r-packages.html#an-example-package"><i class="fa fa-check"></i><b>15.7</b> An Example Package</a></li>
+<li class="chapter" data-level="15.8" data-path="r-packages.html"><a href="r-packages.html#Exercises_Packages"><i class="fa fa-check"></i><b>15.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="data-scraping.html"><a href="data-scraping.html"><i class="fa fa-check"></i><b>16</b> Data Scraping</a><ul>
+<li class="chapter" data-level="16.1" data-path="data-scraping.html"><a href="data-scraping.html#web-pages"><i class="fa fa-check"></i><b>16.1</b> Web Pages</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="data-scraping.html"><a href="data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>16.1.1</b> Example Wikipedia Table</a></li>
+<li class="chapter" data-level="16.1.2" data-path="data-structures.html"><a href="data-structures.html#lists"><i class="fa fa-check"></i><b>16.1.2</b> Lists</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="data-scraping.html"><a href="data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>16.2</b> Scraping .pdf files</a></li>
+<li class="chapter" data-level="16.3" data-path="data-scraping.html"><a href="data-scraping.html#Exercises_WebScraping"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="api-data-queries.html"><a href="api-data-queries.html"><i class="fa fa-check"></i><b>17</b> API Data Queries</a><ul>
+<li class="chapter" data-level="17.1" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="api-data-queries.html"><a href="api-data-queries.html#census-bureau-api"><i class="fa fa-check"></i><b>17.2</b> Census Bureau API</a></li>
+<li class="chapter" data-level="17.3" data-path="api-data-queries.html"><a href="api-data-queries.html#package-censusapi"><i class="fa fa-check"></i><b>17.3</b> Package <code>censusapi</code></a><ul>
+<li class="chapter" data-level="17.3.1" data-path="api-data-queries.html"><a href="api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.3.1</b> Population Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="api-data-queries.html"><a href="api-data-queries.html#package-tidycensus"><i class="fa fa-check"></i><b>17.4</b> Package <code>tidycensus</code></a></li>
+<li class="chapter" data-level="17.5" data-path="api-data-queries.html"><a href="api-data-queries.html#Exercises_APIs"><i class="fa fa-check"></i><b>17.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="databases.html"><a href="databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a><ul>
+<li class="chapter" data-level="18.1" data-path="databases.html"><a href="databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
+<li class="chapter" data-level="18.2" data-path="databases.html"><a href="databases.html#sql"><i class="fa fa-check"></i><b>18.2</b> SQL</a></li>
+<li class="chapter" data-level="18.3" data-path="databases.html"><a href="databases.html#dbplyr"><i class="fa fa-check"></i><b>18.3</b> <code>dbplyr</code></a></li>
+<li class="chapter" data-level="18.4" data-path="databases.html"><a href="databases.html#Exercises_DataBases"><i class="fa fa-check"></i><b>18.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="speeding-up-r.html"><a href="speeding-up-r.html"><i class="fa fa-check"></i><b>19</b> Speeding up R</a><ul>
+<li class="chapter" data-level="19.1" data-path="speeding-up-r.html"><a href="speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="19.2" data-path="speeding-up-r.html"><a href="speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="19.3" data-path="speeding-up-r.html"><a href="speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="19.4" data-path="speeding-up-r.html"><a href="speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.4</b> Parallel Aware Functions</a><ul>
+<li class="chapter" data-level="19.4.1" data-path="speeding-up-r.html"><a href="speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.4.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.4.2" data-path="speeding-up-r.html"><a href="speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.4.2</b> <code>caret::train</code></a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="speeding-up-r.html"><a href="speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.5</b> Parallelizing <code>for</code> loops</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 444/5 - Introductory Data Science using R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="factors" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Factors</h1>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="factors.html#cb268-1"></a><span class="kw">library</span>(tidyverse)   <span class="co"># loading ggplot2 and dplyr</span></span>
+<span id="cb268-2"><a href="factors.html#cb268-2"></a><span class="kw">options</span>(<span class="dt">dplyr.summarise.inform=</span><span class="ot">FALSE</span>) <span class="co"># Don&#39;t annoy me with summarise messages</span></span></code></pre></div>
+<p>As always, there is a <a href="https://youtu.be/ID2hx2ySAEE">Video Lecture</a> that accompanies this chapter.</p>
+<p>In R we can store categorical information as either strings or as factors. To a casual user, it often doesn’t matter how the information is stored because the modeling and graphing programs happily convert strings into factors whenever necessary. However a deeper understanding of how factors are stored and manipulated allows a user much finer control in the modeling and graphing.</p>
+<p>We will be interested in the following broad classes of manipulations:</p>
+<div id="edit-factor-labels" class="section level4 unnumbered">
+<h4>Edit Factor Labels</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Goal</th>
+<th align="left"><code>forcats</code> function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Manually change the label(s)</td>
+<td align="left"><code>fct_recode(f, new_label = "old_label")</code></td>
+</tr>
+<tr class="even">
+<td align="left">Systematically change all labels</td>
+<td align="left"><code>fct_relabel(f, function)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="reorder-levels" class="section level4 unnumbered">
+<h4>Reorder Levels</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Goal</th>
+<th align="left"><code>forcats</code> function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Set order manually</td>
+<td align="left"><code>fct_relevel(f, 'b', 'a', 'c')</code></td>
+</tr>
+<tr class="even">
+<td align="left">Set order based on another vector</td>
+<td align="left"><code>fct_reorder(f, x)</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Set order based on which category is most frequent</td>
+<td align="left"><code>fct_infreq(f)</code></td>
+</tr>
+<tr class="even">
+<td align="left">Set order based on when they first appear</td>
+<td align="left"><code>fct_inorder(f)</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Reverse factor order</td>
+<td align="left"><code>fct_rev(f)</code></td>
+</tr>
+<tr class="even">
+<td align="left">Rotate order left or right</td>
+<td align="left"><code>fct_shift(f, steps)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="add-or-subtract-levels" class="section level4 unnumbered">
+<h4>Add or Subtract Levels</h4>
+<table>
+<colgroup>
+<col width="37%" />
+<col width="62%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Goal</th>
+<th align="left"><code>forcats</code> function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Manually select categories to collapse into one</td>
+<td align="left"><code>fct_collapse(f, other = c('a','b'))</code></td>
+</tr>
+<tr class="even">
+<td align="left">Add a new factor level</td>
+<td align="left"><code>fct_expand(f, 'new level')</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="creation-and-structure" class="section level2">
+<h2><span class="header-section-number">7.1</span> Creation and Structure</h2>
+<p>R stores factors as a combination of a vector of category labels and vector of integers representing which category a data value belongs to. For example, lets create a vector of data relating to what soft drinks my siblings prefer.</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="factors.html#cb269-1"></a><span class="co"># A vector of character strings.</span></span>
+<span id="cb269-2"><a href="factors.html#cb269-2"></a>drinks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;DietCoke&#39;</span>, <span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Coke&#39;</span>, <span class="st">&#39;Sprite&#39;</span>, <span class="st">&#39;Pepsi&#39;</span>)</span>
+<span id="cb269-3"><a href="factors.html#cb269-3"></a><span class="kw">str</span>(drinks)</span></code></pre></div>
+<pre><code>##  chr [1:5] &quot;DietCoke&quot; &quot;Coke&quot; &quot;Coke&quot; &quot;Sprite&quot; &quot;Pepsi&quot;</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="factors.html#cb271-1"></a><span class="co"># convert the vector of character strings into a factor vector</span></span>
+<span id="cb271-2"><a href="factors.html#cb271-2"></a>drinks &lt;-<span class="st"> </span><span class="kw">factor</span>(drinks)</span>
+<span id="cb271-3"><a href="factors.html#cb271-3"></a></span>
+<span id="cb271-4"><a href="factors.html#cb271-4"></a><span class="co"># Levels and Label mapping table</span></span>
+<span id="cb271-5"><a href="factors.html#cb271-5"></a><span class="kw">data.frame</span>( <span class="dt">Levels=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">Labels=</span><span class="kw">levels</span>(drinks))</span></code></pre></div>
+<pre><code>##   Levels   Labels
+## 1      1     Coke
+## 2      2 DietCoke
+## 3      3    Pepsi
+## 4      4   Sprite</code></pre>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="factors.html#cb273-1"></a><span class="kw">as.integer</span>(drinks) <span class="co"># Print the category assignments</span></span></code></pre></div>
+<pre><code>## [1] 2 1 1 4 3</code></pre>
+<p>Notice that the factor has levels “Coke”, “DietCoke”, “Pepsi”, and “Sprite” and that the order of these levels is very important because each observation is saved as an <em>integer</em> which denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of potentially very long character string, factors are much more space efficient than storing the same data as strings.</p>
+<p>Whenever we do anything that sorts on this factor, the order of the labels in this mapping table determine the sort orders. In order to modify factor labels and levels, we basically need to modify this mapping table. We don’t do this directly, but rather using functions in the <code>forcats</code> package.</p>
+</div>
+<div id="change-labels" class="section level2">
+<h2><span class="header-section-number">7.2</span> Change Labels</h2>
+<p>To demonstrate the <code>forcats</code> functions, we will consider two datasets. The first consists of a dataset of a small US highschool with observations for each student and we record their year and gender.</p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="factors.html#cb275-1"></a>Students &lt;-<span class="st"> </span></span>
+<span id="cb275-2"><a href="factors.html#cb275-2"></a><span class="st">  </span><span class="kw">expand.grid</span>(<span class="dt">Year=</span><span class="st">&#39;freshman&#39;</span>, <span class="dt">Gender=</span><span class="dv">1</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">23</span>) <span class="op">%&gt;%</span></span>
+<span id="cb275-3"><a href="factors.html#cb275-3"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;freshman&#39;</span>, <span class="dt">Gender=</span><span class="dv">0</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span>) <span class="op">%&gt;%</span></span>
+<span id="cb275-4"><a href="factors.html#cb275-4"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;junior&#39;</span>,   <span class="dt">Gender=</span><span class="dv">1</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">30</span>) <span class="op">%&gt;%</span></span>
+<span id="cb275-5"><a href="factors.html#cb275-5"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;junior&#39;</span>,   <span class="dt">Gender=</span><span class="dv">0</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">32</span>) <span class="op">%&gt;%</span></span>
+<span id="cb275-6"><a href="factors.html#cb275-6"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;senior&#39;</span>,   <span class="dt">Gender=</span><span class="dv">1</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">18</span>) <span class="op">%&gt;%</span></span>
+<span id="cb275-7"><a href="factors.html#cb275-7"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;senior&#39;</span>,   <span class="dt">Gender=</span><span class="dv">0</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">19</span>) <span class="op">%&gt;%</span></span>
+<span id="cb275-8"><a href="factors.html#cb275-8"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;sophomore&#39;</span>, <span class="dt">Gender=</span><span class="dv">1</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb275-9"><a href="factors.html#cb275-9"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;sophomore&#39;</span>, <span class="dt">Gender=</span><span class="dv">0</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span>)</span>
+<span id="cb275-10"><a href="factors.html#cb275-10"></a></span>
+<span id="cb275-11"><a href="factors.html#cb275-11"></a><span class="co"># Variables that are character strings are coerced to factors.</span></span>
+<span id="cb275-12"><a href="factors.html#cb275-12"></a><span class="co"># Variables that are numeric are not, and should be explicitly turned to factors.</span></span>
+<span id="cb275-13"><a href="factors.html#cb275-13"></a>Students &lt;-<span class="st"> </span>Students <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb275-14"><a href="factors.html#cb275-14"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">factor</span>(Gender) )</span>
+<span id="cb275-15"><a href="factors.html#cb275-15"></a></span>
+<span id="cb275-16"><a href="factors.html#cb275-16"></a>Students <span class="op">%&gt;%</span></span>
+<span id="cb275-17"><a href="factors.html#cb275-17"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb275-18"><a href="factors.html#cb275-18"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>The first thing we ought to consider is how to change the factor labels for <code>Gender</code>. To do this we’ll use the <code>fct_recode()</code> function.</p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="factors.html#cb276-1"></a><span class="co"># Change Gender from 0/1  to Female/Male</span></span>
+<span id="cb276-2"><a href="factors.html#cb276-2"></a>Students &lt;-<span class="st"> </span>Students <span class="op">%&gt;%</span></span>
+<span id="cb276-3"><a href="factors.html#cb276-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">fct_recode</span>(Gender, <span class="dt">Male=</span><span class="st">&#39;1&#39;</span>),</span>
+<span id="cb276-4"><a href="factors.html#cb276-4"></a>          <span class="dt">Gender =</span> <span class="kw">fct_recode</span>(Gender, <span class="dt">Female=</span><span class="st">&#39;0&#39;</span>) )</span>
+<span id="cb276-5"><a href="factors.html#cb276-5"></a></span>
+<span id="cb276-6"><a href="factors.html#cb276-6"></a><span class="co"># Change &quot;Freshman&quot; to the gender neutral &quot;First Year&quot; </span></span>
+<span id="cb276-7"><a href="factors.html#cb276-7"></a>Students &lt;-<span class="st"> </span>Students <span class="op">%&gt;%</span></span>
+<span id="cb276-8"><a href="factors.html#cb276-8"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_recode</span>(Year, <span class="st">`</span><span class="dt">first year</span><span class="st">`</span> =<span class="st"> &#39;freshman&#39;</span>))</span>
+<span id="cb276-9"><a href="factors.html#cb276-9"></a>  </span>
+<span id="cb276-10"><a href="factors.html#cb276-10"></a>Students <span class="op">%&gt;%</span></span>
+<span id="cb276-11"><a href="factors.html#cb276-11"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>We might want to apply some function to all the labels. Perhaps we want to remove white space or perhaps we want to capitalize all the labels. To apply a function to each of the labels, we use the <code>fct_relabel()</code> function.</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="factors.html#cb277-1"></a>Students <span class="op">%&gt;%</span></span>
+<span id="cb277-2"><a href="factors.html#cb277-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_relabel</span>(Year, stringr<span class="op">::</span>str_to_upper) ) <span class="op">%&gt;%</span></span>
+<span id="cb277-3"><a href="factors.html#cb277-3"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="reorder-levels-1" class="section level2">
+<h2><span class="header-section-number">7.3</span> Reorder Levels</h2>
+<p>Once the factor labels are set, the next most common thing to do is to rearrange the factors. In our <code>Students</code> example, the order is messed up because it chose to order them in the same order that they appear in the data set. That is not appropriate and in this case, it makes sense to change the order to the chronological order First Year, Sophmore, Junior, Senior.</p>
+<p>To change the ordering manually, we use the <code>fct::relevel()</code> command. This function takes as many levels as you give it and leaves the unaccounted for levels in the same order as they were.</p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="factors.html#cb278-1"></a><span class="co"># Seniors first, leave the rest in the order they already were</span></span>
+<span id="cb278-2"><a href="factors.html#cb278-2"></a>Students <span class="op">%&gt;%</span></span>
+<span id="cb278-3"><a href="factors.html#cb278-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_relevel</span>(Year, <span class="st">&#39;senior&#39;</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb278-4"><a href="factors.html#cb278-4"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="factors.html#cb279-1"></a><span class="co"># reset all the levels orders</span></span>
+<span id="cb279-2"><a href="factors.html#cb279-2"></a>Students <span class="op">%&gt;%</span></span>
+<span id="cb279-3"><a href="factors.html#cb279-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_relevel</span>(Year, <span class="st">&#39;senior&#39;</span>, <span class="st">&#39;junior&#39;</span>,<span class="st">&#39;sophomore&#39;</span>,<span class="st">&#39;first year&#39;</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb279-4"><a href="factors.html#cb279-4"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="factors.html#cb280-1"></a><span class="co"># Reverse order of what I already had</span></span>
+<span id="cb280-2"><a href="factors.html#cb280-2"></a>Students <span class="op">%&gt;%</span></span>
+<span id="cb280-3"><a href="factors.html#cb280-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_relevel</span>(Year, <span class="st">&#39;senior&#39;</span>, <span class="st">&#39;junior&#39;</span>,<span class="st">&#39;sophomore&#39;</span>,<span class="st">&#39;first year&#39;</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb280-4"><a href="factors.html#cb280-4"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_rev</span>(Year) ) <span class="op">%&gt;%</span></span>
+<span id="cb280-5"><a href="factors.html#cb280-5"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-7-3.png" width="672" /></p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="factors.html#cb281-1"></a><span class="co"># Sometimes it is useful to rotate using + or - the number of shift steps</span></span>
+<span id="cb281-2"><a href="factors.html#cb281-2"></a><span class="co"># positive values move the first to the end. Negative values move the end to the front.</span></span>
+<span id="cb281-3"><a href="factors.html#cb281-3"></a>Students <span class="op">%&gt;%</span></span>
+<span id="cb281-4"><a href="factors.html#cb281-4"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_relevel</span>(Year, <span class="st">&#39;senior&#39;</span>, <span class="st">&#39;junior&#39;</span>,<span class="st">&#39;sophomore&#39;</span>,<span class="st">&#39;first year&#39;</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb281-5"><a href="factors.html#cb281-5"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_rev</span>(Year) ) <span class="op">%&gt;%</span></span>
+<span id="cb281-6"><a href="factors.html#cb281-6"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_shift</span>(Year, <span class="dv">-1</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb281-7"><a href="factors.html#cb281-7"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-7-4.png" width="672" /></p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="factors.html#cb282-1"></a><span class="co"># In the order of the most number of records</span></span>
+<span id="cb282-2"><a href="factors.html#cb282-2"></a>Students <span class="op">%&gt;%</span></span>
+<span id="cb282-3"><a href="factors.html#cb282-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Year =</span> <span class="kw">fct_infreq</span>(Year) ) <span class="op">%&gt;%</span></span>
+<span id="cb282-4"><a href="factors.html#cb282-4"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">fill=</span>Gender)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-7-5.png" width="672" /></p>
+<p>For a second example data set, consider a September 2019 <a href="https://www.monmouth.edu/polling-institute/reports/monmouthpoll_NH_092419/">poll</a>
+from Monmouth University of New Hampshire Democrats and Independents.</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="factors.html#cb283-1"></a>Dems &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb283-2"><a href="factors.html#cb283-2"></a>  <span class="op">~</span>Candidate, <span class="op">~</span>Percent, <span class="op">~</span>AgeOnElection,</span>
+<span id="cb283-3"><a href="factors.html#cb283-3"></a><span class="st">&#39;Elizabeth Warren&#39;</span>,	<span class="dv">27</span>, <span class="dv">71</span>,</span>
+<span id="cb283-4"><a href="factors.html#cb283-4"></a><span class="st">&#39;Joe Biden&#39;</span>,	<span class="dv">25</span>, <span class="dv">77</span>,</span>
+<span id="cb283-5"><a href="factors.html#cb283-5"></a><span class="st">&#39;Bernie Sanders&#39;</span>,	<span class="dv">12</span>, <span class="dv">79</span>,</span>
+<span id="cb283-6"><a href="factors.html#cb283-6"></a><span class="st">&#39;Pete Buttigieg&#39;</span>,	<span class="dv">10</span>, <span class="dv">38</span>,</span>
+<span id="cb283-7"><a href="factors.html#cb283-7"></a><span class="st">&#39;Kamala Harris&#39;</span>,	<span class="dv">3</span>, <span class="dv">56</span>,</span>
+<span id="cb283-8"><a href="factors.html#cb283-8"></a><span class="st">&#39;Cory Booker&#39;</span>,	<span class="dv">2</span>, <span class="dv">51</span>,</span>
+<span id="cb283-9"><a href="factors.html#cb283-9"></a><span class="st">&#39;Tulsi Gabbard&#39;</span>,	<span class="dv">2</span>, <span class="dv">39</span>,</span>
+<span id="cb283-10"><a href="factors.html#cb283-10"></a><span class="st">&#39;Amy Klobuchar&#39;</span>,	<span class="dv">2</span>, <span class="dv">60</span>, </span>
+<span id="cb283-11"><a href="factors.html#cb283-11"></a><span class="st">&#39;Tom Steyer&#39;</span>,	<span class="dv">2</span>, <span class="dv">63</span>,</span>
+<span id="cb283-12"><a href="factors.html#cb283-12"></a><span class="st">&#39;Andrew Yang&#39;</span>,	<span class="dv">2</span>, <span class="dv">45</span>, </span>
+<span id="cb283-13"><a href="factors.html#cb283-13"></a><span class="st">&#39;Other&#39;</span>,	<span class="dv">3</span>, <span class="ot">NA</span>,</span>
+<span id="cb283-14"><a href="factors.html#cb283-14"></a><span class="st">&#39;No one&#39;</span>,	<span class="dv">1</span>, <span class="ot">NA</span>,</span>
+<span id="cb283-15"><a href="factors.html#cb283-15"></a><span class="st">&#39;Undecided&#39;</span>,	<span class="dv">9</span>, <span class="ot">NA</span>)</span></code></pre></div>
+<p>We now want to first arrange the 2020 Democratic candidates for US president by their support.</p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="factors.html#cb284-1"></a><span class="co"># Reorder Candidates based on the polling percent. The order of Smallest to largest </span></span>
+<span id="cb284-2"><a href="factors.html#cb284-2"></a><span class="co"># results in &#39;No one&#39; at the bottom and Elizabeth Warren at the top. </span></span>
+<span id="cb284-3"><a href="factors.html#cb284-3"></a>Dems <span class="op">%&gt;%</span></span>
+<span id="cb284-4"><a href="factors.html#cb284-4"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_reorder</span>(Candidate, Percent) ) <span class="op">%&gt;%</span></span>
+<span id="cb284-5"><a href="factors.html#cb284-5"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Candidate, <span class="dt">y=</span>Percent)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>We might consider moving the <code>Other</code> and <code>Undecided</code> categories as the first categories before “No one”.</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="factors.html#cb285-1"></a>Dems <span class="op">%&gt;%</span></span>
+<span id="cb285-2"><a href="factors.html#cb285-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_reorder</span>(Candidate, Percent) ) <span class="op">%&gt;%</span></span>
+<span id="cb285-3"><a href="factors.html#cb285-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_relevel</span>(Candidate, <span class="st">&#39;Other&#39;</span>, <span class="dt">after=</span><span class="dv">0</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb285-4"><a href="factors.html#cb285-4"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_relevel</span>(Candidate, <span class="st">&#39;Undecided&#39;</span>, <span class="dt">after=</span><span class="dv">0</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb285-5"><a href="factors.html#cb285-5"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Candidate, <span class="dt">y=</span>Percent)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="add-or-substract-levels" class="section level2">
+<h2><span class="header-section-number">7.4</span> Add or substract Levels</h2>
+<p>Often we find that it is necessary to collapse several categories into one. In the Democratic candidate example, we might want to collapse <code>No one</code>, <code>Other</code> and <code>Undecided</code> into a single <code>Other</code> category.</p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="factors.html#cb286-1"></a><span class="co"># This collapses the factor levels but I still have 3 rows of &quot;other&quot;</span></span>
+<span id="cb286-2"><a href="factors.html#cb286-2"></a>Dems <span class="op">%&gt;%</span></span>
+<span id="cb286-3"><a href="factors.html#cb286-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_collapse</span>(Candidate, <span class="dt">other =</span> <span class="kw">c</span>(<span class="st">&#39;No one&#39;</span>, <span class="st">&#39;Other&#39;</span>, <span class="st">&#39;Undecided&#39;</span>)) )</span></code></pre></div>
+<pre><code>## # A tibble: 13 x 3
+##    Candidate        Percent AgeOnElection
+##    &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Elizabeth Warren      27            71
+##  2 Joe Biden             25            77
+##  3 Bernie Sanders        12            79
+##  4 Pete Buttigieg        10            38
+##  5 Kamala Harris          3            56
+##  6 Cory Booker            2            51
+##  7 Tulsi Gabbard          2            39
+##  8 Amy Klobuchar          2            60
+##  9 Tom Steyer             2            63
+## 10 Andrew Yang            2            45
+## 11 other                  3            NA
+## 12 other                  1            NA
+## 13 other                  9            NA</code></pre>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="factors.html#cb288-1"></a><span class="co"># Collopse the factor, then summarize by adding up the percentages  </span></span>
+<span id="cb288-2"><a href="factors.html#cb288-2"></a>Dems <span class="op">%&gt;%</span></span>
+<span id="cb288-3"><a href="factors.html#cb288-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_collapse</span>(Candidate, <span class="dt">other =</span> <span class="kw">c</span>(<span class="st">&#39;No one&#39;</span>, <span class="st">&#39;Other&#39;</span>, <span class="st">&#39;Undecided&#39;</span>)) ) <span class="op">%&gt;%</span></span>
+<span id="cb288-4"><a href="factors.html#cb288-4"></a><span class="st">  </span><span class="kw">group_by</span>(Candidate) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">Percent =</span> <span class="kw">sum</span>(Percent)) <span class="op">%&gt;%</span></span>
+<span id="cb288-5"><a href="factors.html#cb288-5"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_reorder</span>(Candidate, Percent) ) <span class="op">%&gt;%</span></span>
+<span id="cb288-6"><a href="factors.html#cb288-6"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_relevel</span>(Candidate, <span class="st">&#39;other&#39;</span>, <span class="dt">after=</span><span class="dv">0</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb288-7"><a href="factors.html#cb288-7"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Candidate, <span class="dt">y=</span>Percent)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="07_Factors_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><em>I need to add the case where we are updating a column of factors and I want to replace a single observations level with another. To do this we do something like this:</em></p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="factors.html#cb289-1"></a>data &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Name=</span><span class="kw">c</span>(<span class="st">&#39;Alice&#39;</span>,<span class="st">&#39;Bruce&#39;</span>,<span class="st">&#39;Charlie&#39;</span>), <span class="dt">Grade =</span> <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb289-2"><a href="factors.html#cb289-2"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Grade =</span> <span class="kw">factor</span>(Grade) ) <span class="op">%&gt;%</span></span>
+<span id="cb289-3"><a href="factors.html#cb289-3"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Grade =</span> <span class="kw">fct_expand</span>(Grade, <span class="st">&#39;C&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb289-4"><a href="factors.html#cb289-4"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Grade =</span> <span class="kw">if_else</span>(Name <span class="op">==</span><span class="st"> &#39;Charlie&#39;</span>, <span class="kw">factor</span>(<span class="st">&#39;C&#39;</span>, <span class="dt">levels=</span><span class="kw">levels</span>(Grade)), Grade ) )</span>
+<span id="cb289-5"><a href="factors.html#cb289-5"></a>data  </span></code></pre></div>
+<pre><code>##      Name Grade
+## 1   Alice     A
+## 2   Bruce     B
+## 3 Charlie     C</code></pre>
+<p><em>The key idea is that both the TRUE and the FALSE outputs have to have the same type (which is a factor), and both factors have to have a compatible set of levels.</em></p>
+</div>
+<div id="Exercises_Factors" class="section level2">
+<h2><span class="header-section-number">7.5</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><p>In the package <code>Lock5Data</code> there is a dataset <code>FloridaLakes</code> which contains water sample measurements from 53 lakes in Florida, produce a bar graph shows the <code>Lake</code> and <code>AvgMercury</code> variables and make sure that the lakes are ordered by Average Mercury content.</p></li>
+<li><p>In the package <code>Lock5Data</code>, there is a dataset <code>FootballBrain</code> that has brain measurements for 75 individuals. The <code>Group</code> variable has three levels: <code>Control</code> is somebody that did not play football, <code>FBNoConcuss</code> is a football player with no history of concussions, or <code>FBConcuss</code> which is a football player with concussion history. The variable <code>Cogniton</code> measures their testing composite reaction time score. Make a box-plot graph of the groups vs cognition, but change the <code>Group</code> labels to something that would make sense to a reader. <em>Because there is no data for the <code>Control</code> group, don’t show it on your resulting graph. Also notice that the original data set column name misspells “cognition”.</em></p></li>
+<li><p>In the package <code>Lock5Data</code>, there is a dataset <code>RestaurantTips</code> which gives tip data from the restaurant First Crush Bistro in Potsdam, NY. Graph the <code>Bill</code> versus the <code>PctTip</code> for each <code>Day</code> of the week where we use <code>Day</code> as the variable to facet_grid or facet_wrap on. Make sure the <code>Day</code> variable has conventional days. Also include information about if the bill was paid via credit card and also make sure the credit card labels are either <code>Credit Card</code> or <code>Cash</code>.</p></li>
+</ol>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="flow-control.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="statistical-tables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+"google": false,
+"instapper": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dereksonderegger/444/blob/master/07_Factors.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/dereksonderegger/444/raw/master/07_Factors.Rmd",
+"text": null
+},
+"download": [["Introduction_to_DataScience_with_R.pdf", "PDF"]],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
