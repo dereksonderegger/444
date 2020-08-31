@@ -417,7 +417,7 @@ US_State_Health_Insurance %>%
 
 
 
-## Exercises
+## Exercises  {#Exercises_APIs}
 
 1. The Census Bureau is constantly running many different surveys and compiling the results. One of the most comprehensive and interesting of these is the [American Community Survey](https://www.census.gov/programs-surveys/acs/guidance.html). I'm interested in using the ACS to get information about educational attainment. Use the Census Bureau's Data  [search page](https://data.census.gov/cedsci/), find a table that gives you information about educational attainment. With this table information, use the `tidycensus` package to 
 download the latest information about educational attainment. Create map or graph summarizing educational attainment in either counties in Arizona or across states within the US. Or if you are feeling ambitious, create a graph or graphs summarizing this across all counties in the US. *Perhaps you could break the educational level into high school, some college, bachelors, advanced degree. Then maybe make a map of counties/states colored by percent with BS or higher. Or maybe stacked barcharts ordered by percent BS or higher.*

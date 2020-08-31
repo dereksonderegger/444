@@ -90,19 +90,29 @@ page %>%
 With five tables on the page, I need to go through each table individually and decide if it is the one that I want. To do this, we'll take each table and convert it into a data.frame and view it to see what information it contains.
 
 ```{r}
+# This chunk of code is a gigantic pain. Because Wikipedia can be edited by anybody,
+# There are a couple of people that keep changing this table back and forth, sometimes
+# with different numbers of columns, sometimes with the columns moved around.  This
+# is generally annoying because everytime I re-create the notes, this section of code
+# breaks. This is a great example of why you don't want to scrap data in scripts that
+# have a long lifespan.  
 State_Pop <- 
   page %>%
   html_nodes('table') %>% 
   .[[1]] %>%                              # Grab the first table and 
   html_table(header=FALSE, fill=TRUE) %>% # convert it from HTML into a data.frame 
-  magrittr::set_colnames(c('Rank_current','Rank_2010','State',
-            'Population2020', 'Population2010',
-            'Percent_Change','Absolute_Change', 
-            'House_Seats', 'Population_Per_Electoral_Vote')) %>%
-            # 'Population_Per_House_Seat', 'Population_Per_House_Seat_2010', # Wikipedia keeps changing this table
-            # 'Percent_US_Population')) %>%                                  # and the columns keep changing!  Aaarggh!
+  # magrittr::set_colnames(c('Rank_current','Rank_2010','State',
+  #           'Population2020', 'Population2010',
+  #           'Percent_Change','Absolute_Change',                            #
+  #           'House_Seats', 'Population_Per_Electoral_Vote', #)) %>%        #
+  #           'Population_Per_House_Seat', 'Population_Per_House_Seat_2010', # Wikipedia keeps changing these 
+  #           'Percent_US_Population')) %>%                                  # columns.  Aaarggh!
   slice(-1 * 1:2 )
 
+# Just grab the three columns that seem to change the least frequently.  Sheesh!
+State_Pop <- State_Pop %>%
+  select(3:5) %>%
+  magrittr::set_colnames( c('State', 'Population2020','Population2010') )
 
 # To view this table, we could use View() or print out just the first few
 # rows and columns. Converting it to a tibble makes the printing turn out nice.
@@ -175,7 +185,7 @@ PDF documents can either be created with software that produce text that is read
 
 
 
-## Exercises
+## Exercises  {#Exercises_WebScraping}
 1. At the Insurance Institute for Highway Safety, they have
 [data](https://www.iihs.org/topics/fatality-statistics/detail/state-by-state) 
 about human fatalities in vehicle crashes. From this web page, import the data from the Fatal Crash Totals data table and produce a bar graph gives the number of deaths per 100,000 individuals.  

@@ -94,19 +94,29 @@ With five tables on the page, I need to go through each table individually and d
 
 
 ```r
+# This chunk of code is a gigantic pain. Because Wikipedia can be edited by anybody,
+# There are a couple of people that keep changing this table back and forth, sometimes
+# with different numbers of columns, sometimes with the columns moved around.  This
+# is generally annoying because everytime I re-create the notes, this section of code
+# breaks. This is a great example of why you don't want to scrap data in scripts that
+# have a long lifespan.  
 State_Pop <- 
   page %>%
   html_nodes('table') %>% 
   .[[1]] %>%                              # Grab the first table and 
   html_table(header=FALSE, fill=TRUE) %>% # convert it from HTML into a data.frame 
-  magrittr::set_colnames(c('Rank_current','Rank_2010','State',
-            'Population2020', 'Population2010',
-            'Percent_Change','Absolute_Change', 
-            'House_Seats', 'Population_Per_Electoral_Vote')) %>%
-            # 'Population_Per_House_Seat', 'Population_Per_House_Seat_2010', # Wikipedia keeps changing this table
-            # 'Percent_US_Population')) %>%                                  # and the columns keep changing!  Aaarggh!
+  # magrittr::set_colnames(c('Rank_current','Rank_2010','State',
+  #           'Population2020', 'Population2010',
+  #           'Percent_Change','Absolute_Change',                            #
+  #           'House_Seats', 'Population_Per_Electoral_Vote', #)) %>%        #
+  #           'Population_Per_House_Seat', 'Population_Per_House_Seat_2010', # Wikipedia keeps changing these 
+  #           'Percent_US_Population')) %>%                                  # columns.  Aaarggh!
   slice(-1 * 1:2 )
 
+# Just grab the three columns that seem to change the least frequently.  Sheesh!
+State_Pop <- State_Pop %>%
+  select(3:5) %>%
+  magrittr::set_colnames( c('State', 'Population2020','Population2010') )
 
 # To view this table, we could use View() or print out just the first few
 # rows and columns. Converting it to a tibble makes the printing turn out nice.
@@ -114,21 +124,20 @@ State_Pop %>% as_tibble()
 ```
 
 ```
-## # A tibble: 60 x 9
-##    Rank_current Rank_2010 State Population2020 Population2010 Percent_Change
-##    <chr>        <chr>     <chr> <chr>          <chr>          <chr>         
-##  1 1            1         Cali… 39,512,223     37,253,956     6.1%          
-##  2 2            2         Texas 28,995,881     25,145,561     15.3%         
-##  3 3            4         Flor… 21,477,737     18,801,310     14.2%         
-##  4 4            3         New … 19,453,561     19,378,102     0.4%          
-##  5 5            6         Penn… 12,801,989     12,702,379     0.8%          
-##  6 6            5         Illi… 12,671,821     12,830,632     –1.2%         
-##  7 7            9         Geor… 11,689,100     9,536,504      10.3%         
-##  8 8            10        Nort… 11,609,423     9,471,653      9.9%          
-##  9 9            7         Ohio  11,580,084     11,486,483     1.2%          
-## 10 10           8         Mich… 10,198,857     9,883,640      1.04%         
-## # … with 50 more rows, and 3 more variables: Absolute_Change <chr>,
-## #   House_Seats <chr>, Population_Per_Electoral_Vote <chr>
+## # A tibble: 60 x 3
+##    State          Population2020 Population2010
+##    <chr>          <chr>          <chr>         
+##  1 California     39,512,223     37,253,956    
+##  2 Texas          28,995,881     25,145,561    
+##  3 Florida        21,477,737     18,801,310    
+##  4 New York       19,453,561     19,378,102    
+##  5 Pennsylvania   12,801,989     12,702,379    
+##  6 Illinois       12,671,821     12,830,632    
+##  7 Ohio           11,689,100     11,536,504    
+##  8 Georgia        10,617,423     9,687,653     
+##  9 North Carolina 10,488,084     9,535,483     
+## 10 Michigan       9,986,857      9,883,640     
+## # … with 50 more rows
 ```
 
 It turns out that the first table on the page is the one that I want. Now we need to just do a little bit of clean up by renaming columns, and turning the population values from character strings into numbers. To do that, we'll have to get rid of all those commas. Also, the rows for the U.S. territories have text that was part of the footnotes. So there are [7], [8], [9], and [10] values in the character strings.  We need to remove those as well.
@@ -187,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Worst Animal In The World\n"                                                                 
-## [2] "\nGoodbye To 'Patriot Act', A Comedy Show That Was A Different Kind Of Angry\n"                    
-## [3] "\nThe First Trailer Of Robert Pattinson's 'The Batman,' Introduces A Dark And Gritty Gotham City\n"
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                       
-## [5] "\nThis Stop-Motion Basketball Short That Uses Sunlight And Water Is A Slam Dunk\n"                 
-## [6] "\nThe Man With The Stolen Name (2018)\n"
+## [1] "\nWhat Do George Clooney, Nazareth And A 16-Foot Mechanical Bear Have In Common?\n"            
+## [2] "\nHow Long It Would Take A Hacker To Guess Your Password, Visualized\n"                        
+## [3] "\nWhy This Joke From 'The Office' Cost NBC $60,000\n"                                          
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                   
+## [5] "\nThese Two Friends Trying — And Failing — To Hold Onto A Jet Ski Sums Up 2020 In A Nutshell\n"
+## [6] "\nThe Great Diet Crash\n"
 ```
 
 
@@ -207,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.theatlantic.com/health/archive/2020/08/how-aedes-aegypti-mosquito-took-over-world/615328/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+TheAtlantic+%28The+Atlantic+-+Master+Feed%29?utm_source=digg"
-## [2] "https://www.theverge.com/2020/8/20/21377250/patriot-act-hasan-minhaj-show-canceled-netflix?utm_source=digg"                                                                                                                   
-## [3] "/video/the-first-trailer-of-robert-pattinsons-the-batman-introduces-a-dark-and-gritty-gotham-city"                                                                                                                            
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                                                                                                  
-## [5] "/2020/stop-motion-sun-water-basketball"                                                                                                                                                                                       
-## [6] "https://www.themarshallproject.org/2018/05/14/the-man-with-the-stolen-name/?utm_source=digg"
+## [1] "https://www.theringer.com/movies/2020/8/31/21406226/grizzly-ii-george-clooney-laura-dern-john-rhys-davies?utm_source=digg"
+## [2] "/2020/password-difficulty-hacking"                                                                                        
+## [3] "/video/why-this-joke-from-the-office-cost-nbc-60000"                                                                      
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                              
+## [5] "/video/these-two-friends-trying-to-hold-onto-a-jetski-and-failing-sums-up-2020-in-a-nutshell"                             
+## [6] "https://www.nytimes.com/2020/08/24/style/f-factor-diet-instagram.html?smtyp=cur&smid=tw-nytimes?utm_source=digg"
 ```
 
 
@@ -222,7 +231,7 @@ PDF documents can either be created with software that produce text that is read
 
 
 
-## Exercises
+## Exercises  {#Exercises_WebScraping}
 1. At the Insurance Institute for Highway Safety, they have
 [data](https://www.iihs.org/topics/fatality-statistics/detail/state-by-state) 
 about human fatalities in vehicle crashes. From this web page, import the data from the Fatal Crash Totals data table and produce a bar graph gives the number of deaths per 100,000 individuals.  

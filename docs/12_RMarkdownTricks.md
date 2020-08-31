@@ -351,12 +351,12 @@ knitr::kable( data )
 
 
 
- Girth   Height   Volume
-------  -------  -------
-   8.3       70     10.3
-   8.6       65     10.3
-   8.8       63     10.2
-  10.5       72     16.4
+| Girth| Height| Volume|
+|-----:|------:|------:|
+|   8.3|     70|   10.3|
+|   8.6|     65|   10.3|
+|   8.8|     63|   10.2|
+|  10.5|     72|   16.4|
 
 ### Package `pander`{-}
 The package `pander` seems to be a nice compromise between customization

@@ -121,15 +121,15 @@ df
 ```
 
 ```
-##   Type       Value
-## 1    A -1.37980926
-## 2    A  0.46292109
-## 3    B -0.32760171
-## 4    B -0.09279361
-## 5    C -0.06762659
-## 6    C -0.56398930
-## 7    D -0.43280376
-## 8    D  0.08148027
+##   Type        Value
+## 1    A  0.123668401
+## 2    A  1.838453523
+## 3    B  0.857533368
+## 4    B -0.865748918
+## 5    C -0.548812740
+## 6    C -0.034400979
+## 7    D  0.009424591
+## 8    D -0.176558680
 ```
 
 ```r
@@ -138,11 +138,11 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 ```
 
 ```
-##   Type       Value
-## 1    A -1.37980926
-## 2    A  0.46292109
-## 3    B -0.32760171
-## 4    B -0.09279361
+##   Type      Value
+## 1    A  0.1236684
+## 2    A  1.8384535
+## 3    B  0.8575334
+## 4    B -0.8657489
 ```
 
 
@@ -305,7 +305,7 @@ p.value
 ```
 
 ```
-## [1] 3.336264e-08
+## [1] 1.32554e-08
 ```
 
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.
@@ -619,7 +619,7 @@ one.sample.t.test( test.data, mu0=2 )
 
 Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something similar to the above function, but is a bit grander in scope. Even if you don't end up writing any of your own functions, knowing how to will help you understand why certain functions you use are designed the way they are. 
 
-## Exercises
+## Exercises  {#Exercises_FlowControl}
 
 1. I've created a dataset about presidential candidates for the 2020 US election and it is available on the github website for my STA 141 
 

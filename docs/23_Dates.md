@@ -23,7 +23,7 @@ lubridate::today()   # Today's date
 ```
 
 ```
-## [1] "2020-08-23"
+## [1] "2020-08-31"
 ```
 
 ```r
@@ -31,7 +31,7 @@ base::Sys.Date()     # Today's date
 ```
 
 ```
-## [1] "2020-08-23"
+## [1] "2020-08-31"
 ```
 
 ```r
@@ -39,7 +39,7 @@ base::Sys.time()     # Current Time and Date
 ```
 
 ```
-## [1] "2020-08-23 10:54:01 MST"
+## [1] "2020-08-31 16:22:48 MST"
 ```
 
 
@@ -251,7 +251,7 @@ current + dyears(1) # duration. There are also dminutes, dhours, ddays, dmonths
 ```
 
 ```
-## [1] "2020-10-11 10:25:00 MST"
+## [1] "2020-10-11 16:25:00 MST"
 ```
 
 Notice that `dyears(1)` didn't just increment the years from 2019 to 2020, but rather added $60*60*24*365$ seconds, and because 2020 is a leap year and therefore February 29 will exist. Thus adding $31,536,000$ seconds ended up with a result of October 11$^{th}$ instead of October 12$^{th}$.
@@ -311,17 +311,17 @@ data %>%
 ## # A tibble: 6 x 5
 ##   Name    dob        Life                           Age                  Age2
 ##   <chr>   <date>     <Interval>                     <Period>            <int>
-## 1 Steve   1955-02-24 1955-02-24 UTC--2020-08-23 UTC 65y 5m 30d 0H 0M 0S    65
-## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-08-23 UTC 47y 0m 2d 0H 0M 0S     47
-## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-08-23 UTC 56y 0m 8d 0H 0M 0S     56
-## 4 Bill    1955-10-28 1955-10-28 UTC--2020-08-23 UTC 64y 9m 26d 0H 0M 0S    64
-## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-08-23 UTC 5y 9m 17d 0H 0M 0S      5
-## 6 Siri    2011-10-12 2011-10-12 UTC--2020-08-23 UTC 8y 10m 11d 0H 0M 0S     8
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-08-31 UTC 65y 6m 7d 0H 0M 0S     65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-08-31 UTC 47y 0m 10d 0H 0M 0S    47
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-08-31 UTC 56y 0m 16d 0H 0M 0S    56
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-08-31 UTC 64y 10m 3d 0H 0M 0S    64
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-08-31 UTC 5y 9m 25d 0H 0M 0S      5
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-08-31 UTC 8y 10m 19d 0H 0M 0S     8
 ```
 
 
 
-## Exercises
+## Exercises  {#Exercises_Dates}
 
 1. For the following formats for a date, transform them into a date/time object. Which formats can be handled nicely and which are not? *The lubridate package has gotten smarter over time and a couple of these used to fail.*
     a) For September 13

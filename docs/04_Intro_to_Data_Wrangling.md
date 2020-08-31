@@ -616,7 +616,7 @@ warpbreaks %>%
 
 
 
-## Exercises
+## Exercises  {#Exercises_IntroDataWrangling}
 
 1. The dataset `ChickWeight` tracks the weights of 48 baby chickens (chicks) feed four different diets. *Feel free to complete all parts of the exercise in a single R pipeline at the end of the problem.*
     a. Load the dataset using  

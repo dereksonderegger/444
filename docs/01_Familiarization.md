@@ -381,6 +381,13 @@ mosaic::tally( c(0,0,0,1,1,1,1,2) )
 ```
 
 ```
+## Warning: `data_frame()` is deprecated as of tibble 1.1.0.
+## Please use `tibble()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
+```
+
+```
 ## X
 ## 0 1 2 
 ## 3 4 1
@@ -410,7 +417,7 @@ Often I find myself asking how to do something but I don't know the function or 
 
 
 
-## Exercises
+## Exercises {#Exercises_Familiarization}
 
 Create an RMarkdown file that solves the following exercises.
 

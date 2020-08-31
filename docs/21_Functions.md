@@ -462,7 +462,7 @@ So if I forget to pass some variable into a function, but it happens to be defin
 When executing a function, R will have access to all the variables defined in the function, all the variables defined in the function that called your function and so on until the base work space. However, you should never let your function refer to something that is not either created in your function or passed in via a parameter.
 
 
-## Exercises
+## Exercises  {#Exercises_Functions}
 
 1. Write a function that calculates the density function of a Uniform continuous variable on the interval $\left(a,b\right)$. The function is defined as 
     $$f\left(x\right)=\begin{cases}

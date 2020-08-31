@@ -243,7 +243,7 @@ rnorm(5, mean=20, sd=2)
 ```
 
 ```
-## [1] 22.49262 19.36009 23.85900 18.27550 20.77563
+## [1] 18.42424 21.49126 21.89068 17.41864 20.56491
 ```
 
 ```r
@@ -251,11 +251,11 @@ rbinom(4, size=10, prob=.8)
 ```
 
 ```
-## [1] 9 9 9 8
+## [1] 7 9 7 8
 ```
 
 
-## Exercises{-}
+## Exercises  {#Exercises_Statistical_Tables}
 
 1. We will examine how to use the probability mass functions (a.k.a. d-functions) and cumulative probability function (a.k.a. p-function) for the Poisson distribution.
     a) Create a graph of the distribution of a Poisson random variable with rate parameter $\lambda=2$ using the mosaic function `plotDist()`.
