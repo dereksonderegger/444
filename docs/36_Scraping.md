@@ -201,7 +201,7 @@ HeadLines %>%
 ## [3] "\nWhy This Joke From 'The Office' Cost NBC $60,000\n"                                          
 ## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                   
 ## [5] "\nThese Two Friends Trying — And Failing — To Hold Onto A Jet Ski Sums Up 2020 In A Nutshell\n"
-## [6] "\nThe Great Diet Crash\n"
+## [6] "\nHow Teachers Are Rethinking The Way They Talk About Race In America\n"
 ```
 
 
@@ -221,7 +221,7 @@ Links %>%
 ## [3] "/video/why-this-joke-from-the-office-cost-nbc-60000"                                                                      
 ## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                              
 ## [5] "/video/these-two-friends-trying-to-hold-onto-a-jetski-and-failing-sums-up-2020-in-a-nutshell"                             
-## [6] "https://www.nytimes.com/2020/08/24/style/f-factor-diet-instagram.html?smtyp=cur&smid=tw-nytimes?utm_source=digg"
+## [6] "https://slate.com/human-interest/2020/08/changing-curricula-around-race-schools.html?utm_source=digg"
 ```
 
 
