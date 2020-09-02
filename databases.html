@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 18 Databases | STA 444/5 - Introductory Data Science using R</title>
+  <meta name="description" content="Chapter 18 Databases | STA 444/5 - Introductory Data Science using R" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 18 Databases | STA 444/5 - Introductory Data Science using R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/Cover1.png" />
+  
+  <meta name="github-repo" content="dereksonderegger/444" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 18 Databases | STA 444/5 - Introductory Data Science using R" />
+  
+  
+  <meta name="twitter:image" content="images/Cover1.png" />
+
+<meta name="author" content="Derek L. Sonderegger" />
+
+
+<meta name="date" content="2020-09-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="api-data-queries.html"/>
+<link rel="next" href="speeding-up-r.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="part"><span><b>Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="familiarization.html"><a href="familiarization.html"><i class="fa fa-check"></i><b>1</b> Familiarization</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="familiarization.html"><a href="familiarization.html#working-within-an-rmarkdown-file"><i class="fa fa-check"></i><b>1.1</b> Working within an Rmarkdown File</a></li>
+<li class="chapter" data-level="1.2" data-path="familiarization.html"><a href="familiarization.html#r-file-types"><i class="fa fa-check"></i><b>1.2</b> R file Types</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="familiarization.html"><a href="familiarization.html#r-scripts-.r-files"><i class="fa fa-check"></i><b>1.2.1</b> R Scripts (.R files)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="familiarization.html"><a href="familiarization.html#r-markdown-.rmd-files"><i class="fa fa-check"></i><b>1.2.2</b> R Markdown (.Rmd files)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="familiarization.html"><a href="familiarization.html#r-notebooks-.rmd-files"><i class="fa fa-check"></i><b>1.2.3</b> R Notebooks (.Rmd files)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="familiarization.html"><a href="familiarization.html#r-as-a-simple-calculator"><i class="fa fa-check"></i><b>1.3</b> R as a simple calculator</a></li>
+<li class="chapter" data-level="1.4" data-path="familiarization.html"><a href="familiarization.html#assignment"><i class="fa fa-check"></i><b>1.4</b> Assignment</a></li>
+<li class="chapter" data-level="1.5" data-path="familiarization.html"><a href="familiarization.html#vectors"><i class="fa fa-check"></i><b>1.5</b> Vectors</a></li>
+<li class="chapter" data-level="1.6" data-path="familiarization.html"><a href="familiarization.html#packages"><i class="fa fa-check"></i><b>1.6</b> Packages</a></li>
+<li class="chapter" data-level="1.7" data-path="familiarization.html"><a href="familiarization.html#finding-help"><i class="fa fa-check"></i><b>1.7</b> Finding Help</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="familiarization.html"><a href="familiarization.html#how-does-this-function-work"><i class="fa fa-check"></i><b>1.7.1</b> How does this function work?</a></li>
+<li class="chapter" data-level="1.7.2" data-path="familiarization.html"><a href="familiarization.html#how-does-this-package-work"><i class="fa fa-check"></i><b>1.7.2</b> How does this package work?</a></li>
+<li class="chapter" data-level="1.7.3" data-path="familiarization.html"><a href="familiarization.html#how-do-i-do-xxx"><i class="fa fa-check"></i><b>1.7.3</b> How do I do XXX?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="familiarization.html"><a href="familiarization.html#Exercises_Familiarization"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-frames.html"><a href="data-frames.html"><i class="fa fa-check"></i><b>2</b> Data Frames</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-frames.html"><a href="data-frames.html#introduction-to-importing-data"><i class="fa fa-check"></i><b>2.1</b> Introduction to Importing Data</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data-frames.html"><a href="data-frames.html#from-a-package"><i class="fa fa-check"></i><b>2.1.1</b> From a Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data-frames.html"><a href="data-frames.html#import-from-.csv-or-.xls-files"><i class="fa fa-check"></i><b>2.1.2</b> Import from <code>.csv</code> or <code>.xls</code> files</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="data-frames.html"><a href="data-frames.html#data-types"><i class="fa fa-check"></i><b>2.2</b> Data Types</a></li>
+<li class="chapter" data-level="2.3" data-path="data-frames.html"><a href="data-frames.html#basic-manipulation"><i class="fa fa-check"></i><b>2.3</b> Basic Manipulation</a></li>
+<li class="chapter" data-level="2.4" data-path="data-frames.html"><a href="data-frames.html#Exercises_IntroDataFrames"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="graphing.html"><a href="graphing.html"><i class="fa fa-check"></i><b>3</b> Graphing</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="graphing.html"><a href="graphing.html#basic-graphs"><i class="fa fa-check"></i><b>3.1</b> Basic Graphs</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="graphing.html"><a href="graphing.html#scatterplots"><i class="fa fa-check"></i><b>3.1.1</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.1.2" data-path="graphing.html"><a href="graphing.html#box-plots"><i class="fa fa-check"></i><b>3.1.2</b> Box Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="graphing.html"><a href="graphing.html#faceting"><i class="fa fa-check"></i><b>3.2</b> Faceting</a></li>
+<li class="chapter" data-level="3.3" data-path="graphing.html"><a href="graphing.html#annotation"><i class="fa fa-check"></i><b>3.3</b> Annotation</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="graphing.html"><a href="graphing.html#axis-labels-and-titles"><i class="fa fa-check"></i><b>3.3.1</b> Axis Labels and Titles</a></li>
+<li class="chapter" data-level="3.3.2" data-path="graphing.html"><a href="graphing.html#text-labels"><i class="fa fa-check"></i><b>3.3.2</b> Text Labels</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="graphing.html"><a href="graphing.html#Exercises_IntroGraphing"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#verbs"><i class="fa fa-check"></i><b>4.1</b> Verbs</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#add_row"><i class="fa fa-check"></i><b>4.1.1</b> <code>add_row</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#bind_rows"><i class="fa fa-check"></i><b>4.1.2</b> <code>bind_rows</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting"><i class="fa fa-check"></i><b>4.1.3</b> Subsetting</a></li>
+<li class="chapter" data-level="4.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#arrange"><i class="fa fa-check"></i><b>4.1.4</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="4.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#mutate"><i class="fa fa-check"></i><b>4.1.5</b> mutate()</a></li>
+<li class="chapter" data-level="4.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#summarise"><i class="fa fa-check"></i><b>4.1.6</b> summarise()</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#split-apply-combine"><i class="fa fa-check"></i><b>4.2</b> Split, apply, combine</a></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling.html"><a href="data-wrangling.html#Exercises_IntroDataWrangling"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>5</b> Statistical Models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistical-models.html"><a href="statistical-models.html#formula-notation"><i class="fa fa-check"></i><b>5.1</b> Formula Notation</a></li>
+<li class="chapter" data-level="5.2" data-path="statistical-models.html"><a href="statistical-models.html#basic-models"><i class="fa fa-check"></i><b>5.2</b> Basic Models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="statistical-models.html"><a href="statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
+<li class="chapter" data-level="5.2.2" data-path="statistical-models.html"><a href="statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-function"><i class="fa fa-check"></i><b>5.3</b> Accessor function</a></li>
+<li class="chapter" data-level="5.4" data-path="statistical-models.html"><a href="statistical-models.html#Exercises_ModelBuilding"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="flow-control.html"><a href="flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="flow-control.html"><a href="flow-control.html#logical-expressions"><i class="fa fa-check"></i><b>6.1</b> Logical Expressions</a></li>
+<li class="chapter" data-level="6.2" data-path="flow-control.html"><a href="flow-control.html#decision-statements"><i class="fa fa-check"></i><b>6.2</b> Decision statements</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="flow-control.html"><a href="flow-control.html#in-dplyr-wrangling"><i class="fa fa-check"></i><b>6.2.1</b> In <code>dplyr</code> wrangling</a></li>
+<li class="chapter" data-level="6.2.2" data-path="flow-control.html"><a href="flow-control.html#general-if-else"><i class="fa fa-check"></i><b>6.2.2</b> General <code>if else</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="flow-control.html"><a href="flow-control.html#loops"><i class="fa fa-check"></i><b>6.3</b> Loops</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="flow-control.html"><a href="flow-control.html#while-loops"><i class="fa fa-check"></i><b>6.3.1</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="6.3.2" data-path="flow-control.html"><a href="flow-control.html#for-loops"><i class="fa fa-check"></i><b>6.3.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="6.3.3" data-path="flow-control.html"><a href="flow-control.html#mosaicdo-loops"><i class="fa fa-check"></i><b>6.3.3</b> <code>mosaic::do()</code> loops</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="flow-control.html"><a href="flow-control.html#functions"><i class="fa fa-check"></i><b>6.4</b> Functions</a></li>
+<li class="chapter" data-level="6.5" data-path="flow-control.html"><a href="flow-control.html#Exercises_FlowControl"><i class="fa fa-check"></i><b>6.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>7</b> Factors</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="factors.html"><a href="factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
+<li class="chapter" data-level="7.2" data-path="factors.html"><a href="factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
+<li class="chapter" data-level="7.3" data-path="factors.html"><a href="factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
+<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.5" data-path="factors.html"><a href="factors.html#Exercises_Factors"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+</ul></li>
+<li class="part"><span><b>Miscellaneous</b></span></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html"><i class="fa fa-check"></i>Statistical Tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#example-distributions"><i class="fa fa-check"></i>Example Distributions</a></li>
+<li><a href="statistical-tables.html#mosaicplotdist-function"><code>mosaic::plotDist()</code> function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#base-r-functions"><i class="fa fa-check"></i>Base R functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#d-function"><i class="fa fa-check"></i>d-function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#p-function"><i class="fa fa-check"></i>p-function</a></li>
+<li><a href="statistical-tables.html#q-function"><code>q</code>-function</a></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#r-function"><i class="fa fa-check"></i>r-function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-tables.html"><a href="statistical-tables.html#Exercises_Statistical_Tables"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html"><i class="fa fa-check"></i>Rmarkdown Tricks</a>
+<ul>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#chunk-options"><i class="fa fa-check"></i>Chunk Options</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#verbatim-list-environments"><i class="fa fa-check"></i>Verbatim &amp; List Environments</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#mathematical-expressions"><i class="fa fa-check"></i>Mathematical expressions</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#tables"><i class="fa fa-check"></i>Tables</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#simple-tables"><i class="fa fa-check"></i><b>7.5.1</b> Simple Tables</a></li>
+<li class="chapter" data-level="7.5.2" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#grid-tables"><i class="fa fa-check"></i><b>7.5.2</b> Grid Tables</a></li>
+<li class="chapter" data-level="7.5.3" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#pipe-tables"><i class="fa fa-check"></i><b>7.5.3</b> Pipe Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#r-functions-to-produce-table-code."><i class="fa fa-check"></i>R functions to produce table code.</a>
+<ul>
+<li class="chapter" data-level="7.5.4" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#knitrkable"><i class="fa fa-check"></i><b>7.5.4</b> <code class="unnumbered">knitr::kable</code></a></li>
+<li class="chapter" data-level="7.5.5" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#package-pander"><i class="fa fa-check"></i><b>7.5.5</b> Package <code class="unnumbered">pander</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rmarkdown-tricks.html"><a href="rmarkdown-tricks.html#code-appendix"><i class="fa fa-check"></i>Code Appendix</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html"><i class="fa fa-check"></i>Data Wrangling Process</a>
+<ul>
+<li class="chapter" data-level="7.6" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>7.6</b> Introduction</a></li>
+<li class="chapter" data-level="7.7" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#import"><i class="fa fa-check"></i><b>7.7</b> Import</a></li>
+<li class="chapter" data-level="7.8" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#tidying"><i class="fa fa-check"></i><b>7.8</b> Tidying</a></li>
+<li class="chapter" data-level="7.9" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#cleaning"><i class="fa fa-check"></i><b>7.9</b> Cleaning</a></li>
+<li class="chapter" data-level="7.10" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#use"><i class="fa fa-check"></i><b>7.10</b> Use</a></li>
+</ul></li>
+<li class="part"><span><b>Deeper Details</b></span></li>
+<li class="chapter" data-level="8" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>8</b> Data Structures</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="familiarization.html"><a href="familiarization.html#vectors"><i class="fa fa-check"></i><b>8.1</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="data-structures.html"><a href="data-structures.html#accessing-vector-elements"><i class="fa fa-check"></i><b>8.1.1</b> Accessing Vector Elements</a></li>
+<li class="chapter" data-level="8.1.2" data-path="data-structures.html"><a href="data-structures.html#scalar-functions-applied-to-vectors"><i class="fa fa-check"></i><b>8.1.2</b> Scalar Functions Applied to Vectors</a></li>
+<li class="chapter" data-level="8.1.3" data-path="data-structures.html"><a href="data-structures.html#vector-algebra"><i class="fa fa-check"></i><b>8.1.3</b> Vector Algebra</a></li>
+<li class="chapter" data-level="8.1.4" data-path="data-structures.html"><a href="data-structures.html#commonly-used-vector-functions"><i class="fa fa-check"></i><b>8.1.4</b> Commonly Used Vector Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="data-structures.html"><a href="data-structures.html#matrices"><i class="fa fa-check"></i><b>8.2</b> Matrices</a></li>
+<li class="chapter" data-level="8.3" data-path="data-frames.html"><a href="data-frames.html#data-frames"><i class="fa fa-check"></i><b>8.3</b> Data Frames</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-structures.html"><a href="data-structures.html#data.frames-vs-tibbles"><i class="fa fa-check"></i><b>8.3.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="data-structures.html"><a href="data-structures.html#lists"><i class="fa fa-check"></i><b>8.4</b> Lists</a></li>
+<li class="chapter" data-level="8.5" data-path="data-structures.html"><a href="data-structures.html#Exercises_DataStructures"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>9</b> Importing Data</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="importing-data.html"><a href="importing-data.html#working-directory"><i class="fa fa-check"></i><b>9.1</b> Working directory</a></li>
+<li class="chapter" data-level="9.2" data-path="importing-data.html"><a href="importing-data.html#comma-separated-data"><i class="fa fa-check"></i><b>9.2</b> Comma Separated Data</a></li>
+<li class="chapter" data-level="9.3" data-path="importing-data.html"><a href="importing-data.html#ms-excel"><i class="fa fa-check"></i><b>9.3</b> MS Excel</a></li>
+<li class="chapter" data-level="9.4" data-path="importing-data.html"><a href="importing-data.html#multiple-files"><i class="fa fa-check"></i><b>9.4</b> Multiple files</a></li>
+<li class="chapter" data-level="9.5" data-path="importing-data.html"><a href="importing-data.html#Exercises_DataImport"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="flow-control.html"><a href="flow-control.html#functions"><i class="fa fa-check"></i><b>10</b> Functions</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>10.1</b> Basic function definition</a></li>
+<li class="chapter" data-level="10.2" data-path="functions.html"><a href="functions.html#parameter-defaults"><i class="fa fa-check"></i><b>10.2</b> Parameter Defaults</a></li>
+<li class="chapter" data-level="10.3" data-path="functions.html"><a href="functions.html#ellipses"><i class="fa fa-check"></i><b>10.3</b> Ellipses</a></li>
+<li class="chapter" data-level="10.4" data-path="functions.html"><a href="functions.html#function-overloading"><i class="fa fa-check"></i><b>10.4</b> Function Overloading</a></li>
+<li class="chapter" data-level="10.5" data-path="functions.html"><a href="functions.html#debugging"><i class="fa fa-check"></i><b>10.5</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="functions.html"><a href="functions.html#rmarkdown-recommendations"><i class="fa fa-check"></i><b>10.5.1</b> Rmarkdown Recommendations</a></li>
+<li class="chapter" data-level="10.5.2" data-path="functions.html"><a href="functions.html#step-wise-execution"><i class="fa fa-check"></i><b>10.5.2</b> Step-wise Execution</a></li>
+<li class="chapter" data-level="10.5.3" data-path="functions.html"><a href="functions.html#print-statements"><i class="fa fa-check"></i><b>10.5.3</b> Print Statements</a></li>
+<li class="chapter" data-level="10.5.4" data-path="functions.html"><a href="functions.html#browser"><i class="fa fa-check"></i><b>10.5.4</b> <code>browser</code></a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="functions.html"><a href="functions.html#scope"><i class="fa fa-check"></i><b>10.6</b> Scope</a></li>
+<li class="chapter" data-level="10.7" data-path="functions.html"><a href="functions.html#Exercises_Functions"><i class="fa fa-check"></i><b>10.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="string-manipulation.html"><a href="string-manipulation.html"><i class="fa fa-check"></i><b>11</b> String Manipulation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="string-manipulation.html"><a href="string-manipulation.html#base-function"><i class="fa fa-check"></i><b>11.1</b> Base function</a></li>
+<li class="chapter" data-level="11.2" data-path="string-manipulation.html"><a href="string-manipulation.html#stringr-basic-operations"><i class="fa fa-check"></i><b>11.2</b> <code>stringr</code>: Basic operations</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="string-manipulation.html"><a href="string-manipulation.html#concatenating-with-str_c-or-str_join"><i class="fa fa-check"></i><b>11.2.1</b> Concatenating with <code>str_c()</code> or <code>str_join()</code></a></li>
+<li class="chapter" data-level="11.2.2" data-path="string-manipulation.html"><a href="string-manipulation.html#calculating-string-length-with-str_length"><i class="fa fa-check"></i><b>11.2.2</b> Calculating string length with <code>str_length()</code></a></li>
+<li class="chapter" data-level="11.2.3" data-path="string-manipulation.html"><a href="string-manipulation.html#extracting-substrings-with-str_sub"><i class="fa fa-check"></i><b>11.2.3</b> Extracting substrings with <code>str_sub()</code></a></li>
+<li class="chapter" data-level="11.2.4" data-path="string-manipulation.html"><a href="string-manipulation.html#pad-a-string-with-str_pad"><i class="fa fa-check"></i><b>11.2.4</b> Pad a string with <code>str_pad()</code></a></li>
+<li class="chapter" data-level="11.2.5" data-path="string-manipulation.html"><a href="string-manipulation.html#trim-a-string-with-str_trim"><i class="fa fa-check"></i><b>11.2.5</b> Trim a string with <code>str_trim()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="string-manipulation.html"><a href="string-manipulation.html#stringr-pattern-matching-tools"><i class="fa fa-check"></i><b>11.3</b> <code>stringr</code>: Pattern Matching Tools</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="string-manipulation.html"><a href="string-manipulation.html#detecting-a-pattern-using-str_detect"><i class="fa fa-check"></i><b>11.3.1</b> Detecting a pattern using str_detect()</a></li>
+<li class="chapter" data-level="11.3.2" data-path="string-manipulation.html"><a href="string-manipulation.html#locating-a-pattern-using-str_locate"><i class="fa fa-check"></i><b>11.3.2</b> Locating a pattern using str_locate()</a></li>
+<li class="chapter" data-level="11.3.3" data-path="string-manipulation.html"><a href="string-manipulation.html#replacing-sub-strings-using-str_replace"><i class="fa fa-check"></i><b>11.3.3</b> Replacing sub-strings using <code>str_replace()</code></a></li>
+<li class="chapter" data-level="11.3.4" data-path="string-manipulation.html"><a href="string-manipulation.html#splitting-into-sub-strings-using-str_split"><i class="fa fa-check"></i><b>11.3.4</b> Splitting into sub-strings using <code>str_split()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="string-manipulation.html"><a href="string-manipulation.html#regular-expressions"><i class="fa fa-check"></i><b>11.4</b> Regular Expressions</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="string-manipulation.html"><a href="string-manipulation.html#regular-expression-ingredients"><i class="fa fa-check"></i><b>11.4.1</b> Regular Expression Ingredients</a></li>
+<li class="chapter" data-level="11.4.2" data-path="string-manipulation.html"><a href="string-manipulation.html#matching-a-specific-string"><i class="fa fa-check"></i><b>11.4.2</b> Matching a specific string</a></li>
+<li class="chapter" data-level="11.4.3" data-path="string-manipulation.html"><a href="string-manipulation.html#matching-arbitrary-numbers"><i class="fa fa-check"></i><b>11.4.3</b> Matching arbitrary numbers</a></li>
+<li class="chapter" data-level="11.4.4" data-path="string-manipulation.html"><a href="string-manipulation.html#greedy-matching"><i class="fa fa-check"></i><b>11.4.4</b> Greedy matching</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="string-manipulation.html"><a href="string-manipulation.html#fuzzy-pattern-matching"><i class="fa fa-check"></i><b>11.5</b> Fuzzy Pattern Matching</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="string-manipulation.html"><a href="string-manipulation.html#key-collision-merge"><i class="fa fa-check"></i><b>11.5.1</b> Key Collision Merge</a></li>
+<li class="chapter" data-level="11.5.2" data-path="string-manipulation.html"><a href="string-manipulation.html#string-distances"><i class="fa fa-check"></i><b>11.5.2</b> String Distances</a></li>
+<li class="chapter" data-level="11.5.3" data-path="string-manipulation.html"><a href="string-manipulation.html#n-gram-merge"><i class="fa fa-check"></i><b>11.5.3</b> N-gram Merge</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="string-manipulation.html"><a href="string-manipulation.html#Exercises_Strings"><i class="fa fa-check"></i><b>11.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>12.1</b> Creating Date and Time objects</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.2</b> Extracting information</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.3</b> Arithmetic on Dates</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="data-reshaping.html"><a href="data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="data-structures.html"><a href="data-structures.html#data.frames-vs-tibbles"><i class="fa fa-check"></i><b>13.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
+<li class="chapter" data-level="13.2" data-path="data-reshaping.html"><a href="data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>13.2</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
+<li class="chapter" data-level="13.3" data-path="data-reshaping.html"><a href="data-reshaping.html#tidyr"><i class="fa fa-check"></i><b>13.3</b> <code>tidyr</code></a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="data-wrangling.html"><a href="data-wrangling.html#verbs"><i class="fa fa-check"></i><b>13.3.1</b> Verbs</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="data-reshaping.html"><a href="data-reshaping.html#storing-data-in-multiple-tables"><i class="fa fa-check"></i><b>13.4</b> Storing Data in Multiple Tables</a></li>
+<li class="chapter" data-level="13.5" data-path="data-reshaping.html"><a href="data-reshaping.html#table-joins"><i class="fa fa-check"></i><b>13.5</b> Table Joins</a></li>
+<li class="chapter" data-level="13.6" data-path="data-reshaping.html"><a href="data-reshaping.html#row-summations"><i class="fa fa-check"></i><b>13.6</b> Row summations</a></li>
+<li class="chapter" data-level="13.7" data-path="data-reshaping.html"><a href="data-reshaping.html#Exercises_DataReshaping"><i class="fa fa-check"></i><b>13.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i>Maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#coordinate-reference-systems-crs"><i class="fa fa-check"></i>Coordinate Reference Systems (CRS)</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#spatial-objects"><i class="fa fa-check"></i>Spatial Objects</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#tiles"><i class="fa fa-check"></i>Tiles</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#obtaining-spatial-data"><i class="fa fa-check"></i>Obtaining Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#natural-earth-database"><i class="fa fa-check"></i>Natural Earth Database</a></li>
+<li class="chapter" data-level="13.7.1" data-path="maps.html"><a href="maps.html#package-maps"><i class="fa fa-check"></i><b>13.7.1</b> Package <code class="unnumbered">maps</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#example"><i class="fa fa-check"></i>Example</a>
+<ul>
+<li class="chapter" data-level="13.7.2" data-path="maps.html"><a href="maps.html#package-leaflet"><i class="fa fa-check"></i><b>13.7.2</b> Package <code class="unnumbered">leaflet</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html"><i class="fa fa-check"></i><b>14</b> Graphing Part II</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#multi-plots"><i class="fa fa-check"></i><b>14.1</b> Multi-plots</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#cowplot-package"><i class="fa fa-check"></i><b>14.1.1</b> <code>cowplot</code> package</a></li>
+<li class="chapter" data-level="14.1.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#multiplot-in-rmisc"><i class="fa fa-check"></i><b>14.1.2</b> <code>multiplot</code> in <code>Rmisc</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#customized-scales"><i class="fa fa-check"></i><b>14.2</b> Customized Scales</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#color-scales"><i class="fa fa-check"></i><b>14.2.1</b> Color Scales</a></li>
+<li class="chapter" data-level="14.2.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#setting-major-minor-ticks"><i class="fa fa-check"></i><b>14.2.2</b> Setting major &amp; minor ticks</a></li>
+<li class="chapter" data-level="14.2.3" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#log-scales"><i class="fa fa-check"></i><b>14.2.3</b> Log Scales</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#themes"><i class="fa fa-check"></i><b>14.3</b> Themes</a></li>
+<li class="chapter" data-level="14.4" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#mathematical-notation"><i class="fa fa-check"></i><b>14.4</b> Mathematical Notation</a></li>
+<li class="chapter" data-level="14.5" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>14.5</b> Interactive plots with <code>plotly</code></a></li>
+<li class="chapter" data-level="14.6" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#geographic-maps"><i class="fa fa-check"></i><b>14.6</b> Geographic Maps</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="maps.html"><a href="maps.html#package-maps"><i class="fa fa-check"></i><b>14.6.1</b> Package <code>maps</code></a></li>
+<li class="chapter" data-level="14.6.2" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#packages-sf-and-rnaturalearth"><i class="fa fa-check"></i><b>14.6.2</b> Packages <code>sf</code> and <code>rnaturalearth</code></a></li>
+<li class="chapter" data-level="14.6.3" data-path="maps.html"><a href="maps.html#package-leaflet"><i class="fa fa-check"></i><b>14.6.3</b> Package <code>leaflet</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="graphing-part-ii.html"><a href="graphing-part-ii.html#Exercises_Advanced_Graphing"><i class="fa fa-check"></i><b>14.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="r-packages.html"><a href="r-packages.html"><i class="fa fa-check"></i><b>15</b> R Packages</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>15.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="r-packages.html"><a href="r-packages.html#useful-packages-and-books"><i class="fa fa-check"></i><b>15.1.1</b> Useful packages and books</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="r-packages.html"><a href="r-packages.html#package-structure"><i class="fa fa-check"></i><b>15.2</b> Package Structure</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="r-packages.html"><a href="r-packages.html#minimal-files-and-directories"><i class="fa fa-check"></i><b>15.2.1</b> Minimal files and directories</a></li>
+<li class="chapter" data-level="15.2.2" data-path="r-packages.html"><a href="r-packages.html#optional-files-and-directories"><i class="fa fa-check"></i><b>15.2.2</b> Optional Files and Directories</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="r-packages.html"><a href="r-packages.html#documenting"><i class="fa fa-check"></i><b>15.3</b> Documenting</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="r-packages.html"><a href="r-packages.html#data-documentation"><i class="fa fa-check"></i><b>15.3.1</b> Data Documentation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="r-packages.html"><a href="r-packages.html#documenting-functions"><i class="fa fa-check"></i><b>15.3.2</b> Documenting Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="r-packages.html"><a href="r-packages.html#testing"><i class="fa fa-check"></i><b>15.4</b> Testing</a></li>
+<li class="chapter" data-level="15.5" data-path="r-packages.html"><a href="r-packages.html#the-description-file"><i class="fa fa-check"></i><b>15.5</b> The DESCRIPTION file</a></li>
+<li class="chapter" data-level="15.6" data-path="r-packages.html"><a href="r-packages.html#sharing-your-package"><i class="fa fa-check"></i><b>15.6</b> Sharing your Package</a></li>
+<li class="chapter" data-level="15.7" data-path="r-packages.html"><a href="r-packages.html#an-example-package"><i class="fa fa-check"></i><b>15.7</b> An Example Package</a></li>
+<li class="chapter" data-level="15.8" data-path="r-packages.html"><a href="r-packages.html#Exercises_Packages"><i class="fa fa-check"></i><b>15.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="data-scraping.html"><a href="data-scraping.html"><i class="fa fa-check"></i><b>16</b> Data Scraping</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="data-scraping.html"><a href="data-scraping.html#web-pages"><i class="fa fa-check"></i><b>16.1</b> Web Pages</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="data-scraping.html"><a href="data-scraping.html#example-wikipedia-table"><i class="fa fa-check"></i><b>16.1.1</b> Example Wikipedia Table</a></li>
+<li class="chapter" data-level="16.1.2" data-path="data-structures.html"><a href="data-structures.html#lists"><i class="fa fa-check"></i><b>16.1.2</b> Lists</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="data-scraping.html"><a href="data-scraping.html#scraping-.pdf-files"><i class="fa fa-check"></i><b>16.2</b> Scraping .pdf files</a></li>
+<li class="chapter" data-level="16.3" data-path="data-scraping.html"><a href="data-scraping.html#Exercises_WebScraping"><i class="fa fa-check"></i><b>16.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="api-data-queries.html"><a href="api-data-queries.html"><i class="fa fa-check"></i><b>17</b> API Data Queries</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="data-wrangling-process.html"><a href="data-wrangling-process.html#introduction"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="api-data-queries.html"><a href="api-data-queries.html#census-bureau-api"><i class="fa fa-check"></i><b>17.2</b> Census Bureau API</a></li>
+<li class="chapter" data-level="17.3" data-path="api-data-queries.html"><a href="api-data-queries.html#package-censusapi"><i class="fa fa-check"></i><b>17.3</b> Package <code>censusapi</code></a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="api-data-queries.html"><a href="api-data-queries.html#population-estimates"><i class="fa fa-check"></i><b>17.3.1</b> Population Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="api-data-queries.html"><a href="api-data-queries.html#package-tidycensus"><i class="fa fa-check"></i><b>17.4</b> Package <code>tidycensus</code></a></li>
+<li class="chapter" data-level="17.5" data-path="api-data-queries.html"><a href="api-data-queries.html#Exercises_APIs"><i class="fa fa-check"></i><b>17.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="databases.html"><a href="databases.html"><i class="fa fa-check"></i><b>18</b> Databases</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="databases.html"><a href="databases.html#tutorial-set-up"><i class="fa fa-check"></i><b>18.1</b> Tutorial Set-Up</a></li>
+<li class="chapter" data-level="18.2" data-path="databases.html"><a href="databases.html#sql"><i class="fa fa-check"></i><b>18.2</b> SQL</a></li>
+<li class="chapter" data-level="18.3" data-path="databases.html"><a href="databases.html#dbplyr"><i class="fa fa-check"></i><b>18.3</b> <code>dbplyr</code></a></li>
+<li class="chapter" data-level="18.4" data-path="databases.html"><a href="databases.html#Exercises_DataBases"><i class="fa fa-check"></i><b>18.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="speeding-up-r.html"><a href="speeding-up-r.html"><i class="fa fa-check"></i><b>19</b> Speeding up R</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="speeding-up-r.html"><a href="speeding-up-r.html#faster-for-loops"><i class="fa fa-check"></i><b>19.1</b> Faster for loops?</a></li>
+<li class="chapter" data-level="19.2" data-path="speeding-up-r.html"><a href="speeding-up-r.html#vectorizing-loops"><i class="fa fa-check"></i><b>19.2</b> Vectorizing loops</a></li>
+<li class="chapter" data-level="19.3" data-path="speeding-up-r.html"><a href="speeding-up-r.html#parallel-processing"><i class="fa fa-check"></i><b>19.3</b> Parallel Processing</a></li>
+<li class="chapter" data-level="19.4" data-path="speeding-up-r.html"><a href="speeding-up-r.html#parallel-aware-functions"><i class="fa fa-check"></i><b>19.4</b> Parallel Aware Functions</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="speeding-up-r.html"><a href="speeding-up-r.html#bootboot"><i class="fa fa-check"></i><b>19.4.1</b> <code>boot::boot</code></a></li>
+<li class="chapter" data-level="19.4.2" data-path="speeding-up-r.html"><a href="speeding-up-r.html#carettrain"><i class="fa fa-check"></i><b>19.4.2</b> <code>caret::train</code></a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="speeding-up-r.html"><a href="speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.5</b> Parallelizing <code>for</code> loops</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 444/5 - Introductory Data Science using R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="databases" class="section level1" number="18">
+<h1><span class="header-section-number">Chapter 18</span> Databases</h1>
+<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb856-1"><a href="databases.html#cb856-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb856-2"><a href="databases.html#cb856-2" aria-hidden="true"></a><span class="kw">library</span>(DBI)         <span class="co"># DataBase Interface Package</span></span>
+<span id="cb856-3"><a href="databases.html#cb856-3" aria-hidden="true"></a><span class="kw">library</span>(dbplyr)      <span class="co"># dplyr with databases!</span></span></code></pre></div>
+<p>There is a YouTube <a href="https://youtu.be/ElDmEwslJw0">Video Lecture</a> for the chapter.</p>
+<p>As our data grows larger and is being updated more frequently, we need to stop using static input files and instead learn to interact with databases. There are a many reasons for using a database, but these are my favorite:</p>
+<ol style="list-style-type: decimal">
+<li>Data Freshness. Because the database holds the definitive copy of the data, there isn’t a problem of using a .csv file that is months (or years) old. That means my results are constantly being updated with new data.</li>
+<li>No Local Storage. Because the data lives on the database, I don’t have to occupy gigabytes of space on my laptop to hold an out-of-date copy of the data.</li>
+<li>Database actions are atomic. Whenever I update the database, the action either happens or it doesn’t and the database should never be left in an inconsistent state. This extremely important when processing financial transactions, for example.</li>
+</ol>
+<p>Fortunately, reading information from a database instead of an in-memory table won’t change our current work flow and superficially the change is trivial. However, the impact can be quite profound in the timeliness and re-usability of our work.</p>
+<p>The great people at Rstudio have created a <a href="https://db.rstudio.com/overview/">great website</a> for using databases using their <code>dbplyr</code> package.</p>
+<p>However, the package <code>dbplyr</code> is really only intended for <em>reading</em> from the data base and does not support <em>writing</em> to the data base.</p>
+<div id="tutorial-set-up" class="section level2" number="18.1">
+<h2><span class="header-section-number">18.1</span> Tutorial Set-Up</h2>
+<p>Databases should be run on a server that is ALWAYS on and available via an internet connection. To connect to a database, we’ll need to know the internet address and be able to authenticate with a username/password combination.</p>
+<p>To demonstrate how a database works, we unfortunately need to have a live database to connect to. In real situations this would already be done (probably by somebody else) and you would just need to install some DataBase Interface (DBI) package that will negotiate creating a connection between your R-session and the database.</p>
+<p>However for this example, we need to start up a data base before we can start working with.</p>
+<div class="sourceCode" id="cb857"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb857-1"><a href="databases.html#cb857-1" aria-hidden="true"></a><span class="co"># Normally, a database connection looks something like this:</span></span>
+<span id="cb857-2"><a href="databases.html#cb857-2" aria-hidden="true"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RMariaDB<span class="op">::</span><span class="kw">MariaDB</span>(), </span>
+<span id="cb857-3"><a href="databases.html#cb857-3" aria-hidden="true"></a>  <span class="dt">host =</span> <span class="st">&quot;database.rstudio.com&quot;</span>,</span>
+<span id="cb857-4"><a href="databases.html#cb857-4" aria-hidden="true"></a>  <span class="dt">user =</span> <span class="st">&quot;hadley&quot;</span>,</span>
+<span id="cb857-5"><a href="databases.html#cb857-5" aria-hidden="true"></a>  <span class="dt">password =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;Database password&quot;</span>)</span>
+<span id="cb857-6"><a href="databases.html#cb857-6" aria-hidden="true"></a>)</span>
+<span id="cb857-7"><a href="databases.html#cb857-7" aria-hidden="true"></a></span>
+<span id="cb857-8"><a href="databases.html#cb857-8" aria-hidden="true"></a><span class="co"># For a Postgres database, it might look like this:</span></span>
+<span id="cb857-9"><a href="databases.html#cb857-9" aria-hidden="true"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(<span class="kw">dbDriver</span>(<span class="st">&quot;PostgresSQL&quot;</span>), <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</span>
+<span id="cb857-10"><a href="databases.html#cb857-10" aria-hidden="true"></a>  <span class="dt">host =</span> <span class="st">&quot;database.nau.edu&quot;</span>, <span class="dt">port =</span> <span class="dv">5432</span>,</span>
+<span id="cb857-11"><a href="databases.html#cb857-11" aria-hidden="true"></a>  <span class="dt">user =</span> <span class="st">&quot;dls354&quot;</span>, </span>
+<span id="cb857-12"><a href="databases.html#cb857-12" aria-hidden="true"></a>  <span class="dt">password =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;Database password&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb858-1"><a href="databases.html#cb858-1" aria-hidden="true"></a><span class="co"># For our little toy example, we&#39;ll use a database I&#39;ll create right now.</span></span>
+<span id="cb858-2"><a href="databases.html#cb858-2" aria-hidden="true"></a><span class="co"># Establish a connection</span></span>
+<span id="cb858-3"><a href="databases.html#cb858-3" aria-hidden="true"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;:memory:&quot;</span>)</span></code></pre></div>
+<p>Our final step involves populating our new database with some data so that we can play with it. For this example, we’ll go back to the credit card data example from the data reshaping chapter. I have it available on the book’s GitHub data-raw directory.</p>
+<div class="sourceCode" id="cb859"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb859-1"><a href="databases.html#cb859-1" aria-hidden="true"></a><span class="co"># Read in some data for the Credit Card example</span></span>
+<span id="cb859-2"><a href="databases.html#cb859-2" aria-hidden="true"></a>stem &lt;-<span class="st"> &#39;https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/CreditCard&#39;</span></span>
+<span id="cb859-3"><a href="databases.html#cb859-3" aria-hidden="true"></a>stem &lt;-<span class="st"> &#39;~/GitHub/444/data-raw/CreditCard&#39;</span></span>
+<span id="cb859-4"><a href="databases.html#cb859-4" aria-hidden="true"></a></span>
+<span id="cb859-5"><a href="databases.html#cb859-5" aria-hidden="true"></a>Cards        &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Cards.csv&#39;</span>,        <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>), </span>
+<span id="cb859-6"><a href="databases.html#cb859-6" aria-hidden="true"></a>                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">CardID=</span><span class="kw">col_character</span>(),</span>
+<span id="cb859-7"><a href="databases.html#cb859-7" aria-hidden="true"></a>                                          <span class="dt">PersonID=</span><span class="kw">col_character</span>()))</span>
+<span id="cb859-8"><a href="databases.html#cb859-8" aria-hidden="true"></a>Customers    &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Customers.csv&#39;</span>,    <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</span>
+<span id="cb859-9"><a href="databases.html#cb859-9" aria-hidden="true"></a>                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">PersonID=</span><span class="kw">col_character</span>()))</span>
+<span id="cb859-10"><a href="databases.html#cb859-10" aria-hidden="true"></a>Retailers    &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Retailers.csv&#39;</span>,    <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</span>
+<span id="cb859-11"><a href="databases.html#cb859-11" aria-hidden="true"></a>                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">RetailID=</span><span class="kw">col_character</span>()))</span>
+<span id="cb859-12"><a href="databases.html#cb859-12" aria-hidden="true"></a>Transactions &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">paste</span>(stem, <span class="st">&#39;Transactions.csv&#39;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span>),</span>
+<span id="cb859-13"><a href="databases.html#cb859-13" aria-hidden="true"></a>                         <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">CardID=</span><span class="kw">col_character</span>(),</span>
+<span id="cb859-14"><a href="databases.html#cb859-14" aria-hidden="true"></a>                                          <span class="dt">RetailID=</span><span class="kw">col_character</span>()))</span>
+<span id="cb859-15"><a href="databases.html#cb859-15" aria-hidden="true"></a></span>
+<span id="cb859-16"><a href="databases.html#cb859-16" aria-hidden="true"></a><span class="co"># Because the EXTREMELY simple RSQLite database doesn&#39;t support dates natively,</span></span>
+<span id="cb859-17"><a href="databases.html#cb859-17" aria-hidden="true"></a><span class="co"># we need to convert all the Date/Time values to be character strings. Notice</span></span>
+<span id="cb859-18"><a href="databases.html#cb859-18" aria-hidden="true"></a><span class="co"># because they are sorted as Year-Month-Day Hour:Minute:Second, sorting will</span></span>
+<span id="cb859-19"><a href="databases.html#cb859-19" aria-hidden="true"></a><span class="co"># still work.</span></span>
+<span id="cb859-20"><a href="databases.html#cb859-20" aria-hidden="true"></a><span class="co"># convert the Dates to character strings </span></span>
+<span id="cb859-21"><a href="databases.html#cb859-21" aria-hidden="true"></a>Cards &lt;-<span class="st"> </span>Cards <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb859-22"><a href="databases.html#cb859-22" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Issue_DateTime =</span> <span class="kw">as.character</span>(Issue_DateTime),</span>
+<span id="cb859-23"><a href="databases.html#cb859-23" aria-hidden="true"></a>         <span class="dt">Exp_DateTime   =</span> <span class="kw">as.character</span>(Exp_DateTime))</span>
+<span id="cb859-24"><a href="databases.html#cb859-24" aria-hidden="true"></a>Transactions &lt;-<span class="st"> </span>Transactions <span class="op">%&gt;%</span></span>
+<span id="cb859-25"><a href="databases.html#cb859-25" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">DateTime =</span> <span class="kw">as.character</span>(DateTime))</span></code></pre></div>
+<p>So that we remember what the data we are working with looks like:</p>
+<div class="sourceCode" id="cb860"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb860-1"><a href="databases.html#cb860-1" aria-hidden="true"></a><span class="kw">head</span>(Customers)    <span class="co"># Key  is  PersonID</span></span></code></pre></div>
+<pre><code>## # A tibble: 4 x 5
+##   PersonID Name               Street             City      State
+##   &lt;chr&gt;    &lt;chr&gt;              &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;
+## 1 1        Derek Sonderegger  231 River Run      Flagstaff AZ   
+## 2 2        Aubrey Sonderegger 231 River Run      Flagstaff AZ   
+## 3 3        Robert Buscaglia   754 Forest Heights Flagstaff AZ   
+## 4 4        Roy St Laurent     845 Elk View       Flagstaff AZ</code></pre>
+<div class="sourceCode" id="cb862"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb862-1"><a href="databases.html#cb862-1" aria-hidden="true"></a><span class="kw">head</span>(Cards)        <span class="co"># Keys are PersonID and CardID  </span></span></code></pre></div>
+<pre><code>## # A tibble: 5 x 4
+##   CardID           PersonID Issue_DateTime      Exp_DateTime       
+##   &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;               &lt;chr&gt;              
+## 1 9876768717278723 1        2019-09-20 00:00:00 2022-09-20 00:00:00
+## 2 9876765798212987 2        2019-09-20 00:00:00 2019-10-15 16:28:21
+## 3 9876765498122734 3        2019-09-28 00:00:00 2022-09-28 00:00:00
+## 4 9876768965231926 4        2019-09-30 00:00:00 2022-09-30 00:00:00
+## 5 9876765798212988 2        2019-10-15 16:28:45 2022-10-15 00:00:00</code></pre>
+<div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb864-1"><a href="databases.html#cb864-1" aria-hidden="true"></a><span class="kw">head</span>(Transactions) <span class="co"># Keys are CardID and RetailID</span></span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   CardID           RetailID DateTime            Amount
+##   &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;
+## 1 9876768717278723 1        2019-10-01 08:31:23   5.68
+## 2 9876765498122734 2        2019-10-01 12:45:45  25.7 
+## 3 9876768717278723 1        2019-10-02 08:26:31   5.68
+## 4 9876768717278723 1        2019-10-02 08:30:09   9.23
+## 5 9876765798212987 3        2019-10-05 18:58:57  68.5 
+## 6 9876765498122734 2        2019-10-05 12:39:26  31.8</code></pre>
+<div class="sourceCode" id="cb866"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb866-1"><a href="databases.html#cb866-1" aria-hidden="true"></a><span class="kw">head</span>(Retailers)    <span class="co"># Key  is  RetailID</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 x 5
+##   RetailID Name           Street             City      State
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;
+## 1 1        Kickstand Kafe 719 N Humphreys St Flagstaff AZ   
+## 2 2        MartAnnes      112 E Route 66     Flagstaff AZ   
+## 3 3        REI            323 S Windsor Ln   Flagstaff AZ</code></pre>
+<p>Critically, using the ID columns, we can take an individual transaction figure out what customer executed it. Finally I’ll take these tables and load them into my RSQLite database.</p>
+<div class="sourceCode" id="cb868"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb868-1"><a href="databases.html#cb868-1" aria-hidden="true"></a><span class="co"># Copy the tables to our newly set up database. The dbWriteTable() function is intended</span></span>
+<span id="cb868-2"><a href="databases.html#cb868-2" aria-hidden="true"></a><span class="co"># for database examples and is NOT how you would in practice create a database.</span></span>
+<span id="cb868-3"><a href="databases.html#cb868-3" aria-hidden="true"></a>DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Cards&#39;</span>, Cards,</span>
+<span id="cb868-4"><a href="databases.html#cb868-4" aria-hidden="true"></a>                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">CardID=</span><span class="st">&#39;character&#39;</span>,<span class="dt">PersonID=</span><span class="st">&#39;character&#39;</span>,</span>
+<span id="cb868-5"><a href="databases.html#cb868-5" aria-hidden="true"></a>                                <span class="dt">Issue_DateTime=</span><span class="st">&#39;time&#39;</span>,<span class="dt">Exp_DateTime=</span><span class="st">&#39;time&#39;</span>) )</span>
+<span id="cb868-6"><a href="databases.html#cb868-6" aria-hidden="true"></a>DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Customers&#39;</span>, Customers,</span>
+<span id="cb868-7"><a href="databases.html#cb868-7" aria-hidden="true"></a>                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">PersonID=</span><span class="st">&#39;character&#39;</span>))</span>
+<span id="cb868-8"><a href="databases.html#cb868-8" aria-hidden="true"></a>DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Retailers&#39;</span>, Retailers,</span>
+<span id="cb868-9"><a href="databases.html#cb868-9" aria-hidden="true"></a>                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">RetailID=</span><span class="st">&#39;character&#39;</span>))</span>
+<span id="cb868-10"><a href="databases.html#cb868-10" aria-hidden="true"></a>DBI<span class="op">::</span><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;Transactions&#39;</span>, Transactions,</span>
+<span id="cb868-11"><a href="databases.html#cb868-11" aria-hidden="true"></a>                  <span class="dt">field.types=</span><span class="kw">c</span>(<span class="dt">CardID=</span><span class="st">&#39;character&#39;</span>, <span class="dt">RetailID=</span><span class="st">&#39;character&#39;</span>,</span>
+<span id="cb868-12"><a href="databases.html#cb868-12" aria-hidden="true"></a>                                <span class="dt">DateTime=</span><span class="st">&#39;time&#39;</span>))</span>
+<span id="cb868-13"><a href="databases.html#cb868-13" aria-hidden="true"></a></span>
+<span id="cb868-14"><a href="databases.html#cb868-14" aria-hidden="true"></a><span class="kw">rm</span>(Cards, Customers, Retailers, Transactions)     <span class="co"># Remove all the setup except `con`</span></span></code></pre></div>
+</div>
+<div id="sql" class="section level2" number="18.2">
+<h2><span class="header-section-number">18.2</span> SQL</h2>
+<p>The traditional way to interact with a database is by using SQL syntax. SQL stands for Structured Query Language and some understanding of SQL is mandatory for anyone that interacts with databases. There are many good introduction to SQL but we’ll cover a few basics here.</p>
+<p>To begin, lets run a simple SQL query.</p>
+<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="databases.html#cb869-1" aria-hidden="true"></a>sql_cmd &lt;-<span class="st"> &#39;SELECT * FROM Transactions&#39;</span></span>
+<span id="cb869-2"><a href="databases.html#cb869-2" aria-hidden="true"></a>transactions &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbGetQuery</span>(con, sql_cmd)</span>
+<span id="cb869-3"><a href="databases.html#cb869-3" aria-hidden="true"></a>transactions</span></code></pre></div>
+<pre><code>##             CardID RetailID            DateTime Amount
+## 1 9876768717278723        1 2019-10-01 08:31:23   5.68
+## 2 9876765498122734        2 2019-10-01 12:45:45  25.67
+## 3 9876768717278723        1 2019-10-02 08:26:31   5.68
+## 4 9876768717278723        1 2019-10-02 08:30:09   9.23
+## 5 9876765798212987        3 2019-10-05 18:58:57  68.54
+## 6 9876765498122734        2 2019-10-05 12:39:26  31.84
+## 7 9876768965231926        2 2019-10-10 19:02:20  42.83
+## 8 9876765798212988        1 2019-10-16 14:30:21   4.98</code></pre>
+<p>We can examine the SQL command as follows:</p>
+<table>
+<colgroup>
+<col width="28%" />
+<col width="71%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">SQL Function</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>SELECT</code></td>
+<td align="left">A keyword that denotes that the following is a <em>query</em>.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>*</code></td>
+<td align="left">A placeholder meaning all columns. This could be any column name(s).</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>FROM</code></td>
+<td align="left">A keyword indicating that whatever follows is the table (or tables) being selected from. Any table joins need to be constrained in the WHERE clause to tell us what columns need to match.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>WHERE</code></td>
+<td align="left">A keyword indicating the following logical statements will be used to filter rows. Boolean operators <code>AND</code>, <code>OR</code>, and <code>NOT</code> can be used to create complex filter statements.</td>
+</tr>
+</tbody>
+</table>
+<p>There is a way to insert a SQL code chunk and have it appropriately run when knitting the document together. I don’t really like that method because I’ve found it difficult to use while working with the Rmarkdown file interactively, so I generally don’t recommend doing that.</p>
+<p>Typical SQL statements can be quite long and sometimes difficult to read because the table join instructions are mixed in with the filtering instructions. For example, the following is the SQL command to generate my credit card statement, and then saves the resulting table to the R object <code>DereksTransactions</code>.</p>
+<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="databases.html#cb871-1" aria-hidden="true"></a><span class="co"># given some other R object that specifies part of the SQL command, I can </span></span>
+<span id="cb871-2"><a href="databases.html#cb871-2" aria-hidden="true"></a><span class="co"># generate the full SQL command string by pasting the parts together</span></span>
+<span id="cb871-3"><a href="databases.html#cb871-3" aria-hidden="true"></a>customer =<span class="st"> &quot;&#39;Derek Sonderegger&#39;&quot;</span>  <span class="co"># Notice the quotes inside so that there are</span></span>
+<span id="cb871-4"><a href="databases.html#cb871-4" aria-hidden="true"></a>                                  <span class="co"># quotes surrounding the name inside the SQL</span></span>
+<span id="cb871-5"><a href="databases.html#cb871-5" aria-hidden="true"></a></span>
+<span id="cb871-6"><a href="databases.html#cb871-6" aria-hidden="true"></a>sql_cmd &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&#39;</span></span>
+<span id="cb871-7"><a href="databases.html#cb871-7" aria-hidden="true"></a><span class="st">SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount</span></span>
+<span id="cb871-8"><a href="databases.html#cb871-8" aria-hidden="true"></a><span class="st">  FROM Customers, Cards, Transactions, Retailers</span></span>
+<span id="cb871-9"><a href="databases.html#cb871-9" aria-hidden="true"></a><span class="st">  WHERE Customers.PersonID = Cards.PersonID AND </span></span>
+<span id="cb871-10"><a href="databases.html#cb871-10" aria-hidden="true"></a><span class="st">        Cards.CardID = Transactions.CardID AND</span></span>
+<span id="cb871-11"><a href="databases.html#cb871-11" aria-hidden="true"></a><span class="st">        Transactions.RetailID = Retailers.RetailID AND</span></span>
+<span id="cb871-12"><a href="databases.html#cb871-12" aria-hidden="true"></a><span class="st">        Customers.Name = &#39;</span>, customer) </span>
+<span id="cb871-13"><a href="databases.html#cb871-13" aria-hidden="true"></a></span>
+<span id="cb871-14"><a href="databases.html#cb871-14" aria-hidden="true"></a>DereksTransactions &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbGetQuery</span>(con, sql_cmd)</span>
+<span id="cb871-15"><a href="databases.html#cb871-15" aria-hidden="true"></a>DereksTransactions</span></code></pre></div>
+<pre><code>##                Name            DateTime           Name Amount
+## 1 Derek Sonderegger 2019-10-01 08:31:23 Kickstand Kafe   5.68
+## 2 Derek Sonderegger 2019-10-02 08:26:31 Kickstand Kafe   5.68
+## 3 Derek Sonderegger 2019-10-02 08:30:09 Kickstand Kafe   9.23</code></pre>
+</div>
+<div id="dbplyr" class="section level2" number="18.3">
+<h2><span class="header-section-number">18.3</span> <code>dbplyr</code></h2>
+<p>There are a lot of good things about SQL, but for database queries, I would really like to pretend that the tables are in memory and use all of my favorite <code>dplyr</code> tools and pipelines. This would mean that I don’t have to remember all the weird SQL syntax. However, the database interface <code>dbplyr</code> is ONLY intended for queries and NOT for updating or inserting rows into the tables.</p>
+<p>The way this will work is that we will use the previously established database connection <code>con</code> to create a virtual link between the database table and some appropriately named R object.</p>
+<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb873-1"><a href="databases.html#cb873-1" aria-hidden="true"></a><span class="co"># connect the database tables to similarly named objects in R</span></span>
+<span id="cb873-2"><a href="databases.html#cb873-2" aria-hidden="true"></a>Cards &lt;-<span class="st">        </span><span class="kw">tbl</span>(con, <span class="st">&#39;Cards&#39;</span>)</span>
+<span id="cb873-3"><a href="databases.html#cb873-3" aria-hidden="true"></a>Customers &lt;-<span class="st">    </span><span class="kw">tbl</span>(con, <span class="st">&#39;Customers&#39;</span>)</span>
+<span id="cb873-4"><a href="databases.html#cb873-4" aria-hidden="true"></a>Retailers &lt;-<span class="st">    </span><span class="kw">tbl</span>(con, <span class="st">&#39;Retailers&#39;</span>)</span>
+<span id="cb873-5"><a href="databases.html#cb873-5" aria-hidden="true"></a>Transactions &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="st">&#39;Transactions&#39;</span>)</span></code></pre></div>
+<p>However, this does NOT download the whole table into R. Instead it grabs only a couple of rows so that we can see the format. Notice that we don’t know how many rows are in the Transactions table.</p>
+<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb874-1"><a href="databases.html#cb874-1" aria-hidden="true"></a>Transactions <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 4]
+## # Database: sqlite 3.30.1 [:memory:]
+##   CardID           RetailID DateTime            Amount
+##   &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;
+## 1 9876768717278723 1        2019-10-01 08:31:23   5.68
+## 2 9876765498122734 2        2019-10-01 12:45:45  25.7 
+## 3 9876768717278723 1        2019-10-02 08:26:31   5.68</code></pre>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="databases.html#cb876-1" aria-hidden="true"></a><span class="co"># Transactions %&gt;% tail(3)  # not supported because we haven&#39;t yet downloaded much information.</span></span></code></pre></div>
+<p>The guiding principle of <code>dbplyr</code> is to delay as much work for as long as possible actually pulling the data from the database. The rational is that we spend a great deal of time figuring out what the query should look like and too often we write a query that accidentally downloads millions of lines of data and slows down our network connection. Instead <code>dbplyr</code> returns just the first few rows of whatever query we are working on until we finish the pipeline with a <code>collect()</code> command that will cause us to download ALL of the query results and save them as a local <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb877-1"><a href="databases.html#cb877-1" aria-hidden="true"></a>CC_statement &lt;-<span class="st"> </span></span>
+<span id="cb877-2"><a href="databases.html#cb877-2" aria-hidden="true"></a><span class="st">  </span>Customers <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb877-3"><a href="databases.html#cb877-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(Name <span class="op">==</span><span class="st"> &#39;Derek Sonderegger&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(PersonID) <span class="op">%&gt;%</span></span>
+<span id="cb877-4"><a href="databases.html#cb877-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">left_join</span>(Cards) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(Transactions) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(Retailers) <span class="op">%&gt;%</span></span>
+<span id="cb877-5"><a href="databases.html#cb877-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(DateTime, Name, Amount) <span class="op">%&gt;%</span></span>
+<span id="cb877-6"><a href="databases.html#cb877-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Retailer =</span> Name) </span>
+<span id="cb877-7"><a href="databases.html#cb877-7" aria-hidden="true"></a></span>
+<span id="cb877-8"><a href="databases.html#cb877-8" aria-hidden="true"></a>CC_statement</span></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 3]
+## # Database: sqlite 3.30.1 [:memory:]
+##   DateTime            Retailer       Amount
+##   &lt;chr&gt;               &lt;chr&gt;           &lt;dbl&gt;
+## 1 2019-10-01 08:31:23 Kickstand Kafe   5.68
+## 2 2019-10-02 08:26:31 Kickstand Kafe   5.68
+## 3 2019-10-02 08:30:09 Kickstand Kafe   9.23</code></pre>
+<p>At this point, we <em>still</em> haven’t downloaded all of the rows. Instead this is still a <em>lazy</em> query. To actually download everything, we’ll pipe this into the <code>collect</code> function.</p>
+<div class="sourceCode" id="cb879"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb879-1"><a href="databases.html#cb879-1" aria-hidden="true"></a>CC_statement <span class="op">%&gt;%</span></span>
+<span id="cb879-2"><a href="databases.html#cb879-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">collect</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   DateTime            Retailer       Amount
+##   &lt;chr&gt;               &lt;chr&gt;           &lt;dbl&gt;
+## 1 2019-10-01 08:31:23 Kickstand Kafe   5.68
+## 2 2019-10-02 08:26:31 Kickstand Kafe   5.68
+## 3 2019-10-02 08:30:09 Kickstand Kafe   9.23</code></pre>
+<p>It can be fun to see what the SQL code that is being generated is.</p>
+<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb881-1"><a href="databases.html#cb881-1" aria-hidden="true"></a>CC_statement <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">show_query</span>()</span></code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT `DateTime`, `Name` AS `Retailer`, `Amount`
+## FROM (SELECT `LHS`.`PersonID` AS `PersonID`, `LHS`.`CardID` AS `CardID`, `LHS`.`Issue_DateTime` AS `Issue_DateTime`, `LHS`.`Exp_DateTime` AS `Exp_DateTime`, `LHS`.`RetailID` AS `RetailID`, `LHS`.`DateTime` AS `DateTime`, `LHS`.`Amount` AS `Amount`, `RHS`.`Name` AS `Name`, `RHS`.`Street` AS `Street`, `RHS`.`City` AS `City`, `RHS`.`State` AS `State`
+## FROM (SELECT `LHS`.`PersonID` AS `PersonID`, `LHS`.`CardID` AS `CardID`, `LHS`.`Issue_DateTime` AS `Issue_DateTime`, `LHS`.`Exp_DateTime` AS `Exp_DateTime`, `RHS`.`RetailID` AS `RetailID`, `RHS`.`DateTime` AS `DateTime`, `RHS`.`Amount` AS `Amount`
+## FROM (SELECT `LHS`.`PersonID` AS `PersonID`, `RHS`.`CardID` AS `CardID`, `RHS`.`Issue_DateTime` AS `Issue_DateTime`, `RHS`.`Exp_DateTime` AS `Exp_DateTime`
+## FROM (SELECT `PersonID`
+## FROM `Customers`
+## WHERE (`Name` = &#39;Derek Sonderegger&#39;)) AS `LHS`
+## LEFT JOIN `Cards` AS `RHS`
+## ON (`LHS`.`PersonID` = `RHS`.`PersonID`)
+## ) AS `LHS`
+## LEFT JOIN `Transactions` AS `RHS`
+## ON (`LHS`.`CardID` = `RHS`.`CardID`)
+## ) AS `LHS`
+## LEFT JOIN `Retailers` AS `RHS`
+## ON (`LHS`.`RetailID` = `RHS`.`RetailID`)
+## )</code></pre>
+<p>The algorithm used to convert my <code>dplyr</code> statement into a SQL statement doesn’t mind nesting SQL statements and isn’t the same as what I generated by hand, but it works.</p>
+<p>The last step of a script should be to close the database connection.</p>
+<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb883-1"><a href="databases.html#cb883-1" aria-hidden="true"></a><span class="co"># Close our database connection when we are through...</span></span>
+<span id="cb883-2"><a href="databases.html#cb883-2" aria-hidden="true"></a><span class="kw">dbDisconnect</span>(con)</span></code></pre></div>
+</div>
+<div id="Exercises_DataBases" class="section level2" number="18.4">
+<h2><span class="header-section-number">18.4</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>In this exercise, you’ll create a database containing the <code>nycflights13</code> data. Make sure that you’ve already downloaded the <code>nycflights13</code> package.
+<ol style="list-style-type: lower-alpha">
+<li>Create a SQLite database and connect to it using the following code:</li>
+</ol>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="databases.html#cb884-1" aria-hidden="true"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb884-2"><a href="databases.html#cb884-2" aria-hidden="true"></a></span>
+<span id="cb884-3"><a href="databases.html#cb884-3" aria-hidden="true"></a><span class="co"># Start up a SQL-Lite database with the NYCFlights13 data pre-loaded</span></span>
+<span id="cb884-4"><a href="databases.html#cb884-4" aria-hidden="true"></a><span class="co"># </span></span>
+<span id="cb884-5"><a href="databases.html#cb884-5" aria-hidden="true"></a><span class="co">## This handy function to load up the nycflights13 dataset unfortunately</span></span>
+<span id="cb884-6"><a href="databases.html#cb884-6" aria-hidden="true"></a><span class="co">## causes an error when we try to close the connection.  I&#39;ve submitted</span></span>
+<span id="cb884-7"><a href="databases.html#cb884-7" aria-hidden="true"></a><span class="co">## a bug report to Hadley. We&#39;ll see what happens.</span></span>
+<span id="cb884-8"><a href="databases.html#cb884-8" aria-hidden="true"></a><span class="co"># con &lt;- nycflights13_sqlite( )</span></span>
+<span id="cb884-9"><a href="databases.html#cb884-9" aria-hidden="true"></a><span class="co"># </span></span>
+<span id="cb884-10"><a href="databases.html#cb884-10" aria-hidden="true"></a><span class="co">## So instead we&#39;ll use this somewhat longer and more annoying startup</span></span>
+<span id="cb884-11"><a href="databases.html#cb884-11" aria-hidden="true"></a><span class="co">## set of code.</span></span>
+<span id="cb884-12"><a href="databases.html#cb884-12" aria-hidden="true"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;:memory:&quot;</span>)</span>
+<span id="cb884-13"><a href="databases.html#cb884-13" aria-hidden="true"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>airlines, <span class="st">&#39;airlines&#39;</span>)</span>
+<span id="cb884-14"><a href="databases.html#cb884-14" aria-hidden="true"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>airports, <span class="st">&#39;airports&#39;</span>)</span>
+<span id="cb884-15"><a href="databases.html#cb884-15" aria-hidden="true"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>flights,  <span class="st">&#39;flights&#39;</span>)</span>
+<span id="cb884-16"><a href="databases.html#cb884-16" aria-hidden="true"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>planes,   <span class="st">&#39;planes&#39;</span>)</span>
+<span id="cb884-17"><a href="databases.html#cb884-17" aria-hidden="true"></a>dplyr<span class="op">::</span><span class="kw">copy_to</span>(con, nycflights13<span class="op">::</span>weather,  <span class="st">&#39;weather&#39;</span>)</span></code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Through the <code>con</code> connection object, create links to the <code>flights</code> and <code>airlines</code> tables.</li>
+<li>From the <code>flights</code> table, summarize the percent of flights with a departure delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.</li>
+<li>Using the <code>dbDisconnect()</code> command to close the connection <code>con</code>.</li>
+</ol></li>
+<li>For this exercise, we’ll start a SQLite database and see that the SQLite application stores the data in a very specialized file structure, which usually has a file extension of <code>.db</code> or <code>.sqlite</code>.
+<ol style="list-style-type: lower-alpha">
+<li>Create the SQLite database file in your current working directory using the following:</li>
+</ol>
+<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb885-1"><a href="databases.html#cb885-1" aria-hidden="true"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;TestSQLiteFile.db&quot;</span>)</span>
+<span id="cb885-2"><a href="databases.html#cb885-2" aria-hidden="true"></a></span>
+<span id="cb885-3"><a href="databases.html#cb885-3" aria-hidden="true"></a><span class="co"># Create a table using the iris data</span></span>
+<span id="cb885-4"><a href="databases.html#cb885-4" aria-hidden="true"></a><span class="kw">dbCreateTable</span>(con, <span class="st">&#39;IRIS&#39;</span>, iris)</span>
+<span id="cb885-5"><a href="databases.html#cb885-5" aria-hidden="true"></a><span class="kw">dbListTables</span>(con)</span>
+<span id="cb885-6"><a href="databases.html#cb885-6" aria-hidden="true"></a><span class="kw">dbDisconnect</span>(con)</span></code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Now check the files in your current working directory as there should now be a <code>TestSQLiteFile.db</code>. The SQLite file structure for data is extremely stable and works across platform types (Unix/Windows, 32/64 bit, big/little endian, etc). As such, it is a good file type choice for storing lots of data in a compact format across different systems (e.g. applications that work on a mobile device vs a computer)</li>
+</ol></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="api-data-queries.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="speeding-up-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+"google": false,
+"instapper": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dereksonderegger/444/blob/master/38_Databases.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/dereksonderegger/444/raw/master/38_Databases.Rmd",
+"text": null
+},
+"download": [["Introduction_to_DataScience_with_R.pdf", "PDF"]],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

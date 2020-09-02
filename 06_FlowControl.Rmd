@@ -43,11 +43,11 @@ df %>% mutate( `A < B`  =  A < B)
 
 If we have two (or more) vectors of of logical values, we can do two *pairwise* operations. The "and" operator `&` will result in a TRUE value if all elements are TRUE.  The "or" operator will result in a TRUE value if either the left hand side or right hand side is TRUE. 
 ```{r}
-df %>% mutate(C =  A==5,  D =  B==5) %>%
-  mutate( result1_and = C & D,          # C and D
-          result2_and =  A==5 & B==5,   #    directly
-          result1_or  = C | D,          # C or D
-          result2_or = A==5 | B==5)     #    directly
+df %>% mutate(C = A>=0,  D = A<=5) %>%
+  mutate( result1_and = C & D,          #    C and D both true
+          result2_and =  A>=0 & A<=5,   #    directly calculated
+          result3_and =  0 <= A & A<=5, #    more readable 0 <= A <= 5
+          result4_or  =  A<=0 | 5<=A)   #    A not in [0,5] range    
 ```
 
 
@@ -74,7 +74,7 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 
 ### In `dplyr` wrangling
 
-A very common task within a data wrangling pipeline is to create a new column that recodes information in another column.  Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we'ved coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
+A very common task within a data wrangling pipeline is to create a new column that recodes information in another column.  Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we've coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
 
 ```{r}
 people <- data.frame(
@@ -368,7 +368,7 @@ calculated.var <- my.var( test.vector )
 calculated.var
 ```
 
-Notice that even though I defined my function using `x` as my vector of data, and passed my function something named `test.vector`, R does the appropriate renaming.If my function doesn't modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable `x` as a placeholder, with it being replaced by whatever gets passed into the function.
+Notice that even though I defined my function using `x` as my vector of data, and passed my function something named `test.vector`, R does the appropriate renaming. If my function doesn't modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable `x` as a placeholder, with it being replaced by whatever gets passed into the function.
 
 When I call a function, the function might cause something to happen (e.g. draw a plot) or it might do some calculates the result is returned by the function and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the `return` statement. (Actually R doesn't completely require this. But the alternative method is less intuitive and I strongly recommend using the `return()` statement for readability.)
 
