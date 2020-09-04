@@ -422,17 +422,17 @@ For most people, I don't recommend opening the regular expression can-of-worms, 
 Regular expressions use a select number of characters to signify further meaning in order to create recipes that might be matched within a character string. 
 The special characters are  `[ \ ^ $ . | ? * + ()`. 
 
-|  Character Types   |   Interpretation                                |
-|:------------------:|:------------------------------------------------|
-| `abc` 	           | Letters `abc` *exactly*                           |
-| `123` 	           | Digits  `123` *exactly*                           |
-| `\d`	             | Any Digit                                         |
-| `\D`	             | Any Non-digit character                           |
-| `\w`		           | Any Alphanumeric character                        |
-| `\W`		           | Any Non-alphanumeric character                    |
-| `\s`		           | Any White space                                   |
-| `\S`		           | Any Non-white space character                     |
-| `.`		             | Any Character (The wildcard!)                     |
+|  Character Types   |   Interpretation                                  |
+|:------------------:|:--------------------------------------------------|
+| `abc`              | Letters `abc` *exactly*                           |
+| `123`              | Digits  `123` *exactly*                           |
+| `\d`               | Any Digit                                         |
+| `\D`               | Any Non-digit character                           |
+| `\w`               | Any Alphanumeric character                        |
+| `\W`               | Any Non-alphanumeric character                    |
+| `\s`               | Any White space                                   |
+| `\S`               | Any Non-white space character                     |
+| `.`                | Any Character (The wildcard!)                     |
 | `^`                | Beginning of input string                         |
 | `$`                | End of input string                               |
 
@@ -440,23 +440,23 @@ The special characters are  `[ \ ^ $ . | ? * + ()`.
 
 |  Grouping          |   Interpretation                                |
 |:------------------:|:------------------------------------------------|
-| `[abc]`		         | Only a, b, or c                                   |
-| `[^abc]`	         | 	Not a, b, nor c                                  |
-| `[a-z]`       	   | Characters a to z                                 |
-| `[A-Z]`       	   | Characters A to Z                                 |
-| `[0-9]`		         | Numbers 0 to 9                                    |
-| `[a-zA-Z]`		     | Characters a to z or A to Z                       |
-| `()`		           | Capture Group                                     |
-| `(a(bc))`		       | Capture Sub-group                                 |
-| `(abc|def)`		     | Matches `abc` or `def`                           |
+| `[abc]`            | Only a, b, or c                                 |
+| `[^abc]`           | Not a, b, nor c                                 |
+| `[a-z]`            | Characters a to z                               |
+| `[A-Z]`            | Characters A to Z                               |
+| `[0-9]`            | Numbers 0 to 9                                  |
+| `[a-zA-Z]`         | Characters a to z or A to Z                     |
+| `()`               | Capture Group                                   |
+| `(a(bc))`          | Capture Sub-group                               |
+| `(abc|def)`        | Matches `abc` or `def`                          |
 
 
 
 |  Group Modifiers   |   Interpretation                                |
 |:------------------:|:------------------------------------------------|
-| `*`		             | Zero or more repetitions of previous            |
-| `+`		             | One or more repetitions of previous             |
-| `?`		             | Previous group is optional                      |
+| `*`                | Zero or more repetitions of previous            |
+| `+`                | One or more repetitions of previous             |
+| `?`                | Previous group is optional                      |
 | `{m}`              | m repetitions of the previous                   |
 | `{m,n}`            | Between m and n repetitions of the previous     |
 

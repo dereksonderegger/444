@@ -68,21 +68,21 @@ df %>% mutate( `A < B`  =  A < B)
 If we have two (or more) vectors of of logical values, we can do two *pairwise* operations. The "and" operator `&` will result in a TRUE value if all elements are TRUE.  The "or" operator will result in a TRUE value if either the left hand side or right hand side is TRUE. 
 
 ```r
-df %>% mutate(C =  A==5,  D =  B==5) %>%
-  mutate( result1_and = C & D,          # C and D
-          result2_and =  A==5 & B==5,   #    directly
-          result1_or  = C | D,          # C or D
-          result2_or = A==5 | B==5)     #    directly
+df %>% mutate(C = A>=0,  D = A<=5) %>%
+  mutate( result1_and = C & D,          #    C and D both true
+          result2_and =  A>=0 & A<=5,   #    directly calculated
+          result3_and =  0 <= A & A<=5, #    more readable 0 <= A <= 5
+          result4_or  =  A<=0 | 5<=A)   #    A not in (0,5) range    
 ```
 
 ```
-##   A  B     C     D result1_and result2_and result1_or result2_or
-## 1 1  5 FALSE  TRUE       FALSE       FALSE       TRUE       TRUE
-## 2 2  6 FALSE FALSE       FALSE       FALSE      FALSE      FALSE
-## 3 3  7 FALSE FALSE       FALSE       FALSE      FALSE      FALSE
-## 4 4  8 FALSE FALSE       FALSE       FALSE      FALSE      FALSE
-## 5 5  9  TRUE FALSE       FALSE       FALSE       TRUE       TRUE
-## 6 6 10 FALSE FALSE       FALSE       FALSE      FALSE      FALSE
+##   A  B    C     D result1_and result2_and result3_and result4_or
+## 1 1  5 TRUE  TRUE        TRUE        TRUE        TRUE      FALSE
+## 2 2  6 TRUE  TRUE        TRUE        TRUE        TRUE      FALSE
+## 3 3  7 TRUE  TRUE        TRUE        TRUE        TRUE      FALSE
+## 4 4  8 TRUE  TRUE        TRUE        TRUE        TRUE      FALSE
+## 5 5  9 TRUE  TRUE        TRUE        TRUE        TRUE       TRUE
+## 6 6 10 TRUE FALSE       FALSE       FALSE       FALSE       TRUE
 ```
 
 
@@ -121,15 +121,15 @@ df
 ```
 
 ```
-##   Type      Value
-## 1    A -0.1340123
-## 2    A  0.8402169
-## 3    B  0.2832276
-## 4    B  0.1567891
-## 5    C  0.3225557
-## 6    C -0.7308019
-## 7    D  0.6827748
-## 8    D  1.6485705
+##   Type       Value
+## 1    A  1.03087423
+## 2    A  0.02327772
+## 3    B -0.70382002
+## 4    B  0.19305562
+## 5    C  0.10245268
+## 6    C  0.31179971
+## 7    D  2.11156084
+## 8    D -0.90017661
 ```
 
 ```r
@@ -138,11 +138,11 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 ```
 
 ```
-##   Type      Value
-## 1    A -0.1340123
-## 2    A  0.8402169
-## 3    B  0.2832276
-## 4    B  0.1567891
+##   Type       Value
+## 1    A  1.03087423
+## 2    A  0.02327772
+## 3    B -0.70382002
+## 4    B  0.19305562
 ```
 
 
@@ -151,7 +151,7 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 
 ### In `dplyr` wrangling
 
-A very common task within a data wrangling pipeline is to create a new column that recodes information in another column.  Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we'ved coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
+A very common task within a data wrangling pipeline is to create a new column that recodes information in another column.  Consider the following data frame that has name, gender, and political party affiliation of six individuals. In this example, we've coded male/female as 1/0 and political party as 1,2,3 for democratic, republican, and independent. 
 
 
 ```r
@@ -305,7 +305,7 @@ p.value
 ```
 
 ```
-## [1] 1.282732e-09
+## [1] 1.348385e-08
 ```
 
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.
@@ -330,7 +330,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "No more unfounded generalizations!"
+## [1] "The first child had more rules to follow"
 ```
 
 
@@ -357,7 +357,6 @@ The computer will first evaluate the test expression. If it is true, it will exe
 
 
 ```r
-x <- 2
 while( x < 100 ){
   print( paste("In loop and x is now:", x) )  # print out current value of x
   x <- 2*x
@@ -365,12 +364,176 @@ while( x < 100 ){
 ```
 
 ```
-## [1] "In loop and x is now: 2"
-## [1] "In loop and x is now: 4"
-## [1] "In loop and x is now: 8"
-## [1] "In loop and x is now: 16"
-## [1] "In loop and x is now: 32"
-## [1] "In loop and x is now: 64"
+## Warning in while (x < 100) {: the condition has length > 1 and only the first
+## element will be used
+```
+
+```
+##  [1] "In loop and x is now: 1.83136543788536"  
+##  [2] "In loop and x is now: 2.27781734241966"  
+##  [3] "In loop and x is now: 1.8421151955278"   
+##  [4] "In loop and x is now: 1.49906473221055"  
+##  [5] "In loop and x is now: 3.71886589733571"  
+##  [6] "In loop and x is now: 2.84491445344905"  
+##  [7] "In loop and x is now: 0.696785177164611" 
+##  [8] "In loop and x is now: 2.08828637131966"  
+##  [9] "In loop and x is now: 2.78979962533377"  
+## [10] "In loop and x is now: 2.11270373240337"  
+## [11] "In loop and x is now: 1.32441533531587"  
+## [12] "In loop and x is now: 3.37081149807329"  
+## [13] "In loop and x is now: 2.56988931585643"  
+## [14] "In loop and x is now: 2.91141039929019"  
+## [15] "In loop and x is now: 3.25315674261792"  
+## [16] "In loop and x is now: -0.226897945202992"
+## [17] "In loop and x is now: 2.08710669638713"  
+## [18] "In loop and x is now: 2.3277263531802"   
+## [19] "In loop and x is now: 4.81056301716037"  
+## [20] "In loop and x is now: 1.88491785732969"
+```
+
+```
+## Warning in while (x < 100) {: the condition has length > 1 and only the first
+## element will be used
+```
+
+```
+##  [1] "In loop and x is now: 3.66273087577073"  
+##  [2] "In loop and x is now: 4.55563468483932"  
+##  [3] "In loop and x is now: 3.6842303910556"   
+##  [4] "In loop and x is now: 2.99812946442109"  
+##  [5] "In loop and x is now: 7.43773179467142"  
+##  [6] "In loop and x is now: 5.68982890689811"  
+##  [7] "In loop and x is now: 1.39357035432922"  
+##  [8] "In loop and x is now: 4.17657274263931"  
+##  [9] "In loop and x is now: 5.57959925066755"  
+## [10] "In loop and x is now: 4.22540746480674"  
+## [11] "In loop and x is now: 2.64883067063173"  
+## [12] "In loop and x is now: 6.74162299614657"  
+## [13] "In loop and x is now: 5.13977863171286"  
+## [14] "In loop and x is now: 5.82282079858037"  
+## [15] "In loop and x is now: 6.50631348523585"  
+## [16] "In loop and x is now: -0.453795890405985"
+## [17] "In loop and x is now: 4.17421339277425"  
+## [18] "In loop and x is now: 4.65545270636041"  
+## [19] "In loop and x is now: 9.62112603432074"  
+## [20] "In loop and x is now: 3.76983571465939"
+```
+
+```
+## Warning in while (x < 100) {: the condition has length > 1 and only the first
+## element will be used
+```
+
+```
+##  [1] "In loop and x is now: 7.32546175154145" 
+##  [2] "In loop and x is now: 9.11126936967864" 
+##  [3] "In loop and x is now: 7.3684607821112"  
+##  [4] "In loop and x is now: 5.99625892884218" 
+##  [5] "In loop and x is now: 14.8754635893428" 
+##  [6] "In loop and x is now: 11.3796578137962" 
+##  [7] "In loop and x is now: 2.78714070865845" 
+##  [8] "In loop and x is now: 8.35314548527863" 
+##  [9] "In loop and x is now: 11.1591985013351" 
+## [10] "In loop and x is now: 8.45081492961349" 
+## [11] "In loop and x is now: 5.29766134126347" 
+## [12] "In loop and x is now: 13.4832459922931" 
+## [13] "In loop and x is now: 10.2795572634257" 
+## [14] "In loop and x is now: 11.6456415971607" 
+## [15] "In loop and x is now: 13.0126269704717" 
+## [16] "In loop and x is now: -0.90759178081197"
+## [17] "In loop and x is now: 8.3484267855485"  
+## [18] "In loop and x is now: 9.31090541272082" 
+## [19] "In loop and x is now: 19.2422520686415" 
+## [20] "In loop and x is now: 7.53967142931877"
+```
+
+```
+## Warning in while (x < 100) {: the condition has length > 1 and only the first
+## element will be used
+```
+
+```
+##  [1] "In loop and x is now: 14.6509235030829" 
+##  [2] "In loop and x is now: 18.2225387393573" 
+##  [3] "In loop and x is now: 14.7369215642224" 
+##  [4] "In loop and x is now: 11.9925178576844" 
+##  [5] "In loop and x is now: 29.7509271786857" 
+##  [6] "In loop and x is now: 22.7593156275924" 
+##  [7] "In loop and x is now: 5.57428141731689" 
+##  [8] "In loop and x is now: 16.7062909705573" 
+##  [9] "In loop and x is now: 22.3183970026702" 
+## [10] "In loop and x is now: 16.901629859227"  
+## [11] "In loop and x is now: 10.5953226825269" 
+## [12] "In loop and x is now: 26.9664919845863" 
+## [13] "In loop and x is now: 20.5591145268515" 
+## [14] "In loop and x is now: 23.2912831943215" 
+## [15] "In loop and x is now: 26.0252539409434" 
+## [16] "In loop and x is now: -1.81518356162394"
+## [17] "In loop and x is now: 16.696853571097"  
+## [18] "In loop and x is now: 18.6218108254416" 
+## [19] "In loop and x is now: 38.484504137283"  
+## [20] "In loop and x is now: 15.0793428586375"
+```
+
+```
+## Warning in while (x < 100) {: the condition has length > 1 and only the first
+## element will be used
+```
+
+```
+##  [1] "In loop and x is now: 29.3018470061658" 
+##  [2] "In loop and x is now: 36.4450774787145" 
+##  [3] "In loop and x is now: 29.4738431284448" 
+##  [4] "In loop and x is now: 23.9850357153687" 
+##  [5] "In loop and x is now: 59.5018543573713" 
+##  [6] "In loop and x is now: 45.5186312551849" 
+##  [7] "In loop and x is now: 11.1485628346338" 
+##  [8] "In loop and x is now: 33.4125819411145" 
+##  [9] "In loop and x is now: 44.6367940053404" 
+## [10] "In loop and x is now: 33.803259718454"  
+## [11] "In loop and x is now: 21.1906453650539" 
+## [12] "In loop and x is now: 53.9329839691726" 
+## [13] "In loop and x is now: 41.1182290537029" 
+## [14] "In loop and x is now: 46.582566388643"  
+## [15] "In loop and x is now: 52.0505078818868" 
+## [16] "In loop and x is now: -3.63036712324788"
+## [17] "In loop and x is now: 33.393707142194"  
+## [18] "In loop and x is now: 37.2436216508833" 
+## [19] "In loop and x is now: 76.9690082745659" 
+## [20] "In loop and x is now: 30.1586857172751"
+```
+
+```
+## Warning in while (x < 100) {: the condition has length > 1 and only the first
+## element will be used
+```
+
+```
+##  [1] "In loop and x is now: 58.6036940123316" 
+##  [2] "In loop and x is now: 72.8901549574291" 
+##  [3] "In loop and x is now: 58.9476862568896" 
+##  [4] "In loop and x is now: 47.9700714307375" 
+##  [5] "In loop and x is now: 119.003708714743" 
+##  [6] "In loop and x is now: 91.0372625103698" 
+##  [7] "In loop and x is now: 22.2971256692676" 
+##  [8] "In loop and x is now: 66.825163882229"  
+##  [9] "In loop and x is now: 89.2735880106808" 
+## [10] "In loop and x is now: 67.6065194369079" 
+## [11] "In loop and x is now: 42.3812907301077" 
+## [12] "In loop and x is now: 107.865967938345" 
+## [13] "In loop and x is now: 82.2364581074058" 
+## [14] "In loop and x is now: 93.165132777286"  
+## [15] "In loop and x is now: 104.101015763774" 
+## [16] "In loop and x is now: -7.26073424649576"
+## [17] "In loop and x is now: 66.787414284388"  
+## [18] "In loop and x is now: 74.4872433017666" 
+## [19] "In loop and x is now: 153.938016549132" 
+## [20] "In loop and x is now: 60.3173714345502"
+```
+
+```
+## Warning in while (x < 100) {: the condition has length > 1 and only the first
+## element will be used
 ```
 
 
@@ -579,7 +742,7 @@ calculated.var
 ## [1] 2.7
 ```
 
-Notice that even though I defined my function using `x` as my vector of data, and passed my function something named `test.vector`, R does the appropriate renaming.If my function doesn't modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable `x` as a placeholder, with it being replaced by whatever gets passed into the function.
+Notice that even though I defined my function using `x` as my vector of data, and passed my function something named `test.vector`, R does the appropriate renaming. If my function doesn't modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable `x` as a placeholder, with it being replaced by whatever gets passed into the function.
 
 When I call a function, the function might cause something to happen (e.g. draw a plot) or it might do some calculates the result is returned by the function and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the `return` statement. (Actually R doesn't completely require this. But the alternative method is less intuitive and I strongly recommend using the `return()` statement for readability.)
 

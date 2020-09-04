@@ -47,7 +47,7 @@ df %>% mutate(C = A>=0,  D = A<=5) %>%
   mutate( result1_and = C & D,          #    C and D both true
           result2_and =  A>=0 & A<=5,   #    directly calculated
           result3_and =  0 <= A & A<=5, #    more readable 0 <= A <= 5
-          result4_or  =  A<=0 | 5<=A)   #    A not in [0,5] range    
+          result4_or  =  A<=0 | 5<=A)   #    A not in (0,5) range    
 ```
 
 
@@ -216,7 +216,6 @@ while( logical.test ){
 The computer will first evaluate the test expression. If it is true, it will execute the code once. It will then evaluate the test expression again to see if it is still true, and if so it will execute the code section a third time. The computer will continue with this process until the test expression finally evaluates as false. 
 
 ```{r}
-x <- 2
 while( x < 100 ){
   print( paste("In loop and x is now:", x) )  # print out current value of x
   x <- 2*x

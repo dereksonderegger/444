@@ -1,4 +1,4 @@
-# Functions
+# Functions {#Function_Chapter_Details}
 
 
 

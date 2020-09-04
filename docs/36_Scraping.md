@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nWhat Do George Clooney, Nazareth And A 16-Foot Mechanical Bear Have In Common?\n"            
-## [2] "\nHow Long It Would Take A Hacker To Guess Your Password, Visualized\n"                        
-## [3] "\nWhy This Joke From 'The Office' Cost NBC $60,000\n"                                          
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                   
-## [5] "\nThese Two Friends Trying — And Failing — To Hold Onto A Jet Ski Sums Up 2020 In A Nutshell\n"
-## [6] "\nHow Teachers Are Rethinking The Way They Talk About Race In America\n"
+## [1] "\nThe Photographer Peeking At Your Phone\n"                                                                                  
+## [2] "\nMichael Imperioli: Inside The Zen Mind Of The 'Sopranos' Actor\n"                                                          
+## [3] "\nNintendo's Newest 'Mario Kart' Game Allows You To Race Inside Your House Using Augmented Reality And Remote Control Cars\n"
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                 
+## [5] "\nHow David Blaine Flew To — And Jumped From — 25,000 Feet With Nothing But 52 Helium Balloons\n"                            
+## [6] "\nWatching Porn Isn't Bad For Your Sex Life, Study Confirms\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.theringer.com/movies/2020/8/31/21406226/grizzly-ii-george-clooney-laura-dern-john-rhys-davies?utm_source=digg"
-## [2] "/2020/password-difficulty-hacking"                                                                                        
-## [3] "/video/why-this-joke-from-the-office-cost-nbc-60000"                                                                      
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                              
-## [5] "/video/these-two-friends-trying-to-hold-onto-a-jetski-and-failing-sums-up-2020-in-a-nutshell"                             
-## [6] "https://slate.com/human-interest/2020/08/changing-curricula-around-race-schools.html?utm_source=digg"
+## [1] "https://www.newyorker.com/culture/photo-booth/the-photographer-peeking-at-your-phone?utm_source=digg"                                                                                                                                                      
+## [2] "https://www.gq.com/story/michael-imperioli-zen-profile?utm_source=digg"                                                                                                                                                                                    
+## [3] "/video/mario-kart-live-home-circuit-with-allow-you-to-race-inside-your-house"                                                                                                                                                                              
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                                                                                                                               
+## [5] "/video/how-david-blaine-flew-to-and-jumped-from-25000-feet-with-nothing-but-52-helium-balloons"                                                                                                                                                            
+## [6] "https://www.dazeddigital.com/science-tech/article/50351/1/watching-porn-is-not-bad-for-your-sex-life-study-confirms?utm_source=Link&utm_medium=Link&utm_campaign=RSSFeed&utm_term=watching-porn-isn-t-bad-for-your-sex-life-study-confirms?utm_source=digg"
 ```
 
 
