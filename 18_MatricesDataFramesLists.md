@@ -12,7 +12,7 @@ library(tidyverse)
 In the introduction section of these notes, we concentrated on `data.frame`s created and manipulated using `dplyr`. There are other data structures that are used in R and it is useful to learn how to manipulate those other data structures. Furthermore, it is also useful to be able to use base R functionality to do certain manipulations on `data.frame`s.
 
 
-## Vectors
+## Vectors {#DataStructures_Vectors}
 R operates on vectors where we think of a vector as a collection of objects, usually numbers. The first thing we need to be able to do is define an arbitrary collection using the `c()` function. The “c” stands for collection.
 
 
@@ -101,7 +101,7 @@ vec3
 ## [1] 1 2 3 4 5 6
 ```
 
-### Accessing Vector Elements
+### Accessing Vector Elements {#DataStructures_VectorElements}
 
 Suppose I have defined a vector
 
@@ -159,7 +159,7 @@ foo[-1]          # everything but the first element
 ```
 
 ```r
-foo[ -1*c(1,2) ] # everything but the first two elements
+foo[ -1 * c(1,2) ] # everything but the first two elements
 ```
 
 ```
@@ -179,7 +179,7 @@ letters
 ```
 Here the `[1]` is telling me that `a` is the first element of the vector and the `[18]` is telling me that `r` is the 18th element of the vector.
 
-### Scalar Functions Applied to Vectors
+### Scalar Functions Applied to Vectors{#DataStructures_ScalarFunctions}
 
 It is very common to want to perform some operation on all the elements of a vector simultaneously. For example, I might want take the absolute value of every element. Functions that are inherently defined on single values will almost always apply the function to each element of the vector if given a vector. 
 
@@ -210,7 +210,7 @@ exp(x)
 ## [11] 1.484132e+02
 ```
 
-### Vector Algebra
+### Vector Algebra {#DataStructures_VectorAlgebra}
 
 All algebra done with vectors will be done element-wise by default.For matrix and vector multiplication as usually defined by mathematicians, use `%*%` instead of `*`.  So two vectors added together result in their individual elements being summed. 
 
@@ -256,6 +256,8 @@ Function       | Result
 `median(x)`    | Median of the elements in vector x
 `var(x)`      | Variance of the elements in vector x
 `sd(x)`        | Standard deviation of the elements in x
+`pmax(x,y)`    | Pairwise maximum of vectors `x` and `y`
+`pmin(x,y)`    | Pairwise minimum of vectors `x` and `y`
 
 Putting this all together, we can easily perform tedious calculations with ease. To demonstrate how scalars, vectors, and functions of them work together, we will calculate the variance of 5 numbers. Recall that variance is defined as 
 $$ Var\left(x\right)=\frac{\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}{n-1} $$
@@ -319,7 +321,7 @@ var(x)                  # Same thing using the built-in variance function
 ## [1] 10
 ```
 
-## Matrices
+## Matrices {#DataStructures_Matrices}
 
 We often want to store numerical data in a square or rectangular format and mathematicians will call these “matrices”. These will have two dimensions, rows and columns. To create a matrix in R we can create it directly using the `matrix()` command which requires the data to fill the matrix with, and optionally, some information about the number of rows and columns:
 
@@ -457,7 +459,7 @@ M1[ ,2]    # grab second column (the spaces are optional...)
 ```
 
 
-## Data Frames
+## Data Frames {#DataStructures_DataFrames}
 
 Matrices are great for mathematical operations, but I also want to be able to store data that is numerical. For example I might want to store a categorical variable such as manufacturer brand. To generalize our concept of a matrix to include these types of data, we will create a structure called a `data.frame`. These are very much like a simple Excel spreadsheet where each column represents a different trait or measurement type and each row will represent an individual.
 
@@ -565,7 +567,7 @@ data$Score4 <- c(1,2)
 ```
 
 
-### `data.frames` vs `tibbles`
+### `data.frames` vs `tibbles` {#DataStructures_DataFrames_v_Tibbles}
 Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does more type checking and less coercion during creation and manipulation. So a `tibble` does less (automatically) and complains more. The rational for this is that while coercion between data types can be helpful, it often disguises errors that take a long time to track down. On the whole, is better to force the user to do the coercion explicitly rather than hope that R magically does the right thing.
 
 Second, the printing methods for `tibbles` prevent it from showing too many rows or columns. This is a very convenient and more user-friendly way to show the data. We can control how many rows or columns are printed using the `options()` command, which sets all of the global options.
@@ -600,7 +602,7 @@ example %>% select( `1984`, `Is Awesome` )
 
 
 
-## Lists
+## Lists {#DataStructures_Lists}
 
 Data frames are quite useful for storing data but sometimes we'll need to store a bunch of different pieces of information and it won't fit neatly as a data frame. The most general form of a data structure is called a list. This can be thought of as a vector of objects where there is no requirement for each element to be the same type of object.
 
@@ -759,7 +761,7 @@ results
 
 
 
-## Exercises
+## Exercises  {#Exercises_DataStructures}
 1. Create a vector of three elements (2,4,6) and name that vector `vec_a`. Create a second vector, `vec_b`, that contains (8,10,12). Add these two vectors together and name the result `vec_c`.
 
 2. Create a vector, named `vec_d`, that contains only two elements (14,20). Add this vector to `vec_a`. What is the result and what do you think R did (look up the recycling rule using Google)? What is the warning message that R gives you?

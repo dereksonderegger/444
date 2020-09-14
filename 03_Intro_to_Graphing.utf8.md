@@ -293,7 +293,7 @@ P +
 
 My recommendation is to just set the `x`, `y`, and `label` attributes manually inside an `annotate()` call if you have one or two annotations to print on the graph. If you have many annotations to print, the create a data frame that contains all of them and use `data=` argument in the geom to use that created annotation data set.
 
-## Exercises
+## Exercises  {#Exercises_IntroGraphing}
 
 1. Examine the dataset `trees`, which should already be pre-loaded. Look at the help file using `?trees` for more information about this data set. We wish to build a scatterplot that compares the height and girth of these cherry trees to the volume of lumber that was produced.  
     a) Create a graph using ggplot2 with Height on the x-axis, Volume on the y-axis, and Girth as the either the size of the data point or the color of the data point. Which do you think is a more intuitive representation?

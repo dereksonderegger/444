@@ -211,7 +211,7 @@ for( file in files){  # for each element of our files vector
 
 In the example above, we might need to modify the `read.csv()` command, but fortunately it isn't too hard to combine a `for` loop with set of statements to read in the dataset. 
 
-## Exercises
+## Exercises  {#Exercises_DataImport}
 
 1. Download from GitHub the data file `Example_5.xls`. Open it in Excel and figure out which sheet of data we should import into R. At the same time figure out how many initial rows need to be skipped. Import the data set into a data frame and show the structure of the imported data using the `str()` command. Make sure that your data has $n=31$ observations and the three columns are appropriately named. 
 

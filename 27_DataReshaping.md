@@ -383,12 +383,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              295.
-## 2 A              288.
-## 3 B              255.
-## 4 B              305.
-## 5 C              227.
-## 6 C              224.
+## 1 A              239.
+## 2 A              255.
+## 3 B              278.
+## 4 B              231.
+## 5 C              240.
+## 6 C              222.
 ```
 
 ```r
@@ -419,12 +419,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              295. <NA>         NA      NA        NA
-## 2 A              288. <NA>         NA      NA        NA
-## 3 B              255. Lake Elaine   6.5    40         8
-## 4 B              305. Lake Elaine   6.5    40         8
-## 5 C              227. Mormon Lake   6.3   210        10
-## 6 C              224. Mormon Lake   6.3   210        10
+## 1 A              239. <NA>         NA      NA        NA
+## 2 A              255. <NA>         NA      NA        NA
+## 3 B              278. Lake Elaine   6.5    40         8
+## 4 B              231. Lake Elaine   6.5    40         8
+## 5 C              240. Mormon Lake   6.3   210        10
+## 6 C              222. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -444,12 +444,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              295. <NA>         NA      NA        NA
-## 2 A              288. <NA>         NA      NA        NA
-## 3 B              255. Lake Elaine   6.5    40         8
-## 4 B              305. Lake Elaine   6.5    40         8
-## 5 C              227. Mormon Lake   6.3   210        10
-## 6 C              224. Mormon Lake   6.3   210        10
+## 1 A              239. <NA>         NA      NA        NA
+## 2 A              255. <NA>         NA      NA        NA
+## 3 B              278. Lake Elaine   6.5    40         8
+## 4 B              231. Lake Elaine   6.5    40         8
+## 5 C              240. Mormon Lake   6.3   210        10
+## 6 C              222. Mormon Lake   6.3   210        10
 ```
 
 
@@ -465,10 +465,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              255. Lake Elaine   6.5    40         8
-## 2 B              305. Lake Elaine   6.5    40         8
-## 3 C              227. Mormon Lake   6.3   210        10
-## 4 C              224. Mormon Lake   6.3   210        10
+## 1 B              278. Lake Elaine   6.5    40         8
+## 2 B              231. Lake Elaine   6.5    40         8
+## 3 C              240. Mormon Lake   6.3   210        10
+## 4 C              222. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
@@ -515,9 +515,7 @@ grade.book %>%
 ```
 
 
-## Exercises
-
-
+## Exercises  {#Exercises_DataReshaping}
     
 1. A common task is to take a set of data that has multiple categorical variables and create a table of the number of cases for each combination. An introductory statistics textbook contains a dataset summarizing student surveys from several sections of an intro class. The two variables of interest for us are `Gender` and `Year` which are the students gender and year in college.
     a) Download the dataset and correctly order the `Year` variable using the following:

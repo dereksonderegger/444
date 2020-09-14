@@ -349,7 +349,7 @@ Once the package is created:
     
     
 
-## Exercises
+## Exercises  {#Exercises_Packages}
 
 1. Build a package that contains a dataset that gives weather information at Flagstaff's Pulliam Airport from 1950 to 2019. I have the data and metadata on my [GitHub](https://github.com/dereksonderegger/444) site and I downloaded the data on 9-19-19 from https://www.ncdc.noaa.gov/cdo-web/search. In the `data-raw` directory, there are files `Pulliam_Airport_Weather_Station.csv` and its associated metadata `Pulliam_Airport_Weather_Station_Metadata.csv`. In the data, there are a bunch of columns that contain attribute information about the preceding column, I don't think those are helpful, or at least the metadata didn't explain how to interpret them. So remove those. Many of the later columns have values that are exclusively ones or zeros.  I believe those indicate if the weather phenomena was present that day. Presumably a `1` is a yes, but I don't know that. When I downloaded the data, I asked for "standard" units, so precipitation and snow amounts should be in inches, and temperature should be in Fahrenheit. For this package, we only care about a couple of variables, `DATE`, `PRCP`, `SNOW`, `TMAX`, and `TMIN`.
     a) Create a new package named `YourNameFlagWeather`. In the package, use `usethis::use_data_raw()` function to create the `data-raw/` directory. Place the data and metadata there.

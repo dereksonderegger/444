@@ -81,7 +81,7 @@ foo[ 3:5 ]   # elements 3 to 5
 Finally, I might be interested in getting the entire vector except for a certain element. To do this, R allows us to use the square bracket notation with a negative index number. 
 ```{r}
 foo[-1]          # everything but the first element
-foo[ -1*c(1,2) ] # everything but the first two elements
+foo[ -1 * c(1,2) ] # everything but the first two elements
 ```
 
 Now is a good time to address what is the `[1]` doing in our output? Because vectors are often very long and might span multiple lines, R is trying to help us by telling us the index number of the left most value. If we have a very long vector, the second line of values will start with the index of the first value on the second line.

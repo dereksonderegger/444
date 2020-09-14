@@ -80,14 +80,6 @@ as.integer(drinks) # Print the category assignments
 ## [1] 2 1 1 4 3
 ```
 
-```r
-as.character(drinks)
-```
-
-```
-## [1] "DietCoke" "Coke"     "Coke"     "Sprite"   "Pepsi"
-```
-
 Notice that the factor has levels "Coke", "DietCoke", "Pepsi", and "Sprite" and that the order of these levels is very important because each observation is saved as an *integer* which denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of potentially very long character string, factors are much more space efficient than storing the same data as strings.
 
 Whenever we do anything that sorts on this factor, the order of the labels in this mapping table determine the sort orders. In order to modify factor labels and levels, we basically need to modify this mapping table.  We don't do this directly, but rather using functions in the `forcats` package.
@@ -259,7 +251,7 @@ Often we find that it is necessary to collapse several categories into one. In t
 ```r
 # This collapses the factor levels but I still have 3 rows of "other"
 Dems %>%
-  mutate( Candidate = fct_collapse(Candidate, other = c('No one', 'Other', 'Undecided')) ) 
+  mutate( Candidate = fct_collapse(Candidate, other = c('No one', 'Other', 'Undecided')) )
 ```
 
 ```
@@ -313,7 +305,7 @@ data
 
 *The key idea is that both the TRUE and the FALSE outputs have to have the same type (which is a factor), and both factors have to have a compatible set of levels.*
 
-## Exercises
+## Exercises  {#Exercises_Factors}
 
 1. In the package `Lock5Data` there is a dataset `FloridaLakes` which contains water sample measurements from 53 lakes in Florida, produce a bar graph shows the `Lake` and `AvgMercury` variables and make sure that the lakes are ordered by Average Mercury content.
 
