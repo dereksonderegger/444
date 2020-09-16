@@ -56,7 +56,7 @@ vec3 <- c(vec1, vec2)
 vec3
 ```
 
-### Accessing Vector Elements {#DataStructures_VectorElements}
+### Accessing Vector Elements {#DataStructures_AccessingVectorElements}
 
 Suppose I have defined a vector
 
@@ -81,7 +81,7 @@ foo[ 3:5 ]   # elements 3 to 5
 Finally, I might be interested in getting the entire vector except for a certain element. To do this, R allows us to use the square bracket notation with a negative index number. 
 ```{r}
 foo[-1]          # everything but the first element
-foo[ -1 * c(1,2) ] # everything but the first two elements
+foo[ -1*c(1,2) ] # everything but the first two elements
 ```
 
 Now is a good time to address what is the `[1]` doing in our output? Because vectors are often very long and might span multiple lines, R is trying to help us by telling us the index number of the left most value. If we have a very long vector, the second line of values will start with the index of the first value on the second line.
@@ -91,7 +91,7 @@ letters
 ```
 Here the `[1]` is telling me that `a` is the first element of the vector and the `[18]` is telling me that `r` is the 18th element of the vector.
 
-### Scalar Functions Applied to Vectors{#DataStructures_ScalarFunctions}
+### Scalar Functions Applied to Vectors {#DataStructures_ScalarFunctions}
 
 It is very common to want to perform some operation on all the elements of a vector simultaneously. For example, I might want take the absolute value of every element. Functions that are inherently defined on single values will almost always apply the function to each element of the vector if given a vector. 
 ```{r}
@@ -117,7 +117,7 @@ x <- 1:4
 x + 1
 ```
 
-### Commonly Used Vector Functions
+### Commonly Used Vector Functions {#DataStructures_CommonVectorFunctions}
 
  
 Function       | Result
@@ -130,8 +130,8 @@ Function       | Result
 `median(x)`    | Median of the elements in vector x
 `var(x)`      | Variance of the elements in vector x
 `sd(x)`        | Standard deviation of the elements in x
-`pmax(x,y)`    | Pairwise maximum of vectors `x` and `y`
-`pmin(x,y)`    | Pairwise minimum of vectors `x` and `y`
+`pmax(x,y)`    | Pairwise maximum of `x` and `y`
+`pmin(x,y)`    | Pairwise minimum of `x` and `y`
 
 Putting this all together, we can easily perform tedious calculations with ease. To demonstrate how scalars, vectors, and functions of them work together, we will calculate the variance of 5 numbers. Recall that variance is defined as 
 $$ Var\left(x\right)=\frac{\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}{n-1} $$
@@ -232,7 +232,7 @@ Because a data frame feels like a matrix, R also allows matrix notation for acce
 `[a,]`    |  All of row `a`
 `[,b]`    |  All of column `b`
 
-Because the columns have meaning and we have given them column names, it is desirable to want to access an element by the name of the column as opposed to the column number.In large Excel spreadsheets I often get annoyed trying to remember which column something was in and muttering “Was total biomass in column P or Q?” A system where I could just name the column `Total.Biomass` and be done with it is much nicer to work with and I make fewer dumb mistakes.
+Because the columns have meaning and we have given them column names, it is desirable to want to access an element by the name of the column as opposed to the column number. In large Excel spreadsheets I often get annoyed trying to remember which column something was in and muttering “Was total biomass in column P or Q?” A system where I could just name the column `Total.Biomass` and be done with it is much nicer to work with and I make fewer dumb mistakes.
 
 ```{r}
 data$Name       # The $-sign means to reference a column by its label
@@ -266,7 +266,7 @@ data$Score4 <- c(1,2)
 ```
 
 
-### `data.frames` vs `tibbles` {#DataStructures_DataFrames_v_Tibbles}
+### `data.frames` vs `tibbles` {#DataStructures_Tibbles}
 Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does more type checking and less coercion during creation and manipulation. So a `tibble` does less (automatically) and complains more. The rational for this is that while coercion between data types can be helpful, it often disguises errors that take a long time to track down. On the whole, is better to force the user to do the coercion explicitly rather than hope that R magically does the right thing.
 
 Second, the printing methods for `tibbles` prevent it from showing too many rows or columns. This is a very convenient and more user-friendly way to show the data. We can control how many rows or columns are printed using the `options()` command, which sets all of the global options.
@@ -291,6 +291,24 @@ example %>% select( `1984`, `Is Awesome` )
 ```
 
 
+### Access via `[ ]` vs `[[ ]]` 
+To grab elements of a data frame, we have been using `[ ]`, which returns the desired rows and columns as a data frame.  If we wanted to force R to return the result as a vector, we could force another layer of de-referencing using the double square bracket notation.
+
+```{r}
+data['Name']   # Returns a data frame with just the Name column.
+data[['Name']] # Returns a vector that is the Name column.
+
+# Non-obviously, the following also returns the Name column
+# as a vector. This introduces WAY too much confusion about how
+# [ ] and [[ ]] actually work and I recommend using 
+# dplyr::select() to return a data frame and 
+# dplyr::pull() to return a vector 
+# because these functions guarantee the return format
+# is what you want.
+data[ , 'Name']
+```
+
+
 
 ## Lists {#DataStructures_Lists}
 
@@ -308,7 +326,14 @@ str(Derek) # show the structure of object
 
 Notice that the object `Derek` is a list of three elements. The first is the single string containing my wife's name. The next is a vector of my siblings' names and it is a vector of length four. Finally the vector of pets' names is only of length three.
 
-To access any element of this list we can use an indexing scheme similar to matrices and vectors. The only difference is that we'll use two square brackets instead of one.
+To access any element of this list we can use an indexing scheme similar to matrices and vectors. 
+
+```{r}
+Derek[  'Pets'  ]   # Return list with just the Pets element
+Derek[[ 'Pets' ]]   # Return element as whatever structure it is
+```
+
+Generally, I want to grab the list element as whatever format it was stored and I don't want to keep the list organization structure and I almost always find myself using the double square bracket notation.
 
 ```{r}
 Derek[[ 1 ]]    # First element of the list is Spouse!
