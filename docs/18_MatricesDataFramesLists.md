@@ -12,7 +12,7 @@ library(tidyverse)
 In the introduction section of these notes, we concentrated on `data.frame`s created and manipulated using `dplyr`. There are other data structures that are used in R and it is useful to learn how to manipulate those other data structures. Furthermore, it is also useful to be able to use base R functionality to do certain manipulations on `data.frame`s.
 
 
-## Vectors
+## Vectors {#DataStructures_Vectors}
 R operates on vectors where we think of a vector as a collection of objects, usually numbers. The first thing we need to be able to do is define an arbitrary collection using the `c()` function. The “c” stands for collection.
 
 
@@ -101,7 +101,7 @@ vec3
 ## [1] 1 2 3 4 5 6
 ```
 
-### Accessing Vector Elements
+### Accessing Vector Elements {#DataStructures_AccessingVectorElements}
 
 Suppose I have defined a vector
 
@@ -179,7 +179,7 @@ letters
 ```
 Here the `[1]` is telling me that `a` is the first element of the vector and the `[18]` is telling me that `r` is the 18th element of the vector.
 
-### Scalar Functions Applied to Vectors
+### Scalar Functions Applied to Vectors {#DataStructures_ScalarFunctions}
 
 It is very common to want to perform some operation on all the elements of a vector simultaneously. For example, I might want take the absolute value of every element. Functions that are inherently defined on single values will almost always apply the function to each element of the vector if given a vector. 
 
@@ -210,7 +210,7 @@ exp(x)
 ## [11] 1.484132e+02
 ```
 
-### Vector Algebra
+### Vector Algebra {#DataStructures_VectorAlgebra}
 
 All algebra done with vectors will be done element-wise by default.For matrix and vector multiplication as usually defined by mathematicians, use `%*%` instead of `*`.  So two vectors added together result in their individual elements being summed. 
 
@@ -243,7 +243,7 @@ x + 1
 ## [1] 2 3 4 5
 ```
 
-### Commonly Used Vector Functions
+### Commonly Used Vector Functions {#DataStructures_CommonVectorFunctions}
 
  
 Function       | Result
@@ -256,6 +256,8 @@ Function       | Result
 `median(x)`    | Median of the elements in vector x
 `var(x)`      | Variance of the elements in vector x
 `sd(x)`        | Standard deviation of the elements in x
+`pmax(x,y)`    | Pairwise maximum of `x` and `y`
+`pmin(x,y)`    | Pairwise minimum of `x` and `y`
 
 Putting this all together, we can easily perform tedious calculations with ease. To demonstrate how scalars, vectors, and functions of them work together, we will calculate the variance of 5 numbers. Recall that variance is defined as 
 $$ Var\left(x\right)=\frac{\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}{n-1} $$
@@ -319,7 +321,7 @@ var(x)                  # Same thing using the built-in variance function
 ## [1] 10
 ```
 
-## Matrices
+## Matrices {#DataStructures_Matrices}
 
 We often want to store numerical data in a square or rectangular format and mathematicians will call these “matrices”. These will have two dimensions, rows and columns. To create a matrix in R we can create it directly using the `matrix()` command which requires the data to fill the matrix with, and optionally, some information about the number of rows and columns:
 
@@ -457,7 +459,7 @@ M1[ ,2]    # grab second column (the spaces are optional...)
 ```
 
 
-## Data Frames
+## Data Frames {#DataStructures_DataFrames}
 
 Matrices are great for mathematical operations, but I also want to be able to store data that is numerical. For example I might want to store a categorical variable such as manufacturer brand. To generalize our concept of a matrix to include these types of data, we will create a structure called a `data.frame`. These are very much like a simple Excel spreadsheet where each column represents a different trait or measurement type and each row will represent an individual.
 
@@ -488,7 +490,7 @@ Because a data frame feels like a matrix, R also allows matrix notation for acce
 `[a,]`    |  All of row `a`
 `[,b]`    |  All of column `b`
 
-Because the columns have meaning and we have given them column names, it is desirable to want to access an element by the name of the column as opposed to the column number.In large Excel spreadsheets I often get annoyed trying to remember which column something was in and muttering “Was total biomass in column P or Q?” A system where I could just name the column `Total.Biomass` and be done with it is much nicer to work with and I make fewer dumb mistakes.
+Because the columns have meaning and we have given them column names, it is desirable to want to access an element by the name of the column as opposed to the column number. In large Excel spreadsheets I often get annoyed trying to remember which column something was in and muttering “Was total biomass in column P or Q?” A system where I could just name the column `Total.Biomass` and be done with it is much nicer to work with and I make fewer dumb mistakes.
 
 
 ```r
@@ -562,7 +564,7 @@ data$Score4 <- c(1,2)
 ```
 
 
-### `data.frames` vs `tibbles`
+### `data.frames` vs `tibbles` {#DataStructures_Tibbles}
 Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does more type checking and less coercion during creation and manipulation. So a `tibble` does less (automatically) and complains more. The rational for this is that while coercion between data types can be helpful, it often disguises errors that take a long time to track down. On the whole, is better to force the user to do the coercion explicitly rather than hope that R magically does the right thing.
 
 Second, the printing methods for `tibbles` prevent it from showing too many rows or columns. This is a very convenient and more user-friendly way to show the data. We can control how many rows or columns are printed using the `options()` command, which sets all of the global options.
@@ -596,8 +598,47 @@ example %>% select( `1984`, `Is Awesome` )
 ```
 
 
+### Access via `[ ]` vs `[[ ]]` 
+To grab elements of a data frame, we have been using `[ ]`, which returns the desired rows and columns as a data frame.  If we wanted to force R to return the result as a vector, we could force another layer of de-referencing using the double square bracket notation.
 
-## Lists
+
+```r
+data['Name']   # Returns a data frame with just the Name column.
+```
+
+```
+##   Name
+## 1  Bob
+## 2 Jeff
+## 3 Mary
+```
+
+```r
+data[['Name']] # Returns a vector that is the Name column.
+```
+
+```
+## [1] "Bob"  "Jeff" "Mary"
+```
+
+```r
+# Non-obviously, the following also returns the Name column
+# as a vector. This introduces WAY too much confusion about how
+# [ ] and [[ ]] actually work and I recommend using 
+# dplyr::select() to return a data frame and 
+# dplyr::pull() to return a vector 
+# because these functions guarantee the return format
+# is what you want.
+data[ , 'Name']
+```
+
+```
+## [1] "Bob"  "Jeff" "Mary"
+```
+
+
+
+## Lists {#DataStructures_Lists}
 
 Data frames are quite useful for storing data but sometimes we'll need to store a bunch of different pieces of information and it won't fit neatly as a data frame. The most general form of a data structure is called a list. This can be thought of as a vector of objects where there is no requirement for each element to be the same type of object.
 
@@ -621,7 +662,27 @@ str(Derek) # show the structure of object
 
 Notice that the object `Derek` is a list of three elements. The first is the single string containing my wife's name. The next is a vector of my siblings' names and it is a vector of length four. Finally the vector of pets' names is only of length three.
 
-To access any element of this list we can use an indexing scheme similar to matrices and vectors. The only difference is that we'll use two square brackets instead of one.
+To access any element of this list we can use an indexing scheme similar to matrices and vectors. 
+
+
+```r
+Derek[  'Pets'  ]   # Return list with just the Pets element
+```
+
+```
+## $Pets
+## [1] "Beau"   "Tess"   "Kaylee"
+```
+
+```r
+Derek[[ 'Pets' ]]   # Return element as whatever structure it is
+```
+
+```
+## [1] "Beau"   "Tess"   "Kaylee"
+```
+
+Generally, I want to grab the list element as whatever format it was stored and I don't want to keep the list organization structure and I almost always find myself using the double square bracket notation.
 
 
 ```r
@@ -839,7 +900,7 @@ results
       facet_wrap(~df)
     ```
     
-    <img src="18_MatricesDataFramesLists_files/figure-html/unnamed-chunk-41-1.png" width="672" />
+    <img src="18_MatricesDataFramesLists_files/figure-html/unnamed-chunk-43-1.png" width="672" />
     
 
 14. Create and manipulate a list.

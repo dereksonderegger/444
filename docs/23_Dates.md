@@ -23,7 +23,7 @@ lubridate::today()   # Today's date
 ```
 
 ```
-## [1] "2020-09-04"
+## [1] "2020-09-16"
 ```
 
 ```r
@@ -31,7 +31,7 @@ base::Sys.Date()     # Today's date
 ```
 
 ```
-## [1] "2020-09-04"
+## [1] "2020-09-16"
 ```
 
 ```r
@@ -39,7 +39,7 @@ base::Sys.time()     # Current Time and Date
 ```
 
 ```
-## [1] "2020-09-04 13:59:09 MST"
+## [1] "2020-09-16 13:09:00 MST"
 ```
 
 
@@ -309,14 +309,14 @@ data %>%
 
 ```
 ## # A tibble: 6 x 5
-##   Name    dob        Life                           Age                  Age2
-##   <chr>   <date>     <Interval>                     <Period>            <int>
-## 1 Steve   1955-02-24 1955-02-24 UTC--2020-09-04 UTC 65y 6m 11d 0H 0M 0S    65
-## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-09-04 UTC 47y 0m 14d 0H 0M 0S    47
-## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-09-04 UTC 56y 0m 20d 0H 0M 0S    56
-## 4 Bill    1955-10-28 1955-10-28 UTC--2020-09-04 UTC 64y 10m 7d 0H 0M 0S    64
-## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-09-04 UTC 5y 9m 29d 0H 0M 0S      5
-## 6 Siri    2011-10-12 2011-10-12 UTC--2020-09-04 UTC 8y 10m 23d 0H 0M 0S     8
+##   Name    dob        Life                           Age                   Age2
+##   <chr>   <date>     <Interval>                     <Period>             <int>
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-09-16 UTC 65y 6m 23d 0H 0M 0S     65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-09-16 UTC 47y 0m 26d 0H 0M 0S     47
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-09-16 UTC 56y 1m 1d 0H 0M 0S      56
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-09-16 UTC 64y 10m 19d 0H 0M 0S    64
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-09-16 UTC 5y 10m 10d 0H 0M 0S      5
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-09-16 UTC 8y 11m 4d 0H 0M 0S       8
 ```
 
 

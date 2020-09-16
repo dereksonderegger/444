@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Photographer Peeking At Your Phone\n"                                                                                  
-## [2] "\nMichael Imperioli: Inside The Zen Mind Of The 'Sopranos' Actor\n"                                                          
-## [3] "\nNintendo's Newest 'Mario Kart' Game Allows You To Race Inside Your House Using Augmented Reality And Remote Control Cars\n"
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                 
-## [5] "\nHow David Blaine Flew To — And Jumped From — 25,000 Feet With Nothing But 52 Helium Balloons\n"                            
-## [6] "\nWatching Porn Isn't Bad For Your Sex Life, Study Confirms\n"
+## [1] "\nThe Movements That Betray Who You Are\n"                                                            
+## [2] "\nGravediggers Speak Out About Horrifying Conditions: 'I Could Show You Stuff You Wouldn't Believe'\n"
+## [3] "\nThis Dubbing Of Kylie Jenner Giving An Office Tour With A Yorkshire Accent Is Frigging Genius\n"    
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                          
+## [5] "\nThis Is Why It's Super Hard To Climb An Iceberg\n"                                                  
+## [6] "\nChris Evans Embarrassed About Leaking Nude Photo: 'You Know, Things Happen'\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.newyorker.com/culture/photo-booth/the-photographer-peeking-at-your-phone?utm_source=digg"                                                                                                                                                      
-## [2] "https://www.gq.com/story/michael-imperioli-zen-profile?utm_source=digg"                                                                                                                                                                                    
-## [3] "/video/mario-kart-live-home-circuit-with-allow-you-to-race-inside-your-house"                                                                                                                                                                              
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                                                                                                                               
-## [5] "/video/how-david-blaine-flew-to-and-jumped-from-25000-feet-with-nothing-but-52-helium-balloons"                                                                                                                                                            
-## [6] "https://www.dazeddigital.com/science-tech/article/50351/1/watching-porn-is-not-bad-for-your-sex-life-study-confirms?utm_source=Link&utm_medium=Link&utm_campaign=RSSFeed&utm_term=watching-porn-isn-t-bad-for-your-sex-life-study-confirms?utm_source=digg"
+## [1] "https://www.bbc.com/future/article/20200911-the-hidden-accents-that-betray-who-you-are?utm_source=digg"                                                   
+## [2] "https://www.vice.com/en_us/article/z3e9da/gravediggers-horrifying-conditions-coronavirus-burial-surge-new-jersey-stonemor-jewish-cemetery?utm_source=digg"
+## [3] "/2020/kylie-jenner-yorkshire"                                                                                                                             
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                              
+## [5] "/2020/iceberg-climbing-slip"                                                                                                                              
+## [6] "https://www.latimes.com/entertainment-arts/movies/story/2020-09-15/chris-evans-nude-photo-leak?utm_source=digg"
 ```
 
 
