@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Movements That Betray Who You Are\n"                                                            
-## [2] "\nGravediggers Speak Out About Horrifying Conditions: 'I Could Show You Stuff You Wouldn't Believe'\n"
-## [3] "\nThis Dubbing Of Kylie Jenner Giving An Office Tour With A Yorkshire Accent Is Frigging Genius\n"    
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                          
-## [5] "\nThis Is Why It's Super Hard To Climb An Iceberg\n"                                                  
-## [6] "\nChris Evans Embarrassed About Leaking Nude Photo: 'You Know, Things Happen'\n"
+## [1] "\nThree Identical Men And A Mystery (2018)\n"                                                                    
+## [2] "\nReviews For The New Netflix Show 'Ratched' Are Bad. Here Are The Funniest, Harshest Things Critics Have Said\n"
+## [3] "\nRobert Pattinson's Southern Accent In 'The Devil All The Time' Is, Um, Something Else\n"                       
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                     
+## [5] "\nHow This One Note Ended Up Dominating The Entire Pop Music Landscape\n"                                        
+## [6] "\nHere's What The New Orange Dot At The Top Of Your iPhone Screen Means\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.bbc.com/future/article/20200911-the-hidden-accents-that-betray-who-you-are?utm_source=digg"                                                   
-## [2] "https://www.vice.com/en_us/article/z3e9da/gravediggers-horrifying-conditions-coronavirus-burial-surge-new-jersey-stonemor-jewish-cemetery?utm_source=digg"
-## [3] "/2020/kylie-jenner-yorkshire"                                                                                                                             
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                              
-## [5] "/2020/iceberg-climbing-slip"                                                                                                                              
-## [6] "https://www.latimes.com/entertainment-arts/movies/story/2020-09-15/chris-evans-nude-photo-leak?utm_source=digg"
+## [1] "https://newrepublic.com/article/149581/three-identical-men-mystery?utm_source=digg"                       
+## [2] "/2020/ratched-reviews-ryan-murphy-roundup"                                                                
+## [3] "/2020/robert-pattersons-southern-accent-in-the-devil-all-the-time"                                        
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                              
+## [5] "/video/how-this-one-note-ended-up-dominating-the-entire-pop-music-landscape"                              
+## [6] "https://www.everythinglubbock.com/news/latest/what-does-the-orange-dot-on-my-iphone-mean/?utm_source=digg"
 ```
 
 

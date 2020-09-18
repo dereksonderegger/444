@@ -39,7 +39,8 @@ We will be interested in the following broad classes of manipulations:
 | Goal                             |  `forcats` function                                    |
 |:---------------------------------|:-------------------------------------------------------|
 | Manually select categories to collapse into one |  `fct_collapse(f, other = c('a','b')) ` |
-| Add a new factor level           | `fct_expand(f, 'new level')`                           |
+| Add a new factor level                          | `fct_expand(f, 'new level')`            |
+| Remove level(s) that don't occur in the data    | `fct_drop(f)`                           |
 
 
 
