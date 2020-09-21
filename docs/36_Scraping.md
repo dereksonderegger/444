@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThree Identical Men And A Mystery (2018)\n"                                                                    
-## [2] "\nReviews For The New Netflix Show 'Ratched' Are Bad. Here Are The Funniest, Harshest Things Critics Have Said\n"
-## [3] "\nRobert Pattinson's Southern Accent In 'The Devil All The Time' Is, Um, Something Else\n"                       
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                     
-## [5] "\nHow This One Note Ended Up Dominating The Entire Pop Music Landscape\n"                                        
-## [6] "\nHere's What The New Orange Dot At The Top Of Your iPhone Screen Means\n"
+## [1] "\nSecret Docs Show How Criminals Use Banks To Finance Terror And Death. The Government Doesn't Stop It\n"
+## [2] "\nRanking Every Martin Scorsese Film From Worst To Best\n"                                               
+## [3] "\nPlease Enjoy The World's Largest Devil's Toothpaste Explosion\n"                                       
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                             
+## [5] "\nBear Wakes Up Man Napping By The Pool In The Most Polite Way Possible\n"                               
+## [6] "\nIn Guatemala, The Maya World Untouched For Centuries\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://newrepublic.com/article/149581/three-identical-men-mystery?utm_source=digg"                       
-## [2] "/2020/ratched-reviews-ryan-murphy-roundup"                                                                
-## [3] "/2020/robert-pattersons-southern-accent-in-the-devil-all-the-time"                                        
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                              
-## [5] "/video/how-this-one-note-ended-up-dominating-the-entire-pop-music-landscape"                              
-## [6] "https://www.everythinglubbock.com/news/latest/what-does-the-orange-dot-on-my-iphone-mean/?utm_source=digg"
+## [1] "https://www.buzzfeednews.com/article/jasonleopold/fincen-files-financial-scandal-criminal-networks?utm_source=digg"                               
+## [2] "https://consequenceofsound.net/2020/09/ranking-martin-scorsese/?utm_source=digg"                                                                  
+## [3] "/video/please-enjoy-the-worlds-largest-devil-toothpaste-explosion"                                                                                
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                      
+## [5] "/2020/bear-wakes-up-man-napping-by-the-pool-in-the-most-polite-way-possible"                                                                      
+## [6] "http://www.bbc.com/travel/story/20200914-in-guatemala-the-maya-world-untouched-for-centuries?referer=https%3A%2F%2Fwww.bbc.com%2F?utm_source=digg"
 ```
 
 
