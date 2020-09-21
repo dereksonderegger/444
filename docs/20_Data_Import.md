@@ -123,9 +123,15 @@ Because R can only import a complete worksheet, the desired data worksheet must 
 
 The simplest package for importing Excel files seems to be the package `readxl`. Another package that does this is the XLConnect which does the Excel -> .csv conversion using Java. Another package the works well is the `xlsx` package, but it also requires Java to be installed. The nice thing about these two packages is that they also allow you to write Excel files as well. The RODBC package allows R to connect to various databases and it is possible to make it consider an Excel file as an extremely crude database. 
 
-The `readxl` package provides a function `read_exel()` that allows us to specify which sheet within the Excel file to read and what character specifies missing data (it assumes a blank cell is missing data if you don't specifying anything). One annoying change between `read.table()` and `read_excel()` is that the argument for specifying where the file is is different (`path=` instead of `file=`). Another difference between the two is that `read_excel()` does not yet have the capability of handling a path that is a web address. 
+The `readxl` package provides a function `read_exel()` that allows us to specify which sheet within the Excel file to read and what character specifies missing data (it assumes a blank cell is missing data if you don't specifying anything). For the most part, the arguments are the same as `read.csv` but below are the most important changes and additions.
 
-From GitHub, download the files `Example_1.xls`, `Example_2.xls`, `Example_3.xls` and `Example_4.xls` from the directory [https://github.com/dereksonderegger/444/tree/master/data-raw]. Place these files in the same directory that you store your course work or make a subdirectory data to store the files in. Make sure that the working directory that RStudio is using is that same directory (Session -> Set Working Directory). 
+|  Argument     |     Meaning                 |
+|:-------------:|:----------------------------|
+| `path`        | The file argument is called `path` instead. |
+| `sheet`       | Which sheet to read. Either the sheet name or sheet number.|
+| `range`       | The cell range to read from. E.g. "A5:G98"  |
+
+From GitHub, download the files `Example_1.xls`, through `Example_5.xls`, from the directory [https://github.com/dereksonderegger/444/tree/master/data-raw]. Place these files in the same directory that you store your course work or make a subdirectory data to store the files in. Make sure that the working directory that RStudio is using is that same directory (Session -> Set Working Directory). 
 
 
 ```r
@@ -145,7 +151,7 @@ library(readxl)
 #    but for Windows users it might be 'Z:/570L/Lab7/Example_1.xls'. This looks
 #    odd because Windows usually uses a backslash to represent the directory
 #    structure, but a backslash has special meaning in R and so it wants 
-#    to separate directories via forwardslashes.
+#    to separate directories via forward slashes.
 
 # read the first worksheet of the Example_1 file
 data.1 <- read_excel( 'data-raw/Example_1.xls'  )   # relative to this Rmarkdown file
@@ -157,7 +163,7 @@ data.2 <- read_excel('data-raw/Example_2.xls', sheet='data')
 ```
 
 
-There is one additional problem that shows up while reading in Excel files. Blank columns often show up in Excel files because at some point there was some text in a cell that got deleted but a space remains and Excel still thinks there is data in the column. To fix this, you could find the cell with the space in it, or you can select a bunch of columns at the edge and delete the entire columns. Alternatively, you could remove the column after it is read into R using tools we'll learn when we get to the *Manipulating Data* chapter.
+There is one additional problem that shows up while reading in Excel files. Blank columns often show up in Excel files because at some point there was some text in a cell that got deleted but a space remains and Excel still thinks there is data in the column. To fix this, you could find the cell with the space in it, or you can select a bunch of columns at the edge and delete the entire columns. Alternatively, you could remove the column after it is read into R using typical data frame manipulation tools.
 
 Open up the file `Example_4.xls` in Excel and confirm that the data sheet has name columns out to carb. Read in the data frame using the following code:
 

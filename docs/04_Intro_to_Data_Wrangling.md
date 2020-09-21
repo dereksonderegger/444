@@ -65,12 +65,10 @@ The foundational operations to perform on a data set are:
     - `bind_rows` - Add additional rows of data, specified by a single data frame.
 
 * Subsetting - Returns a data set with particular columns or rows
-
     – `select` - Selecting a subset of columns by name or column number.
-
     – `filter` - Selecting a subset of rows from a data frame based on logical expressions.
-
     – `slice` - Selecting a subset of rows by row number.
+    - `drop_na` - Remove rows that contain missing values
 
 * `arrange` - Re-ordering the rows of a data frame.
 

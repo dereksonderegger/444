@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-09-20" />
+<meta name="date" content="2020-09-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -633,8 +633,30 @@ quotes.</td>
 <p>I generally prefer using option 2 because all of my collaborators can’t live without Excel and I’ve resigned myself to this. However if you have complicated formulas in your Excel file, it is often times safer to export it as a .csv file to guarantee the data imported into R is correct. Furthermore, other spreadsheet applications (such as Google sheets) requires you to export the data as a .csv file so it is good to know both paths.</p>
 <p>Because R can only import a complete worksheet, the desired data worksheet must be free of notes to yourself about how the data was collected, preliminary graphics, or other stuff that isn’t the data. I find it very helpful to have a worksheet in which I describe the sampling procedure and describe what each column means (and give the units!), then a second worksheet where the actual data is, and finally a third worksheet where my “Excel Only” collaborators have created whatever plots and summary statistics they need.</p>
 <p>The simplest package for importing Excel files seems to be the package <code>readxl</code>. Another package that does this is the XLConnect which does the Excel -&gt; .csv conversion using Java. Another package the works well is the <code>xlsx</code> package, but it also requires Java to be installed. The nice thing about these two packages is that they also allow you to write Excel files as well. The RODBC package allows R to connect to various databases and it is possible to make it consider an Excel file as an extremely crude database.</p>
-<p>The <code>readxl</code> package provides a function <code>read_exel()</code> that allows us to specify which sheet within the Excel file to read and what character specifies missing data (it assumes a blank cell is missing data if you don’t specifying anything). One annoying change between <code>read.table()</code> and <code>read_excel()</code> is that the argument for specifying where the file is is different (<code>path=</code> instead of <code>file=</code>). Another difference between the two is that <code>read_excel()</code> does not yet have the capability of handling a path that is a web address.</p>
-<p>From GitHub, download the files <code>Example_1.xls</code>, <code>Example_2.xls</code>, <code>Example_3.xls</code> and <code>Example_4.xls</code> from the directory [<a href="https://github.com/dereksonderegger/444/tree/master/data-raw" class="uri">https://github.com/dereksonderegger/444/tree/master/data-raw</a>]. Place these files in the same directory that you store your course work or make a subdirectory data to store the files in. Make sure that the working directory that RStudio is using is that same directory (Session -&gt; Set Working Directory).</p>
+<p>The <code>readxl</code> package provides a function <code>read_exel()</code> that allows us to specify which sheet within the Excel file to read and what character specifies missing data (it assumes a blank cell is missing data if you don’t specifying anything). For the most part, the arguments are the same as <code>read.csv</code> but below are the most important changes and additions.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Argument</th>
+<th align="left">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>path</code></td>
+<td align="left">The file argument is called <code>path</code> instead.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>sheet</code></td>
+<td align="left">Which sheet to read. Either the sheet name or sheet number.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>range</code></td>
+<td align="left">The cell range to read from. E.g. “A5:G98”</td>
+</tr>
+</tbody>
+</table>
+<p>From GitHub, download the files <code>Example_1.xls</code>, through <code>Example_5.xls</code>, from the directory [<a href="https://github.com/dereksonderegger/444/tree/master/data-raw" class="uri">https://github.com/dereksonderegger/444/tree/master/data-raw</a>]. Place these files in the same directory that you store your course work or make a subdirectory data to store the files in. Make sure that the working directory that RStudio is using is that same directory (Session -&gt; Set Working Directory).</p>
 <div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="importing-data.html#cb505-1" aria-hidden="true"></a><span class="co"># load the library that has the read.xls function. </span></span>
 <span id="cb505-2"><a href="importing-data.html#cb505-2" aria-hidden="true"></a><span class="kw">library</span>(readxl)</span>
 <span id="cb505-3"><a href="importing-data.html#cb505-3" aria-hidden="true"></a></span>
@@ -651,7 +673,7 @@ quotes.</td>
 <span id="cb505-14"><a href="importing-data.html#cb505-14" aria-hidden="true"></a><span class="co">#    but for Windows users it might be &#39;Z:/570L/Lab7/Example_1.xls&#39;. This looks</span></span>
 <span id="cb505-15"><a href="importing-data.html#cb505-15" aria-hidden="true"></a><span class="co">#    odd because Windows usually uses a backslash to represent the directory</span></span>
 <span id="cb505-16"><a href="importing-data.html#cb505-16" aria-hidden="true"></a><span class="co">#    structure, but a backslash has special meaning in R and so it wants </span></span>
-<span id="cb505-17"><a href="importing-data.html#cb505-17" aria-hidden="true"></a><span class="co">#    to separate directories via forwardslashes.</span></span>
+<span id="cb505-17"><a href="importing-data.html#cb505-17" aria-hidden="true"></a><span class="co">#    to separate directories via forward slashes.</span></span>
 <span id="cb505-18"><a href="importing-data.html#cb505-18" aria-hidden="true"></a></span>
 <span id="cb505-19"><a href="importing-data.html#cb505-19" aria-hidden="true"></a><span class="co"># read the first worksheet of the Example_1 file</span></span>
 <span id="cb505-20"><a href="importing-data.html#cb505-20" aria-hidden="true"></a>data<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>( <span class="st">&#39;data-raw/Example_1.xls&#39;</span>  )   <span class="co"># relative to this Rmarkdown file</span></span>
@@ -660,7 +682,7 @@ quotes.</td>
 <span id="cb505-23"><a href="importing-data.html#cb505-23" aria-hidden="true"></a><span class="co"># read the second worksheet where the second worksheet is named &#39;data&#39;</span></span>
 <span id="cb505-24"><a href="importing-data.html#cb505-24" aria-hidden="true"></a>data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="dv">2</span>     )   </span>
 <span id="cb505-25"><a href="importing-data.html#cb505-25" aria-hidden="true"></a>data<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;data-raw/Example_2.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   </span></code></pre></div>
-<p>There is one additional problem that shows up while reading in Excel files. Blank columns often show up in Excel files because at some point there was some text in a cell that got deleted but a space remains and Excel still thinks there is data in the column. To fix this, you could find the cell with the space in it, or you can select a bunch of columns at the edge and delete the entire columns. Alternatively, you could remove the column after it is read into R using tools we’ll learn when we get to the <em>Manipulating Data</em> chapter.</p>
+<p>There is one additional problem that shows up while reading in Excel files. Blank columns often show up in Excel files because at some point there was some text in a cell that got deleted but a space remains and Excel still thinks there is data in the column. To fix this, you could find the cell with the space in it, or you can select a bunch of columns at the edge and delete the entire columns. Alternatively, you could remove the column after it is read into R using typical data frame manipulation tools.</p>
 <p>Open up the file <code>Example_4.xls</code> in Excel and confirm that the data sheet has name columns out to carb. Read in the data frame using the following code:</p>
 <div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="importing-data.html#cb506-1" aria-hidden="true"></a>data<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&#39;./data-raw/Example_4.xls&#39;</span>, <span class="dt">sheet=</span><span class="st">&#39;data&#39;</span>)   <span class="co"># Extra Column Example</span></span></code></pre></div>
 <pre><code>## New names:

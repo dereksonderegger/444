@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nSecret Docs Show How Criminals Use Banks To Finance Terror And Death. The Government Doesn't Stop It\n"
-## [2] "\nRanking Every Martin Scorsese Film From Worst To Best\n"                                               
-## [3] "\nPlease Enjoy The World's Largest Devil's Toothpaste Explosion\n"                                       
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                             
-## [5] "\nBear Wakes Up Man Napping By The Pool In The Most Polite Way Possible\n"                               
-## [6] "\nIn Guatemala, The Maya World Untouched For Centuries\n"
+## [1] "\nHow Work Became An Inescapable Hellhole\n"                                                                                                
+## [2] "\nHow Can I Get My Husband To Stop Speaking His Native Language To His Friends And Family On The Phone, And Other Advice Column Questions\n"
+## [3] "\nGirl Has Her Phone Stuck Inside A Timed Smart Phone Jail And Accidentally Sets It For Two Days\n"                                         
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                                
+## [5] "\nEllen DeGeneres Addresses Allegations Of Misconduct On Her Show Head-On In Season 18 Premiere\n"                                          
+## [6] "\nWhat Would Happen If Mark Zuckerberg Deleted All Of Facebook?\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.buzzfeednews.com/article/jasonleopold/fincen-files-financial-scandal-criminal-networks?utm_source=digg"                               
-## [2] "https://consequenceofsound.net/2020/09/ranking-martin-scorsese/?utm_source=digg"                                                                  
-## [3] "/video/please-enjoy-the-worlds-largest-devil-toothpaste-explosion"                                                                                
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                      
-## [5] "/2020/bear-wakes-up-man-napping-by-the-pool-in-the-most-polite-way-possible"                                                                      
-## [6] "http://www.bbc.com/travel/story/20200914-in-guatemala-the-maya-world-untouched-for-centuries?referer=https%3A%2F%2Fwww.bbc.com%2F?utm_source=digg"
+## [1] "https://www.wired.com/story/how-work-became-an-inescapable-hellhole/?utm_source=digg"                  
+## [2] "/2020/best-advice-columns-get-husband-stop-saying-native-language"                                     
+## [3] "/video/girl-locks-her-phone-inside-locked-phone-jail"                                                  
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                           
+## [5] "/video/ellen-degeneres-addresses-misconduct-show-allegations"                                          
+## [6] "https://gizmodo.com/what-would-happen-if-mark-zuckerberg-shut-down-facebook-1845047563?utm_source=digg"
 ```
 
 

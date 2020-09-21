@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-09-20" />
+<meta name="date" content="2020-09-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -509,11 +509,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">12.1</span> Creating Date and Time objects</h2>
 <p>R gives a mechanism for getting the current date and time.</p>
 <div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="dates-and-times.html#cb651-1" aria-hidden="true"></a>lubridate<span class="op">::</span><span class="kw">today</span>()   <span class="co"># Today&#39;s date</span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-09-20&quot;</code></pre>
+<pre><code>## [1] &quot;2020-09-21&quot;</code></pre>
 <div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="dates-and-times.html#cb653-1" aria-hidden="true"></a>base<span class="op">::</span><span class="kw">Sys.Date</span>()     <span class="co"># Today&#39;s date</span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-09-20&quot;</code></pre>
+<pre><code>## [1] &quot;2020-09-21&quot;</code></pre>
 <div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="dates-and-times.html#cb655-1" aria-hidden="true"></a>base<span class="op">::</span><span class="kw">Sys.time</span>()     <span class="co"># Current Time and Date </span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-09-20 22:55:33 MST&quot;</code></pre>
+<pre><code>## [1] &quot;2020-09-21 08:46:22 MST&quot;</code></pre>
 <p>To create a <code>Date</code> object, we need to take a string or number that represents a date and tell the computer how to figure out which bits are the year, which are the month, and which are the day. The lubridate package uses the following functions:</p>
 <table style="width:90%;">
 <colgroup>
@@ -739,12 +739,12 @@ is a good reference.</p>
 <pre><code>## # A tibble: 6 x 5
 ##   Name    dob        Life                           Age                   Age2
 ##   &lt;chr&gt;   &lt;date&gt;     &lt;Interval&gt;                     &lt;Period&gt;             &lt;int&gt;
-## 1 Steve   1955-02-24 1955-02-24 UTC--2020-09-20 UTC 65y 6m 27d 0H 0M 0S     65
-## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-09-20 UTC 47y 0m 30d 0H 0M 0S     47
-## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-09-20 UTC 56y 1m 5d 0H 0M 0S      56
-## 4 Bill    1955-10-28 1955-10-28 UTC--2020-09-20 UTC 64y 10m 23d 0H 0M 0S    64
-## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-09-20 UTC 5y 10m 14d 0H 0M 0S      5
-## 6 Siri    2011-10-12 2011-10-12 UTC--2020-09-20 UTC 8y 11m 8d 0H 0M 0S       8</code></pre>
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-09-21 UTC 65y 6m 28d 0H 0M 0S     65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-09-21 UTC 47y 1m 0d 0H 0M 0S      47
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-09-21 UTC 56y 1m 6d 0H 0M 0S      56
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-09-21 UTC 64y 10m 24d 0H 0M 0S    64
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-09-21 UTC 5y 10m 15d 0H 0M 0S      5
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-09-21 UTC 8y 11m 9d 0H 0M 0S       8</code></pre>
 </div>
 <div id="Exercises_Dates" class="section level2" number="12.4">
 <h2><span class="header-section-number">12.4</span> Exercises</h2>
