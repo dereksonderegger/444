@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nYou Might Be Surprised Who's Moving Into Those Sad, Abandoned Malls\n"                                    
-## [2] "\nThe Richest Cities In The United States, Visualized\n"                                                    
-## [3] "\nDr. Fauci Fact-Checks Sen. Rand Paul About Herd Immunity At Senate Hearing: 'I Challenge That, Senator'\n"
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                
-## [5] "\nWatch Brazilian Surfer Maya Gabeira Take On The Biggest Wave Anyone Has Surfed This Year\n"               
-## [6] "\nThe Extremely Profitable (And Ethically Murky) Business Of Reselling Dumbbells\n"
+## [1] "\nYou Might Be Surprised Who's Moving Into Those Sad, Abandoned Malls\n"       
+## [2] "\nYour Guide To The Surprising Number Of Movies Out This Fall\n"               
+## [3] "\nWhen Your Dramatic Entry From The Sea Gets Completely, Utterly Upstaged\n"   
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                   
+## [5] "\nSomeone Upscaled Old Footage Of An Atomic Cannon Going Off To 4K 48FPS\n"    
+## [6] "\nThe Population Density Of What's Now The United States In 1492, Visualized\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.cnn.com/2020/09/18/business/malls-repurpose-empty-stores/index.html?utm_source=digg"              
-## [2] "/2020/richest-cities-united-states"                                                                           
-## [3] "/video/dr-fauci-fact-checks-sen-rand-paul-about-herd-immunity-at-senate-hearing-you-misconstrued-that-senator"
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                  
-## [5] "/2020/maya-gabeira-surf-biggest-wave-2020"                                                                    
-## [6] "https://www.vox.com/the-goods/21443765/buying-dumbbells-online-expensive-resellers?utm_source=digg"
+## [1] "https://www.cnn.com/2020/09/18/business/malls-repurpose-empty-stores/index.html?utm_source=digg"          
+## [2] "https://io9.gizmodo.com/your-guide-to-the-surprising-amount-of-movies-out-this-1845054115?utm_source=digg"
+## [3] "/2020/when-your-dramatic-entry-from-the-sea-gets-completely-utterly-upstaged"                             
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                              
+## [5] "/video/atomic-cannon-upscaling"                                                                           
+## [6] "/2020/population-density-usa-1492"
 ```
 
 
