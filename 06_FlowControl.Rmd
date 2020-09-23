@@ -487,10 +487,10 @@ Nearly every function we use to do data analysis is written in a similar fashion
     library(ggplot2)
     df <- 4
     N <- 1000
-    x <- seq(-4, 4, length=N)
+    x.grid <- seq(-4, 4, length=N)
     data <- data.frame( 
-      x = c(x,x),
-      y = c(dnorm(x), dt(x, df)),
+      x = c(x.grid, x.grid),
+      y = c(dnorm(x.grid), dt(x.grid, df)),
       type = c( rep('Normal',N), rep('T',N) ) )
     
     # make a nice graph

@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-09-21" />
+<meta name="date" content="2020-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -500,20 +500,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="dates-and-times" class="section level1" number="12">
 <h1><span class="header-section-number">Chapter 12</span> Dates and Times</h1>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="dates-and-times.html#cb650-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb650-2"><a href="dates-and-times.html#cb650-2" aria-hidden="true"></a><span class="kw">library</span>( lubridate )</span></code></pre></div>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="dates-and-times.html#cb647-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb647-2"><a href="dates-and-times.html#cb647-2" aria-hidden="true"></a><span class="kw">library</span>( lubridate )</span></code></pre></div>
 <p>Dates within a computer require some special organization because there are several competing conventions for how to write a date (some of them more confusing than others) and because the sort order should be in the order that the dates occur in time.</p>
 <p>One useful tidbit of knowledge is that computer systems store a time point as the number of seconds from set point in time, called the epoch. So long as you always use the same epoch, you doesn’t have to worry about when the epoch is, but if you are switching between software systems, you might run into problems if they use different epochs. In R, we use midnight on Jan 1, 1970. In Microsoft Excel, they use Jan 0, 1900.</p>
 <p>For many years, R users hated dealing with dates because it was difficult to remember how to get R to take a string that represents a date (e.g. “June 26, 1997”) because users were required to specify how the format was arranged using a relatively complex set of rules. For example <code>%y</code> represents the two digit year, <code>%Y</code> represents the four digit year, <code>%m</code> represents the month, but <code>%b</code> represents the month written as Jan or Mar. Into this mess came Hadley Wickham (of <code>ggplot2</code> and <code>dplyr</code> fame) and his student Garrett Grolemund. The internal structure of R dates and times is quite robust, but the functions we use to manipulate them are horrible. To fix this, Dr Wickham and his then PhD student Dr Grolemund introduced the <code>lubridate</code> package.</p>
 <div id="creating-date-and-time-objects" class="section level2" number="12.1">
 <h2><span class="header-section-number">12.1</span> Creating Date and Time objects</h2>
 <p>R gives a mechanism for getting the current date and time.</p>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="dates-and-times.html#cb651-1" aria-hidden="true"></a>lubridate<span class="op">::</span><span class="kw">today</span>()   <span class="co"># Today&#39;s date</span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-09-21&quot;</code></pre>
-<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="dates-and-times.html#cb653-1" aria-hidden="true"></a>base<span class="op">::</span><span class="kw">Sys.Date</span>()     <span class="co"># Today&#39;s date</span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-09-21&quot;</code></pre>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="dates-and-times.html#cb655-1" aria-hidden="true"></a>base<span class="op">::</span><span class="kw">Sys.time</span>()     <span class="co"># Current Time and Date </span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-09-21 08:46:22 MST&quot;</code></pre>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="dates-and-times.html#cb648-1" aria-hidden="true"></a>lubridate<span class="op">::</span><span class="kw">today</span>()   <span class="co"># Today&#39;s date</span></span></code></pre></div>
+<pre><code>## [1] &quot;2020-09-23&quot;</code></pre>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="dates-and-times.html#cb650-1" aria-hidden="true"></a>base<span class="op">::</span><span class="kw">Sys.Date</span>()     <span class="co"># Today&#39;s date</span></span></code></pre></div>
+<pre><code>## [1] &quot;2020-09-23&quot;</code></pre>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="dates-and-times.html#cb652-1" aria-hidden="true"></a>base<span class="op">::</span><span class="kw">Sys.time</span>()     <span class="co"># Current Time and Date </span></span></code></pre></div>
+<pre><code>## [1] &quot;2020-09-23 11:33:08 MST&quot;</code></pre>
 <p>To create a <code>Date</code> object, we need to take a string or number that represents a date and tell the computer how to figure out which bits are the year, which are the month, and which are the day. The lubridate package uses the following functions:</p>
 <table style="width:90%;">
 <colgroup>
@@ -547,41 +547,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>The uncommon orders aren’t likely to be used, but the <code>lubridate</code> package includes them for completeness. Once the order has been specified, the <code>lubridate</code> package will try as many different ways to parse the date that make sense. As a result, so long as the order is consistent, all of the following will work:</p>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="dates-and-times.html#cb657-1" aria-hidden="true"></a><span class="kw">mdy</span>( <span class="st">&#39;June 26, 1997&#39;</span>, <span class="st">&#39;Jun 26 97&#39;</span>, <span class="st">&#39;6-26-97&#39;</span>, <span class="st">&#39;6-26-1997&#39;</span>, <span class="st">&#39;6/26/97&#39;</span>, <span class="st">&#39;6-26/97&#39;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="dates-and-times.html#cb654-1" aria-hidden="true"></a><span class="kw">mdy</span>( <span class="st">&#39;June 26, 1997&#39;</span>, <span class="st">&#39;Jun 26 97&#39;</span>, <span class="st">&#39;6-26-97&#39;</span>, <span class="st">&#39;6-26-1997&#39;</span>, <span class="st">&#39;6/26/97&#39;</span>, <span class="st">&#39;6-26/97&#39;</span> )</span></code></pre></div>
 <pre><code>## [1] &quot;1997-06-26&quot; &quot;1997-06-26&quot; &quot;1997-06-26&quot; &quot;1997-06-26&quot; &quot;1997-06-26&quot;
 ## [6] &quot;1997-06-26&quot;</code></pre>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="dates-and-times.html#cb659-1" aria-hidden="true"></a><span class="kw">mdy</span>(<span class="st">&#39;June 26, 0097&#39;</span>, <span class="st">&#39;June 26, 97&#39;</span>,  <span class="st">&#39;June 26, 68&#39;</span>, <span class="st">&#39;June 26, 69&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="dates-and-times.html#cb656-1" aria-hidden="true"></a><span class="kw">mdy</span>(<span class="st">&#39;June 26, 0097&#39;</span>, <span class="st">&#39;June 26, 97&#39;</span>,  <span class="st">&#39;June 26, 68&#39;</span>, <span class="st">&#39;June 26, 69&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;0097-06-26&quot; &quot;1997-06-26&quot; &quot;2068-06-26&quot; &quot;1969-06-26&quot;</code></pre>
 <p>This shows by default if you only specify the year using two digits, <code>lubridate</code> will try to do something clever. It will default to either a 19XX or 20XX and it picks whichever is the closer date. This illustrates that you should ALWAYS fully specify the year using four digits.</p>
 <p>The <code>lubridate</code> functions will also accommodate if an integer representation of the date, but it has to have enough digits to uniquely identify the month and day.</p>
-<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="dates-and-times.html#cb661-1" aria-hidden="true"></a><span class="kw">ymd</span>(<span class="dv">20090110</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="dates-and-times.html#cb658-1" aria-hidden="true"></a><span class="kw">ymd</span>(<span class="dv">20090110</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2009-01-10&quot;</code></pre>
-<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="dates-and-times.html#cb663-1" aria-hidden="true"></a><span class="kw">ymd</span>(<span class="dv">2009722</span>) <span class="co"># only one digit for month --- error!</span></span></code></pre></div>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="dates-and-times.html#cb660-1" aria-hidden="true"></a><span class="kw">ymd</span>(<span class="dv">2009722</span>) <span class="co"># only one digit for month --- error!</span></span></code></pre></div>
 <pre><code>## Warning: All formats failed to parse. No formats found.</code></pre>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="dates-and-times.html#cb666-1" aria-hidden="true"></a><span class="kw">ymd</span>(<span class="dv">2009116</span>) <span class="co"># this is ambiguous! 1-16 or 11-6?</span></span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="dates-and-times.html#cb663-1" aria-hidden="true"></a><span class="kw">ymd</span>(<span class="dv">2009116</span>) <span class="co"># this is ambiguous! 1-16 or 11-6?</span></span></code></pre></div>
 <pre><code>## Warning: All formats failed to parse. No formats found.</code></pre>
 <pre><code>## [1] NA</code></pre>
 <p>If we want to add a time to a date, we will use a function with the suffix <code>_hm</code> or <code>_hms</code>. Suppose that we want to encode a date and time, for example, the date and time of my wedding ceremony</p>
-<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="dates-and-times.html#cb669-1" aria-hidden="true"></a><span class="kw">mdy_hm</span>(<span class="st">&#39;Sept 18, 2010 5:30 PM&#39;</span>, <span class="st">&#39;9-18-2010 17:30&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="dates-and-times.html#cb666-1" aria-hidden="true"></a><span class="kw">mdy_hm</span>(<span class="st">&#39;Sept 18, 2010 5:30 PM&#39;</span>, <span class="st">&#39;9-18-2010 17:30&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] NA                        &quot;2010-09-18 17:30:00 UTC&quot;</code></pre>
 <p>In the above case, <code>lubridate</code> is having trouble understanding AM/PM differences and it is better to always specify times using 24 hour notation and skip the AM/PM designations.</p>
 <p>By default, R codes the time of day using as if the event occurred in the UMT time zone (also known as Greenwich Mean Time GMT). To specify a different time zone, use the <code>tz=</code> option. For example:</p>
-<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="dates-and-times.html#cb671-1" aria-hidden="true"></a><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;MST&#39;</span>) <span class="co"># Mountain Standard Time</span></span></code></pre></div>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="dates-and-times.html#cb668-1" aria-hidden="true"></a><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;MST&#39;</span>) <span class="co"># Mountain Standard Time</span></span></code></pre></div>
 <pre><code>## [1] &quot;2010-09-18 17:30:00 MST&quot;</code></pre>
 <p>This isn’t bad, but Loveland, Colorado is on MST in the winter and MDT in the summer because of daylight savings time. So to specify the time zone that could switch between standard time and daylight savings time, I should specify <code>tz='US/Mountain'</code></p>
-<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="dates-and-times.html#cb673-1" aria-hidden="true"></a><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>) <span class="co"># US mountain time</span></span></code></pre></div>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="dates-and-times.html#cb670-1" aria-hidden="true"></a><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>) <span class="co"># US mountain time</span></span></code></pre></div>
 <pre><code>## [1] &quot;2010-09-18 17:30:00 MDT&quot;</code></pre>
 <p>Arizona is weird and doesn’t use daylight savings time. Fortunately R has a built-in time zone just for us.</p>
-<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="dates-and-times.html#cb675-1" aria-hidden="true"></a><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Arizona&#39;</span>) <span class="co"># US Arizona time</span></span></code></pre></div>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="dates-and-times.html#cb672-1" aria-hidden="true"></a><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Arizona&#39;</span>) <span class="co"># US Arizona time</span></span></code></pre></div>
 <pre><code>## [1] &quot;2010-09-18 17:30:00 MST&quot;</code></pre>
 <p>R recognizes 582 different time zone locals and you can find these using the function <code>OlsonNames()</code>. To find out more about what these mean you can check out the Wikipedia page on timezones [<a href="http://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">http://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>||<a href="http://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">http://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>].</p>
 </div>
 <div id="extracting-information" class="section level2" number="12.2">
 <h2><span class="header-section-number">12.2</span> Extracting information</h2>
 <p>The <code>lubridate</code> package provides many functions for extracting information from the date. Suppose we have defined</p>
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="dates-and-times.html#cb677-1" aria-hidden="true"></a><span class="co"># Derek&#39;s wedding!</span></span>
-<span id="cb677-2"><a href="dates-and-times.html#cb677-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>) <span class="co"># US Mountain time</span></span></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="dates-and-times.html#cb674-1" aria-hidden="true"></a><span class="co"># Derek&#39;s wedding!</span></span>
+<span id="cb674-2"><a href="dates-and-times.html#cb674-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">mdy_hm</span>(<span class="st">&#39;9-18-2010 17:30&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>) <span class="co"># US Mountain time</span></span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -658,17 +658,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>All of these functions can also be used to update the value. For example, we could move the day of the wedding from September <span class="math inline">\(18^{th}\)</span> to October <span class="math inline">\(18^{th}\)</span> by changing the month.</p>
-<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="dates-and-times.html#cb678-1" aria-hidden="true"></a><span class="co"># I really don&#39;t like this method of changing the month</span></span>
-<span id="cb678-2"><a href="dates-and-times.html#cb678-2" aria-hidden="true"></a><span class="kw">month</span>(x) &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb678-3"><a href="dates-and-times.html#cb678-3" aria-hidden="true"></a></span>
-<span id="cb678-4"><a href="dates-and-times.html#cb678-4" aria-hidden="true"></a><span class="co"># update feels a little better to me</span></span>
-<span id="cb678-5"><a href="dates-and-times.html#cb678-5" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">update</span>(x, <span class="dt">month=</span><span class="dv">10</span>)</span>
-<span id="cb678-6"><a href="dates-and-times.html#cb678-6" aria-hidden="true"></a></span>
-<span id="cb678-7"><a href="dates-and-times.html#cb678-7" aria-hidden="true"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="dates-and-times.html#cb675-1" aria-hidden="true"></a><span class="co"># I really don&#39;t like this method of changing the month</span></span>
+<span id="cb675-2"><a href="dates-and-times.html#cb675-2" aria-hidden="true"></a><span class="kw">month</span>(x) &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb675-3"><a href="dates-and-times.html#cb675-3" aria-hidden="true"></a></span>
+<span id="cb675-4"><a href="dates-and-times.html#cb675-4" aria-hidden="true"></a><span class="co"># update feels a little better to me</span></span>
+<span id="cb675-5"><a href="dates-and-times.html#cb675-5" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">update</span>(x, <span class="dt">month=</span><span class="dv">10</span>)</span>
+<span id="cb675-6"><a href="dates-and-times.html#cb675-6" aria-hidden="true"></a></span>
+<span id="cb675-7"><a href="dates-and-times.html#cb675-7" aria-hidden="true"></a>x</span></code></pre></div>
 <pre><code>## [1] &quot;2010-10-18 17:30:00 MDT&quot;</code></pre>
 <p>Often I want to consider some point in time, but need to convert the timezone the date was specified into another timezone. The function <code>with_tz()</code> will take a given moment in time and figure out when that same moment is in another timezone. For example, <em>Game of Thrones</em> is made available on HBO’s streaming service at 9pm on Sunday evenings Eastern time. I need to know when I can start watching it here in Arizona.</p>
-<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="dates-and-times.html#cb680-1" aria-hidden="true"></a>GoT &lt;-<span class="st"> </span><span class="kw">ymd_hm</span>(<span class="st">&#39;2015-4-26 21:00&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Eastern&#39;</span>)</span>
-<span id="cb680-2"><a href="dates-and-times.html#cb680-2" aria-hidden="true"></a><span class="kw">with_tz</span>(GoT, <span class="dt">tz=</span><span class="st">&#39;US/Arizona&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="dates-and-times.html#cb677-1" aria-hidden="true"></a>GoT &lt;-<span class="st"> </span><span class="kw">ymd_hm</span>(<span class="st">&#39;2015-4-26 21:00&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Eastern&#39;</span>)</span>
+<span id="cb677-2"><a href="dates-and-times.html#cb677-2" aria-hidden="true"></a><span class="kw">with_tz</span>(GoT, <span class="dt">tz=</span><span class="st">&#39;US/Arizona&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2015-04-26 18:00:00 MST&quot;</code></pre>
 <p>This means that Game of Thrones is available for streaming at 6 pm Arizona time.</p>
 </div>
@@ -705,46 +705,46 @@ is a good reference.</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="dates-and-times.html#cb682-1" aria-hidden="true"></a>current &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&#39;2019-10-12 10:25:00&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;MST&#39;</span>)</span>
-<span id="cb682-2"><a href="dates-and-times.html#cb682-2" aria-hidden="true"></a>current <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>)  <span class="co"># period. There are also minutes, hours, days, months functions.</span></span></code></pre></div>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="dates-and-times.html#cb679-1" aria-hidden="true"></a>current &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&#39;2019-10-12 10:25:00&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;MST&#39;</span>)</span>
+<span id="cb679-2"><a href="dates-and-times.html#cb679-2" aria-hidden="true"></a>current <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>)  <span class="co"># period. There are also minutes, hours, days, months functions.</span></span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-12 10:25:00 MST&quot;</code></pre>
-<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="dates-and-times.html#cb684-1" aria-hidden="true"></a>current <span class="op">+</span><span class="st"> </span><span class="kw">dyears</span>(<span class="dv">1</span>) <span class="co"># duration. There are also dminutes, dhours, ddays, dmonths</span></span></code></pre></div>
+<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="dates-and-times.html#cb681-1" aria-hidden="true"></a>current <span class="op">+</span><span class="st"> </span><span class="kw">dyears</span>(<span class="dv">1</span>) <span class="co"># duration. There are also dminutes, dhours, ddays, dmonths</span></span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-11 16:25:00 MST&quot;</code></pre>
 <p>Notice that <code>dyears(1)</code> didn’t just increment the years from 2019 to 2020, but rather added <span class="math inline">\(60*60*24*365\)</span> seconds, and because 2020 is a leap year and therefore February 29 will exist. Thus adding <span class="math inline">\(31,536,000\)</span> seconds ended up with a result of October 11<span class="math inline">\(^{th}\)</span> instead of October 12<span class="math inline">\(^{th}\)</span>.</p>
 <p>Once we have two or more Date objects defined, we can calculate the amount of time between the two dates. We’ll first create an <code>interval</code> that defines the exact start and stop of the time interval we care about and then convert that to either a <code>period</code> (person convention) or a <code>duration</code> (# of seconds).</p>
-<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="dates-and-times.html#cb686-1" aria-hidden="true"></a>Wedding &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2010-Sep-18&#39;</span>)</span>
-<span id="cb686-2"><a href="dates-and-times.html#cb686-2" aria-hidden="true"></a>Elise &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2013-Jan-11&#39;</span>)</span>
-<span id="cb686-3"><a href="dates-and-times.html#cb686-3" aria-hidden="true"></a></span>
-<span id="cb686-4"><a href="dates-and-times.html#cb686-4" aria-hidden="true"></a>Childless =<span class="st">  </span><span class="kw">interval</span>(Wedding, Elise)  <span class="co"># Two different ways to </span></span>
-<span id="cb686-5"><a href="dates-and-times.html#cb686-5" aria-hidden="true"></a>Childless =<span class="st">  </span>Wedding <span class="op">%--%</span><span class="st"> </span>Elise        <span class="co"># create a time interval</span></span>
-<span id="cb686-6"><a href="dates-and-times.html#cb686-6" aria-hidden="true"></a></span>
-<span id="cb686-7"><a href="dates-and-times.html#cb686-7" aria-hidden="true"></a><span class="kw">as.period</span>( Childless )                 <span class="co"># Turn it into person readable</span></span></code></pre></div>
+<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="dates-and-times.html#cb683-1" aria-hidden="true"></a>Wedding &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2010-Sep-18&#39;</span>)</span>
+<span id="cb683-2"><a href="dates-and-times.html#cb683-2" aria-hidden="true"></a>Elise &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="st">&#39;2013-Jan-11&#39;</span>)</span>
+<span id="cb683-3"><a href="dates-and-times.html#cb683-3" aria-hidden="true"></a></span>
+<span id="cb683-4"><a href="dates-and-times.html#cb683-4" aria-hidden="true"></a>Childless =<span class="st">  </span><span class="kw">interval</span>(Wedding, Elise)  <span class="co"># Two different ways to </span></span>
+<span id="cb683-5"><a href="dates-and-times.html#cb683-5" aria-hidden="true"></a>Childless =<span class="st">  </span>Wedding <span class="op">%--%</span><span class="st"> </span>Elise        <span class="co"># create a time interval</span></span>
+<span id="cb683-6"><a href="dates-and-times.html#cb683-6" aria-hidden="true"></a></span>
+<span id="cb683-7"><a href="dates-and-times.html#cb683-7" aria-hidden="true"></a><span class="kw">as.period</span>( Childless )                 <span class="co"># Turn it into person readable</span></span></code></pre></div>
 <pre><code>## [1] &quot;2y 3m 24d 0H 0M 0S&quot;</code></pre>
-<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="dates-and-times.html#cb688-1" aria-hidden="true"></a><span class="kw">as.period</span>(Childless, <span class="dt">unit =</span> <span class="st">&#39;days&#39;</span>)    <span class="co"># Person readable version of days</span></span></code></pre></div>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="dates-and-times.html#cb685-1" aria-hidden="true"></a><span class="kw">as.period</span>(Childless, <span class="dt">unit =</span> <span class="st">&#39;days&#39;</span>)    <span class="co"># Person readable version of days</span></span></code></pre></div>
 <pre><code>## [1] &quot;846d 0H 0M 0S&quot;</code></pre>
-<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="dates-and-times.html#cb690-1" aria-hidden="true"></a><span class="kw">as.duration</span>( Childless )               <span class="co"># dorky number of seconds answer</span></span></code></pre></div>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="dates-and-times.html#cb687-1" aria-hidden="true"></a><span class="kw">as.duration</span>( Childless )               <span class="co"># dorky number of seconds answer</span></span></code></pre></div>
 <pre><code>## [1] &quot;73094400s (~2.32 years)&quot;</code></pre>
 <p>While working with dates, I like creating intervals whenever possible and try to NEVER just subtract two data/time objects because that will always just return the number of seconds (aka the <code>duration</code> answer).</p>
 <p>As a demonstration, lets consider a data set where we have the individuals birthdays and we are interested in calculated the individuals age in years.</p>
-<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="dates-and-times.html#cb692-1" aria-hidden="true"></a>data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
-<span id="cb692-2"><a href="dates-and-times.html#cb692-2" aria-hidden="true"></a>  <span class="dt">Name =</span> <span class="kw">c</span>(<span class="st">&#39;Steve&#39;</span>, <span class="st">&#39;Sergey&#39;</span>, <span class="st">&#39;Melinda&#39;</span>, <span class="st">&#39;Bill&#39;</span>, <span class="st">&#39;Alexa&#39;</span>, <span class="st">&#39;Siri&#39;</span>),</span>
-<span id="cb692-3"><a href="dates-and-times.html#cb692-3" aria-hidden="true"></a>  <span class="dt">dob =</span> <span class="kw">c</span>(<span class="st">&#39;Feb 24, 1955&#39;</span>, <span class="st">&#39;August 21, 1973&#39;</span>, <span class="st">&#39;Aug 15, 1964&#39;</span>, </span>
-<span id="cb692-4"><a href="dates-and-times.html#cb692-4" aria-hidden="true"></a>          <span class="st">&#39;October 28, 1955&#39;</span>, <span class="st">&#39;November 6, 2014&#39;</span>, <span class="st">&#39;October 12, 2011&#39;</span>) )</span>
-<span id="cb692-5"><a href="dates-and-times.html#cb692-5" aria-hidden="true"></a></span>
-<span id="cb692-6"><a href="dates-and-times.html#cb692-6" aria-hidden="true"></a>data <span class="op">%&gt;%</span></span>
-<span id="cb692-7"><a href="dates-and-times.html#cb692-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">dob =</span> <span class="kw">mdy</span>(dob) ) <span class="op">%&gt;%</span></span>
-<span id="cb692-8"><a href="dates-and-times.html#cb692-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Life =</span> dob <span class="op">%--%</span><span class="st"> </span><span class="kw">today</span>() ) <span class="op">%&gt;%</span></span>
-<span id="cb692-9"><a href="dates-and-times.html#cb692-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Age =</span> <span class="kw">as.period</span>(Life, <span class="dt">units=</span><span class="st">&#39;years&#39;</span>) ) <span class="op">%&gt;%</span></span>
-<span id="cb692-10"><a href="dates-and-times.html#cb692-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Age2 =</span> <span class="kw">year</span>(Age) )</span></code></pre></div>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="dates-and-times.html#cb689-1" aria-hidden="true"></a>data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb689-2"><a href="dates-and-times.html#cb689-2" aria-hidden="true"></a>  <span class="dt">Name =</span> <span class="kw">c</span>(<span class="st">&#39;Steve&#39;</span>, <span class="st">&#39;Sergey&#39;</span>, <span class="st">&#39;Melinda&#39;</span>, <span class="st">&#39;Bill&#39;</span>, <span class="st">&#39;Alexa&#39;</span>, <span class="st">&#39;Siri&#39;</span>),</span>
+<span id="cb689-3"><a href="dates-and-times.html#cb689-3" aria-hidden="true"></a>  <span class="dt">dob =</span> <span class="kw">c</span>(<span class="st">&#39;Feb 24, 1955&#39;</span>, <span class="st">&#39;August 21, 1973&#39;</span>, <span class="st">&#39;Aug 15, 1964&#39;</span>, </span>
+<span id="cb689-4"><a href="dates-and-times.html#cb689-4" aria-hidden="true"></a>          <span class="st">&#39;October 28, 1955&#39;</span>, <span class="st">&#39;November 6, 2014&#39;</span>, <span class="st">&#39;October 12, 2011&#39;</span>) )</span>
+<span id="cb689-5"><a href="dates-and-times.html#cb689-5" aria-hidden="true"></a></span>
+<span id="cb689-6"><a href="dates-and-times.html#cb689-6" aria-hidden="true"></a>data <span class="op">%&gt;%</span></span>
+<span id="cb689-7"><a href="dates-and-times.html#cb689-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">dob =</span> <span class="kw">mdy</span>(dob) ) <span class="op">%&gt;%</span></span>
+<span id="cb689-8"><a href="dates-and-times.html#cb689-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Life =</span> dob <span class="op">%--%</span><span class="st"> </span><span class="kw">today</span>() ) <span class="op">%&gt;%</span></span>
+<span id="cb689-9"><a href="dates-and-times.html#cb689-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Age =</span> <span class="kw">as.period</span>(Life, <span class="dt">units=</span><span class="st">&#39;years&#39;</span>) ) <span class="op">%&gt;%</span></span>
+<span id="cb689-10"><a href="dates-and-times.html#cb689-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Age2 =</span> <span class="kw">year</span>(Age) )</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
 ##   Name    dob        Life                           Age                   Age2
 ##   &lt;chr&gt;   &lt;date&gt;     &lt;Interval&gt;                     &lt;Period&gt;             &lt;int&gt;
-## 1 Steve   1955-02-24 1955-02-24 UTC--2020-09-21 UTC 65y 6m 28d 0H 0M 0S     65
-## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-09-21 UTC 47y 1m 0d 0H 0M 0S      47
-## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-09-21 UTC 56y 1m 6d 0H 0M 0S      56
-## 4 Bill    1955-10-28 1955-10-28 UTC--2020-09-21 UTC 64y 10m 24d 0H 0M 0S    64
-## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-09-21 UTC 5y 10m 15d 0H 0M 0S      5
-## 6 Siri    2011-10-12 2011-10-12 UTC--2020-09-21 UTC 8y 11m 9d 0H 0M 0S       8</code></pre>
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-09-23 UTC 65y 6m 30d 0H 0M 0S     65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-09-23 UTC 47y 1m 2d 0H 0M 0S      47
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-09-23 UTC 56y 1m 8d 0H 0M 0S      56
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-09-23 UTC 64y 10m 26d 0H 0M 0S    64
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-09-23 UTC 5y 10m 17d 0H 0M 0S      5
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-09-23 UTC 8y 11m 11d 0H 0M 0S      8</code></pre>
 </div>
 <div id="Exercises_Dates" class="section level2" number="12.4">
 <h2><span class="header-section-number">12.4</span> Exercises</h2>
@@ -752,18 +752,18 @@ is a good reference.</p>
 <li><p>For the following formats for a date, transform them into a date/time object. Which formats can be handled nicely and which are not? <em>The lubridate package has gotten smarter over time and a couple of these used to fail.</em></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>For September 13</p>
-<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="dates-and-times.html#cb694-1" aria-hidden="true"></a>birthday &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
-<span id="cb694-2"><a href="dates-and-times.html#cb694-2" aria-hidden="true"></a>  <span class="st">&#39;September 13, 1978&#39;</span>,</span>
-<span id="cb694-3"><a href="dates-and-times.html#cb694-3" aria-hidden="true"></a>  <span class="st">&#39;Sept 13, 1978&#39;</span>,</span>
-<span id="cb694-4"><a href="dates-and-times.html#cb694-4" aria-hidden="true"></a>  <span class="st">&#39;Sep 13, 1978&#39;</span>,</span>
-<span id="cb694-5"><a href="dates-and-times.html#cb694-5" aria-hidden="true"></a>  <span class="st">&#39;S 13, 1978&#39;</span>,</span>
-<span id="cb694-6"><a href="dates-and-times.html#cb694-6" aria-hidden="true"></a>  <span class="st">&#39;9-13-78&#39;</span>,</span>
-<span id="cb694-7"><a href="dates-and-times.html#cb694-7" aria-hidden="true"></a>  <span class="st">&#39;9-13/78&#39;</span>,</span>
-<span id="cb694-8"><a href="dates-and-times.html#cb694-8" aria-hidden="true"></a>  <span class="st">&#39;9/13/78&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="dates-and-times.html#cb691-1" aria-hidden="true"></a>birthday &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb691-2"><a href="dates-and-times.html#cb691-2" aria-hidden="true"></a>  <span class="st">&#39;September 13, 1978&#39;</span>,</span>
+<span id="cb691-3"><a href="dates-and-times.html#cb691-3" aria-hidden="true"></a>  <span class="st">&#39;Sept 13, 1978&#39;</span>,</span>
+<span id="cb691-4"><a href="dates-and-times.html#cb691-4" aria-hidden="true"></a>  <span class="st">&#39;Sep 13, 1978&#39;</span>,</span>
+<span id="cb691-5"><a href="dates-and-times.html#cb691-5" aria-hidden="true"></a>  <span class="st">&#39;S 13, 1978&#39;</span>,</span>
+<span id="cb691-6"><a href="dates-and-times.html#cb691-6" aria-hidden="true"></a>  <span class="st">&#39;9-13-78&#39;</span>,</span>
+<span id="cb691-7"><a href="dates-and-times.html#cb691-7" aria-hidden="true"></a>  <span class="st">&#39;9-13/78&#39;</span>,</span>
+<span id="cb691-8"><a href="dates-and-times.html#cb691-8" aria-hidden="true"></a>  <span class="st">&#39;9/13/78&#39;</span>)</span></code></pre></div></li>
 <li><p>For June 15, 1978 we should have a problem.</p>
-<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="dates-and-times.html#cb695-1" aria-hidden="true"></a>birthday &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
-<span id="cb695-2"><a href="dates-and-times.html#cb695-2" aria-hidden="true"></a>  <span class="st">&#39;June 13, 1978&#39;</span>,</span>
-<span id="cb695-3"><a href="dates-and-times.html#cb695-3" aria-hidden="true"></a>  <span class="st">&#39;J 13, 1978&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="dates-and-times.html#cb692-1" aria-hidden="true"></a>birthday &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb692-2"><a href="dates-and-times.html#cb692-2" aria-hidden="true"></a>  <span class="st">&#39;June 13, 1978&#39;</span>,</span>
+<span id="cb692-3"><a href="dates-and-times.html#cb692-3" aria-hidden="true"></a>  <span class="st">&#39;J 13, 1978&#39;</span>)</span></code></pre></div></li>
 </ol></li>
 <li><p>Suppose you have arranged for a phone call to be at 3 pm on May 8, 2015 at Arizona time. However, the recipient will be in Auckland, NZ. What time will it be there?</p></li>
 <li><p>From this book’s <a href="https://github.com/dereksonderegger/444/">GitHub</a> directory, navigate to the <code>data-raw</code> directory and then download the <code>Pulliam_Airport_Weather_Station.csv</code> data file. (<em>There are several weather station files. Make sure you get the correct one!</em>) There is a <code>DATE</code> column (is it of type <code>date</code> when you import the data?) as well as the Maximum and Minimum temperature. For the last 10 years of data we have (exactly, not just starting at Jan 1, 2009!), plot the daily maximum temperature. <em>Hint: Find the maximum date in the data set and then subtract 10 years. Will there be a difference if you use <code>dyears(10)</code> vs <code>years(10)</code>? Which seems more appropriate here?</em></p></li>

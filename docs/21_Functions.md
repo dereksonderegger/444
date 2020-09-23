@@ -29,7 +29,7 @@ To illustrate how to define your own function, we will define a variance calcula
 
 ```r
 # define my function
-my.var <- function(x){
+my.var <- function(x) {
   n <- length(x)                # calculate sample size
   xbar <- mean(x)               # calculate sample mean
   SSE <- sum( (x-xbar)^2 )      # calculate sum of squared error
@@ -54,7 +54,7 @@ calculated.var
 
 Notice that even though I defined my function using `x` as my vector of data, and passed my function something named `test.vector`, R does the appropriate renaming.If my function doesn't modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable `x` as a placeholder, with it being replaced by whatever gets passed into the function.
 
-When I call a function, the function might cause something to happen (e.g. draw a plot) or it might do some calculates the result is returned by the function and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the `return` statement. (Actually R doesn't completely require this. But the alternative method is less intuitive and I strongly recommend using the `return()` statement for readability.)
+When I call a function, the function might cause something to happen (e.g. draw a plot) or it might do some calculates the result is returned by the function and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the `return` statement. Actually R doesn't completely require this, and the result of the last statement is returned. [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html)  recommends always using the `return()` statement for readability although Hadley's [Tidyverse Style Guide](https://style.tidyverse.org) recommends not using `return()` except for early returns.
 
 By writing a function, I can use the same chunk of code repeatedly. This means that I can do all my tedious calculations inside the function and just call the function whenever I want and happily ignore the details. Consider the function `t.test()` which we have used to do all the calculations in a t-test. We could write a similar function using the following code:
 

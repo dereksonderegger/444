@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-09-21" />
+<meta name="date" content="2020-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -500,8 +500,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="rmarkdown-tricks" class="section level1 unnumbered">
 <h1>Rmarkdown Tricks</h1>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="rmarkdown-tricks.html#cb337-1" aria-hidden="true"></a><span class="co"># as always, I&#39;m loading the tidyverse.</span></span>
-<span id="cb337-2"><a href="rmarkdown-tricks.html#cb337-2" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="rmarkdown-tricks.html#cb335-1" aria-hidden="true"></a><span class="co"># as always, I&#39;m loading the tidyverse.</span></span>
+<span id="cb335-2"><a href="rmarkdown-tricks.html#cb335-2" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <p>We have been using RMarkdown files to combine the analysis and discussion into one nice document that contains all the analysis steps so that your research is reproducible.</p>
 <p>There are many resources on the web about Markdown and the variant that RStudio uses (called RMarkdown), but the easiest reference is to just use the RStudio help tab to access the help. I particular like <code>Help -&gt; Cheatsheets -&gt; RMarkdown Reference Guide</code> because it gives me the standard Markdown information but also a bunch of information about the options I can use to customize the behavior of individual R code chunks.</p>
 <p>Most of what is presented here isn’t primarily about how to use R, but rather how to work with tools in RMarkdown so that the final product is neat and tidy. While you could print out your RMarkdown file and then clean it up in MS Word, sometimes there is a good to want as nice a starting point as possible.</p>
@@ -565,9 +565,9 @@ plot(cars)
 </tbody>
 </table>
 <p>To set the chuck options for ALL chunks, which can be overwritten on a case by case basis, we can use the global options.</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="rmarkdown-tricks.html#cb339-1" aria-hidden="true"></a><span class="co"># I usually include a chunk like this at the beginning of any Rmarkdown</span></span>
-<span id="cb339-2"><a href="rmarkdown-tricks.html#cb339-2" aria-hidden="true"></a><span class="co"># file to set global chunk options, like a default figure size and alignment.</span></span>
-<span id="cb339-3"><a href="rmarkdown-tricks.html#cb339-3" aria-hidden="true"></a>knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">fig.height=</span><span class="dv">3</span>, <span class="dt">fig.align=</span><span class="st">&#39;center&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="rmarkdown-tricks.html#cb337-1" aria-hidden="true"></a><span class="co"># I usually include a chunk like this at the beginning of any Rmarkdown</span></span>
+<span id="cb337-2"><a href="rmarkdown-tricks.html#cb337-2" aria-hidden="true"></a><span class="co"># file to set global chunk options, like a default figure size and alignment.</span></span>
+<span id="cb337-3"><a href="rmarkdown-tricks.html#cb337-3" aria-hidden="true"></a>knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">fig.height=</span><span class="dv">3</span>, <span class="dt">fig.align=</span><span class="st">&#39;center&#39;</span>)</span></code></pre></div>
 </div>
 <div id="verbatim-list-environments" class="section level2 unnumbered">
 <h2>Verbatim &amp; List Environments</h2>
@@ -608,7 +608,7 @@ list element, we indent 8 spaces. (4 for problem 1, and four for part a).</li>
 <li>Part number a</li>
 </ol></li>
 </ol>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="rmarkdown-tricks.html#cb344-1" aria-hidden="true"></a><span class="dv">2</span><span class="op">+</span><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="rmarkdown-tricks.html#cb342-1" aria-hidden="true"></a><span class="dv">2</span><span class="op">+</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <pre><code>b) Part number b</code></pre>
 <p>So to keep ourselves in the nested list environment, we need to indent the R chunk 4 (or 8) spaces. If we indent it 4 spaces, then the R code and output will be aligned with the a), if we use 8 spaces, it will be indented from the a).</p>
@@ -623,7 +623,7 @@ list element, we indent 8 spaces. (4 for problem 1, and four for part a).</li>
 <li>Problem definition.
 <ol style="list-style-type: lower-alpha">
 <li><p>Part number a</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="rmarkdown-tricks.html#cb348-1" aria-hidden="true"></a><span class="dv">2</span><span class="op">+</span><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="rmarkdown-tricks.html#cb346-1" aria-hidden="true"></a><span class="dv">2</span><span class="op">+</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 5</code></pre></li>
 <li><p>Part number b</p></li>
 </ol></li>
@@ -765,8 +765,8 @@ shamelessly stolen from the Pandoc documentation.
 <p>One way to print a table is to just print in in R and have the table presented
 in the code chunk. For example, suppose I want to print out the first 4 rows
 of the trees dataset.</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="rmarkdown-tricks.html#cb350-1" aria-hidden="true"></a>data &lt;-<span class="st"> </span>trees[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, ]</span>
-<span id="cb350-2"><a href="rmarkdown-tricks.html#cb350-2" aria-hidden="true"></a>data</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="rmarkdown-tricks.html#cb348-1" aria-hidden="true"></a>data &lt;-<span class="st"> </span>trees[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, ]</span>
+<span id="cb348-2"><a href="rmarkdown-tricks.html#cb348-2" aria-hidden="true"></a>data</span></code></pre></div>
 <pre><code>##   Girth Height Volume
 ## 1   8.3     70   10.3
 ## 2   8.6     65   10.3
@@ -781,11 +781,11 @@ RMarkdown supports 3 of those.</p>
 <h3><span class="header-section-number">7.5.1</span> Simple Tables</h3>
 <p>Simple tables look like this (Notice I don’t wrap these dollar signs or anything,
 just a blank line above and below the table):</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="rmarkdown-tricks.html#cb352-1" aria-hidden="true"></a>Right   Left     Center   Default </span>
-<span id="cb352-2"><a href="rmarkdown-tricks.html#cb352-2" aria-hidden="true"></a><span class="op">-------</span><span class="st"> </span><span class="op">------</span><span class="st"> </span><span class="op">----------</span><span class="st"> </span><span class="op">-------</span><span class="st"> </span></span>
-<span id="cb352-3"><a href="rmarkdown-tricks.html#cb352-3" aria-hidden="true"></a><span class="st">     </span><span class="dv">12</span> <span class="dv">12</span>        hmmm        <span class="dv">12</span> </span>
-<span id="cb352-4"><a href="rmarkdown-tricks.html#cb352-4" aria-hidden="true"></a>    <span class="dv">123</span> <span class="dv">123</span>        <span class="dv">123</span>       <span class="dv">123</span> </span>
-<span id="cb352-5"><a href="rmarkdown-tricks.html#cb352-5" aria-hidden="true"></a>      <span class="dv">1</span> <span class="dv">1</span>            <span class="dv">1</span>         <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="rmarkdown-tricks.html#cb350-1" aria-hidden="true"></a>Right   Left     Center   Default </span>
+<span id="cb350-2"><a href="rmarkdown-tricks.html#cb350-2" aria-hidden="true"></a><span class="op">-------</span><span class="st"> </span><span class="op">------</span><span class="st"> </span><span class="op">----------</span><span class="st"> </span><span class="op">-------</span><span class="st"> </span></span>
+<span id="cb350-3"><a href="rmarkdown-tricks.html#cb350-3" aria-hidden="true"></a><span class="st">     </span><span class="dv">12</span> <span class="dv">12</span>        hmmm        <span class="dv">12</span> </span>
+<span id="cb350-4"><a href="rmarkdown-tricks.html#cb350-4" aria-hidden="true"></a>    <span class="dv">123</span> <span class="dv">123</span>        <span class="dv">123</span>       <span class="dv">123</span> </span>
+<span id="cb350-5"><a href="rmarkdown-tricks.html#cb350-5" aria-hidden="true"></a>      <span class="dv">1</span> <span class="dv">1</span>            <span class="dv">1</span>         <span class="dv">1</span></span></code></pre></div>
 <p>and would be rendered like this:</p>
 <table>
 <thead>
@@ -833,15 +833,15 @@ blank line.</p>
 <h3><span class="header-section-number">7.5.2</span> Grid Tables</h3>
 <p>Grid tables are a little more flexible and each cell can take an arbitrary
 Markdown block elements (such as lists).</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="rmarkdown-tricks.html#cb353-1" aria-hidden="true"></a><span class="op">+---------------+---------------+--------------------+</span></span>
-<span id="cb353-2"><a href="rmarkdown-tricks.html#cb353-2" aria-hidden="true"></a><span class="er">|</span><span class="st"> </span>Fruit         <span class="op">|</span><span class="st"> </span>Price         <span class="op">|</span><span class="st"> </span>Advantages         <span class="op">|</span></span>
-<span id="cb353-3"><a href="rmarkdown-tricks.html#cb353-3" aria-hidden="true"></a><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">====================</span><span class="op">+</span></span>
-<span id="cb353-4"><a href="rmarkdown-tricks.html#cb353-4" aria-hidden="true"></a><span class="er">|</span><span class="st"> </span>Bananas       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">1.34</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>built<span class="op">-</span><span class="cf">in</span> wrapper <span class="op">|</span></span>
-<span id="cb353-5"><a href="rmarkdown-tricks.html#cb353-5" aria-hidden="true"></a><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>bright color     <span class="op">|</span></span>
-<span id="cb353-6"><a href="rmarkdown-tricks.html#cb353-6" aria-hidden="true"></a><span class="op">+---------------+---------------+--------------------+</span></span>
-<span id="cb353-7"><a href="rmarkdown-tricks.html#cb353-7" aria-hidden="true"></a><span class="er">|</span><span class="st"> </span>Oranges       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">2.10</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>cures scurvy     <span class="op">|</span></span>
-<span id="cb353-8"><a href="rmarkdown-tricks.html#cb353-8" aria-hidden="true"></a><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>tasty            <span class="op">|</span></span>
-<span id="cb353-9"><a href="rmarkdown-tricks.html#cb353-9" aria-hidden="true"></a><span class="op">+---------------+---------------+--------------------+</span></span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="rmarkdown-tricks.html#cb351-1" aria-hidden="true"></a><span class="op">+---------------+---------------+--------------------+</span></span>
+<span id="cb351-2"><a href="rmarkdown-tricks.html#cb351-2" aria-hidden="true"></a><span class="er">|</span><span class="st"> </span>Fruit         <span class="op">|</span><span class="st"> </span>Price         <span class="op">|</span><span class="st"> </span>Advantages         <span class="op">|</span></span>
+<span id="cb351-3"><a href="rmarkdown-tricks.html#cb351-3" aria-hidden="true"></a><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">===============</span><span class="op">+</span><span class="er">====================</span><span class="op">+</span></span>
+<span id="cb351-4"><a href="rmarkdown-tricks.html#cb351-4" aria-hidden="true"></a><span class="er">|</span><span class="st"> </span>Bananas       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">1.34</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>built<span class="op">-</span><span class="cf">in</span> wrapper <span class="op">|</span></span>
+<span id="cb351-5"><a href="rmarkdown-tricks.html#cb351-5" aria-hidden="true"></a><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>bright color     <span class="op">|</span></span>
+<span id="cb351-6"><a href="rmarkdown-tricks.html#cb351-6" aria-hidden="true"></a><span class="op">+---------------+---------------+--------------------+</span></span>
+<span id="cb351-7"><a href="rmarkdown-tricks.html#cb351-7" aria-hidden="true"></a><span class="er">|</span><span class="st"> </span>Oranges       <span class="op">|</span><span class="st"> </span><span class="er">$</span><span class="fl">2.10</span>         <span class="op">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>cures scurvy     <span class="op">|</span></span>
+<span id="cb351-8"><a href="rmarkdown-tricks.html#cb351-8" aria-hidden="true"></a><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st">               </span><span class="er">|</span><span class="st"> </span><span class="op">-</span><span class="st"> </span>tasty            <span class="op">|</span></span>
+<span id="cb351-9"><a href="rmarkdown-tricks.html#cb351-9" aria-hidden="true"></a><span class="op">+---------------+---------------+--------------------+</span></span></code></pre></div>
 <p>which is rendered as the following:</p>
 <table style="width:74%;">
 <colgroup>
@@ -885,11 +885,11 @@ in the rest of the table. Both Simple and Grid tables don’t require column hea
 <p>Pipe tables look quite similar to grid tables but Markdown isn’t as picky about the
 pipes lining up. However, it does require a header row (which you could leave
 the elements blank in).</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="rmarkdown-tricks.html#cb354-1" aria-hidden="true"></a><span class="op">|</span><span class="st"> </span>Right <span class="op">|</span><span class="st"> </span>Left <span class="op">|</span><span class="st"> </span>Default <span class="op">|</span><span class="st"> </span>Center <span class="op">|</span></span>
-<span id="cb354-2"><a href="rmarkdown-tricks.html#cb354-2" aria-hidden="true"></a><span class="er">|</span><span class="op">------</span><span class="er">:|:</span><span class="op">-----</span><span class="er">|</span><span class="op">---------</span><span class="er">|:</span><span class="op">------</span><span class="er">:|</span></span>
-<span id="cb354-3"><a href="rmarkdown-tricks.html#cb354-3" aria-hidden="true"></a><span class="er">|</span><span class="st">   </span><span class="dv">12</span>  <span class="op">|</span><span class="st">  </span><span class="dv">12</span>  <span class="op">|</span><span class="st">    </span><span class="dv">12</span>   <span class="op">|</span><span class="st">    </span><span class="dv">12</span>  <span class="op">|</span></span>
-<span id="cb354-4"><a href="rmarkdown-tricks.html#cb354-4" aria-hidden="true"></a><span class="er">|</span><span class="st">  </span><span class="dv">123</span>  <span class="op">|</span><span class="st">  </span><span class="dv">123</span> <span class="op">|</span><span class="st">   </span><span class="dv">123</span>   <span class="op">|</span><span class="st">   </span><span class="dv">123</span>  <span class="op">|</span></span>
-<span id="cb354-5"><a href="rmarkdown-tricks.html#cb354-5" aria-hidden="true"></a><span class="er">|</span><span class="st">    </span><span class="dv">1</span>  <span class="op">|</span><span class="st">    </span><span class="dv">1</span> <span class="op">|</span><span class="st">     </span><span class="dv">1</span>   <span class="op">|</span><span class="st">     </span><span class="dv">1</span>  <span class="op">|</span></span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="rmarkdown-tricks.html#cb352-1" aria-hidden="true"></a><span class="op">|</span><span class="st"> </span>Right <span class="op">|</span><span class="st"> </span>Left <span class="op">|</span><span class="st"> </span>Default <span class="op">|</span><span class="st"> </span>Center <span class="op">|</span></span>
+<span id="cb352-2"><a href="rmarkdown-tricks.html#cb352-2" aria-hidden="true"></a><span class="er">|</span><span class="op">------</span><span class="er">:|:</span><span class="op">-----</span><span class="er">|</span><span class="op">---------</span><span class="er">|:</span><span class="op">------</span><span class="er">:|</span></span>
+<span id="cb352-3"><a href="rmarkdown-tricks.html#cb352-3" aria-hidden="true"></a><span class="er">|</span><span class="st">   </span><span class="dv">12</span>  <span class="op">|</span><span class="st">  </span><span class="dv">12</span>  <span class="op">|</span><span class="st">    </span><span class="dv">12</span>   <span class="op">|</span><span class="st">    </span><span class="dv">12</span>  <span class="op">|</span></span>
+<span id="cb352-4"><a href="rmarkdown-tricks.html#cb352-4" aria-hidden="true"></a><span class="er">|</span><span class="st">  </span><span class="dv">123</span>  <span class="op">|</span><span class="st">  </span><span class="dv">123</span> <span class="op">|</span><span class="st">   </span><span class="dv">123</span>   <span class="op">|</span><span class="st">   </span><span class="dv">123</span>  <span class="op">|</span></span>
+<span id="cb352-5"><a href="rmarkdown-tricks.html#cb352-5" aria-hidden="true"></a><span class="er">|</span><span class="st">    </span><span class="dv">1</span>  <span class="op">|</span><span class="st">    </span><span class="dv">1</span> <span class="op">|</span><span class="st">     </span><span class="dv">1</span>   <span class="op">|</span><span class="st">     </span><span class="dv">1</span>  <span class="op">|</span></span></code></pre></div>
 <p>which will render as the following:</p>
 <table>
 <thead>
@@ -926,10 +926,10 @@ picky about getting everything correct. However it is still pretty
 annoying to get the table laid out correctly.</p>
 <p>In all of these tables, you can use the regular RMarkdown formatting tricks
 for italicizing and bolding. So I could have a table such as the following:</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="rmarkdown-tricks.html#cb355-1" aria-hidden="true"></a><span class="op">|</span><span class="st">   </span>Source    <span class="op">|</span><span class="st">  </span>df  <span class="op">|</span><span class="st">   </span>Sum of Sq   <span class="op">|</span><span class="st">    </span>Mean Sq    <span class="op">|</span><span class="st">    </span>F   <span class="op">|</span><span class="st">  </span><span class="er">$</span><span class="kw">Pr</span>(<span class="op">&gt;</span>F_{<span class="dv">1</span>,<span class="dv">29</span>})<span class="op">$</span><span class="st">    </span><span class="er">|</span></span>
-<span id="cb355-2"><a href="rmarkdown-tricks.html#cb355-2" aria-hidden="true"></a><span class="er">|:</span><span class="op">------------</span><span class="er">|</span><span class="op">-----</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">-------</span><span class="er">:|</span><span class="op">--------------------</span><span class="er">:|</span></span>
-<span id="cb355-3"><a href="rmarkdown-tricks.html#cb355-3" aria-hidden="true"></a><span class="er">|</span><span class="st">  </span>Girth      <span class="op">|</span><span class="st">  </span><span class="er">*</span><span class="dv">1</span><span class="op">*</span><span class="st"> </span><span class="er">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st"> </span><span class="fl">419.26</span> <span class="op">|</span><span class="st">  </span><span class="er">**&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span><span class="op">**</span><span class="st">      </span><span class="er">|</span></span>
-<span id="cb355-4"><a href="rmarkdown-tricks.html#cb355-4" aria-hidden="true"></a><span class="er">|</span><span class="st">  </span>Residual   <span class="op">|</span><span class="st">  </span><span class="dv">29</span>  <span class="op">|</span><span class="st">  </span><span class="fl">524.3</span>        <span class="op">|</span><span class="st">   </span><span class="fl">18.1</span>        <span class="op">|</span><span class="st">        </span><span class="er">|</span><span class="st">                     </span><span class="er">|</span></span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="rmarkdown-tricks.html#cb353-1" aria-hidden="true"></a><span class="op">|</span><span class="st">   </span>Source    <span class="op">|</span><span class="st">  </span>df  <span class="op">|</span><span class="st">   </span>Sum of Sq   <span class="op">|</span><span class="st">    </span>Mean Sq    <span class="op">|</span><span class="st">    </span>F   <span class="op">|</span><span class="st">  </span><span class="er">$</span><span class="kw">Pr</span>(<span class="op">&gt;</span>F_{<span class="dv">1</span>,<span class="dv">29</span>})<span class="op">$</span><span class="st">    </span><span class="er">|</span></span>
+<span id="cb353-2"><a href="rmarkdown-tricks.html#cb353-2" aria-hidden="true"></a><span class="er">|:</span><span class="op">------------</span><span class="er">|</span><span class="op">-----</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">--------------</span><span class="er">:|</span><span class="op">-------</span><span class="er">:|</span><span class="op">--------------------</span><span class="er">:|</span></span>
+<span id="cb353-3"><a href="rmarkdown-tricks.html#cb353-3" aria-hidden="true"></a><span class="er">|</span><span class="st">  </span>Girth      <span class="op">|</span><span class="st">  </span><span class="er">*</span><span class="dv">1</span><span class="op">*</span><span class="st"> </span><span class="er">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st">  </span><span class="fl">7581.8</span>       <span class="op">|</span><span class="st"> </span><span class="fl">419.26</span> <span class="op">|</span><span class="st">  </span><span class="er">**&lt;</span><span class="st"> </span><span class="fl">2.2e-16</span><span class="op">**</span><span class="st">      </span><span class="er">|</span></span>
+<span id="cb353-4"><a href="rmarkdown-tricks.html#cb353-4" aria-hidden="true"></a><span class="er">|</span><span class="st">  </span>Residual   <span class="op">|</span><span class="st">  </span><span class="dv">29</span>  <span class="op">|</span><span class="st">  </span><span class="fl">524.3</span>        <span class="op">|</span><span class="st">   </span><span class="fl">18.1</span>        <span class="op">|</span><span class="st">        </span><span class="er">|</span><span class="st">                     </span><span class="er">|</span></span></code></pre></div>
 <p>and have it look like this:</p>
 <table>
 <thead>
@@ -977,7 +977,7 @@ knitted, then RMarkdown will turn our simple/grid/pipe table into something pret
 <h3><span class="header-section-number">7.5.4</span> <code class="unnumbered">knitr::kable</code></h3>
 <p>The <code>knitr</code> package includes a function that produces simple tables. It doesn’t
 have much customize-ability, but it gets the job done. One nice aspect about <code>kable</code> compared to <code>pander</code> is that we don’t need to set any additional chunk options.</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="rmarkdown-tricks.html#cb356-1" aria-hidden="true"></a>knitr<span class="op">::</span><span class="kw">kable</span>( data )</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="rmarkdown-tricks.html#cb354-1" aria-hidden="true"></a>knitr<span class="op">::</span><span class="kw">kable</span>( data )</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1016,7 +1016,7 @@ have much customize-ability, but it gets the job done. One nice aspect about <co
 and not having to learn too much. It is relatively powerful in that it will
 take <code>summary()</code> and <code>anova()</code> output and produce tables for them. By default
 <code>pander</code> will produce simple tables, but you can ask for Grid or Pipe tables.</p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="rmarkdown-tricks.html#cb357-1" aria-hidden="true"></a>pander<span class="op">::</span><span class="kw">pander</span>( data, <span class="dt">style=</span><span class="st">&#39;rmarkdown&#39;</span> )   <span class="co"># style is pipe tables...</span></span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="rmarkdown-tricks.html#cb355-1" aria-hidden="true"></a>pander<span class="op">::</span><span class="kw">pander</span>( data, <span class="dt">style=</span><span class="st">&#39;rmarkdown&#39;</span> )   <span class="co"># style is pipe tables...</span></span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1051,12 +1051,12 @@ take <code>summary()</code> and <code>anova()</code> output and produce tables f
 <p>The <code>pander</code> package deals with summary and anova tables from
 a variety of different analyses. So you can simply ask for a
 nice looking version using the following:</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="rmarkdown-tricks.html#cb358-1" aria-hidden="true"></a><span class="co"># a simple regression model</span></span>
-<span id="cb358-2"><a href="rmarkdown-tricks.html#cb358-2" aria-hidden="true"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )         </span>
-<span id="cb358-3"><a href="rmarkdown-tricks.html#cb358-3" aria-hidden="true"></a></span>
-<span id="cb358-4"><a href="rmarkdown-tricks.html#cb358-4" aria-hidden="true"></a>model <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb358-5"><a href="rmarkdown-tricks.html#cb358-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st">      </span><span class="co"># the usual summary table</span></span>
-<span id="cb358-6"><a href="rmarkdown-tricks.html#cb358-6" aria-hidden="true"></a><span class="st">  </span>pander<span class="op">::</span><span class="kw">pander</span>()   <span class="co"># make the table print *pretty*</span></span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="rmarkdown-tricks.html#cb356-1" aria-hidden="true"></a><span class="co"># a simple regression model</span></span>
+<span id="cb356-2"><a href="rmarkdown-tricks.html#cb356-2" aria-hidden="true"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )         </span>
+<span id="cb356-3"><a href="rmarkdown-tricks.html#cb356-3" aria-hidden="true"></a></span>
+<span id="cb356-4"><a href="rmarkdown-tricks.html#cb356-4" aria-hidden="true"></a>model <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb356-5"><a href="rmarkdown-tricks.html#cb356-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">summary</span>() <span class="op">%&gt;%</span><span class="st">      </span><span class="co"># the usual summary table</span></span>
+<span id="cb356-6"><a href="rmarkdown-tricks.html#cb356-6" aria-hidden="true"></a><span class="st">  </span>pander<span class="op">::</span><span class="kw">pander</span>()   <span class="co"># make the table print *pretty*</span></span></code></pre></div>
 <table style="width:89%;">
 <colgroup>
 <col width="25%" />
@@ -1116,9 +1116,9 @@ nice looking version using the following:</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="rmarkdown-tricks.html#cb359-1" aria-hidden="true"></a>model <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb359-2"><a href="rmarkdown-tricks.html#cb359-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">anova</span>() <span class="op">%&gt;%</span><span class="st">                 </span><span class="co"># The usual anoval table</span></span>
-<span id="cb359-3"><a href="rmarkdown-tricks.html#cb359-3" aria-hidden="true"></a><span class="st">  </span>pander<span class="op">::</span><span class="kw">pander</span>(<span class="dt">missing=</span><span class="st">&#39;&#39;</span>)  <span class="co"># Make the table print *pretty*</span></span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="rmarkdown-tricks.html#cb357-1" aria-hidden="true"></a>model <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb357-2"><a href="rmarkdown-tricks.html#cb357-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">anova</span>() <span class="op">%&gt;%</span><span class="st">                 </span><span class="co"># The usual anoval table</span></span>
+<span id="cb357-3"><a href="rmarkdown-tricks.html#cb357-3" aria-hidden="true"></a><span class="st">  </span>pander<span class="op">::</span><span class="kw">pander</span>(<span class="dt">missing=</span><span class="st">&#39;&#39;</span>)  <span class="co"># Make the table print *pretty*</span></span></code></pre></div>
 <table style="width:86%;">
 <caption>Analysis of Variance Table</caption>
 <colgroup>
@@ -1166,7 +1166,7 @@ nice looking version using the following:</p>
 <p>Some people prefer to not be distracted by having all of the R code embedded within a document and just want to see the resulting output tables and graphs. This can easily be done by including <code>echo=FALSE</code> in the header of each code chunk, or in the initial global chunk options via <code>knitr::opts_chunk$set(echo=FALSE)</code>. This will cause the code to be executed and the results shown, but the R code used to produce those results will not be shown.</p>
 <p>Another preference is to not show the code at each step, but to show the R code only at the very end. For example, perhaps we want a <em>Code Appendix</em> that gives all of the code. The naive approach would be to just copy all the code and create duplicate code chunks and then don’t evaluate them. However, this violates the rule of reproducible research that the code used to produce the result must be the code that is advertised as having created it.</p>
 <p>Instead, we’ll set the default behavior for all code chunks be to not show the R code,</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="rmarkdown-tricks.html#cb360-1" aria-hidden="true"></a>knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>( <span class="dt">echo=</span><span class="ot">FALSE</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="rmarkdown-tricks.html#cb358-1" aria-hidden="true"></a>knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>( <span class="dt">echo=</span><span class="ot">FALSE</span> )</span></code></pre></div>
 <p>Then at the end of the document, create a code-chunk that isn’t evaluated but is echoed, and copies from all of the previous code chunks in the document. The <code>documentation=1</code> adds the code chunk headers (if specified) as comments.</p>
 <pre><code>### Code Appendix 
 ```{r, ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE, documentation=1}

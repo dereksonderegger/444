@@ -59,26 +59,14 @@ To make R read in the data arranged in this format, we need to tell R three thin
 
 The primary function that we'll use to read data from a file and into R is the function `read.table()`. This function has many optional arguments but the most commonly used ones are outlined in the table below.
 
-+--------------+-------------------+---------------------------------------------------+
 |  Argument    |     Default       |    What it does                                   |
-+==============+===================+===================================================+
+|:------------:|:-----------------:|:--------------------------------------------------|
 | `file`       |                   | A character string denoting the file location     |
-+--------------+-------------------+---------------------------------------------------+
 | `header`     |   FALSE           | Is the first line column headers?                 |
-+--------------+-------------------+---------------------------------------------------+
-| `sep`        |    " "            | What character separates columns.                 |
-|              |                   | " " == any whitespace                             |
-+--------------+-------------------+---------------------------------------------------+
-|              |                   | The number of lines to skip before reading data.  |
-| `skip`       |     0             | This is useful when there are lines of text that  |
-|              |                   | describe the data or aren't actual data           |
-+--------------+-------------------+---------------------------------------------------+
-| `na.strings` |  'NA'             | What values represent missing data. Can have      |
-|              |                   | multiple. E.g.  `c('NA', -9999)`                  |
-+--------------+-------------------+---------------------------------------------------+
-|  `quote`     |  "  and '         | For character strings, what characters represent  |
-|              |                   | quotes.                                           |
-+--------------+-------------------+---------------------------------------------------+
+| `sep`        |    " "            | What character separates columns.  " " == any whitespace |
+| `skip`       |    0             | The number of lines to skip before reading data. This is useful when there are lines of text that describe the data or aren't actual data           |
+| `na.strings` |  'NA'             | What values represent missing data. Can have multiple. E.g.  `c('NA', -9999)`                  |
+|  `quote`     |  "  and '         | For character strings, what characters represent quotes.           |
 
 
 To read in the “Body Fat” dataset we could run the R command:
@@ -147,15 +135,15 @@ library(readxl)
 #    don't have to add any additional information and you can just tell it the
 #    file name 'Example_1.xls'
 # Alternatively I could give the full path to this file starting at the root
-#    directory which, for me, is '~/GitHub/STA570L_Book/data-raw/Example_1.xls'
-#    but for Windows users it might be 'Z:/570L/Lab7/Example_1.xls'. This looks
+#    directory which, for me, is '~/GitHub/444/data-raw/Example_1.xls'
+#    but for Windows users it might be 'Z:/444/Lab9/Example_1.xls'. This looks
 #    odd because Windows usually uses a backslash to represent the directory
 #    structure, but a backslash has special meaning in R and so it wants 
 #    to separate directories via forward slashes.
 
 # read the first worksheet of the Example_1 file
 data.1 <- read_excel( 'data-raw/Example_1.xls'  )   # relative to this Rmarkdown file
-data.1 <- read_excel('~/GitHub/570L/data-raw/Example_1.xls')  # absolute path
+data.1 <- read_excel('~/GitHub/444/data-raw/Example_1.xls')  # absolute path
 
 # read the second worksheet where the second worksheet is named 'data'
 data.2 <- read_excel('data-raw/Example_2.xls', sheet=2     )   

@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nHow Work Became An Inescapable Hellhole\n"                                                                                                
-## [2] "\nHow Can I Get My Husband To Stop Speaking His Native Language To His Friends And Family On The Phone, And Other Advice Column Questions\n"
-## [3] "\nGirl Has Her Phone Stuck Inside A Timed Smart Phone Jail And Accidentally Sets It For Two Days\n"                                         
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                                
-## [5] "\nEllen DeGeneres Addresses Allegations Of Misconduct On Her Show Head-On In Season 18 Premiere\n"                                          
-## [6] "\nWhat Would Happen If Mark Zuckerberg Deleted All Of Facebook?\n"
+## [1] "\nYou Might Be Surprised Who's Moving Into Those Sad, Abandoned Malls\n"                                    
+## [2] "\nThe Richest Cities In The United States, Visualized\n"                                                    
+## [3] "\nDr. Fauci Fact-Checks Sen. Rand Paul About Herd Immunity At Senate Hearing: 'I Challenge That, Senator'\n"
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                
+## [5] "\nWatch Brazilian Surfer Maya Gabeira Take On The Biggest Wave Anyone Has Surfed This Year\n"               
+## [6] "\nThe Extremely Profitable (And Ethically Murky) Business Of Reselling Dumbbells\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.wired.com/story/how-work-became-an-inescapable-hellhole/?utm_source=digg"                  
-## [2] "/2020/best-advice-columns-get-husband-stop-saying-native-language"                                     
-## [3] "/video/girl-locks-her-phone-inside-locked-phone-jail"                                                  
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                           
-## [5] "/video/ellen-degeneres-addresses-misconduct-show-allegations"                                          
-## [6] "https://gizmodo.com/what-would-happen-if-mark-zuckerberg-shut-down-facebook-1845047563?utm_source=digg"
+## [1] "https://www.cnn.com/2020/09/18/business/malls-repurpose-empty-stores/index.html?utm_source=digg"              
+## [2] "/2020/richest-cities-united-states"                                                                           
+## [3] "/video/dr-fauci-fact-checks-sen-rand-paul-about-herd-immunity-at-senate-hearing-you-misconstrued-that-senator"
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                  
+## [5] "/2020/maya-gabeira-surf-biggest-wave-2020"                                                                    
+## [6] "https://www.vox.com/the-goods/21443765/buying-dumbbells-online-expensive-resellers?utm_source=digg"
 ```
 
 
