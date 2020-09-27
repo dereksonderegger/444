@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nYou Might Be Surprised Who's Moving Into Those Sad, Abandoned Malls\n"       
-## [2] "\nYour Guide To The Surprising Number Of Movies Out This Fall\n"               
-## [3] "\nWhen Your Dramatic Entry From The Sea Gets Completely, Utterly Upstaged\n"   
+## [1] "\nHow Twitter Survived Its Biggest Hack\n"                                     
+## [2] "\nAmerica's Big Cities Aren't Defunding the Police\n"                          
+## [3] "\nHow The Hyde Amendment Denies Poor Women From Getting Abortions In America\n"
 ## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                   
-## [5] "\nSomeone Upscaled Old Footage Of An Atomic Cannon Going Off To 4K 48FPS\n"    
-## [6] "\nThe Population Density Of What's Now The United States In 1492, Visualized\n"
+## [5] "\nHere's How To Make A 7-Course Tasting Menu Out Of Items Found At A Bodega\n" 
+## [6] "\nQAnon Is Like A Game — A Most Dangerous Game\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.cnn.com/2020/09/18/business/malls-repurpose-empty-stores/index.html?utm_source=digg"          
-## [2] "https://io9.gizmodo.com/your-guide-to-the-surprising-amount-of-movies-out-this-1845054115?utm_source=digg"
-## [3] "/2020/when-your-dramatic-entry-from-the-sea-gets-completely-utterly-upstaged"                             
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                              
-## [5] "/video/atomic-cannon-upscaling"                                                                           
-## [6] "/2020/population-density-usa-1492"
+## [1] "https://www.wired.com/story/inside-twitter-hack-election-plan/?utm_source=digg"       
+## [2] "https://www.bloomberg.com/graphics/2020-city-budget-police-defunding/?utm_source=digg"
+## [3] "/video/how-the-hyde-amendment-denies-poor-women-from-getting-abortions-in-america"    
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                          
+## [5] "/video/heres-how-to-make-a-7-course-tasting-menu-out-of-items-found-at-a-bodega"      
+## [6] "https://www.wired.com/story/qanon-most-dangerous-multiplatform-game/?utm_source=digg"
 ```
 
 

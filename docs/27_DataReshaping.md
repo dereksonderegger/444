@@ -383,12 +383,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              249.
-## 2 A              267.
-## 3 B              260.
-## 4 B              296.
-## 5 C              312.
-## 6 C              235.
+## 1 A              229.
+## 2 A              223.
+## 3 B              246.
+## 4 B              241.
+## 5 C              285.
+## 6 C              266.
 ```
 
 ```r
@@ -419,12 +419,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              249. <NA>         NA      NA        NA
-## 2 A              267. <NA>         NA      NA        NA
-## 3 B              260. Lake Elaine   6.5    40         8
-## 4 B              296. Lake Elaine   6.5    40         8
-## 5 C              312. Mormon Lake   6.3   210        10
-## 6 C              235. Mormon Lake   6.3   210        10
+## 1 A              229. <NA>         NA      NA        NA
+## 2 A              223. <NA>         NA      NA        NA
+## 3 B              246. Lake Elaine   6.5    40         8
+## 4 B              241. Lake Elaine   6.5    40         8
+## 5 C              285. Mormon Lake   6.3   210        10
+## 6 C              266. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -444,12 +444,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              249. <NA>         NA      NA        NA
-## 2 A              267. <NA>         NA      NA        NA
-## 3 B              260. Lake Elaine   6.5    40         8
-## 4 B              296. Lake Elaine   6.5    40         8
-## 5 C              312. Mormon Lake   6.3   210        10
-## 6 C              235. Mormon Lake   6.3   210        10
+## 1 A              229. <NA>         NA      NA        NA
+## 2 A              223. <NA>         NA      NA        NA
+## 3 B              246. Lake Elaine   6.5    40         8
+## 4 B              241. Lake Elaine   6.5    40         8
+## 5 C              285. Mormon Lake   6.3   210        10
+## 6 C              266. Mormon Lake   6.3   210        10
 ```
 
 
@@ -465,10 +465,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              260. Lake Elaine   6.5    40         8
-## 2 B              296. Lake Elaine   6.5    40         8
-## 3 C              312. Mormon Lake   6.3   210        10
-## 4 C              235. Mormon Lake   6.3   210        10
+## 1 B              246. Lake Elaine   6.5    40         8
+## 2 B              241. Lake Elaine   6.5    40         8
+## 3 C              285. Mormon Lake   6.3   210        10
+## 4 C              266. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.

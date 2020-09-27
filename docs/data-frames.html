@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-09-23" />
+<meta name="date" content="2020-09-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -481,6 +481,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="19.5" data-path="speeding-up-r.html"><a href="speeding-up-r.html#parallelizing-for-loops"><i class="fa fa-check"></i><b>19.5</b> Parallelizing <code>for</code> loops</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html"><i class="fa fa-check"></i>CheatSheet</a>
+<ul>
+<li class="chapter" data-level="19.6" data-path="cheatsheet.html"><a href="cheatsheet.html#importing-data-and-loading-packages"><i class="fa fa-check"></i><b>19.6</b> Importing Data and Loading Packages</a></li>
+<li class="chapter" data-level="19.7" data-path="cheatsheet.html"><a href="cheatsheet.html#useful-vectorized-functions"><i class="fa fa-check"></i><b>19.7</b> Useful vectorized functions</a></li>
+<li class="chapter" data-level="19.8" data-path="cheatsheet.html"><a href="cheatsheet.html#data-frame-tibble-manipulation"><i class="fa fa-check"></i><b>19.8</b> Data frame (tibble) manipulation</a></li>
+<li class="chapter" data-level="19.9" data-path="cheatsheet.html"><a href="cheatsheet.html#data-frame-tibble-reshaping"><i class="fa fa-check"></i><b>19.9</b> Data frame (tibble) reshaping</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -500,8 +507,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-frames" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data Frames</h1>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="data-frames.html#cb51-1" aria-hidden="true"></a><span class="co"># Load my favorite packages: dplyr, ggplot2, forcats, readr, and stringr</span></span>
-<span id="cb51-2"><a href="data-frames.html#cb51-2" aria-hidden="true"></a><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="data-frames.html#cb50-1" aria-hidden="true"></a><span class="co"># Load my favorite packages: dplyr, ggplot2, forcats, readr, and stringr</span></span>
+<span id="cb50-2"><a href="data-frames.html#cb50-2" aria-hidden="true"></a><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)  </span></code></pre></div>
 <p>As always, there is a <a href="https://youtu.be/4IzqPTuHycc">Video Lecture</a> that accompanies this chapter.</p>
 <p>Data frames are the fundamental unit of data storage that casual users of R need to work with. Conceptually they are just like a single tab in a spreadsheet (e.g. Excel) file. There are multiple rows and columns and each column is of the same type of information (e.g. numerical values, dates, or character strings) and each row represents a single observation.</p>
 <p>Because the columns have meaning and we generally give them column names, it is desirable to want to access an element by the name of the column as opposed to the column number. While writing formulas in large Excel spreadsheets I often get annoyed trying to remember which column something was in and muttering “Was total biomass in column P or Q?” A system where I could just name the column <code>Total_Biomass</code> and then always refer to it that way, is much nicer to work with and I make fewer dumb mistakes.</p>
@@ -513,11 +520,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.1.1</span> From a Package</h3>
 <p>For many students, they will be assigned homework that utilizes data sets that are stored in some package. To access those, we would need to first install the package if we haven’t already. Recall to do that, we can use the Rstudio menu bar “Tools -&gt; Install Packages…” mouse action.</p>
 <p>Because we might have thousands of packages installed on a computer, and those packages might all have data sets associated with them, they aren’t loaded into memory by default. Instead we have to go through a two-step process of making sure that the package is installed on the computer, and then load the desired data set into the running session of R. Once the package is installed, we can load the data into our session via the following command:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="data-frames.html#cb52-1" aria-hidden="true"></a><span class="kw">data</span>(<span class="st">&#39;alfalfa&#39;</span>, <span class="dt">package=</span><span class="st">&#39;faraway&#39;</span>)   <span class="co"># load the data set &#39;alfalfa&#39; from the package &#39;faraway&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="data-frames.html#cb51-1" aria-hidden="true"></a><span class="kw">data</span>(<span class="st">&#39;alfalfa&#39;</span>, <span class="dt">package=</span><span class="st">&#39;faraway&#39;</span>)   <span class="co"># load the data set &#39;alfalfa&#39; from the package &#39;faraway&#39;</span></span></code></pre></div>
 <p>Because R tries to avoid loading datasets until it is sure that you need them, the object <code>alfalfa</code> isn’t initially loaded as a <code>data.frame</code> but rather as a “promise” that it eventually will be loaded whenever you first use it. So lets first access it by viewing it.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="data-frames.html#cb53-1" aria-hidden="true"></a><span class="kw">View</span>(alfalfa)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="data-frames.html#cb52-1" aria-hidden="true"></a><span class="kw">View</span>(alfalfa)</span></code></pre></div>
 <p>There are two ways to enter the view command. Either executing the <code>View()</code> function from the console, or clicking on either the white table or the object name in the <code>Environment</code> tab.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="data-frames.html#cb54-1" aria-hidden="true"></a><span class="co"># Show the image of the environment tab with the white table highlighted</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="data-frames.html#cb53-1" aria-hidden="true"></a><span class="co"># Show the image of the environment tab with the white table highlighted</span></span></code></pre></div>
 </div>
 <div id="import-from-.csv-or-.xls-files" class="section level3" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Import from <code>.csv</code> or <code>.xls</code> files</h3>
@@ -525,9 +532,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Alternatively, the data might be stored in an Excel file and we just need to tell R where the file is and which worksheet tab to import.</p>
 <p>The hardest part for people that are new to programming is giving the path to the data file. In this case, I recommend students use the data import wizard that RStudio includes which is accessed via ‘File -&gt; Import Dataset’. This will then give you a choice of file types to read from (.csv files are in the “Text” options). Once you have selected the file type to import, the user is presented with a file browser window where the desired file should be located. Once the file is chosen, we can import of the file.</p>
 <p>Critically, we should notice that the import wizard generates R code that does the actual import. We MUST copy that code into our Rmarkdown file or else the import won’t happen when we try to knit the Rmarkdown into an output document because knitting always occurs in a completely fresh R session. So only use the import wizard to generate the import code! The code generated by the import wizard ends with a <code>View()</code> command and I typically remove that as it can interfer with the knitting process. The code that I’ll paste into my RMarkdown file typically looks like this:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="data-frames.html#cb55-1" aria-hidden="true"></a><span class="kw">library</span>(readxl)</span>
-<span id="cb55-2"><a href="data-frames.html#cb55-2" aria-hidden="true"></a>Melioid_IgG &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;~/Dropbox/NAU/MAGPIX serology/Data/Melioid_IgG.xlsx&quot;</span>)</span>
-<span id="cb55-3"><a href="data-frames.html#cb55-3" aria-hidden="true"></a><span class="co"># View(Melioid_IgG)</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="data-frames.html#cb54-1" aria-hidden="true"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb54-2"><a href="data-frames.html#cb54-2" aria-hidden="true"></a>Melioid_IgG &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;~/Dropbox/NAU/MAGPIX serology/Data/Melioid_IgG.xlsx&quot;</span>)</span>
+<span id="cb54-3"><a href="data-frames.html#cb54-3" aria-hidden="true"></a><span class="co"># View(Melioid_IgG)</span></span></code></pre></div>
 </div>
 </div>
 <div id="data-types" class="section level2" number="2.2">
@@ -542,21 +549,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>Depending on the command, R will coerce your data from one type to another if necessary, but it is a good habit to do the coercion yourself. If a variable is a number, R will automatically assume that it is continuous numerical variable. If it is a character string, then R will assume it is a factor when doing any statistical analysis.</p>
 <p>Most of these types are familiar to beginning R users except for factors. Factors are how R keeps track of categorical variables. R does this in a two step pattern. First it figures out how many categories there are and remembers which category an observation belongs two and second, it keeps a vector character strings that correspond to the names of each of the categories.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="data-frames.html#cb56-1" aria-hidden="true"></a><span class="co"># A character vector</span></span>
-<span id="cb56-2"><a href="data-frames.html#cb56-2" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;C&#39;</span>)</span>
-<span id="cb56-3"><a href="data-frames.html#cb56-3" aria-hidden="true"></a>y</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="data-frames.html#cb55-1" aria-hidden="true"></a><span class="co"># A character vector</span></span>
+<span id="cb55-2"><a href="data-frames.html#cb55-2" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;C&#39;</span>)</span>
+<span id="cb55-3"><a href="data-frames.html#cb55-3" aria-hidden="true"></a>y</span></code></pre></div>
 <pre><code>## [1] &quot;B&quot; &quot;B&quot; &quot;A&quot; &quot;A&quot; &quot;C&quot;</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="data-frames.html#cb58-1" aria-hidden="true"></a><span class="co"># convert the vector of characters into a vector of factors </span></span>
-<span id="cb58-2"><a href="data-frames.html#cb58-2" aria-hidden="true"></a>z &lt;-<span class="st"> </span><span class="kw">factor</span>(y)</span>
-<span id="cb58-3"><a href="data-frames.html#cb58-3" aria-hidden="true"></a><span class="kw">str</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="data-frames.html#cb57-1" aria-hidden="true"></a><span class="co"># convert the vector of characters into a vector of factors </span></span>
+<span id="cb57-2"><a href="data-frames.html#cb57-2" aria-hidden="true"></a>z &lt;-<span class="st"> </span><span class="kw">factor</span>(y)</span>
+<span id="cb57-3"><a href="data-frames.html#cb57-3" aria-hidden="true"></a><span class="kw">str</span>(z)</span></code></pre></div>
 <pre><code>##  Factor w/ 3 levels &quot;A&quot;,&quot;B&quot;,&quot;C&quot;: 2 2 1 1 3</code></pre>
 <p>Notice that the vector <code>z</code> is actually the combination of group assignment vector <code>2,2,1,1,3</code> and the group names vector <code>“A”,”B”,”C”</code>. So we could convert z to a vector of numerics or to a vector of character strings.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="data-frames.html#cb60-1" aria-hidden="true"></a><span class="kw">as.numeric</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="data-frames.html#cb59-1" aria-hidden="true"></a><span class="kw">as.numeric</span>(z)</span></code></pre></div>
 <pre><code>## [1] 2 2 1 1 3</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="data-frames.html#cb62-1" aria-hidden="true"></a><span class="kw">as.character</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="data-frames.html#cb61-1" aria-hidden="true"></a><span class="kw">as.character</span>(z)</span></code></pre></div>
 <pre><code>## [1] &quot;B&quot; &quot;B&quot; &quot;A&quot; &quot;A&quot; &quot;C&quot;</code></pre>
 <p>Often we need to know what possible groups there are, and this is done using the <code>levels()</code> command.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="data-frames.html#cb64-1" aria-hidden="true"></a><span class="kw">levels</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="data-frames.html#cb63-1" aria-hidden="true"></a><span class="kw">levels</span>(z)</span></code></pre></div>
 <pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
 <p>Notice that the order of the group names was done alphabetically, which we did not chose. This ordering of the levels has implications when we do an analysis or make a plot and R will always display information about the factor levels using this order. It would be nice to be able to change the order. Also it would be really nice to give more descriptive names to the groups rather than just the group code in my raw data. Useful functions for controling the order and labels of the factor can be found in the <code>forcats</code> package which we use in a later chapter.</p>
 </div>
@@ -564,32 +571,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.3</span> Basic Manipulation</h2>
 <p>Occasionally I’ll need to create a small data frame “by hand” to facilitate creating graphs in ggplot2. In this final section, we’ll cover creating a data frame and doing simple manipulations using the base R commands and syntax.</p>
 <p>To create a data frame, we have to squish together a bunch of columns vectors. The command <code>data.frame()</code> does exactly that. In the example below, I list the names, ages and heights (in inches) of my family.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="data-frames.html#cb66-1" aria-hidden="true"></a>family &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb66-2"><a href="data-frames.html#cb66-2" aria-hidden="true"></a>  <span class="dt">Names =</span> <span class="kw">c</span>(<span class="st">&#39;Derek&#39;</span>, <span class="st">&#39;Aubrey&#39;</span>, <span class="st">&#39;Elise&#39;</span>, <span class="st">&#39;Casey&#39;</span>),</span>
-<span id="cb66-3"><a href="data-frames.html#cb66-3" aria-hidden="true"></a>  <span class="dt">Age   =</span> <span class="kw">c</span>(<span class="dv">42</span>, <span class="dv">39</span>, <span class="dv">6</span>, <span class="dv">3</span>),</span>
-<span id="cb66-4"><a href="data-frames.html#cb66-4" aria-hidden="true"></a>  <span class="dt">Height.in =</span> <span class="kw">c</span>(<span class="dv">64</span>, <span class="dv">66</span>, <span class="dv">43</span>, <span class="dv">39</span>) </span>
-<span id="cb66-5"><a href="data-frames.html#cb66-5" aria-hidden="true"></a>)</span>
-<span id="cb66-6"><a href="data-frames.html#cb66-6" aria-hidden="true"></a>family</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="data-frames.html#cb65-1" aria-hidden="true"></a>family &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb65-2"><a href="data-frames.html#cb65-2" aria-hidden="true"></a>  <span class="dt">Names =</span> <span class="kw">c</span>(<span class="st">&#39;Derek&#39;</span>, <span class="st">&#39;Aubrey&#39;</span>, <span class="st">&#39;Elise&#39;</span>, <span class="st">&#39;Casey&#39;</span>),</span>
+<span id="cb65-3"><a href="data-frames.html#cb65-3" aria-hidden="true"></a>  <span class="dt">Age   =</span> <span class="kw">c</span>(<span class="dv">42</span>, <span class="dv">39</span>, <span class="dv">6</span>, <span class="dv">3</span>),</span>
+<span id="cb65-4"><a href="data-frames.html#cb65-4" aria-hidden="true"></a>  <span class="dt">Height.in =</span> <span class="kw">c</span>(<span class="dv">64</span>, <span class="dv">66</span>, <span class="dv">43</span>, <span class="dv">39</span>) </span>
+<span id="cb65-5"><a href="data-frames.html#cb65-5" aria-hidden="true"></a>)</span>
+<span id="cb65-6"><a href="data-frames.html#cb65-6" aria-hidden="true"></a>family</span></code></pre></div>
 <pre><code>##    Names Age Height.in
 ## 1  Derek  42        64
 ## 2 Aubrey  39        66
 ## 3  Elise   6        43
 ## 4  Casey   3        39</code></pre>
 <p>To access a particular column, we could use the <code>$</code> operator. We could then do something like calculate the mean or standard deviation.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="data-frames.html#cb68-1" aria-hidden="true"></a>family<span class="op">$</span>Age</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="data-frames.html#cb67-1" aria-hidden="true"></a>family<span class="op">$</span>Age</span></code></pre></div>
 <pre><code>## [1] 42 39  6  3</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="data-frames.html#cb70-1" aria-hidden="true"></a><span class="kw">mean</span>( family<span class="op">$</span>Age )</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="data-frames.html#cb69-1" aria-hidden="true"></a><span class="kw">mean</span>( family<span class="op">$</span>Age )</span></code></pre></div>
 <pre><code>## [1] 22.5</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="data-frames.html#cb72-1" aria-hidden="true"></a><span class="kw">sd</span>( family<span class="op">$</span>Age )</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="data-frames.html#cb71-1" aria-hidden="true"></a><span class="kw">sd</span>( family<span class="op">$</span>Age )</span></code></pre></div>
 <pre><code>## [1] 20.85665</code></pre>
 <p>As an alternative to the “$” operator, we could use the <code>[row, column]</code> notation. To select a particular row or column, we can select them by either name or location.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="data-frames.html#cb74-1" aria-hidden="true"></a>family[ , <span class="st">&#39;Age&#39;</span>]    <span class="co"># all the rows, Age column</span></span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="data-frames.html#cb73-1" aria-hidden="true"></a>family[ , <span class="st">&#39;Age&#39;</span>]    <span class="co"># all the rows, Age column</span></span></code></pre></div>
 <pre><code>## [1] 42 39  6  3</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="data-frames.html#cb76-1" aria-hidden="true"></a>family[ <span class="dv">2</span>, <span class="st">&#39;Age&#39;</span>]  <span class="co"># age of person in row 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="data-frames.html#cb75-1" aria-hidden="true"></a>family[ <span class="dv">2</span>, <span class="st">&#39;Age&#39;</span>]  <span class="co"># age of person in row 2</span></span></code></pre></div>
 <pre><code>## [1] 39</code></pre>
 <p>Next we could calculate everybodies height in centimeters by multiplying the heights by 2.54 and saving the result in column appropriately named.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="data-frames.html#cb78-1" aria-hidden="true"></a>family<span class="op">$</span>Height.cm &lt;-<span class="st"> </span>family<span class="op">$</span>Height.in <span class="op">*</span><span class="st"> </span><span class="fl">2.54</span>  <span class="co"># calculate the heights and save them!</span></span>
-<span id="cb78-2"><a href="data-frames.html#cb78-2" aria-hidden="true"></a>family                                       <span class="co"># view our result!</span></span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="data-frames.html#cb77-1" aria-hidden="true"></a>family<span class="op">$</span>Height.cm &lt;-<span class="st"> </span>family<span class="op">$</span>Height.in <span class="op">*</span><span class="st"> </span><span class="fl">2.54</span>  <span class="co"># calculate the heights and save them!</span></span>
+<span id="cb77-2"><a href="data-frames.html#cb77-2" aria-hidden="true"></a>family                                       <span class="co"># view our result!</span></span></code></pre></div>
 <pre><code>##    Names Age Height.in Height.cm
 ## 1  Derek  42        64    162.56
 ## 2 Aubrey  39        66    167.64

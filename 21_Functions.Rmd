@@ -375,7 +375,7 @@ When executing a function, R will have access to all the variables defined in th
       labs(y='density') + theme_bw()
     ```
     We want to write a function `duniform(x, a, b)` that takes an arbitrary value of `x` and parameters a and b and return the appropriate height of the density function. For various values of `x`, `a`, and `b`, demonstrate that your function returns the correct density value. 
-    a) Write your function without regard for it working with vectors of data. Demonstrate that it works by calling the function three times, once where x< a, once where a < x and x < b, and finally once where b < x.
+    a) Write your function without regard for it working with vectors of data. Demonstrate that it works by calling the function with a three times, once where $x< a$, once where $a < x < b$, and finally once where $b < x$.
     b) Next we force our function to work correctly for a vector of `x` values. Modify your function in part (a) so that the core logic is inside a `for` statement and the loop moves through each element of `x` in succession. Your function should look something like this:
         ```{r, eval=FALSE}
         duniform <- function(x, a, b){
@@ -399,9 +399,9 @@ When executing a function, R will have access to all the variables defined in th
         ```
     c) Install the R package `microbenchmark`. We will use this to discover the average duration your function takes.
         ```{r, eval=FALSE}
-        microbenchmark::microbenchmark( duniform( seq(-4,12,by=.0001), 4, 8) )
+        microbenchmark::microbenchmark( duniform( seq(-4,12,by=.0001), 4, 8), times=100)
         ```
-        In particular, look at the median time for evaluation.
+        This will call the input R expression 100 times and report summary statistics on how long it took for the code to run. In particular, look at the median time for evaluation.
     d) Instead of using a `for` loop, it might have been easier to use our standard `dplyr::mutate` command with an `ifelse()` command. Rewrite your function to run the `dplyr::mutate` command with an `ifelse()` command to produce a new results column and return that results column. Verify that your function works correctly by producing a plot, and also run the `microbenchmark()`.  Which version of your function was easier to write? Which ran faster?
 
 2. I very often want to provide default values to a parameter that I pass to a function. For example, it is so common for me to use the `pnorm()` and `qnorm()` functions on the standard normal, that R will automatically use `mean=0` and `sd=1` parameters unless you tell R otherwise. To get that behavior, we just set the default parameter values in the definition. When the function is called, the user specified value is used, but if none is specified, the defaults are used. Look at the help page for the functions `dunif()`, and notice that there are a number of default parameters. For your `duniform()` function provide default values of `0` and `1` for `a` and `b`. Demonstrate that your function is appropriately using the given default values. 
