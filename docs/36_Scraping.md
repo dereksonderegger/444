@@ -200,7 +200,7 @@ HeadLines %>%
 ## [2] "\nThe Horrible Cake Busts From 'The Great British Baking Show' Season Premiere Will Haunt Us Forever\n"          
 ## [3] "\nThis Is An Excellent 16-Second Video On How Tax Codes Work In The United States\n"                             
 ## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                     
-## [5] "\nMan Does A Genius Impression Of Adam Driver Ordering His Favorite Drink At Starbucks\n"                        
+## [5] "\nCouple In Pre-Wedding Shoot Receive Some, Uh, Awkward Advice From Strangers\n"                                 
 ## [6] "\nAt The Evangelical Creation Museum, Dinosaurs Lived Alongside Humans And The World Is 6,000 Years Old (2020)\n"
 ```
 
@@ -220,7 +220,7 @@ Links %>%
 ## [2] "/2020/great-british-baking-show-cake-busts"                                                                                                             
 ## [3] "/2020/tax-code-rich-go-under-barrier"                                                                                                                   
 ## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                            
-## [5] "/2020/adam-driver-starbucks-impression"                                                                                                                 
+## [5] "/video/couple-pre-wedding-shoot-advice-dont-get-married"                                                                                                
 ## [6] "https://theconversation.com/at-the-evangelical-creation-museum-dinosaurs-lived-alongside-humans-and-the-world-is-6-000-years-old-142145?utm_source=digg"
 ```
 
