@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-09-27" />
+<meta name="date" content="2020-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -340,7 +340,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3.1" data-path="string-manipulation.html"><a href="string-manipulation.html#detecting-a-pattern-using-str_detect"><i class="fa fa-check"></i><b>11.3.1</b> Detecting a pattern using str_detect()</a></li>
 <li class="chapter" data-level="11.3.2" data-path="string-manipulation.html"><a href="string-manipulation.html#locating-a-pattern-using-str_locate"><i class="fa fa-check"></i><b>11.3.2</b> Locating a pattern using str_locate()</a></li>
 <li class="chapter" data-level="11.3.3" data-path="string-manipulation.html"><a href="string-manipulation.html#replacing-sub-strings-using-str_replace"><i class="fa fa-check"></i><b>11.3.3</b> Replacing sub-strings using <code>str_replace()</code></a></li>
-<li class="chapter" data-level="11.3.4" data-path="string-manipulation.html"><a href="string-manipulation.html#splitting-into-sub-strings-using-str_split"><i class="fa fa-check"></i><b>11.3.4</b> Splitting into sub-strings using <code>str_split()</code></a></li>
+<li class="chapter" data-level="11.3.4" data-path="string-manipulation.html"><a href="string-manipulation.html#splitting-into-sub-strings-using-str_split-and-tidyrseparate"><i class="fa fa-check"></i><b>11.3.4</b> Splitting into sub-strings using <code>str_split()</code> and <code>tidyr::separate()</code></a></li>
 </ul></li>
 <li class="chapter" data-level="11.4" data-path="string-manipulation.html"><a href="string-manipulation.html#regular-expressions"><i class="fa fa-check"></i><b>11.4</b> Regular Expressions</a>
 <ul>
@@ -366,12 +366,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="13" data-path="data-reshaping.html"><a href="data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="data-reshaping.html"><a href="data-reshaping.html#data.frames-vs-tibbles"><i class="fa fa-check"></i><b>13.1</b> <code>data.frames</code> vs <code>tibbles</code></a></li>
-<li class="chapter" data-level="13.2" data-path="data-reshaping.html"><a href="data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>13.2</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
-<li class="chapter" data-level="13.3" data-path="data-reshaping.html"><a href="data-reshaping.html#tidyr"><i class="fa fa-check"></i><b>13.3</b> <code>tidyr</code></a>
-<ul>
-<li class="chapter" data-level="13.3.1" data-path="data-reshaping.html"><a href="data-reshaping.html#verbs-1"><i class="fa fa-check"></i><b>13.3.1</b> Verbs</a></li>
-</ul></li>
+<li class="chapter" data-level="13.1" data-path="data-reshaping.html"><a href="data-reshaping.html#cbind-rbind"><i class="fa fa-check"></i><b>13.1</b> <code>cbind</code> &amp; <code>rbind</code></a></li>
+<li class="chapter" data-level="13.2" data-path="data-reshaping.html"><a href="data-reshaping.html#table-pivots"><i class="fa fa-check"></i><b>13.2</b> Table Pivots</a></li>
+<li class="chapter" data-level="13.3" data-path="data-reshaping.html"><a href="data-reshaping.html#spreading-a-single-column-with-separate"><i class="fa fa-check"></i><b>13.3</b> Spreading a Single Column with <code>separate</code></a></li>
 <li class="chapter" data-level="13.4" data-path="data-reshaping.html"><a href="data-reshaping.html#storing-data-in-multiple-tables"><i class="fa fa-check"></i><b>13.4</b> Storing Data in Multiple Tables</a></li>
 <li class="chapter" data-level="13.5" data-path="data-reshaping.html"><a href="data-reshaping.html#table-joins"><i class="fa fa-check"></i><b>13.5</b> Table Joins</a></li>
 <li class="chapter" data-level="13.6" data-path="data-reshaping.html"><a href="data-reshaping.html#row-summations"><i class="fa fa-check"></i><b>13.6</b> Row summations</a></li>
@@ -483,10 +480,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html"><i class="fa fa-check"></i>CheatSheet</a>
 <ul>
-<li class="chapter" data-level="19.6" data-path="cheatsheet.html"><a href="cheatsheet.html#importing-data-and-loading-packages"><i class="fa fa-check"></i><b>19.6</b> Importing Data and Loading Packages</a></li>
-<li class="chapter" data-level="19.7" data-path="cheatsheet.html"><a href="cheatsheet.html#useful-vectorized-functions"><i class="fa fa-check"></i><b>19.7</b> Useful vectorized functions</a></li>
-<li class="chapter" data-level="19.8" data-path="cheatsheet.html"><a href="cheatsheet.html#data-frame-tibble-manipulation"><i class="fa fa-check"></i><b>19.8</b> Data frame (tibble) manipulation</a></li>
-<li class="chapter" data-level="19.9" data-path="cheatsheet.html"><a href="cheatsheet.html#data-frame-tibble-reshaping"><i class="fa fa-check"></i><b>19.9</b> Data frame (tibble) reshaping</a></li>
+<li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html#importing-data-and-loading-packages"><i class="fa fa-check"></i>Importing Data and Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html#useful-vectorized-functions"><i class="fa fa-check"></i>Useful vectorized functions</a></li>
+<li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html#data-frame-tibble-manipulation"><i class="fa fa-check"></i>Data frame (tibble) manipulation</a></li>
+<li class="chapter" data-level="" data-path="cheatsheet.html"><a href="cheatsheet.html#data-frame-tibble-reshaping"><i class="fa fa-check"></i>Data frame (tibble) reshaping</a></li>
 </ul></li>
 </ul>
 

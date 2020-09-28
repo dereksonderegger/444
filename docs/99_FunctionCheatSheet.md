@@ -3,7 +3,7 @@
 
 The goal of this appendix is to give a easy reference to basic manipulation functions that are often used and should always be readily accessible.
 
-## Importing Data and Loading Packages
+## Importing Data and Loading Packages {-}
 | Function   |   Meaning                            |
 |:------------------------------------------|:-------------------------------------|
 | `data("DataName", package="PackageName")` | Load the data set `DataName` which is found in the package `PackageName` |
@@ -11,13 +11,13 @@ The goal of this appendix is to give a easy reference to basic manipulation func
 | `read.csv("filename.csv")`                | Read a .csv file. This result needs to be saved or else it is just printed |
 
 
-## Useful vectorized functions
+## Useful vectorized functions {-}
 | Function   |   Meaning                            |
 |:-------------------------------------------------|:-------------------------------------|
 | `ifelse( logicalTest, TrueResult, FalseResult )` | Creates a vector of output, where elements are either the `TrueResult` or `FalseResult` based on the corresponding outcome in the `logicalTest` vector |
 
 
-## Data frame (tibble) manipulation
+## Data frame (tibble) manipulation {-}
 In the examples below, `df` stands for an arbitrary data frame that we are applying the functions to.
 
 | Function   |   Meaning                            |
@@ -32,7 +32,7 @@ In the examples below, `df` stands for an arbitrary data frame that we are apply
 | `df %>% mutate( New= )`  | Create (or update) a column `New` with some manipulation of `Old` column. A common manipulation is to use an `ifelse()` command to update only particular rows.|
 
 
-## Data frame (tibble) reshaping
+## Data frame (tibble) reshaping {-}
 These functions will modify an input data frame `df`
 
 | Function   |   Meaning                            |

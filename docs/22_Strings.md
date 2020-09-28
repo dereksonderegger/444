@@ -280,6 +280,11 @@ The previous commands are all quite useful but the most powerful string operatio
 |  `str_split_fixed()`  |  input pattern                                 |
 +-----------------------+------------------------------------------------+
 
+|   Function            |   Description                                  |
+|:---------------------:|:-----------------------------------------------|
+| `tidyr::separate()`   | Applies `str_split_fixed()` to a data frame column |
+
+
 We will first examine these functions using a very simple pattern matching algorithm where we are matching a specific pattern. For most people, this is as complex as we need. 
 
 Suppose that we have a vector of strings that contain a date in the form “2012-May-27” and we want to manipulate them to extract certain information.
@@ -382,23 +387,80 @@ data.frame( string = strings ) %>%
 ## 4   2016-Jan-2   2016:Jan:2
 ```
 
-### Splitting into sub-strings using `str_split()`
+### Splitting into sub-strings using `str_split()` and `tidyr::separate()`
 
 We can split each of the dates into three smaller sub-strings using the `str_split()` command, which returns a list where each element of the list is a vector containing pieces of the original string (excluding the pattern we matched on).
+
+```r
+# Returns a List object where each is split
+str_split(strings, pattern='-')
+```
+
+```
+## [[1]]
+## [1] "2008" "Feb"  "10"  
+## 
+## [[2]]
+## [1] "2010" "Sept" "18"  
+## 
+## [[3]]
+## [1] "2013" "Jan"  "11"  
+## 
+## [[4]]
+## [1] "2016" "Jan"  "2"
+```
 
 If we know that all the strings will be split into a known number of sub-strings (we have to specify how many sub-strings to match with the `n=` argument), we can use `str_split_fixed()` to get a matrix of sub-strings instead of list of sub-strings. 
 
 ```r
-data.frame( string = strings ) %>%
-  cbind( str_split_fixed(.$string, pattern='-', n=3) )
+str_split_fixed(strings, pattern='-', n=3)
 ```
 
 ```
-##         string    1    2  3
-## 1  2008-Feb-10 2008  Feb 10
-## 2 2010-Sept-18 2010 Sept 18
-## 3  2013-Jan-11 2013  Jan 11
-## 4   2016-Jan-2 2016  Jan  2
+##      [,1]   [,2]   [,3]
+## [1,] "2008" "Feb"  "10"
+## [2,] "2010" "Sept" "18"
+## [3,] "2013" "Jan"  "11"
+## [4,] "2016" "Jan"  "2"
+```
+
+Occasionally, I want to split column in a data frame on some pattern and store the resulting pieces in new columns attached to that same data frame.
+
+```r
+# Notice the `.$string` takes the input data frame (that is the `.` part) 
+# and then grabs the `string` column and passes all of that into `str_split_fixed`. 
+# The resulting character matrix is then column binded to the input data frame.
+data.frame( 
+    Event=c('Date','Marriage','Elise','Casey'),
+    Date = strings ) %>%
+  cbind( str_split_fixed(.$Date, pattern='-', n=3)) %>%
+  rename( Year=`1`, Month=`2`, Day=`3` )
+```
+
+```
+##      Event         Date Year Month Day
+## 1     Date  2008-Feb-10 2008   Feb  10
+## 2 Marriage 2010-Sept-18 2010  Sept  18
+## 3    Elise  2013-Jan-11 2013   Jan  11
+## 4    Casey   2016-Jan-2 2016   Jan   2
+```
+
+```r
+# It is really annoying to have to rename it, so the tidyr package includes
+# a specialized function `separate` that does this exact thing.
+# `remove=FALSE` causes separate to keep the original Date column.
+data.frame( 
+    Event=c('Date','Marriage','Elise','Casey'),
+    Date = strings ) %>%
+  separate(Date, sep='-', into=c('Year','Month','Day'), remove=FALSE)
+```
+
+```
+##      Event         Date Year Month Day
+## 1     Date  2008-Feb-10 2008   Feb  10
+## 2 Marriage 2010-Sept-18 2010  Sept  18
+## 3    Elise  2013-Jan-11 2013   Jan  11
+## 4    Casey   2016-Jan-2 2016   Jan   2
 ```
 
 ## Regular Expressions

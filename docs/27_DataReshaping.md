@@ -15,37 +15,6 @@ Most of the time, our data is in the form of a data frame and we are interested 
 
 Next we need a way to squish two data frames together. It is often advantageous to store data that would be be repeated separately in a different table so that a particular piece of information lives in only one location. This makes the data easier to modify, and more likely to maintain consistence. However, this practice requires that, when necessary, we can add information to a table, that might involve a lot of duplicated rows.
 
-## `data.frames` vs `tibbles`
-Previously we've been using `data.frame` and `tibble` objects interchangeably, but now is a good time make a distinction. Essentially a `tibble` is a `data.frame` that does more type checking and less coercion during creation and manipulation. So a `tibble` does less (automatically) and complains more. The rational for this is that while coercion between data types can be helpful, it often disguises errors that take a long time to track down. On the whole, is better to force the user to do the coercion explicitly rather than hope that R magically does the right thing.
-
-
-Second, the printing methods for `tibbles` prevent it from showing too many rows or columns. This is a very convenient and more user-friendly way to show the data. We can control how many rows or columns are printed using the `options()` command, which sets all of the global options.
-
-|  Options            |    Result                           |
-|:--------------------------------------:|:-----------------|
-| `options(tibble.print_max = n, tibble.print_min = m)`  | if there are more than `n` rows, print only the first `m`. 
-| `options(tibble.print_max = Inf)` |  Always print all the rows. |
-| `options(tibble.width = Inf)` | Always print all columns, regardless of the width of the display device. |
-
-Third, `tibbles` support column names that would be rejected by a data frame.  For example, a data frame will not allow columns to begin with a number, nor can column names contain a space. These are allowable by `tibbles`, although they are required to be enclosed by back-quotes when referring to them.
-
-
-```r
-example <- tribble(
-  ~'1984', ~"Is Awesome",
-  'George',   20,
-  'Orwell',   87)
-
-example %>% select( `1984`, `Is Awesome` )
-```
-
-```
-## # A tibble: 2 x 2
-##   `1984` `Is Awesome`
-##   <chr>         <dbl>
-## 1 George           20
-## 2 Orwell           87
-```
 
 ## `cbind` & `rbind`
 Base R has two functions for squishing two data frames together, but they assume that the data frames are aligned correctly. The `c` and `r` parts of `cbind` and `rbind` correspond to if we are pushing columns together or rows together. 
@@ -136,94 +105,115 @@ bind_rows( People, df4, df5) # Inserts NA values as appropriate.
 In general, I find that `rbind()` and `bind_rows()` work really well and I use them quite often. However, `cbind()` and `bind_cols()` are less useful because I have to make sure that either I have rownames set up for each data set, or I have to be very careful with the ordering. Instead, it is safer to write code that relies on `joins`, which will be discussed later in this chapter.
 
 
-## `tidyr`
+## Table Pivots
 
 There is a common issue with obtaining data with many columns that you wish were organized as rows. For example, I might have data in a grade book that has several homework scores and I'd like to produce a nice graph that has assignment number on the x-axis and score on the y-axis. Unfortunately this is incredibly hard to do when the data is arranged in the following way:
 
 
 ```r
 grade.book <- rbind(
-  data.frame(name='Alison',  HW.1=8, HW.2=5, HW.3=8, HW.4=4),
-  data.frame(name='Brandon', HW.1=5, HW.2=3, HW.3=6, HW.4=9),
-  data.frame(name='Charles', HW.1=9, HW.2=7, HW.3=9, HW.4=10))
+  data.frame(name='Alison.Anderson',  HW.1=8, HW.2=5, HW.3=8, HW.4=4),
+  data.frame(name='Brandon.Babbage', HW.1=5, HW.2=3, HW.3=6, HW.4=9),
+  data.frame(name='Charles.Collins', HW.1=9, HW.2=7, HW.3=9, HW.4=10))
 grade.book
 ```
 
 ```
-##      name HW.1 HW.2 HW.3 HW.4
-## 1  Alison    8    5    8    4
-## 2 Brandon    5    3    6    9
-## 3 Charles    9    7    9   10
+##              name HW.1 HW.2 HW.3 HW.4
+## 1 Alison.Anderson    8    5    8    4
+## 2 Brandon.Babbage    5    3    6    9
+## 3 Charles.Collins    9    7    9   10
 ```
 
 What we want to do is turn this data frame from a *wide* data frame into a *long* data frame. In MS Excel this is called pivoting. Essentially I'd like to create a data frame with three columns: `name`, `assignment`, and `score`. That is to say that each homework datum really has three pieces of information: who it came from, which homework it was, and what the score was. It doesn't conceptually matter if I store it as 3 rows of 4 columns or 12 rows so long as there is a way to identify how a student scored on a particular homework. So we want to reshape the HW1 to HW4 columns into two columns (assignment and score). 
 
 This package was built by the same people that created dplyr and ggplot2 and there is a nice introduction at: [http://blog.rstudio.org/2014/07/22/introducing-tidyr/]
 
-### Verbs 
+There have been several iterations of functions to convert data from a wide to long and back again. When Hadley first began thinking through these issues in the `reshape` package, he called these two functions `melt` and `cast`. The second iteration in these functions in the `tidyr` package were called `gather` and `spread`. I believe we are finally in the last which are simply named `pivot_wider()` and `pivot_longer()`.
 
-*I need to update this section to use `pivot_longer()` and `pivot_wider()`. Hadley recommends people switch to this as it handles a wider set of problems and the function names are easier to remember*
-
-*Also, we need to add some work for the function separate(), which splits a column of character vectors into several columns*
-
-As with the dplyr package, there are two main verbs to remember:
+There are two main verbs to remember:
 
 |  Function     |   Description                                                                    |
 |:-------------:|:---------------------------------------------------------------------------------|
-| `gather`      |  Gather multiple columns that are related into two columns that contain the original column name and the value. For example for columns `HW1`, `HW2`, `HW3` we would gather them into two columns: `Homework` and `Score`. In this case, we refer to `Homework` as the key column and `Score` as the value column. So for any key:value pair you know everything you need. |
-| `spread`      | This is the opposite of `gather`. This takes a key column (or columns) and a value column and forms a new column for each level of the key column(s). |
+| `pivot_longer()` |  Gather multiple columns that are related into two columns that contain the original column name and the value. For example for columns `HW1`, `HW2`, `HW3` we would gather them into two columns: `Homework` and `Score`. In this case, we refer to `Homework` as the _names_ column and `Score` as the _values_ column.  |
+| `pivot_wider()`  | This is the opposite function. This takes a _names_ and _values_ pair of columns and forms a new column for each level of the _names_ column(s). |
 
 
 ```r
 # first we gather the score columns into columns we'll name Homework and Score
 tidy.scores <- grade.book %>% 
-  gather( key=Homework,     # What should I call the key column
-          value=Score,      # What should I call the values column
-          HW.1:HW.4)        # which columns to apply this to
+  pivot_longer( 
+    HW.1:HW.4,                # which columns to apply this to
+    names_to  = 'Homework',   # What should I call the column of old column names
+    values_to = 'Score')      # What should I call the values column
 tidy.scores
 ```
 
 ```
-##       name Homework Score
-## 1   Alison     HW.1     8
-## 2  Brandon     HW.1     5
-## 3  Charles     HW.1     9
-## 4   Alison     HW.2     5
-## 5  Brandon     HW.2     3
-## 6  Charles     HW.2     7
-## 7   Alison     HW.3     8
-## 8  Brandon     HW.3     6
-## 9  Charles     HW.3     9
-## 10  Alison     HW.4     4
-## 11 Brandon     HW.4     9
-## 12 Charles     HW.4    10
+## # A tibble: 12 x 3
+##    name            Homework Score
+##    <chr>           <chr>    <dbl>
+##  1 Alison.Anderson HW.1         8
+##  2 Alison.Anderson HW.2         5
+##  3 Alison.Anderson HW.3         8
+##  4 Alison.Anderson HW.4         4
+##  5 Brandon.Babbage HW.1         5
+##  6 Brandon.Babbage HW.2         3
+##  7 Brandon.Babbage HW.3         6
+##  8 Brandon.Babbage HW.4         9
+##  9 Charles.Collins HW.1         9
+## 10 Charles.Collins HW.2         7
+## 11 Charles.Collins HW.3         9
+## 12 Charles.Collins HW.4        10
 ```
 
-To spread the key:value pairs out into a matrix, we use the `spread()` command. 
+To spread the _names_ _values_ pairs out into a wide data frame, we use the `pivot_wider()` command. 
 
 
 ```r
 # Turn the Homework/Score pair of columns into one column per factor level of Homework
-tidy.scores %>% spread( key=Homework, value=Score )
+tidy.scores %>% pivot_wider( names_from=Homework, values_from=Score )
 ```
 
 ```
-##      name HW.1 HW.2 HW.3 HW.4
-## 1  Alison    8    5    8    4
-## 2 Brandon    5    3    6    9
-## 3 Charles    9    7    9   10
+## # A tibble: 3 x 5
+##   name             HW.1  HW.2  HW.3  HW.4
+##   <chr>           <dbl> <dbl> <dbl> <dbl>
+## 1 Alison.Anderson     8     5     8     4
+## 2 Brandon.Babbage     5     3     6     9
+## 3 Charles.Collins     9     7     9    10
 ```
 
-One way to keep straight which is the `key` column is that the key is the category, while `value` is the numerical value or response. 
 
 Often times, the long format of the data is most helpful for graphing or doing data analysis. Because of this, we often refer to this as the *tidy* form of the data. Hadley has a nice article about messy data vs tidy data and his [article](https://vita.had.co.nz/papers/tidy-data.pdf) is well worth your time to read, although `dplyr` and `tidyr` have matured since he wrote this article. The main point can be summarized by:
 
-    Tidy data has one observation per row and each column is a variable. - Hadley Wickham
+1. Each row in the data frame represents a single object.
+2. Each column represents an attribute that can be measured on every object.
+3. Every object type implicitly forms a table.
 
-There are a variety of reasons why data might be stored in a non-tidy wide format, or entered in a wide format, but it is important to make sure that it is easy to transform it into a tidy format.
+In our grade book example, we could consider each *student* as on object and store the data with 1 row per student and columns for each attribute (homework score). Alternatively, the long form is a `Scores` data set stores the data with a single row representing a single score. If I have multiple sections of the course and some homeworks are not assigned to one course but are assigned to another, then the long form `Scores` would be the appropriate storage.
+
+Most of our graphing and data analysis procedures will expect the data to be in a long format, but for both data input and digital storage compression, we might have data given to us in a wide format. 
+
+## Spreading a Single Column with `separate`
+It is common for data columns to contain multiple attributes. For example, a name column might contain both first and last names or a file name might contain multiple bits of information broken up by underscores. In the string manipulation chapter, we saw how to use `stringr::str_split()` to split strings. Now we'll apply this using the `tidyr::separate()` function.
+
+
+```r
+grade.book %>% separate(name, sep='\\.', c('F.Name','L.Name'), remove = FALSE)
+```
+
+```
+##              name  F.Name   L.Name HW.1 HW.2 HW.3 HW.4
+## 1 Alison.Anderson  Alison Anderson    8    5    8    4
+## 2 Brandon.Babbage Brandon  Babbage    5    3    6    9
+## 3 Charles.Collins Charles  Collins    9    7    9   10
+```
+
+
 
 ## Storing Data in Multiple Tables
-In many data sets it is common to store data across multiple tables, usually with the goal of minimizing memory used as well as providing minimal duplication of information so any change that must be made is only made in a single place.
+In many data sets it is common to store data across multiple tables, usually with the goal of minimizing memory used as well as providing minimal duplication of information so any change that must be made is only made in a single place. Recall the guiding idea that each *type* of object stored should result in its own table.
 
 To see the rational why we might do this, consider building a data set of blood donations by a variety of donors across several years. For each blood donation, we will perform some assay and measure certain qualities about the blood and the patients health at the donation. But should we contain the donor's address, phone number, and email address in the same data table that holds the information about the blood donated.
 
@@ -383,12 +373,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              229.
-## 2 A              223.
-## 3 B              246.
-## 4 B              241.
-## 5 C              285.
-## 6 C              266.
+## 1 A              278.
+## 2 A              294.
+## 3 B              263.
+## 4 B              255.
+## 5 C              259.
+## 6 C              258.
 ```
 
 ```r
@@ -419,12 +409,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              229. <NA>         NA      NA        NA
-## 2 A              223. <NA>         NA      NA        NA
-## 3 B              246. Lake Elaine   6.5    40         8
-## 4 B              241. Lake Elaine   6.5    40         8
-## 5 C              285. Mormon Lake   6.3   210        10
-## 6 C              266. Mormon Lake   6.3   210        10
+## 1 A              278. <NA>         NA      NA        NA
+## 2 A              294. <NA>         NA      NA        NA
+## 3 B              263. Lake Elaine   6.5    40         8
+## 4 B              255. Lake Elaine   6.5    40         8
+## 5 C              259. Mormon Lake   6.3   210        10
+## 6 C              258. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -444,12 +434,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              229. <NA>         NA      NA        NA
-## 2 A              223. <NA>         NA      NA        NA
-## 3 B              246. Lake Elaine   6.5    40         8
-## 4 B              241. Lake Elaine   6.5    40         8
-## 5 C              285. Mormon Lake   6.3   210        10
-## 6 C              266. Mormon Lake   6.3   210        10
+## 1 A              278. <NA>         NA      NA        NA
+## 2 A              294. <NA>         NA      NA        NA
+## 3 B              263. Lake Elaine   6.5    40         8
+## 4 B              255. Lake Elaine   6.5    40         8
+## 5 C              259. Mormon Lake   6.3   210        10
+## 6 C              258. Mormon Lake   6.3   210        10
 ```
 
 
@@ -465,23 +455,23 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              246. Lake Elaine   6.5    40         8
-## 2 B              241. Lake Elaine   6.5    40         8
-## 3 C              285. Mormon Lake   6.3   210        10
-## 4 C              266. Mormon Lake   6.3   210        10
+## 1 B              263. Lake Elaine   6.5    40         8
+## 2 B              255. Lake Elaine   6.5    40         8
+## 3 C              259. Mormon Lake   6.3   210        10
+## 4 C              258. Mormon Lake   6.3   210        10
 ```
 
-The above examples assumed that the column used to join the two tables was named the same in both tables.  This is good practice to try to do, but sometimes you have to work with data where that isn't the case.  In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
+The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn't the case. In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
 
 
 ## Row summations
-Finally, the combination of `gather` and `join` allows me to do some very complex calculations across many columns of a data set.  For example, I might gather up a set of columns, calculate some summary statistics, and then join the result back to original data set.  
+Finally, the combination of `pivot_longer` and `pivot_wider` allows me to do some very complex calculations across many columns of a data set.  For example, I might gather up a set of columns, calculate some summary statistics, and then join the result back to original data set.  
 
 
 ```r
 grade.book %>%
   group_by(name) %>%
-  gather( key=Homework, value=Score, HW.1:HW.4 ) %>%
+  pivot_longer(HW.1:HW.4, names_to='Homework', values_to='Score' ) %>%
   summarise( HW.avg = mean(Score) ) %>%
   left_join( grade.book, . )
 ```
@@ -495,10 +485,10 @@ grade.book %>%
 ```
 
 ```
-##      name HW.1 HW.2 HW.3 HW.4 HW.avg
-## 1  Alison    8    5    8    4   6.25
-## 2 Brandon    5    3    6    9   5.75
-## 3 Charles    9    7    9   10   8.75
+##              name HW.1 HW.2 HW.3 HW.4 HW.avg
+## 1 Alison.Anderson    8    5    8    4   6.25
+## 2 Brandon.Babbage    5    3    6    9   5.75
+## 3 Charles.Collins    9    7    9   10   8.75
 ```
 
 This is actually pretty annoying to do. What I prefer to do is to use the base function `apply()` within a `mutate()` command. Recall that the `apply()` function applies a function to each row or column (`MARGIN=1` or `MARGIN=2` respectively). So we just need to put together `select` and `apply` statements.
@@ -512,11 +502,39 @@ grade.book %>%
 ```
 
 ```
-##      name HW.1 HW.2 HW.3 HW.4 HW.avg
-## 1  Alison    8    5    8    4   6.25
-## 2 Brandon    5    3    6    9   5.75
-## 3 Charles    9    7    9   10   8.75
+##              name HW.1 HW.2 HW.3 HW.4 HW.avg
+## 1 Alison.Anderson    8    5    8    4   6.25
+## 2 Brandon.Babbage    5    3    6    9   5.75
+## 3 Charles.Collins    9    7    9   10   8.75
 ```
+
+But this pipeline inside a mutate command is a little cumbersome. The command `dplyr::rowwise()` causes subsequent actions to be performed _rowwise_ instead of the default of _columnwise_. The function `dplyr::c_across()` allows you to use all the select style tricks for picking columns.
+
+
+```r
+# grade.book %>%
+#   rowwise() %>%
+#   mutate( HW.avg = mean( HW.1, HW.2, HW.3, HW.4 ) )  # List the columns to average
+# 
+# grade.book %>%
+#   rowwise() %>%
+#   mutate( HW.avg = mean( c_across(HW.1:HW.4) ) )     # Give a column range to average
+
+grade.book %>%
+  rowwise() %>%
+  mutate( HW.avg = mean( c_across(starts_with('HW'))) )  # Average all HW... columns 
+```
+
+```
+## # A tibble: 3 x 6
+## # Rowwise: 
+##   name             HW.1  HW.2  HW.3  HW.4 HW.avg
+##   <chr>           <dbl> <dbl> <dbl> <dbl>  <dbl>
+## 1 Alison.Anderson     8     5     8     4   6.25
+## 2 Brandon.Babbage     5     3     6     9   5.75
+## 3 Charles.Collins     9     7     9    10   8.75
+```
+
 
 
 ## Exercises  {#Exercises_DataReshaping}

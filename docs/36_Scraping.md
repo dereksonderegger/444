@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nHow Twitter Survived Its Biggest Hack\n"                                     
-## [2] "\nAmerica's Big Cities Aren't Defunding the Police\n"                          
-## [3] "\nHow The Hyde Amendment Denies Poor Women From Getting Abortions In America\n"
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                   
-## [5] "\nHere's How To Make A 7-Course Tasting Menu Out Of Items Found At A Bodega\n" 
-## [6] "\nQAnon Is Like A Game — A Most Dangerous Game\n"
+## [1] "\nThe Coming Third Wave Of COVID-19, Visualized\n"                                                               
+## [2] "\nThe Horrible Cake Busts From 'The Great British Baking Show' Season Premiere Will Haunt Us Forever\n"          
+## [3] "\nThis Is An Excellent 16-Second Video On How Tax Codes Work In The United States\n"                             
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                     
+## [5] "\nMan Does A Genius Impression Of Adam Driver Ordering His Favorite Drink At Starbucks\n"                        
+## [6] "\nAt The Evangelical Creation Museum, Dinosaurs Lived Alongside Humans And The World Is 6,000 Years Old (2020)\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.wired.com/story/inside-twitter-hack-election-plan/?utm_source=digg"       
-## [2] "https://www.bloomberg.com/graphics/2020-city-budget-police-defunding/?utm_source=digg"
-## [3] "/video/how-the-hyde-amendment-denies-poor-women-from-getting-abortions-in-america"    
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                          
-## [5] "/video/heres-how-to-make-a-7-course-tasting-menu-out-of-items-found-at-a-bodega"      
-## [6] "https://www.wired.com/story/qanon-most-dangerous-multiplatform-game/?utm_source=digg"
+## [1] "https://time.com/5893916/covid-19-coronavirus-third-wave/?utm_source=digg"                                                                              
+## [2] "/2020/great-british-baking-show-cake-busts"                                                                                                             
+## [3] "/2020/tax-code-rich-go-under-barrier"                                                                                                                   
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                            
+## [5] "/2020/adam-driver-starbucks-impression"                                                                                                                 
+## [6] "https://theconversation.com/at-the-evangelical-creation-museum-dinosaurs-lived-alongside-humans-and-the-world-is-6-000-years-old-142145?utm_source=digg"
 ```
 
 
