@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThis Reddit Thread Of The Dumbest Things People 'Actually Believed' Might Make You Feel A Lot Smarter\n"                            
-## [2] "\nThe Most Outrageous Yeezy Prototypes\n"                                                                                             
-## [3] "\nComedian Asks Her Parents If They Were Taking The Pandemic Seriously. This Was Her Mom's Answer\n"                                  
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                          
-## [5] "\nWatch Harry Potter Fans Die Inside After Waiting Hours To See The Hogwarts Express Only To Have A Commuter Train Block Their View\n"
-## [6] "\nWhat I Learned Inside The NBA Bubble\n"
+## [1] "\nThis Reddit Thread Of The Dumbest Things People 'Actually Believed' Might Make You Feel A Lot Smarter\n"
+## [2] "\nThere's A Freaky Gaping Chasm In Microsoft Flight Simulator, With An Airport At The Bottom Of It\n"     
+## [3] "\nWatch Rep. Katie Porter Put Pharma CEO On Blast In The Most No-Nonsense Way For Drug Price Hike\n"      
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                              
+## [5] "\nWe Wish We Loved Something As Much As This Otter Loves To Eat Ice\n"                                    
+## [6] "\nWhy Did Warren Buffett Invest Over $6 Billion In Centuries-Old Japanese Trading Houses?\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2020/dumbest-things-people-believed"                                                               
-## [2] "https://www.inputmag.com/style/the-most-outrageous-yeezy-prototypes-kanye-west?utm_source=digg"     
-## [3] "/2020/comedian-asks-her-parents-if-they-were-taking-the-pandemic-seriously-this-was-her-moms-answer"
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                        
-## [5] "/video/hogwarts-express-commuter-train-block-their-view"                                            
-## [6] "https://www.nytimes.com/2020/09/30/magazine/nba-bubble.html?utm_source=digg"
+## [1] "/2020/dumbest-things-people-believed"                                                                                                   
+## [2] "https://www.pcgamer.com/theres-a-freaky-gaping-chasm-in-microsoft-flight-simulator-with-an-airport-at-the-bottom-of-it/?utm_source=digg"
+## [3] "/2020/katie-porter-celgene-ceo-price-gouging"                                                                                           
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                            
+## [5] "/2020/we-wish-we-loved-something-as-much-as-this-otter-loves-to-eat-ice"                                                                
+## [6] "https://thehustle.co/09292020-japanese-trading-houses/?utm_source=digg"
 ```
 
 

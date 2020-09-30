@@ -5,7 +5,7 @@
 
 ```r
 library(tidyverse)
-library( lubridate )
+library(lubridate)
 ```
 
 Dates within a computer require some special organization because there are several competing conventions for how to write a date (some of them more confusing than others) and because the sort order should be in the order that the dates occur in time.
@@ -39,7 +39,7 @@ base::Sys.time()     # Current Time and Date
 ```
 
 ```
-## [1] "2020-09-30 13:38:59 MST"
+## [1] "2020-09-30 16:30:44 MST"
 ```
 
 
@@ -157,7 +157,7 @@ mdy_hm('9-18-2010 17:30', tz='US/Arizona') # US Arizona time
 ## [1] "2010-09-18 17:30:00 MST"
 ```
 
-R recognizes 582 different time zone locals and you can find these using the function `OlsonNames()`. To find out more about what these mean you can check out the Wikipedia page on timezones [http://en.wikipedia.org/wiki/List_of_tz_database_time_zones||http://en.wikipedia.org/wiki/List_of_tz_database_time_zones].
+R recognizes 582 different time zone locals and you can find these using the function `OlsonNames()`. To find out more about what these mean you can check out the Wikipedia page on timezones [http://en.wikipedia.org/wiki/List_of_tz_database_time_zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
 ## Extracting information
 
@@ -323,7 +323,7 @@ data %>%
 
 ## Exercises  {#Exercises_Dates}
 
-1. For the following formats for a date, transform them into a date/time object. Which formats can be handled nicely and which are not? *The lubridate package has gotten smarter over time and a couple of these used to fail.*
+1. For the following formats for a date, transform them into a date/time object. Which formats can be handled nicely and which are not? 
     a) For September 13
         
         ```r
@@ -336,7 +336,21 @@ data %>%
           '9-13/78',
           '9/13/78')
         ```
-    b) For June 15, 1978 we should have a problem.
+    b) There is a [bug](https://github.com/tidyverse/lubridate/issues/868) listed in the lubridate package that hasn't yet been fixed. The bug tracker suggests it will eventually be fixed, but until then, either write out your months completely or use the appropriate 3 letter abbreviation.
+        
+        ```r
+        mdy('Sept 13, 1978')  # Why does this error out when it worked above?
+        ```
+        
+        ```
+        ## Warning: All formats failed to parse. No formats found.
+        ```
+        
+        ```
+        ## [1] NA
+        ```
+    
+    c) For June 15, 1978 we should have a problem, but unfortunately the second doesn't throw an error.
         
         ```r
         birthday <- c(
