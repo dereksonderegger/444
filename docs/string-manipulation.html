@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-09-28" />
+<meta name="date" content="2020-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -935,6 +935,10 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 </tbody>
 </table>
 <table>
+<colgroup>
+<col width="28%" />
+<col width="71%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="center">Group Modifiers</th>
@@ -944,11 +948,11 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <tbody>
 <tr class="odd">
 <td align="center"><code>*</code></td>
-<td align="left">Zero or more repetitions of previous</td>
+<td align="left">Zero or more repetitions of previous (greedy)</td>
 </tr>
 <tr class="even">
 <td align="center"><code>+</code></td>
-<td align="left">One or more repetitions of previous</td>
+<td align="left">One or more repetitions of previous (greedy)</td>
 </tr>
 <tr class="odd">
 <td align="center"><code>?</code></td>
@@ -961,6 +965,14 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <tr class="odd">
 <td align="center"><code>{m,n}</code></td>
 <td align="left">Between m and n repetitions of the previous</td>
+</tr>
+<tr class="even">
+<td align="center"><code>*?</code></td>
+<td align="left">Zero or more repetitions of previous (not-greedy). Obnoxiously the <code>?</code> is modifying the modifier here and so has a different interpretation than when modifying a group.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>+?</code></td>
+<td align="left">One or more repetitions of previous (not-greedy)</td>
 </tr>
 </tbody>
 </table>
@@ -1174,7 +1186,7 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="string-manipulation.html#cb649-1" aria-hidden="true"></a>file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</span>
 <span id="cb649-2"><a href="string-manipulation.html#cb649-2" aria-hidden="true"></a>                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</span>
 <span id="cb649-3"><a href="string-manipulation.html#cb649-3" aria-hidden="true"></a>                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</span></code></pre></div>
-<p>Use a combination of <code>str_sub()</code> and <code>str_split()</code> to produce a data frame with columns corresponding to the <code>site</code>, <code>plot</code>, <code>camera</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>, and <code>second</code> for these three file names. So we want to produce code that will create the data frame:</p>
+<p>Produce a data frame with columns corresponding to the <code>site</code>, <code>plot</code>, <code>camera</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>, and <code>second</code> for these three file names. So we want to produce code that will create the data frame:</p>
 <div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="string-manipulation.html#cb650-1" aria-hidden="true"></a> Site Plot Camera Year Month Day Hour Minute Second</span>
 <span id="cb650-2"><a href="string-manipulation.html#cb650-2" aria-hidden="true"></a> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></span>
 <span id="cb650-3"><a href="string-manipulation.html#cb650-3" aria-hidden="true"></a>  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></span>

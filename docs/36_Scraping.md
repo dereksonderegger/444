@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Coming Third Wave Of COVID-19, Visualized\n"                                                               
-## [2] "\nThe Horrible Cake Busts From 'The Great British Baking Show' Season Premiere Will Haunt Us Forever\n"          
-## [3] "\nThis Is An Excellent 16-Second Video On How Tax Codes Work In The United States\n"                             
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                     
-## [5] "\nCouple In Pre-Wedding Shoot Receive Some, Uh, Awkward Advice From Strangers\n"                                 
-## [6] "\nAt The Evangelical Creation Museum, Dinosaurs Lived Alongside Humans And The World Is 6,000 Years Old (2020)\n"
+## [1] "\nThis Reddit Thread Of The Dumbest Things People 'Actually Believed' Might Make You Feel A Lot Smarter\n"                            
+## [2] "\nThe Most Outrageous Yeezy Prototypes\n"                                                                                             
+## [3] "\nComedian Asks Her Parents If They Were Taking The Pandemic Seriously. This Was Her Mom's Answer\n"                                  
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                          
+## [5] "\nWatch Harry Potter Fans Die Inside After Waiting Hours To See The Hogwarts Express Only To Have A Commuter Train Block Their View\n"
+## [6] "\nWhat I Learned Inside The NBA Bubble\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://time.com/5893916/covid-19-coronavirus-third-wave/?utm_source=digg"                                                                              
-## [2] "/2020/great-british-baking-show-cake-busts"                                                                                                             
-## [3] "/2020/tax-code-rich-go-under-barrier"                                                                                                                   
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                            
-## [5] "/video/couple-pre-wedding-shoot-advice-dont-get-married"                                                                                                
-## [6] "https://theconversation.com/at-the-evangelical-creation-museum-dinosaurs-lived-alongside-humans-and-the-world-is-6-000-years-old-142145?utm_source=digg"
+## [1] "/2020/dumbest-things-people-believed"                                                               
+## [2] "https://www.inputmag.com/style/the-most-outrageous-yeezy-prototypes-kanye-west?utm_source=digg"     
+## [3] "/2020/comedian-asks-her-parents-if-they-were-taking-the-pandemic-seriously-this-was-her-moms-answer"
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                        
+## [5] "/video/hogwarts-express-commuter-train-block-their-view"                                            
+## [6] "https://www.nytimes.com/2020/09/30/magazine/nba-bubble.html?utm_source=digg"
 ```
 
 

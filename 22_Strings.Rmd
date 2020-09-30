@@ -313,11 +313,13 @@ The special characters are  `[ \ ^ $ . | ? * + ()`.
 
 |  Group Modifiers   |   Interpretation                                |
 |:------------------:|:------------------------------------------------|
-| `*`                | Zero or more repetitions of previous            |
-| `+`                | One or more repetitions of previous             |
+| `*`                | Zero or more repetitions of previous (greedy)   |
+| `+`                | One or more repetitions of previous (greedy)    |
 | `?`                | Previous group is optional                      |
 | `{m}`              | m repetitions of the previous                   |
 | `{m,n}`            | Between m and n repetitions of the previous     |
+| `*?`               | Zero or more repetitions of previous (not-greedy). Obnoxiously the `?` is modifying the modifier here and so has a different interpretation than when modifying a group.   |
+| `+?`               | One or more repetitions of previous (not-greedy)    |
 
 
 The general idea is to make a recipe that combines one or more groups and add modifiers on the groups for how often the group is repeated.
@@ -569,7 +571,7 @@ data.frame(Input = strings, stringsAsFactors = FALSE) %>%
                      'S10.P1.C1_20120622_050148.jpg',
                      'S187.P2.C2_20120702_023501.jpg')
     ```
-    Use a combination of `str_sub()` and `str_split()` to produce a data frame with columns corresponding to the `site`, `plot`, `camera`, `year`, `month`, `day`, `hour`, `minute`, and `second` for these three file names. So we want to produce code that will create the data frame:
+    Produce a data frame with columns corresponding to the `site`, `plot`, `camera`, `year`, `month`, `day`, `hour`, `minute`, and `second` for these three file names. So we want to produce code that will create the data frame:
     
     ```{r, eval=FALSE}
      Site Plot Camera Year Month Day Hour Minute Second
