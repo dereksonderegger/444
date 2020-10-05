@@ -23,7 +23,7 @@ lubridate::today()   # Today's date
 ```
 
 ```
-## [1] "2020-09-30"
+## [1] "2020-10-05"
 ```
 
 ```r
@@ -31,7 +31,7 @@ base::Sys.Date()     # Today's date
 ```
 
 ```
-## [1] "2020-09-30"
+## [1] "2020-10-05"
 ```
 
 ```r
@@ -39,7 +39,7 @@ base::Sys.time()     # Current Time and Date
 ```
 
 ```
-## [1] "2020-09-30 16:30:44 MST"
+## [1] "2020-10-05 08:24:44 MST"
 ```
 
 
@@ -311,12 +311,12 @@ data %>%
 ## # A tibble: 6 x 5
 ##   Name    dob        Life                           Age                  Age2
 ##   <chr>   <date>     <Interval>                     <Period>            <int>
-## 1 Steve   1955-02-24 1955-02-24 UTC--2020-09-30 UTC 65y 7m 6d 0H 0M 0S     65
-## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-09-30 UTC 47y 1m 9d 0H 0M 0S     47
-## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-09-30 UTC 56y 1m 15d 0H 0M 0S    56
-## 4 Bill    1955-10-28 1955-10-28 UTC--2020-09-30 UTC 64y 11m 2d 0H 0M 0S    64
-## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-09-30 UTC 5y 10m 24d 0H 0M 0S     5
-## 6 Siri    2011-10-12 2011-10-12 UTC--2020-09-30 UTC 8y 11m 18d 0H 0M 0S     8
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-10-05 UTC 65y 7m 11d 0H 0M 0S    65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-10-05 UTC 47y 1m 14d 0H 0M 0S    47
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-10-05 UTC 56y 1m 20d 0H 0M 0S    56
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-10-05 UTC 64y 11m 7d 0H 0M 0S    64
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-10-05 UTC 5y 10m 29d 0H 0M 0S     5
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-10-05 UTC 8y 11m 23d 0H 0M 0S     8
 ```
 
 
@@ -358,11 +358,18 @@ data %>%
           'J 13, 1978')
         ```
 
-2. Suppose you have arranged for a phone call to be at 3 pm on May 8, 2015 at Arizona time. However, the recipient will be in Auckland, NZ. What time will it be there? 
+2. Using just your birthday and today's date calculate the following:
+    a) The date of your next birthday.
+    b) The number of _days_ until your next birthday.
+    c) The number of _months_ and _days_ until your next birthday.
+    d) The date of your 64th birthday.
+    e) The number of _years_, _months_, and _days_ until your 64th birthday.
+    
+3. Suppose you have arranged for a phone call to be at 3 pm on May 8, 2015 at Arizona time. However, the recipient will be in Auckland, NZ. What time will it be there? 
 
-3. From this book's [GitHub](https://github.com/dereksonderegger/444/) directory, navigate to the `data-raw` directory and then download the `Pulliam_Airport_Weather_Station.csv` data file. (*There are several weather station files. Make sure you get the correct one!*)  There is a `DATE` column (is it of type `date` when you import the data?) as well as the Maximum and Minimum temperature. For the last 10 years of data we have (exactly, not just starting at Jan 1, 2009!), plot the daily maximum temperature. *Hint: Find the maximum date in the data set and then subtract 10 years. Will there be a difference if you use `dyears(10)` vs `years(10)`? Which seems more appropriate here?*
+4. From this book's [GitHub](https://github.com/dereksonderegger/444/) directory, navigate to the `data-raw` directory and then download the `Pulliam_Airport_Weather_Station.csv` data file. (*There are several weather station files. Make sure you get the correct one!*)  There is a `DATE` column (is it of type `date` when you import the data?) as well as the Maximum and Minimum temperature. For the last 5 years of data we have (exactly, not just starting at Jan 1, 2014!), plot the daily maximum temperature. *Hint: Find the maximum date in the data set and then subtract 5 years. Will there be a difference if you use `dyears(5)` vs `years(5)`? Which seems more appropriate here?*
 
-4. It turns out there is some interesting periodicity regarding the number of births on particular days of the year.
+5. It turns out there is some interesting periodicity regarding the number of births on particular days of the year.
     a. Using the `mosaicData` package, load the data set `Births78` which records the number of children born on each day in the United States in 1978. Because this problem is intended to show how to calculate the information using the `date`, remove all the columns *except* `date` and `births`. 
     b. Graph the number of `births` vs the `date` with date on the x-axis. What stands out to you? Why do you think we have this trend?
     c. To test your assumption, we need to figure out the what day of the week each observation is. Use `dplyr::mutate` to add a new column named `dow` that is the day of the week (Monday, Tuesday, etc). This calculation will involve some function in the `lubridate` package and the `date` column. 
