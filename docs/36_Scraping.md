@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nHow Can I Get My Job Back After I Got Fired For Beating Up My Girlfriend's Husband At Work, And Other Advice Column Questions\n"
-## [2] "\nWhat CEOs Really Think About Remote Work\n"                                                                                     
-## [3] "\nThis Video Of Mick Fleetwood Lip-Syncing To 'Dreams' While Sipping Cranberry Juice Is Simply Delightful\n"                      
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                      
-## [5] "\nRyan Reynolds Is Trying To Save His Video Game World From Being Destroyed In New 'Free Guy' Trailer\n"                          
-## [6] "\nThe Nobel In Medicine Went To Three Scientists Who Co-Discovered Hepatitis C\n"
+## [1] "\nSouth Park's Triumphant Pandemic Special Is... Surprisingly Hopeful?\n"              
+## [2] "\nHow Wisconsin Became A Bastion Of White Supremacy\n"                                 
+## [3] "\nHere's A Funny Spoof On The First Thing Californians Do During An Earthquake\n"      
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                           
+## [5] "\nJill Biden Protectively Looks Out For Joe Biden In This Understatedly Sweet Moment\n"
+## [6] "\nHow Much I Make As An 'E-Girl For Hire'\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2020/how-can-i-get-my-job-back-after-i-got-fired-for-beating-up-my-girlfriends-husband-at-work-and-other-advice-column-question"
-## [2] "https://www.wsj.com/articles/what-ceos-really-think-about-remote-work-11600853405?st=g2pqqahugvvyp6a&mod=pckt3o3?utm_source=digg"
-## [3] "/2020/this-video-of-mick-fleetwood-lip-syncing-to-dreams-while-sipping-cranberry-juice-is-simply-delightful"                     
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                     
-## [5] "/video/ryan-reynolds-free-guy-trailer"                                                                                           
-## [6] "https://www.vox.com/2020/10/5/21502050/nobel-2020-medicine-hepatitis-c?utm_source=digg"
+## [1] "https://www.insidehook.com/article/television/south-park-pandemic-special-message-hope?utm_source=digg"
+## [2] "https://newrepublic.com/article/159524/wisconsin-became-bastion-white-supremacy?utm_source=digg"       
+## [3] "/2020/first-thing-californians-do-during-an-earthquake"                                                
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                           
+## [5] "/2020/jill-biden-looks-out-for-joe-biden-step-back-covid-19"                                           
+## [6] "https://www.vice.com/en/article/dyzyjz/woman-to-play-video-games-with-epal-hire?utm_source=digg"
 ```
 
 

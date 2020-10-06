@@ -22,16 +22,25 @@ Dates within a computer require some special organization because there are seve
 
 One useful tidbit of knowledge is that computer systems store a time point as the number of seconds from set point in time, called the epoch. So long as you always use the same epoch, you doesn't have to worry about when the epoch is, but if you are switching between software systems, you might run into problems if they use different epochs. In R, we use midnight on Jan 1, 1970. In Microsoft Excel, they use Jan 0, 1900. 
 
-For many years, R users hated dealing with dates because it was difficult to remember how to get R to take a string that represents a date (e.g. “June 26, 1997”) because users were required to specify how the format was arranged using a relatively complex set of rules. For example `%y` represents the two digit year, `%Y` represents the four digit year, `%m` represents the month, but `%b` represents the month written as Jan or Mar. Into this mess came Hadley Wickham (of `ggplot2` and `dplyr` fame) and his student Garrett Grolemund. The internal structure of R dates and times is quite robust, but the functions we use to manipulate them are horrible. To fix this, Dr Wickham and his then PhD student Dr Grolemund introduced the `lubridate` package.
+Base R has a set powerful and flexible functions converting character strings into Date/Time objects. A great reference for the notation for specifying Date/Time is the help file for `strptime`. These functions require to specifying the format using a relatively complex set of rules. For example `%y` represents the two digit year, `%Y` represents the four digit year, `%m` represents the month, but `%b` represents the month written as Jan or Mar. These formats are very specific and easily get tripped up by variations such as using `/` instead of `-`.
+
+```{r}
+# Why does base R force me to get the separating character correct?
+as.Date(c('09-4-2004', '09/04/2004'), format='%m-%d-%Y')
+```
+
+Furthermore doing any math with dates is challenging because day-light savings time, leap days and leap seconds make it so that 1 year is not always $365$ days and 1 day is not always $60*60*24=86400$ seconds. So there is conceivably a difference between adding 1 year to a date and adding 365 days (or $31,536,000$ seconds).
+
+Dr Wickham and his then PhD student Dr Grolemund introduced the `lubridate` package to address the need for a robust set of input functions that don't require exact specification date separation characters and to allow for arithmetic in either a person-centric or second-centric fashion.
 
 ## Creating Date and Time objects
 
-R gives a mechanism for getting the current date and time.
+R gives several mechanism for getting the current date and time.
 ```{r}
+# base::Sys.Date()     # Today's date
+# base::Sys.time()     # Current Time and Date 
 lubridate::today()   # Today's date
-
-base::Sys.Date()     # Today's date
-base::Sys.time()     # Current Time and Date 
+lubridate::now()     # Today's Date and Time
 ```
 
 
@@ -69,20 +78,20 @@ ymd(2009116) # this is ambiguous! 1-16 or 11-6?
 
 If we want to add a time to a date, we will use a function with the suffix `_hm` or `_hms`. Suppose that we want to encode a date and time, for example, the date and time of my wedding ceremony
 ```{r, message=FALSE, warning=FALSE}
-mdy_hm('Sept 18, 2010 5:30 PM', '9-18-2010 17:30')
+mdy_hm('Sep 18, 2010 5:30 PM', '9-18-2010 17:30')
 ```
 
-In the above case, `lubridate` is having trouble understanding AM/PM differences and it is better to always specify times using 24 hour notation and skip the AM/PM designations.
+In the above case, `lubridate` is correctly parsing the AM/PM designation, but it is better to always specify times using 24 hour notation and skip the AM/PM designations.
 
-By default, R codes the time of day using as if the event occurred in the UMT time zone (also known as Greenwich Mean Time GMT). To specify a different time zone, use the `tz=` option. For example:
+By default, R codes the time of day using UTC standard, which is nearly inter-changeable with Greenwich Mean Time (GMT). To specify a different time zone, use the `tz=` option. For example:
 
 ```{r}
-mdy_hm('9-18-2010 17:30', tz='MST') # Mountain Standard Time
+mdy_hm('9-18-2010 5:30 PM', tz='MST') # Mountain Standard Time
 ```
 
 This isn't bad, but Loveland, Colorado is on MST in the winter and MDT in the summer because of daylight savings time. So to specify the time zone that could switch between standard time and daylight savings time, I should specify `tz='US/Mountain'`
 ```{r}
-mdy_hm('9-18-2010 17:30', tz='US/Mountain') # US mountain time
+mdy_hm('9-18-2010 5:30 PM', tz='US/Mountain') # US mountain time
 ```
 
 Arizona is weird and doesn't use daylight savings time. Fortunately R has a built-in time zone just for us.
@@ -114,12 +123,14 @@ x <- mdy_hm('9-18-2010 17:30', tz='US/Mountain') # US Mountain time
 | `mday(x)`     | 18             |  Day of the month                 |
 | `yday(x)`     | 261            |  Day of the year                  |
 
-Here we get the output as digits, where September is represented as a 9 and the day of the week is a number between 1-7. To get nicer labels, we can use `label=TRUE` for some commands. 
+Here we get the output as digits, where September is represented as a 9 and the day of the week is a number between 1-7. To get nicer labels, we can use `label=TRUE` for some commands. In conjunction with `label=TRUE` there is the option `abbr=TRUE` that specifies to return the abbreviation or not.
 
-|   Command              |     Ouput                | 
+|   Command              |     Output                | 
 |:----------------------:|:--------------------------|
 | `wday(x, label=TRUE)`  | `r wday(x, label=TRUE)`   |
+| `wday(x, label=TRUE, abbr=FALSE)`  | `r wday(x, label=TRUE, abbr=FALSE)`   |
 | `month(x, label=TRUE)` | `r month(x, label=TRUE)`  |
+| `month(x, label=TRUE, abbr=FALSE)` | `r month(x, label=TRUE, abbr=FALSE)`  |
 
 
 All of these functions can also be used to update the value. For example, we could move the day of the wedding from September $18^{th}$ to October $18^{th}$ by changing the month.
@@ -197,13 +208,27 @@ data %>%
   mutate( Life = dob %--% today() ) %>%
   mutate( Age = as.period(Life, units='years') ) %>%
   mutate( Age2 = year(Age) )
-
-
-
-
-
 ```
 
+
+As a final example, suppose that an hourly employee clocked in at 11:30 PM March 7, 2020 and then clocked out at 7:30 AM March 8 2020. How long did he or she work?
+```{r}
+In <- ymd_hm('2020-3-7 11:30 PM', tz='US/Mountain')
+Out <- ymd_hm('2020-3-8 7:30 AM', tz='US/Mountain')
+
+In %--% Out
+as.period(In %--%Out)         # Does NOT account for daylight savings time!
+as.duration(In %--%Out)       # Does account for daylight savings time!
+```
+
+To use a duration in any subsequent calculation, we need to convert it to a numeric value using the `as.numeric()` function, which can convert to whatever unit you want.
+```{r}
+# 
+time.worked <- as.duration(In %--%Out)
+as.numeric(time.worked, "hours")
+as.numeric(time.worked, "minutes")
+
+```
 
 
 ## Exercises  {#Exercises_Dates}
@@ -225,7 +250,7 @@ data %>%
         mdy('Sept 13, 1978')  # Why does this error out when it worked above?
         ```
     
-    c) For June 15, 1978 we should have a problem, but unfortunately the second doesn't throw an error.
+    c) For June 13, 1978 we should have a problem, but unfortunately the second doesn't throw an error.
         ```{r}
         birthday <- c(
           'June 13, 1978',
