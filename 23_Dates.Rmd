@@ -154,6 +154,32 @@ with_tz(GoT, tz='US/Arizona')
 
 This means that Game of Thrones is available for streaming at 6 pm Arizona time.
 
+## Printing Dates
+We often need to print out character strings representing a particular date and time in a format that is convenient for humans to read. The output we've seen is acceptable for many instances, but if we want more control over the format we have to use one of the following methods.
+
+The base R function `format()` allows for a wide variety of possibilities but we have to remember the syntax which is found in help file for `strptime`.
+
+```{r}
+# This is the base R solution
+# 
+# %A = Day of the week (not abbreviated)
+# %B = Month name written out (not abbreviated). 
+# %I = Hour on 1-12 scale
+# %P = am/pm designation using lowercase am/pm. %p gives the uppercase version
+format(x, '%A, %B %d, %Y at the time of %I:%M %P')  
+```
+
+What lubridate does is allows the user to specify the format using an example date. It then parses the example to figure out the format and then creates a function that will apply that format to any dates you want.
+
+```{r}
+# The weekday needs to match up with the date in the example...
+# Notice this still isn't completely un ambiguous and multiple formats are possible
+my_fancy_formater <- stamp('Sunday, January 31, 1999 at 12:59 pm')
+my_fancy_formater( x )  
+```
+
+The `lubridate::stamp()` function is pretty cool for getting started on an output format string, but I generally prefer to just dig into the `strptime` help and figure it out the format string I want exactly. 
+
 ## Arithmetic on Dates
 
 `lubridate` provides two different ways of dealing with arithmetic on dates, and Hadley's chapter on Date/Times in 
@@ -213,11 +239,11 @@ data %>%
 
 As a final example, suppose that an hourly employee clocked in at 11:30 PM March 7, 2020 and then clocked out at 7:30 AM March 8 2020. How long did he or she work?
 ```{r}
-In <- ymd_hm('2020-3-7 11:30 PM', tz='US/Mountain')
-Out <- ymd_hm('2020-3-8 7:30 AM', tz='US/Mountain')
+In  <- ymd_hm('2020-3-7 11:30 PM', tz='US/Mountain')
+Out <- ymd_hm('2020-3-8 7:45 AM', tz='US/Mountain')
 
 In %--% Out
-as.period(In %--%Out)         # Does NOT account for daylight savings time!
+as.period(  In %--%Out)       # Does NOT account for daylight savings time!
 as.duration(In %--%Out)       # Does account for daylight savings time!
 ```
 
@@ -227,7 +253,6 @@ To use a duration in any subsequent calculation, we need to convert it to a nume
 time.worked <- as.duration(In %--%Out)
 as.numeric(time.worked, "hours")
 as.numeric(time.worked, "minutes")
-
 ```
 
 

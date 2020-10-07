@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-10-05" />
+<meta name="date" content="2020-10-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -361,8 +361,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>12.1</b> Creating Date and Time objects</a></li>
 <li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.2</b> Extracting information</a></li>
-<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.3</b> Arithmetic on Dates</a></li>
-<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.4</b> Exercises</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#printing-dates"><i class="fa fa-check"></i><b>12.3</b> Printing Dates</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.4</b> Arithmetic on Dates</a></li>
+<li class="chapter" data-level="12.5" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="data-reshaping.html"><a href="data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a>
 <ul>
@@ -562,22 +563,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Finally, I often need to figure out if a character string is in some set of values.</p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="flow-control.html#cb212-1" aria-hidden="true"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Type =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">Value=</span><span class="kw">rnorm</span>(<span class="dv">8</span>) )</span>
 <span id="cb212-2"><a href="flow-control.html#cb212-2" aria-hidden="true"></a>df</span></code></pre></div>
-<pre><code>##   Type        Value
-## 1    A -0.384094566
-## 2    A -0.984740896
-## 3    B -1.756983024
-## 4    B  0.003044046
-## 5    C  1.599202843
-## 6    C  0.498389702
-## 7    D -0.505485955
-## 8    D -0.512469788</code></pre>
+<pre><code>##   Type       Value
+## 1    A -0.26254362
+## 2    A  0.40747814
+## 3    B -0.21087420
+## 4    B  0.96698840
+## 5    C -2.21446063
+## 6    C -0.04398045
+## 7    D  1.58930380
+## 8    D -0.05621701</code></pre>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="flow-control.html#cb214-1" aria-hidden="true"></a><span class="co"># df %&gt;% filter( Type == &#39;A&#39; | Type == &#39;B&#39; )</span></span>
 <span id="cb214-2"><a href="flow-control.html#cb214-2" aria-hidden="true"></a>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) )   <span class="co"># Only rows with Type == &#39;A&#39; or Type ==&#39;B&#39;</span></span></code></pre></div>
-<pre><code>##   Type        Value
-## 1    A -0.384094566
-## 2    A -0.984740896
-## 3    B -1.756983024
-## 4    B  0.003044046</code></pre>
+<pre><code>##   Type      Value
+## 1    A -0.2625436
+## 2    A  0.4074781
+## 3    B -0.2108742
+## 4    B  0.9669884</code></pre>
 </div>
 <div id="decision-statements" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Decision statements</h2>
@@ -678,7 +679,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb229-13"><a href="flow-control.html#cb229-13" aria-hidden="true"></a></span>
 <span id="cb229-14"><a href="flow-control.html#cb229-14" aria-hidden="true"></a><span class="co"># print the resulting p-value</span></span>
 <span id="cb229-15"><a href="flow-control.html#cb229-15" aria-hidden="true"></a>p.value</span></code></pre></div>
-<pre><code>## [1] 7.453989e-10</code></pre>
+<pre><code>## [1] 2.943337e-08</code></pre>
 <p>This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the <code>t.test()</code> function.</p>
 <p>Finally we can nest if else statements together to allow you to write code that has many different execution routes.</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="flow-control.html#cb231-1" aria-hidden="true"></a><span class="co"># randomly grab a number between 0,5 and round it up to 1,2, ..., 5</span></span>
@@ -693,7 +694,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb231-10"><a href="flow-control.html#cb231-10" aria-hidden="true"></a>  <span class="co"># if birth.order is anything other than 1, 2 or 3</span></span>
 <span id="cb231-11"><a href="flow-control.html#cb231-11" aria-hidden="true"></a>  <span class="kw">print</span>(<span class="st">&#39;No more unfounded generalizations!&#39;</span>)</span>
 <span id="cb231-12"><a href="flow-control.html#cb231-12" aria-hidden="true"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;The first child had more rules to follow&quot;</code></pre>
+<pre><code>## [1] &quot;The second child was ignored&quot;</code></pre>
 </div>
 </div>
 <div id="loops" class="section level2" number="6.3">
@@ -714,157 +715,135 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb234-4"><a href="flow-control.html#cb234-4" aria-hidden="true"></a>}</span></code></pre></div>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 1.67028844627917&quot; 
-##  [2] &quot;In loop and x is now: 0.98397770852988&quot; 
-##  [3] &quot;In loop and x is now: 1.87980007558148&quot; 
-##  [4] &quot;In loop and x is now: 1.27353101965472&quot; 
-##  [5] &quot;In loop and x is now: 2.73194396262364&quot; 
-##  [6] &quot;In loop and x is now: 2.38122232698375&quot; 
-##  [7] &quot;In loop and x is now: 2.83523716728757&quot; 
-##  [8] &quot;In loop and x is now: 3.85581590524167&quot; 
-##  [9] &quot;In loop and x is now: 3.34222424449003&quot; 
-## [10] &quot;In loop and x is now: 2.24422198541099&quot; 
-## [11] &quot;In loop and x is now: 1.49182096886733&quot; 
-## [12] &quot;In loop and x is now: 1.68135380542081&quot; 
-## [13] &quot;In loop and x is now: 0.880084816957307&quot;
-## [14] &quot;In loop and x is now: 1.39378063550916&quot; 
-## [15] &quot;In loop and x is now: 3.44435418162452&quot; 
-## [16] &quot;In loop and x is now: 1.88668910485114&quot; 
-## [17] &quot;In loop and x is now: 1.79119691627079&quot; 
-## [18] &quot;In loop and x is now: 1.64121363898489&quot; 
-## [19] &quot;In loop and x is now: 2.69879420711938&quot; 
-## [20] &quot;In loop and x is now: 1.66858195261478&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 3.53282394526943&quot; 
+##  [2] &quot;In loop and x is now: 3.75806847627031&quot; 
+##  [3] &quot;In loop and x is now: 1.99410963035196&quot; 
+##  [4] &quot;In loop and x is now: 1.0559333032417&quot;  
+##  [5] &quot;In loop and x is now: 1.23704164393782&quot; 
+##  [6] &quot;In loop and x is now: 3.66758816341935&quot; 
+##  [7] &quot;In loop and x is now: 0.69993959970316&quot; 
+##  [8] &quot;In loop and x is now: 2.88551985076299&quot; 
+##  [9] &quot;In loop and x is now: 2.876898194818&quot;   
+## [10] &quot;In loop and x is now: 0.735111072276854&quot;
+## [11] &quot;In loop and x is now: 2.03850958885061&quot; 
+## [12] &quot;In loop and x is now: 1.6140450717988&quot;  
+## [13] &quot;In loop and x is now: 2.60931216167356&quot; 
+## [14] &quot;In loop and x is now: 1.91985218119046&quot; 
+## [15] &quot;In loop and x is now: 2.0345296438528&quot;  
+## [16] &quot;In loop and x is now: 1.85420437919231&quot; 
+## [17] &quot;In loop and x is now: 0.895552995396503&quot;
+## [18] &quot;In loop and x is now: 0.370149670121757&quot;
+## [19] &quot;In loop and x is now: 2.15776490835288&quot; 
+## [20] &quot;In loop and x is now: 2.78704174168297&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 3.34057689255834&quot;
-##  [2] &quot;In loop and x is now: 1.96795541705976&quot;
-##  [3] &quot;In loop and x is now: 3.75960015116297&quot;
-##  [4] &quot;In loop and x is now: 2.54706203930944&quot;
-##  [5] &quot;In loop and x is now: 5.46388792524728&quot;
-##  [6] &quot;In loop and x is now: 4.7624446539675&quot; 
-##  [7] &quot;In loop and x is now: 5.67047433457515&quot;
-##  [8] &quot;In loop and x is now: 7.71163181048335&quot;
-##  [9] &quot;In loop and x is now: 6.68444848898005&quot;
-## [10] &quot;In loop and x is now: 4.48844397082198&quot;
-## [11] &quot;In loop and x is now: 2.98364193773467&quot;
-## [12] &quot;In loop and x is now: 3.36270761084163&quot;
-## [13] &quot;In loop and x is now: 1.76016963391461&quot;
-## [14] &quot;In loop and x is now: 2.78756127101833&quot;
-## [15] &quot;In loop and x is now: 6.88870836324905&quot;
-## [16] &quot;In loop and x is now: 3.77337820970229&quot;
-## [17] &quot;In loop and x is now: 3.58239383254158&quot;
-## [18] &quot;In loop and x is now: 3.28242727796978&quot;
-## [19] &quot;In loop and x is now: 5.39758841423877&quot;
-## [20] &quot;In loop and x is now: 3.33716390522956&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 7.06564789053885&quot; 
+##  [2] &quot;In loop and x is now: 7.51613695254063&quot; 
+##  [3] &quot;In loop and x is now: 3.98821926070391&quot; 
+##  [4] &quot;In loop and x is now: 2.1118666064834&quot;  
+##  [5] &quot;In loop and x is now: 2.47408328787563&quot; 
+##  [6] &quot;In loop and x is now: 7.33517632683871&quot; 
+##  [7] &quot;In loop and x is now: 1.39987919940632&quot; 
+##  [8] &quot;In loop and x is now: 5.77103970152598&quot; 
+##  [9] &quot;In loop and x is now: 5.75379638963601&quot; 
+## [10] &quot;In loop and x is now: 1.47022214455371&quot; 
+## [11] &quot;In loop and x is now: 4.07701917770121&quot; 
+## [12] &quot;In loop and x is now: 3.2280901435976&quot;  
+## [13] &quot;In loop and x is now: 5.21862432334711&quot; 
+## [14] &quot;In loop and x is now: 3.83970436238093&quot; 
+## [15] &quot;In loop and x is now: 4.0690592877056&quot;  
+## [16] &quot;In loop and x is now: 3.70840875838462&quot; 
+## [17] &quot;In loop and x is now: 1.79110599079301&quot; 
+## [18] &quot;In loop and x is now: 0.740299340243514&quot;
+## [19] &quot;In loop and x is now: 4.31552981670575&quot; 
+## [20] &quot;In loop and x is now: 5.57408348336594&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 6.68115378511668&quot;
-##  [2] &quot;In loop and x is now: 3.93591083411952&quot;
-##  [3] &quot;In loop and x is now: 7.51920030232593&quot;
-##  [4] &quot;In loop and x is now: 5.09412407861888&quot;
-##  [5] &quot;In loop and x is now: 10.9277758504946&quot;
-##  [6] &quot;In loop and x is now: 9.52488930793499&quot;
-##  [7] &quot;In loop and x is now: 11.3409486691503&quot;
-##  [8] &quot;In loop and x is now: 15.4232636209667&quot;
-##  [9] &quot;In loop and x is now: 13.3688969779601&quot;
-## [10] &quot;In loop and x is now: 8.97688794164396&quot;
-## [11] &quot;In loop and x is now: 5.96728387546934&quot;
-## [12] &quot;In loop and x is now: 6.72541522168325&quot;
-## [13] &quot;In loop and x is now: 3.52033926782923&quot;
-## [14] &quot;In loop and x is now: 5.57512254203665&quot;
-## [15] &quot;In loop and x is now: 13.7774167264981&quot;
-## [16] &quot;In loop and x is now: 7.54675641940458&quot;
-## [17] &quot;In loop and x is now: 7.16478766508317&quot;
-## [18] &quot;In loop and x is now: 6.56485455593956&quot;
-## [19] &quot;In loop and x is now: 10.7951768284775&quot;
-## [20] &quot;In loop and x is now: 6.67432781045911&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 14.1312957810777&quot;
+##  [2] &quot;In loop and x is now: 15.0322739050813&quot;
+##  [3] &quot;In loop and x is now: 7.97643852140782&quot;
+##  [4] &quot;In loop and x is now: 4.22373321296679&quot;
+##  [5] &quot;In loop and x is now: 4.94816657575126&quot;
+##  [6] &quot;In loop and x is now: 14.6703526536774&quot;
+##  [7] &quot;In loop and x is now: 2.79975839881264&quot;
+##  [8] &quot;In loop and x is now: 11.542079403052&quot; 
+##  [9] &quot;In loop and x is now: 11.507592779272&quot; 
+## [10] &quot;In loop and x is now: 2.94044428910742&quot;
+## [11] &quot;In loop and x is now: 8.15403835540243&quot;
+## [12] &quot;In loop and x is now: 6.4561802871952&quot; 
+## [13] &quot;In loop and x is now: 10.4372486466942&quot;
+## [14] &quot;In loop and x is now: 7.67940872476186&quot;
+## [15] &quot;In loop and x is now: 8.1381185754112&quot; 
+## [16] &quot;In loop and x is now: 7.41681751676924&quot;
+## [17] &quot;In loop and x is now: 3.58221198158601&quot;
+## [18] &quot;In loop and x is now: 1.48059868048703&quot;
+## [19] &quot;In loop and x is now: 8.6310596334115&quot; 
+## [20] &quot;In loop and x is now: 11.1481669667319&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 13.3623075702334&quot;
-##  [2] &quot;In loop and x is now: 7.87182166823904&quot;
-##  [3] &quot;In loop and x is now: 15.0384006046519&quot;
-##  [4] &quot;In loop and x is now: 10.1882481572378&quot;
-##  [5] &quot;In loop and x is now: 21.8555517009891&quot;
-##  [6] &quot;In loop and x is now: 19.04977861587&quot;  
-##  [7] &quot;In loop and x is now: 22.6818973383006&quot;
-##  [8] &quot;In loop and x is now: 30.8465272419334&quot;
-##  [9] &quot;In loop and x is now: 26.7377939559202&quot;
-## [10] &quot;In loop and x is now: 17.9537758832879&quot;
-## [11] &quot;In loop and x is now: 11.9345677509387&quot;
-## [12] &quot;In loop and x is now: 13.4508304433665&quot;
-## [13] &quot;In loop and x is now: 7.04067853565846&quot;
-## [14] &quot;In loop and x is now: 11.1502450840733&quot;
-## [15] &quot;In loop and x is now: 27.5548334529962&quot;
-## [16] &quot;In loop and x is now: 15.0935128388092&quot;
-## [17] &quot;In loop and x is now: 14.3295753301663&quot;
-## [18] &quot;In loop and x is now: 13.1297091118791&quot;
-## [19] &quot;In loop and x is now: 21.5903536569551&quot;
-## [20] &quot;In loop and x is now: 13.3486556209182&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 28.2625915621554&quot;
+##  [2] &quot;In loop and x is now: 30.0645478101625&quot;
+##  [3] &quot;In loop and x is now: 15.9528770428156&quot;
+##  [4] &quot;In loop and x is now: 8.44746642593358&quot;
+##  [5] &quot;In loop and x is now: 9.89633315150252&quot;
+##  [6] &quot;In loop and x is now: 29.3407053073548&quot;
+##  [7] &quot;In loop and x is now: 5.59951679762528&quot;
+##  [8] &quot;In loop and x is now: 23.0841588061039&quot;
+##  [9] &quot;In loop and x is now: 23.015185558544&quot; 
+## [10] &quot;In loop and x is now: 5.88088857821483&quot;
+## [11] &quot;In loop and x is now: 16.3080767108049&quot;
+## [12] &quot;In loop and x is now: 12.9123605743904&quot;
+## [13] &quot;In loop and x is now: 20.8744972933884&quot;
+## [14] &quot;In loop and x is now: 15.3588174495237&quot;
+## [15] &quot;In loop and x is now: 16.2762371508224&quot;
+## [16] &quot;In loop and x is now: 14.8336350335385&quot;
+## [17] &quot;In loop and x is now: 7.16442396317202&quot;
+## [18] &quot;In loop and x is now: 2.96119736097405&quot;
+## [19] &quot;In loop and x is now: 17.262119266823&quot; 
+## [20] &quot;In loop and x is now: 22.2963339334638&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 26.7246151404667&quot;
-##  [2] &quot;In loop and x is now: 15.7436433364781&quot;
-##  [3] &quot;In loop and x is now: 30.0768012093037&quot;
-##  [4] &quot;In loop and x is now: 20.3764963144755&quot;
-##  [5] &quot;In loop and x is now: 43.7111034019782&quot;
-##  [6] &quot;In loop and x is now: 38.09955723174&quot;  
-##  [7] &quot;In loop and x is now: 45.3637946766012&quot;
-##  [8] &quot;In loop and x is now: 61.6930544838668&quot;
-##  [9] &quot;In loop and x is now: 53.4755879118404&quot;
-## [10] &quot;In loop and x is now: 35.9075517665758&quot;
-## [11] &quot;In loop and x is now: 23.8691355018773&quot;
-## [12] &quot;In loop and x is now: 26.901660886733&quot; 
-## [13] &quot;In loop and x is now: 14.0813570713169&quot;
-## [14] &quot;In loop and x is now: 22.3004901681466&quot;
-## [15] &quot;In loop and x is now: 55.1096669059924&quot;
-## [16] &quot;In loop and x is now: 30.1870256776183&quot;
-## [17] &quot;In loop and x is now: 28.6591506603327&quot;
-## [18] &quot;In loop and x is now: 26.2594182237582&quot;
-## [19] &quot;In loop and x is now: 43.1807073139102&quot;
-## [20] &quot;In loop and x is now: 26.6973112418365&quot;</code></pre>
-<pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
-## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 53.4492302809334&quot;
-##  [2] &quot;In loop and x is now: 31.4872866729561&quot;
-##  [3] &quot;In loop and x is now: 60.1536024186075&quot;
-##  [4] &quot;In loop and x is now: 40.752992628951&quot; 
-##  [5] &quot;In loop and x is now: 87.4222068039565&quot;
-##  [6] &quot;In loop and x is now: 76.19911446348&quot;  
-##  [7] &quot;In loop and x is now: 90.7275893532023&quot;
-##  [8] &quot;In loop and x is now: 123.386108967734&quot;
-##  [9] &quot;In loop and x is now: 106.951175823681&quot;
-## [10] &quot;In loop and x is now: 71.8151035331517&quot;
-## [11] &quot;In loop and x is now: 47.7382710037547&quot;
-## [12] &quot;In loop and x is now: 53.803321773466&quot; 
-## [13] &quot;In loop and x is now: 28.1627141426338&quot;
-## [14] &quot;In loop and x is now: 44.6009803362932&quot;
-## [15] &quot;In loop and x is now: 110.219333811985&quot;
-## [16] &quot;In loop and x is now: 60.3740513552366&quot;
-## [17] &quot;In loop and x is now: 57.3183013206654&quot;
-## [18] &quot;In loop and x is now: 52.5188364475165&quot;
-## [19] &quot;In loop and x is now: 86.3614146278203&quot;
-## [20] &quot;In loop and x is now: 53.3946224836729&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 56.5251831243108&quot;
+##  [2] &quot;In loop and x is now: 60.129095620325&quot; 
+##  [3] &quot;In loop and x is now: 31.9057540856313&quot;
+##  [4] &quot;In loop and x is now: 16.8949328518672&quot;
+##  [5] &quot;In loop and x is now: 19.792666303005&quot; 
+##  [6] &quot;In loop and x is now: 58.6814106147096&quot;
+##  [7] &quot;In loop and x is now: 11.1990335952506&quot;
+##  [8] &quot;In loop and x is now: 46.1683176122078&quot;
+##  [9] &quot;In loop and x is now: 46.0303711170881&quot;
+## [10] &quot;In loop and x is now: 11.7617771564297&quot;
+## [11] &quot;In loop and x is now: 32.6161534216097&quot;
+## [12] &quot;In loop and x is now: 25.8247211487808&quot;
+## [13] &quot;In loop and x is now: 41.7489945867769&quot;
+## [14] &quot;In loop and x is now: 30.7176348990474&quot;
+## [15] &quot;In loop and x is now: 32.5524743016448&quot;
+## [16] &quot;In loop and x is now: 29.6672700670769&quot;
+## [17] &quot;In loop and x is now: 14.328847926344&quot; 
+## [18] &quot;In loop and x is now: 5.92239472194811&quot;
+## [19] &quot;In loop and x is now: 34.524238533646&quot; 
+## [20] &quot;In loop and x is now: 44.5926678669275&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
 <p>It is very common to forget to update the variable used in the test expression. In that case the test expression will never be false and the computer will never stop. This unfortunate situation is called an <em>infinite loop</em>.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="flow-control.html#cb248-1" aria-hidden="true"></a><span class="co"># Example of an infinite loop!  Do not Run!</span></span>
-<span id="cb248-2"><a href="flow-control.html#cb248-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb248-3"><a href="flow-control.html#cb248-3" aria-hidden="true"></a><span class="cf">while</span>( x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> ){</span>
-<span id="cb248-4"><a href="flow-control.html#cb248-4" aria-hidden="true"></a>  <span class="kw">print</span>(x)</span>
-<span id="cb248-5"><a href="flow-control.html#cb248-5" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="flow-control.html#cb246-1" aria-hidden="true"></a><span class="co"># Example of an infinite loop!  Do not Run!</span></span>
+<span id="cb246-2"><a href="flow-control.html#cb246-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb246-3"><a href="flow-control.html#cb246-3" aria-hidden="true"></a><span class="cf">while</span>( x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> ){</span>
+<span id="cb246-4"><a href="flow-control.html#cb246-4" aria-hidden="true"></a>  <span class="kw">print</span>(x)</span>
+<span id="cb246-5"><a href="flow-control.html#cb246-5" aria-hidden="true"></a>}</span></code></pre></div>
 </div>
 <div id="for-loops" class="section level3" number="6.3.2">
 <h3><span class="header-section-number">6.3.2</span> <code>for</code> Loops</h3>
 <p>Often we know ahead of time exactly how many times we should go through the loop. We could use a <code>while</code> loop, but there is also a second construct called a <code>for</code> loop that is quite useful.</p>
 <p>The format of a for loop is as follows:</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="flow-control.html#cb249-1" aria-hidden="true"></a><span class="cf">for</span>( index <span class="cf">in</span> vector ){</span>
-<span id="cb249-2"><a href="flow-control.html#cb249-2" aria-hidden="true"></a>  expression1</span>
-<span id="cb249-3"><a href="flow-control.html#cb249-3" aria-hidden="true"></a>  expression2</span>
-<span id="cb249-4"><a href="flow-control.html#cb249-4" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="flow-control.html#cb247-1" aria-hidden="true"></a><span class="cf">for</span>( index <span class="cf">in</span> vector ){</span>
+<span id="cb247-2"><a href="flow-control.html#cb247-2" aria-hidden="true"></a>  expression1</span>
+<span id="cb247-3"><a href="flow-control.html#cb247-3" aria-hidden="true"></a>  expression2</span>
+<span id="cb247-4"><a href="flow-control.html#cb247-4" aria-hidden="true"></a>}</span></code></pre></div>
 <p>where the <code>index</code> variable will take on each value in <code>vector</code> in succession and then statement will be evaluated. As always, statement can be multiple statements wrapped in curly brackets {}.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="flow-control.html#cb250-1" aria-hidden="true"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span> ){</span>
-<span id="cb250-2"><a href="flow-control.html#cb250-2" aria-hidden="true"></a>  <span class="kw">print</span>( <span class="kw">paste</span>(<span class="st">&quot;In the loop and current value is i =&quot;</span>, i) )</span>
-<span id="cb250-3"><a href="flow-control.html#cb250-3" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="flow-control.html#cb248-1" aria-hidden="true"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span> ){</span>
+<span id="cb248-2"><a href="flow-control.html#cb248-2" aria-hidden="true"></a>  <span class="kw">print</span>( <span class="kw">paste</span>(<span class="st">&quot;In the loop and current value is i =&quot;</span>, i) )</span>
+<span id="cb248-3"><a href="flow-control.html#cb248-3" aria-hidden="true"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;In the loop and current value is i = 1&quot;
 ## [1] &quot;In the loop and current value is i = 2&quot;
 ## [1] &quot;In the loop and current value is i = 3&quot;
@@ -872,23 +851,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [1] &quot;In the loop and current value is i = 5&quot;</code></pre>
 <p>What is happening is that <code>i</code> starts out as the first element of the vector <code>c(1,2,3,4,5)</code>, in this case, <code>i</code> starts out as 1. After <code>i</code> is assigned, the statements in the curly brackets are then evaluated. Once we get to the end of those statements, i is reassigned to the next element of the vector <code>c(1,2,3,4,5)</code>. This process is repeated until <code>i</code> has been assigned to each element of the given vector. It is somewhat traditional to use <code>i</code> and <code>j</code> and the index variables, but they could be anything.</p>
 <p>While the recipe above is the minimal definition of a <code>for</code> loop, there is often a bit more set up to create a result vector or data frame that will store the steps of the <code>for</code> loop.</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="flow-control.html#cb252-1" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">10</span> </span>
-<span id="cb252-2"><a href="flow-control.html#cb252-2" aria-hidden="true"></a>result &lt;-<span class="st"> </span><span class="ot">NULL</span>     <span class="co"># Make a place to store each step of the for loop</span></span>
-<span id="cb252-3"><a href="flow-control.html#cb252-3" aria-hidden="true"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N ){</span>
-<span id="cb252-4"><a href="flow-control.html#cb252-4" aria-hidden="true"></a>  <span class="co"># Perhaps some code that calculates something</span></span>
-<span id="cb252-5"><a href="flow-control.html#cb252-5" aria-hidden="true"></a>  result[i] &lt;-<span class="st">  </span><span class="co"># something </span></span>
-<span id="cb252-6"><a href="flow-control.html#cb252-6" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="flow-control.html#cb250-1" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">10</span> </span>
+<span id="cb250-2"><a href="flow-control.html#cb250-2" aria-hidden="true"></a>result &lt;-<span class="st"> </span><span class="ot">NULL</span>     <span class="co"># Make a place to store each step of the for loop</span></span>
+<span id="cb250-3"><a href="flow-control.html#cb250-3" aria-hidden="true"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N ){</span>
+<span id="cb250-4"><a href="flow-control.html#cb250-4" aria-hidden="true"></a>  <span class="co"># Perhaps some code that calculates something</span></span>
+<span id="cb250-5"><a href="flow-control.html#cb250-5" aria-hidden="true"></a>  result[i] &lt;-<span class="st">  </span><span class="co"># something </span></span>
+<span id="cb250-6"><a href="flow-control.html#cb250-6" aria-hidden="true"></a>}</span></code></pre></div>
 <p>We can use this loop to calculate the first <span class="math inline">\(10\)</span> elements of the Fibonacci sequence. Recall that the Fibonacci sequence is defined by <span class="math inline">\(F_{n}=F_{n-1}+F_{n-2}\)</span> where <span class="math inline">\(F_{1}=0\)</span> and <span class="math inline">\(F_{2}=1\)</span>.</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="flow-control.html#cb253-1" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">10</span>                <span class="co"># How many Fibonacci numbers to create</span></span>
-<span id="cb253-2"><a href="flow-control.html#cb253-2" aria-hidden="true"></a>F &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, N)         <span class="co"># initialize a vector of zeros</span></span>
-<span id="cb253-3"><a href="flow-control.html#cb253-3" aria-hidden="true"></a>F[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">0</span>              <span class="co"># F[1]  should be zero</span></span>
-<span id="cb253-4"><a href="flow-control.html#cb253-4" aria-hidden="true"></a>F[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">1</span>              <span class="co"># F[2]  should be 1</span></span>
-<span id="cb253-5"><a href="flow-control.html#cb253-5" aria-hidden="true"></a><span class="kw">print</span>(F)               <span class="co"># Show the value of F before the loop </span></span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="flow-control.html#cb251-1" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">10</span>                <span class="co"># How many Fibonacci numbers to create</span></span>
+<span id="cb251-2"><a href="flow-control.html#cb251-2" aria-hidden="true"></a>F &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, N)         <span class="co"># initialize a vector of zeros</span></span>
+<span id="cb251-3"><a href="flow-control.html#cb251-3" aria-hidden="true"></a>F[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">0</span>              <span class="co"># F[1]  should be zero</span></span>
+<span id="cb251-4"><a href="flow-control.html#cb251-4" aria-hidden="true"></a>F[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">1</span>              <span class="co"># F[2]  should be 1</span></span>
+<span id="cb251-5"><a href="flow-control.html#cb251-5" aria-hidden="true"></a><span class="kw">print</span>(F)               <span class="co"># Show the value of F before the loop </span></span></code></pre></div>
 <pre><code>##  [1] 0 1 0 0 0 0 0 0 0 0</code></pre>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="flow-control.html#cb255-1" aria-hidden="true"></a><span class="cf">for</span>( n <span class="cf">in</span> <span class="dv">3</span><span class="op">:</span>N ){</span>
-<span id="cb255-2"><a href="flow-control.html#cb255-2" aria-hidden="true"></a>  F[n] &lt;-<span class="st"> </span>F[n<span class="dv">-1</span>] <span class="op">+</span><span class="st"> </span>F[n<span class="dv">-2</span>] <span class="co"># define based on the prior two values</span></span>
-<span id="cb255-3"><a href="flow-control.html#cb255-3" aria-hidden="true"></a>  <span class="kw">print</span>(F)                <span class="co"># show F at each step of the loop</span></span>
-<span id="cb255-4"><a href="flow-control.html#cb255-4" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="flow-control.html#cb253-1" aria-hidden="true"></a><span class="cf">for</span>( n <span class="cf">in</span> <span class="dv">3</span><span class="op">:</span>N ){</span>
+<span id="cb253-2"><a href="flow-control.html#cb253-2" aria-hidden="true"></a>  F[n] &lt;-<span class="st"> </span>F[n<span class="dv">-1</span>] <span class="op">+</span><span class="st"> </span>F[n<span class="dv">-2</span>] <span class="co"># define based on the prior two values</span></span>
+<span id="cb253-3"><a href="flow-control.html#cb253-3" aria-hidden="true"></a>  <span class="kw">print</span>(F)                <span class="co"># show F at each step of the loop</span></span>
+<span id="cb253-4"><a href="flow-control.html#cb253-4" aria-hidden="true"></a>}</span></code></pre></div>
 <pre><code>##  [1] 0 1 1 0 0 0 0 0 0 0
 ##  [1] 0 1 1 2 0 0 0 0 0 0
 ##  [1] 0 1 1 2 3 0 0 0 0 0
@@ -898,51 +877,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  [1]  0  1  1  2  3  5  8 13 21  0
 ##  [1]  0  1  1  2  3  5  8 13 21 34</code></pre>
 <p>For a more statistical case where we might want to perform a loop, we can consider the creation of the bootstrap estimate of a sampling distribution. The bootstrap distribution is created by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest.</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="flow-control.html#cb257-1" aria-hidden="true"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb257-2"><a href="flow-control.html#cb257-2" aria-hidden="true"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb257-3"><a href="flow-control.html#cb257-3" aria-hidden="true"></a></span>
-<span id="cb257-4"><a href="flow-control.html#cb257-4" aria-hidden="true"></a><span class="co"># bootstrap from the trees dataset.</span></span>
-<span id="cb257-5"><a href="flow-control.html#cb257-5" aria-hidden="true"></a>SampDist &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">xbar=</span><span class="ot">NULL</span>) <span class="co"># Make a data frame to store the means </span></span>
-<span id="cb257-6"><a href="flow-control.html#cb257-6" aria-hidden="true"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span> ){</span>
-<span id="cb257-7"><a href="flow-control.html#cb257-7" aria-hidden="true"></a>  <span class="co">## Do some stuff</span></span>
-<span id="cb257-8"><a href="flow-control.html#cb257-8" aria-hidden="true"></a>  boot.data &lt;-<span class="st"> </span>trees <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">sample_frac</span>(<span class="dt">replace=</span><span class="ot">TRUE</span>)  </span>
-<span id="cb257-9"><a href="flow-control.html#cb257-9" aria-hidden="true"></a>  boot.stat &lt;-<span class="st"> </span>boot.data <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">xbar=</span><span class="kw">mean</span>(Height)) <span class="co"># 1x1 data frame</span></span>
-<span id="cb257-10"><a href="flow-control.html#cb257-10" aria-hidden="true"></a>  </span>
-<span id="cb257-11"><a href="flow-control.html#cb257-11" aria-hidden="true"></a>  <span class="co">## Save the result as a new row in the output data frame</span></span>
-<span id="cb257-12"><a href="flow-control.html#cb257-12" aria-hidden="true"></a>  SampDist &lt;-<span class="st"> </span><span class="kw">rbind</span>( SampDist, boot.stat )</span>
-<span id="cb257-13"><a href="flow-control.html#cb257-13" aria-hidden="true"></a>}</span>
-<span id="cb257-14"><a href="flow-control.html#cb257-14" aria-hidden="true"></a></span>
-<span id="cb257-15"><a href="flow-control.html#cb257-15" aria-hidden="true"></a><span class="co"># Check out the structure of the result</span></span>
-<span id="cb257-16"><a href="flow-control.html#cb257-16" aria-hidden="true"></a><span class="kw">str</span>(SampDist)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="flow-control.html#cb255-1" aria-hidden="true"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb255-2"><a href="flow-control.html#cb255-2" aria-hidden="true"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb255-3"><a href="flow-control.html#cb255-3" aria-hidden="true"></a></span>
+<span id="cb255-4"><a href="flow-control.html#cb255-4" aria-hidden="true"></a><span class="co"># bootstrap from the trees dataset.</span></span>
+<span id="cb255-5"><a href="flow-control.html#cb255-5" aria-hidden="true"></a>SampDist &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">xbar=</span><span class="ot">NULL</span>) <span class="co"># Make a data frame to store the means </span></span>
+<span id="cb255-6"><a href="flow-control.html#cb255-6" aria-hidden="true"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span> ){</span>
+<span id="cb255-7"><a href="flow-control.html#cb255-7" aria-hidden="true"></a>  <span class="co">## Do some stuff</span></span>
+<span id="cb255-8"><a href="flow-control.html#cb255-8" aria-hidden="true"></a>  boot.data &lt;-<span class="st"> </span>trees <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">sample_frac</span>(<span class="dt">replace=</span><span class="ot">TRUE</span>)  </span>
+<span id="cb255-9"><a href="flow-control.html#cb255-9" aria-hidden="true"></a>  boot.stat &lt;-<span class="st"> </span>boot.data <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">xbar=</span><span class="kw">mean</span>(Height)) <span class="co"># 1x1 data frame</span></span>
+<span id="cb255-10"><a href="flow-control.html#cb255-10" aria-hidden="true"></a>  </span>
+<span id="cb255-11"><a href="flow-control.html#cb255-11" aria-hidden="true"></a>  <span class="co">## Save the result as a new row in the output data frame</span></span>
+<span id="cb255-12"><a href="flow-control.html#cb255-12" aria-hidden="true"></a>  SampDist &lt;-<span class="st"> </span><span class="kw">rbind</span>( SampDist, boot.stat )</span>
+<span id="cb255-13"><a href="flow-control.html#cb255-13" aria-hidden="true"></a>}</span>
+<span id="cb255-14"><a href="flow-control.html#cb255-14" aria-hidden="true"></a></span>
+<span id="cb255-15"><a href="flow-control.html#cb255-15" aria-hidden="true"></a><span class="co"># Check out the structure of the result</span></span>
+<span id="cb255-16"><a href="flow-control.html#cb255-16" aria-hidden="true"></a><span class="kw">str</span>(SampDist)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    1000 obs. of  1 variable:
 ##  $ xbar: num  74.5 76 76.8 74.9 74.1 ...</code></pre>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="flow-control.html#cb259-1" aria-hidden="true"></a><span class="co"># Plot the output</span></span>
-<span id="cb259-2"><a href="flow-control.html#cb259-2" aria-hidden="true"></a><span class="kw">ggplot</span>(SampDist, <span class="kw">aes</span>(<span class="dt">x=</span>xbar)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb259-3"><a href="flow-control.html#cb259-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>( <span class="dt">binwidth=</span><span class="fl">0.25</span>) <span class="op">+</span></span>
-<span id="cb259-4"><a href="flow-control.html#cb259-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Trees Data: Bootstrap distribution of xbar&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="flow-control.html#cb257-1" aria-hidden="true"></a><span class="co"># Plot the output</span></span>
+<span id="cb257-2"><a href="flow-control.html#cb257-2" aria-hidden="true"></a><span class="kw">ggplot</span>(SampDist, <span class="kw">aes</span>(<span class="dt">x=</span>xbar)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb257-3"><a href="flow-control.html#cb257-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>( <span class="dt">binwidth=</span><span class="fl">0.25</span>) <span class="op">+</span></span>
+<span id="cb257-4"><a href="flow-control.html#cb257-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Trees Data: Bootstrap distribution of xbar&#39;</span>)</span></code></pre></div>
 <p><img src="06_FlowControl_files/figure-html/ForLoopExample-1.png" width="672" /></p>
 </div>
 <div id="mosaicdo-loops" class="section level3" number="6.3.3">
 <h3><span class="header-section-number">6.3.3</span> <code>mosaic::do()</code> loops</h3>
 <p>Many times when using a <code>for</code> loop, we want to save some quantity for each pass through the <code>for</code> loop. Because this is such a common tasks, the <code>mosaic::do()</code> function automates the creation of the output data frame and the saving each repetition. This function is intended to hide the coding steps that often trips up new programmers.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="flow-control.html#cb260-1" aria-hidden="true"></a><span class="co"># Same Loop </span></span>
-<span id="cb260-2"><a href="flow-control.html#cb260-2" aria-hidden="true"></a>SampDist &lt;-<span class="st"> </span>mosaic<span class="op">::</span><span class="kw">do</span>(<span class="dv">1000</span>) <span class="op">*</span><span class="st"> </span>{</span>
-<span id="cb260-3"><a href="flow-control.html#cb260-3" aria-hidden="true"></a>  trees <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">sample_frac</span>(<span class="dt">replace=</span><span class="ot">TRUE</span>)  <span class="op">%&gt;%</span></span>
-<span id="cb260-4"><a href="flow-control.html#cb260-4" aria-hidden="true"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">xbar=</span><span class="kw">mean</span>(Height)) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># 1x1 data frame</span></span>
-<span id="cb260-5"><a href="flow-control.html#cb260-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">pull</span>(xbar)                                    <span class="co"># Scalar </span></span>
-<span id="cb260-6"><a href="flow-control.html#cb260-6" aria-hidden="true"></a>}</span>
-<span id="cb260-7"><a href="flow-control.html#cb260-7" aria-hidden="true"></a></span>
-<span id="cb260-8"><a href="flow-control.html#cb260-8" aria-hidden="true"></a><span class="co"># Structure of the SampDist object </span></span>
-<span id="cb260-9"><a href="flow-control.html#cb260-9" aria-hidden="true"></a><span class="kw">str</span>(SampDist)</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="flow-control.html#cb258-1" aria-hidden="true"></a><span class="co"># Same Loop </span></span>
+<span id="cb258-2"><a href="flow-control.html#cb258-2" aria-hidden="true"></a>SampDist &lt;-<span class="st"> </span>mosaic<span class="op">::</span><span class="kw">do</span>(<span class="dv">1000</span>) <span class="op">*</span><span class="st"> </span>{</span>
+<span id="cb258-3"><a href="flow-control.html#cb258-3" aria-hidden="true"></a>  trees <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">sample_frac</span>(<span class="dt">replace=</span><span class="ot">TRUE</span>)  <span class="op">%&gt;%</span></span>
+<span id="cb258-4"><a href="flow-control.html#cb258-4" aria-hidden="true"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">xbar=</span><span class="kw">mean</span>(Height)) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># 1x1 data frame</span></span>
+<span id="cb258-5"><a href="flow-control.html#cb258-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">pull</span>(xbar)                                    <span class="co"># Scalar </span></span>
+<span id="cb258-6"><a href="flow-control.html#cb258-6" aria-hidden="true"></a>}</span>
+<span id="cb258-7"><a href="flow-control.html#cb258-7" aria-hidden="true"></a></span>
+<span id="cb258-8"><a href="flow-control.html#cb258-8" aria-hidden="true"></a><span class="co"># Structure of the SampDist object </span></span>
+<span id="cb258-9"><a href="flow-control.html#cb258-9" aria-hidden="true"></a><span class="kw">str</span>(SampDist)</span></code></pre></div>
 <pre><code>## Classes &#39;do.data.frame&#39; and &#39;data.frame&#39;:    1000 obs. of  1 variable:
 ##  $ result: num  74.9 75.3 76.9 75.6 77.3 ...
 ##  - attr(*, &quot;lazy&quot;)=Class &#39;formula&#39;  language ~{     trees %&gt;% dplyr::sample_frac(replace = TRUE) %&gt;% dplyr::summarise(xbar = mean(Height)) %&gt;%  ...
 ##   .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
 ##  - attr(*, &quot;culler&quot;)=function (object, ...)</code></pre>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="flow-control.html#cb262-1" aria-hidden="true"></a><span class="co"># Plot the output</span></span>
-<span id="cb262-2"><a href="flow-control.html#cb262-2" aria-hidden="true"></a><span class="kw">ggplot</span>(SampDist, <span class="kw">aes</span>(<span class="dt">x=</span>result)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb262-3"><a href="flow-control.html#cb262-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>( <span class="dt">binwidth=</span><span class="fl">0.25</span>) <span class="op">+</span></span>
-<span id="cb262-4"><a href="flow-control.html#cb262-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Trees Data: Bootstrap distribution of xbar&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="flow-control.html#cb260-1" aria-hidden="true"></a><span class="co"># Plot the output</span></span>
+<span id="cb260-2"><a href="flow-control.html#cb260-2" aria-hidden="true"></a><span class="kw">ggplot</span>(SampDist, <span class="kw">aes</span>(<span class="dt">x=</span>result)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb260-3"><a href="flow-control.html#cb260-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>( <span class="dt">binwidth=</span><span class="fl">0.25</span>) <span class="op">+</span></span>
+<span id="cb260-4"><a href="flow-control.html#cb260-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Trees Data: Bootstrap distribution of xbar&#39;</span>)</span></code></pre></div>
 <p><img src="06_FlowControl_files/figure-html/DoLoopExample-1.png" width="672" /></p>
 </div>
 </div>
@@ -952,50 +931,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>While hiding the computational details is nice, fundamentally writing functions allows us to think about our problems at a higher layer of abstraction. For example, most scientists just want to run a t-test on their data and get the appropriate p-value out; they want to focus on their problem and not how to calculate what the appropriate degrees of freedom are.
 Another statistical example where functions are important is a bootstrap data analysis where we need to define a function that calculates whatever statistic the research cares about.</p>
 <p>The format for defining your own function is</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="flow-control.html#cb263-1" aria-hidden="true"></a>function.name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, arg3){</span>
-<span id="cb263-2"><a href="flow-control.html#cb263-2" aria-hidden="true"></a>  statement1</span>
-<span id="cb263-3"><a href="flow-control.html#cb263-3" aria-hidden="true"></a>  statement2</span>
-<span id="cb263-4"><a href="flow-control.html#cb263-4" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="flow-control.html#cb261-1" aria-hidden="true"></a>function.name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, arg3){</span>
+<span id="cb261-2"><a href="flow-control.html#cb261-2" aria-hidden="true"></a>  statement1</span>
+<span id="cb261-3"><a href="flow-control.html#cb261-3" aria-hidden="true"></a>  statement2</span>
+<span id="cb261-4"><a href="flow-control.html#cb261-4" aria-hidden="true"></a>}</span></code></pre></div>
 <p>where <code>arg1</code> is the first argument passed to the function and <code>arg2</code> is the second.</p>
 <p>To illustrate how to define your own function, we will define a variance calculating function.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="flow-control.html#cb264-1" aria-hidden="true"></a><span class="co"># define my function</span></span>
-<span id="cb264-2"><a href="flow-control.html#cb264-2" aria-hidden="true"></a>my.var &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb264-3"><a href="flow-control.html#cb264-3" aria-hidden="true"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)                <span class="co"># calculate sample size</span></span>
-<span id="cb264-4"><a href="flow-control.html#cb264-4" aria-hidden="true"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(x)               <span class="co"># calculate sample mean</span></span>
-<span id="cb264-5"><a href="flow-control.html#cb264-5" aria-hidden="true"></a>  SSE &lt;-<span class="st"> </span><span class="kw">sum</span>( (x<span class="op">-</span>xbar)<span class="op">^</span><span class="dv">2</span> )      <span class="co"># calculate sum of squared error</span></span>
-<span id="cb264-6"><a href="flow-control.html#cb264-6" aria-hidden="true"></a>  v &lt;-<span class="st"> </span>SSE <span class="op">/</span><span class="st"> </span>( n <span class="op">-</span><span class="st"> </span><span class="dv">1</span> )          <span class="co"># &quot;average&quot; squared error</span></span>
-<span id="cb264-7"><a href="flow-control.html#cb264-7" aria-hidden="true"></a>  <span class="kw">return</span>(v)                     <span class="co"># result of function is v</span></span>
-<span id="cb264-8"><a href="flow-control.html#cb264-8" aria-hidden="true"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="flow-control.html#cb265-1" aria-hidden="true"></a><span class="co"># create a vector that I wish to calculate the variance of</span></span>
-<span id="cb265-2"><a href="flow-control.html#cb265-2" aria-hidden="true"></a>test.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
-<span id="cb265-3"><a href="flow-control.html#cb265-3" aria-hidden="true"></a></span>
-<span id="cb265-4"><a href="flow-control.html#cb265-4" aria-hidden="true"></a><span class="co"># calculate the variance using my function</span></span>
-<span id="cb265-5"><a href="flow-control.html#cb265-5" aria-hidden="true"></a>calculated.var &lt;-<span class="st"> </span><span class="kw">my.var</span>( test.vector )</span>
-<span id="cb265-6"><a href="flow-control.html#cb265-6" aria-hidden="true"></a>calculated.var</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="flow-control.html#cb262-1" aria-hidden="true"></a><span class="co"># define my function</span></span>
+<span id="cb262-2"><a href="flow-control.html#cb262-2" aria-hidden="true"></a>my.var &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb262-3"><a href="flow-control.html#cb262-3" aria-hidden="true"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)                <span class="co"># calculate sample size</span></span>
+<span id="cb262-4"><a href="flow-control.html#cb262-4" aria-hidden="true"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(x)               <span class="co"># calculate sample mean</span></span>
+<span id="cb262-5"><a href="flow-control.html#cb262-5" aria-hidden="true"></a>  SSE &lt;-<span class="st"> </span><span class="kw">sum</span>( (x<span class="op">-</span>xbar)<span class="op">^</span><span class="dv">2</span> )      <span class="co"># calculate sum of squared error</span></span>
+<span id="cb262-6"><a href="flow-control.html#cb262-6" aria-hidden="true"></a>  v &lt;-<span class="st"> </span>SSE <span class="op">/</span><span class="st"> </span>( n <span class="op">-</span><span class="st"> </span><span class="dv">1</span> )          <span class="co"># &quot;average&quot; squared error</span></span>
+<span id="cb262-7"><a href="flow-control.html#cb262-7" aria-hidden="true"></a>  <span class="kw">return</span>(v)                     <span class="co"># result of function is v</span></span>
+<span id="cb262-8"><a href="flow-control.html#cb262-8" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="flow-control.html#cb263-1" aria-hidden="true"></a><span class="co"># create a vector that I wish to calculate the variance of</span></span>
+<span id="cb263-2"><a href="flow-control.html#cb263-2" aria-hidden="true"></a>test.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb263-3"><a href="flow-control.html#cb263-3" aria-hidden="true"></a></span>
+<span id="cb263-4"><a href="flow-control.html#cb263-4" aria-hidden="true"></a><span class="co"># calculate the variance using my function</span></span>
+<span id="cb263-5"><a href="flow-control.html#cb263-5" aria-hidden="true"></a>calculated.var &lt;-<span class="st"> </span><span class="kw">my.var</span>( test.vector )</span>
+<span id="cb263-6"><a href="flow-control.html#cb263-6" aria-hidden="true"></a>calculated.var</span></code></pre></div>
 <pre><code>## [1] 2.7</code></pre>
 <p>Notice that even though I defined my function using <code>x</code> as my vector of data, and passed my function something named <code>test.vector</code>, R does the appropriate renaming. If my function doesn’t modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable <code>x</code> as a placeholder, with it being replaced by whatever gets passed into the function.</p>
 <p>When I call a function, the function might cause something to happen (e.g. draw a plot) or it might do some calculates the result is returned by the function and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the <code>return</code> statement. (Actually R doesn’t completely require this. But the alternative method is less intuitive and I strongly recommend using the <code>return()</code> statement for readability.)</p>
 <p>By writing a function, I can use the same chunk of code repeatedly. This means that I can do all my tedious calculations inside the function and just call the function whenever I want and happily ignore the details. Consider the function <code>t.test()</code> which we have used to do all the calculations in a t-test. We could write a similar function using the following code:</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="flow-control.html#cb267-1" aria-hidden="true"></a><span class="co"># define my function</span></span>
-<span id="cb267-2"><a href="flow-control.html#cb267-2" aria-hidden="true"></a>one.sample.t.test &lt;-<span class="st"> </span><span class="cf">function</span>(input.data, mu0){</span>
-<span id="cb267-3"><a href="flow-control.html#cb267-3" aria-hidden="true"></a>  n    &lt;-<span class="st"> </span><span class="kw">length</span>(input.data)</span>
-<span id="cb267-4"><a href="flow-control.html#cb267-4" aria-hidden="true"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(input.data)</span>
-<span id="cb267-5"><a href="flow-control.html#cb267-5" aria-hidden="true"></a>  s    &lt;-<span class="st"> </span><span class="kw">sd</span>(input.data)</span>
-<span id="cb267-6"><a href="flow-control.html#cb267-6" aria-hidden="true"></a>  t    &lt;-<span class="st"> </span>(xbar <span class="op">-</span><span class="st"> </span>mu0)<span class="op">/</span>(s <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(n))</span>
-<span id="cb267-7"><a href="flow-control.html#cb267-7" aria-hidden="true"></a>  <span class="cf">if</span>( t <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> ){</span>
-<span id="cb267-8"><a href="flow-control.html#cb267-8" aria-hidden="true"></a>    p.value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(t, <span class="dt">df=</span>n<span class="dv">-1</span>)</span>
-<span id="cb267-9"><a href="flow-control.html#cb267-9" aria-hidden="true"></a>  }<span class="cf">else</span>{</span>
-<span id="cb267-10"><a href="flow-control.html#cb267-10" aria-hidden="true"></a>    p.value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pt</span>(t, <span class="dt">df=</span>n<span class="dv">-1</span>))</span>
-<span id="cb267-11"><a href="flow-control.html#cb267-11" aria-hidden="true"></a>  }</span>
-<span id="cb267-12"><a href="flow-control.html#cb267-12" aria-hidden="true"></a>  <span class="co"># we haven&#39;t addressed how to print things in a organized </span></span>
-<span id="cb267-13"><a href="flow-control.html#cb267-13" aria-hidden="true"></a>  <span class="co"># fashion, the following is ugly, but works...</span></span>
-<span id="cb267-14"><a href="flow-control.html#cb267-14" aria-hidden="true"></a>  <span class="co"># Notice that this function returns a character string</span></span>
-<span id="cb267-15"><a href="flow-control.html#cb267-15" aria-hidden="true"></a>  <span class="co"># with the necessary information in the string.</span></span>
-<span id="cb267-16"><a href="flow-control.html#cb267-16" aria-hidden="true"></a>  <span class="kw">return</span>( <span class="kw">paste</span>(<span class="st">&#39;t =&#39;</span>, <span class="kw">round</span>(t, <span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39; and p.value =&#39;</span>, <span class="kw">round</span>(p.value, <span class="dv">3</span>)) )</span>
-<span id="cb267-17"><a href="flow-control.html#cb267-17" aria-hidden="true"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="flow-control.html#cb268-1" aria-hidden="true"></a><span class="co"># create a vector that I wish apply a one-sample t-test on.</span></span>
-<span id="cb268-2"><a href="flow-control.html#cb268-2" aria-hidden="true"></a>test.data &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
-<span id="cb268-3"><a href="flow-control.html#cb268-3" aria-hidden="true"></a><span class="kw">one.sample.t.test</span>( test.data, <span class="dt">mu0=</span><span class="dv">2</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="flow-control.html#cb265-1" aria-hidden="true"></a><span class="co"># define my function</span></span>
+<span id="cb265-2"><a href="flow-control.html#cb265-2" aria-hidden="true"></a>one.sample.t.test &lt;-<span class="st"> </span><span class="cf">function</span>(input.data, mu0){</span>
+<span id="cb265-3"><a href="flow-control.html#cb265-3" aria-hidden="true"></a>  n    &lt;-<span class="st"> </span><span class="kw">length</span>(input.data)</span>
+<span id="cb265-4"><a href="flow-control.html#cb265-4" aria-hidden="true"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(input.data)</span>
+<span id="cb265-5"><a href="flow-control.html#cb265-5" aria-hidden="true"></a>  s    &lt;-<span class="st"> </span><span class="kw">sd</span>(input.data)</span>
+<span id="cb265-6"><a href="flow-control.html#cb265-6" aria-hidden="true"></a>  t    &lt;-<span class="st"> </span>(xbar <span class="op">-</span><span class="st"> </span>mu0)<span class="op">/</span>(s <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(n))</span>
+<span id="cb265-7"><a href="flow-control.html#cb265-7" aria-hidden="true"></a>  <span class="cf">if</span>( t <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> ){</span>
+<span id="cb265-8"><a href="flow-control.html#cb265-8" aria-hidden="true"></a>    p.value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(t, <span class="dt">df=</span>n<span class="dv">-1</span>)</span>
+<span id="cb265-9"><a href="flow-control.html#cb265-9" aria-hidden="true"></a>  }<span class="cf">else</span>{</span>
+<span id="cb265-10"><a href="flow-control.html#cb265-10" aria-hidden="true"></a>    p.value &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pt</span>(t, <span class="dt">df=</span>n<span class="dv">-1</span>))</span>
+<span id="cb265-11"><a href="flow-control.html#cb265-11" aria-hidden="true"></a>  }</span>
+<span id="cb265-12"><a href="flow-control.html#cb265-12" aria-hidden="true"></a>  <span class="co"># we haven&#39;t addressed how to print things in a organized </span></span>
+<span id="cb265-13"><a href="flow-control.html#cb265-13" aria-hidden="true"></a>  <span class="co"># fashion, the following is ugly, but works...</span></span>
+<span id="cb265-14"><a href="flow-control.html#cb265-14" aria-hidden="true"></a>  <span class="co"># Notice that this function returns a character string</span></span>
+<span id="cb265-15"><a href="flow-control.html#cb265-15" aria-hidden="true"></a>  <span class="co"># with the necessary information in the string.</span></span>
+<span id="cb265-16"><a href="flow-control.html#cb265-16" aria-hidden="true"></a>  <span class="kw">return</span>( <span class="kw">paste</span>(<span class="st">&#39;t =&#39;</span>, <span class="kw">round</span>(t, <span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39; and p.value =&#39;</span>, <span class="kw">round</span>(p.value, <span class="dv">3</span>)) )</span>
+<span id="cb265-17"><a href="flow-control.html#cb265-17" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="flow-control.html#cb266-1" aria-hidden="true"></a><span class="co"># create a vector that I wish apply a one-sample t-test on.</span></span>
+<span id="cb266-2"><a href="flow-control.html#cb266-2" aria-hidden="true"></a>test.data &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb266-3"><a href="flow-control.html#cb266-3" aria-hidden="true"></a><span class="kw">one.sample.t.test</span>( test.data, <span class="dt">mu0=</span><span class="dv">2</span> )</span></code></pre></div>
 <pre><code>## [1] &quot;t = 3.157  and p.value = 0.008&quot;</code></pre>
 <p>Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something similar to the above function, but is a bit grander in scope. Even if you don’t end up writing any of your own functions, knowing how to will help you understand why certain functions you use are designed the way they are.</p>
 </div>
@@ -1003,8 +982,8 @@ Another statistical example where functions are important is a bootstrap data an
 <h2><span class="header-section-number">6.5</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li><p>I’ve created a dataset about presidential candidates for the 2020 US election and it is available on the github website for my STA 141</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="flow-control.html#cb270-1" aria-hidden="true"></a>prez &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/Prez_Candidate_Birthdays&#39;</span>)</span>
-<span id="cb270-2"><a href="flow-control.html#cb270-2" aria-hidden="true"></a>prez</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="flow-control.html#cb268-1" aria-hidden="true"></a>prez &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/Prez_Candidate_Birthdays&#39;</span>)</span>
+<span id="cb268-2"><a href="flow-control.html#cb268-2" aria-hidden="true"></a>prez</span></code></pre></div>
 <pre><code>## # A tibble: 11 x 5
 ##    Candidate        Gender Birthday   Party AgeOnElection
 ##    &lt;chr&gt;            &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;
@@ -1029,68 +1008,68 @@ Another statistical example where functions are important is a bootstrap data an
  0 &amp; \;\;\;\;\textrm{otherwise}
  \end{cases}\]</span></p>
 <p>The R function <code>dunif()</code> evaluates this density function for the above defined values of x, a, and b. Somewhere in that function, there is a chunk of code that evaluates the density for arbitrary values of <span class="math inline">\(x\)</span>. Run this code a few times and notice sometimes the result is <span class="math inline">\(0\)</span> and sometimes it is <span class="math inline">\(1/(10-4)=0.16666667\)</span>.</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="flow-control.html#cb272-1" aria-hidden="true"></a>a &lt;-<span class="st"> </span><span class="dv">4</span>      <span class="co"># The min and max values we will use for this example</span></span>
-<span id="cb272-2"><a href="flow-control.html#cb272-2" aria-hidden="true"></a>b &lt;-<span class="st"> </span><span class="dv">10</span>     <span class="co"># Could be anything, but we need to pick something</span></span>
-<span id="cb272-3"><a href="flow-control.html#cb272-3" aria-hidden="true"></a></span>
-<span id="cb272-4"><a href="flow-control.html#cb272-4" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
-<span id="cb272-5"><a href="flow-control.html#cb272-5" aria-hidden="true"></a></span>
-<span id="cb272-6"><a href="flow-control.html#cb272-6" aria-hidden="true"></a><span class="co"># what is value of f(x) at the randomly selected x value?  </span></span>
-<span id="cb272-7"><a href="flow-control.html#cb272-7" aria-hidden="true"></a><span class="kw">dunif</span>(x, a, b)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="flow-control.html#cb270-1" aria-hidden="true"></a>a &lt;-<span class="st"> </span><span class="dv">4</span>      <span class="co"># The min and max values we will use for this example</span></span>
+<span id="cb270-2"><a href="flow-control.html#cb270-2" aria-hidden="true"></a>b &lt;-<span class="st"> </span><span class="dv">10</span>     <span class="co"># Could be anything, but we need to pick something</span></span>
+<span id="cb270-3"><a href="flow-control.html#cb270-3" aria-hidden="true"></a></span>
+<span id="cb270-4"><a href="flow-control.html#cb270-4" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
+<span id="cb270-5"><a href="flow-control.html#cb270-5" aria-hidden="true"></a></span>
+<span id="cb270-6"><a href="flow-control.html#cb270-6" aria-hidden="true"></a><span class="co"># what is value of f(x) at the randomly selected x value?  </span></span>
+<span id="cb270-7"><a href="flow-control.html#cb270-7" aria-hidden="true"></a><span class="kw">dunif</span>(x, a, b)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>We will write a sequence of statements that utilizes an if statements to appropriately calculate the density of x assuming that <code>a</code>, <code>b</code> , and <code>x</code> are given to you, but your code won’t know if <code>x</code> is between <code>a</code> and <code>b</code>. That is, your code needs to figure out if it is and give either <code>1/(b-a)</code> or <code>0</code>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>We could write a set of if/else statements</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="flow-control.html#cb274-1" aria-hidden="true"></a>a &lt;-<span class="st"> </span><span class="dv">4</span></span>
-<span id="cb274-2"><a href="flow-control.html#cb274-2" aria-hidden="true"></a>b &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb274-3"><a href="flow-control.html#cb274-3" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
-<span id="cb274-4"><a href="flow-control.html#cb274-4" aria-hidden="true"></a></span>
-<span id="cb274-5"><a href="flow-control.html#cb274-5" aria-hidden="true"></a><span class="cf">if</span>( x <span class="op">&lt;</span><span class="st"> </span>a ){</span>
-<span id="cb274-6"><a href="flow-control.html#cb274-6" aria-hidden="true"></a>  result &lt;-<span class="st"> </span>???</span>
-<span id="cb274-7"><a href="flow-control.html#cb274-7" aria-hidden="true"></a>}<span class="cf">else</span> <span class="cf">if</span>( x <span class="op">&lt;=</span><span class="st"> </span>b ){</span>
-<span id="cb274-8"><a href="flow-control.html#cb274-8" aria-hidden="true"></a>  result &lt;-<span class="st"> </span>???</span>
-<span id="cb274-9"><a href="flow-control.html#cb274-9" aria-hidden="true"></a>}<span class="cf">else</span>{</span>
-<span id="cb274-10"><a href="flow-control.html#cb274-10" aria-hidden="true"></a>  result &lt;-<span class="st"> </span>???</span>
-<span id="cb274-11"><a href="flow-control.html#cb274-11" aria-hidden="true"></a>}</span>
-<span id="cb274-12"><a href="flow-control.html#cb274-12" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;x=&#39;</span>,<span class="kw">round</span>(x,<span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39;  result=&#39;</span>, <span class="kw">round</span>(result,<span class="dt">digits=</span><span class="dv">3</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="flow-control.html#cb272-1" aria-hidden="true"></a>a &lt;-<span class="st"> </span><span class="dv">4</span></span>
+<span id="cb272-2"><a href="flow-control.html#cb272-2" aria-hidden="true"></a>b &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb272-3"><a href="flow-control.html#cb272-3" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
+<span id="cb272-4"><a href="flow-control.html#cb272-4" aria-hidden="true"></a></span>
+<span id="cb272-5"><a href="flow-control.html#cb272-5" aria-hidden="true"></a><span class="cf">if</span>( x <span class="op">&lt;</span><span class="st"> </span>a ){</span>
+<span id="cb272-6"><a href="flow-control.html#cb272-6" aria-hidden="true"></a>  result &lt;-<span class="st"> </span>???</span>
+<span id="cb272-7"><a href="flow-control.html#cb272-7" aria-hidden="true"></a>}<span class="cf">else</span> <span class="cf">if</span>( x <span class="op">&lt;=</span><span class="st"> </span>b ){</span>
+<span id="cb272-8"><a href="flow-control.html#cb272-8" aria-hidden="true"></a>  result &lt;-<span class="st"> </span>???</span>
+<span id="cb272-9"><a href="flow-control.html#cb272-9" aria-hidden="true"></a>}<span class="cf">else</span>{</span>
+<span id="cb272-10"><a href="flow-control.html#cb272-10" aria-hidden="true"></a>  result &lt;-<span class="st"> </span>???</span>
+<span id="cb272-11"><a href="flow-control.html#cb272-11" aria-hidden="true"></a>}</span>
+<span id="cb272-12"><a href="flow-control.html#cb272-12" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;x=&#39;</span>,<span class="kw">round</span>(x,<span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39;  result=&#39;</span>, <span class="kw">round</span>(result,<span class="dt">digits=</span><span class="dv">3</span>)))</span></code></pre></div>
 <p>Replace the <code>???</code> with the appropriate value, either 0 or <span class="math inline">\(1/\left(b-a\right)\)</span>. Run the code repeatedly until you are certain that it is calculating the correct density value.</p></li>
 <li><p>We could perform the logical comparison all in one comparison. Recall that we can use <code>&amp;</code> to mean “and” and <code>|</code> to mean “or”. In the following two code chunks, replace the <code>???</code> with either <code>&amp;</code> or <code>|</code> to make the appropriate result.</p>
 <ol style="list-style-type: lower-roman">
+<li><div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="flow-control.html#cb273-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
+<span id="cb273-2"><a href="flow-control.html#cb273-2" aria-hidden="true"></a><span class="cf">if</span>( (a<span class="op">&lt;=</span>x) ??? (x<span class="op">&lt;=</span>b) ){</span>
+<span id="cb273-3"><a href="flow-control.html#cb273-3" aria-hidden="true"></a>  result &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(b<span class="op">-</span>a)</span>
+<span id="cb273-4"><a href="flow-control.html#cb273-4" aria-hidden="true"></a>}<span class="cf">else</span>{</span>
+<span id="cb273-5"><a href="flow-control.html#cb273-5" aria-hidden="true"></a>  result &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb273-6"><a href="flow-control.html#cb273-6" aria-hidden="true"></a>}</span>
+<span id="cb273-7"><a href="flow-control.html#cb273-7" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;x=&#39;</span>,<span class="kw">round</span>(x,<span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39;  result=&#39;</span>, <span class="kw">round</span>(result,<span class="dt">digits=</span><span class="dv">3</span>)))</span></code></pre></div></li>
+<li><div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="flow-control.html#cb274-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
+<span id="cb274-2"><a href="flow-control.html#cb274-2" aria-hidden="true"></a><span class="cf">if</span>( (x<span class="op">&lt;</span>a) ??? (b<span class="op">&lt;</span>x) ){</span>
+<span id="cb274-3"><a href="flow-control.html#cb274-3" aria-hidden="true"></a>  result &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb274-4"><a href="flow-control.html#cb274-4" aria-hidden="true"></a>}<span class="cf">else</span>{</span>
+<span id="cb274-5"><a href="flow-control.html#cb274-5" aria-hidden="true"></a>  result &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(b<span class="op">-</span>a)</span>
+<span id="cb274-6"><a href="flow-control.html#cb274-6" aria-hidden="true"></a>}</span>
+<span id="cb274-7"><a href="flow-control.html#cb274-7" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;x=&#39;</span>,<span class="kw">round</span>(x,<span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39;  result=&#39;</span>, <span class="kw">round</span>(result,<span class="dt">digits=</span><span class="dv">3</span>)))</span></code></pre></div></li>
 <li><div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="flow-control.html#cb275-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
-<span id="cb275-2"><a href="flow-control.html#cb275-2" aria-hidden="true"></a><span class="cf">if</span>( (a<span class="op">&lt;=</span>x) ??? (x<span class="op">&lt;=</span>b) ){</span>
-<span id="cb275-3"><a href="flow-control.html#cb275-3" aria-hidden="true"></a>  result &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(b<span class="op">-</span>a)</span>
-<span id="cb275-4"><a href="flow-control.html#cb275-4" aria-hidden="true"></a>}<span class="cf">else</span>{</span>
-<span id="cb275-5"><a href="flow-control.html#cb275-5" aria-hidden="true"></a>  result &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb275-6"><a href="flow-control.html#cb275-6" aria-hidden="true"></a>}</span>
-<span id="cb275-7"><a href="flow-control.html#cb275-7" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;x=&#39;</span>,<span class="kw">round</span>(x,<span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39;  result=&#39;</span>, <span class="kw">round</span>(result,<span class="dt">digits=</span><span class="dv">3</span>)))</span></code></pre></div></li>
-<li><div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="flow-control.html#cb276-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
-<span id="cb276-2"><a href="flow-control.html#cb276-2" aria-hidden="true"></a><span class="cf">if</span>( (x<span class="op">&lt;</span>a) ??? (b<span class="op">&lt;</span>x) ){</span>
-<span id="cb276-3"><a href="flow-control.html#cb276-3" aria-hidden="true"></a>  result &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb276-4"><a href="flow-control.html#cb276-4" aria-hidden="true"></a>}<span class="cf">else</span>{</span>
-<span id="cb276-5"><a href="flow-control.html#cb276-5" aria-hidden="true"></a>  result &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(b<span class="op">-</span>a)</span>
-<span id="cb276-6"><a href="flow-control.html#cb276-6" aria-hidden="true"></a>}</span>
-<span id="cb276-7"><a href="flow-control.html#cb276-7" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;x=&#39;</span>,<span class="kw">round</span>(x,<span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39;  result=&#39;</span>, <span class="kw">round</span>(result,<span class="dt">digits=</span><span class="dv">3</span>)))</span></code></pre></div></li>
-<li><div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="flow-control.html#cb277-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
-<span id="cb277-2"><a href="flow-control.html#cb277-2" aria-hidden="true"></a>result &lt;-<span class="st"> </span><span class="kw">ifelse</span>( a<span class="op">&lt;</span>x <span class="op">&amp;</span><span class="st"> </span>x<span class="op">&lt;</span>b, ???, ??? )</span>
-<span id="cb277-3"><a href="flow-control.html#cb277-3" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;x=&#39;</span>,<span class="kw">round</span>(x,<span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39;  result=&#39;</span>, <span class="kw">round</span>(result,<span class="dt">digits=</span><span class="dv">3</span>)))</span></code></pre></div></li>
+<span id="cb275-2"><a href="flow-control.html#cb275-2" aria-hidden="true"></a>result &lt;-<span class="st"> </span><span class="kw">ifelse</span>( a<span class="op">&lt;</span>x <span class="op">&amp;</span><span class="st"> </span>x<span class="op">&lt;</span>b, ???, ??? )</span>
+<span id="cb275-3"><a href="flow-control.html#cb275-3" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;x=&#39;</span>,<span class="kw">round</span>(x,<span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39;  result=&#39;</span>, <span class="kw">round</span>(result,<span class="dt">digits=</span><span class="dv">3</span>)))</span></code></pre></div></li>
 </ol></li>
 </ol></li>
 <li><p>I often want to repeat some section of code some number of times. For example, I might want to create a bunch plots that compare the density of a t-distribution with specified degrees of freedom to a standard normal distribution.</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="flow-control.html#cb278-1" aria-hidden="true"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb278-2"><a href="flow-control.html#cb278-2" aria-hidden="true"></a>df &lt;-<span class="st"> </span><span class="dv">4</span></span>
-<span id="cb278-3"><a href="flow-control.html#cb278-3" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb278-4"><a href="flow-control.html#cb278-4" aria-hidden="true"></a>x.grid &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dt">length=</span>N)</span>
-<span id="cb278-5"><a href="flow-control.html#cb278-5" aria-hidden="true"></a>data &lt;-<span class="st"> </span><span class="kw">data.frame</span>( </span>
-<span id="cb278-6"><a href="flow-control.html#cb278-6" aria-hidden="true"></a>  <span class="dt">x =</span> <span class="kw">c</span>(x.grid, x.grid),</span>
-<span id="cb278-7"><a href="flow-control.html#cb278-7" aria-hidden="true"></a>  <span class="dt">y =</span> <span class="kw">c</span>(<span class="kw">dnorm</span>(x.grid), <span class="kw">dt</span>(x.grid, df)),</span>
-<span id="cb278-8"><a href="flow-control.html#cb278-8" aria-hidden="true"></a>  <span class="dt">type =</span> <span class="kw">c</span>( <span class="kw">rep</span>(<span class="st">&#39;Normal&#39;</span>,N), <span class="kw">rep</span>(<span class="st">&#39;T&#39;</span>,N) ) )</span>
-<span id="cb278-9"><a href="flow-control.html#cb278-9" aria-hidden="true"></a></span>
-<span id="cb278-10"><a href="flow-control.html#cb278-10" aria-hidden="true"></a><span class="co"># make a nice graph</span></span>
-<span id="cb278-11"><a href="flow-control.html#cb278-11" aria-hidden="true"></a>myplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">color=</span>type, <span class="dt">linetype=</span>type)) <span class="op">+</span></span>
-<span id="cb278-12"><a href="flow-control.html#cb278-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb278-13"><a href="flow-control.html#cb278-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste</span>(<span class="st">&#39;Std Normal vs t with&#39;</span>, df, <span class="st">&#39;degrees of freedom&#39;</span>))</span>
-<span id="cb278-14"><a href="flow-control.html#cb278-14" aria-hidden="true"></a></span>
-<span id="cb278-15"><a href="flow-control.html#cb278-15" aria-hidden="true"></a><span class="co"># actually print the nice graph we made</span></span>
-<span id="cb278-16"><a href="flow-control.html#cb278-16" aria-hidden="true"></a><span class="kw">print</span>(myplot) </span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="flow-control.html#cb276-1" aria-hidden="true"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb276-2"><a href="flow-control.html#cb276-2" aria-hidden="true"></a>df &lt;-<span class="st"> </span><span class="dv">4</span></span>
+<span id="cb276-3"><a href="flow-control.html#cb276-3" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb276-4"><a href="flow-control.html#cb276-4" aria-hidden="true"></a>x.grid &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dt">length=</span>N)</span>
+<span id="cb276-5"><a href="flow-control.html#cb276-5" aria-hidden="true"></a>data &lt;-<span class="st"> </span><span class="kw">data.frame</span>( </span>
+<span id="cb276-6"><a href="flow-control.html#cb276-6" aria-hidden="true"></a>  <span class="dt">x =</span> <span class="kw">c</span>(x.grid, x.grid),</span>
+<span id="cb276-7"><a href="flow-control.html#cb276-7" aria-hidden="true"></a>  <span class="dt">y =</span> <span class="kw">c</span>(<span class="kw">dnorm</span>(x.grid), <span class="kw">dt</span>(x.grid, df)),</span>
+<span id="cb276-8"><a href="flow-control.html#cb276-8" aria-hidden="true"></a>  <span class="dt">type =</span> <span class="kw">c</span>( <span class="kw">rep</span>(<span class="st">&#39;Normal&#39;</span>,N), <span class="kw">rep</span>(<span class="st">&#39;T&#39;</span>,N) ) )</span>
+<span id="cb276-9"><a href="flow-control.html#cb276-9" aria-hidden="true"></a></span>
+<span id="cb276-10"><a href="flow-control.html#cb276-10" aria-hidden="true"></a><span class="co"># make a nice graph</span></span>
+<span id="cb276-11"><a href="flow-control.html#cb276-11" aria-hidden="true"></a>myplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">color=</span>type, <span class="dt">linetype=</span>type)) <span class="op">+</span></span>
+<span id="cb276-12"><a href="flow-control.html#cb276-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb276-13"><a href="flow-control.html#cb276-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste</span>(<span class="st">&#39;Std Normal vs t with&#39;</span>, df, <span class="st">&#39;degrees of freedom&#39;</span>))</span>
+<span id="cb276-14"><a href="flow-control.html#cb276-14" aria-hidden="true"></a></span>
+<span id="cb276-15"><a href="flow-control.html#cb276-15" aria-hidden="true"></a><span class="co"># actually print the nice graph we made</span></span>
+<span id="cb276-16"><a href="flow-control.html#cb276-16" aria-hidden="true"></a><span class="kw">print</span>(myplot) </span></code></pre></div>
 <p><img src="06_FlowControl_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Use a <code>for</code> loop to create similar graphs for degrees of freedom <span class="math inline">\(2,3,4,\dots,29,30\)</span>.</p></li>

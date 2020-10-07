@@ -30,30 +30,24 @@ Dr Wickham and his then PhD student Dr Grolemund introduced the `lubridate` pack
 
 ## Creating Date and Time objects
 
-R gives a mechanism for getting the current date and time.
+R gives several mechanism for getting the current date and time.
 
 ```r
+# base::Sys.Date()     # Today's date
+# base::Sys.time()     # Current Time and Date 
 lubridate::today()   # Today's date
 ```
 
 ```
-## [1] "2020-10-05"
+## [1] "2020-10-07"
 ```
 
 ```r
-base::Sys.Date()     # Today's date
+lubridate::now()     # Today's Date and Time
 ```
 
 ```
-## [1] "2020-10-05"
-```
-
-```r
-base::Sys.time()     # Current Time and Date 
-```
-
-```
-## [1] "2020-10-05 13:17:55 MST"
+## [1] "2020-10-07 10:33:42 MST"
 ```
 
 
@@ -139,7 +133,7 @@ mdy_hm('Sep 18, 2010 5:30 PM', '9-18-2010 17:30')
 
 In the above case, `lubridate` is correctly parsing the AM/PM designation, but it is better to always specify times using 24 hour notation and skip the AM/PM designations.
 
-By default, R codes the time of day using as if the event occurred in the UMT time zone (also known as Greenwich Mean Time GMT). To specify a different time zone, use the `tz=` option. For example:
+By default, R codes the time of day using UTC standard, which is nearly inter-changeable with Greenwich Mean Time (GMT). To specify a different time zone, use the `tz=` option. For example:
 
 
 ```r
@@ -236,6 +230,53 @@ with_tz(GoT, tz='US/Arizona')
 
 This means that Game of Thrones is available for streaming at 6 pm Arizona time.
 
+## Printing Dates
+We often need to print out character strings representing a particular date and time in a format that is convenient for humans to read. The output we've seen is acceptable for many instances, but if we want more control over the format we have to use one of the following methods.
+
+The base R function `format()` allows for a wide variety of possibilities but we have to remember the syntax which is found in help file for `strptime`.
+
+
+```r
+# This is the base R solution
+# 
+# %A = Day of the week (not abbreviated)
+# %B = Month name written out (not abbreviated). 
+# %I = Hour on 1-12 scale
+# %P = am/pm designation using lowercase am/pm. %p gives the uppercase version
+format(x, '%A, %B %d, %Y at the time of %I:%M %P')  
+```
+
+```
+## [1] "Monday, October 18, 2010 at the time of 05:30 pm"
+```
+
+What lubridate does is allows the user to specify the format using an example date. It then parses the example to figure out the format and then creates a function that will apply that format to any dates you want.
+
+
+```r
+# The weekday needs to match up with the date in the example...
+# Notice this still isn't completely un ambiguous and multiple formats are possible
+my_fancy_formater <- stamp('Sunday, January 31, 1999 at 12:59 pm')
+```
+
+```
+## Multiple formats matched: "%A, %B %d, %Y at %I:%M %p"(1), "Sunday, %Om %d, %Y at %H:%M %Op"(1), "Sunday, %B %d, %Y at %I:%M %p"(1), "%A, %Om %d, %Y at %H:%M %Op"(0), "%A, %B %d, %Y at %H:%M %Op"(0), "%A, %Om %d, %Y at %I:%M %p"(0), "Sunday, %B %d, %Y at %H:%M %Op"(0), "Sunday, %Om %d, %Y at %I:%M %p"(0)
+```
+
+```
+## Using: "%A, %B %d, %Y at %I:%M %p"
+```
+
+```r
+my_fancy_formater( x )  
+```
+
+```
+## [1] "Monday, October 18, 2010 at 05:30 PM"
+```
+
+The `lubridate::stamp()` function is pretty cool for getting started on an output format string, but I generally prefer to just dig into the `strptime` help and figure it out the format string I want exactly. 
+
 ## Arithmetic on Dates
 
 `lubridate` provides two different ways of dealing with arithmetic on dates, and Hadley's chapter on Date/Times in 
@@ -327,34 +368,34 @@ data %>%
 ## # A tibble: 6 x 5
 ##   Name    dob        Life                           Age                  Age2
 ##   <chr>   <date>     <Interval>                     <Period>            <int>
-## 1 Steve   1955-02-24 1955-02-24 UTC--2020-10-05 UTC 65y 7m 11d 0H 0M 0S    65
-## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-10-05 UTC 47y 1m 14d 0H 0M 0S    47
-## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-10-05 UTC 56y 1m 20d 0H 0M 0S    56
-## 4 Bill    1955-10-28 1955-10-28 UTC--2020-10-05 UTC 64y 11m 7d 0H 0M 0S    64
-## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-10-05 UTC 5y 10m 29d 0H 0M 0S     5
-## 6 Siri    2011-10-12 2011-10-12 UTC--2020-10-05 UTC 8y 11m 23d 0H 0M 0S     8
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-10-07 UTC 65y 7m 13d 0H 0M 0S    65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-10-07 UTC 47y 1m 16d 0H 0M 0S    47
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-10-07 UTC 56y 1m 22d 0H 0M 0S    56
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-10-07 UTC 64y 11m 9d 0H 0M 0S    64
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-10-07 UTC 5y 11m 1d 0H 0M 0S      5
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-10-07 UTC 8y 11m 25d 0H 0M 0S     8
 ```
 
 
 As a final example, suppose that an hourly employee clocked in at 11:30 PM March 7, 2020 and then clocked out at 7:30 AM March 8 2020. How long did he or she work?
 
 ```r
-In <- ymd_hm('2020-3-7 11:30 PM', tz='US/Mountain')
-Out <- ymd_hm('2020-3-8 7:30 AM', tz='US/Mountain')
+In  <- ymd_hm('2020-3-7 11:30 PM', tz='US/Mountain')
+Out <- ymd_hm('2020-3-8 7:45 AM', tz='US/Mountain')
 
 In %--% Out
 ```
 
 ```
-## [1] 2020-03-07 23:30:00 MST--2020-03-08 07:30:00 MDT
+## [1] 2020-03-07 23:30:00 MST--2020-03-08 07:45:00 MDT
 ```
 
 ```r
-as.period(In %--%Out)         # Does NOT account for daylight savings time!
+as.period(  In %--%Out)       # Does NOT account for daylight savings time!
 ```
 
 ```
-## [1] "8H 0M 0S"
+## [1] "8H 15M 0S"
 ```
 
 ```r
@@ -362,7 +403,7 @@ as.duration(In %--%Out)       # Does account for daylight savings time!
 ```
 
 ```
-## [1] "25200s (~7 hours)"
+## [1] "26100s (~7.25 hours)"
 ```
 
 To use a duration in any subsequent calculation, we need to convert it to a numeric value using the `as.numeric()` function, which can convert to whatever unit you want.
@@ -374,7 +415,7 @@ as.numeric(time.worked, "hours")
 ```
 
 ```
-## [1] 7
+## [1] 7.25
 ```
 
 ```r
@@ -382,7 +423,7 @@ as.numeric(time.worked, "minutes")
 ```
 
 ```
-## [1] 420
+## [1] 435
 ```
 
 

@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nSouth Park's Triumphant Pandemic Special Is... Surprisingly Hopeful?\n"              
-## [2] "\nHow Wisconsin Became A Bastion Of White Supremacy\n"                                 
-## [3] "\nHere's A Funny Spoof On The First Thing Californians Do During An Earthquake\n"      
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                           
-## [5] "\nJill Biden Protectively Looks Out For Joe Biden In This Understatedly Sweet Moment\n"
-## [6] "\nHow Much I Make As An 'E-Girl For Hire'\n"
+## [1] "\nThe 50 Greatest Antiheroes Of All Time, Ranked\n"                            
+## [2] "\nTwo Of These Mail Ballot Signatures Are By The Same Person. Which Ones?\n"   
+## [3] "\nHere Are Ordinary People Caught On Camera Reacting To A 10-Meter High Dive\n"
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                   
+## [5] "\nGuy Gives His Family Members Hugs Unprompted To See How They'd React\n"      
+## [6] "\nGrizzly Weighing As Much As Eight Men Crowned Alaska's Fattest Bear\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.insidehook.com/article/television/south-park-pandemic-special-message-hope?utm_source=digg"
-## [2] "https://newrepublic.com/article/159524/wisconsin-became-bastion-white-supremacy?utm_source=digg"       
-## [3] "/2020/first-thing-californians-do-during-an-earthquake"                                                
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                           
-## [5] "/2020/jill-biden-looks-out-for-joe-biden-step-back-covid-19"                                           
-## [6] "https://www.vice.com/en/article/dyzyjz/woman-to-play-video-games-with-epal-hire?utm_source=digg"
+## [1] "https://www.inverse.com/entertainment/best-antiheroes-comics-tv-movie-video-games?utm_source=digg"                                                   
+## [2] "https://www.nytimes.com/interactive/2020/10/07/upshot/mail-voting-ballots-signature-matching.html?utm_source=digg"                                   
+## [3] "/video/here-are-ordinary-people-caught-on-camera-reacting-to-a-ten-meter-high-dive"                                                                  
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                         
+## [5] "/2020/guy-gives-his-family-members-hugs-unprompted-to-see-how-theyd-react"                                                                           
+## [6] "https://www.independent.co.uk/news/world/americas/fattest-bear-competition-contest-vote-747-alaska-katmai-national-park-b862616.html?utm_source=digg"
 ```
 
 
