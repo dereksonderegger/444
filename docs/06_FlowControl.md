@@ -122,14 +122,14 @@ df
 
 ```
 ##   Type       Value
-## 1    A -0.26254362
-## 2    A  0.40747814
-## 3    B -0.21087420
-## 4    B  0.96698840
-## 5    C -2.21446063
-## 6    C -0.04398045
-## 7    D  1.58930380
-## 8    D -0.05621701
+## 1    A  0.04101791
+## 2    A  0.84033293
+## 3    B  0.19160987
+## 4    B -1.51667401
+## 5    C -1.09088123
+## 6    C  1.58613866
+## 7    D  0.38515656
+## 8    D -0.31043924
 ```
 
 ```r
@@ -138,11 +138,11 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 ```
 
 ```
-##   Type      Value
-## 1    A -0.2625436
-## 2    A  0.4074781
-## 3    B -0.2108742
-## 4    B  0.9669884
+##   Type       Value
+## 1    A  0.04101791
+## 2    A  0.84033293
+## 3    B  0.19160987
+## 4    B -1.51667401
 ```
 
 
@@ -250,7 +250,7 @@ result
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 ```r
@@ -265,7 +265,7 @@ if( result == 0 ){
 ```
 
 ```
-## [1] " in the if statement, got a Tail! "
+## [1] "In the else part!"
 ```
 
 ```r
@@ -273,7 +273,7 @@ result
 ```
 
 ```
-## [1] "Tail"
+## [1] "Head"
 ```
 
 Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
@@ -305,7 +305,7 @@ p.value
 ```
 
 ```
-## [1] 2.943337e-08
+## [1] 8.387244e-08
 ```
 
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.
@@ -330,7 +330,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The second child was ignored"
+## [1] "No more unfounded generalizations!"
 ```
 
 
@@ -369,26 +369,26 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 3.53282394526943" 
-##  [2] "In loop and x is now: 3.75806847627031" 
-##  [3] "In loop and x is now: 1.99410963035196" 
-##  [4] "In loop and x is now: 1.0559333032417"  
-##  [5] "In loop and x is now: 1.23704164393782" 
-##  [6] "In loop and x is now: 3.66758816341935" 
-##  [7] "In loop and x is now: 0.69993959970316" 
-##  [8] "In loop and x is now: 2.88551985076299" 
-##  [9] "In loop and x is now: 2.876898194818"   
-## [10] "In loop and x is now: 0.735111072276854"
-## [11] "In loop and x is now: 2.03850958885061" 
-## [12] "In loop and x is now: 1.6140450717988"  
-## [13] "In loop and x is now: 2.60931216167356" 
-## [14] "In loop and x is now: 1.91985218119046" 
-## [15] "In loop and x is now: 2.0345296438528"  
-## [16] "In loop and x is now: 1.85420437919231" 
-## [17] "In loop and x is now: 0.895552995396503"
-## [18] "In loop and x is now: 0.370149670121757"
-## [19] "In loop and x is now: 2.15776490835288" 
-## [20] "In loop and x is now: 2.78704174168297"
+##  [1] "In loop and x is now: 2.41959296503383" 
+##  [2] "In loop and x is now: 3.15694658371259" 
+##  [3] "In loop and x is now: 1.64180841392999" 
+##  [4] "In loop and x is now: 2.30521738375582" 
+##  [5] "In loop and x is now: 4.65694548081372" 
+##  [6] "In loop and x is now: 2.29692764018296" 
+##  [7] "In loop and x is now: 2.9292147714326"  
+##  [8] "In loop and x is now: 4.5120516135032"  
+##  [9] "In loop and x is now: 1.29121153069236" 
+## [10] "In loop and x is now: 3.15020342331805" 
+## [11] "In loop and x is now: 0.436423150144442"
+## [12] "In loop and x is now: 1.94433333362816" 
+## [13] "In loop and x is now: 1.92010937168675" 
+## [14] "In loop and x is now: 3.99392108976275" 
+## [15] "In loop and x is now: 1.718810748974"   
+## [16] "In loop and x is now: 0.847971946651895"
+## [17] "In loop and x is now: 0.655340448573294"
+## [18] "In loop and x is now: 1.20486028564841" 
+## [19] "In loop and x is now: 2.89297939775811" 
+## [20] "In loop and x is now: 4.56506663471523"
 ```
 
 ```
@@ -397,26 +397,26 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 7.06564789053885" 
-##  [2] "In loop and x is now: 7.51613695254063" 
-##  [3] "In loop and x is now: 3.98821926070391" 
-##  [4] "In loop and x is now: 2.1118666064834"  
-##  [5] "In loop and x is now: 2.47408328787563" 
-##  [6] "In loop and x is now: 7.33517632683871" 
-##  [7] "In loop and x is now: 1.39987919940632" 
-##  [8] "In loop and x is now: 5.77103970152598" 
-##  [9] "In loop and x is now: 5.75379638963601" 
-## [10] "In loop and x is now: 1.47022214455371" 
-## [11] "In loop and x is now: 4.07701917770121" 
-## [12] "In loop and x is now: 3.2280901435976"  
-## [13] "In loop and x is now: 5.21862432334711" 
-## [14] "In loop and x is now: 3.83970436238093" 
-## [15] "In loop and x is now: 4.0690592877056"  
-## [16] "In loop and x is now: 3.70840875838462" 
-## [17] "In loop and x is now: 1.79110599079301" 
-## [18] "In loop and x is now: 0.740299340243514"
-## [19] "In loop and x is now: 4.31552981670575" 
-## [20] "In loop and x is now: 5.57408348336594"
+##  [1] "In loop and x is now: 4.83918593006767" 
+##  [2] "In loop and x is now: 6.31389316742518" 
+##  [3] "In loop and x is now: 3.28361682785997" 
+##  [4] "In loop and x is now: 4.61043476751164" 
+##  [5] "In loop and x is now: 9.31389096162743" 
+##  [6] "In loop and x is now: 4.59385528036593" 
+##  [7] "In loop and x is now: 5.85842954286521" 
+##  [8] "In loop and x is now: 9.02410322700639" 
+##  [9] "In loop and x is now: 2.58242306138472" 
+## [10] "In loop and x is now: 6.3004068466361"  
+## [11] "In loop and x is now: 0.872846300288884"
+## [12] "In loop and x is now: 3.88866666725633" 
+## [13] "In loop and x is now: 3.84021874337351" 
+## [14] "In loop and x is now: 7.98784217952551" 
+## [15] "In loop and x is now: 3.437621497948"   
+## [16] "In loop and x is now: 1.69594389330379" 
+## [17] "In loop and x is now: 1.31068089714659" 
+## [18] "In loop and x is now: 2.40972057129681" 
+## [19] "In loop and x is now: 5.78595879551621" 
+## [20] "In loop and x is now: 9.13013326943046"
 ```
 
 ```
@@ -425,26 +425,26 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 14.1312957810777"
-##  [2] "In loop and x is now: 15.0322739050813"
-##  [3] "In loop and x is now: 7.97643852140782"
-##  [4] "In loop and x is now: 4.22373321296679"
-##  [5] "In loop and x is now: 4.94816657575126"
-##  [6] "In loop and x is now: 14.6703526536774"
-##  [7] "In loop and x is now: 2.79975839881264"
-##  [8] "In loop and x is now: 11.542079403052" 
-##  [9] "In loop and x is now: 11.507592779272" 
-## [10] "In loop and x is now: 2.94044428910742"
-## [11] "In loop and x is now: 8.15403835540243"
-## [12] "In loop and x is now: 6.4561802871952" 
-## [13] "In loop and x is now: 10.4372486466942"
-## [14] "In loop and x is now: 7.67940872476186"
-## [15] "In loop and x is now: 8.1381185754112" 
-## [16] "In loop and x is now: 7.41681751676924"
-## [17] "In loop and x is now: 3.58221198158601"
-## [18] "In loop and x is now: 1.48059868048703"
-## [19] "In loop and x is now: 8.6310596334115" 
-## [20] "In loop and x is now: 11.1481669667319"
+##  [1] "In loop and x is now: 9.67837186013534"
+##  [2] "In loop and x is now: 12.6277863348504"
+##  [3] "In loop and x is now: 6.56723365571994"
+##  [4] "In loop and x is now: 9.22086953502328"
+##  [5] "In loop and x is now: 18.6277819232549"
+##  [6] "In loop and x is now: 9.18771056073185"
+##  [7] "In loop and x is now: 11.7168590857304"
+##  [8] "In loop and x is now: 18.0482064540128"
+##  [9] "In loop and x is now: 5.16484612276943"
+## [10] "In loop and x is now: 12.6008136932722"
+## [11] "In loop and x is now: 1.74569260057777"
+## [12] "In loop and x is now: 7.77733333451265"
+## [13] "In loop and x is now: 7.68043748674702"
+## [14] "In loop and x is now: 15.975684359051" 
+## [15] "In loop and x is now: 6.87524299589601"
+## [16] "In loop and x is now: 3.39188778660758"
+## [17] "In loop and x is now: 2.62136179429318"
+## [18] "In loop and x is now: 4.81944114259362"
+## [19] "In loop and x is now: 11.5719175910324"
+## [20] "In loop and x is now: 18.2602665388609"
 ```
 
 ```
@@ -453,26 +453,26 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 28.2625915621554"
-##  [2] "In loop and x is now: 30.0645478101625"
-##  [3] "In loop and x is now: 15.9528770428156"
-##  [4] "In loop and x is now: 8.44746642593358"
-##  [5] "In loop and x is now: 9.89633315150252"
-##  [6] "In loop and x is now: 29.3407053073548"
-##  [7] "In loop and x is now: 5.59951679762528"
-##  [8] "In loop and x is now: 23.0841588061039"
-##  [9] "In loop and x is now: 23.015185558544" 
-## [10] "In loop and x is now: 5.88088857821483"
-## [11] "In loop and x is now: 16.3080767108049"
-## [12] "In loop and x is now: 12.9123605743904"
-## [13] "In loop and x is now: 20.8744972933884"
-## [14] "In loop and x is now: 15.3588174495237"
-## [15] "In loop and x is now: 16.2762371508224"
-## [16] "In loop and x is now: 14.8336350335385"
-## [17] "In loop and x is now: 7.16442396317202"
-## [18] "In loop and x is now: 2.96119736097405"
-## [19] "In loop and x is now: 17.262119266823" 
-## [20] "In loop and x is now: 22.2963339334638"
+##  [1] "In loop and x is now: 19.3567437202707"
+##  [2] "In loop and x is now: 25.2555726697007"
+##  [3] "In loop and x is now: 13.1344673114399"
+##  [4] "In loop and x is now: 18.4417390700466"
+##  [5] "In loop and x is now: 37.2555638465097"
+##  [6] "In loop and x is now: 18.3754211214637"
+##  [7] "In loop and x is now: 23.4337181714608"
+##  [8] "In loop and x is now: 36.0964129080256"
+##  [9] "In loop and x is now: 10.3296922455389"
+## [10] "In loop and x is now: 25.2016273865444"
+## [11] "In loop and x is now: 3.49138520115554"
+## [12] "In loop and x is now: 15.5546666690253"
+## [13] "In loop and x is now: 15.360874973494" 
+## [14] "In loop and x is now: 31.951368718102" 
+## [15] "In loop and x is now: 13.750485991792" 
+## [16] "In loop and x is now: 6.78377557321516"
+## [17] "In loop and x is now: 5.24272358858635"
+## [18] "In loop and x is now: 9.63888228518724"
+## [19] "In loop and x is now: 23.1438351820649"
+## [20] "In loop and x is now: 36.5205330777218"
 ```
 
 ```
@@ -481,26 +481,54 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 56.5251831243108"
-##  [2] "In loop and x is now: 60.129095620325" 
-##  [3] "In loop and x is now: 31.9057540856313"
-##  [4] "In loop and x is now: 16.8949328518672"
-##  [5] "In loop and x is now: 19.792666303005" 
-##  [6] "In loop and x is now: 58.6814106147096"
-##  [7] "In loop and x is now: 11.1990335952506"
-##  [8] "In loop and x is now: 46.1683176122078"
-##  [9] "In loop and x is now: 46.0303711170881"
-## [10] "In loop and x is now: 11.7617771564297"
-## [11] "In loop and x is now: 32.6161534216097"
-## [12] "In loop and x is now: 25.8247211487808"
-## [13] "In loop and x is now: 41.7489945867769"
-## [14] "In loop and x is now: 30.7176348990474"
-## [15] "In loop and x is now: 32.5524743016448"
-## [16] "In loop and x is now: 29.6672700670769"
-## [17] "In loop and x is now: 14.328847926344" 
-## [18] "In loop and x is now: 5.92239472194811"
-## [19] "In loop and x is now: 34.524238533646" 
-## [20] "In loop and x is now: 44.5926678669275"
+##  [1] "In loop and x is now: 38.7134874405413"
+##  [2] "In loop and x is now: 50.5111453394015"
+##  [3] "In loop and x is now: 26.2689346228798"
+##  [4] "In loop and x is now: 36.8834781400931"
+##  [5] "In loop and x is now: 74.5111276930195"
+##  [6] "In loop and x is now: 36.7508422429274"
+##  [7] "In loop and x is now: 46.8674363429216"
+##  [8] "In loop and x is now: 72.1928258160511"
+##  [9] "In loop and x is now: 20.6593844910777"
+## [10] "In loop and x is now: 50.4032547730888"
+## [11] "In loop and x is now: 6.98277040231107"
+## [12] "In loop and x is now: 31.1093333380506"
+## [13] "In loop and x is now: 30.7217499469881"
+## [14] "In loop and x is now: 63.9027374362041"
+## [15] "In loop and x is now: 27.500971983584" 
+## [16] "In loop and x is now: 13.5675511464303"
+## [17] "In loop and x is now: 10.4854471771727"
+## [18] "In loop and x is now: 19.2777645703745"
+## [19] "In loop and x is now: 46.2876703641297"
+## [20] "In loop and x is now: 73.0410661554437"
+```
+
+```
+## Warning in while (x < 100) {: the condition has length > 1 and only the first
+## element will be used
+```
+
+```
+##  [1] "In loop and x is now: 77.4269748810827"
+##  [2] "In loop and x is now: 101.022290678803"
+##  [3] "In loop and x is now: 52.5378692457595"
+##  [4] "In loop and x is now: 73.7669562801863"
+##  [5] "In loop and x is now: 149.022255386039"
+##  [6] "In loop and x is now: 73.5016844858548"
+##  [7] "In loop and x is now: 93.7348726858433"
+##  [8] "In loop and x is now: 144.385651632102"
+##  [9] "In loop and x is now: 41.3187689821555"
+## [10] "In loop and x is now: 100.806509546178"
+## [11] "In loop and x is now: 13.9655408046221"
+## [12] "In loop and x is now: 62.2186666761012"
+## [13] "In loop and x is now: 61.4434998939761"
+## [14] "In loop and x is now: 127.805474872408"
+## [15] "In loop and x is now: 55.001943967168" 
+## [16] "In loop and x is now: 27.1351022928607"
+## [17] "In loop and x is now: 20.9708943543454"
+## [18] "In loop and x is now: 38.555529140749" 
+## [19] "In loop and x is now: 92.5753407282594"
+## [20] "In loop and x is now: 146.082132310887"
 ```
 
 ```

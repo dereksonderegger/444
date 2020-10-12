@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-10-07" />
+<meta name="date" content="2020-10-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -505,8 +505,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-wrangling-process" class="section level1 unnumbered">
 <h1>Data Wrangling Process</h1>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="data-wrangling-process.html#cb359-1" aria-hidden="true"></a><span class="co"># Chapter packages we will use</span></span>
-<span id="cb359-2"><a href="data-wrangling-process.html#cb359-2" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="data-wrangling-process.html#cb361-1" aria-hidden="true"></a><span class="co"># Chapter packages we will use</span></span>
+<span id="cb361-2"><a href="data-wrangling-process.html#cb361-2" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <div id="introduction" class="section level2" number="7.6">
 <h2><span class="header-section-number">7.6</span> Introduction</h2>
 <p>The process of data wrangling often seems very situation dependent and there isn’t a unifying process. However this isn’t completely true. The process can be thought of as having four distinct steps.</p>
@@ -547,12 +547,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>I tend to break my data cleaning scripts into three chunks and the cleaning script looks something like this:</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="data-wrangling-process.html#cb360-1" aria-hidden="true"></a><span class="co"># Script for reading in Flagstaff Weather Data</span></span>
-<span id="cb360-2"><a href="data-wrangling-process.html#cb360-2" aria-hidden="true"></a>Weather_raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;~/GitHub/444/data-raw/Flagstaff_Temp.csv&#39;</span>)</span>
-<span id="cb360-3"><a href="data-wrangling-process.html#cb360-3" aria-hidden="true"></a></span>
-<span id="cb360-4"><a href="data-wrangling-process.html#cb360-4" aria-hidden="true"></a>Weather_tidy &lt;-<span class="st"> </span>Weather_raw <span class="op">%&gt;%</span><span class="st"> </span>...</span>
-<span id="cb360-5"><a href="data-wrangling-process.html#cb360-5" aria-hidden="true"></a></span>
-<span id="cb360-6"><a href="data-wrangling-process.html#cb360-6" aria-hidden="true"></a>Weather &lt;-<span class="st"> </span>Weather_tidy <span class="op">%&gt;%</span><span class="st"> </span>...</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="data-wrangling-process.html#cb362-1" aria-hidden="true"></a><span class="co"># Script for reading in Flagstaff Weather Data</span></span>
+<span id="cb362-2"><a href="data-wrangling-process.html#cb362-2" aria-hidden="true"></a>Weather_raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;~/GitHub/444/data-raw/Flagstaff_Temp.csv&#39;</span>)</span>
+<span id="cb362-3"><a href="data-wrangling-process.html#cb362-3" aria-hidden="true"></a></span>
+<span id="cb362-4"><a href="data-wrangling-process.html#cb362-4" aria-hidden="true"></a>Weather_tidy &lt;-<span class="st"> </span>Weather_raw <span class="op">%&gt;%</span><span class="st"> </span>...</span>
+<span id="cb362-5"><a href="data-wrangling-process.html#cb362-5" aria-hidden="true"></a></span>
+<span id="cb362-6"><a href="data-wrangling-process.html#cb362-6" aria-hidden="true"></a>Weather &lt;-<span class="st"> </span>Weather_tidy <span class="op">%&gt;%</span><span class="st"> </span>...</span></code></pre></div>
 <p>In the above script the <code>...</code> represent a bunch commands that I pipe together. The clean data set doesn’t include any <code>_modifier</code> tag because that clean data set is the one that I want to save and then subsequently use in any analysis.</p>
 <p>In many real world examples, the data wrangling work is concentrated in only one or two of the first three steps. Typically you might be able to skip one or more steps, but I would encourage using the naming convention above so that it is clear where the skipped steps are and what step you are on.</p>
 </div>

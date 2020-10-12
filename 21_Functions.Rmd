@@ -445,14 +445,15 @@ When executing a function, R will have access to all the variables defined in th
       # Start the output data frame with the full sample statistic
       output <- broom::tidy(model) %>% 
         select(term, estimate) %>% 
-        spread(term, estimate)
+        pivot_wider(term, estimate)
+        pivot_wider(names_from=term, values_from=estimate)
     
       for( i in 1:N ){
         data <- data %>% sample_frac( replace=TRUE )
         model.boot <- lm( formula, data=data)
         coefs <- broom::tidy(model.boot) %>% 
           select(term, estimate) %>% 
-          spread(term, estimate)
+          pivot_wider(names_from=term, values_from=estimate)
         output <- output %>% rbind( coefs )
       }  
       

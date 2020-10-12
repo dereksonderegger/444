@@ -39,7 +39,7 @@ lubridate::today()   # Today's date
 ```
 
 ```
-## [1] "2020-10-07"
+## [1] "2020-10-12"
 ```
 
 ```r
@@ -47,7 +47,7 @@ lubridate::now()     # Today's Date and Time
 ```
 
 ```
-## [1] "2020-10-07 10:33:42 MST"
+## [1] "2020-10-12 08:45:31 MST"
 ```
 
 
@@ -366,14 +366,14 @@ data %>%
 
 ```
 ## # A tibble: 6 x 5
-##   Name    dob        Life                           Age                  Age2
-##   <chr>   <date>     <Interval>                     <Period>            <int>
-## 1 Steve   1955-02-24 1955-02-24 UTC--2020-10-07 UTC 65y 7m 13d 0H 0M 0S    65
-## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-10-07 UTC 47y 1m 16d 0H 0M 0S    47
-## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-10-07 UTC 56y 1m 22d 0H 0M 0S    56
-## 4 Bill    1955-10-28 1955-10-28 UTC--2020-10-07 UTC 64y 11m 9d 0H 0M 0S    64
-## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-10-07 UTC 5y 11m 1d 0H 0M 0S      5
-## 6 Siri    2011-10-12 2011-10-12 UTC--2020-10-07 UTC 8y 11m 25d 0H 0M 0S     8
+##   Name    dob        Life                           Age                   Age2
+##   <chr>   <date>     <Interval>                     <Period>             <int>
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-10-12 UTC 65y 7m 18d 0H 0M 0S     65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-10-12 UTC 47y 1m 21d 0H 0M 0S     47
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-10-12 UTC 56y 1m 27d 0H 0M 0S     56
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-10-12 UTC 64y 11m 14d 0H 0M 0S    64
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-10-12 UTC 5y 11m 6d 0H 0M 0S       5
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-10-12 UTC 9y 0m 0d 0H 0M 0S        9
 ```
 
 
@@ -429,6 +429,15 @@ as.numeric(time.worked, "minutes")
 
 ## Exercises  {#Exercises_Dates}
 
+<!-- 1. Convert the following to date or date/time objects. -->
+<!--     a) September 13, 2010. -->
+<!--     b) Sept 13, 2010. -->
+<!--     c) Sep 13, 2010.  -->
+<!--     d) S 13, 2010. Comment on the month abbreviation needs. -->
+<!--     e) 07-Dec-1941. -->
+<!--     f) 1-5-1998. Comment on why you might be wrong. -->
+<!--     g) 21-5-1998. Comment on why you know you are correct. -->
+
 1. For the following formats for a date, transform them into a date/time object. Which formats can be handled nicely and which are not? 
     a) For September 13
         
@@ -471,6 +480,10 @@ as.numeric(time.worked, "minutes")
     d) The date of your 64th birthday.
     e) The number of _years_, _months_, and _days_ until your 64th birthday.
     
+<!-- 3. It is some what surprising that there exists a `dmonths()` function. -->
+<!--     a) Using today's date, add 1 month using `dmonths(1)` and `months()`. Are there any differences? -->
+<!--     b) Consider `dmonths(1)`. What does this represent and speculate on how the authors chose to define this, because it isn't just 30 days divided by 7 days in a week. -->
+
 3. Suppose you have arranged for a phone call to be at 3 pm on May 8, 2015 at Arizona time. However, the recipient will be in Auckland, NZ. What time will it be there? 
 
 4. From this book's [GitHub](https://github.com/dereksonderegger/444/) directory, navigate to the `data-raw` directory and then download the `Pulliam_Airport_Weather_Station.csv` data file. (*There are several weather station files. Make sure you get the correct one!*)  There is a `DATE` column (is it of type `date` when you import the data?) as well as the Maximum and Minimum temperature. For the last 5 years of data we have (exactly, not just starting at Jan 1, 2014!), plot the daily maximum temperature. *Hint: Find the maximum date in the data set and then subtract 5 years. Will there be a difference if you use `dyears(5)` vs `years(5)`? Which seems more appropriate here?*

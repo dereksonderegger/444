@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe 50 Greatest Antiheroes Of All Time, Ranked\n"                            
-## [2] "\nTwo Of These Mail Ballot Signatures Are By The Same Person. Which Ones?\n"   
-## [3] "\nHere Are Ordinary People Caught On Camera Reacting To A 10-Meter High Dive\n"
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                   
-## [5] "\nGuy Gives His Family Members Hugs Unprompted To See How They'd React\n"      
-## [6] "\nGrizzly Weighing As Much As Eight Men Crowned Alaska's Fattest Bear\n"
+## [1] "\nHow Should I Handle A Coworker Who Falsely Told All Our Colleagues I'm His Wife, And Other Advice Column Questions\n"
+## [2] "\nHow A Road Trip Through America's Battlegrounds Revealed A Nation Plagued By Misinformation\n"                       
+## [3] "\nMan Tries To Get Into A Safe Room, Is Met With An Unpleasant Surprise\n"                                             
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                           
+## [5] "\nGuy Tries The Shell Game Trick On Dog, Dog Passes With Flying Colors\n"                                              
+## [6] "\nHow To Trick Out Your iPhone Home Screen In iOS 14\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.inverse.com/entertainment/best-antiheroes-comics-tv-movie-video-games?utm_source=digg"                                                   
-## [2] "https://www.nytimes.com/interactive/2020/10/07/upshot/mail-voting-ballots-signature-matching.html?utm_source=digg"                                   
-## [3] "/video/here-are-ordinary-people-caught-on-camera-reacting-to-a-ten-meter-high-dive"                                                                  
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                         
-## [5] "/2020/guy-gives-his-family-members-hugs-unprompted-to-see-how-theyd-react"                                                                           
-## [6] "https://www.independent.co.uk/news/world/americas/fattest-bear-competition-contest-vote-747-alaska-katmai-national-park-b862616.html?utm_source=digg"
+## [1] "/2020/how-should-i-handle-a-coworker-who-falsely-told-all-our-colleagues-im-his-wife-and-other-advice-column-questions"
+## [2] "https://time.com/5897887/swing-states-2020-election/?utm_source=digg"                                                  
+## [3] "/video/man-tries-to-get-into-a-safe-room-is-met-with-an-unpleasant-surprise"                                           
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                           
+## [5] "/video/dog-wins-shell-game-trick"                                                                                      
+## [6] "https://www.wired.com/story/customize-iphone-home-screen-widgets-aesthetic-ios14/?utm_source=digg"
 ```
 
 
