@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nHow Should I Handle A Coworker Who Falsely Told All Our Colleagues I'm His Wife, And Other Advice Column Questions\n"
-## [2] "\nHow A Road Trip Through America's Battlegrounds Revealed A Nation Plagued By Misinformation\n"                       
-## [3] "\nMan Tries To Get Into A Safe Room, Is Met With An Unpleasant Surprise\n"                                             
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                           
-## [5] "\nGuy Tries The Shell Game Trick On Dog, Dog Passes With Flying Colors\n"                                              
-## [6] "\nHow To Trick Out Your iPhone Home Screen In iOS 14\n"
+## [1] "\nWhich States Had The Best Pandemic Response?\n"                                                          
+## [2] "\nSave On PCs, SodaStreams And More During Prime Day\n"                                                    
+## [3] "\nSomeone Spent Two Months Building A Tiny House Inside Their Van And The Result Is Unexpectedly Awesome\n"
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                               
+## [5] "\nWatch A Very Territorial Bee Snatch Away A Bumblebee From Its Flower In 6-Second Video\n"                
+## [6] "\nMy Life As An Anti-Fascist Catfisher\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2020/how-should-i-handle-a-coworker-who-falsely-told-all-our-colleagues-im-his-wife-and-other-advice-column-questions"
-## [2] "https://time.com/5897887/swing-states-2020-election/?utm_source=digg"                                                  
-## [3] "/video/man-tries-to-get-into-a-safe-room-is-met-with-an-unpleasant-surprise"                                           
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                           
-## [5] "/video/dog-wins-shell-game-trick"                                                                                      
-## [6] "https://www.wired.com/story/customize-iphone-home-screen-widgets-aesthetic-ios14/?utm_source=digg"
+## [1] "https://www.politico.com/news/2020/10/14/best-state-responses-to-pandemic-429376?utm_source=digg"
+## [2] "/2020/picks-prime-day-2020-deals-info"                                                           
+## [3] "/video/someone-spent-two-months-building-a-tiny-house-inside-their-van"                          
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                     
+## [5] "/video/bee-snatch-bumblebee-six-seconds"                                                         
+## [6] "https://newrepublic.com/article/159749/anti-fascist-catfishing-talia-lavin?utm_source=digg"
 ```
 
 

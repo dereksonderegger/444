@@ -373,12 +373,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              289.
-## 2 A              246.
-## 3 B              237.
-## 4 B              261.
-## 5 C              231.
-## 6 C              219.
+## 1 A              268.
+## 2 A              274.
+## 3 B              207.
+## 4 B              245.
+## 5 C              228.
+## 6 C              286.
 ```
 
 ```r
@@ -409,12 +409,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              289. <NA>         NA      NA        NA
-## 2 A              246. <NA>         NA      NA        NA
-## 3 B              237. Lake Elaine   6.5    40         8
-## 4 B              261. Lake Elaine   6.5    40         8
-## 5 C              231. Mormon Lake   6.3   210        10
-## 6 C              219. Mormon Lake   6.3   210        10
+## 1 A              268. <NA>         NA      NA        NA
+## 2 A              274. <NA>         NA      NA        NA
+## 3 B              207. Lake Elaine   6.5    40         8
+## 4 B              245. Lake Elaine   6.5    40         8
+## 5 C              228. Mormon Lake   6.3   210        10
+## 6 C              286. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -434,12 +434,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              289. <NA>         NA      NA        NA
-## 2 A              246. <NA>         NA      NA        NA
-## 3 B              237. Lake Elaine   6.5    40         8
-## 4 B              261. Lake Elaine   6.5    40         8
-## 5 C              231. Mormon Lake   6.3   210        10
-## 6 C              219. Mormon Lake   6.3   210        10
+## 1 A              268. <NA>         NA      NA        NA
+## 2 A              274. <NA>         NA      NA        NA
+## 3 B              207. Lake Elaine   6.5    40         8
+## 4 B              245. Lake Elaine   6.5    40         8
+## 5 C              228. Mormon Lake   6.3   210        10
+## 6 C              286. Mormon Lake   6.3   210        10
 ```
 
 
@@ -455,16 +455,16 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              237. Lake Elaine   6.5    40         8
-## 2 B              261. Lake Elaine   6.5    40         8
-## 3 C              231. Mormon Lake   6.3   210        10
-## 4 C              219. Mormon Lake   6.3   210        10
+## 1 B              207. Lake Elaine   6.5    40         8
+## 2 B              245. Lake Elaine   6.5    40         8
+## 3 C              228. Mormon Lake   6.3   210        10
+## 4 C              286. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn't the case. In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
 
 
-## Row summations
+## Row-wise Calculations
 Finally, the combination of `pivot_longer` and `pivot_wider` allows me to do some very complex calculations across many columns of a data set.  For example, I might gather up a set of columns, calculate some summary statistics, and then join the result back to original data set.  
 
 
@@ -491,11 +491,46 @@ grade.book %>%
 ## 3 Charles.Collins    9    7    9   10   8.75
 ```
 
-This is actually pretty annoying to do. What I prefer to do is to use the base function `apply()` within a `mutate()` command. Recall that the `apply()` function applies a function to each row or column (`MARGIN=1` or `MARGIN=2` respectively). So we just need to put together `select` and `apply` statements.
+Instead, we'd like to have some mechanism for doing rowwise calculations. This is actually not as easy as you might expect because data frames are stored in memory to make column-wise operations fast.
+
+### Using base `apply()` function
+One solution is to use the base R function `apply()` 
+The `apply()` function applies a function to each row or column (`MARGIN=1` or `MARGIN=2` respectively). 
 
 
 ```r
-#        col.name             columns              function
+A <- matrix(1:6, ncol=3)  # Make a matrix of 2 rows, 3 columns
+A
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6
+```
+
+```r
+apply(A, MARGIN = 1, FUN=sum) # Apply sum() function to rows (MARGIN=1)
+```
+
+```
+## [1]  9 12
+```
+
+```r
+apply(A, MARGIN = 2, FUN=sum) # Apply sum() function to columns (MARGIN=1)
+```
+
+```
+## [1]  3  7 11
+```
+
+
+So to add a row calculation, we just need to put together `select` and `apply` statements.
+
+
+```r
+#     new.col.name             columns              function
 grade.book %>%
   mutate( HW.avg = select(., HW.1:HW.4) %>% apply(1, mean)) %>%
   print() # this print is just to show you can keep the pipeline going...
@@ -508,7 +543,7 @@ grade.book %>%
 ## 3 Charles.Collins    9    7    9   10   8.75
 ```
 
-But this pipeline inside a mutate command is a little cumbersome. The command `dplyr::rowwise()` causes subsequent actions to be performed _rowwise_ instead of the default of _columnwise_. The function `dplyr::c_across()` allows you to use all the select style tricks for picking columns.
+But this pipeline inside a mutate command is a little cumbersome. The command `dplyr::rowwise()` causes subsequent actions to be performed _rowwise_ instead of the default of _columnwise_. `rowwise()` is actually a special form of `group_by()` which creates a unique group for each row. The function `dplyr::c_across()` allows you to use all the `select` style tricks for picking columns.
 
 
 ```r
@@ -535,7 +570,28 @@ grade.book %>%
 ## 3 Charles.Collins     9     7     9    10   8.75
 ```
 
+Because `rowwise()` is a special form of grouping, to exit the row-wise calculations, call `ungroup()`.
 
+
+Finally, there are some base R functions `rowSums()` and `rowMeans()` that calculate sums and means across rows. They are actually quite fast, but don't allow the user to input an arbitrary function.
+
+
+```r
+grade.book %>%
+  mutate( HW.avg = rowMeans(across(starts_with('HW'))) )
+```
+
+```
+##              name HW.1 HW.2 HW.3 HW.4 HW.avg
+## 1 Alison.Anderson    8    5    8    4   6.25
+## 2 Brandon.Babbage    5    3    6    9   5.75
+## 3 Charles.Collins    9    7    9   10   8.75
+```
+
+Somewhat confusingly, in this statement we used `across` which applies a transformation to multiple columns, while the `c_across()` is designed to work with the `rowwise()` command.
+
+
+I prefer the solution that uses the `select() %>% apply(1, fun)` chain inside the `mutate` command because I don't have do an additional `rowwise()`  `ungroup()` command in my pipeline.
 
 ## Exercises  {#Exercises_DataReshaping}
     
@@ -627,7 +683,7 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
     Transactions <- Transactions %>% 
       mutate( DateTime = lubridate::ymd_hms(DateTime))
     ```
-    a) Create a table that gives the credit card statement for Derek. It should give all the transactions, the amounts, and the store name. Write your code as if the only initial information you have is the customer's name. *Hint: Do a bunch of table joins, and then filter for the desired customer name.*
+    a) Create a table that gives the credit card statement for Derek. It should give all the transactions, the amounts, and the store name. Write your code as if the only initial information you have is the customer's name. *Hint: Do a bunch of table joins, and then filter for the desired customer name. To be efficient, do the filtering first and then do the table joins.*
     b) Aubrey has lost her credit card on Oct 15, 2019. Close her credit card at 4:28:21 PM and issue her a new credit card in the `Cards` table. *Hint: Using the Aubrey's name, get necessary CardID and PersonID and save those as `cardID` and `personID`. Then update the `Cards` table row that corresponds to the `cardID` so that the expiration date is set to the time that the card is closed. Then insert a new row with the `personID` for Aubrey and a new `CardID` number that you make up.* 
     c) Aubrey is using her new card at Kickstand Kafe on Oct 16, 2019 at 2:30:21 PM for coffee with a charge of $4.98. Generate a new transaction for this action. *Hint: create temporary variables `card`,`retailid`,`datetime`, and `amount` that contain the information for this transaction and then write your code to use those. This way in the next question you can just use the same code but modify the temporary variables. Alternatively, you could write a function that takes in these four values and manipulates the tables in the GLOBAL environment using the `<<-` command to assign a result to a variable defined in the global environment. The reason this is OK is that in a real situation, these data would be stored in a database and we would expect the function to update that database.*
     d) On Oct 17, 2019, some nefarious person is trying to use her OLD credit card at REI. Make sure your code in part (c) first checks to see if the credit card is active before creating a new transaction. Using the same code, verify that the nefarious transaction at REI is denied. *Hint: your check ought to look something like this:*

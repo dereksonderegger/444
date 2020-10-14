@@ -256,7 +256,7 @@ inner_join(Fish.Data, Lake.Data)
 The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn't the case. In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
 
 
-## Row summations
+## Row-wise Calculations
 Finally, the combination of `pivot_longer` and `pivot_wider` allows me to do some very complex calculations across many columns of a data set.  For example, I might gather up a set of columns, calculate some summary statistics, and then join the result back to original data set.  
 
 ```{r}
@@ -267,16 +267,32 @@ grade.book %>%
   left_join( grade.book, . )
 ```
 
-This is actually pretty annoying to do. What I prefer to do is to use the base function `apply()` within a `mutate()` command. Recall that the `apply()` function applies a function to each row or column (`MARGIN=1` or `MARGIN=2` respectively). So we just need to put together `select` and `apply` statements.
+Instead, we'd like to have some mechanism for doing rowwise calculations. This is actually not as easy as you might expect because data frames are stored in memory to make column-wise operations fast.
+
+### Using base `apply()` function
+One solution is to use the base R function `apply()` 
+The `apply()` function applies a function to each row or column (`MARGIN=1` or `MARGIN=2` respectively). 
 
 ```{r}
-#        col.name             columns              function
+A <- matrix(1:6, ncol=3)  # Make a matrix of 2 rows, 3 columns
+A
+
+apply(A, MARGIN = 1, FUN=sum) # Apply sum() function to rows (MARGIN=1)
+apply(A, MARGIN = 2, FUN=sum) # Apply sum() function to columns (MARGIN=1)
+
+```
+
+
+So to add a row calculation, we just need to put together `select` and `apply` statements.
+
+```{r}
+#     new.col.name             columns              function
 grade.book %>%
   mutate( HW.avg = select(., HW.1:HW.4) %>% apply(1, mean)) %>%
   print() # this print is just to show you can keep the pipeline going...
 ```
 
-But this pipeline inside a mutate command is a little cumbersome. The command `dplyr::rowwise()` causes subsequent actions to be performed _rowwise_ instead of the default of _columnwise_. The function `dplyr::c_across()` allows you to use all the select style tricks for picking columns.
+But this pipeline inside a mutate command is a little cumbersome. The command `dplyr::rowwise()` causes subsequent actions to be performed _rowwise_ instead of the default of _columnwise_. `rowwise()` is actually a special form of `group_by()` which creates a unique group for each row. The function `dplyr::c_across()` allows you to use all the `select` style tricks for picking columns.
 
 ```{r}
 # grade.book %>%
@@ -293,7 +309,20 @@ grade.book %>%
 
 ```
 
+Because `rowwise()` is a special form of grouping, to exit the row-wise calculations, call `ungroup()`.
 
+
+Finally, there are some base R functions `rowSums()` and `rowMeans()` that calculate sums and means across rows. They are actually quite fast, but don't allow the user to input an arbitrary function.
+
+```{r}
+grade.book %>%
+  mutate( HW.avg = rowMeans(across(starts_with('HW'))) )
+```
+
+Somewhat confusingly, in this statement we used `across` which applies a transformation to multiple columns, while the `c_across()` is designed to work with the `rowwise()` command.
+
+
+I prefer the solution that uses the `select(., cols) %>% apply(1, fun)` chain inside the `mutate` command because I don't have do an additional `rowwise()`  `ungroup()` command in my pipeline.
 
 ## Exercises  {#Exercises_DataReshaping}
     
