@@ -373,12 +373,12 @@ Fish.Data
 ## # A tibble: 6 x 2
 ##   Lake_ID Fish.Weight
 ##   <chr>         <dbl>
-## 1 A              268.
-## 2 A              274.
-## 3 B              207.
-## 4 B              245.
-## 5 C              228.
-## 6 C              286.
+## 1 A              294.
+## 2 A              270.
+## 3 B              256.
+## 4 B              285.
+## 5 C              258.
+## 6 C              289.
 ```
 
 ```r
@@ -409,12 +409,12 @@ full_join(Fish.Data, Lake.Data)
 ## # A tibble: 7 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              268. <NA>         NA      NA        NA
-## 2 A              274. <NA>         NA      NA        NA
-## 3 B              207. Lake Elaine   6.5    40         8
-## 4 B              245. Lake Elaine   6.5    40         8
-## 5 C              228. Mormon Lake   6.3   210        10
-## 6 C              286. Mormon Lake   6.3   210        10
+## 1 A              294. <NA>         NA      NA        NA
+## 2 A              270. <NA>         NA      NA        NA
+## 3 B              256. Lake Elaine   6.5    40         8
+## 4 B              285. Lake Elaine   6.5    40         8
+## 5 C              258. Mormon Lake   6.3   210        10
+## 6 C              289. Mormon Lake   6.3   210        10
 ## 7 D               NA  Lake Mary     6.1   240        38
 ```
 
@@ -434,12 +434,12 @@ left_join(Fish.Data, Lake.Data)
 ## # A tibble: 6 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 A              268. <NA>         NA      NA        NA
-## 2 A              274. <NA>         NA      NA        NA
-## 3 B              207. Lake Elaine   6.5    40         8
-## 4 B              245. Lake Elaine   6.5    40         8
-## 5 C              228. Mormon Lake   6.3   210        10
-## 6 C              286. Mormon Lake   6.3   210        10
+## 1 A              294. <NA>         NA      NA        NA
+## 2 A              270. <NA>         NA      NA        NA
+## 3 B              256. Lake Elaine   6.5    40         8
+## 4 B              285. Lake Elaine   6.5    40         8
+## 5 C              258. Mormon Lake   6.3   210        10
+## 6 C              289. Mormon Lake   6.3   210        10
 ```
 
 
@@ -455,10 +455,10 @@ inner_join(Fish.Data, Lake.Data)
 ## # A tibble: 4 x 6
 ##   Lake_ID Fish.Weight Lake_Name      pH  area avg_depth
 ##   <chr>         <dbl> <chr>       <dbl> <dbl>     <dbl>
-## 1 B              207. Lake Elaine   6.5    40         8
-## 2 B              245. Lake Elaine   6.5    40         8
-## 3 C              228. Mormon Lake   6.3   210        10
-## 4 C              286. Mormon Lake   6.3   210        10
+## 1 B              256. Lake Elaine   6.5    40         8
+## 2 B              285. Lake Elaine   6.5    40         8
+## 3 C              258. Mormon Lake   6.3   210        10
+## 4 C              289. Mormon Lake   6.3   210        10
 ```
 
 The above examples assumed that the column used to join the two tables was named the same in both tables. This is good practice to try to do, but sometimes you have to work with data where that isn't the case. In that situation you can use the `by=c("ColName.A"="ColName.B")` syntax where `ColName.A` represents the name of the column in the first data frame and `ColName.B` is the equivalent column in the second data frame.
@@ -532,7 +532,7 @@ So to add a row calculation, we just need to put together `select` and `apply` s
 ```r
 #     new.col.name             columns              function
 grade.book %>%
-  mutate( HW.avg = select(., HW.1:HW.4) %>% apply(1, mean)) %>%
+  mutate(., HW.avg = select(., HW.1:HW.4) %>% apply(1, mean)) %>%
   print() # this print is just to show you can keep the pipeline going...
 ```
 
@@ -549,7 +549,7 @@ But this pipeline inside a mutate command is a little cumbersome. The command `d
 ```r
 # grade.book %>%
 #   rowwise() %>%
-#   mutate( HW.avg = mean( HW.1, HW.2, HW.3, HW.4 ) )  # List the columns to average
+#   mutate( HW.avg = mean( c(HW.1, HW.2, HW.3, HW.4) ) )  # List the columns to average
 # 
 # grade.book %>%
 #   rowwise() %>%
@@ -591,7 +591,7 @@ grade.book %>%
 Somewhat confusingly, in this statement we used `across` which applies a transformation to multiple columns, while the `c_across()` is designed to work with the `rowwise()` command.
 
 
-I prefer the solution that uses the `select() %>% apply(1, fun)` chain inside the `mutate` command because I don't have do an additional `rowwise()`  `ungroup()` command in my pipeline.
+I prefer the solution that uses the `select(., cols) %>% apply(1, fun)` chain inside the `mutate` command because I don't have do an additional `rowwise()`  `ungroup()` command in my pipeline.
 
 ## Exercises  {#Exercises_DataReshaping}
     
@@ -618,7 +618,7 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
     b) Rename the `Function or subfunction` column to `Department`.
     b) Remove any row with Total, Subtotal, On-budget or Off-budget. Also remove the row at the bottom that defines what NA means.
     c) Create a new column for `ID_number` and parse the `Department` column for it.
-    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: Directly copy `Department` to `Subfunction`. Then using an `ifelse` statement to copy either `NA` or `Department` to `Function` depending on if the 2015 column is an `NA` (use the function `is.na()`). Once you have `Function` with either the `Function` name or an `NA`, you can use the `tidyr::fill` command to replace the NA values with whatever is on the row above. Check out the help files to see how to use it.* 
+    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: Directly copy `Department` to `Subfunction`. Then using an `if_else()` statement to copy either `NA` or `Department` to `Function` depending on if the 2015 column is an `NA` (use the function `is.na()`). Once you have `Function` with either the `Function` name or an `NA`, you can use the `tidyr::fill` command to replace the NA values with whatever is on the row above. Check out the help files to see how to use it.* 
     e) Remove rows that corresponded to the Function name that have no data. *Hint, you can just check if the `2015` column is `NA`.*
     f) Reshape the data into four columns for Function, Subfunction, Year, and Amount.
     g) Remove rows that have Amount value of `..........`.

@@ -288,7 +288,7 @@ So to add a row calculation, we just need to put together `select` and `apply` s
 ```{r}
 #     new.col.name             columns              function
 grade.book %>%
-  mutate( HW.avg = select(., HW.1:HW.4) %>% apply(1, mean)) %>%
+  mutate(., HW.avg = select(., HW.1:HW.4) %>% apply(1, mean)) %>%
   print() # this print is just to show you can keep the pipeline going...
 ```
 
@@ -297,7 +297,7 @@ But this pipeline inside a mutate command is a little cumbersome. The command `d
 ```{r}
 # grade.book %>%
 #   rowwise() %>%
-#   mutate( HW.avg = mean( HW.1, HW.2, HW.3, HW.4 ) )  # List the columns to average
+#   mutate( HW.avg = mean( c(HW.1, HW.2, HW.3, HW.4) ) )  # List the columns to average
 # 
 # grade.book %>%
 #   rowwise() %>%
@@ -306,7 +306,6 @@ But this pipeline inside a mutate command is a little cumbersome. The command `d
 grade.book %>%
   rowwise() %>%
   mutate( HW.avg = mean( c_across(starts_with('HW'))) )  # Average all HW... columns 
-
 ```
 
 Because `rowwise()` is a special form of grouping, to exit the row-wise calculations, call `ungroup()`.
@@ -348,7 +347,7 @@ Our goal is to end up with a data frame with columns for `Function`, `Subfunctio
     b) Rename the `Function or subfunction` column to `Department`.
     b) Remove any row with Total, Subtotal, On-budget or Off-budget. Also remove the row at the bottom that defines what NA means.
     c) Create a new column for `ID_number` and parse the `Department` column for it.
-    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: Directly copy `Department` to `Subfunction`. Then using an `ifelse` statement to copy either `NA` or `Department` to `Function` depending on if the 2015 column is an `NA` (use the function `is.na()`). Once you have `Function` with either the `Function` name or an `NA`, you can use the `tidyr::fill` command to replace the NA values with whatever is on the row above. Check out the help files to see how to use it.* 
+    d) If all (or just 2015?) the year values are missing, then the `Department` corresponds to `Function` name. Otherwise `Department` corresponds to the `Subfunction`. Create columns for `Function` and `Subfunction`. *Hint: Directly copy `Department` to `Subfunction`. Then using an `if_else()` statement to copy either `NA` or `Department` to `Function` depending on if the 2015 column is an `NA` (use the function `is.na()`). Once you have `Function` with either the `Function` name or an `NA`, you can use the `tidyr::fill` command to replace the NA values with whatever is on the row above. Check out the help files to see how to use it.* 
     e) Remove rows that corresponded to the Function name that have no data. *Hint, you can just check if the `2015` column is `NA`.*
     f) Reshape the data into four columns for Function, Subfunction, Year, and Amount.
     g) Remove rows that have Amount value of `..........`.

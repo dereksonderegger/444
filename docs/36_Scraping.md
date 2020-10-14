@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nWhich States Had The Best Pandemic Response?\n"                                                          
-## [2] "\nSave On PCs, SodaStreams And More During Prime Day\n"                                                    
-## [3] "\nSomeone Spent Two Months Building A Tiny House Inside Their Van And The Result Is Unexpectedly Awesome\n"
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                               
-## [5] "\nWatch A Very Territorial Bee Snatch Away A Bumblebee From Its Flower In 6-Second Video\n"                
-## [6] "\nMy Life As An Anti-Fascist Catfisher\n"
+## [1] "\nFather And Daughter Thought They'd Signed Up For A Cotillion Scene In A 'Normal' Movie, Turns Out It Was 'Borat 2'\n"
+## [2] "\nSave On QLED 4K TVs, Pet Supplies And More During Prime Day\n"                                                       
+## [3] "\nMilla Jovovich Takes On Creatures Of Epic Proportions In 'Monster Hunter' Trailer\n"                                 
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                           
+## [5] "\nParrot Throws A Hilarious Tantrum When It Finds Out Owner Is Going Out\n"                                            
+## [6] "\nThe Maximum Price Of Every iPhone, Visualized\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.politico.com/news/2020/10/14/best-state-responses-to-pandemic-429376?utm_source=digg"
-## [2] "/2020/picks-prime-day-2020-deals-info"                                                           
-## [3] "/video/someone-spent-two-months-building-a-tiny-house-inside-their-van"                          
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                     
-## [5] "/video/bee-snatch-bumblebee-six-seconds"                                                         
-## [6] "https://newrepublic.com/article/159749/anti-fascist-catfishing-talia-lavin?utm_source=digg"
+## [1] "http://www.mymcr.net/free/on-the-porch-hay-house-mayhem/article_c07162b2-034b-11eb-8937-a70468254087.html?utm_source=digg"
+## [2] "/2020/picks-prime-day-2020-deals-info"                                                                                    
+## [3] "/video/milla-jovovich-takes-on-creatures-of-epic-proportions-in-monster-hunter-trailer"                                   
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                              
+## [5] "/video/parrot-throws-a-hilarious-tantrum-when-it-finds-out-owner-is-going-out"                                            
+## [6] "/2020/iphone-price-maximum-price-visualized"
 ```
 
 
