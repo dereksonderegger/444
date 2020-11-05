@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-10-14" />
+<meta name="date" content="2020-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -360,10 +360,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a>
 <ul>
 <li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>12.1</b> Creating Date and Time objects</a></li>
-<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.2</b> Extracting information</a></li>
-<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#printing-dates"><i class="fa fa-check"></i><b>12.3</b> Printing Dates</a></li>
-<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.4</b> Arithmetic on Dates</a></li>
-<li class="chapter" data-level="12.5" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.5</b> Exercises</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#time-zones"><i class="fa fa-check"></i><b>12.2</b> Time Zones</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.3</b> Extracting information</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#printing-dates"><i class="fa fa-check"></i><b>12.4</b> Printing Dates</a></li>
+<li class="chapter" data-level="12.5" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.5</b> Arithmetic on Dates</a></li>
+<li class="chapter" data-level="12.6" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="data-reshaping.html"><a href="data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a>
 <ul>
@@ -553,23 +554,112 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="verbs" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Verbs</h2>
 <p>The foundational operations to perform on a data set are:</p>
-<ul>
-<li><p>Adding rows</p>
-<ul>
-<li><code>add_row</code> - Add an additional single row of data, specified by cell</li>
-<li><code>bind_rows</code> - Add additional rows of data, specified by a single data frame.</li>
-</ul></li>
-<li><p>Subsetting - Returns a data set with particular columns or rows
-– <code>select</code> - Selecting a subset of columns by name or column number.
-– <code>filter</code> - Selecting a subset of rows from a data frame based on logical expressions.
-– <code>slice</code> - Selecting a subset of rows by row number.</p>
-<ul>
-<li><code>drop_na</code> - Remove rows that contain missing values</li>
-</ul></li>
-<li><p><code>arrange</code> - Re-ordering the rows of a data frame.</p></li>
-<li><p><code>mutate</code> - Add a new column that is some function of other columns.</p></li>
-<li><p><code>summarise</code> - calculate some summary statistic of a column of data. This collapses a set of rows into a single row.</p></li>
-</ul>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Adding rows</th>
+<th align="left">Adds to a data set</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><code>add_rows()</code></td>
+<td align="left">Add an additional single row of data, specified by cell.</td>
+</tr>
+<tr class="even">
+<td align="right"><code>bind_rows()</code></td>
+<td align="left">Add additional row(s) of data, specified by the added data table.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Subsetting</th>
+<th align="left">Returns a data set with particular columns or rows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><code>select</code></td>
+<td align="left">Selecting a subset of columns by name or column number. Helper functions such as <code>starts_with()</code>, <code>ends_with()</code>, and <code>contains()</code> allows you pick columns that have certain attributes in their column names.</td>
+</tr>
+<tr class="even">
+<td align="right"><code>filter()</code></td>
+<td align="left">Selecting a subset of rows from a data frame based on logical expressions.</td>
+</tr>
+<tr class="odd">
+<td align="right"><code>slice()</code></td>
+<td align="left">Selecting a subset of rows by row number. There are a few variants that allow for common tasks to such as <code>slice_head()</code> <code>slice_tail()</code> and <code>slice_sample()</code></td>
+</tr>
+<tr class="even">
+<td align="right"><code>drop_na</code></td>
+<td align="left">Remove rows that contain any missing values.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Sorting</th>
+<th align="left">Returns a data table with the rows sorted according to a particular column(s).</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><code>arrange()</code></td>
+<td align="left">Re-ordering the rows of a data frame. The <code>desc()</code> function can be used on the selected column to reverse the sort direction.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Update/Add columns</th>
+<th align="left">Returns a data table updated and/or new column(s).</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><code>mutate()</code></td>
+<td align="left">Add a new column that is some function of other columns. This function is used with an <code>ifelse()</code> command for updating particular cells and <code>across()</code> to apply some function to a variety of columns.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Summarize</th>
+<th align="left">Returns a data table with many rows into summarized into one row.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><code>summarise()</code></td>
+<td align="left">Calculate some summary statistic of a column of data. This collapses a set of rows into a single row.</td>
+</tr>
+</tbody>
+</table>
 <p>Each of these operations is a function in the package <code>dplyr</code>. These functions all have a similar calling syntax, the first argument is a data set, subsequent arguments describe what to do with the input data frame and you can refer to the columns without using the <code>df$column</code> notation. All of these functions will return a data set.</p>
 <p>To demonstrate all of these actions, we will consider a tiny dataset of a gradebook of doctors at a Sacred Heart Hospital.</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="data-wrangling.html#cb107-1" aria-hidden="true"></a><span class="co"># Create a tiny data frame that is easy to see what is happening</span></span>

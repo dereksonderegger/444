@@ -1,7 +1,7 @@
 ---
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 # Graphing Part II
 
@@ -52,7 +52,7 @@ Claus O. Wilke wrote a lovely [book](https://serialmentor.com/dataviz/) about da
 
 ```{r, fig.height=4}
 P1 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + 
-  geom_point(size=3) + theme(legend.position='bottom')
+  geom_point(size=3) + theme(legend.position='bottom') 
 P2 <- ggplot(trees, aes(x=Height, y=Volume, color=Girth)) + 
   geom_point() + theme(legend.position='bottom')
 P3 <- ggplot(iris, aes(x=Sepal.Length)) + 
@@ -71,13 +71,17 @@ cowplot::plot_grid(P2, P3, P4, nrow=1, labels=c('A','B','C'))
 ```
 
 ### `multiplot` in `Rmisc`
-In his book, *R Graphics Cookbook* Winston Chang produced a really nice function to address this issue, but just showed the code. The folks that maintain the R miscellaneous package `Rmisc` kindly included his function. The benefit of using this function is that you can control the layout to not be on a grid.  For example we might want two graphs side by side, and then the third be short and wide underneath both. By specifying different numbers and rows and columns in my layout matrix, we can highly customize how the plot looks.
+In his book, [R Graphics Cookbook](https://r-graphics.org) Winston Chang produced a really nice function to address this issue, but just showed the code. The folks that maintain the R miscellaneous package `Rmisc` kindly included his function. The benefit of using this function is that you can control the layout to not be on a grid.  For example we might want two graphs side by side, and then the third be short and wide underneath both. By specifying different numbers and rows and columns in my layout matrix, we can highly customize how the plot looks.
 
 ```{r}
 # Define where the first plot goes, etc.
 my.layout <- matrix(c(1, 2, 2,
                       1, 2, 2,
                       3, 3, 3), byrow = TRUE, nrow=3)
+
+matrix(c(1, 2, 2,
+                      1, 2, 2,
+                      3, 3, 3), nrow=3, byrow=TRUE)
 
 Rmisc::multiplot(P2, P3, P4, layout = my.layout )
 ```
@@ -87,7 +91,7 @@ Unfortunately, `Rmisc::multiplot` doesn't have a label option, so if you want to
 
 ## Customized Scales
 
-While `ggplot` typically produces very reasonable choices for values o the axis scales and color choices for the `color` and `fill` options, we often want to tweak them.
+While `ggplot` typically produces very reasonable choices for values for the axis scales and color choices for the `color` and `fill` options, we often want to tweak them.
 
 ### Color Scales
 
@@ -144,7 +148,8 @@ To use one of these palettes, we just need to pass the palette name to `scale_co
 ```{r}
 cowplot::plot_grid(
   P1 + scale_color_brewer(palette='Dark2'),
-  P4 + scale_fill_brewer(palette='Dark2') )
+  P4 + scale_fill_brewer(palette='Dark2') 
+  )
 ```
 
 
@@ -225,7 +230,7 @@ cowplot::plot_grid(
 
 ```
 
-Now the y-axis is in the original units (thousands of dollars) but obnoxiously we only have two labeled values. Lets define the major break points (the white lines that have numerical labels) to be at 1,10,100 thousand dollars in salary. Likewise we will tell `ggplot2` to set minor break points at 1 to 10 thousand dollars (with steps of 1 thousand dollars) and then 10 thousand to 100 thousand but with step sizes of 10 thousand, and finally minor breaks above 100 thousand being in steps of 100 thousand.
+Now the y-axis is in the original units (thousands of dollars) but we'd like to customize the minor tick marks. Lets define the major break points (the white lines that have numerical labels) to be at 1,10,100 thousand dollars in salary. Likewise we will tell `ggplot2` to set minor break points at 1 to 10 thousand dollars (with steps of 1 thousand dollars) and then 10 thousand to 100 thousand but with step sizes of 10 thousand, and finally minor breaks above 100 thousand being in steps of 100 thousand.
 
 
 ## Themes
@@ -537,12 +542,26 @@ leaflet() %>%
 
 ## Exercises  {#Exercises_Advanced_Graphing}
 
-1. [Gapminder](https://www.gapminder.org) is a organization devoted to educating people about world facts and dispelling misconceptions between countries. 
-    a) From their [data](https://www.gapminder.org/data/) page, download information about CO2 emissions per person. Import the data and filter out all but the latest year.
-    b) Create a map of CO2 emissions per person . 
+1. [Gapminder](https://www.gapminder.org) is a organization devoted to educating people about world facts and dispelling misconceptions between countries
+    a) From their [data](https://www.gapminder.org/data/) page, download information about country per capita CO2 emissions. Import the data and filter out all but the latest year.
+    b) Create a `Country_Dictionary` that will map countries in the CO2 data to the regions in the `ggplot2::map_data('world')` table. In this problem we have two data sets we need to join, by country and region, but unfortunately those don’t always match.
+        
+        For example, in the CO2 data, there is one line for "Antigua and Barbuda”, but in the geo.data there is one region for Antigua and one for Barbuda. A clever solution is to make two rows in your country dictionary that matches both the regions “Antiqua" and "Barbuda" to the CO2 value for "Antigua and Barbuda”. This way when you join the CO2 data to your country_dictionary, the result is to copy the CO2 result from the combined “Antigua and Barbuda” to 1 row for Antigua and 1 row for Barbuda.
+        ```{r, eval=FALSE}
+            # You'll need to fill in the rest of the countries and regions that don't match!
+            Country_Dictionary <- tribble(
+              ~raw,                             ~standardized,
+              "Antigua and Barbuda",            "Antigua",
+              "Antigua and Barbuda",            "Barbuda",
+              "Congo, Dem. Rep.",               "Democratic Republic of the Congo",
+              "Congo, Rep.",                    "Democratic Republic of the Congo")
+        ```
+        For the rest you should be able to figure out the matching country except for perhaps that Cote d’Ivoire is the Ivory Coast and Swaziland is now Eswatini. For the Democratic Republic of the Congo and Republic of the Congo, we have to combine their CO2 values because the map data just has the DRC, so for any of the standardized counties with multiple rows, take the max CO2 value after we've joined the `CO2` data with the `Country_Dictionary`. *Hint: `unique(x)` will return the unique items in a vector, `intersect(x,y)`returns the elements common to `x` and `y`, and `setdiff(x,y)`  returns the elements of `x` that are not in `y`. Similarly the function `semi_join(A,B)` and `anti_join(A,B)` return the rows of A the will be matched with B or the rows of A the DON'T match with B.
+    
+    c) Create a map of CO2 emissions per person. Select a color scale that emphasizes the countries with high per capita CO2 levels.
 
 2. The `infmort` data set from the package `faraway` gives the infant mortality rate for a variety of countries. The information is relatively out of date, but will be fun to graph. T
-    a) The `rownames()` of the dataset give the country names and you should create a new column that contains the country names. 
+    a) The `rownames()` of the dataset give the country names and you should create a new column that contains the country names.
     b) Save the `ggplot2::map_data('world')` result as `geo.data`. Compare the `infmort` country names to the `region` names in the `geo.data` data set and do whatever is necessary to get the country names to concur. *Hint: `unique(x)` will return the unique items in a vector, `intersect(x,y)`returns the elements common to `x` and `y`, and `setdiff(x,y)`  returns the elements of `x` that are not in `y`. I recommend creating a `Country_Dictionary` that contains the standardized country name and all the weird versions you've run into. Every time you see some new abbreviation, just add it to the dictionary. To start with, you might consider all the ways people commonly refer to the United States of America.*
         ```{r}
         Country_Dictionary <- tribble(
@@ -556,7 +575,7 @@ leaflet() %>%
     d) Make a map of the world where we shade in countries based on the country income. Set the color fill scale to be anything other than the default.
     e) Make a map of the world where we shade in the countries based on if they are oil exports. Color the map black if the country is an oil exporter, and a light gray if it is not.
 
-3. The `infmort` data set can also be visualized using by faceting using `region` and `oil` export status. 
+3. The `infmort` data set from the package `faraway` gives the infant mortality rate for a variety of countries. The information is relatively out of date, but will be fun to graph. Visualize the data using by faceting using `region` and `oil` export status. 
     a) Create scatter plots the countries income and infant mortality using a $log_{10}$ transformation for both axes.
     b) The package `ggrepel` contains functions `geom_text_repel()` and `geom_label_repel()` that mimic the basic `geom_text()` and `geom_label()` functions in `ggplot2`, but work to make sure the labels don't overlap. Select 10-15 countries to label and do so using the `geom_text_repel()` function.
 

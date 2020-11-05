@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-10-14" />
+<meta name="date" content="2020-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -360,10 +360,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a>
 <ul>
 <li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>12.1</b> Creating Date and Time objects</a></li>
-<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.2</b> Extracting information</a></li>
-<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#printing-dates"><i class="fa fa-check"></i><b>12.3</b> Printing Dates</a></li>
-<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.4</b> Arithmetic on Dates</a></li>
-<li class="chapter" data-level="12.5" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.5</b> Exercises</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#time-zones"><i class="fa fa-check"></i><b>12.2</b> Time Zones</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.3</b> Extracting information</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#printing-dates"><i class="fa fa-check"></i><b>12.4</b> Printing Dates</a></li>
+<li class="chapter" data-level="12.5" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.5</b> Arithmetic on Dates</a></li>
+<li class="chapter" data-level="12.6" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="data-reshaping.html"><a href="data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a>
 <ul>
@@ -647,54 +648,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html">vignette</a>
 for <code>roxygen2</code>. If/when the information in this chapter seems insufficient, that should be your next resource.</p>
 <p>The documentation information is built in comments and so documentation lines always start with a <code>#'</code>. For both data sets and functions, the first couple of lines give the short title and description.</p>
-<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="r-packages.html#cb845-1" aria-hidden="true"></a><span class="co">#&#39; A short title</span></span>
-<span id="cb845-2"><a href="r-packages.html#cb845-2" aria-hidden="true"></a><span class="co">#&#39; </span></span>
-<span id="cb845-3"><a href="r-packages.html#cb845-3" aria-hidden="true"></a><span class="co">#&#39; A longer paragraph that describes the context of the dataset/function and </span></span>
-<span id="cb845-4"><a href="r-packages.html#cb845-4" aria-hidden="true"></a><span class="co">#&#39; discusses important aspects that will be necessary for somebody first seeing </span></span>
-<span id="cb845-5"><a href="r-packages.html#cb845-5" aria-hidden="true"></a><span class="co">#&#39; the data/function to know about. Any text in these initial paragraphs will be </span></span>
-<span id="cb845-6"><a href="r-packages.html#cb845-6" aria-hidden="true"></a><span class="co">#&#39; in the description section of the documentation file.</span></span>
-<span id="cb845-7"><a href="r-packages.html#cb845-7" aria-hidden="true"></a><span class="co">#&#39; </span></span></code></pre></div>
+<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb863-1"><a href="r-packages.html#cb863-1" aria-hidden="true"></a><span class="co">#&#39; A short title</span></span>
+<span id="cb863-2"><a href="r-packages.html#cb863-2" aria-hidden="true"></a><span class="co">#&#39; </span></span>
+<span id="cb863-3"><a href="r-packages.html#cb863-3" aria-hidden="true"></a><span class="co">#&#39; A longer paragraph that describes the context of the dataset/function and </span></span>
+<span id="cb863-4"><a href="r-packages.html#cb863-4" aria-hidden="true"></a><span class="co">#&#39; discusses important aspects that will be necessary for somebody first seeing </span></span>
+<span id="cb863-5"><a href="r-packages.html#cb863-5" aria-hidden="true"></a><span class="co">#&#39; the data/function to know about. Any text in these initial paragraphs will be </span></span>
+<span id="cb863-6"><a href="r-packages.html#cb863-6" aria-hidden="true"></a><span class="co">#&#39; in the description section of the documentation file.</span></span>
+<span id="cb863-7"><a href="r-packages.html#cb863-7" aria-hidden="true"></a><span class="co">#&#39; </span></span></code></pre></div>
 <div id="data-documentation" class="section level3" number="15.3.1">
 <h3><span class="header-section-number">15.3.1</span> Data Documentation</h3>
 <p>Data set documentation should contain both general information about the context of the data as well as detailed information about the data columns. Finally the documentation should also include information about where the data came from, if it is available. The title and description are given in the first paragraphs of the description, but the format and source need some indication starting the sections.</p>
-<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="r-packages.html#cb846-1" aria-hidden="true"></a><span class="co">#&#39; A short title</span></span>
-<span id="cb846-2"><a href="r-packages.html#cb846-2" aria-hidden="true"></a><span class="co">#&#39; </span></span>
-<span id="cb846-3"><a href="r-packages.html#cb846-3" aria-hidden="true"></a><span class="co">#&#39; A longer paragraph that describes the context of the dataset and </span></span>
-<span id="cb846-4"><a href="r-packages.html#cb846-4" aria-hidden="true"></a><span class="co">#&#39; discusses important aspects that will be necessary for somebody first seeing </span></span>
-<span id="cb846-5"><a href="r-packages.html#cb846-5" aria-hidden="true"></a><span class="co">#&#39; the data to know about. Any text in these initial paragraphs will be </span></span>
-<span id="cb846-6"><a href="r-packages.html#cb846-6" aria-hidden="true"></a><span class="co">#&#39; in the description section of the documentation file.</span></span>
-<span id="cb846-7"><a href="r-packages.html#cb846-7" aria-hidden="true"></a><span class="co">#&#39; </span></span>
-<span id="cb846-8"><a href="r-packages.html#cb846-8" aria-hidden="true"></a><span class="co">#&#39; @format A data frame with XXX observations with ZZ columns.</span></span>
-<span id="cb846-9"><a href="r-packages.html#cb846-9" aria-hidden="true"></a><span class="co">#&#39; \describe{</span></span>
-<span id="cb846-10"><a href="r-packages.html#cb846-10" aria-hidden="true"></a><span class="co">#&#39;    \item{Column1}{Description of column 1, including units if appropriate}</span></span>
-<span id="cb846-11"><a href="r-packages.html#cb846-11" aria-hidden="true"></a><span class="co">#&#39;    \item{Column2}{Description of column 2, including units if appropriate}</span></span>
-<span id="cb846-12"><a href="r-packages.html#cb846-12" aria-hidden="true"></a><span class="co">#&#39; }</span></span>
-<span id="cb846-13"><a href="r-packages.html#cb846-13" aria-hidden="true"></a><span class="st">&quot;DataSetName&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb864-1"><a href="r-packages.html#cb864-1" aria-hidden="true"></a><span class="co">#&#39; A short title</span></span>
+<span id="cb864-2"><a href="r-packages.html#cb864-2" aria-hidden="true"></a><span class="co">#&#39; </span></span>
+<span id="cb864-3"><a href="r-packages.html#cb864-3" aria-hidden="true"></a><span class="co">#&#39; A longer paragraph that describes the context of the dataset and </span></span>
+<span id="cb864-4"><a href="r-packages.html#cb864-4" aria-hidden="true"></a><span class="co">#&#39; discusses important aspects that will be necessary for somebody first seeing </span></span>
+<span id="cb864-5"><a href="r-packages.html#cb864-5" aria-hidden="true"></a><span class="co">#&#39; the data to know about. Any text in these initial paragraphs will be </span></span>
+<span id="cb864-6"><a href="r-packages.html#cb864-6" aria-hidden="true"></a><span class="co">#&#39; in the description section of the documentation file.</span></span>
+<span id="cb864-7"><a href="r-packages.html#cb864-7" aria-hidden="true"></a><span class="co">#&#39; </span></span>
+<span id="cb864-8"><a href="r-packages.html#cb864-8" aria-hidden="true"></a><span class="co">#&#39; @format A data frame with XXX observations with ZZ columns.</span></span>
+<span id="cb864-9"><a href="r-packages.html#cb864-9" aria-hidden="true"></a><span class="co">#&#39; \describe{</span></span>
+<span id="cb864-10"><a href="r-packages.html#cb864-10" aria-hidden="true"></a><span class="co">#&#39;    \item{Column1}{Description of column 1, including units if appropriate}</span></span>
+<span id="cb864-11"><a href="r-packages.html#cb864-11" aria-hidden="true"></a><span class="co">#&#39;    \item{Column2}{Description of column 2, including units if appropriate}</span></span>
+<span id="cb864-12"><a href="r-packages.html#cb864-12" aria-hidden="true"></a><span class="co">#&#39; }</span></span>
+<span id="cb864-13"><a href="r-packages.html#cb864-13" aria-hidden="true"></a><span class="st">&quot;DataSetName&quot;</span></span></code></pre></div>
 <p>There are a few other documentation sections that can be filled in. They will all be introduced using <code>@Section</code> notation.</p>
-<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb847-1"><a href="r-packages.html#cb847-1" aria-hidden="true"></a><span class="co">#&#39; @source This describes where the data came from</span></span>
-<span id="cb847-2"><a href="r-packages.html#cb847-2" aria-hidden="true"></a><span class="co">#&#39; @references If we need to cite some book or journal article.</span></span></code></pre></div>
+<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb865-1"><a href="r-packages.html#cb865-1" aria-hidden="true"></a><span class="co">#&#39; @source This describes where the data came from</span></span>
+<span id="cb865-2"><a href="r-packages.html#cb865-2" aria-hidden="true"></a><span class="co">#&#39; @references If we need to cite some book or journal article.</span></span></code></pre></div>
 </div>
 <div id="documenting-functions" class="section level3" number="15.3.2">
 <h3><span class="header-section-number">15.3.2</span> Documenting Functions</h3>
 <p>Functions that you want other people to use need to be documentated. In particular, we need a general description of what the function does, a list of all function arguments and what they do, and what type of object the function returns. Finally, it is nice to have some examples that demonstrate how the function can be used.</p>
-<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="r-packages.html#cb848-1" aria-hidden="true"></a><span class="co">#&#39; Sum two numeric objects.</span></span>
-<span id="cb848-2"><a href="r-packages.html#cb848-2" aria-hidden="true"></a><span class="co">#&#39;</span></span>
-<span id="cb848-3"><a href="r-packages.html#cb848-3" aria-hidden="true"></a><span class="co">#&#39; Because this is a very simple function, my explanation is short. These</span></span>
-<span id="cb848-4"><a href="r-packages.html#cb848-4" aria-hidden="true"></a><span class="co">#&#39; paragraphs should explain everything you need to know.</span></span>
-<span id="cb848-5"><a href="r-packages.html#cb848-5" aria-hidden="true"></a><span class="co">#&#39; </span></span>
-<span id="cb848-6"><a href="r-packages.html#cb848-6" aria-hidden="true"></a><span class="co">#&#39; This is still in the description part of the documentation and and it </span></span>
-<span id="cb848-7"><a href="r-packages.html#cb848-7" aria-hidden="true"></a><span class="co">#&#39; will be until we see something that indicates a new section.</span></span>
-<span id="cb848-8"><a href="r-packages.html#cb848-8" aria-hidden="true"></a><span class="co">#&#39;</span></span>
-<span id="cb848-9"><a href="r-packages.html#cb848-9" aria-hidden="true"></a><span class="co">#&#39; @param a A real number</span></span>
-<span id="cb848-10"><a href="r-packages.html#cb848-10" aria-hidden="true"></a><span class="co">#&#39; @param b A real number</span></span>
-<span id="cb848-11"><a href="r-packages.html#cb848-11" aria-hidden="true"></a><span class="co">#&#39; @return The sum of \code{a} and \code{b}</span></span>
-<span id="cb848-12"><a href="r-packages.html#cb848-12" aria-hidden="true"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb848-13"><a href="r-packages.html#cb848-13" aria-hidden="true"></a><span class="co">#&#39; sum(12,5)</span></span>
-<span id="cb848-14"><a href="r-packages.html#cb848-14" aria-hidden="true"></a><span class="co">#&#39; sum(4,-2)</span></span>
-<span id="cb848-15"><a href="r-packages.html#cb848-15" aria-hidden="true"></a><span class="co">#&#39; @export</span></span>
-<span id="cb848-16"><a href="r-packages.html#cb848-16" aria-hidden="true"></a>my.sum &lt;-<span class="st"> </span><span class="cf">function</span>( a, b ){</span>
-<span id="cb848-17"><a href="r-packages.html#cb848-17" aria-hidden="true"></a>  <span class="kw">return</span>( a <span class="op">+</span><span class="st"> </span>b )</span>
-<span id="cb848-18"><a href="r-packages.html#cb848-18" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb866"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb866-1"><a href="r-packages.html#cb866-1" aria-hidden="true"></a><span class="co">#&#39; Sum two numeric objects.</span></span>
+<span id="cb866-2"><a href="r-packages.html#cb866-2" aria-hidden="true"></a><span class="co">#&#39;</span></span>
+<span id="cb866-3"><a href="r-packages.html#cb866-3" aria-hidden="true"></a><span class="co">#&#39; Because this is a very simple function, my explanation is short. These</span></span>
+<span id="cb866-4"><a href="r-packages.html#cb866-4" aria-hidden="true"></a><span class="co">#&#39; paragraphs should explain everything you need to know.</span></span>
+<span id="cb866-5"><a href="r-packages.html#cb866-5" aria-hidden="true"></a><span class="co">#&#39; </span></span>
+<span id="cb866-6"><a href="r-packages.html#cb866-6" aria-hidden="true"></a><span class="co">#&#39; This is still in the description part of the documentation and and it </span></span>
+<span id="cb866-7"><a href="r-packages.html#cb866-7" aria-hidden="true"></a><span class="co">#&#39; will be until we see something that indicates a new section.</span></span>
+<span id="cb866-8"><a href="r-packages.html#cb866-8" aria-hidden="true"></a><span class="co">#&#39;</span></span>
+<span id="cb866-9"><a href="r-packages.html#cb866-9" aria-hidden="true"></a><span class="co">#&#39; @param a A real number</span></span>
+<span id="cb866-10"><a href="r-packages.html#cb866-10" aria-hidden="true"></a><span class="co">#&#39; @param b A real number</span></span>
+<span id="cb866-11"><a href="r-packages.html#cb866-11" aria-hidden="true"></a><span class="co">#&#39; @return The sum of \code{a} and \code{b}</span></span>
+<span id="cb866-12"><a href="r-packages.html#cb866-12" aria-hidden="true"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb866-13"><a href="r-packages.html#cb866-13" aria-hidden="true"></a><span class="co">#&#39; sum(12,5)</span></span>
+<span id="cb866-14"><a href="r-packages.html#cb866-14" aria-hidden="true"></a><span class="co">#&#39; sum(4,-2)</span></span>
+<span id="cb866-15"><a href="r-packages.html#cb866-15" aria-hidden="true"></a><span class="co">#&#39; @export</span></span>
+<span id="cb866-16"><a href="r-packages.html#cb866-16" aria-hidden="true"></a>my.sum &lt;-<span class="st"> </span><span class="cf">function</span>( a, b ){</span>
+<span id="cb866-17"><a href="r-packages.html#cb866-17" aria-hidden="true"></a>  <span class="kw">return</span>( a <span class="op">+</span><span class="st"> </span>b )</span>
+<span id="cb866-18"><a href="r-packages.html#cb866-18" aria-hidden="true"></a>}</span></code></pre></div>
 <p>Each of the sections is self explanatory except for the <code>@export</code>. The purpose of this is to indicate that this function should be available to any user of the package. If a function is not exported, then it is available only to functions <em>within</em> the package. This can be convenient if there are multiple functions that help with the analysis but you don’t want the user to see them because it is too much work to explain that they shouldn’t be used.</p>
 <p>Other regions that you might use:</p>
 <ul>
@@ -718,8 +719,8 @@ for <code>roxygen2</code>. If/when the information in this chapter seems insuffi
 <li><p>Cleaner functionality. Because unit testing requires you to think about how your code should respond in different instances, you think more clearly about what the appropriate inputs and outputs should be and as a result, you are less likely to have functions that do <em>WAY</em> too much and are difficult to test. Separate smaller functions are easier to write, easier to test, and ultimately more reliable.</p></li>
 <li><p>Robust code. With unit testing, it is easier to make changes and feel confident that you haven’t broken previously working code. In particular, it allows us to capture weird edge cases and make sure they are always tested for.</p></li>
 </ol>
-<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb849-1"><a href="r-packages.html#cb849-1" aria-hidden="true"></a><span class="co"># To set up your package to use the testthat package run:</span></span>
-<span id="cb849-2"><a href="r-packages.html#cb849-2" aria-hidden="true"></a>usethis<span class="op">::</span><span class="kw">use_testthat</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb867-1"><a href="r-packages.html#cb867-1" aria-hidden="true"></a><span class="co"># To set up your package to use the testthat package run:</span></span>
+<span id="cb867-2"><a href="r-packages.html#cb867-2" aria-hidden="true"></a>usethis<span class="op">::</span><span class="kw">use_testthat</span>()</span></code></pre></div>
 <p>What this command does is:</p>
 <ol style="list-style-type: decimal">
 <li>Creates a tests/testthat directory in the package.</li>
@@ -729,19 +730,19 @@ for <code>roxygen2</code>. If/when the information in this chapter seems insuffi
 <p>Next you create .R files in the <code>tests/testthat/</code> directory named <code>test_XXX.r</code>. In those files, you’ll input your test code.</p>
 <p>Recently, I had to utilize a truncated distribution and the <code>trunc</code> package didn’t work for the distribution I needed, so I had to create my own version of the <code>trunc</code> package. So I made my own <a href="https://github.com/dereksonderegger/truncdist2">trunc2</a>
 package. However, I wanted to be absolutely certain that I was getting the correct answers, so I made some unit tests.</p>
-<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="r-packages.html#cb850-1" aria-hidden="true"></a><span class="co"># Check to see if I get the same values in Poisson distribution</span></span>
-<span id="cb850-2"><a href="r-packages.html#cb850-2" aria-hidden="true"></a><span class="kw">test_that</span>(<span class="st">&#39;Unrestricted Poisson values correct&#39;</span>, {</span>
-<span id="cb850-3"><a href="r-packages.html#cb850-3" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">dpois</span>( <span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">3</span> ),  <span class="kw">dtrunc</span>(<span class="dv">2</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</span>
-<span id="cb850-4"><a href="r-packages.html#cb850-4" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">ppois</span>( <span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">3</span> ),  <span class="kw">ptrunc</span>(<span class="dv">2</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</span>
-<span id="cb850-5"><a href="r-packages.html#cb850-5" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">qpois</span>( <span class="fl">.8</span>, <span class="dt">lambda=</span><span class="dv">3</span> ), <span class="kw">qtrunc</span>(.<span class="dv">8</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</span>
-<span id="cb850-6"><a href="r-packages.html#cb850-6" aria-hidden="true"></a>})</span>
-<span id="cb850-7"><a href="r-packages.html#cb850-7" aria-hidden="true"></a></span>
-<span id="cb850-8"><a href="r-packages.html#cb850-8" aria-hidden="true"></a><span class="co"># Check to see if I get the same values in Exponential distribution</span></span>
-<span id="cb850-9"><a href="r-packages.html#cb850-9" aria-hidden="true"></a><span class="kw">test_that</span>(<span class="st">&#39;Unrestricted Exponential values correct&#39;</span>, {</span>
-<span id="cb850-10"><a href="r-packages.html#cb850-10" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">dexp</span>( <span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">3</span> ),  <span class="kw">dtrunc</span>(<span class="dv">2</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</span>
-<span id="cb850-11"><a href="r-packages.html#cb850-11" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">pexp</span>( <span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">3</span> ),  <span class="kw">ptrunc</span>(<span class="dv">2</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</span>
-<span id="cb850-12"><a href="r-packages.html#cb850-12" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">qexp</span>( <span class="fl">.8</span>, <span class="dt">rate=</span><span class="dv">3</span> ), <span class="kw">qtrunc</span>(.<span class="dv">8</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</span>
-<span id="cb850-13"><a href="r-packages.html#cb850-13" aria-hidden="true"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb868"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb868-1"><a href="r-packages.html#cb868-1" aria-hidden="true"></a><span class="co"># Check to see if I get the same values in Poisson distribution</span></span>
+<span id="cb868-2"><a href="r-packages.html#cb868-2" aria-hidden="true"></a><span class="kw">test_that</span>(<span class="st">&#39;Unrestricted Poisson values correct&#39;</span>, {</span>
+<span id="cb868-3"><a href="r-packages.html#cb868-3" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">dpois</span>( <span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">3</span> ),  <span class="kw">dtrunc</span>(<span class="dv">2</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</span>
+<span id="cb868-4"><a href="r-packages.html#cb868-4" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">ppois</span>( <span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">3</span> ),  <span class="kw">ptrunc</span>(<span class="dv">2</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</span>
+<span id="cb868-5"><a href="r-packages.html#cb868-5" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">qpois</span>( <span class="fl">.8</span>, <span class="dt">lambda=</span><span class="dv">3</span> ), <span class="kw">qtrunc</span>(.<span class="dv">8</span>, <span class="st">&#39;pois&#39;</span>, <span class="dt">lambda=</span><span class="dv">3</span>) )</span>
+<span id="cb868-6"><a href="r-packages.html#cb868-6" aria-hidden="true"></a>})</span>
+<span id="cb868-7"><a href="r-packages.html#cb868-7" aria-hidden="true"></a></span>
+<span id="cb868-8"><a href="r-packages.html#cb868-8" aria-hidden="true"></a><span class="co"># Check to see if I get the same values in Exponential distribution</span></span>
+<span id="cb868-9"><a href="r-packages.html#cb868-9" aria-hidden="true"></a><span class="kw">test_that</span>(<span class="st">&#39;Unrestricted Exponential values correct&#39;</span>, {</span>
+<span id="cb868-10"><a href="r-packages.html#cb868-10" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">dexp</span>( <span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">3</span> ),  <span class="kw">dtrunc</span>(<span class="dv">2</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</span>
+<span id="cb868-11"><a href="r-packages.html#cb868-11" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">pexp</span>( <span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">3</span> ),  <span class="kw">ptrunc</span>(<span class="dv">2</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</span>
+<span id="cb868-12"><a href="r-packages.html#cb868-12" aria-hidden="true"></a>  <span class="kw">expect_equal</span>(<span class="kw">qexp</span>( <span class="fl">.8</span>, <span class="dt">rate=</span><span class="dv">3</span> ), <span class="kw">qtrunc</span>(.<span class="dv">8</span>, <span class="st">&#39;exp&#39;</span>, <span class="dt">rate=</span><span class="dv">3</span>) )</span>
+<span id="cb868-13"><a href="r-packages.html#cb868-13" aria-hidden="true"></a>})</span></code></pre></div>
 <p>The idea is that each <code>test_that()</code> command tests some functionality and each <code>expect_XXX()</code> tests some atomic unit of computing. I would then have multiple files, where each file is named <code>test_XXX</code> and has some organizational rational.</p>
 <p>The expectation functions give you a way to have your function calculate something and compare it to what you think should be the output. These functions start with <code>expect_</code> and throw an error if the expectation is not met. In the table below, the <code>a</code> and <code>b</code> represent expressions to be evaluated.</p>
 <table>
@@ -795,23 +796,23 @@ package. However, I wanted to be absolutely certain that I was getting the corre
 <div id="the-description-file" class="section level2" number="15.5">
 <h2><span class="header-section-number">15.5</span> The DESCRIPTION file</h2>
 <p>I never write the DESCRIPTION file from scratch, but rather it is generated it from a template when the package structure is initially created. It is useful to go into this file and edit it.</p>
-<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="r-packages.html#cb851-1" aria-hidden="true"></a>Package<span class="op">:</span><span class="st"> </span>MyAwesomePackage</span>
-<span id="cb851-2"><a href="r-packages.html#cb851-2" aria-hidden="true"></a>Title<span class="op">:</span><span class="st"> </span>What the Package <span class="kw">Does</span> (One Line, Title Case)</span>
-<span id="cb851-3"><a href="r-packages.html#cb851-3" aria-hidden="true"></a>Version<span class="op">:</span><span class="st"> </span><span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span></span>
-<span id="cb851-4"><a href="r-packages.html#cb851-4" aria-hidden="true"></a>Authors<span class="op">@</span>R<span class="op">:</span><span class="st"> </span></span>
-<span id="cb851-5"><a href="r-packages.html#cb851-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">person</span>(<span class="dt">given =</span> <span class="st">&quot;First&quot;</span>,</span>
-<span id="cb851-6"><a href="r-packages.html#cb851-6" aria-hidden="true"></a>           <span class="dt">family =</span> <span class="st">&quot;Last&quot;</span>,</span>
-<span id="cb851-7"><a href="r-packages.html#cb851-7" aria-hidden="true"></a>           <span class="dt">role =</span> <span class="kw">c</span>(<span class="st">&quot;aut&quot;</span>, <span class="st">&quot;cre&quot;</span>),</span>
-<span id="cb851-8"><a href="r-packages.html#cb851-8" aria-hidden="true"></a>           <span class="dt">email =</span> <span class="st">&quot;first.last@example.com&quot;</span>,</span>
-<span id="cb851-9"><a href="r-packages.html#cb851-9" aria-hidden="true"></a>           <span class="dt">comment =</span> <span class="kw">c</span>(<span class="dt">ORCID =</span> <span class="st">&quot;YOUR-ORCID-ID&quot;</span>))</span>
-<span id="cb851-10"><a href="r-packages.html#cb851-10" aria-hidden="true"></a>Description<span class="op">:</span><span class="st"> </span>What the package <span class="kw">does</span> (one paragraph).</span>
-<span id="cb851-11"><a href="r-packages.html#cb851-11" aria-hidden="true"></a>License<span class="op">:</span><span class="st"> </span>What license it uses</span>
-<span id="cb851-12"><a href="r-packages.html#cb851-12" aria-hidden="true"></a>Encoding<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></span>
-<span id="cb851-13"><a href="r-packages.html#cb851-13" aria-hidden="true"></a>LazyData<span class="op">:</span><span class="st"> </span>true  </span></code></pre></div>
+<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="r-packages.html#cb869-1" aria-hidden="true"></a>Package<span class="op">:</span><span class="st"> </span>MyAwesomePackage</span>
+<span id="cb869-2"><a href="r-packages.html#cb869-2" aria-hidden="true"></a>Title<span class="op">:</span><span class="st"> </span>What the Package <span class="kw">Does</span> (One Line, Title Case)</span>
+<span id="cb869-3"><a href="r-packages.html#cb869-3" aria-hidden="true"></a>Version<span class="op">:</span><span class="st"> </span><span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span></span>
+<span id="cb869-4"><a href="r-packages.html#cb869-4" aria-hidden="true"></a>Authors<span class="op">@</span>R<span class="op">:</span><span class="st"> </span></span>
+<span id="cb869-5"><a href="r-packages.html#cb869-5" aria-hidden="true"></a><span class="st">    </span><span class="kw">person</span>(<span class="dt">given =</span> <span class="st">&quot;First&quot;</span>,</span>
+<span id="cb869-6"><a href="r-packages.html#cb869-6" aria-hidden="true"></a>           <span class="dt">family =</span> <span class="st">&quot;Last&quot;</span>,</span>
+<span id="cb869-7"><a href="r-packages.html#cb869-7" aria-hidden="true"></a>           <span class="dt">role =</span> <span class="kw">c</span>(<span class="st">&quot;aut&quot;</span>, <span class="st">&quot;cre&quot;</span>),</span>
+<span id="cb869-8"><a href="r-packages.html#cb869-8" aria-hidden="true"></a>           <span class="dt">email =</span> <span class="st">&quot;first.last@example.com&quot;</span>,</span>
+<span id="cb869-9"><a href="r-packages.html#cb869-9" aria-hidden="true"></a>           <span class="dt">comment =</span> <span class="kw">c</span>(<span class="dt">ORCID =</span> <span class="st">&quot;YOUR-ORCID-ID&quot;</span>))</span>
+<span id="cb869-10"><a href="r-packages.html#cb869-10" aria-hidden="true"></a>Description<span class="op">:</span><span class="st"> </span>What the package <span class="kw">does</span> (one paragraph).</span>
+<span id="cb869-11"><a href="r-packages.html#cb869-11" aria-hidden="true"></a>License<span class="op">:</span><span class="st"> </span>What license it uses</span>
+<span id="cb869-12"><a href="r-packages.html#cb869-12" aria-hidden="true"></a>Encoding<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></span>
+<span id="cb869-13"><a href="r-packages.html#cb869-13" aria-hidden="true"></a>LazyData<span class="op">:</span><span class="st"> </span>true  </span></code></pre></div>
 <p>Often you want to have your package include other libraries so that the packages are available to be used in any functions you use. To do this, you’ll add lines to the description file.</p>
-<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb852-1"><a href="r-packages.html#cb852-1" aria-hidden="true"></a>Depends<span class="op">:</span><span class="st"> </span>magrittr     </span>
-<span id="cb852-2"><a href="r-packages.html#cb852-2" aria-hidden="true"></a>Imports<span class="op">:</span><span class="st"> </span>dplyr, ggplot2, tidyr</span>
-<span id="cb852-3"><a href="r-packages.html#cb852-3" aria-hidden="true"></a>Suggests<span class="op">:</span><span class="st"> </span>lme4</span></code></pre></div>
+<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb870-1"><a href="r-packages.html#cb870-1" aria-hidden="true"></a>Depends<span class="op">:</span><span class="st"> </span>magrittr     </span>
+<span id="cb870-2"><a href="r-packages.html#cb870-2" aria-hidden="true"></a>Imports<span class="op">:</span><span class="st"> </span>dplyr, ggplot2, tidyr</span>
+<span id="cb870-3"><a href="r-packages.html#cb870-3" aria-hidden="true"></a>Suggests<span class="op">:</span><span class="st"> </span>lme4</span></code></pre></div>
 <p>In this example, I’ve included a dependency on the <code>magrittr</code> package, which defines the <code>%&gt;%</code> operator, while <code>dplyr</code>, <code>ggplot2</code>, <code>tidyr</code>, and <code>lme4</code> packages are included in a slightly different manner.</p>
 <table>
 <colgroup>
@@ -847,15 +848,15 @@ package. However, I wanted to be absolutely certain that I was getting the corre
 <p>The last step to a package is being able to share it with other people. We could either wrap up the package into a <code>.tar.gz</code> file or we could save the package to some version control platform like <code>GitHub</code>. For packages that are in a stable form and need to be available via <code>CRAN</code> or Bioconductor, then building a <code>.tar.gz</code> file is important. However when a package is just meant for yourself and your collaborators, I prefer to save the package to <code>GitHub</code>.</p>
 <p>I have several packages available on my <code>GitHub</code> account. I have a repository
 <a href="https://github.com/dereksonderegger/TestPackage">https://github.com/dereksonderegger/TestPackage</a> that demonstrates a very simple package. To install this package, we can install it directly using the following:</p>
-<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="r-packages.html#cb853-1" aria-hidden="true"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;dereksonderegger/TestPackage&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="r-packages.html#cb871-1" aria-hidden="true"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;dereksonderegger/TestPackage&#39;</span>)</span></code></pre></div>
 <p>If you chose to share your package with others by sharing a <code>.tar.gz</code> file, then create the file using the <code>Build</code> tab and <code>More -&gt; Build Source Package</code>. Then to install the package, the user will run the R command</p>
-<div class="sourceCode" id="cb854"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb854-1"><a href="r-packages.html#cb854-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&#39;TestPackage_0.0.0.1.tar.gz&#39;</span>, <span class="dt">repos=</span><span class="ot">NULL</span>, <span class="dt">type=</span><span class="st">&#39;source&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="r-packages.html#cb872-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&#39;TestPackage_0.0.0.1.tar.gz&#39;</span>, <span class="dt">repos=</span><span class="ot">NULL</span>, <span class="dt">type=</span><span class="st">&#39;source&#39;</span>)</span></code></pre></div>
 </div>
 <div id="an-example-package" class="section level2" number="15.7">
 <h2><span class="header-section-number">15.7</span> An Example Package</h2>
 <p>I find it is easiest to use RStudio to start a new package via <code>File -&gt; New Project ...</code> and then start a project in a <code>new directory</code> and finally select that we want a new <code>R package</code>.</p>
 <p>Alternatively we could use the <code>usethis::create_package()</code> function to build the minimal package.</p>
-<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb855-1"><a href="r-packages.html#cb855-1" aria-hidden="true"></a>usethis<span class="op">::</span><span class="kw">create_package</span>(<span class="st">&#39;~/GitHub/TestPackage&#39;</span>)  <span class="co"># replace the path to where you want it...</span></span></code></pre></div>
+<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb873-1"><a href="r-packages.html#cb873-1" aria-hidden="true"></a>usethis<span class="op">::</span><span class="kw">create_package</span>(<span class="st">&#39;~/GitHub/TestPackage&#39;</span>)  <span class="co"># replace the path to where you want it...</span></span></code></pre></div>
 <p>Once the package is created:</p>
 <ol style="list-style-type: decimal">
 <li><p>Put any <code>.csv</code> or <code>.xls</code> data files you have in <code>data-raw/</code> sub-directory. For this example, save the file <a href="FlagMaxTemp.csv">https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/FlagMaxTemp.csv</a> from the STA 444/5 Github page. In the same <code>data-raw</code> directory, create a R script or Rmarkdown file that reads the data in, cleans it up by renaming columns, or whatever. An example R script might look something like this:</p>
@@ -917,7 +918,7 @@ We see that the daily max temperature in Flagstaff varies quite a lot.</code></p
 <div id="Exercises_Packages" class="section level2" number="15.8">
 <h2><span class="header-section-number">15.8</span> Exercises</h2>
 <ol style="list-style-type: decimal">
-<li>Build a package that contains a dataset that gives weather information at Flagstaff’s Pulliam Airport from 1950 to 2019. I have the data and metadata on my <a href="https://github.com/dereksonderegger/444">GitHub</a> site and I downloaded the data on 9-19-19 from <a href="https://www.ncdc.noaa.gov/cdo-web/search" class="uri">https://www.ncdc.noaa.gov/cdo-web/search</a>. In the <code>data-raw</code> directory, there are files <code>Pulliam_Airport_Weather_Station.csv</code> and its associated metadata <code>Pulliam_Airport_Weather_Station_Metadata.csv</code>. In the data, there are a bunch of columns that contain attribute information about the preceding column, I don’t think those are helpful, or at least the metadata didn’t explain how to interpret them. So remove those. Many of the later columns have values that are exclusively ones or zeros. I believe those indicate if the weather phenomena was present that day. Presumably a <code>1</code> is a yes, but I don’t know that. When I downloaded the data, I asked for “standard” units, so precipitation and snow amounts should be in inches, and temperature should be in Fahrenheit. For this package, we only care about a couple of variables, <code>DATE</code>, <code>PRCP</code>, <code>SNOW</code>, <code>TMAX</code>, and <code>TMIN</code>.
+<li>Build a package that contains a dataset that gives weather information at Flagstaff’s Pulliam Airport from 1950 to 2019. I have the data and metadata on my <a href="https://github.com/dereksonderegger/444">GitHub</a> site and I downloaded the data on 9-19-19 from <a href="https://www.ncdc.noaa.gov/cdo-web/search" class="uri">https://www.ncdc.noaa.gov/cdo-web/search</a>. In the <code>data-raw</code> directory, there are files <code>Pulliam_Airport_Weather_Station.csv</code> and its associated metadata <code>Pulliam_Airport_Weather_Station_Metadata.txt</code>. In the data, there are a bunch of columns that contain attribute information about the preceding column, I don’t think those are helpful, or at least the metadata didn’t explain how to interpret them. So remove those. Many of the later columns have values that are exclusively ones or zeros. I believe those indicate if the weather phenomena was present that day. Presumably a <code>1</code> is a yes, but I don’t know that. When I downloaded the data, I asked for “standard” units, so precipitation and snow amounts should be in inches, and temperature should be in Fahrenheit. For this package, we only care about a couple of variables, <code>DATE</code>, <code>PRCP</code>, <code>SNOW</code>, <code>TMAX</code>, and <code>TMIN</code>.
 <ol style="list-style-type: lower-alpha">
 <li>Create a new package named <code>YourNameFlagWeather</code>. In the package, use <code>usethis::use_data_raw()</code> function to create the <code>data-raw/</code> directory. Place the data and metadata there.</li>
 <li>Also in the <code>data-raw</code> directory, create an R-script that reads in the data and does any necessary cleaning. Call your resulting data frame <code>Flagstaff_Weather</code> and save a <code>.rda</code> file to the <code>data/</code> directory using the command <code>usethis::use_data(Flagstaff_Weather)</code>. For this package, we only care about a couple of variables, <code>DATE</code>, <code>PRCP</code>, <code>SNOW</code>, <code>TMAX</code>, and <code>TMIN</code>. Keep and document only these variables.</li>

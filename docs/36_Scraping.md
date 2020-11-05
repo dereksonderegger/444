@@ -171,7 +171,7 @@ ggplot( aes(x=State, y=Percent_Change) ) +
 
 
 ### Lists
-Unfortunately, we don't always want to get information from a webpage that is nicely organized into a table. Suppose we want to gather the most recent threads on [Digg](www.digg.com).
+Unfortunately, we don't always want to get information from a webpage that is nicely organized into a table. Suppose we want to gather the most recent threads on [Digg](http://www.digg.com).
 
 We could sift through the HTML tags to find something that will match, but that will be challenging.  Instead we will use a CSS selector named [SelectorGadget](https://selectorgadget.com). Install the bookmarklet by dragging the following javascript code  [SelectorGadge](javascript:(function(){var%20s=document.createElement('div');s.innerHTML='Loading...';s.style.color='black';s.style.padding='20px';s.style.position='fixed';s.style.zIndex='9999';s.style.fontSize='3.0em';s.style.border='2px%20solid%20black';s.style.right='40px';s.style.top='40px';s.setAttribute('class','selector_gadget_loading');s.style.background='white';document.body.appendChild(s);s=document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('src','https://dv0akt2986vzh.cloudfront.net/unstable/lib/selectorgadget.js');document.body.appendChild(s);})();) 
 up to your browser's bookmark bar.  When you are at the site you are interested in, just click on the SelectorGadget javascript bookmarklet to engage the CSS engine. Click on something you want to capture. This will highlight a whole bunch of things that match the HTML tag listed at the bottom of the screen. Select or deselect items by clicking on them and the search string used to refine the selection will be updated. Once you are happy with the items being selected, copy the HTML node selector. Things highlighted in green are things you clicked on to select, stuff in yellow is content selected by the current html tags, and things in red are things you chose to NOT select.
@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nFather And Daughter Thought They'd Signed Up For A Cotillion Scene In A 'Normal' Movie, Turns Out It Was 'Borat 2'\n"
-## [2] "\nSave On QLED 4K TVs, Pet Supplies And More During Prime Day\n"                                                       
-## [3] "\nMilla Jovovich Takes On Creatures Of Epic Proportions In 'Monster Hunter' Trailer\n"                                 
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                           
-## [5] "\nParrot Throws A Hilarious Tantrum When It Finds Out Owner Is Going Out\n"                                            
-## [6] "\nThe Maximum Price Of Every iPhone, Visualized\n"
+## [1] "\nThe 2020 Presidential Election Electoral Map, Updated Live\n"     
+## [2] "\nThe Story Behind That GIF Of Bugs Bunny Sawing Off Florida\n"     
+## [3] "\nHere's What People Who Do Juice Cleanses Are Honestly Thinking\n" 
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"        
+## [5] "\nDog Has Goofiest Reaction To Being On A Diet\n"                   
+## [6] "\nI'm A Chess Expert. Here's What 'The Queen's Gambit' Gets Right\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "http://www.mymcr.net/free/on-the-porch-hay-house-mayhem/article_c07162b2-034b-11eb-8937-a70468254087.html?utm_source=digg"
-## [2] "/2020/picks-prime-day-2020-deals-info"                                                                                    
-## [3] "/video/milla-jovovich-takes-on-creatures-of-epic-proportions-in-monster-hunter-trailer"                                   
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                              
-## [5] "/video/parrot-throws-a-hilarious-tantrum-when-it-finds-out-owner-is-going-out"                                            
-## [6] "/2020/iphone-price-maximum-price-visualized"
+## [1] "/2020/2020-presidential-electoral-map-trump-biden"                                          
+## [2] "https://melmagazine.com/en-us/story/bugs-bunny-florida-gif?utm_source=digg"                 
+## [3] "/video/juice-cleanse-parody"                                                                
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                
+## [5] "/video/dog-does-not-like-diet"                                                              
+## [6] "https://www.nytimes.com/2020/11/03/arts/television/chess-queens-gambit.html?utm_source=digg"
 ```
 
 

@@ -502,7 +502,7 @@ When executing a function, R will have access to all the variables defined in th
         microbenchmark::microbenchmark( duniform( seq(-4,12,by=.0001), 4, 8), times=100)
         ```
         This will call the input R expression 100 times and report summary statistics on how long it took for the code to run. In particular, look at the median time for evaluation.
-    d) Instead of using a `for` loop, it might have been easier to use our standard `dplyr::mutate` command with an `ifelse()` command. Rewrite your function to run the `dplyr::mutate` command with an `ifelse()` command to produce a new results column and return that results column. Verify that your function works correctly by producing a plot, and also run the `microbenchmark()`.  Which version of your function was easier to write? Which ran faster?
+    d) Instead of using a `for` loop, it might have been easier to use an `ifelse()` command. Rewrite your function to avoid the `for` loop and just use an `ifelse()` command. Verify that your function works correctly by producing a plot, and also run the `microbenchmark()`. Which version of your function was easier to write? Which ran faster?
 
 2. I very often want to provide default values to a parameter that I pass to a function. For example, it is so common for me to use the `pnorm()` and `qnorm()` functions on the standard normal, that R will automatically use `mean=0` and `sd=1` parameters unless you tell R otherwise. To get that behavior, we just set the default parameter values in the definition. When the function is called, the user specified value is used, but if none is specified, the defaults are used. Look at the help page for the functions `dunif()`, and notice that there are a number of default parameters. For your `duniform()` function provide default values of `0` and `1` for `a` and `b`. Demonstrate that your function is appropriately using the given default values. 
 
@@ -512,6 +512,7 @@ When executing a function, R will have access to all the variables defined in th
     ```r
     standardize <- function(x){
       ## What goes here?
+      (x-mean(x))/sd(x)
     }
     
     data( 'iris' )
@@ -520,8 +521,13 @@ When executing a function, R will have access to all the variables defined in th
       geom_point() +
       labs(title='Pre-Transformation')
     
-    # Standardize the numeric columns
-    iris.z <- iris %>% mutate_if( is.numeric, standardize )
+    # Standardize all of the numeric columns
+    # across() selects columns and applies a function to them
+    # there column select requires a dplyr column select command such
+    # as starts_with(), contains(), or where().  The where() command
+    # allows us to use some logical function on the column to decide
+    # if the function should be applied or not.
+    iris.z <- iris %>% mutate( across(where(is.numeric), standardize) )
     
     # Graph the post-transformed data.
     ggplot(iris.z, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
@@ -533,7 +539,35 @@ When executing a function, R will have access to all the variables defined in th
 4. In this example, we'll write a function that will output a  vector of the first $n$ terms in the child's game *Fizz Buzz*. The goal is to count as high as you can, but for any number evenly divisible by 3, substitute "Fizz" and any number evenly divisible by 5, substitute "Buzz", and if it is divisible by both, substitute "Fizz Buzz". So the sequence will look like 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, ... *Hint: The `paste()` function will squish strings together, the remainder operator is `%%` where it is used as `9 %% 3 = 0`. This problem was inspired by a wonderful YouTube [video](https://www.youtube.com/watch?v=QPZ0pIK_wsc) that describes how to write an appropriate loop to do this in JavaScript, but it should be easy enough to interpret what to do in R. I encourage you to try to write your function first before watching the video.*
 
 
-5. A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest. Below is a function `boot.lm` that bootstraps the linear model using case re-sampling.
+5. The `dplyr::fill()` function takes a table column that has missing values and fills them with the most recent non-missing value. For this problem, we will create our own function to do the same.
+
+```r
+#' Fill in missing values in a vector with the previous value.
+#' 
+#' @parm x An input vector with missing values
+#' @result The input vector with NA values filled in.
+myFill <- function(x){
+  # Stuff in here!
+}
+```
+The following function call should produce the following ouput
+
+```r
+test.vector <- c('A',NA,NA, 'B','C', NA,NA,NA)
+myFill(test.vector)
+```
+
+```
+## NULL
+```
+
+```r
+[1] "A" "A" "A" "B" "C" "C" "C" "C"
+```
+
+
+
+6. A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest. Below is a function `boot.lm` that bootstraps the linear model using case re-sampling.
     
     ```r
     #' Calculate bootstrap CI for an lm object

@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-10-14" />
+<meta name="date" content="2020-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -360,10 +360,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a>
 <ul>
 <li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-date-and-time-objects"><i class="fa fa-check"></i><b>12.1</b> Creating Date and Time objects</a></li>
-<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.2</b> Extracting information</a></li>
-<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#printing-dates"><i class="fa fa-check"></i><b>12.3</b> Printing Dates</a></li>
-<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.4</b> Arithmetic on Dates</a></li>
-<li class="chapter" data-level="12.5" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.5</b> Exercises</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#time-zones"><i class="fa fa-check"></i><b>12.2</b> Time Zones</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#extracting-information"><i class="fa fa-check"></i><b>12.3</b> Extracting information</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#printing-dates"><i class="fa fa-check"></i><b>12.4</b> Printing Dates</a></li>
+<li class="chapter" data-level="12.5" data-path="dates-and-times.html"><a href="dates-and-times.html#arithmetic-on-dates"><i class="fa fa-check"></i><b>12.5</b> Arithmetic on Dates</a></li>
+<li class="chapter" data-level="12.6" data-path="dates-and-times.html"><a href="dates-and-times.html#Exercises_Dates"><i class="fa fa-check"></i><b>12.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="data-reshaping.html"><a href="data-reshaping.html"><i class="fa fa-check"></i><b>13</b> Data Reshaping</a>
 <ul>
@@ -843,64 +844,85 @@ We want to write a function <code>duniform(x, a, b)</code> that takes an arbitra
 <li><p>Install the R package <code>microbenchmark</code>. We will use this to discover the average duration your function takes.</p>
 <div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="Function-Chapter-Details.html#cb552-1" aria-hidden="true"></a>microbenchmark<span class="op">::</span><span class="kw">microbenchmark</span>( <span class="kw">duniform</span>( <span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">12</span>,<span class="dt">by=</span>.<span class="dv">0001</span>), <span class="dv">4</span>, <span class="dv">8</span>), <span class="dt">times=</span><span class="dv">100</span>)</span></code></pre></div>
 <p>This will call the input R expression 100 times and report summary statistics on how long it took for the code to run. In particular, look at the median time for evaluation.</p></li>
-<li><p>Instead of using a <code>for</code> loop, it might have been easier to use our standard <code>dplyr::mutate</code> command with an <code>ifelse()</code> command. Rewrite your function to run the <code>dplyr::mutate</code> command with an <code>ifelse()</code> command to produce a new results column and return that results column. Verify that your function works correctly by producing a plot, and also run the <code>microbenchmark()</code>. Which version of your function was easier to write? Which ran faster?</p></li>
+<li><p>Instead of using a <code>for</code> loop, it might have been easier to use an <code>ifelse()</code> command. Rewrite your function to avoid the <code>for</code> loop and just use an <code>ifelse()</code> command. Verify that your function works correctly by producing a plot, and also run the <code>microbenchmark()</code>. Which version of your function was easier to write? Which ran faster?</p></li>
 </ol></li>
 <li><p>I very often want to provide default values to a parameter that I pass to a function. For example, it is so common for me to use the <code>pnorm()</code> and <code>qnorm()</code> functions on the standard normal, that R will automatically use <code>mean=0</code> and <code>sd=1</code> parameters unless you tell R otherwise. To get that behavior, we just set the default parameter values in the definition. When the function is called, the user specified value is used, but if none is specified, the defaults are used. Look at the help page for the functions <code>dunif()</code>, and notice that there are a number of default parameters. For your <code>duniform()</code> function provide default values of <code>0</code> and <code>1</code> for <code>a</code> and <code>b</code>. Demonstrate that your function is appropriately using the given default values.</p></li>
 <li><p>A common data processing step is to <em>standardize</em> numeric variables by subtracting the mean and dividing by the standard deviation. Create a function that takes a vector of numerical values and produces an output vector of the standardized values. We will then apply this function to each numeric column in a data frame using the <code>dplyr::mutate_if()</code> command. <em>This is often done in model algorithms that rely on numerical optimization methods to find a solution. By keeping the scales of different predictor covariates the same, the numerical optimization routines generally work better.</em></p>
 <div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="Function-Chapter-Details.html#cb553-1" aria-hidden="true"></a>standardize &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
 <span id="cb553-2"><a href="Function-Chapter-Details.html#cb553-2" aria-hidden="true"></a>  <span class="co">## What goes here?</span></span>
-<span id="cb553-3"><a href="Function-Chapter-Details.html#cb553-3" aria-hidden="true"></a>}</span>
-<span id="cb553-4"><a href="Function-Chapter-Details.html#cb553-4" aria-hidden="true"></a></span>
-<span id="cb553-5"><a href="Function-Chapter-Details.html#cb553-5" aria-hidden="true"></a><span class="kw">data</span>( <span class="st">&#39;iris&#39;</span> )</span>
-<span id="cb553-6"><a href="Function-Chapter-Details.html#cb553-6" aria-hidden="true"></a><span class="co"># Graph the pre-transformed data.</span></span>
-<span id="cb553-7"><a href="Function-Chapter-Details.html#cb553-7" aria-hidden="true"></a><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Sepal.Width, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
-<span id="cb553-8"><a href="Function-Chapter-Details.html#cb553-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb553-9"><a href="Function-Chapter-Details.html#cb553-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Pre-Transformation&#39;</span>)</span>
-<span id="cb553-10"><a href="Function-Chapter-Details.html#cb553-10" aria-hidden="true"></a></span>
-<span id="cb553-11"><a href="Function-Chapter-Details.html#cb553-11" aria-hidden="true"></a><span class="co"># Standardize the numeric columns</span></span>
-<span id="cb553-12"><a href="Function-Chapter-Details.html#cb553-12" aria-hidden="true"></a>iris.z &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_if</span>( is.numeric, standardize )</span>
-<span id="cb553-13"><a href="Function-Chapter-Details.html#cb553-13" aria-hidden="true"></a></span>
-<span id="cb553-14"><a href="Function-Chapter-Details.html#cb553-14" aria-hidden="true"></a><span class="co"># Graph the post-transformed data.</span></span>
-<span id="cb553-15"><a href="Function-Chapter-Details.html#cb553-15" aria-hidden="true"></a><span class="kw">ggplot</span>(iris.z, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Sepal.Width, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
-<span id="cb553-16"><a href="Function-Chapter-Details.html#cb553-16" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb553-17"><a href="Function-Chapter-Details.html#cb553-17" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Post-Transformation&#39;</span>)</span></code></pre></div></li>
+<span id="cb553-3"><a href="Function-Chapter-Details.html#cb553-3" aria-hidden="true"></a>  (x<span class="op">-</span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</span>
+<span id="cb553-4"><a href="Function-Chapter-Details.html#cb553-4" aria-hidden="true"></a>}</span>
+<span id="cb553-5"><a href="Function-Chapter-Details.html#cb553-5" aria-hidden="true"></a></span>
+<span id="cb553-6"><a href="Function-Chapter-Details.html#cb553-6" aria-hidden="true"></a><span class="kw">data</span>( <span class="st">&#39;iris&#39;</span> )</span>
+<span id="cb553-7"><a href="Function-Chapter-Details.html#cb553-7" aria-hidden="true"></a><span class="co"># Graph the pre-transformed data.</span></span>
+<span id="cb553-8"><a href="Function-Chapter-Details.html#cb553-8" aria-hidden="true"></a><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Sepal.Width, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
+<span id="cb553-9"><a href="Function-Chapter-Details.html#cb553-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb553-10"><a href="Function-Chapter-Details.html#cb553-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Pre-Transformation&#39;</span>)</span>
+<span id="cb553-11"><a href="Function-Chapter-Details.html#cb553-11" aria-hidden="true"></a></span>
+<span id="cb553-12"><a href="Function-Chapter-Details.html#cb553-12" aria-hidden="true"></a><span class="co"># Standardize all of the numeric columns</span></span>
+<span id="cb553-13"><a href="Function-Chapter-Details.html#cb553-13" aria-hidden="true"></a><span class="co"># across() selects columns and applies a function to them</span></span>
+<span id="cb553-14"><a href="Function-Chapter-Details.html#cb553-14" aria-hidden="true"></a><span class="co"># there column select requires a dplyr column select command such</span></span>
+<span id="cb553-15"><a href="Function-Chapter-Details.html#cb553-15" aria-hidden="true"></a><span class="co"># as starts_with(), contains(), or where().  The where() command</span></span>
+<span id="cb553-16"><a href="Function-Chapter-Details.html#cb553-16" aria-hidden="true"></a><span class="co"># allows us to use some logical function on the column to decide</span></span>
+<span id="cb553-17"><a href="Function-Chapter-Details.html#cb553-17" aria-hidden="true"></a><span class="co"># if the function should be applied or not.</span></span>
+<span id="cb553-18"><a href="Function-Chapter-Details.html#cb553-18" aria-hidden="true"></a>iris.z &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>( <span class="kw">across</span>(<span class="kw">where</span>(is.numeric), standardize) )</span>
+<span id="cb553-19"><a href="Function-Chapter-Details.html#cb553-19" aria-hidden="true"></a></span>
+<span id="cb553-20"><a href="Function-Chapter-Details.html#cb553-20" aria-hidden="true"></a><span class="co"># Graph the post-transformed data.</span></span>
+<span id="cb553-21"><a href="Function-Chapter-Details.html#cb553-21" aria-hidden="true"></a><span class="kw">ggplot</span>(iris.z, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Sepal.Width, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
+<span id="cb553-22"><a href="Function-Chapter-Details.html#cb553-22" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb553-23"><a href="Function-Chapter-Details.html#cb553-23" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&#39;Post-Transformation&#39;</span>)</span></code></pre></div></li>
 <li><p>In this example, we’ll write a function that will output a vector of the first <span class="math inline">\(n\)</span> terms in the child’s game <em>Fizz Buzz</em>. The goal is to count as high as you can, but for any number evenly divisible by 3, substitute “Fizz” and any number evenly divisible by 5, substitute “Buzz”, and if it is divisible by both, substitute “Fizz Buzz”. So the sequence will look like 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, … <em>Hint: The <code>paste()</code> function will squish strings together, the remainder operator is <code>%%</code> where it is used as <code>9 %% 3 = 0</code>. This problem was inspired by a wonderful YouTube <a href="https://www.youtube.com/watch?v=QPZ0pIK_wsc">video</a> that describes how to write an appropriate loop to do this in JavaScript, but it should be easy enough to interpret what to do in R. I encourage you to try to write your function first before watching the video.</em></p></li>
-<li><p>A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest. Below is a function <code>boot.lm</code> that bootstraps the linear model using case re-sampling.</p>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="Function-Chapter-Details.html#cb554-1" aria-hidden="true"></a><span class="co">#&#39; Calculate bootstrap CI for an lm object</span></span>
+<li><p>The <code>dplyr::fill()</code> function takes a table column that has missing values and fills them with the most recent non-missing value. For this problem, we will create our own function to do the same.</p></li>
+</ol>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="Function-Chapter-Details.html#cb554-1" aria-hidden="true"></a><span class="co">#&#39; Fill in missing values in a vector with the previous value.</span></span>
 <span id="cb554-2"><a href="Function-Chapter-Details.html#cb554-2" aria-hidden="true"></a><span class="co">#&#39; </span></span>
-<span id="cb554-3"><a href="Function-Chapter-Details.html#cb554-3" aria-hidden="true"></a><span class="co">#&#39; @param model</span></span>
-<span id="cb554-4"><a href="Function-Chapter-Details.html#cb554-4" aria-hidden="true"></a><span class="co">#&#39; @param N</span></span>
-<span id="cb554-5"><a href="Function-Chapter-Details.html#cb554-5" aria-hidden="true"></a>boot.lm &lt;-<span class="st"> </span><span class="cf">function</span>(model, <span class="dt">N=</span><span class="dv">1000</span>){</span>
-<span id="cb554-6"><a href="Function-Chapter-Details.html#cb554-6" aria-hidden="true"></a>  data    &lt;-<span class="st"> </span>model<span class="op">$</span>model  <span class="co"># Extract the original data</span></span>
-<span id="cb554-7"><a href="Function-Chapter-Details.html#cb554-7" aria-hidden="true"></a>  formula &lt;-<span class="st"> </span>model<span class="op">$</span>terms  <span class="co"># and model formula used</span></span>
-<span id="cb554-8"><a href="Function-Chapter-Details.html#cb554-8" aria-hidden="true"></a></span>
-<span id="cb554-9"><a href="Function-Chapter-Details.html#cb554-9" aria-hidden="true"></a>  <span class="co"># Start the output data frame with the full sample statistic</span></span>
-<span id="cb554-10"><a href="Function-Chapter-Details.html#cb554-10" aria-hidden="true"></a>  output &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb554-11"><a href="Function-Chapter-Details.html#cb554-11" aria-hidden="true"></a><span class="st">    </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb554-12"><a href="Function-Chapter-Details.html#cb554-12" aria-hidden="true"></a><span class="st">    </span><span class="kw">pivot_wider</span>(term, estimate)</span>
-<span id="cb554-13"><a href="Function-Chapter-Details.html#cb554-13" aria-hidden="true"></a>    <span class="kw">pivot_wider</span>(<span class="dt">names_from=</span>term, <span class="dt">values_from=</span>estimate)</span>
-<span id="cb554-14"><a href="Function-Chapter-Details.html#cb554-14" aria-hidden="true"></a></span>
-<span id="cb554-15"><a href="Function-Chapter-Details.html#cb554-15" aria-hidden="true"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N ){</span>
-<span id="cb554-16"><a href="Function-Chapter-Details.html#cb554-16" aria-hidden="true"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>( <span class="dt">replace=</span><span class="ot">TRUE</span> )</span>
-<span id="cb554-17"><a href="Function-Chapter-Details.html#cb554-17" aria-hidden="true"></a>    model.boot &lt;-<span class="st"> </span><span class="kw">lm</span>( formula, <span class="dt">data=</span>data)</span>
-<span id="cb554-18"><a href="Function-Chapter-Details.html#cb554-18" aria-hidden="true"></a>    coefs &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model.boot) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb554-19"><a href="Function-Chapter-Details.html#cb554-19" aria-hidden="true"></a><span class="st">      </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb554-20"><a href="Function-Chapter-Details.html#cb554-20" aria-hidden="true"></a><span class="st">      </span><span class="kw">pivot_wider</span>(<span class="dt">names_from=</span>term, <span class="dt">values_from=</span>estimate)</span>
-<span id="cb554-21"><a href="Function-Chapter-Details.html#cb554-21" aria-hidden="true"></a>    output &lt;-<span class="st"> </span>output <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rbind</span>( coefs )</span>
-<span id="cb554-22"><a href="Function-Chapter-Details.html#cb554-22" aria-hidden="true"></a>  }  </span>
-<span id="cb554-23"><a href="Function-Chapter-Details.html#cb554-23" aria-hidden="true"></a></span>
-<span id="cb554-24"><a href="Function-Chapter-Details.html#cb554-24" aria-hidden="true"></a>  <span class="kw">return</span>(output)</span>
-<span id="cb554-25"><a href="Function-Chapter-Details.html#cb554-25" aria-hidden="true"></a>}</span>
-<span id="cb554-26"><a href="Function-Chapter-Details.html#cb554-26" aria-hidden="true"></a></span>
-<span id="cb554-27"><a href="Function-Chapter-Details.html#cb554-27" aria-hidden="true"></a><span class="co"># Run the function on a model</span></span>
-<span id="cb554-28"><a href="Function-Chapter-Details.html#cb554-28" aria-hidden="true"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )</span>
-<span id="cb554-29"><a href="Function-Chapter-Details.html#cb554-29" aria-hidden="true"></a>boot.dist &lt;-<span class="st"> </span><span class="kw">boot.lm</span>(m)</span>
-<span id="cb554-30"><a href="Function-Chapter-Details.html#cb554-30" aria-hidden="true"></a></span>
-<span id="cb554-31"><a href="Function-Chapter-Details.html#cb554-31" aria-hidden="true"></a><span class="co"># If boot.lm() works, then the following produces a nice graph</span></span>
-<span id="cb554-32"><a href="Function-Chapter-Details.html#cb554-32" aria-hidden="true"></a>boot.dist <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="st">&#39;term&#39;</span>,<span class="st">&#39;estimate&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb554-33"><a href="Function-Chapter-Details.html#cb554-33" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>estimate) ) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb554-34"><a href="Function-Chapter-Details.html#cb554-34" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb554-35"><a href="Function-Chapter-Details.html#cb554-35" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>term, <span class="dt">scales=</span><span class="st">&#39;free&#39;</span>)</span></code></pre></div>
+<span id="cb554-3"><a href="Function-Chapter-Details.html#cb554-3" aria-hidden="true"></a><span class="co">#&#39; @parm x An input vector with missing values</span></span>
+<span id="cb554-4"><a href="Function-Chapter-Details.html#cb554-4" aria-hidden="true"></a><span class="co">#&#39; @result The input vector with NA values filled in.</span></span>
+<span id="cb554-5"><a href="Function-Chapter-Details.html#cb554-5" aria-hidden="true"></a>myFill &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb554-6"><a href="Function-Chapter-Details.html#cb554-6" aria-hidden="true"></a>  <span class="co"># Stuff in here!</span></span>
+<span id="cb554-7"><a href="Function-Chapter-Details.html#cb554-7" aria-hidden="true"></a>}</span></code></pre></div>
+<p>The following function call should produce the following ouput</p>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="Function-Chapter-Details.html#cb555-1" aria-hidden="true"></a>test.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="ot">NA</span>,<span class="ot">NA</span>, <span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>, <span class="ot">NA</span>,<span class="ot">NA</span>,<span class="ot">NA</span>)</span>
+<span id="cb555-2"><a href="Function-Chapter-Details.html#cb555-2" aria-hidden="true"></a><span class="kw">myFill</span>(test.vector)</span></code></pre></div>
+<pre><code>## NULL</code></pre>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="Function-Chapter-Details.html#cb557-1" aria-hidden="true"></a>[<span class="dv">1</span>] <span class="st">&quot;A&quot;</span> <span class="st">&quot;A&quot;</span> <span class="st">&quot;A&quot;</span> <span class="st">&quot;B&quot;</span> <span class="st">&quot;C&quot;</span> <span class="st">&quot;C&quot;</span> <span class="st">&quot;C&quot;</span> <span class="st">&quot;C&quot;</span></span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li><p>A common statistical requirement is to create bootstrap confidence intervals for a model statistic. This is done by repeatedly re-sampling with replacement from our original sample data, running the analysis for each re-sample, and then saving the statistic of interest. Below is a function <code>boot.lm</code> that bootstraps the linear model using case re-sampling.</p>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="Function-Chapter-Details.html#cb558-1" aria-hidden="true"></a><span class="co">#&#39; Calculate bootstrap CI for an lm object</span></span>
+<span id="cb558-2"><a href="Function-Chapter-Details.html#cb558-2" aria-hidden="true"></a><span class="co">#&#39; </span></span>
+<span id="cb558-3"><a href="Function-Chapter-Details.html#cb558-3" aria-hidden="true"></a><span class="co">#&#39; @param model</span></span>
+<span id="cb558-4"><a href="Function-Chapter-Details.html#cb558-4" aria-hidden="true"></a><span class="co">#&#39; @param N</span></span>
+<span id="cb558-5"><a href="Function-Chapter-Details.html#cb558-5" aria-hidden="true"></a>boot.lm &lt;-<span class="st"> </span><span class="cf">function</span>(model, <span class="dt">N=</span><span class="dv">1000</span>){</span>
+<span id="cb558-6"><a href="Function-Chapter-Details.html#cb558-6" aria-hidden="true"></a>  data    &lt;-<span class="st"> </span>model<span class="op">$</span>model  <span class="co"># Extract the original data</span></span>
+<span id="cb558-7"><a href="Function-Chapter-Details.html#cb558-7" aria-hidden="true"></a>  formula &lt;-<span class="st"> </span>model<span class="op">$</span>terms  <span class="co"># and model formula used</span></span>
+<span id="cb558-8"><a href="Function-Chapter-Details.html#cb558-8" aria-hidden="true"></a></span>
+<span id="cb558-9"><a href="Function-Chapter-Details.html#cb558-9" aria-hidden="true"></a>  <span class="co"># Start the output data frame with the full sample statistic</span></span>
+<span id="cb558-10"><a href="Function-Chapter-Details.html#cb558-10" aria-hidden="true"></a>  output &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb558-11"><a href="Function-Chapter-Details.html#cb558-11" aria-hidden="true"></a><span class="st">    </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb558-12"><a href="Function-Chapter-Details.html#cb558-12" aria-hidden="true"></a><span class="st">    </span><span class="kw">pivot_wider</span>(term, estimate)</span>
+<span id="cb558-13"><a href="Function-Chapter-Details.html#cb558-13" aria-hidden="true"></a>    <span class="kw">pivot_wider</span>(<span class="dt">names_from=</span>term, <span class="dt">values_from=</span>estimate)</span>
+<span id="cb558-14"><a href="Function-Chapter-Details.html#cb558-14" aria-hidden="true"></a></span>
+<span id="cb558-15"><a href="Function-Chapter-Details.html#cb558-15" aria-hidden="true"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N ){</span>
+<span id="cb558-16"><a href="Function-Chapter-Details.html#cb558-16" aria-hidden="true"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>( <span class="dt">replace=</span><span class="ot">TRUE</span> )</span>
+<span id="cb558-17"><a href="Function-Chapter-Details.html#cb558-17" aria-hidden="true"></a>    model.boot &lt;-<span class="st"> </span><span class="kw">lm</span>( formula, <span class="dt">data=</span>data)</span>
+<span id="cb558-18"><a href="Function-Chapter-Details.html#cb558-18" aria-hidden="true"></a>    coefs &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(model.boot) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb558-19"><a href="Function-Chapter-Details.html#cb558-19" aria-hidden="true"></a><span class="st">      </span><span class="kw">select</span>(term, estimate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb558-20"><a href="Function-Chapter-Details.html#cb558-20" aria-hidden="true"></a><span class="st">      </span><span class="kw">pivot_wider</span>(<span class="dt">names_from=</span>term, <span class="dt">values_from=</span>estimate)</span>
+<span id="cb558-21"><a href="Function-Chapter-Details.html#cb558-21" aria-hidden="true"></a>    output &lt;-<span class="st"> </span>output <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rbind</span>( coefs )</span>
+<span id="cb558-22"><a href="Function-Chapter-Details.html#cb558-22" aria-hidden="true"></a>  }  </span>
+<span id="cb558-23"><a href="Function-Chapter-Details.html#cb558-23" aria-hidden="true"></a></span>
+<span id="cb558-24"><a href="Function-Chapter-Details.html#cb558-24" aria-hidden="true"></a>  <span class="kw">return</span>(output)</span>
+<span id="cb558-25"><a href="Function-Chapter-Details.html#cb558-25" aria-hidden="true"></a>}</span>
+<span id="cb558-26"><a href="Function-Chapter-Details.html#cb558-26" aria-hidden="true"></a></span>
+<span id="cb558-27"><a href="Function-Chapter-Details.html#cb558-27" aria-hidden="true"></a><span class="co"># Run the function on a model</span></span>
+<span id="cb558-28"><a href="Function-Chapter-Details.html#cb558-28" aria-hidden="true"></a>m &lt;-<span class="st"> </span><span class="kw">lm</span>( Volume <span class="op">~</span><span class="st"> </span>Girth, <span class="dt">data=</span>trees )</span>
+<span id="cb558-29"><a href="Function-Chapter-Details.html#cb558-29" aria-hidden="true"></a>boot.dist &lt;-<span class="st"> </span><span class="kw">boot.lm</span>(m)</span>
+<span id="cb558-30"><a href="Function-Chapter-Details.html#cb558-30" aria-hidden="true"></a></span>
+<span id="cb558-31"><a href="Function-Chapter-Details.html#cb558-31" aria-hidden="true"></a><span class="co"># If boot.lm() works, then the following produces a nice graph</span></span>
+<span id="cb558-32"><a href="Function-Chapter-Details.html#cb558-32" aria-hidden="true"></a>boot.dist <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="st">&#39;term&#39;</span>,<span class="st">&#39;estimate&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb558-33"><a href="Function-Chapter-Details.html#cb558-33" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>estimate) ) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb558-34"><a href="Function-Chapter-Details.html#cb558-34" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb558-35"><a href="Function-Chapter-Details.html#cb558-35" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>term, <span class="dt">scales=</span><span class="st">&#39;free&#39;</span>)</span></code></pre></div>
 <p>This code does not correctly calculate a bootstrap sample for the model coefficients. Figure out where the mistake is. <em>Hint: Even if you haven’t studied the bootstrap, my description above gives enough information about the bootstrap algorithm to figure this out.</em></p></li>
 </ol>
 

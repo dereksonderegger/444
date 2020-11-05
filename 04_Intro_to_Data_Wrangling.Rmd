@@ -59,21 +59,31 @@ In `dplyr`, all the functions below take a _data set as its first argument_ and 
 
 The foundational operations to perform on a data set are:
 
-* Adding rows 
-    - `add_row` - Add an additional single row of data, specified by cell
-    - `bind_rows` - Add additional rows of data, specified by a single data frame.
+| Adding rows   | Adds to a data set                           |
+|--------------:|:--------------------------------------------|
+| `add_rows()`  | Add an additional single row of data, specified by cell. |
+| `bind_rows()` | Add additional row(s) of data, specified by the added data table. |
 
-* Subsetting - Returns a data set with particular columns or rows
-    – `select` - Selecting a subset of columns by name or column number.
-    – `filter` - Selecting a subset of rows from a data frame based on logical expressions.
-    – `slice` - Selecting a subset of rows by row number.
-    - `drop_na` - Remove rows that contain missing values
 
-* `arrange` - Re-ordering the rows of a data frame.
+| Subsetting    |  Returns a data set with particular columns or rows |
+|--------------:|:--------------------------------------------|
+|  `select`     | Selecting a subset of columns by name or column number. Helper functions such as `starts_with()`, `ends_with()`, and `contains()` allows you pick columns that have certain attributes in their column names. |
+| `filter()`      | Selecting a subset of rows from a data frame based on logical expressions. |
+| `slice()`       | Selecting a subset of rows by row number. There are a few variants that allow for common tasks to such as `slice_head()` `slice_tail()` and `slice_sample()` |
+| `drop_na`    |  Remove rows that contain any missing values. |
 
-* `mutate` - Add a new column that is some function of other columns.
 
-* `summarise` - calculate some summary statistic of a column of data. This collapses a set of rows into a single row.
+| Sorting | Returns a data table with the rows sorted according to a particular column(s). |
+|--------------:|:--------------------------------------------|
+| `arrange()`   | Re-ordering the rows of a data frame. The `desc()` function can be used on the selected column to reverse the sort direction. |
+
+| Update/Add columns | Returns a data table updated and/or new column(s). | 
+|--------------:|:--------------------------------------------|
+|`mutate()`       | Add a new column that is some function of other columns. This function is used with an `ifelse()` command for updating particular cells and `across()` to apply some function to a variety of columns. |
+
+| Summarize   | Returns a data table with many rows into summarized into one row. | 
+|--------------:|:--------------------------------------------|
+| `summarise()` | Calculate some summary statistic of a column of data. This collapses a set of rows into a single row. |
 
 Each of these operations is a function in the package `dplyr`. These functions all have a similar calling syntax, the first argument is a data set, subsequent arguments describe what to do with the input data frame and you can refer to the columns without using the `df$column` notation. All of these functions will return a data set.
 
