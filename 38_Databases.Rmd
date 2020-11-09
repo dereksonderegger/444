@@ -119,7 +119,7 @@ rm(Cards, Customers, Retailers, Transactions)     # Remove all the setup except 
 ```
 
 
-## SQL
+## Using SQL chunks
 
 The traditional way to interact with a database is by using SQL syntax. SQL stands for Structured Query Language and some understanding of SQL is mandatory for anyone that interacts with databases.  There are many good introduction to SQL but we'll cover a few basics here.
 
@@ -141,7 +141,113 @@ We can examine the SQL command as follows:
 | `WHERE`          | A keyword indicating the following logical statements will be used to filter rows. Boolean operators `AND`, `OR`, and `NOT` can be used to create complex filter statements. |
 
 
-There is a way to insert a SQL code chunk and have it appropriately run when knitting the document together. I don't really like that method because I've found it difficult to use while working with the Rmarkdown file interactively, so I generally don't recommend doing that.
+Because Rstudio supports code chunks with different languages (including SQL), you could  insert a SQL code chunk and have it appropriately run when knitting the document together. To run this interactively, you are required to have the output inline option set. (Preferences -> Rmarkdown -> Show output inline...)
+
+A `sql` chunk requires the `connection` to be defined and optionally a output
+variable name (`output.var`) to store the return value from the SQL call.
+
+```
+```{sql, connection=con, output.var='sql_output'}
+/* This is a SQL code chunk! */
+SELECT * from Customers
+```
+```
+```{sql, connection=con, output.var='sql_output', echo=FALSE}
+/* This is a SQL code chunk! */
+SELECT * from Customers
+```
+
+
+```{r}
+# In further R chunks, I can refer to the output.var variable
+sql_output
+```
+
+*From here on out, I'll just note when I'm in an SQL chunk with a comment.*
+
+
+### Passing variables into SQL chunks
+
+```{r}
+# In an R chunk, I've defined some object that I'd like to use in a SQL statement.
+WhichRetailer <- 2
+```
+
+```{sql connection=con}
+/* Anything with a ? prepended will be                              *
+ * replaced with the R object of the same name.                     */
+SELECT * FROM Transactions WHERE RetailID = ?WhichRetailer
+```
+
+
+There are some additional situations where a simple character string substitution 
+won't work because of annoying SQL syntax and we need to make some adjustment. For
+example, selecting a person by name requires the character string to be quoted, and
+some SQL databases have custom quotation syntax. So we'll use the `glue` package to
+decide what the appropriate quotation syntax is. The curly brackets tell
+`glue` that we want to work with R variable `customers` not the literal string.
+
+
+```{r}
+# R chunk
+customer <- 'Derek Sonderegger'                      # For some databases, this works
+customer <- glue::glue_sql('{customer}', .con=con)   # This should always work
+customer
+```
+
+```{sql connection=con}
+/* SQL Chunk */
+SELECT * FROM Customers WHERE name IN (?customer)
+```
+
+If you want to have multiple variables in a SQL statement, we need to tell `glue_sql()`
+to make a single SQL command using a `{r_vector*}` notation. The curly brackets tell
+`glue` that we want to work with R variable `customers` not the literal string.
+
+```{r}
+# R chunk
+customers <- c('Derek Sonderegger', 'Aubrey Sonderegger')
+glue::glue_sql("{customers}", .con=con)
+```
+and if I append a `*`, that tells `glue` to make a single SQL statement, not two separate statements.
+```{r}
+# R Chunk
+glue::glue_sql("{customers*}", .con=con)
+
+```
+
+Now we can happily select multiple people from our Customers table.
+```{r}
+# R Chunk
+customer = glue::glue_sql("{customers*}", .con=con)
+```
+
+```{sql connection=con}
+/* SQL Chunk */ 
+SELECT * FROM Customers WHERE name IN (?customer)
+```
+
+
+These SQL statements can be whatever you'd like, and we can happily insert rows
+into tables as well.
+```{r}
+# R Chunk
+newCustomer <- c(4, 'Mike Wazowski', '1102 Main St, Apt A113', 'Phoenix', 'AZ')
+newCustomer <- glue::glue_sql('{newCustomer*}', .con = con)
+```
+
+```{sql connection=con}
+/* SQL Chunk */
+INSERT INTO Customers (PersonID, Name, Street, City, State)
+VALUES(?newCustomer)
+```
+
+And this has happily inserted Mike into our `Customers` table.
+```{sql, connection=con}
+/* SQL Chunk */
+SELECT * FROM Customers
+```
+
 
 
 
@@ -149,21 +255,20 @@ Typical SQL statements can be quite long and sometimes difficult to read because
 
 
 ```{r}
-# given some other R object that specifies part of the SQL command, I can 
-# generate the full SQL command string by pasting the parts together
-customer = "'Derek Sonderegger'"  # Notice the quotes inside so that there are
-                                  # quotes surrounding the name inside the SQL
+# R Chunk
+customer <- 'Derek Sonderegger'                       # For SQLite, this works
+customer <- glue::glue_sql('{customer}', .con=con)    # This should always work!
+```
 
-sql_cmd <- paste('
+
+```{sql, connection=con}
+/* SQL Chunk */
 SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount
   FROM Customers, Cards, Transactions, Retailers
-  WHERE Customers.PersonID = Cards.PersonID AND 
-        Cards.CardID = Transactions.CardID AND
-        Transactions.RetailID = Retailers.RetailID AND
-        Customers.Name = ', customer) 
-
-DereksTransactions <- DBI::dbGetQuery(con, sql_cmd)
-DereksTransactions
+  WHERE Customers.PersonID    = Cards.PersonID       AND 
+        Cards.CardID          = Transactions.CardID  AND
+        Transactions.RetailID = Retailers.RetailID   AND
+        Customers.Name = ?customer
 ```
 
 
@@ -230,26 +335,12 @@ dbDisconnect(con)
     a. Create a SQLite database and connect to it using the following code: 
     ```{r, eval=FALSE}
     library(dplyr)
-    
     # Start up a SQL-Lite database with the NYCFlights13 data pre-loaded
-    # 
-    ## This handy function to load up the nycflights13 dataset unfortunately
-    ## causes an error when we try to close the connection.  I've submitted
-    ## a bug report to Hadley. We'll see what happens.
-    # con <- nycflights13_sqlite( )
-    # 
-    ## So instead we'll use this somewhat longer and more annoying startup
-    ## set of code.
-    con <- DBI::dbConnect(RSQLite::SQLite(), dbname = ":memory:")
-    dplyr::copy_to(con, nycflights13::airlines, 'airlines')
-    dplyr::copy_to(con, nycflights13::airports, 'airports')
-    dplyr::copy_to(con, nycflights13::flights,  'flights')
-    dplyr::copy_to(con, nycflights13::planes,   'planes')
-    dplyr::copy_to(con, nycflights13::weather,  'weather')
+    con <- nycflights13_sqlite( )
     ```
     b. Through the `con` connection object, create links to the `flights` and `airlines` tables.
     c. From the `flights` table, summarize the percent of flights with a departure delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.
-    d. Using the `dbDisconnect()` command to close the connection `con`. 
+    d. Using the `dbDisconnect()` command to close the connection `con`. *If this throws an error, you might need to update your `dbplyr` package. The error for disconnecting the SQLite `nycflights13` database was fixed recently.*
     
 2. For this exercise, we'll start a SQLite database and see that the SQLite application stores the data in a very specialized file structure, which usually has a file extension of `.db` or `.sqlite`.
     a. Create the SQLite database file in your current working directory using the following:

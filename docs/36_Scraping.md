@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe 2020 Presidential Election Electoral Map, Updated Live\n"     
-## [2] "\nThe Story Behind That GIF Of Bugs Bunny Sawing Off Florida\n"     
-## [3] "\nHere's What People Who Do Juice Cleanses Are Honestly Thinking\n" 
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"        
-## [5] "\nDog Has Goofiest Reaction To Being On A Diet\n"                   
-## [6] "\nI'm A Chess Expert. Here's What 'The Queen's Gambit' Gets Right\n"
+## [1] "\n'Secret Life Of Supermarkets' Reveals Bounty's Dark Side\n"                                         
+## [2] "\nThis Reddit Thread Of The 'Harshest Truths' People Have Learned Offers A Sobering Dose Of Reality\n"
+## [3] "\nThis Final Lap Of A Super Trucks Championship Race Is Bonkers To Watch\n"                           
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                          
+## [5] "\nWhat Happens When CNN Tries To Fact Check 'Stop The Steal' Protesters\n"                            
+## [6] "\nIs America's Most Famous Bookshop On The Verge Of A Mutiny?\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2020/2020-presidential-electoral-map-trump-biden"                                          
-## [2] "https://melmagazine.com/en-us/story/bugs-bunny-florida-gif?utm_source=digg"                 
-## [3] "/video/juice-cleanse-parody"                                                                
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                
-## [5] "/video/dog-does-not-like-diet"                                                              
-## [6] "https://www.nytimes.com/2020/11/03/arts/television/chess-queens-gambit.html?utm_source=digg"
+## [1] "https://www.npr.org/sections/health-shots/2020/11/07/931348023/secret-life-of-supermarkets-shines-a-light-on-bountys-dark-side?utm_source=digg"
+## [2] "/2020/harshest-truths-reddit-thread"                                                                                                           
+## [3] "/2020/super-trucks-championship-gold-coast-race-3-sheldon-creed"                                                                               
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                   
+## [5] "/video/cnn-fact-checks-stop-the-steal-protestors-election"                                                                                     
+## [6] "https://www.insidehook.com/article/books/strand-bookstore-labor-mutiny-coronavirus-pandemic?utm_source=digg"
 ```
 
 
