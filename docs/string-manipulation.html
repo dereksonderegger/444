@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2020-11-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -514,9 +514,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="string-manipulation" class="section level1" number="11">
 <h1><span class="header-section-number">Chapter 11</span> String Manipulation</h1>
-<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="string-manipulation.html#cb567-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse) </span>
-<span id="cb567-2"><a href="string-manipulation.html#cb567-2" aria-hidden="true"></a><span class="kw">library</span>(stringr)   <span class="co"># tidyverse string functions, not loaded with tidyverse </span></span>
-<span id="cb567-3"><a href="string-manipulation.html#cb567-3" aria-hidden="true"></a><span class="kw">library</span>(refinr)    <span class="co"># fuzzy string matching</span></span></code></pre></div>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="string-manipulation.html#cb563-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse) </span>
+<span id="cb563-2"><a href="string-manipulation.html#cb563-2" aria-hidden="true"></a><span class="kw">library</span>(stringr)   <span class="co"># tidyverse string functions, not loaded with tidyverse </span></span>
+<span id="cb563-3"><a href="string-manipulation.html#cb563-3" aria-hidden="true"></a><span class="kw">library</span>(refinr)    <span class="co"># fuzzy string matching</span></span></code></pre></div>
 <p>Strings make up a very important class of data. Data being read into R often come in the form of character strings where different parts might mean different things. For example a sample ID of “R1_P2_C1_2012_05_28” might represent data from Region 1, Park 2, Camera 1, taken on May 28, 2012. It is important that we have a set of utilities that allow us to split and combine character strings in a easy and consistent fashion.</p>
 <p>Unfortunately, the utilities included in the base version of R are somewhat inconsistent and were not designed to work nicely together. Hadley Wickham, the developer of <code>ggplot2</code> and <code>dplyr</code> has this to say:</p>
 <blockquote>
@@ -529,33 +529,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.1</span> Base function</h2>
 <p>1.1.1 <code>paste()</code></p>
 <p>The most basic thing we will want to do is to combine two strings or to combine a string with a numerical value. The <code>paste()</code> command will take one or more R objects and converts them to character strings and then pastes them together to form one or more character strings. It has the form:</p>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="string-manipulation.html#cb568-1" aria-hidden="true"></a><span class="kw">paste</span>( ..., <span class="dt">sep =</span> <span class="st">&#39; &#39;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="string-manipulation.html#cb564-1" aria-hidden="true"></a><span class="kw">paste</span>( ..., <span class="dt">sep =</span> <span class="st">&#39; &#39;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span> )</span></code></pre></div>
 <p>The <code>...</code> piece means that we can pass any number of objects to be pasted together. The <code>sep</code> argument gives the string that separates the strings to be joined and the collapse argument that specifies if a simplification should be performed after being pasting together.</p>
 <p>Suppose we want to combine the strings “Peanut butter” and “Jelly” then we could execute:</p>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="string-manipulation.html#cb569-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;PeanutButter&quot;</span>, <span class="st">&quot;Jelly&quot;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="string-manipulation.html#cb565-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;PeanutButter&quot;</span>, <span class="st">&quot;Jelly&quot;</span> )</span></code></pre></div>
 <pre><code>## [1] &quot;PeanutButter Jelly&quot;</code></pre>
 <p>Notice that without specifying the separator character, R chose to put a space between the two strings. We could specify whatever we wanted:</p>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="string-manipulation.html#cb571-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;World&quot;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="string-manipulation.html#cb567-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;World&quot;</span>, <span class="dt">sep=</span><span class="st">&#39;_&#39;</span> )</span></code></pre></div>
 <pre><code>## [1] &quot;Hello_World&quot;</code></pre>
 <p>Also we can combine strings with numerical values</p>
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="string-manipulation.html#cb573-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;Pi is equal to&quot;</span>, pi )</span></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="string-manipulation.html#cb569-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;Pi is equal to&quot;</span>, pi )</span></code></pre></div>
 <pre><code>## [1] &quot;Pi is equal to 3.14159265358979&quot;</code></pre>
 <p>We can combine vectors of similar or different lengths as well. By default R assumes that you want to produce a vector of character strings as output.</p>
-<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="string-manipulation.html#cb575-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="string-manipulation.html#cb571-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )</span></code></pre></div>
 <pre><code>## [1] &quot;n = 5&quot;   &quot;n = 25&quot;  &quot;n = 100&quot;</code></pre>
-<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="string-manipulation.html#cb577-1" aria-hidden="true"></a>first.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Robb&#39;</span>,<span class="st">&#39;Stannis&#39;</span>,<span class="st">&#39;Daenerys&#39;</span>)</span>
-<span id="cb577-2"><a href="string-manipulation.html#cb577-2" aria-hidden="true"></a>last.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Stark&#39;</span>,<span class="st">&#39;Baratheon&#39;</span>,<span class="st">&#39;Targaryen&#39;</span>)</span>
-<span id="cb577-3"><a href="string-manipulation.html#cb577-3" aria-hidden="true"></a><span class="kw">paste</span>( first.names, last.names)</span></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="string-manipulation.html#cb573-1" aria-hidden="true"></a>first.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Robb&#39;</span>,<span class="st">&#39;Stannis&#39;</span>,<span class="st">&#39;Daenerys&#39;</span>)</span>
+<span id="cb573-2"><a href="string-manipulation.html#cb573-2" aria-hidden="true"></a>last.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;Stark&#39;</span>,<span class="st">&#39;Baratheon&#39;</span>,<span class="st">&#39;Targaryen&#39;</span>)</span>
+<span id="cb573-3"><a href="string-manipulation.html#cb573-3" aria-hidden="true"></a><span class="kw">paste</span>( first.names, last.names)</span></code></pre></div>
 <pre><code>## [1] &quot;Robb Stark&quot;         &quot;Stannis Baratheon&quot;  &quot;Daenerys Targaryen&quot;</code></pre>
 <p>If we want <code>paste()</code> produce just a single string of output, use the <code>collapse=</code> argument to paste together each of the output vectors (separated by the <code>collapse</code> character).</p>
-<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="string-manipulation.html#cb579-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )  <span class="co"># Produces 3 strings</span></span></code></pre></div>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="string-manipulation.html#cb575-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>) )  <span class="co"># Produces 3 strings</span></span></code></pre></div>
 <pre><code>## [1] &quot;n = 5&quot;   &quot;n = 25&quot;  &quot;n = 100&quot;</code></pre>
-<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="string-manipulation.html#cb581-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>), <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span> ) <span class="co"># collapses output into one string</span></span></code></pre></div>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="string-manipulation.html#cb577-1" aria-hidden="true"></a><span class="kw">paste</span>( <span class="st">&quot;n =&quot;</span>, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">100</span>), <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span> ) <span class="co"># collapses output into one string</span></span></code></pre></div>
 <pre><code>## [1] &quot;n = 5:n = 25:n = 100&quot;</code></pre>
-<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="string-manipulation.html#cb583-1" aria-hidden="true"></a><span class="kw">paste</span>(first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="string-manipulation.html#cb579-1" aria-hidden="true"></a><span class="kw">paste</span>(first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Robb.Stark : Stannis.Baratheon : Daenerys.Targaryen&quot;</code></pre>
 <p>Notice we could use the <code>paste()</code> command with the collapse option to combine a vector of character strings together.</p>
-<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="string-manipulation.html#cb585-1" aria-hidden="true"></a><span class="kw">paste</span>(first.names, <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="string-manipulation.html#cb581-1" aria-hidden="true"></a><span class="kw">paste</span>(first.names, <span class="dt">collapse=</span><span class="st">&#39;:&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Robb:Stannis:Daenerys&quot;</code></pre>
 </div>
 <div id="stringr-basic-operations" class="section level2" number="11.2">
@@ -601,55 +601,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="concatenating-with-str_c-or-str_join" class="section level3" number="11.2.1">
 <h3><span class="header-section-number">11.2.1</span> Concatenating with <code>str_c()</code> or <code>str_join()</code></h3>
 <p>The first thing we do is to concatenate two strings or two vectors of strings similarly to the <code>paste()</code> command. The <code>str_c()</code> and <code>str_join()</code> functions are a synonym for the exact same function, but str_join() might be a more natural verb to use and remember. The syntax is:</p>
-<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="string-manipulation.html#cb587-1" aria-hidden="true"></a><span class="kw">str_c</span>( ..., <span class="dt">sep=</span><span class="st">&#39;&#39;</span>, <span class="dt">collapse=</span><span class="ot">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="string-manipulation.html#cb583-1" aria-hidden="true"></a><span class="kw">str_c</span>( ..., <span class="dt">sep=</span><span class="st">&#39;&#39;</span>, <span class="dt">collapse=</span><span class="ot">NULL</span>)</span></code></pre></div>
 <p>You can think of the inputs building a matrix of strings, with each input creating a column of the matrix. For each row, <code>str_c()</code> first joins all the columns (using the separator character given in <code>sep</code>) into a single column of strings. If the collapse argument is non-NULL, the function takes the vector and joins each element together using collapse as the separator character.</p>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="string-manipulation.html#cb588-1" aria-hidden="true"></a><span class="co"># envisioning the matrix of strings</span></span>
-<span id="cb588-2"><a href="string-manipulation.html#cb588-2" aria-hidden="true"></a><span class="kw">cbind</span>(first.names, last.names)</span></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="string-manipulation.html#cb584-1" aria-hidden="true"></a><span class="co"># envisioning the matrix of strings</span></span>
+<span id="cb584-2"><a href="string-manipulation.html#cb584-2" aria-hidden="true"></a><span class="kw">cbind</span>(first.names, last.names)</span></code></pre></div>
 <pre><code>##      first.names last.names 
 ## [1,] &quot;Robb&quot;      &quot;Stark&quot;    
 ## [2,] &quot;Stannis&quot;   &quot;Baratheon&quot;
 ## [3,] &quot;Daenerys&quot;  &quot;Targaryen&quot;</code></pre>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="string-manipulation.html#cb590-1" aria-hidden="true"></a><span class="co"># join the columns together</span></span>
-<span id="cb590-2"><a href="string-manipulation.html#cb590-2" aria-hidden="true"></a>full.names &lt;-<span class="st"> </span><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>)</span>
-<span id="cb590-3"><a href="string-manipulation.html#cb590-3" aria-hidden="true"></a><span class="kw">cbind</span>( first.names, last.names, full.names)</span></code></pre></div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="string-manipulation.html#cb586-1" aria-hidden="true"></a><span class="co"># join the columns together</span></span>
+<span id="cb586-2"><a href="string-manipulation.html#cb586-2" aria-hidden="true"></a>full.names &lt;-<span class="st"> </span><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>)</span>
+<span id="cb586-3"><a href="string-manipulation.html#cb586-3" aria-hidden="true"></a><span class="kw">cbind</span>( first.names, last.names, full.names)</span></code></pre></div>
 <pre><code>##      first.names last.names  full.names          
 ## [1,] &quot;Robb&quot;      &quot;Stark&quot;     &quot;Robb.Stark&quot;        
 ## [2,] &quot;Stannis&quot;   &quot;Baratheon&quot; &quot;Stannis.Baratheon&quot; 
 ## [3,] &quot;Daenerys&quot;  &quot;Targaryen&quot; &quot;Daenerys.Targaryen&quot;</code></pre>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="string-manipulation.html#cb592-1" aria-hidden="true"></a><span class="co"># Join each of the rows together separated by collapse</span></span>
-<span id="cb592-2"><a href="string-manipulation.html#cb592-2" aria-hidden="true"></a><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="string-manipulation.html#cb588-1" aria-hidden="true"></a><span class="co"># Join each of the rows together separated by collapse</span></span>
+<span id="cb588-2"><a href="string-manipulation.html#cb588-2" aria-hidden="true"></a><span class="kw">str_c</span>( first.names, last.names, <span class="dt">sep=</span><span class="st">&#39;.&#39;</span>, <span class="dt">collapse=</span><span class="st">&#39; : &#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Robb.Stark : Stannis.Baratheon : Daenerys.Targaryen&quot;</code></pre>
 </div>
 <div id="calculating-string-length-with-str_length" class="section level3" number="11.2.2">
 <h3><span class="header-section-number">11.2.2</span> Calculating string length with <code>str_length()</code></h3>
 <p>The <code>str_length()</code> function calculates the length of each string in the vector of strings passed to it.</p>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="string-manipulation.html#cb594-1" aria-hidden="true"></a>text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;WordTesting&#39;</span>, <span class="st">&#39;With a space&#39;</span>, <span class="ot">NA</span>, <span class="st">&#39;Night&#39;</span>)</span>
-<span id="cb594-2"><a href="string-manipulation.html#cb594-2" aria-hidden="true"></a><span class="kw">str_length</span>( text )</span></code></pre></div>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="string-manipulation.html#cb590-1" aria-hidden="true"></a>text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;WordTesting&#39;</span>, <span class="st">&#39;With a space&#39;</span>, <span class="ot">NA</span>, <span class="st">&#39;Night&#39;</span>)</span>
+<span id="cb590-2"><a href="string-manipulation.html#cb590-2" aria-hidden="true"></a><span class="kw">str_length</span>( text )</span></code></pre></div>
 <pre><code>## [1] 11 12 NA  5</code></pre>
 <p>Notice that <code>str_length()</code> correctly interprets the missing data as missing and that the length ought to also be missing.</p>
 </div>
 <div id="extracting-substrings-with-str_sub" class="section level3" number="11.2.3">
 <h3><span class="header-section-number">11.2.3</span> Extracting substrings with <code>str_sub()</code></h3>
 <p>If we know we want to extract the <span class="math inline">\(3^{rd}\)</span> through <span class="math inline">\(6^{th}\)</span> letters in a string, this function will grab them.</p>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="string-manipulation.html#cb596-1" aria-hidden="true"></a><span class="kw">str_sub</span>(text, <span class="dt">start=</span><span class="dv">3</span>, <span class="dt">end=</span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="string-manipulation.html#cb592-1" aria-hidden="true"></a><span class="kw">str_sub</span>(text, <span class="dt">start=</span><span class="dv">3</span>, <span class="dt">end=</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;rdTe&quot; &quot;th a&quot; NA     &quot;ght&quot;</code></pre>
 <p>If a given string isn’t long enough to contain all the necessary indices, <code>str_sub()</code> returns only the letters that where there (as in the above case for “Night”</p>
 </div>
 <div id="pad-a-string-with-str_pad" class="section level3" number="11.2.4">
 <h3><span class="header-section-number">11.2.4</span> Pad a string with <code>str_pad()</code></h3>
 <p>Sometimes we to make every string in a vector the same length to facilitate display or in the creation of a uniform system of assigning ID numbers. The <code>str_pad()</code> function will add spaces at either the beginning or end of the of every string appropriately.</p>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="string-manipulation.html#cb598-1" aria-hidden="true"></a><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="string-manipulation.html#cb594-1" aria-hidden="true"></a><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;    Robb&quot; &quot; Stannis&quot; &quot;Daenerys&quot;</code></pre>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="string-manipulation.html#cb600-1" aria-hidden="true"></a><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>, <span class="dt">side=</span><span class="st">&#39;right&#39;</span>, <span class="dt">pad=</span><span class="st">&#39;*&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="string-manipulation.html#cb596-1" aria-hidden="true"></a><span class="kw">str_pad</span>(first.names, <span class="dt">width=</span><span class="dv">8</span>, <span class="dt">side=</span><span class="st">&#39;right&#39;</span>, <span class="dt">pad=</span><span class="st">&#39;*&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Robb****&quot; &quot;Stannis*&quot; &quot;Daenerys&quot;</code></pre>
 </div>
 <div id="trim-a-string-with-str_trim" class="section level3" number="11.2.5">
 <h3><span class="header-section-number">11.2.5</span> Trim a string with <code>str_trim()</code></h3>
 <p>This removes any leading or trailing white space where white space is defined as spaces ’ ’, tabs <code>\t</code> or returns <code>\n</code>.</p>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="string-manipulation.html#cb602-1" aria-hidden="true"></a>text &lt;-<span class="st"> &#39; Some text. </span><span class="ch">\n</span><span class="st">  &#39;</span></span>
-<span id="cb602-2"><a href="string-manipulation.html#cb602-2" aria-hidden="true"></a><span class="kw">print</span>(text)</span></code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="string-manipulation.html#cb598-1" aria-hidden="true"></a>text &lt;-<span class="st"> &#39; Some text. </span><span class="ch">\n</span><span class="st">  &#39;</span></span>
+<span id="cb598-2"><a href="string-manipulation.html#cb598-2" aria-hidden="true"></a><span class="kw">print</span>(text)</span></code></pre></div>
 <pre><code>## [1] &quot; Some text. \n  &quot;</code></pre>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="string-manipulation.html#cb604-1" aria-hidden="true"></a><span class="kw">str_trim</span>(text)</span></code></pre></div>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="string-manipulation.html#cb600-1" aria-hidden="true"></a><span class="kw">str_trim</span>(text)</span></code></pre></div>
 <pre><code>## [1] &quot;Some text.&quot;</code></pre>
 </div>
 </div>
@@ -714,12 +714,12 @@ input pattern</td>
 </table>
 <p>We will first examine these functions using a very simple pattern matching algorithm where we are matching a specific pattern. For most people, this is as complex as we need.</p>
 <p>Suppose that we have a vector of strings that contain a date in the form “2012-May-27” and we want to manipulate them to extract certain information.</p>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="string-manipulation.html#cb606-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;2008-Feb-10&#39;</span>, <span class="st">&#39;2010-Sept-18&#39;</span>, <span class="st">&#39;2013-Jan-11&#39;</span>, <span class="st">&#39;2016-Jan-2&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="string-manipulation.html#cb602-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;2008-Feb-10&#39;</span>, <span class="st">&#39;2010-Sept-18&#39;</span>, <span class="st">&#39;2013-Jan-11&#39;</span>, <span class="st">&#39;2016-Jan-2&#39;</span>)</span></code></pre></div>
 <div id="detecting-a-pattern-using-str_detect" class="section level3" number="11.3.1">
 <h3><span class="header-section-number">11.3.1</span> Detecting a pattern using str_detect()</h3>
 <p>Suppose we want to know which dates are in September. We want to detect if the pattern “Sept” occurs in the strings.</p>
-<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="string-manipulation.html#cb607-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb607-2"><a href="string-manipulation.html#cb607-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>( string, <span class="dt">pattern=</span><span class="st">&#39;Sept&#39;</span> ) )</span></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="string-manipulation.html#cb603-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb603-2"><a href="string-manipulation.html#cb603-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>( string, <span class="dt">pattern=</span><span class="st">&#39;Sept&#39;</span> ) )</span></code></pre></div>
 <pre><code>##         string result
 ## 1  2008-Feb-10  FALSE
 ## 2 2010-Sept-18   TRUE
@@ -730,14 +730,14 @@ input pattern</td>
 <div id="locating-a-pattern-using-str_locate" class="section level3" number="11.3.2">
 <h3><span class="header-section-number">11.3.2</span> Locating a pattern using str_locate()</h3>
 <p>To figure out where the “-” characters are, we can use the <code>str_locate()</code> function.</p>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="string-manipulation.html#cb609-1" aria-hidden="true"></a><span class="kw">str_locate</span>(strings, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="string-manipulation.html#cb605-1" aria-hidden="true"></a><span class="kw">str_locate</span>(strings, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span> )</span></code></pre></div>
 <pre><code>##      start end
 ## [1,]     5   5
 ## [2,]     5   5
 ## [3,]     5   5
 ## [4,]     5   5</code></pre>
 <p>which shows that the first dash occurs as the <span class="math inline">\(5^{th}\)</span> character in each string. If we wanted all the dashes in the string the following works.</p>
-<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="string-manipulation.html#cb611-1" aria-hidden="true"></a><span class="kw">str_locate_all</span>(strings, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="string-manipulation.html#cb607-1" aria-hidden="true"></a><span class="kw">str_locate_all</span>(strings, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span> )</span></code></pre></div>
 <pre><code>## [[1]]
 ##      start end
 ## [1,]     5   5
@@ -762,15 +762,15 @@ input pattern</td>
 <div id="replacing-sub-strings-using-str_replace" class="section level3" number="11.3.3">
 <h3><span class="header-section-number">11.3.3</span> Replacing sub-strings using <code>str_replace()</code></h3>
 <p>Suppose we didn’t like using “-” to separate the Year/Month/Day but preferred a space, or an underscore, or something else. This can be done by replacing all of the “-” with the desired character. The <code>str_replace()</code> function only replaces the first match, but <code>str_replace_all()</code> replaces all matches.</p>
-<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="string-manipulation.html#cb613-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb613-2"><a href="string-manipulation.html#cb613-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">result =</span> <span class="kw">str_replace</span>(string, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">replacement=</span><span class="st">&#39;:&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="string-manipulation.html#cb609-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb609-2"><a href="string-manipulation.html#cb609-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">result =</span> <span class="kw">str_replace</span>(string, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">replacement=</span><span class="st">&#39;:&#39;</span>))</span></code></pre></div>
 <pre><code>##         string       result
 ## 1  2008-Feb-10  2008:Feb-10
 ## 2 2010-Sept-18 2010:Sept-18
 ## 3  2013-Jan-11  2013:Jan-11
 ## 4   2016-Jan-2   2016:Jan-2</code></pre>
-<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="string-manipulation.html#cb615-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb615-2"><a href="string-manipulation.html#cb615-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">result =</span> <span class="kw">str_replace_all</span>(string, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">replacement=</span><span class="st">&#39;:&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="string-manipulation.html#cb611-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb611-2"><a href="string-manipulation.html#cb611-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">result =</span> <span class="kw">str_replace_all</span>(string, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">replacement=</span><span class="st">&#39;:&#39;</span>))</span></code></pre></div>
 <pre><code>##         string       result
 ## 1  2008-Feb-10  2008:Feb:10
 ## 2 2010-Sept-18 2010:Sept:18
@@ -780,8 +780,8 @@ input pattern</td>
 <div id="splitting-into-sub-strings-using-str_split-and-tidyrseparate" class="section level3" number="11.3.4">
 <h3><span class="header-section-number">11.3.4</span> Splitting into sub-strings using <code>str_split()</code> and <code>tidyr::separate()</code></h3>
 <p>We can split each of the dates into three smaller sub-strings using the <code>str_split()</code> command, which returns a list where each element of the list is a vector containing pieces of the original string (excluding the pattern we matched on).</p>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="string-manipulation.html#cb617-1" aria-hidden="true"></a><span class="co"># Returns a List object where each is split</span></span>
-<span id="cb617-2"><a href="string-manipulation.html#cb617-2" aria-hidden="true"></a><span class="kw">str_split</span>(strings, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="string-manipulation.html#cb613-1" aria-hidden="true"></a><span class="co"># Returns a List object where each is split</span></span>
+<span id="cb613-2"><a href="string-manipulation.html#cb613-2" aria-hidden="true"></a><span class="kw">str_split</span>(strings, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;2008&quot; &quot;Feb&quot;  &quot;10&quot;  
 ## 
@@ -794,33 +794,33 @@ input pattern</td>
 ## [[4]]
 ## [1] &quot;2016&quot; &quot;Jan&quot;  &quot;2&quot;</code></pre>
 <p>If we know that all the strings will be split into a known number of sub-strings (we have to specify how many sub-strings to match with the <code>n=</code> argument), we can use <code>str_split_fixed()</code> to get a matrix of sub-strings instead of list of sub-strings.</p>
-<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="string-manipulation.html#cb619-1" aria-hidden="true"></a><span class="kw">str_split_fixed</span>(strings, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">n=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="string-manipulation.html#cb615-1" aria-hidden="true"></a><span class="kw">str_split_fixed</span>(strings, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">n=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##      [,1]   [,2]   [,3]
 ## [1,] &quot;2008&quot; &quot;Feb&quot;  &quot;10&quot;
 ## [2,] &quot;2010&quot; &quot;Sept&quot; &quot;18&quot;
 ## [3,] &quot;2013&quot; &quot;Jan&quot;  &quot;11&quot;
 ## [4,] &quot;2016&quot; &quot;Jan&quot;  &quot;2&quot;</code></pre>
 <p>Occasionally, I want to split column in a data frame on some pattern and store the resulting pieces in new columns attached to that same data frame.</p>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="string-manipulation.html#cb621-1" aria-hidden="true"></a><span class="co"># Notice the `.$string` takes the input data frame (that is the `.` part) </span></span>
-<span id="cb621-2"><a href="string-manipulation.html#cb621-2" aria-hidden="true"></a><span class="co"># and then grabs the `string` column and passes all of that into `str_split_fixed`. </span></span>
-<span id="cb621-3"><a href="string-manipulation.html#cb621-3" aria-hidden="true"></a><span class="co"># The resulting character matrix is then column binded to the input data frame.</span></span>
-<span id="cb621-4"><a href="string-manipulation.html#cb621-4" aria-hidden="true"></a><span class="kw">data.frame</span>( </span>
-<span id="cb621-5"><a href="string-manipulation.html#cb621-5" aria-hidden="true"></a>    <span class="dt">Event=</span><span class="kw">c</span>(<span class="st">&#39;Date&#39;</span>,<span class="st">&#39;Marriage&#39;</span>,<span class="st">&#39;Elise&#39;</span>,<span class="st">&#39;Casey&#39;</span>),</span>
-<span id="cb621-6"><a href="string-manipulation.html#cb621-6" aria-hidden="true"></a>    <span class="dt">Date =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb621-7"><a href="string-manipulation.html#cb621-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">cbind</span>( <span class="kw">str_split_fixed</span>(.<span class="op">$</span>Date, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">n=</span><span class="dv">3</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb621-8"><a href="string-manipulation.html#cb621-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>( <span class="dt">Year=</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">Month=</span><span class="st">`</span><span class="dt">2</span><span class="st">`</span>, <span class="dt">Day=</span><span class="st">`</span><span class="dt">3</span><span class="st">`</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="string-manipulation.html#cb617-1" aria-hidden="true"></a><span class="co"># Notice the `.$string` takes the input data frame (that is the `.` part) </span></span>
+<span id="cb617-2"><a href="string-manipulation.html#cb617-2" aria-hidden="true"></a><span class="co"># and then grabs the `string` column and passes all of that into `str_split_fixed`. </span></span>
+<span id="cb617-3"><a href="string-manipulation.html#cb617-3" aria-hidden="true"></a><span class="co"># The resulting character matrix is then column binded to the input data frame.</span></span>
+<span id="cb617-4"><a href="string-manipulation.html#cb617-4" aria-hidden="true"></a><span class="kw">data.frame</span>( </span>
+<span id="cb617-5"><a href="string-manipulation.html#cb617-5" aria-hidden="true"></a>    <span class="dt">Event=</span><span class="kw">c</span>(<span class="st">&#39;Date&#39;</span>,<span class="st">&#39;Marriage&#39;</span>,<span class="st">&#39;Elise&#39;</span>,<span class="st">&#39;Casey&#39;</span>),</span>
+<span id="cb617-6"><a href="string-manipulation.html#cb617-6" aria-hidden="true"></a>    <span class="dt">Date =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb617-7"><a href="string-manipulation.html#cb617-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">cbind</span>( <span class="kw">str_split_fixed</span>(.<span class="op">$</span>Date, <span class="dt">pattern=</span><span class="st">&#39;-&#39;</span>, <span class="dt">n=</span><span class="dv">3</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb617-8"><a href="string-manipulation.html#cb617-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>( <span class="dt">Year=</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">Month=</span><span class="st">`</span><span class="dt">2</span><span class="st">`</span>, <span class="dt">Day=</span><span class="st">`</span><span class="dt">3</span><span class="st">`</span> )</span></code></pre></div>
 <pre><code>##      Event         Date Year Month Day
 ## 1     Date  2008-Feb-10 2008   Feb  10
 ## 2 Marriage 2010-Sept-18 2010  Sept  18
 ## 3    Elise  2013-Jan-11 2013   Jan  11
 ## 4    Casey   2016-Jan-2 2016   Jan   2</code></pre>
-<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="string-manipulation.html#cb623-1" aria-hidden="true"></a><span class="co"># It is really annoying to have to rename it, so the tidyr package includes</span></span>
-<span id="cb623-2"><a href="string-manipulation.html#cb623-2" aria-hidden="true"></a><span class="co"># a specialized function `separate` that does this exact thing.</span></span>
-<span id="cb623-3"><a href="string-manipulation.html#cb623-3" aria-hidden="true"></a><span class="co"># `remove=FALSE` causes separate to keep the original Date column.</span></span>
-<span id="cb623-4"><a href="string-manipulation.html#cb623-4" aria-hidden="true"></a><span class="kw">data.frame</span>( </span>
-<span id="cb623-5"><a href="string-manipulation.html#cb623-5" aria-hidden="true"></a>    <span class="dt">Event=</span><span class="kw">c</span>(<span class="st">&#39;Date&#39;</span>,<span class="st">&#39;Marriage&#39;</span>,<span class="st">&#39;Elise&#39;</span>,<span class="st">&#39;Casey&#39;</span>),</span>
-<span id="cb623-6"><a href="string-manipulation.html#cb623-6" aria-hidden="true"></a>    <span class="dt">Date =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb623-7"><a href="string-manipulation.html#cb623-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">separate</span>(Date, <span class="dt">sep=</span><span class="st">&#39;-&#39;</span>, <span class="dt">into=</span><span class="kw">c</span>(<span class="st">&#39;Year&#39;</span>,<span class="st">&#39;Month&#39;</span>,<span class="st">&#39;Day&#39;</span>), <span class="dt">remove=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="string-manipulation.html#cb619-1" aria-hidden="true"></a><span class="co"># It is really annoying to have to rename it, so the tidyr package includes</span></span>
+<span id="cb619-2"><a href="string-manipulation.html#cb619-2" aria-hidden="true"></a><span class="co"># a specialized function `separate` that does this exact thing.</span></span>
+<span id="cb619-3"><a href="string-manipulation.html#cb619-3" aria-hidden="true"></a><span class="co"># `remove=FALSE` causes separate to keep the original Date column.</span></span>
+<span id="cb619-4"><a href="string-manipulation.html#cb619-4" aria-hidden="true"></a><span class="kw">data.frame</span>( </span>
+<span id="cb619-5"><a href="string-manipulation.html#cb619-5" aria-hidden="true"></a>    <span class="dt">Event=</span><span class="kw">c</span>(<span class="st">&#39;Date&#39;</span>,<span class="st">&#39;Marriage&#39;</span>,<span class="st">&#39;Elise&#39;</span>,<span class="st">&#39;Casey&#39;</span>),</span>
+<span id="cb619-6"><a href="string-manipulation.html#cb619-6" aria-hidden="true"></a>    <span class="dt">Date =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb619-7"><a href="string-manipulation.html#cb619-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">separate</span>(Date, <span class="dt">sep=</span><span class="st">&#39;-&#39;</span>, <span class="dt">into=</span><span class="kw">c</span>(<span class="st">&#39;Year&#39;</span>,<span class="st">&#39;Month&#39;</span>,<span class="st">&#39;Day&#39;</span>), <span class="dt">remove=</span><span class="ot">FALSE</span>)</span></code></pre></div>
 <pre><code>##      Event         Date Year Month Day
 ## 1     Date  2008-Feb-10 2008   Feb  10
 ## 2 Marriage 2010-Sept-18 2010  Sept  18
@@ -991,12 +991,12 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <div id="matching-a-specific-string" class="section level3" number="11.4.2">
 <h3><span class="header-section-number">11.4.2</span> Matching a specific string</h3>
 <p>I might have a set of strings and I want to remove a specific string from them, or perhaps detect if a specific string is present. So long as the string of interest doesn’t contain any special characters, you can just type out the string to be detected.</p>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="string-manipulation.html#cb625-1" aria-hidden="true"></a><span class="co"># Replace &#39;John&#39; from all of the strings with &#39;****&#39;</span></span>
-<span id="cb625-2"><a href="string-manipulation.html#cb625-2" aria-hidden="true"></a><span class="co"># The regular expression interpretation only comes in evaluating &#39;John&#39;</span></span>
-<span id="cb625-3"><a href="string-manipulation.html#cb625-3" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;John Sanderson&#39;</span>, <span class="st">&#39;Johnathan Wilkes&#39;</span>, <span class="st">&#39;Brendan Johnson&#39;</span>, <span class="st">&#39;Bigjohn Smith&#39;</span>)</span>
-<span id="cb625-4"><a href="string-manipulation.html#cb625-4" aria-hidden="true"></a></span>
-<span id="cb625-5"><a href="string-manipulation.html#cb625-5" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
-<span id="cb625-6"><a href="string-manipulation.html#cb625-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_replace</span>(string, <span class="st">&#39;John&#39;</span>, <span class="st">&#39;****&#39;</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="string-manipulation.html#cb621-1" aria-hidden="true"></a><span class="co"># Replace &#39;John&#39; from all of the strings with &#39;****&#39;</span></span>
+<span id="cb621-2"><a href="string-manipulation.html#cb621-2" aria-hidden="true"></a><span class="co"># The regular expression interpretation only comes in evaluating &#39;John&#39;</span></span>
+<span id="cb621-3"><a href="string-manipulation.html#cb621-3" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;John Sanderson&#39;</span>, <span class="st">&#39;Johnathan Wilkes&#39;</span>, <span class="st">&#39;Brendan Johnson&#39;</span>, <span class="st">&#39;Bigjohn Smith&#39;</span>)</span>
+<span id="cb621-4"><a href="string-manipulation.html#cb621-4" aria-hidden="true"></a></span>
+<span id="cb621-5"><a href="string-manipulation.html#cb621-5" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb621-6"><a href="string-manipulation.html#cb621-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_replace</span>(string, <span class="st">&#39;John&#39;</span>, <span class="st">&#39;****&#39;</span>) )</span></code></pre></div>
 <pre><code>##             string           result
 ## 1   John Sanderson   **** Sanderson
 ## 2 Johnathan Wilkes ****athan Wilkes
@@ -1004,25 +1004,25 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 ## 4    Bigjohn Smith    Bigjohn Smith</code></pre>
 <p>Notice that this is case sensitive and we didn’t replace the ‘john’.</p>
 <p>I might have special characters in my string that I want to replace.</p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="string-manipulation.html#cb627-1" aria-hidden="true"></a><span class="co"># Remove the commas and the $ sign and convert to integers.</span></span>
-<span id="cb627-2"><a href="string-manipulation.html#cb627-2" aria-hidden="true"></a><span class="co"># Because $ is a special character, we need to use the escape character, \.</span></span>
-<span id="cb627-3"><a href="string-manipulation.html#cb627-3" aria-hidden="true"></a><span class="co"># However, because R uses the escape character as well, we have to use TWO</span></span>
-<span id="cb627-4"><a href="string-manipulation.html#cb627-4" aria-hidden="true"></a><span class="co"># escape characters. The first to escape R usual interpretation of the backslash,</span></span>
-<span id="cb627-5"><a href="string-manipulation.html#cb627-5" aria-hidden="true"></a><span class="co"># and the second to cause the regular expression to not use the usual </span></span>
-<span id="cb627-6"><a href="string-manipulation.html#cb627-6" aria-hidden="true"></a><span class="co"># interpretation of the $ sign.</span></span>
-<span id="cb627-7"><a href="string-manipulation.html#cb627-7" aria-hidden="true"></a><span class="co"># </span></span>
-<span id="cb627-8"><a href="string-manipulation.html#cb627-8" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;$1,000,873&#39;</span>, <span class="st">&#39;$4.53&#39;</span>, <span class="st">&#39;$672&#39;</span>)</span>
-<span id="cb627-9"><a href="string-manipulation.html#cb627-9" aria-hidden="true"></a></span>
-<span id="cb627-10"><a href="string-manipulation.html#cb627-10" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
-<span id="cb627-11"><a href="string-manipulation.html#cb627-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_remove_all</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">$&#39;</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="string-manipulation.html#cb623-1" aria-hidden="true"></a><span class="co"># Remove the commas and the $ sign and convert to integers.</span></span>
+<span id="cb623-2"><a href="string-manipulation.html#cb623-2" aria-hidden="true"></a><span class="co"># Because $ is a special character, we need to use the escape character, \.</span></span>
+<span id="cb623-3"><a href="string-manipulation.html#cb623-3" aria-hidden="true"></a><span class="co"># However, because R uses the escape character as well, we have to use TWO</span></span>
+<span id="cb623-4"><a href="string-manipulation.html#cb623-4" aria-hidden="true"></a><span class="co"># escape characters. The first to escape R usual interpretation of the backslash,</span></span>
+<span id="cb623-5"><a href="string-manipulation.html#cb623-5" aria-hidden="true"></a><span class="co"># and the second to cause the regular expression to not use the usual </span></span>
+<span id="cb623-6"><a href="string-manipulation.html#cb623-6" aria-hidden="true"></a><span class="co"># interpretation of the $ sign.</span></span>
+<span id="cb623-7"><a href="string-manipulation.html#cb623-7" aria-hidden="true"></a><span class="co"># </span></span>
+<span id="cb623-8"><a href="string-manipulation.html#cb623-8" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;$1,000,873&#39;</span>, <span class="st">&#39;$4.53&#39;</span>, <span class="st">&#39;$672&#39;</span>)</span>
+<span id="cb623-9"><a href="string-manipulation.html#cb623-9" aria-hidden="true"></a></span>
+<span id="cb623-10"><a href="string-manipulation.html#cb623-10" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb623-11"><a href="string-manipulation.html#cb623-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_remove_all</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">$&#39;</span>) )</span></code></pre></div>
 <pre><code>##       string    result
 ## 1 $1,000,873 1,000,873
 ## 2      $4.53      4.53
 ## 3       $672       672</code></pre>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="string-manipulation.html#cb629-1" aria-hidden="true"></a><span class="co"># We can use the Or clause built into regular expressions to grab the </span></span>
-<span id="cb629-2"><a href="string-manipulation.html#cb629-2" aria-hidden="true"></a><span class="co"># dollar signs and the commas using (Pattern1|Pattern2) notation</span></span>
-<span id="cb629-3"><a href="string-manipulation.html#cb629-3" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
-<span id="cb629-4"><a href="string-manipulation.html#cb629-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_remove_all</span>(string, <span class="st">&#39;(</span><span class="ch">\\</span><span class="st">$|,)&#39;</span>) ) </span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="string-manipulation.html#cb625-1" aria-hidden="true"></a><span class="co"># We can use the Or clause built into regular expressions to grab the </span></span>
+<span id="cb625-2"><a href="string-manipulation.html#cb625-2" aria-hidden="true"></a><span class="co"># dollar signs and the commas using (Pattern1|Pattern2) notation</span></span>
+<span id="cb625-3"><a href="string-manipulation.html#cb625-3" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb625-4"><a href="string-manipulation.html#cb625-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_remove_all</span>(string, <span class="st">&#39;(</span><span class="ch">\\</span><span class="st">$|,)&#39;</span>) ) </span></code></pre></div>
 <pre><code>##       string  result
 ## 1 $1,000,873 1000873
 ## 2      $4.53    4.53
@@ -1031,26 +1031,26 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <div id="matching-arbitrary-numbers" class="section level3" number="11.4.3">
 <h3><span class="header-section-number">11.4.3</span> Matching arbitrary numbers</h3>
 <p>We might need to extract the numbers from a string. To do this, we want to grab 1 or more digits.</p>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="string-manipulation.html#cb631-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;I need 653 to fix the car&#39;</span>, </span>
-<span id="cb631-2"><a href="string-manipulation.html#cb631-2" aria-hidden="true"></a>             <span class="st">&#39;But I only have 432.34 in the bank&#39;</span>, </span>
-<span id="cb631-3"><a href="string-manipulation.html#cb631-3" aria-hidden="true"></a>             <span class="st">&#39;I could get .53 from the piggy bank&#39;</span>) </span>
-<span id="cb631-4"><a href="string-manipulation.html#cb631-4" aria-hidden="true"></a></span>
-<span id="cb631-5"><a href="string-manipulation.html#cb631-5" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
-<span id="cb631-6"><a href="string-manipulation.html#cb631-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_extract</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+&#39;</span>) ) </span></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="string-manipulation.html#cb627-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;I need 653 to fix the car&#39;</span>, </span>
+<span id="cb627-2"><a href="string-manipulation.html#cb627-2" aria-hidden="true"></a>             <span class="st">&#39;But I only have 432.34 in the bank&#39;</span>, </span>
+<span id="cb627-3"><a href="string-manipulation.html#cb627-3" aria-hidden="true"></a>             <span class="st">&#39;I could get .53 from the piggy bank&#39;</span>) </span>
+<span id="cb627-4"><a href="string-manipulation.html#cb627-4" aria-hidden="true"></a></span>
+<span id="cb627-5"><a href="string-manipulation.html#cb627-5" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb627-6"><a href="string-manipulation.html#cb627-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_extract</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+&#39;</span>) ) </span></code></pre></div>
 <pre><code>##                                string result
 ## 1           I need 653 to fix the car    653
 ## 2  But I only have 432.34 in the bank    432
 ## 3 I could get .53 from the piggy bank     53</code></pre>
 <p>That isn’t exactly what we wanted. Instead of extracting the whole number, we left off the decimals. To fix this, we could have an optional part of the recipe for decimals. The way to enter into an optional section of the recipe is to use a <code>()?</code> and enclose the optional part inside the parentheses.</p>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="string-manipulation.html#cb633-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
-<span id="cb633-2"><a href="string-manipulation.html#cb633-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_extract</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+(</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">d+)?&#39;</span> )) </span></code></pre></div>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="string-manipulation.html#cb629-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb629-2"><a href="string-manipulation.html#cb629-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_extract</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+(</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">d+)?&#39;</span> )) </span></code></pre></div>
 <pre><code>##                                string result
 ## 1           I need 653 to fix the car    653
 ## 2  But I only have 432.34 in the bank 432.34
 ## 3 I could get .53 from the piggy bank     53</code></pre>
 <p>That fixed the issue for the second row, but still misses the third line. Lets have 3 different recipes and then ‘or’ them together.</p>
-<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="string-manipulation.html#cb635-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
-<span id="cb635-2"><a href="string-manipulation.html#cb635-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_extract</span>(string, <span class="st">&#39;(</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">d+|</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">d+|</span><span class="ch">\\</span><span class="st">d+)&#39;</span> )) </span></code></pre></div>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="string-manipulation.html#cb631-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb631-2"><a href="string-manipulation.html#cb631-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_extract</span>(string, <span class="st">&#39;(</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">d+|</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">d+|</span><span class="ch">\\</span><span class="st">d+)&#39;</span> )) </span></code></pre></div>
 <pre><code>##                                string result
 ## 1           I need 653 to fix the car    653
 ## 2  But I only have 432.34 in the bank 432.34
@@ -1059,13 +1059,13 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <div id="greedy-matching" class="section level3" number="11.4.4">
 <h3><span class="header-section-number">11.4.4</span> Greedy matching</h3>
 <p>Regular expressions tries to match as much as it can. The modifiers <code>*</code> and <code>+</code> try to match as many characters as possible. While often this is what we want, it sometimes is not. Consider the case where we are scanning HTML code and looking for markup tags which are of the form <code>&lt;blah blah&gt;</code>. The information inside the angled brackets will be important, but for now we just want to search the string for all instances of HTML tags.</p>
-<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="string-manipulation.html#cb637-1" aria-hidden="true"></a>string &lt;-<span class="st"> &#39;A web page has &lt;b&gt;MANY&lt;/b&gt; types of &lt;em&gt;awesome&lt;/em&gt; tags!&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="string-manipulation.html#cb633-1" aria-hidden="true"></a>string &lt;-<span class="st"> &#39;A web page has &lt;b&gt;MANY&lt;/b&gt; types of &lt;em&gt;awesome&lt;/em&gt; tags!&#39;</span></span></code></pre></div>
 <p>For now, we want to extract <code>&lt;b&gt;</code>, <code>&lt;/b&gt;</code>, <code>&lt;em&gt;</code> and <code>&lt;/em&gt;</code>. To do this, we might first consider the following:</p>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="string-manipulation.html#cb638-1" aria-hidden="true"></a><span class="kw">str_extract_all</span>(string, <span class="st">&#39;&lt;.+&gt;&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="string-manipulation.html#cb634-1" aria-hidden="true"></a><span class="kw">str_extract_all</span>(string, <span class="st">&#39;&lt;.+&gt;&#39;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;&lt;b&gt;MANY&lt;/b&gt; types of &lt;em&gt;awesome&lt;/em&gt;&quot;</code></pre>
 <p>What the regular expression engine did was matched as many characters in the <code>.+</code> until it got to the very last ending angled bracket it could find. We can force the <code>+</code> and <code>*</code> modifiers to be lazy and match as few characters as possible to complete the match by adding a <code>?</code> suffix to the <code>+</code> or <code>*</code> modifier.</p>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="string-manipulation.html#cb640-1" aria-hidden="true"></a><span class="kw">str_extract_all</span>(string, <span class="st">&#39;&lt;.+?&gt;&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="string-manipulation.html#cb636-1" aria-hidden="true"></a><span class="kw">str_extract_all</span>(string, <span class="st">&#39;&lt;.+?&gt;&#39;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;&lt;b&gt;&quot;   &quot;&lt;/b&gt;&quot;  &quot;&lt;em&gt;&quot;  &quot;&lt;/em&gt;&quot;</code></pre>
 </div>
@@ -1088,18 +1088,18 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <li>Join the tokens back together</li>
 </ol>
 <p>From this algorithm, upper-case vs lower-case won’t matter, nor will any punctuation. Furthermore, because we split the string into tokens on the internal white space, then the order of the words won’t matter either. This algorithm is available from <code>refinr::key_collision_merge()</code>.</p>
-<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="string-manipulation.html#cb642-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Acme Pizza&quot;</span>, <span class="st">&quot;AcMe PiZzA&quot;</span>, <span class="st">&quot;   ACME PIZZA&quot;</span>, <span class="st">&#39;Pizza, ACME&#39;</span>)</span>
-<span id="cb642-2"><a href="string-manipulation.html#cb642-2" aria-hidden="true"></a><span class="kw">data.frame</span>(<span class="dt">Input =</span> strings, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb642-3"><a href="string-manipulation.html#cb642-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">key_collision_merge</span>(Input) )</span></code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="string-manipulation.html#cb638-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Acme Pizza&quot;</span>, <span class="st">&quot;AcMe PiZzA&quot;</span>, <span class="st">&quot;   ACME PIZZA&quot;</span>, <span class="st">&#39;Pizza, ACME&#39;</span>)</span>
+<span id="cb638-2"><a href="string-manipulation.html#cb638-2" aria-hidden="true"></a><span class="kw">data.frame</span>(<span class="dt">Input =</span> strings, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb638-3"><a href="string-manipulation.html#cb638-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">key_collision_merge</span>(Input) )</span></code></pre></div>
 <pre><code>##           Input        Result
 ## 1    Acme Pizza    ACME PIZZA
 ## 2    AcMe PiZzA    ACME PIZZA
 ## 3    ACME PIZZA    ACME PIZZA
 ## 4   Pizza, ACME    ACME PIZZA</code></pre>
 <p>The function <code>refinr::key_collision_merge()</code> also includes two options for ignoring tokens. First, the <code>ignore_strings</code> argument allows us to set up strings that should be ignored. For example the words <code>the</code>, <code>of</code> often are filler words that should be ignored.</p>
-<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="string-manipulation.html#cb644-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Northern Arizona University&quot;</span>, <span class="st">&quot;University of Northern Arizona&quot;</span>, <span class="st">&quot;The University of Northern Arizona&quot;</span>)</span>
-<span id="cb644-2"><a href="string-manipulation.html#cb644-2" aria-hidden="true"></a><span class="kw">data.frame</span>(<span class="dt">Input =</span> strings, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb644-3"><a href="string-manipulation.html#cb644-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">key_collision_merge</span>(Input, <span class="dt">ignore_strings =</span> <span class="kw">c</span>(<span class="st">&#39;the&#39;</span>,<span class="st">&#39;of&#39;</span>) ) ) </span></code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="string-manipulation.html#cb640-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Northern Arizona University&quot;</span>, <span class="st">&quot;University of Northern Arizona&quot;</span>, <span class="st">&quot;The University of Northern Arizona&quot;</span>)</span>
+<span id="cb640-2"><a href="string-manipulation.html#cb640-2" aria-hidden="true"></a><span class="kw">data.frame</span>(<span class="dt">Input =</span> strings, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb640-3"><a href="string-manipulation.html#cb640-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">key_collision_merge</span>(Input, <span class="dt">ignore_strings =</span> <span class="kw">c</span>(<span class="st">&#39;the&#39;</span>,<span class="st">&#39;of&#39;</span>) ) ) </span></code></pre></div>
 <pre><code>##                                Input                      Result
 ## 1        Northern Arizona University Northern Arizona University
 ## 2     University of Northern Arizona Northern Arizona University
@@ -1110,8 +1110,8 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <h3><span class="header-section-number">11.5.2</span> String Distances</h3>
 <p>Non-exact pattern matching requires some notion of <em>distance</em> between any two strings. One measure of this (called Optimal String Alignment distance) is the number of changes it takes to transform one string to the other where the valid types of changes are deletion, insertion, substitution, and transposition. For example, the distance between <code>sarah</code> and <code>sara</code> is 1 because we only need to delete one character. But the distance between <code>sarah</code> and <code>syria</code> is 3 <code>sarah</code> -&gt; <code>syrah</code> -&gt; <code>syraa</code> -&gt; <code>syria</code>.</p>
 <p>There are other distance metrics to use and the full list available to the <code>stringdist</code> package is available in the documentation <code>help("stringdist-metrics")</code></p>
-<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="string-manipulation.html#cb646-1" aria-hidden="true"></a><span class="co"># Compare two strings</span></span>
-<span id="cb646-2"><a href="string-manipulation.html#cb646-2" aria-hidden="true"></a>stringdist<span class="op">::</span><span class="kw">stringdist</span>(<span class="st">&#39;sarah&#39;</span>, <span class="st">&#39;syria&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="string-manipulation.html#cb642-1" aria-hidden="true"></a><span class="co"># Compare two strings</span></span>
+<span id="cb642-2"><a href="string-manipulation.html#cb642-2" aria-hidden="true"></a>stringdist<span class="op">::</span><span class="kw">stringdist</span>(<span class="st">&#39;sarah&#39;</span>, <span class="st">&#39;syria&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>With the idea of string distance, we could then match strings with small distances.</p>
 </div>
@@ -1134,12 +1134,12 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <li>ank, fra, ran</li>
 <li>ankfraran</li>
 </ol>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="string-manipulation.html#cb648-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Derek Sonderegger&quot;</span>, </span>
-<span id="cb648-2"><a href="string-manipulation.html#cb648-2" aria-hidden="true"></a>             <span class="st">&quot;Derk  Sondreger&quot;</span>, </span>
-<span id="cb648-3"><a href="string-manipulation.html#cb648-3" aria-hidden="true"></a>             <span class="st">&quot;Derek Sooonderegggggger&quot;</span>,</span>
-<span id="cb648-4"><a href="string-manipulation.html#cb648-4" aria-hidden="true"></a>             <span class="st">&quot;John Sonderegger&quot;</span>)</span>
-<span id="cb648-5"><a href="string-manipulation.html#cb648-5" aria-hidden="true"></a><span class="kw">tibble</span>(<span class="dt">Input =</span> strings) <span class="op">%&gt;%</span></span>
-<span id="cb648-6"><a href="string-manipulation.html#cb648-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">n_gram_merge</span>(Input, <span class="dt">numgram =</span> <span class="dv">2</span>, <span class="dt">edit_threshold =</span> <span class="dv">10</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="string-manipulation.html#cb644-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Derek Sonderegger&quot;</span>, </span>
+<span id="cb644-2"><a href="string-manipulation.html#cb644-2" aria-hidden="true"></a>             <span class="st">&quot;Derk  Sondreger&quot;</span>, </span>
+<span id="cb644-3"><a href="string-manipulation.html#cb644-3" aria-hidden="true"></a>             <span class="st">&quot;Derek Sooonderegggggger&quot;</span>,</span>
+<span id="cb644-4"><a href="string-manipulation.html#cb644-4" aria-hidden="true"></a>             <span class="st">&quot;John Sonderegger&quot;</span>)</span>
+<span id="cb644-5"><a href="string-manipulation.html#cb644-5" aria-hidden="true"></a><span class="kw">tibble</span>(<span class="dt">Input =</span> strings) <span class="op">%&gt;%</span></span>
+<span id="cb644-6"><a href="string-manipulation.html#cb644-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Result =</span> <span class="kw">n_gram_merge</span>(Input, <span class="dt">numgram =</span> <span class="dv">2</span>, <span class="dt">edit_threshold =</span> <span class="dv">10</span>) )</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 2
 ##   Input                   Result           
 ##   &lt;chr&gt;                   &lt;chr&gt;            
@@ -1155,85 +1155,85 @@ The special characters are <code>[ \ ^ $ . | ? * + ()</code>.</p>
 <li><p>For the following regular expression, explain in words what it matches on. Then add test strings to demonstrate that it in fact does match on the pattern you claim it does. Make sure that your test set of strings has several examples that match as well as several that do not. <em>If you copy the Rmarkdown code for these exercises directly from my source pages, make sure to remove the <code>eval=FALSE</code> from the R-chunk headers.</em></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="string-manipulation.html#cb646-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb646-2"><a href="string-manipulation.html#cb646-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb646-3"><a href="string-manipulation.html#cb646-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;a&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="string-manipulation.html#cb647-1" aria-hidden="true"></a><span class="co"># This regular expression matches:  Insert your answer here...</span></span>
+<span id="cb647-2"><a href="string-manipulation.html#cb647-2" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb647-3"><a href="string-manipulation.html#cb647-3" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb647-4"><a href="string-manipulation.html#cb647-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;ab&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="string-manipulation.html#cb648-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb648-2"><a href="string-manipulation.html#cb648-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb648-3"><a href="string-manipulation.html#cb648-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;[ab]&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="string-manipulation.html#cb649-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb649-2"><a href="string-manipulation.html#cb649-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb649-3"><a href="string-manipulation.html#cb649-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^[ab]&#39;</span>) )</span></code></pre></div></li>
+<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
 <div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="string-manipulation.html#cb650-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
 <span id="cb650-2"><a href="string-manipulation.html#cb650-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb650-3"><a href="string-manipulation.html#cb650-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;a&#39;</span>) )</span></code></pre></div></li>
+<span id="cb650-3"><a href="string-manipulation.html#cb650-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">s[aA]&#39;</span>) )</span></code></pre></div></li>
 <li><p>This regular expression matches: <em>Insert your answer here…</em></p>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="string-manipulation.html#cb651-1" aria-hidden="true"></a><span class="co"># This regular expression matches:  Insert your answer here...</span></span>
-<span id="cb651-2"><a href="string-manipulation.html#cb651-2" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb651-3"><a href="string-manipulation.html#cb651-3" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb651-4"><a href="string-manipulation.html#cb651-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;ab&#39;</span>) )</span></code></pre></div></li>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="string-manipulation.html#cb651-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb651-2"><a href="string-manipulation.html#cb651-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
+<span id="cb651-3"><a href="string-manipulation.html#cb651-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">s*[aA]&#39;</span>) )</span></code></pre></div></li>
 <li><p>This regular expression matches: <em>Insert your answer here…</em></p>
 <div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="string-manipulation.html#cb652-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
 <span id="cb652-2"><a href="string-manipulation.html#cb652-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb652-3"><a href="string-manipulation.html#cb652-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;[ab]&#39;</span>) )</span></code></pre></div></li>
+<span id="cb652-3"><a href="string-manipulation.html#cb652-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;.*&#39;</span>) )</span></code></pre></div></li>
 <li><p>This regular expression matches: <em>Insert your answer here…</em></p>
 <div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="string-manipulation.html#cb653-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
 <span id="cb653-2"><a href="string-manipulation.html#cb653-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb653-3"><a href="string-manipulation.html#cb653-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^[ab]&#39;</span>) )</span></code></pre></div></li>
+<span id="cb653-3"><a href="string-manipulation.html#cb653-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^</span><span class="ch">\\</span><span class="st">w{2}bar&#39;</span>) )</span></code></pre></div></li>
 <li><p>This regular expression matches: <em>Insert your answer here…</em></p>
 <div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="string-manipulation.html#cb654-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
 <span id="cb654-2"><a href="string-manipulation.html#cb654-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb654-3"><a href="string-manipulation.html#cb654-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">s[aA]&#39;</span>) )</span></code></pre></div></li>
-<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="string-manipulation.html#cb655-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb655-2"><a href="string-manipulation.html#cb655-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb655-3"><a href="string-manipulation.html#cb655-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">s*[aA]&#39;</span>) )</span></code></pre></div></li>
-<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="string-manipulation.html#cb656-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb656-2"><a href="string-manipulation.html#cb656-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb656-3"><a href="string-manipulation.html#cb656-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;.*&#39;</span>) )</span></code></pre></div></li>
-<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="string-manipulation.html#cb657-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb657-2"><a href="string-manipulation.html#cb657-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb657-3"><a href="string-manipulation.html#cb657-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^</span><span class="ch">\\</span><span class="st">w{2}bar&#39;</span>) )</span></code></pre></div></li>
-<li><p>This regular expression matches: <em>Insert your answer here…</em></p>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="string-manipulation.html#cb658-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb658-2"><a href="string-manipulation.html#cb658-2" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string =</span> strings ) <span class="op">%&gt;%</span></span>
-<span id="cb658-3"><a href="string-manipulation.html#cb658-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;(foo</span><span class="ch">\\</span><span class="st">.bar)|(^</span><span class="ch">\\</span><span class="st">w{2}bar)&#39;</span>) )</span></code></pre></div></li>
+<span id="cb654-3"><a href="string-manipulation.html#cb654-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;(foo</span><span class="ch">\\</span><span class="st">.bar)|(^</span><span class="ch">\\</span><span class="st">w{2}bar)&#39;</span>) )</span></code></pre></div></li>
 </ol></li>
 <li><p>The following file names were used in a camera trap study. The S number represents the site, P is the plot within a site, C is the camera number within the plot, the first string of numbers is the YearMonthDay and the second string of numbers is the HourMinuteSecond.</p>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="string-manipulation.html#cb659-1" aria-hidden="true"></a>file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</span>
-<span id="cb659-2"><a href="string-manipulation.html#cb659-2" aria-hidden="true"></a>                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</span>
-<span id="cb659-3"><a href="string-manipulation.html#cb659-3" aria-hidden="true"></a>                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="string-manipulation.html#cb655-1" aria-hidden="true"></a>file.names &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&#39;S123.P2.C10_20120621_213422.jpg&#39;</span>,</span>
+<span id="cb655-2"><a href="string-manipulation.html#cb655-2" aria-hidden="true"></a>                 <span class="st">&#39;S10.P1.C1_20120622_050148.jpg&#39;</span>,</span>
+<span id="cb655-3"><a href="string-manipulation.html#cb655-3" aria-hidden="true"></a>                 <span class="st">&#39;S187.P2.C2_20120702_023501.jpg&#39;</span>)</span></code></pre></div>
 <p>Produce a data frame with columns corresponding to the <code>site</code>, <code>plot</code>, <code>camera</code>, <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>, and <code>second</code> for these three file names. So we want to produce code that will create the data frame:</p>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="string-manipulation.html#cb660-1" aria-hidden="true"></a> Site Plot Camera Year Month Day Hour Minute Second</span>
-<span id="cb660-2"><a href="string-manipulation.html#cb660-2" aria-hidden="true"></a> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></span>
-<span id="cb660-3"><a href="string-manipulation.html#cb660-3" aria-hidden="true"></a>  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></span>
-<span id="cb660-4"><a href="string-manipulation.html#cb660-4" aria-hidden="true"></a> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="string-manipulation.html#cb656-1" aria-hidden="true"></a> Site Plot Camera Year Month Day Hour Minute Second</span>
+<span id="cb656-2"><a href="string-manipulation.html#cb656-2" aria-hidden="true"></a> S123   P2    C10 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">21</span>   <span class="dv">21</span>     <span class="dv">34</span>     <span class="dv">22</span></span>
+<span id="cb656-3"><a href="string-manipulation.html#cb656-3" aria-hidden="true"></a>  S10   P1     C1 <span class="dv">2012</span>    <span class="dv">06</span>  <span class="dv">22</span>   <span class="dv">05</span>     <span class="dv">01</span>     <span class="dv">48</span></span>
+<span id="cb656-4"><a href="string-manipulation.html#cb656-4" aria-hidden="true"></a> S187   P2     C2 <span class="dv">2012</span>    <span class="dv">07</span>  <span class="dv">02</span>   <span class="dv">02</span>     <span class="dv">35</span>     <span class="dv">01</span></span></code></pre></div></li>
 <li><p>The full text from Lincoln’s Gettysburg Address is given below. Calculate the mean word length <em>Note: consider ‘battle-field’ as one word with 11 letters</em>).</p></li>
 </ol>
-<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="string-manipulation.html#cb661-1" aria-hidden="true"></a>Gettysburg &lt;-<span class="st"> &#39;Four score and seven years ago our fathers brought forth on this </span></span>
-<span id="cb661-2"><a href="string-manipulation.html#cb661-2" aria-hidden="true"></a><span class="st">continent, a new nation, conceived in Liberty, and dedicated to the proposition </span></span>
-<span id="cb661-3"><a href="string-manipulation.html#cb661-3" aria-hidden="true"></a><span class="st">that all men are created equal.</span></span>
-<span id="cb661-4"><a href="string-manipulation.html#cb661-4" aria-hidden="true"></a></span>
-<span id="cb661-5"><a href="string-manipulation.html#cb661-5" aria-hidden="true"></a><span class="st">Now we are engaged in a great civil war, testing whether that nation, or any </span></span>
-<span id="cb661-6"><a href="string-manipulation.html#cb661-6" aria-hidden="true"></a><span class="st">nation so conceived and so dedicated, can long endure. We are met on a great </span></span>
-<span id="cb661-7"><a href="string-manipulation.html#cb661-7" aria-hidden="true"></a><span class="st">battle-field of that war. We have come to dedicate a portion of that field, as </span></span>
-<span id="cb661-8"><a href="string-manipulation.html#cb661-8" aria-hidden="true"></a><span class="st">a final resting place for those who here gave their lives that that nation might </span></span>
-<span id="cb661-9"><a href="string-manipulation.html#cb661-9" aria-hidden="true"></a><span class="st">live. It is altogether fitting and proper that we should do this.</span></span>
-<span id="cb661-10"><a href="string-manipulation.html#cb661-10" aria-hidden="true"></a></span>
-<span id="cb661-11"><a href="string-manipulation.html#cb661-11" aria-hidden="true"></a><span class="st">But, in a larger sense, we can not dedicate -- we can not consecrate -- we can </span></span>
-<span id="cb661-12"><a href="string-manipulation.html#cb661-12" aria-hidden="true"></a><span class="st">not hallow -- this ground. The brave men, living and dead, who struggled here, </span></span>
-<span id="cb661-13"><a href="string-manipulation.html#cb661-13" aria-hidden="true"></a><span class="st">have consecrated it, far above our poor power to add or detract. The world will </span></span>
-<span id="cb661-14"><a href="string-manipulation.html#cb661-14" aria-hidden="true"></a><span class="st">little note, nor long remember what we say here, but it can never forget what </span></span>
-<span id="cb661-15"><a href="string-manipulation.html#cb661-15" aria-hidden="true"></a><span class="st">they did here. It is for us the living, rather, to be dedicated here to the </span></span>
-<span id="cb661-16"><a href="string-manipulation.html#cb661-16" aria-hidden="true"></a><span class="st">unfinished work which they who fought here have thus far so nobly advanced. It </span></span>
-<span id="cb661-17"><a href="string-manipulation.html#cb661-17" aria-hidden="true"></a><span class="st">is rather for us to be here dedicated to the great task remaining before us -- </span></span>
-<span id="cb661-18"><a href="string-manipulation.html#cb661-18" aria-hidden="true"></a><span class="st">that from these honored dead we take increased devotion to that cause for which </span></span>
-<span id="cb661-19"><a href="string-manipulation.html#cb661-19" aria-hidden="true"></a><span class="st">they gave the last full measure of devotion -- that we here highly resolve that </span></span>
-<span id="cb661-20"><a href="string-manipulation.html#cb661-20" aria-hidden="true"></a><span class="st">these dead shall not have died in vain -- that this nation, under God, shall </span></span>
-<span id="cb661-21"><a href="string-manipulation.html#cb661-21" aria-hidden="true"></a><span class="st">have a new birth of freedom -- and that government of the people, by the people, </span></span>
-<span id="cb661-22"><a href="string-manipulation.html#cb661-22" aria-hidden="true"></a><span class="st">for the people, shall not perish from the earth.&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="string-manipulation.html#cb657-1" aria-hidden="true"></a>Gettysburg &lt;-<span class="st"> &#39;Four score and seven years ago our fathers brought forth on this </span></span>
+<span id="cb657-2"><a href="string-manipulation.html#cb657-2" aria-hidden="true"></a><span class="st">continent, a new nation, conceived in Liberty, and dedicated to the proposition </span></span>
+<span id="cb657-3"><a href="string-manipulation.html#cb657-3" aria-hidden="true"></a><span class="st">that all men are created equal.</span></span>
+<span id="cb657-4"><a href="string-manipulation.html#cb657-4" aria-hidden="true"></a></span>
+<span id="cb657-5"><a href="string-manipulation.html#cb657-5" aria-hidden="true"></a><span class="st">Now we are engaged in a great civil war, testing whether that nation, or any </span></span>
+<span id="cb657-6"><a href="string-manipulation.html#cb657-6" aria-hidden="true"></a><span class="st">nation so conceived and so dedicated, can long endure. We are met on a great </span></span>
+<span id="cb657-7"><a href="string-manipulation.html#cb657-7" aria-hidden="true"></a><span class="st">battle-field of that war. We have come to dedicate a portion of that field, as </span></span>
+<span id="cb657-8"><a href="string-manipulation.html#cb657-8" aria-hidden="true"></a><span class="st">a final resting place for those who here gave their lives that that nation might </span></span>
+<span id="cb657-9"><a href="string-manipulation.html#cb657-9" aria-hidden="true"></a><span class="st">live. It is altogether fitting and proper that we should do this.</span></span>
+<span id="cb657-10"><a href="string-manipulation.html#cb657-10" aria-hidden="true"></a></span>
+<span id="cb657-11"><a href="string-manipulation.html#cb657-11" aria-hidden="true"></a><span class="st">But, in a larger sense, we can not dedicate -- we can not consecrate -- we can </span></span>
+<span id="cb657-12"><a href="string-manipulation.html#cb657-12" aria-hidden="true"></a><span class="st">not hallow -- this ground. The brave men, living and dead, who struggled here, </span></span>
+<span id="cb657-13"><a href="string-manipulation.html#cb657-13" aria-hidden="true"></a><span class="st">have consecrated it, far above our poor power to add or detract. The world will </span></span>
+<span id="cb657-14"><a href="string-manipulation.html#cb657-14" aria-hidden="true"></a><span class="st">little note, nor long remember what we say here, but it can never forget what </span></span>
+<span id="cb657-15"><a href="string-manipulation.html#cb657-15" aria-hidden="true"></a><span class="st">they did here. It is for us the living, rather, to be dedicated here to the </span></span>
+<span id="cb657-16"><a href="string-manipulation.html#cb657-16" aria-hidden="true"></a><span class="st">unfinished work which they who fought here have thus far so nobly advanced. It </span></span>
+<span id="cb657-17"><a href="string-manipulation.html#cb657-17" aria-hidden="true"></a><span class="st">is rather for us to be here dedicated to the great task remaining before us -- </span></span>
+<span id="cb657-18"><a href="string-manipulation.html#cb657-18" aria-hidden="true"></a><span class="st">that from these honored dead we take increased devotion to that cause for which </span></span>
+<span id="cb657-19"><a href="string-manipulation.html#cb657-19" aria-hidden="true"></a><span class="st">they gave the last full measure of devotion -- that we here highly resolve that </span></span>
+<span id="cb657-20"><a href="string-manipulation.html#cb657-20" aria-hidden="true"></a><span class="st">these dead shall not have died in vain -- that this nation, under God, shall </span></span>
+<span id="cb657-21"><a href="string-manipulation.html#cb657-21" aria-hidden="true"></a><span class="st">have a new birth of freedom -- and that government of the people, by the people, </span></span>
+<span id="cb657-22"><a href="string-manipulation.html#cb657-22" aria-hidden="true"></a><span class="st">for the people, shall not perish from the earth.&#39;</span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Variable names in R may be and combination letters, digits, period, and underscore. However, they may not start with a digit and if they start with a period, they must not be followed by a digit.</p>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="string-manipulation.html#cb662-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;foo15&#39;</span>, <span class="st">&#39;Bar&#39;</span>, <span class="st">&#39;.resid&#39;</span>, <span class="st">&#39;_14s&#39;</span>, </span>
-<span id="cb662-2"><a href="string-manipulation.html#cb662-2" aria-hidden="true"></a>             <span class="st">&#39;99_Bottles&#39;</span>, <span class="st">&#39;.9Arggh&#39;</span>, <span class="st">&#39;Foo!&#39;</span>,<span class="st">&#39;HIV Rate&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="string-manipulation.html#cb658-1" aria-hidden="true"></a>strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;foo15&#39;</span>, <span class="st">&#39;Bar&#39;</span>, <span class="st">&#39;.resid&#39;</span>, <span class="st">&#39;_14s&#39;</span>, </span>
+<span id="cb658-2"><a href="string-manipulation.html#cb658-2" aria-hidden="true"></a>             <span class="st">&#39;99_Bottles&#39;</span>, <span class="st">&#39;.9Arggh&#39;</span>, <span class="st">&#39;Foo!&#39;</span>,<span class="st">&#39;HIV Rate&#39;</span>)</span></code></pre></div>
 <p>The first four are valid variable names, but the last four are not.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>First write a regular expression that determines if the string starts with a character (upper or lower case) or underscore and then is followed by zero or more numbers, letters, periods or underscores. <em>Notice I use the start/end of string markers. This is important so that we don’t just match somewhere in the middle of the variable name.</em></p>
-<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="string-manipulation.html#cb663-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
-<span id="cb663-2"><a href="string-manipulation.html#cb663-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^(???what goes here???)$&#39;</span> )) </span></code></pre></div></li>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="string-manipulation.html#cb659-1" aria-hidden="true"></a><span class="kw">data.frame</span>( <span class="dt">string=</span>strings ) <span class="op">%&gt;%</span></span>
+<span id="cb659-2"><a href="string-manipulation.html#cb659-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result =</span> <span class="kw">str_detect</span>(string, <span class="st">&#39;^(???what goes here???)$&#39;</span> )) </span></code></pre></div></li>
 <li><p>Modify your regular expression so that the first group could be either <code>[a-zA-Z_]</code> as before or it could be a period followed by letters or an underscore.</p></li>
 </ol></li>
 </ol>

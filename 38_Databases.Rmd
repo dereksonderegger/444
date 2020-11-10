@@ -348,9 +348,11 @@ dbDisconnect(con)
     con <- DBI::dbConnect(RSQLite::SQLite(), dbname = "TestSQLiteFile.db")
     
     # Create a table using the iris data
-    dbCreateTable(con, 'IRIS', iris)
-    dbListTables(con)
-    dbDisconnect(con)
+    dbWriteTable(con, 'IRIS', iris)
+    
+    dbListTables(con)         # What tables are available...
+    dbReadTable(con, "IRIS")  # Spit out the IRIS table
+    dbDisconnect(con)         # Close connection
     ```
     b) Now check the files in your current working directory as there should now be a `TestSQLiteFile.db`. The SQLite file structure for data is extremely stable and works across platform types (Unix/Windows, 32/64 bit, big/little endian, etc).  As such, it is a good file type choice for storing lots of data in a compact format across different systems (e.g. applications that work on a mobile device vs a computer)
 

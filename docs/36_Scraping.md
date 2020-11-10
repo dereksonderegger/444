@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\n'Secret Life Of Supermarkets' Reveals Bounty's Dark Side\n"                                         
-## [2] "\nThis Reddit Thread Of The 'Harshest Truths' People Have Learned Offers A Sobering Dose Of Reality\n"
-## [3] "\nThis Final Lap Of A Super Trucks Championship Race Is Bonkers To Watch\n"                           
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                          
-## [5] "\nWhat Happens When CNN Tries To Fact Check 'Stop The Steal' Protesters\n"                            
-## [6] "\nIs America's Most Famous Bookshop On The Verge Of A Mutiny?\n"
+## [1] "\nWhy Does Everyone Hate 'Hillbilly Elegy'? Here's What The Reviews Are Saying\n"                            
+## [2] "\nSomehow, There Was Yet Another Apple Event To Announce New Stuff. Here's All The Important Stuff From It\n"
+## [3] "\nNBC News Reporter Has A NSFW Technical Difficulty On Live TV\n"                                            
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                 
+## [5] "\nThis Is How Nonsensical English Sounds Like To People Who Don't Speak The Langauge\n"                      
+## [6] "\nThe White House Lawn Was Mysteriously Dug Up. See The Before And After Photos\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "https://www.npr.org/sections/health-shots/2020/11/07/931348023/secret-life-of-supermarkets-shines-a-light-on-bountys-dark-side?utm_source=digg"
-## [2] "/2020/harshest-truths-reddit-thread"                                                                                                           
-## [3] "/2020/super-trucks-championship-gold-coast-race-3-sheldon-creed"                                                                               
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                   
-## [5] "/video/cnn-fact-checks-stop-the-steal-protestors-election"                                                                                     
-## [6] "https://www.insidehook.com/article/books/strand-bookstore-labor-mutiny-coronavirus-pandemic?utm_source=digg"
+## [1] "/2020/hillbilly-elegy-movie-bad-reviews"                              
+## [2] "/2020/apple-one-more-thing-macbook-chip"                              
+## [3] "/video/nbc-news-reporter-has-a-nsfw-technical-difficulty-on-live-tv"  
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"          
+## [5] "/2020/what-languages-sound-like-to-people-who-dont-speak-the-language"
+## [6] "/2020/white-house-lawn-dug-up-before-after-photos"
 ```
 
 

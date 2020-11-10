@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2020-11-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -514,7 +514,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="statistical-tables" class="section level1 unnumbered">
 <h1>Statistical Tables</h1>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="statistical-tables.html#cb308-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="statistical-tables.html#cb304-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <p>Statistics makes use of a wide variety of distributions and before the days of personal computers, every statistician had books with hundreds and hundreds of pages of tables allowing them to look up particular values. Fortunately in the modern age, we don’t need those books and tables, but we do still need to access those values. To make life easier and consistent for R users, every distribution is accessed in the same manner.</p>
 <div id="example-distributions" class="section level2 unnumbered">
 <h2>Example Distributions</h2>
@@ -586,10 +586,10 @@ Denominator Degrees of freedom</td>
 <h2><code>mosaic::plotDist()</code> function</h2>
 <p>The <code>mosaic</code> package provides a very useful routine for understanding a distribution. The <code>plotDist()</code> function takes the R name of the distribution along with whatever parameters are necessary for that function and show the distribution. For reference below is a list of common distributions and their R name and a list of necessary parameters.</p>
 <p>For example, to see the normal distribution with mean <span class="math inline">\(\mu=10\)</span> and standard deviation <span class="math inline">\(\sigma=2\)</span>, we use</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="statistical-tables.html#cb309-1" aria-hidden="true"></a>mosaic<span class="op">::</span><span class="kw">plotDist</span>(<span class="st">&#39;norm&#39;</span>, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="statistical-tables.html#cb305-1" aria-hidden="true"></a>mosaic<span class="op">::</span><span class="kw">plotDist</span>(<span class="st">&#39;norm&#39;</span>, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="11_StatisticalTables_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>This function works for discrete distributions as well.</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="statistical-tables.html#cb310-1" aria-hidden="true"></a>mosaic<span class="op">::</span><span class="kw">plotDist</span>(<span class="st">&#39;binom&#39;</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="statistical-tables.html#cb306-1" aria-hidden="true"></a>mosaic<span class="op">::</span><span class="kw">plotDist</span>(<span class="st">&#39;binom&#39;</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">3</span>)</span></code></pre></div>
 <p><img src="11_StatisticalTables_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="base-r-functions" class="section level2 unnumbered">
@@ -637,35 +637,35 @@ but that calculation is fairly tedious. To get R to do the same calculation, we 
 value we are interested in along with the distribution parameters <span class="math inline">\(n\)</span>
 and <span class="math inline">\(\pi\)</span>.</p>
 <p>The first thing we should do is check the help file for the binomial distribution functions to see what parameters are needed and what they are named.</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="statistical-tables.html#cb311-1" aria-hidden="true"></a>?dbinom</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="statistical-tables.html#cb307-1" aria-hidden="true"></a>?dbinom</span></code></pre></div>
 <p>The help file shows us the parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(\pi\)</span> are called size and prob respectively. So to calculate the probability that <span class="math inline">\(X=0\)</span> we would use the following command:</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="statistical-tables.html#cb312-1" aria-hidden="true"></a><span class="kw">dbinom</span>(<span class="dv">0</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="statistical-tables.html#cb308-1" aria-hidden="true"></a><span class="kw">dbinom</span>(<span class="dv">0</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1073742</code></pre>
 </div>
 <div id="p-function" class="section level3 unnumbered">
 <h3>p-function</h3>
 <p>Often we are interested in the probability of observing some value or anything less (In probability theory, we call this the cumulative density function or CDF). P-values will be calculated this way, so we want a nice easy way to do this.</p>
 <p>To start our example with the binomial distribution, again let <span class="math inline">\(X\sim Binomial\left(n=10,\pi=0.2\right)\)</span>. Suppose I want to know what the probability of observing a 0, 1, or 2? That is, what is <span class="math inline">\(P\left(X\le2\right)\)</span>? I could just find the probability of each and add them up.</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="statistical-tables.html#cb314-1" aria-hidden="true"></a><span class="kw">dbinom</span>(<span class="dv">0</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">2</span>)   <span class="op">+</span><span class="st">       </span><span class="co">#   P(X==0) +</span></span>
-<span id="cb314-2"><a href="statistical-tables.html#cb314-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">dbinom</span>(<span class="dv">1</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">2</span>) <span class="op">+</span><span class="st">       </span><span class="co">#     P(X==1) +</span></span>
-<span id="cb314-3"><a href="statistical-tables.html#cb314-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">dbinom</span>(<span class="dv">2</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">2</span>)         <span class="co">#     P(X==2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="statistical-tables.html#cb310-1" aria-hidden="true"></a><span class="kw">dbinom</span>(<span class="dv">0</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">2</span>)   <span class="op">+</span><span class="st">       </span><span class="co">#   P(X==0) +</span></span>
+<span id="cb310-2"><a href="statistical-tables.html#cb310-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">dbinom</span>(<span class="dv">1</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">2</span>) <span class="op">+</span><span class="st">       </span><span class="co">#     P(X==1) +</span></span>
+<span id="cb310-3"><a href="statistical-tables.html#cb310-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">dbinom</span>(<span class="dv">2</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">2</span>)         <span class="co">#     P(X==2)</span></span></code></pre></div>
 <pre><code>## [1] 0.6777995</code></pre>
 <p>but this would get tedious for binomial distributions with a large number of trials. The shortcut is to use the <code>pbinom()</code> function.</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="statistical-tables.html#cb316-1" aria-hidden="true"></a><span class="kw">pbinom</span>(<span class="dv">2</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="statistical-tables.html#cb312-1" aria-hidden="true"></a><span class="kw">pbinom</span>(<span class="dv">2</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.6777995</code></pre>
 <p>For discrete distributions, you must be careful because R will give you the probability of less than or equal to 2. If you wanted less than two, you should use <code>dbinom(1,10,.2)</code>.</p>
 <p>The normal distribution works similarly. Suppose for <span class="math inline">\(Z\sim N\left(0,1\right)\)</span>
 and we wanted to know <span class="math inline">\(P\left(Z\le-1\right)\)</span>?
 <img src="11_StatisticalTables_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>The answer is easily found via <code>pnorm()</code>.</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="statistical-tables.html#cb318-1" aria-hidden="true"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="statistical-tables.html#cb314-1" aria-hidden="true"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1586553</code></pre>
 <p>Notice for continuous random variables, the probability <span class="math inline">\(P\left(Z=-1\right)=0\)</span> so we can ignore the issue of “less than” vs “less than or equal to”.</p>
 <p>Often times we will want to know the probability of greater than some value. That is, we might want to find <span class="math inline">\(P\left(Z \ge -1\right)\)</span>. For the normal distribution, there are a number of tricks we could use. Notably
 <span class="math display">\[P\left(Z\ge-1\right)  =   P\left(Z\le1\right)=1-P\left(Z&lt;-1\right)\]</span>
 but sometimes I’m lazy and would like to tell R to give me the area to the right instead of area to the left (which is the default). This can be done by setting the argument <span class="math inline">\(lower.tail=FALSE\)</span>.</p>
 <p>The <code>mosaic</code> package includes an augmented version of the <code>pnorm()</code> function called <code>xpnorm()</code> that calculates the same number but includes some extra information and produces a pretty graph to help us understand what we just calculated and do the tedious “1 minus” calculation to find the upper area. Fortunately this x-variant exists for the Normal, Chi-squared, F, Gamma continuous distributions and the discrete Poisson, Geometric, and Binomial distributions.</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="statistical-tables.html#cb320-1" aria-hidden="true"></a>mosaic<span class="op">::</span><span class="kw">xpnorm</span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="statistical-tables.html#cb316-1" aria-hidden="true"></a>mosaic<span class="op">::</span><span class="kw">xpnorm</span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## </code></pre>
 <pre><code>## If X ~ N(0, 1), then</code></pre>
 <pre><code>##  P(X &lt;= -1) = P(Z &lt;= -1) = 0.1587</code></pre>
@@ -679,7 +679,7 @@ but sometimes I’m lazy and would like to tell R to give me the area to the rig
 <p>In class, we will also find ourselves asking for the quantiles of a distribution. Percentiles are by definition 1/100, 2/100, etc but if I am interested in something that isn’t and even division of 100, we get fancy can call them quantiles. This is a small semantic quibble, but we ought to be precise. That being said, I won’t correct somebody if they call these percentiles. For example, I might want to find the 0.30 quantile, which is the value such that 30% of the distribution is less than it, and 70% is greater. Mathematically, I wish to find the value <span class="math inline">\(z\)</span> such that <span class="math inline">\(P(Z&lt;z)=0.30\)</span>.</p>
 <p>To find this value in the tables in a book, we use the table in reverse. R gives us a handy way to do this with the <code>qnorm()</code> function and the mosaic package provides a nice visualization using the augmented <code>xqnorm()</code>.</p>
 <p>Below, I specify that I’m using a function in the <code>mosaic</code> package by specifying it via <code>PackageName::FunctionName()</code> format because I haven’t loaded the <code>mosaic</code> package because some of its functions conflict with <code>dplyr</code>.</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="statistical-tables.html#cb327-1" aria-hidden="true"></a>mosaic<span class="op">::</span><span class="kw">xqnorm</span>(<span class="fl">0.30</span>)   <span class="co"># Give me the value along with a pretty picture</span></span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="statistical-tables.html#cb323-1" aria-hidden="true"></a>mosaic<span class="op">::</span><span class="kw">xqnorm</span>(<span class="fl">0.30</span>)   <span class="co"># Give me the value along with a pretty picture</span></span></code></pre></div>
 <pre><code>## </code></pre>
 <pre><code>## If X ~ N(0, 1), then</code></pre>
 <pre><code>##  P(X &lt;= -0.5244005) = 0.3</code></pre>
@@ -687,16 +687,16 @@ but sometimes I’m lazy and would like to tell R to give me the area to the rig
 <pre><code>## </code></pre>
 <p><img src="11_StatisticalTables_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre><code>## [1] -0.5244005</code></pre>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="statistical-tables.html#cb334-1" aria-hidden="true"></a><span class="kw">qnorm</span>(.<span class="dv">30</span>)             <span class="co"># No pretty picture, just the value</span></span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="statistical-tables.html#cb330-1" aria-hidden="true"></a><span class="kw">qnorm</span>(.<span class="dv">30</span>)             <span class="co"># No pretty picture, just the value</span></span></code></pre></div>
 <pre><code>## [1] -0.5244005</code></pre>
 </div>
 <div id="r-function" class="section level3 unnumbered">
 <h3>r-function</h3>
 <p>Finally, I often want to be able to generate random data from a particular distribution. R does this with the r-function. The first argument to this function the number of random variables to draw and any remaining arguments are the parameters of the distribution.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="statistical-tables.html#cb336-1" aria-hidden="true"></a><span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean=</span><span class="dv">20</span>, <span class="dt">sd=</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## [1] 17.71513 19.59180 20.29639 19.66386 21.96256</code></pre>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="statistical-tables.html#cb338-1" aria-hidden="true"></a><span class="kw">rbinom</span>(<span class="dv">4</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">8</span>)</span></code></pre></div>
-<pre><code>## [1] 8 7 9 7</code></pre>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="statistical-tables.html#cb332-1" aria-hidden="true"></a><span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean=</span><span class="dv">20</span>, <span class="dt">sd=</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 16.50358 21.12358 20.38889 18.00553 18.58448</code></pre>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="statistical-tables.html#cb334-1" aria-hidden="true"></a><span class="kw">rbinom</span>(<span class="dv">4</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span>.<span class="dv">8</span>)</span></code></pre></div>
+<pre><code>## [1] 6 9 8 5</code></pre>
 </div>
 </div>
 <div id="Exercises_Statistical_Tables" class="section level2 unnumbered">
@@ -730,11 +730,11 @@ but sometimes I’m lazy and would like to tell R to give me the area to the rig
 <ol style="list-style-type: lower-alpha">
 <li><p>Generate a single value from a uniform distribution with minimum 0, and maximum 1 using the <code>runif()</code> function. Repeat this step several times and confirm you are getting different values each time.</p></li>
 <li><p>Generate a sample of size 20 from the same uniform distribution and save it as the vector <code>x</code> using the following:</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="statistical-tables.html#cb340-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">20</span>, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="statistical-tables.html#cb336-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">20</span>, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">1</span>)</span></code></pre></div>
 <p>Then produce a histogram of the sample using the function <code>hist()</code> or <code>geom_histogram</code></p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="statistical-tables.html#cb341-1" aria-hidden="true"></a><span class="kw">data.frame</span>(<span class="dt">x=</span>x) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb341-2"><a href="statistical-tables.html#cb341-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>x)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb341-3"><a href="statistical-tables.html#cb341-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">10</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="statistical-tables.html#cb337-1" aria-hidden="true"></a><span class="kw">data.frame</span>(<span class="dt">x=</span>x) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb337-2"><a href="statistical-tables.html#cb337-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>x)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb337-3"><a href="statistical-tables.html#cb337-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">10</span>)</span></code></pre></div></li>
 <li><p>Generate a sample of 2000 from a normal distribution with <code>mean=10</code> and standard deviation <code>sd=2</code> using the <code>rnorm()</code> function. Create a histogram the the resulting sample.</p></li>
 </ol></li>
 </ol>
