@@ -13,17 +13,21 @@ There is a YouTube [Video Lecture](https://youtu.be/ElDmEwslJw0) for the chapter
 
 As our data grows larger and is being updated more frequently, we need to stop using static input files and instead learn to interact with databases. There are a many reasons for using a database, but these are my favorite:
 
+## Introduction
+
 1. Data Freshness. Because the database holds the definitive copy of the data, there isn't a problem of using a .csv file that is months (or years) old. That means my results are constantly being updated with new data.
 2. No Local Storage. Because the data lives on the database, I don't have to occupy gigabytes of space on my laptop to hold an out-of-date copy of the data.
 3. Database actions are atomic. Whenever I update the database, the action either happens or it doesn't and the database should never be left in an inconsistent state. This extremely important when processing financial transactions, for example.
 
-Fortunately, reading information from a database instead of an in-memory table won't change our current work flow and superficially the change is trivial. However, the impact can be quite profound in the timeliness and re-usability of our work. 
+Fortunately, reading information from a database instead of an in-memory table won't change our current work flow and superficially the change is trivial. However, the impact can be quite profound in the timeliness and re-usability of our work.
+
+<!-- Local databases are also quite useful.  -->
 
 The great people at Rstudio have created a [great website](https://db.rstudio.com/overview/) for using databases using their `dbplyr` package.
 
 However, the package `dbplyr` is really only intended for *reading* from the data base and does not support *writing* to the data base. 
 
-## Tutorial Set-Up
+## Establishing a Connection
 
 Databases should be run on a server that is ALWAYS on and available via an internet connection. To connect to a database, we'll need to know the internet address and be able to authenticate with a username/password combination.
 
@@ -165,16 +169,16 @@ rm(Cards, Customers, Retailers, Transactions)     # Remove all the setup except 
 ```
 
 
-## Using SQL chunks
+## Basic SQL Commands
 
 The traditional way to interact with a database is by using SQL syntax. SQL stands for Structured Query Language and some understanding of SQL is mandatory for anyone that interacts with databases.  There are many good introduction to SQL but we'll cover a few basics here.
 
-To begin, lets run a simple SQL query.
+### SELECT rows
 
 
 ```r
-sql_cmd <- 'SELECT * FROM Transactions'
-transactions <- DBI::dbGetQuery(con, sql_cmd)
+sql_cmd <- 'SELECT * FROM Transactions'       # Define a character string with SQL command
+transactions <- DBI::dbGetQuery(con, sql_cmd) # Run the command
 transactions
 ```
 
@@ -212,6 +216,10 @@ SELECT * from Customers
 ```
 ```
 
+```sql
+/* This is a SQL code chunk! */
+SELECT * from Customers;
+```
 
 
 
@@ -230,8 +238,101 @@ sql_output
 
 *From here on out, I'll just note when I'm in an SQL chunk with a comment.*
 
+SQL SELECT statement often include table joins. Unfortunately you have to always 
+specify how to do the table joins and SQL won't default to using column names that
+are common to both tables. In the following code we use `Table.Column` notation
+to uniquely specify a table/column pair. Because SQL uses the dot in this manner,
+you should avoid using a dot in your R column names.
 
-### Passing variables into SQL chunks
+In the following SQL command, the information about how to do the table joins
+is mixed up with the information about filtering for a particular customer. I find
+this more difficult to read.
+
+
+```sql
+/* SQL Chunk */
+SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount
+  FROM Customers, Cards, Transactions, Retailers
+  WHERE Customers.PersonID    = Cards.PersonID       AND 
+        Cards.CardID          = Transactions.CardID  AND
+        Transactions.RetailID = Retailers.RetailID   AND
+        Customers.Name = 'Derek Sonderegger'
+```
+
+
+<div class="knitsql-table">
+
+
+Table: (\#tab:unnamed-chunk-11)3 records
+
+|Name              |DateTime            |Name           | Amount|
+|:-----------------|:-------------------|:--------------|------:|
+|Derek Sonderegger |2019-10-01 08:31:23 |Kickstand Kafe |   5.68|
+|Derek Sonderegger |2019-10-02 08:26:31 |Kickstand Kafe |   5.68|
+|Derek Sonderegger |2019-10-02 08:30:09 |Kickstand Kafe |   9.23|
+
+</div>
+
+
+
+### INSERT a new Row
+To insert a row into a table, we need to specify the table to insert into as well as
+the values to be inserted. It is good practice to specify the column/value pair (as opposed
+to assuming the column order) using the following syntax.
+
+```sql
+/* SQL Chunk */
+INSERT INTO Customers (PersonID, Name, Street, City, State)
+VALUES (5, 'John Smith', '2378 N Main St', 'Flagstaff', 'AZ');
+```
+
+
+### UPDATE a row
+Updating a row in the database is similar, but we need to specify which rows to 
+update. This is done by including a "WHERE" clause, which feels similar to the 
+`dplyr::filter()` function. The only major difference is that SQL uses the single `=`
+sign for both assignment and testing equality.
+
+
+```sql
+/* SQL Chunk */
+UPDATE Customers
+SET Street = '5638 Daisy Ln', City='Mountainaire', State='AZ'
+WHERE PersonID = 3 AND Name='Robert Buscaglia';
+```
+
+In the WHERE statement, multiple test conditions must be separated by AND or OR conjunctions.
+
+
+```sql
+/* SQL Chunk */
+SELECT * from Customers
+```
+
+
+<div class="knitsql-table">
+
+
+Table: (\#tab:unnamed-chunk-14)5 records
+
+|PersonID |Name               |Street         |City         |State |
+|:--------|:------------------|:--------------|:------------|:-----|
+|1        |Derek Sonderegger  |231 River Run  |Flagstaff    |AZ    |
+|2        |Aubrey Sonderegger |231 River Run  |Flagstaff    |AZ    |
+|3        |Robert Buscaglia   |5638 Daisy Ln  |Mountainaire |AZ    |
+|4        |Roy St Laurent     |845 Elk View   |Flagstaff    |AZ    |
+|5        |John Smith         |2378 N Main St |Flagstaff    |AZ    |
+
+</div>
+
+
+## Passing R variables into SQL chunks
+
+Inevitably I would like to be able to create a SQL command that depends on some
+dynamic R variable. For example, perhaps I'd like to write a script that queries
+the user for a person's name and then prints out all the transactions associated 
+with the person. To do this, we need a mechanism to pass an R variable into the
+SQL command. 
 
 
 ```r
@@ -250,7 +351,7 @@ SELECT * FROM Transactions WHERE RetailID = ?WhichRetailer
 <div class="knitsql-table">
 
 
-Table: (\#tab:unnamed-chunk-12)3 records
+Table: (\#tab:unnamed-chunk-16)3 records
 
 |CardID           |RetailID |DateTime            | Amount|
 |:----------------|:--------|:-------------------|------:|
@@ -261,9 +362,14 @@ Table: (\#tab:unnamed-chunk-12)3 records
 </div>
 
 
-There are some additional situations where a simple character string substitution 
-won't work because of annoying SQL syntax and we need to make some adjustment. For
-example, selecting a person by name requires the character string to be quoted, and
+There are some additional situations where a simple character string substitution
+doesn't quite work because of how R interprets character strings.
+
+<!-- A quick example of how the `glue` package is intended to work would be helpful here. -->
+<!-- The package `glue` is intended make it easy to combine R variables with character -->
+<!-- strings. -->
+
+For example, selecting a person by name requires the character string to be quoted, and
 some SQL databases have custom quotation syntax. So we'll use the `glue` package to
 decide what the appropriate quotation syntax is. The curly brackets tell
 `glue` that we want to work with R variable `customers` not the literal string.
@@ -291,7 +397,7 @@ SELECT * FROM Customers WHERE name IN (?customer)
 <div class="knitsql-table">
 
 
-Table: (\#tab:unnamed-chunk-14)1 records
+Table: (\#tab:unnamed-chunk-18)1 records
 
 |PersonID |Name              |Street        |City      |State |
 |:--------|:-----------------|:-------------|:---------|:-----|
@@ -342,7 +448,7 @@ SELECT * FROM Customers WHERE name IN (?customer)
 <div class="knitsql-table">
 
 
-Table: (\#tab:unnamed-chunk-18)2 records
+Table: (\#tab:unnamed-chunk-22)2 records
 
 |PersonID |Name               |Street        |City      |State |
 |:--------|:------------------|:-------------|:---------|:-----|
@@ -379,60 +485,26 @@ SELECT * FROM Customers
 <div class="knitsql-table">
 
 
-Table: (\#tab:unnamed-chunk-21)5 records
+Table: (\#tab:unnamed-chunk-25)6 records
 
-|PersonID |Name               |Street                 |City      |State |
-|:--------|:------------------|:----------------------|:---------|:-----|
-|1        |Derek Sonderegger  |231 River Run          |Flagstaff |AZ    |
-|2        |Aubrey Sonderegger |231 River Run          |Flagstaff |AZ    |
-|3        |Robert Buscaglia   |754 Forest Heights     |Flagstaff |AZ    |
-|4        |Roy St Laurent     |845 Elk View           |Flagstaff |AZ    |
-|4        |Mike Wazowski      |1102 Main St, Apt A113 |Phoenix   |AZ    |
-
-</div>
-
-
-
-
-Typical SQL statements can be quite long and sometimes difficult to read because the table join instructions are mixed in with the filtering instructions. For example, the following is the SQL command to generate my credit card statement, and then saves the resulting table to the R object `DereksTransactions`.
-
-
-
-```r
-# R Chunk
-customer <- 'Derek Sonderegger'                       # For SQLite, this works
-customer <- glue::glue_sql('{customer}', .con=con)    # This should always work!
-```
-
-
-
-```sql
-/* SQL Chunk */
-SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount
-  FROM Customers, Cards, Transactions, Retailers
-  WHERE Customers.PersonID    = Cards.PersonID       AND 
-        Cards.CardID          = Transactions.CardID  AND
-        Transactions.RetailID = Retailers.RetailID   AND
-        Customers.Name = ?customer
-```
-
-
-<div class="knitsql-table">
-
-
-Table: (\#tab:unnamed-chunk-23)3 records
-
-|Name              |DateTime            |Name           | Amount|
-|:-----------------|:-------------------|:--------------|------:|
-|Derek Sonderegger |2019-10-01 08:31:23 |Kickstand Kafe |   5.68|
-|Derek Sonderegger |2019-10-02 08:26:31 |Kickstand Kafe |   5.68|
-|Derek Sonderegger |2019-10-02 08:30:09 |Kickstand Kafe |   9.23|
+|PersonID |Name               |Street                 |City         |State |
+|:--------|:------------------|:----------------------|:------------|:-----|
+|1        |Derek Sonderegger  |231 River Run          |Flagstaff    |AZ    |
+|2        |Aubrey Sonderegger |231 River Run          |Flagstaff    |AZ    |
+|3        |Robert Buscaglia   |5638 Daisy Ln          |Mountainaire |AZ    |
+|4        |Roy St Laurent     |845 Elk View           |Flagstaff    |AZ    |
+|5        |John Smith         |2378 N Main St         |Flagstaff    |AZ    |
+|4        |Mike Wazowski      |1102 Main St, Apt A113 |Phoenix      |AZ    |
 
 </div>
 
 
 
-## `dbplyr`
+
+
+
+
+## Reading tables using `dbplyr`
 
 There are a lot of good things about SQL, but for database queries, I would really like to pretend that the tables are in memory and use all of my favorite `dplyr` tools and pipelines. This would mean that I don't have to remember all the weird SQL syntax. However, the database interface `dbplyr` is ONLY intended for queries and NOT for updating or inserting rows into the tables.
 
@@ -573,5 +645,5 @@ dbDisconnect(con)
     dbReadTable(con, "IRIS")  # Spit out the IRIS table
     dbDisconnect(con)         # Close connection
     ```
-    b) Now check the files in your current working directory as there should now be a `TestSQLiteFile.db`. The SQLite file structure for data is extremely stable and works across platform types (Unix/Windows, 32/64 bit, big/little endian, etc).  As such, it is a good file type choice for storing lots of data in a compact format across different systems (e.g. applications that work on a mobile device vs a computer)
+    b) Now check the files in your current working directory as there should now be a `TestSQLiteFile.db`. The SQLite file structure for data is extremely stable and works across platform types (Unix/Windows, 32/64 bit, big/little endian, etc).  As such, it is a good file type choice for storing lots of data in a compact format across different systems (e.g. applications that work on a mobile device vs a computer). While you can open this file using a text editor, you will only see the table declaration of column names and types. The data rows that follow will not be readable. 
 

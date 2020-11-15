@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nWhy Does Everyone Hate 'Hillbilly Elegy'? Here's What The Reviews Are Saying\n"                            
-## [2] "\nSomehow, There Was Yet Another Apple Event To Announce New Stuff. Here's All The Important Stuff From It\n"
-## [3] "\nNBC News Reporter Has A NSFW Technical Difficulty On Live TV\n"                                            
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                 
-## [5] "\nThis Is How Nonsensical English Sounds Like To People Who Don't Speak The Langauge\n"                      
-## [6] "\nThe White House Lawn Was Mysteriously Dug Up. See The Before And After Photos\n"
+## [1] "\nHere's How Poorly Each US State Is Handling The COVID-19 Pandemic, Visualized\n"                                          
+## [2] "\nThat Pre-Thanksgiving COVID Test Won't Really Keep You Safe\n"                                                            
+## [3] "\nThis Interview With A Trump Campaign Official Goes Off The Rails When A Fox News Anchor Questions Their Path To Victory\n"
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                
+## [5] "\nOtter Hops On Kayak For Some Much Needed Downtime\n"                                                                      
+## [6] "\nCOVID Pushes Real Estate Into The Future\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2020/hillbilly-elegy-movie-bad-reviews"                              
-## [2] "/2020/apple-one-more-thing-macbook-chip"                              
-## [3] "/video/nbc-news-reporter-has-a-nsfw-technical-difficulty-on-live-tv"  
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"          
-## [5] "/2020/what-languages-sound-like-to-people-who-dont-speak-the-language"
-## [6] "/2020/white-house-lawn-dug-up-before-after-photos"
+## [1] "/2020/covid-cases-by-state-map"                                                                                                                
+## [2] "https://www.wired.com/story/that-pre-thanksgiving-covid-test-wont-really-keep-you-safe/?utm_source=digg"                                       
+## [3] "/video/leland-vittert-erin-perrine-interview"                                                                                                  
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                   
+## [5] "/video/sea-otter-kayaker-morro-bay"                                                                                                            
+## [6] "https://www.nytimes.com/2020/11/13/realestate/real-estate-coronavirus.html?action=click&module=Editors%20Picks&pgtype=Homepage?utm_source=digg"
 ```
 
 
