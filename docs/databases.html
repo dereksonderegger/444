@@ -637,8 +637,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The traditional way to interact with a database is by using SQL syntax. SQL stands for Structured Query Language and some understanding of SQL is mandatory for anyone that interacts with databases. There are many good introduction to SQL but we’ll cover a few basics here.</p>
 <div id="select-rows" class="section level3" number="18.3.1">
 <h3><span class="header-section-number">18.3.1</span> SELECT rows</h3>
-<div class="sourceCode" id="cb937"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb937-1"><a href="databases.html#cb937-1" aria-hidden="true"></a>sql_cmd &lt;-<span class="st"> &#39;SELECT * FROM Transactions&#39;</span>       <span class="co"># Define a character string with SQL command</span></span>
-<span id="cb937-2"><a href="databases.html#cb937-2" aria-hidden="true"></a>transactions &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbGetQuery</span>(con, sql_cmd) <span class="co"># Run the command</span></span>
+<p>One way to run SQL commands on the remote database is to use the the <code>DBI</code> package commands.
+There are several functions (<code>DBI::dbXXXXX()</code>)that will take a previously established connection and a SQL
+command that is stored as a character string.</p>
+<table>
+<colgroup>
+<col width="32%" />
+<col width="67%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">DBI Command</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>dbListTables()</code></td>
+<td align="left">Returns the tables available in a database.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>dbListFields()</code></td>
+<td align="left">What columns are in a given table.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>dbGetQuery()</code></td>
+<td align="left">Run a SELECT command and return the result.</td>
+</tr>
+<tr class="even">
+<td align="center"><code>dbColumnInfo()</code></td>
+<td align="left">Returns meta information about columns returned by a <code>dbGetQuery()</code> command.</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>dbExecute()</code></td>
+<td align="left">Run a SQL command that does not return a table (e.g. INSERT or UPDATE). The return value of this is the number of rows that were affected.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, we might want to select all the rows and columns from the <code>Transactions</code> table.
+To do this, we would run the following SQL command.</p>
+<div class="sourceCode" id="cb937"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb937-1"><a href="databases.html#cb937-1" aria-hidden="true"></a>sql_cmd &lt;-<span class="st"> &#39;SELECT * FROM Transactions&#39;</span>        <span class="co"># Define a character string with SQL command</span></span>
+<span id="cb937-2"><a href="databases.html#cb937-2" aria-hidden="true"></a>transactions &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbGetQuery</span>(con, sql_cmd)  <span class="co"># Run the command</span></span>
 <span id="cb937-3"><a href="databases.html#cb937-3" aria-hidden="true"></a>transactions</span></code></pre></div>
 <pre><code>##             CardID RetailID            DateTime Amount
 ## 1 9876768717278723        1 2019-10-01 08:31:23   5.68

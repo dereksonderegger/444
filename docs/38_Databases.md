@@ -175,10 +175,25 @@ The traditional way to interact with a database is by using SQL syntax. SQL stan
 
 ### SELECT rows
 
+One way to run SQL commands on the remote database is to use the the `DBI` package commands.
+There are several functions (`DBI::dbXXXXX()`)that will take a previously established connection and a SQL
+command that is stored as a character string.
+
+|  DBI Command   |  Description                    |
+|:--------------:|:--------------------------------|
+| `dbListTables()` | Returns the tables available in a database. |
+| `dbListFields()` | What columns are in a given table. |
+| `dbGetQuery()` | Run a SELECT command and return the result. |
+| `dbColumnInfo()` | Returns meta information about columns returned by a `dbGetQuery()` command. |
+| `dbExecute()`       | Run a SQL command that does not return a table (e.g. INSERT or UPDATE). The return value of this is the number of rows that were affected. |
+
+
+For example, we might want to select all the rows and columns from the `Transactions` table. 
+To do this, we would run the following SQL command.
 
 ```r
-sql_cmd <- 'SELECT * FROM Transactions'       # Define a character string with SQL command
-transactions <- DBI::dbGetQuery(con, sql_cmd) # Run the command
+sql_cmd <- 'SELECT * FROM Transactions'        # Define a character string with SQL command
+transactions <- DBI::dbGetQuery(con, sql_cmd)  # Run the command
 transactions
 ```
 

@@ -47,7 +47,7 @@ lubridate::now()     # Today's Date and Time
 ```
 
 ```
-## [1] "2020-11-15 15:06:25 MST"
+## [1] "2020-11-15 17:03:10 MST"
 ```
 
 If we have all of our date information as several numerical columns and we can specify `year`, `month`, and `day`, the easiest way to create a date is to use the function `make_date()` or `make_datetime()`

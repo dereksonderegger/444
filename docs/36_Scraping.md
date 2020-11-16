@@ -201,7 +201,7 @@ HeadLines %>%
 ## [3] "\nThis Interview With A Trump Campaign Official Goes Off The Rails When A Fox News Anchor Questions Their Path To Victory\n"
 ## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                
 ## [5] "\nOtter Hops On Kayak For Some Much Needed Downtime\n"                                                                      
-## [6] "\nCOVID Pushes Real Estate Into The Future\n"
+## [6] "\nWhy Biden Didn't Do Better In Big Cities\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2020/covid-cases-by-state-map"                                                                                                                
-## [2] "https://www.wired.com/story/that-pre-thanksgiving-covid-test-wont-really-keep-you-safe/?utm_source=digg"                                       
-## [3] "/video/leland-vittert-erin-perrine-interview"                                                                                                  
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                                                   
-## [5] "/video/sea-otter-kayaker-morro-bay"                                                                                                            
-## [6] "https://www.nytimes.com/2020/11/13/realestate/real-estate-coronavirus.html?action=click&module=Editors%20Picks&pgtype=Homepage?utm_source=digg"
+## [1] "/2020/covid-cases-by-state-map"                                                                         
+## [2] "https://www.wired.com/story/that-pre-thanksgiving-covid-test-wont-really-keep-you-safe/?utm_source=digg"
+## [3] "/video/leland-vittert-erin-perrine-interview"                                                           
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                            
+## [5] "/video/sea-otter-kayaker-morro-bay"                                                                     
+## [6] "https://www.politico.com/news/2020/11/15/big-cities-biden-election-436529?utm_source=digg"
 ```
 
 
