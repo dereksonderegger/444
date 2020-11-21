@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-11-15" />
+<meta name="date" content="2020-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -577,21 +577,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="flow-control.html#cb212-1" aria-hidden="true"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Type =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">Value=</span><span class="kw">rnorm</span>(<span class="dv">8</span>) )</span>
 <span id="cb212-2"><a href="flow-control.html#cb212-2" aria-hidden="true"></a>df</span></code></pre></div>
 <pre><code>##   Type       Value
-## 1    A -0.10146894
-## 2    A  0.91063332
-## 3    B -0.05287057
-## 4    B  0.57008179
-## 5    C  0.12340491
-## 6    C -0.38299501
-## 7    D -1.73117764
-## 8    D  1.09847734</code></pre>
+## 1    A  0.02678167
+## 2    A  0.86379895
+## 3    B  0.15127180
+## 4    B  0.03192138
+## 5    C -2.20367766
+## 6    C  1.58647272
+## 7    D  1.02222008
+## 8    D -0.80116083</code></pre>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="flow-control.html#cb214-1" aria-hidden="true"></a><span class="co"># df %&gt;% filter( Type == &#39;A&#39; | Type == &#39;B&#39; )</span></span>
 <span id="cb214-2"><a href="flow-control.html#cb214-2" aria-hidden="true"></a>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) )   <span class="co"># Only rows with Type == &#39;A&#39; or Type ==&#39;B&#39;</span></span></code></pre></div>
-<pre><code>##   Type       Value
-## 1    A -0.10146894
-## 2    A  0.91063332
-## 3    B -0.05287057
-## 4    B  0.57008179</code></pre>
+<pre><code>##   Type      Value
+## 1    A 0.02678167
+## 2    A 0.86379895
+## 3    B 0.15127180
+## 4    B 0.03192138</code></pre>
 </div>
 <div id="decision-statements" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Decision statements</h2>
@@ -659,7 +659,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="flow-control.html#cb223-1" aria-hidden="true"></a><span class="co"># Flip the coin, and we get a 0 or 1</span></span>
 <span id="cb223-2"><a href="flow-control.html#cb223-2" aria-hidden="true"></a>result &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</span>
 <span id="cb223-3"><a href="flow-control.html#cb223-3" aria-hidden="true"></a>result</span></code></pre></div>
-<pre><code>## [1] 1</code></pre>
+<pre><code>## [1] 0</code></pre>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="flow-control.html#cb225-1" aria-hidden="true"></a><span class="co"># convert the 0/1 to Tail/Head</span></span>
 <span id="cb225-2"><a href="flow-control.html#cb225-2" aria-hidden="true"></a><span class="cf">if</span>( result <span class="op">==</span><span class="st"> </span><span class="dv">0</span> ){</span>
 <span id="cb225-3"><a href="flow-control.html#cb225-3" aria-hidden="true"></a>  result &lt;-<span class="st"> &#39;Tail&#39;</span></span>
@@ -668,9 +668,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb225-6"><a href="flow-control.html#cb225-6" aria-hidden="true"></a>  result &lt;-<span class="st"> &#39;Head&#39;</span></span>
 <span id="cb225-7"><a href="flow-control.html#cb225-7" aria-hidden="true"></a>  <span class="kw">print</span>(<span class="st">&quot;In the else part!&quot;</span>) </span>
 <span id="cb225-8"><a href="flow-control.html#cb225-8" aria-hidden="true"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;In the else part!&quot;</code></pre>
+<pre><code>## [1] &quot; in the if statement, got a Tail! &quot;</code></pre>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="flow-control.html#cb227-1" aria-hidden="true"></a>result</span></code></pre></div>
-<pre><code>## [1] &quot;Head&quot;</code></pre>
+<pre><code>## [1] &quot;Tail&quot;</code></pre>
 <p>Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable <code>result</code> changes as you execute the code repeatedly.</p>
 <p>To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:</p>
 <ul>
@@ -692,7 +692,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb229-13"><a href="flow-control.html#cb229-13" aria-hidden="true"></a></span>
 <span id="cb229-14"><a href="flow-control.html#cb229-14" aria-hidden="true"></a><span class="co"># print the resulting p-value</span></span>
 <span id="cb229-15"><a href="flow-control.html#cb229-15" aria-hidden="true"></a>p.value</span></code></pre></div>
-<pre><code>## [1] 1.874972e-07</code></pre>
+<pre><code>## [1] 2.02915e-06</code></pre>
 <p>This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the <code>t.test()</code> function.</p>
 <p>Finally we can nest if else statements together to allow you to write code that has many different execution routes.</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="flow-control.html#cb231-1" aria-hidden="true"></a><span class="co"># randomly grab a number between 0,5 and round it up to 1,2, ..., 5</span></span>
@@ -707,7 +707,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb231-10"><a href="flow-control.html#cb231-10" aria-hidden="true"></a>  <span class="co"># if birth.order is anything other than 1, 2 or 3</span></span>
 <span id="cb231-11"><a href="flow-control.html#cb231-11" aria-hidden="true"></a>  <span class="kw">print</span>(<span class="st">&#39;No more unfounded generalizations!&#39;</span>)</span>
 <span id="cb231-12"><a href="flow-control.html#cb231-12" aria-hidden="true"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;The first child had more rules to follow&quot;</code></pre>
+<pre><code>## [1] &quot;The third child was spoiled&quot;</code></pre>
 </div>
 </div>
 <div id="loops" class="section level2" number="6.3">
@@ -728,136 +728,136 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb234-4"><a href="flow-control.html#cb234-4" aria-hidden="true"></a>}</span></code></pre></div>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 2.01839240201719&quot;  
-##  [2] &quot;In loop and x is now: 2.2352646777778&quot;   
-##  [3] &quot;In loop and x is now: 0.701835023553604&quot; 
-##  [4] &quot;In loop and x is now: 0.504225012659774&quot; 
-##  [5] &quot;In loop and x is now: 3.98127125940674&quot;  
-##  [6] &quot;In loop and x is now: -0.130580997008332&quot;
-##  [7] &quot;In loop and x is now: 1.49298616853031&quot;  
-##  [8] &quot;In loop and x is now: 2.25558683859089&quot;  
-##  [9] &quot;In loop and x is now: 1.30592906669274&quot;  
-## [10] &quot;In loop and x is now: 1.71169782826215&quot;  
-## [11] &quot;In loop and x is now: 3.37385363939459&quot;  
-## [12] &quot;In loop and x is now: 0.846514817130156&quot; 
-## [13] &quot;In loop and x is now: 2.70278159900589&quot;  
-## [14] &quot;In loop and x is now: 2.19481853397564&quot;  
-## [15] &quot;In loop and x is now: 2.07359270961828&quot;  
-## [16] &quot;In loop and x is now: 1.2719917050586&quot;   
-## [17] &quot;In loop and x is now: 2.90778611176783&quot;  
-## [18] &quot;In loop and x is now: 0.913545224854783&quot; 
-## [19] &quot;In loop and x is now: 1.95857025283945&quot;  
-## [20] &quot;In loop and x is now: 1.31572636296241&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 3.08772701250094&quot;  
+##  [2] &quot;In loop and x is now: 0.607400662398517&quot; 
+##  [3] &quot;In loop and x is now: 1.67168810929919&quot;  
+##  [4] &quot;In loop and x is now: -0.181658196817589&quot;
+##  [5] &quot;In loop and x is now: 2.63496470383908&quot;  
+##  [6] &quot;In loop and x is now: 1.68423369039506&quot;  
+##  [7] &quot;In loop and x is now: 1.32275866403438&quot;  
+##  [8] &quot;In loop and x is now: 0.0167173749209779&quot;
+##  [9] &quot;In loop and x is now: 2.63449681117242&quot;  
+## [10] &quot;In loop and x is now: 1.87849032276124&quot;  
+## [11] &quot;In loop and x is now: 1.18565900820655&quot;  
+## [12] &quot;In loop and x is now: 2.69996190706719&quot;  
+## [13] &quot;In loop and x is now: 1.02313861436494&quot;  
+## [14] &quot;In loop and x is now: 2.33381992280662&quot;  
+## [15] &quot;In loop and x is now: 4.77305191563482&quot;  
+## [16] &quot;In loop and x is now: 1.37764526096758&quot;  
+## [17] &quot;In loop and x is now: 0.0746948701501711&quot;
+## [18] &quot;In loop and x is now: 2.14477802398479&quot;  
+## [19] &quot;In loop and x is now: 2.77190758148805&quot;  
+## [20] &quot;In loop and x is now: 3.04796214925287&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 4.03678480403437&quot;  
-##  [2] &quot;In loop and x is now: 4.4705293555556&quot;   
-##  [3] &quot;In loop and x is now: 1.40367004710721&quot;  
-##  [4] &quot;In loop and x is now: 1.00845002531955&quot;  
-##  [5] &quot;In loop and x is now: 7.96254251881348&quot;  
-##  [6] &quot;In loop and x is now: -0.261161994016665&quot;
-##  [7] &quot;In loop and x is now: 2.98597233706062&quot;  
-##  [8] &quot;In loop and x is now: 4.51117367718177&quot;  
-##  [9] &quot;In loop and x is now: 2.61185813338548&quot;  
-## [10] &quot;In loop and x is now: 3.42339565652429&quot;  
-## [11] &quot;In loop and x is now: 6.74770727878918&quot;  
-## [12] &quot;In loop and x is now: 1.69302963426031&quot;  
-## [13] &quot;In loop and x is now: 5.40556319801178&quot;  
-## [14] &quot;In loop and x is now: 4.38963706795129&quot;  
-## [15] &quot;In loop and x is now: 4.14718541923655&quot;  
-## [16] &quot;In loop and x is now: 2.54398341011719&quot;  
-## [17] &quot;In loop and x is now: 5.81557222353566&quot;  
-## [18] &quot;In loop and x is now: 1.82709044970957&quot;  
-## [19] &quot;In loop and x is now: 3.91714050567889&quot;  
-## [20] &quot;In loop and x is now: 2.63145272592481&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 6.17545402500187&quot;  
+##  [2] &quot;In loop and x is now: 1.21480132479703&quot;  
+##  [3] &quot;In loop and x is now: 3.34337621859838&quot;  
+##  [4] &quot;In loop and x is now: -0.363316393635179&quot;
+##  [5] &quot;In loop and x is now: 5.26992940767817&quot;  
+##  [6] &quot;In loop and x is now: 3.36846738079013&quot;  
+##  [7] &quot;In loop and x is now: 2.64551732806877&quot;  
+##  [8] &quot;In loop and x is now: 0.0334347498419558&quot;
+##  [9] &quot;In loop and x is now: 5.26899362234485&quot;  
+## [10] &quot;In loop and x is now: 3.75698064552249&quot;  
+## [11] &quot;In loop and x is now: 2.3713180164131&quot;   
+## [12] &quot;In loop and x is now: 5.39992381413438&quot;  
+## [13] &quot;In loop and x is now: 2.04627722872988&quot;  
+## [14] &quot;In loop and x is now: 4.66763984561325&quot;  
+## [15] &quot;In loop and x is now: 9.54610383126964&quot;  
+## [16] &quot;In loop and x is now: 2.75529052193515&quot;  
+## [17] &quot;In loop and x is now: 0.149389740300342&quot; 
+## [18] &quot;In loop and x is now: 4.28955604796958&quot;  
+## [19] &quot;In loop and x is now: 5.54381516297611&quot;  
+## [20] &quot;In loop and x is now: 6.09592429850574&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 8.07356960806874&quot; 
-##  [2] &quot;In loop and x is now: 8.9410587111112&quot;  
-##  [3] &quot;In loop and x is now: 2.80734009421442&quot; 
-##  [4] &quot;In loop and x is now: 2.0169000506391&quot;  
-##  [5] &quot;In loop and x is now: 15.925085037627&quot;  
-##  [6] &quot;In loop and x is now: -0.52232398803333&quot;
-##  [7] &quot;In loop and x is now: 5.97194467412123&quot; 
-##  [8] &quot;In loop and x is now: 9.02234735436355&quot; 
-##  [9] &quot;In loop and x is now: 5.22371626677097&quot; 
-## [10] &quot;In loop and x is now: 6.84679131304859&quot; 
-## [11] &quot;In loop and x is now: 13.4954145575784&quot; 
-## [12] &quot;In loop and x is now: 3.38605926852062&quot; 
-## [13] &quot;In loop and x is now: 10.8111263960236&quot; 
-## [14] &quot;In loop and x is now: 8.77927413590257&quot; 
-## [15] &quot;In loop and x is now: 8.2943708384731&quot;  
-## [16] &quot;In loop and x is now: 5.08796682023438&quot; 
-## [17] &quot;In loop and x is now: 11.6311444470713&quot; 
-## [18] &quot;In loop and x is now: 3.65418089941913&quot; 
-## [19] &quot;In loop and x is now: 7.83428101135779&quot; 
-## [20] &quot;In loop and x is now: 5.26290545184963&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 12.3509080500037&quot;  
+##  [2] &quot;In loop and x is now: 2.42960264959407&quot;  
+##  [3] &quot;In loop and x is now: 6.68675243719676&quot;  
+##  [4] &quot;In loop and x is now: -0.726632787270358&quot;
+##  [5] &quot;In loop and x is now: 10.5398588153563&quot;  
+##  [6] &quot;In loop and x is now: 6.73693476158025&quot;  
+##  [7] &quot;In loop and x is now: 5.29103465613754&quot;  
+##  [8] &quot;In loop and x is now: 0.0668694996839116&quot;
+##  [9] &quot;In loop and x is now: 10.5379872446897&quot;  
+## [10] &quot;In loop and x is now: 7.51396129104497&quot;  
+## [11] &quot;In loop and x is now: 4.7426360328262&quot;   
+## [12] &quot;In loop and x is now: 10.7998476282688&quot;  
+## [13] &quot;In loop and x is now: 4.09255445745976&quot;  
+## [14] &quot;In loop and x is now: 9.3352796912265&quot;   
+## [15] &quot;In loop and x is now: 19.0922076625393&quot;  
+## [16] &quot;In loop and x is now: 5.51058104387031&quot;  
+## [17] &quot;In loop and x is now: 0.298779480600684&quot; 
+## [18] &quot;In loop and x is now: 8.57911209593916&quot;  
+## [19] &quot;In loop and x is now: 11.0876303259522&quot;  
+## [20] &quot;In loop and x is now: 12.1918485970115&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 16.1471392161375&quot; 
-##  [2] &quot;In loop and x is now: 17.8821174222224&quot; 
-##  [3] &quot;In loop and x is now: 5.61468018842883&quot; 
-##  [4] &quot;In loop and x is now: 4.03380010127819&quot; 
-##  [5] &quot;In loop and x is now: 31.8501700752539&quot; 
-##  [6] &quot;In loop and x is now: -1.04464797606666&quot;
-##  [7] &quot;In loop and x is now: 11.9438893482425&quot; 
-##  [8] &quot;In loop and x is now: 18.0446947087271&quot; 
-##  [9] &quot;In loop and x is now: 10.4474325335419&quot; 
-## [10] &quot;In loop and x is now: 13.6935826260972&quot; 
-## [11] &quot;In loop and x is now: 26.9908291151567&quot; 
-## [12] &quot;In loop and x is now: 6.77211853704125&quot; 
-## [13] &quot;In loop and x is now: 21.6222527920471&quot; 
-## [14] &quot;In loop and x is now: 17.5585482718051&quot; 
-## [15] &quot;In loop and x is now: 16.5887416769462&quot; 
-## [16] &quot;In loop and x is now: 10.1759336404688&quot; 
-## [17] &quot;In loop and x is now: 23.2622888941426&quot; 
-## [18] &quot;In loop and x is now: 7.30836179883827&quot; 
-## [19] &quot;In loop and x is now: 15.6685620227156&quot; 
-## [20] &quot;In loop and x is now: 10.5258109036993&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 24.7018161000075&quot; 
+##  [2] &quot;In loop and x is now: 4.85920529918814&quot; 
+##  [3] &quot;In loop and x is now: 13.3735048743935&quot; 
+##  [4] &quot;In loop and x is now: -1.45326557454072&quot;
+##  [5] &quot;In loop and x is now: 21.0797176307127&quot; 
+##  [6] &quot;In loop and x is now: 13.4738695231605&quot; 
+##  [7] &quot;In loop and x is now: 10.5820693122751&quot; 
+##  [8] &quot;In loop and x is now: 0.133738999367823&quot;
+##  [9] &quot;In loop and x is now: 21.0759744893794&quot; 
+## [10] &quot;In loop and x is now: 15.0279225820899&quot; 
+## [11] &quot;In loop and x is now: 9.4852720656524&quot;  
+## [12] &quot;In loop and x is now: 21.5996952565375&quot; 
+## [13] &quot;In loop and x is now: 8.18510891491952&quot; 
+## [14] &quot;In loop and x is now: 18.670559382453&quot;  
+## [15] &quot;In loop and x is now: 38.1844153250786&quot; 
+## [16] &quot;In loop and x is now: 11.0211620877406&quot; 
+## [17] &quot;In loop and x is now: 0.597558961201369&quot;
+## [18] &quot;In loop and x is now: 17.1582241918783&quot; 
+## [19] &quot;In loop and x is now: 22.1752606519044&quot; 
+## [20] &quot;In loop and x is now: 24.383697194023&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 32.294278432275&quot;  
-##  [2] &quot;In loop and x is now: 35.7642348444448&quot; 
-##  [3] &quot;In loop and x is now: 11.2293603768577&quot; 
-##  [4] &quot;In loop and x is now: 8.06760020255639&quot; 
-##  [5] &quot;In loop and x is now: 63.7003401505079&quot; 
-##  [6] &quot;In loop and x is now: -2.08929595213332&quot;
-##  [7] &quot;In loop and x is now: 23.8877786964849&quot; 
-##  [8] &quot;In loop and x is now: 36.0893894174542&quot; 
-##  [9] &quot;In loop and x is now: 20.8948650670839&quot; 
-## [10] &quot;In loop and x is now: 27.3871652521944&quot; 
-## [11] &quot;In loop and x is now: 53.9816582303134&quot; 
-## [12] &quot;In loop and x is now: 13.5442370740825&quot; 
-## [13] &quot;In loop and x is now: 43.2445055840942&quot; 
-## [14] &quot;In loop and x is now: 35.1170965436103&quot; 
-## [15] &quot;In loop and x is now: 33.1774833538924&quot; 
-## [16] &quot;In loop and x is now: 20.3518672809375&quot; 
-## [17] &quot;In loop and x is now: 46.5245777882853&quot; 
-## [18] &quot;In loop and x is now: 14.6167235976765&quot; 
-## [19] &quot;In loop and x is now: 31.3371240454312&quot; 
-## [20] &quot;In loop and x is now: 21.0516218073985&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 49.403632200015&quot;  
+##  [2] &quot;In loop and x is now: 9.71841059837628&quot; 
+##  [3] &quot;In loop and x is now: 26.747009748787&quot;  
+##  [4] &quot;In loop and x is now: -2.90653114908143&quot;
+##  [5] &quot;In loop and x is now: 42.1594352614254&quot; 
+##  [6] &quot;In loop and x is now: 26.947739046321&quot;  
+##  [7] &quot;In loop and x is now: 21.1641386245501&quot; 
+##  [8] &quot;In loop and x is now: 0.267477998735647&quot;
+##  [9] &quot;In loop and x is now: 42.1519489787588&quot; 
+## [10] &quot;In loop and x is now: 30.0558451641799&quot; 
+## [11] &quot;In loop and x is now: 18.9705441313048&quot; 
+## [12] &quot;In loop and x is now: 43.1993905130751&quot; 
+## [13] &quot;In loop and x is now: 16.370217829839&quot;  
+## [14] &quot;In loop and x is now: 37.341118764906&quot;  
+## [15] &quot;In loop and x is now: 76.3688306501572&quot; 
+## [16] &quot;In loop and x is now: 22.0423241754812&quot; 
+## [17] &quot;In loop and x is now: 1.19511792240274&quot; 
+## [18] &quot;In loop and x is now: 34.3164483837566&quot; 
+## [19] &quot;In loop and x is now: 44.3505213038089&quot; 
+## [20] &quot;In loop and x is now: 48.7673943880459&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 64.5885568645499&quot; 
-##  [2] &quot;In loop and x is now: 71.5284696888896&quot; 
-##  [3] &quot;In loop and x is now: 22.4587207537153&quot; 
-##  [4] &quot;In loop and x is now: 16.1352004051128&quot; 
-##  [5] &quot;In loop and x is now: 127.400680301016&quot; 
-##  [6] &quot;In loop and x is now: -4.17859190426664&quot;
-##  [7] &quot;In loop and x is now: 47.7755573929699&quot; 
-##  [8] &quot;In loop and x is now: 72.1787788349084&quot; 
-##  [9] &quot;In loop and x is now: 41.7897301341677&quot; 
-## [10] &quot;In loop and x is now: 54.7743305043887&quot; 
-## [11] &quot;In loop and x is now: 107.963316460627&quot; 
-## [12] &quot;In loop and x is now: 27.088474148165&quot;  
-## [13] &quot;In loop and x is now: 86.4890111681884&quot; 
-## [14] &quot;In loop and x is now: 70.2341930872206&quot; 
-## [15] &quot;In loop and x is now: 66.3549667077848&quot; 
-## [16] &quot;In loop and x is now: 40.7037345618751&quot; 
-## [17] &quot;In loop and x is now: 93.0491555765706&quot; 
-## [18] &quot;In loop and x is now: 29.2334471953531&quot; 
-## [19] &quot;In loop and x is now: 62.6742480908623&quot; 
-## [20] &quot;In loop and x is now: 42.103243614797&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 98.80726440003&quot;   
+##  [2] &quot;In loop and x is now: 19.4368211967526&quot; 
+##  [3] &quot;In loop and x is now: 53.4940194975741&quot; 
+##  [4] &quot;In loop and x is now: -5.81306229816286&quot;
+##  [5] &quot;In loop and x is now: 84.3188705228507&quot; 
+##  [6] &quot;In loop and x is now: 53.895478092642&quot;  
+##  [7] &quot;In loop and x is now: 42.3282772491003&quot; 
+##  [8] &quot;In loop and x is now: 0.534955997471293&quot;
+##  [9] &quot;In loop and x is now: 84.3038979575176&quot; 
+## [10] &quot;In loop and x is now: 60.1116903283598&quot; 
+## [11] &quot;In loop and x is now: 37.9410882626096&quot; 
+## [12] &quot;In loop and x is now: 86.3987810261501&quot; 
+## [13] &quot;In loop and x is now: 32.7404356596781&quot; 
+## [14] &quot;In loop and x is now: 74.682237529812&quot;  
+## [15] &quot;In loop and x is now: 152.737661300314&quot; 
+## [16] &quot;In loop and x is now: 44.0846483509625&quot; 
+## [17] &quot;In loop and x is now: 2.39023584480547&quot; 
+## [18] &quot;In loop and x is now: 68.6328967675133&quot; 
+## [19] &quot;In loop and x is now: 88.7010426076177&quot; 
+## [20] &quot;In loop and x is now: 97.5347887760918&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
 <p>It is very common to forget to update the variable used in the test expression. In that case the test expression will never be false and the computer will never stop. This unfortunate situation is called an <em>infinite loop</em>.</p>

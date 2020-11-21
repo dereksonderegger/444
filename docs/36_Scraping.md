@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nHere's How Poorly Each US State Is Handling The COVID-19 Pandemic, Visualized\n"                                          
-## [2] "\nThat Pre-Thanksgiving COVID Test Won't Really Keep You Safe\n"                                                            
-## [3] "\nThis Interview With A Trump Campaign Official Goes Off The Rails When A Fox News Anchor Questions Their Path To Victory\n"
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                                                
-## [5] "\nOtter Hops On Kayak For Some Much Needed Downtime\n"                                                                      
-## [6] "\nWhy Biden Didn't Do Better In Big Cities\n"
+## [1] "\nThe Nasty Thing A Trump Lawyer Did On Live TV, And More Of This Week's 'One Main Character'\n"
+## [2] "\n12 Incredibly Useful Gmail Settings You Didn't Know You Needed\n"                             
+## [3] "\nWhen You Try Your Best To Drive Up A Slope And Things Still Go Hilariously South\n"           
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                    
+## [5] "\nThis Is Why You Got To Be Careful Riding Your Bike Too Close To The Water\n"                  
+## [6] "\nThe World's Longest Commercial Flights, By The Numbers\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2020/covid-cases-by-state-map"                                                                         
-## [2] "https://www.wired.com/story/that-pre-thanksgiving-covid-test-wont-really-keep-you-safe/?utm_source=digg"
-## [3] "/video/leland-vittert-erin-perrine-interview"                                                           
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                            
-## [5] "/video/sea-otter-kayaker-morro-bay"                                                                     
-## [6] "https://www.politico.com/news/2020/11/15/big-cities-biden-election-436529?utm_source=digg"
+## [1] "/2020/one-main-character-rudy-giuliani"                                                           
+## [2] "https://www.fastcompany.com/90576550/useful-gmail-settings-tips-ios-android?utm_source=digg"      
+## [3] "/2020/drive-up-driveway-slope-fail"                                                               
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                      
+## [5] "/video/guy-ride-bike-falls-into-water"                                                            
+## [6] "https://www.popsci.com/story/technology/singapore-airlines-worlds-longest-flight/?utm_source=digg"
 ```
 
 

@@ -25,7 +25,7 @@ Once you've created a new Rmarkdown file, you'll be presented with four differen
 |  Editor        | Top Left    | Where you edit the script. This is where you should write most all of your R code. You should write your code, then execute it from this pane. Because nobody writes code correctly the first time, you'll inevitably make some change, and then execute the code again. This will be repeated until the code finally does what you want.   |
 |  Console       | Bottom Left | You can execute code directly in this pane, but the code you write won't be saved. I recommend only writing stuff here if you don't want to keep it. I only type commands in the console when using R as a calculator and I don't want to refer to the result ever again. | 
 | Environment    | Top Right   | This displays the current objects that are available to you. I typically keep the `data.frame` I'm working with opened here so that I can see the column names.
-|  Miscellaneous | Bottom Left | This pane gives access to the help files, the files in your current working directory, and your plots (if you have it set up to show here.) |
+|  Miscellaneous | Bottom Right | This pane gives access to the help files, the files in your current working directory, and your plots (if you have it set up to show here.) |
 
 
 ![](images/RStudio_Pane_Descriptions.gif)
