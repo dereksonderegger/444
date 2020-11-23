@@ -10,7 +10,7 @@ options(dplyr.summarise.inform=FALSE) # Don't annoy me with summarise messages
 
 As always, there is a [Video Lecture](https://youtu.be/ID2hx2ySAEE) that accompanies this chapter.
 
-In R we can store categorical information as either strings or as factors. To a casual user, it often doesn't matter how the information is stored because the modeling and graphing programs happily convert strings into factors whenever necessary. However a deeper understanding of how factors are stored and manipulated allows a user much finer control in the modeling and graphing.
+In R we can store categorical information as either strings or as factors. To a casual user, it often doesn't matter how the information is stored because the modeling and graphing programs happily convert strings into factors whenever necessary. However, a deeper understanding of how factors are stored and manipulated allows a user much finer control in modeling and graphing.
 
 We will be interested in the following broad classes of manipulations:
 
@@ -81,13 +81,13 @@ as.integer(drinks) # Print the category assignments
 ## [1] 2 1 1 4 3
 ```
 
-Notice that the factor has levels "Coke", "DietCoke", "Pepsi", and "Sprite" and that the order of these levels is very important because each observation is saved as an *integer* which denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of potentially very long character string, factors are much more space efficient than storing the same data as strings.
+Notice that the factor has levels "Coke", "DietCoke", "Pepsi", and "Sprite" and that the order of these levels is very important because each observation is saved as an *integer* that denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of a potentially very long character string, factors are much more space efficient than storing the same data as strings.
 
 Whenever we do anything that sorts on this factor, the order of the labels in this mapping table determine the sort orders. In order to modify factor labels and levels, we basically need to modify this mapping table.  We don't do this directly, but rather using functions in the `forcats` package.
 
 
 ## Change Labels
-To demonstrate the `forcats` functions, we will consider two datasets. The first consists of a dataset of a small US highschool with observations for each student and we record their year and gender.
+To demonstrate the `forcats` functions, we will consider two datasets. The first consists of a dataset of a small US highschool with observations for each student that record their year and gender.
 
 ```r
 Students <- 
@@ -245,7 +245,7 @@ Dems %>%
 <img src="07_Factors_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 
-## Add or substract Levels
+## Add or subtract Levels
 Often we find that it is necessary to collapse several categories into one. In the Democratic candidate example, we might want to collapse `No one`, `Other` and `Undecided` into a single `Other` category.
 
 
@@ -287,7 +287,7 @@ Dems %>%
 <img src="07_Factors_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 
-*I need to add the case where we are updating a column of factors and I want to replace a single observations level with another.  To do this we do something like this:*
+*I need to add the case where we are updating a column of factors and we want to replace a single observation's level with another.  To do this we do something like this:*
 
 ```r
 data <- data.frame( Name=c('Alice','Bruce','Charlie'), Grade = c('A','B','B') ) %>%
@@ -308,8 +308,8 @@ data
 
 ## Exercises  {#Exercises_Factors}
 
-1. In the package `Lock5Data` there is a dataset `FloridaLakes` which contains water sample measurements from 53 lakes in Florida, produce a bar graph shows the `Lake` and `AvgMercury` variables and make sure that the lakes are ordered by Average Mercury content. _To fix the issue of lake labels being squished together, you could rotate the labels using a `+ theme(axis.text.x = element_text(angle = 90, hjust = 1))` or flipping the coordinate axes. However, you'll likely want to resize the figure so the labels aren't so squished. the chunk options `fig.height` and `fig.width` control the size of the resulting figure._
+1. In the package `Lock5Data` there is a dataset `FloridaLakes` that contains water sample measurements from 53 lakes in Florida. Produce a bar graph that shows the `Lake` and `AvgMercury` variables, and make sure that the lakes are ordered by Average Mercury content. _To fix the issue of lake labels being squished together, you could rotate the labels using a `+ theme(axis.text.x = element_text(angle = 90, hjust = 1))` or flipping the coordinate axes. However, you'll likely want to resize the figure so the labels aren't so squished. the chunk options `fig.height` and `fig.width` control the size of the resulting figure._
 
 2. In the package `Lock5Data`, there is a dataset `FootballBrain` that has brain measurements for 75 individuals. The `Group` variable has three levels: `Control` is somebody that did not play football, `FBNoConcuss` is a football player with no history of concussions, or `FBConcuss` which is a football player with concussion history. The variable `Cogniton` measures their testing composite reaction time score. Change the `Group` labels to something that would make sense to a reader and create a box-plot graph of the groups vs cognition. *Because there is no data for the `Control` group, don't show it on your graph. Also notice that the original data set column name misspells "cognition".*
 
-3. In the package `Lock5Data`, there is a dataset `RestaurantTips` which gives tip data from the restaurant First Crush Bistro in Potsdam, NY. Make all necessary modifications to the `Day` variable so that subsequent graphs and tables are labeled in a professional manner. Do a similar modification to the `Credit` variable. Graph the `Bill` versus the `PctTip` for each `Day` of the week where we use `Day` as the variable to facet_grid or facet_wrap on. Also include information about if the bill was paid via credit card or cash.
+3. In the package `Lock5Data`, there is a dataset `RestaurantTips` that gives tip data from the restaurant First Crush Bistro in Potsdam, NY. Make all necessary modifications to the `Day` variable so that subsequent graphs and tables are labeled in a professional manner. Do a similar modification to the `Credit` variable. Graph the `Bill` versus the `PctTip` for each `Day` of the week where we use `Day` as the variable to facet_grid or facet_wrap on. Also include information about if the bill was paid via credit card or cash.

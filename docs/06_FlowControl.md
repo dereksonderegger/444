@@ -65,7 +65,7 @@ df %>% mutate( `A < B`  =  A < B)
 ```
 
 
-If we have two (or more) vectors of of logical values, we can do two *pairwise* operations. The "and" operator `&` will result in a TRUE value if all elements are TRUE.  The "or" operator will result in a TRUE value if either the left hand side or right hand side is TRUE. 
+If we have two (or more) vectors of logical values, we can do two *pairwise* operations. The "and" operator `&` will result in a TRUE value if all elements are TRUE.  The "or" operator will result in a TRUE value if either the left hand side or right hand side is TRUE. 
 
 ```r
 df %>% mutate(C = A>=0,  D = A<=5) %>%
@@ -122,14 +122,14 @@ df
 
 ```
 ##   Type       Value
-## 1    A  0.02678167
-## 2    A  0.86379895
-## 3    B  0.15127180
-## 4    B  0.03192138
-## 5    C -2.20367766
-## 6    C  1.58647272
-## 7    D  1.02222008
-## 8    D -0.80116083
+## 1    A -0.66535235
+## 2    A  0.95891418
+## 3    B  0.41474801
+## 4    B  0.67792817
+## 5    C  0.05300688
+## 6    C -0.56763099
+## 7    D  0.19746090
+## 8    D  1.29611387
 ```
 
 ```r
@@ -139,10 +139,10 @@ df %>% filter( Type %in% c('A','B') )   # Only rows with Type == 'A' or Type =='
 
 ```
 ##   Type      Value
-## 1    A 0.02678167
-## 2    A 0.86379895
-## 3    B 0.15127180
-## 4    B 0.03192138
+## 1    A -0.6653523
+## 2    A  0.9589142
+## 3    B  0.4147480
+## 4    B  0.6779282
 ```
 
 
@@ -219,7 +219,7 @@ Often the last case is a catch all case where the logical expression will ALWAYS
 As another alternative to the problem of recoding factor levels, we could use the command `forcats::fct_recode()` function.  See the Factors chapter in this book for more information about factors.
 
 ### General `if else`
-While programming, I often need to perform expressions that are more complicated than what the `ifelse()` command can do. The general format of an `if` or and `if else` is presented here.
+While programming, I often need to perform expressions that are more complicated than what the `ifelse()` command can do. The general format of an `if` or an `if else` is presented here.
 
 
 ```r
@@ -240,7 +240,7 @@ where the else part is optional.
 
 Suppose that I have a piece of code that generates a random variable from the Binomial distribution with one sample (essentially just flipping a coin) but I'd like to label it head or tails instead of one or zero.
 
-What is happening is that the test expression inside the `if()` is evaluated and if it is true, then the subsequent statement is executed. If the test expression is false, the next statement is skipped. The way the R language is defined, only the first statement after the if statement is executed (or skipped) depending on the test expression. If we want multiple statements to be executed (or skipped), we will wrap those expressions in curly brackets `{ }`. I find it easier to follow the `if else` logic when I see the curly brackets so I use them even when there is only one expression to be executed. Also notice that the RStudio editor indents the code that might be skipped to try help give you a hint that it will be conditionally evaluated.
+The test expression inside the `if()` is evaluated and if it is true, then the subsequent statement is executed. If the test expression is false, the next statement is skipped. The way the R language is defined, only the first statement after the if statement is executed (or skipped) depending on the test expression. If we want multiple statements to be executed (or skipped), we will wrap those expressions in curly brackets `{ }`. I find it easier to follow the `if else` logic when I see the curly brackets so I use them even when there is only one expression to be executed. Also notice that the RStudio editor indents the code that might be skipped to try help give you a hint that it will be conditionally evaluated.
 
 
 ```r
@@ -279,7 +279,7 @@ result
 Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
 
 
-To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:
+To provide a more statistically interesting example of when we might use an `if else` statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall that the calculation was:
 
 * If the test statistic t is negative, then p-value = $2*P\left(T_{df} \le t \right)$
  
@@ -305,13 +305,13 @@ p.value
 ```
 
 ```
-## [1] 2.02915e-06
+## [1] 9.460611e-08
 ```
 
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.
 
 
-Finally we can nest if else statements together to allow you to write code that has many different execution routes.
+Finally we can nest `if else` statements together to allow you to write code that has many different execution routes.
 
 
 ```r
@@ -330,7 +330,7 @@ if( birth.order == 1 ){
 ```
 
 ```
-## [1] "The third child was spoiled"
+## [1] "No more unfounded generalizations!"
 ```
 
 
@@ -369,26 +369,26 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 3.08772701250094"  
-##  [2] "In loop and x is now: 0.607400662398517" 
-##  [3] "In loop and x is now: 1.67168810929919"  
-##  [4] "In loop and x is now: -0.181658196817589"
-##  [5] "In loop and x is now: 2.63496470383908"  
-##  [6] "In loop and x is now: 1.68423369039506"  
-##  [7] "In loop and x is now: 1.32275866403438"  
-##  [8] "In loop and x is now: 0.0167173749209779"
-##  [9] "In loop and x is now: 2.63449681117242"  
-## [10] "In loop and x is now: 1.87849032276124"  
-## [11] "In loop and x is now: 1.18565900820655"  
-## [12] "In loop and x is now: 2.69996190706719"  
-## [13] "In loop and x is now: 1.02313861436494"  
-## [14] "In loop and x is now: 2.33381992280662"  
-## [15] "In loop and x is now: 4.77305191563482"  
-## [16] "In loop and x is now: 1.37764526096758"  
-## [17] "In loop and x is now: 0.0746948701501711"
-## [18] "In loop and x is now: 2.14477802398479"  
-## [19] "In loop and x is now: 2.77190758148805"  
-## [20] "In loop and x is now: 3.04796214925287"
+##  [1] "In loop and x is now: 2.44939668188322" 
+##  [2] "In loop and x is now: 1.19375051358514" 
+##  [3] "In loop and x is now: 0.207161894572169"
+##  [4] "In loop and x is now: 1.9724674242907"  
+##  [5] "In loop and x is now: 3.54533115369769" 
+##  [6] "In loop and x is now: 2.87756392631077" 
+##  [7] "In loop and x is now: 2.95025853683058" 
+##  [8] "In loop and x is now: 1.10646558559173" 
+##  [9] "In loop and x is now: 4.15291848504807" 
+## [10] "In loop and x is now: 1.4709450839868"  
+## [11] "In loop and x is now: 1.75121601966522" 
+## [12] "In loop and x is now: 1.30451937260309" 
+## [13] "In loop and x is now: 2.0330357760728"  
+## [14] "In loop and x is now: 2.45766355848101" 
+## [15] "In loop and x is now: 2.94921039025045" 
+## [16] "In loop and x is now: 4.08662230125485" 
+## [17] "In loop and x is now: 1.92304070868546" 
+## [18] "In loop and x is now: 0.105540368234844"
+## [19] "In loop and x is now: 1.24335754660289" 
+## [20] "In loop and x is now: 1.89847712533664"
 ```
 
 ```
@@ -397,26 +397,26 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 6.17545402500187"  
-##  [2] "In loop and x is now: 1.21480132479703"  
-##  [3] "In loop and x is now: 3.34337621859838"  
-##  [4] "In loop and x is now: -0.363316393635179"
-##  [5] "In loop and x is now: 5.26992940767817"  
-##  [6] "In loop and x is now: 3.36846738079013"  
-##  [7] "In loop and x is now: 2.64551732806877"  
-##  [8] "In loop and x is now: 0.0334347498419558"
-##  [9] "In loop and x is now: 5.26899362234485"  
-## [10] "In loop and x is now: 3.75698064552249"  
-## [11] "In loop and x is now: 2.3713180164131"   
-## [12] "In loop and x is now: 5.39992381413438"  
-## [13] "In loop and x is now: 2.04627722872988"  
-## [14] "In loop and x is now: 4.66763984561325"  
-## [15] "In loop and x is now: 9.54610383126964"  
-## [16] "In loop and x is now: 2.75529052193515"  
-## [17] "In loop and x is now: 0.149389740300342" 
-## [18] "In loop and x is now: 4.28955604796958"  
-## [19] "In loop and x is now: 5.54381516297611"  
-## [20] "In loop and x is now: 6.09592429850574"
+##  [1] "In loop and x is now: 4.89879336376643" 
+##  [2] "In loop and x is now: 2.38750102717028" 
+##  [3] "In loop and x is now: 0.414323789144339"
+##  [4] "In loop and x is now: 3.94493484858139" 
+##  [5] "In loop and x is now: 7.09066230739537" 
+##  [6] "In loop and x is now: 5.75512785262155" 
+##  [7] "In loop and x is now: 5.90051707366116" 
+##  [8] "In loop and x is now: 2.21293117118346" 
+##  [9] "In loop and x is now: 8.30583697009615" 
+## [10] "In loop and x is now: 2.9418901679736"  
+## [11] "In loop and x is now: 3.50243203933044" 
+## [12] "In loop and x is now: 2.60903874520618" 
+## [13] "In loop and x is now: 4.0660715521456"  
+## [14] "In loop and x is now: 4.91532711696202" 
+## [15] "In loop and x is now: 5.89842078050089" 
+## [16] "In loop and x is now: 8.1732446025097"  
+## [17] "In loop and x is now: 3.84608141737092" 
+## [18] "In loop and x is now: 0.211080736469688"
+## [19] "In loop and x is now: 2.48671509320579" 
+## [20] "In loop and x is now: 3.79695425067329"
 ```
 
 ```
@@ -425,26 +425,26 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 12.3509080500037"  
-##  [2] "In loop and x is now: 2.42960264959407"  
-##  [3] "In loop and x is now: 6.68675243719676"  
-##  [4] "In loop and x is now: -0.726632787270358"
-##  [5] "In loop and x is now: 10.5398588153563"  
-##  [6] "In loop and x is now: 6.73693476158025"  
-##  [7] "In loop and x is now: 5.29103465613754"  
-##  [8] "In loop and x is now: 0.0668694996839116"
-##  [9] "In loop and x is now: 10.5379872446897"  
-## [10] "In loop and x is now: 7.51396129104497"  
-## [11] "In loop and x is now: 4.7426360328262"   
-## [12] "In loop and x is now: 10.7998476282688"  
-## [13] "In loop and x is now: 4.09255445745976"  
-## [14] "In loop and x is now: 9.3352796912265"   
-## [15] "In loop and x is now: 19.0922076625393"  
-## [16] "In loop and x is now: 5.51058104387031"  
-## [17] "In loop and x is now: 0.298779480600684" 
-## [18] "In loop and x is now: 8.57911209593916"  
-## [19] "In loop and x is now: 11.0876303259522"  
-## [20] "In loop and x is now: 12.1918485970115"
+##  [1] "In loop and x is now: 9.79758672753286" 
+##  [2] "In loop and x is now: 4.77500205434056" 
+##  [3] "In loop and x is now: 0.828647578288678"
+##  [4] "In loop and x is now: 7.88986969716278" 
+##  [5] "In loop and x is now: 14.1813246147907" 
+##  [6] "In loop and x is now: 11.5102557052431" 
+##  [7] "In loop and x is now: 11.8010341473223" 
+##  [8] "In loop and x is now: 4.42586234236691" 
+##  [9] "In loop and x is now: 16.6116739401923" 
+## [10] "In loop and x is now: 5.88378033594721" 
+## [11] "In loop and x is now: 7.00486407866089" 
+## [12] "In loop and x is now: 5.21807749041237" 
+## [13] "In loop and x is now: 8.13214310429119" 
+## [14] "In loop and x is now: 9.83065423392404" 
+## [15] "In loop and x is now: 11.7968415610018" 
+## [16] "In loop and x is now: 16.3464892050194" 
+## [17] "In loop and x is now: 7.69216283474184" 
+## [18] "In loop and x is now: 0.422161472939377"
+## [19] "In loop and x is now: 4.97343018641158" 
+## [20] "In loop and x is now: 7.59390850134657"
 ```
 
 ```
@@ -453,26 +453,26 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 24.7018161000075" 
-##  [2] "In loop and x is now: 4.85920529918814" 
-##  [3] "In loop and x is now: 13.3735048743935" 
-##  [4] "In loop and x is now: -1.45326557454072"
-##  [5] "In loop and x is now: 21.0797176307127" 
-##  [6] "In loop and x is now: 13.4738695231605" 
-##  [7] "In loop and x is now: 10.5820693122751" 
-##  [8] "In loop and x is now: 0.133738999367823"
-##  [9] "In loop and x is now: 21.0759744893794" 
-## [10] "In loop and x is now: 15.0279225820899" 
-## [11] "In loop and x is now: 9.4852720656524"  
-## [12] "In loop and x is now: 21.5996952565375" 
-## [13] "In loop and x is now: 8.18510891491952" 
-## [14] "In loop and x is now: 18.670559382453"  
-## [15] "In loop and x is now: 38.1844153250786" 
-## [16] "In loop and x is now: 11.0211620877406" 
-## [17] "In loop and x is now: 0.597558961201369"
-## [18] "In loop and x is now: 17.1582241918783" 
-## [19] "In loop and x is now: 22.1752606519044" 
-## [20] "In loop and x is now: 24.383697194023"
+##  [1] "In loop and x is now: 19.5951734550657" 
+##  [2] "In loop and x is now: 9.55000410868113" 
+##  [3] "In loop and x is now: 1.65729515657736" 
+##  [4] "In loop and x is now: 15.7797393943256" 
+##  [5] "In loop and x is now: 28.3626492295815" 
+##  [6] "In loop and x is now: 23.0205114104862" 
+##  [7] "In loop and x is now: 23.6020682946446" 
+##  [8] "In loop and x is now: 8.85172468473382" 
+##  [9] "In loop and x is now: 33.2233478803846" 
+## [10] "In loop and x is now: 11.7675606718944" 
+## [11] "In loop and x is now: 14.0097281573218" 
+## [12] "In loop and x is now: 10.4361549808247" 
+## [13] "In loop and x is now: 16.2642862085824" 
+## [14] "In loop and x is now: 19.6613084678481" 
+## [15] "In loop and x is now: 23.5936831220036" 
+## [16] "In loop and x is now: 32.6929784100388" 
+## [17] "In loop and x is now: 15.3843256694837" 
+## [18] "In loop and x is now: 0.844322945878753"
+## [19] "In loop and x is now: 9.94686037282316" 
+## [20] "In loop and x is now: 15.1878170026931"
 ```
 
 ```
@@ -481,26 +481,26 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 49.403632200015"  
-##  [2] "In loop and x is now: 9.71841059837628" 
-##  [3] "In loop and x is now: 26.747009748787"  
-##  [4] "In loop and x is now: -2.90653114908143"
-##  [5] "In loop and x is now: 42.1594352614254" 
-##  [6] "In loop and x is now: 26.947739046321"  
-##  [7] "In loop and x is now: 21.1641386245501" 
-##  [8] "In loop and x is now: 0.267477998735647"
-##  [9] "In loop and x is now: 42.1519489787588" 
-## [10] "In loop and x is now: 30.0558451641799" 
-## [11] "In loop and x is now: 18.9705441313048" 
-## [12] "In loop and x is now: 43.1993905130751" 
-## [13] "In loop and x is now: 16.370217829839"  
-## [14] "In loop and x is now: 37.341118764906"  
-## [15] "In loop and x is now: 76.3688306501572" 
-## [16] "In loop and x is now: 22.0423241754812" 
-## [17] "In loop and x is now: 1.19511792240274" 
-## [18] "In loop and x is now: 34.3164483837566" 
-## [19] "In loop and x is now: 44.3505213038089" 
-## [20] "In loop and x is now: 48.7673943880459"
+##  [1] "In loop and x is now: 39.1903469101315"
+##  [2] "In loop and x is now: 19.1000082173623"
+##  [3] "In loop and x is now: 3.31459031315471"
+##  [4] "In loop and x is now: 31.5594787886511"
+##  [5] "In loop and x is now: 56.725298459163" 
+##  [6] "In loop and x is now: 46.0410228209724"
+##  [7] "In loop and x is now: 47.2041365892893"
+##  [8] "In loop and x is now: 17.7034493694676"
+##  [9] "In loop and x is now: 66.4466957607692"
+## [10] "In loop and x is now: 23.5351213437888"
+## [11] "In loop and x is now: 28.0194563146435"
+## [12] "In loop and x is now: 20.8723099616495"
+## [13] "In loop and x is now: 32.5285724171648"
+## [14] "In loop and x is now: 39.3226169356961"
+## [15] "In loop and x is now: 47.1873662440071"
+## [16] "In loop and x is now: 65.3859568200776"
+## [17] "In loop and x is now: 30.7686513389674"
+## [18] "In loop and x is now: 1.68864589175751"
+## [19] "In loop and x is now: 19.8937207456463"
+## [20] "In loop and x is now: 30.3756340053863"
 ```
 
 ```
@@ -509,26 +509,26 @@ while( x < 100 ){
 ```
 
 ```
-##  [1] "In loop and x is now: 98.80726440003"   
-##  [2] "In loop and x is now: 19.4368211967526" 
-##  [3] "In loop and x is now: 53.4940194975741" 
-##  [4] "In loop and x is now: -5.81306229816286"
-##  [5] "In loop and x is now: 84.3188705228507" 
-##  [6] "In loop and x is now: 53.895478092642"  
-##  [7] "In loop and x is now: 42.3282772491003" 
-##  [8] "In loop and x is now: 0.534955997471293"
-##  [9] "In loop and x is now: 84.3038979575176" 
-## [10] "In loop and x is now: 60.1116903283598" 
-## [11] "In loop and x is now: 37.9410882626096" 
-## [12] "In loop and x is now: 86.3987810261501" 
-## [13] "In loop and x is now: 32.7404356596781" 
-## [14] "In loop and x is now: 74.682237529812"  
-## [15] "In loop and x is now: 152.737661300314" 
-## [16] "In loop and x is now: 44.0846483509625" 
-## [17] "In loop and x is now: 2.39023584480547" 
-## [18] "In loop and x is now: 68.6328967675133" 
-## [19] "In loop and x is now: 88.7010426076177" 
-## [20] "In loop and x is now: 97.5347887760918"
+##  [1] "In loop and x is now: 78.3806938202629"
+##  [2] "In loop and x is now: 38.2000164347245"
+##  [3] "In loop and x is now: 6.62918062630942"
+##  [4] "In loop and x is now: 63.1189575773023"
+##  [5] "In loop and x is now: 113.450596918326"
+##  [6] "In loop and x is now: 92.0820456419448"
+##  [7] "In loop and x is now: 94.4082731785786"
+##  [8] "In loop and x is now: 35.4068987389353"
+##  [9] "In loop and x is now: 132.893391521538"
+## [10] "In loop and x is now: 47.0702426875777"
+## [11] "In loop and x is now: 56.0389126292871"
+## [12] "In loop and x is now: 41.7446199232989"
+## [13] "In loop and x is now: 65.0571448343295"
+## [14] "In loop and x is now: 78.6452338713923"
+## [15] "In loop and x is now: 94.3747324880142"
+## [16] "In loop and x is now: 130.771913640155"
+## [17] "In loop and x is now: 61.5373026779347"
+## [18] "In loop and x is now: 3.37729178351501"
+## [19] "In loop and x is now: 39.7874414912926"
+## [20] "In loop and x is now: 60.7512680107726"
 ```
 
 ```
@@ -561,7 +561,7 @@ for( index in vector ){
 }
 ```
 
-where the `index` variable will take on each value in `vector` in succession and then statement will be evaluated. As always, statement can be multiple statements wrapped in curly brackets {}.
+where the `index` variable will take on each value in `vector` in succession and the next statement will be evaluated. As always, the statement can be multiple statements wrapped in curly brackets {}.
 
 ```r
 for( i in 1:5 ){
@@ -744,7 +744,7 @@ calculated.var
 
 Notice that even though I defined my function using `x` as my vector of data, and passed my function something named `test.vector`, R does the appropriate renaming. If my function doesn't modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable `x` as a placeholder, with it being replaced by whatever gets passed into the function.
 
-When I call a function, the function might cause something to happen (e.g. draw a plot) or it might do some calculates the result is returned by the function and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the `return` statement. (Actually R doesn't completely require this. But the alternative method is less intuitive and I strongly recommend using the `return()` statement for readability.)
+When I call a function, it might cause something to happen (e.g. draw a plot); or, it might do some calculations, the result of which is returned by the function, and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the `return` statement. (Actually R doesn't completely require this. But the alternative method is less intuitive and I strongly recommend using the `return()` statement for readability.)
 
 By writing a function, I can use the same chunk of code repeatedly. This means that I can do all my tedious calculations inside the function and just call the function whenever I want and happily ignore the details. Consider the function `t.test()` which we have used to do all the calculations in a t-test. We could write a similar function using the following code:
 
@@ -780,7 +780,7 @@ one.sample.t.test( test.data, mu0=2 )
 ## [1] "t = 3.157  and p.value = 0.008"
 ```
 
-Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something similar to the above function, but is a bit grander in scope. Even if you don't end up writing any of your own functions, knowing how to will help you understand why certain functions you use are designed the way they are. 
+Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something that is similar to the above function, but is a bit grander in scope. Even if you don't end up writing any of your own functions, knowing how  will help you understand why certain functions you use are designed the way they are. 
 
 ## Exercises  {#Exercises_FlowControl}
 
@@ -835,9 +835,9 @@ Nearly every function we use to do data analysis is written in a similar fashion
     ```
 
     
-    We will write a sequence of statements that utilizes an if statements to appropriately calculate the density of x assuming that `a`, `b` , and `x` are given to you, but your code won't know if `x` is between `a` and `b`. That is, your code needs to figure out if it is and give either `1/(b-a)` or `0`.
+    We will write a sequence of statements that utilizes if statements to appropriately calculate the density of `x`, assuming that `a`, `b` , and `x` are given to you, but your code won't know if `x` is between `a` and `b`. That is, your code needs to figure out if it is and give either `1/(b-a)` or `0`.
 
-    a. We could write a set of if/else statements 
+    a. We could write a set of `if else` statements.
         
         ```r
         a <- 4
@@ -884,7 +884,7 @@ Nearly every function we use to do data analysis is written in a similar fashion
             
             ```r
             x <- runif(n=1, 0,10)  # one random value between 0 and 10 
-            result <- ifelse( a<x & x<b, ???, ??? )
+            result <- ifelse( a<=x & x<=b, ???, ??? )
             print(paste('x=',round(x,digits=3), '  result=', round(result,digits=3)))
             ```
 
