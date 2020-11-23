@@ -196,12 +196,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nThe Nasty Thing A Trump Lawyer Did On Live TV, And More Of This Week's 'One Main Character'\n"
-## [2] "\n12 Incredibly Useful Gmail Settings You Didn't Know You Needed\n"                             
-## [3] "\nWhen You Try Your Best To Drive Up A Slope And Things Still Go Hilariously South\n"           
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                    
-## [5] "\nThis Is Why You Got To Be Careful Riding Your Bike Too Close To The Water\n"                  
-## [6] "\nThe World's Longest Commercial Flights, By The Numbers\n"
+## [1] "\nWhat It's Like Inside Your Plane's Hidden 'Crew Rest,' Where Pilots And Flight Attendants Sleep\n"
+## [2] "\nThe Most Expensive ZIP Codes In The US, Visualized\n"                                             
+## [3] "\nThis Is Exactly What Winter In Canada Is Like\n"                                                  
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                        
+## [5] "\nPuppy Is Not Afraid Of Newfoundland Brother At All, But Is Scared Of Toy Dog\n"                   
+## [6] "\nVideo Games Can Improve Mental Health. Let's Stop Seeing Them As A Guilty Pleasure\n"
 ```
 
 
@@ -216,12 +216,12 @@ Links %>%
 ```
 
 ```
-## [1] "/2020/one-main-character-rudy-giuliani"                                                           
-## [2] "https://www.fastcompany.com/90576550/useful-gmail-settings-tips-ios-android?utm_source=digg"      
-## [3] "/2020/drive-up-driveway-slope-fail"                                                               
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                      
-## [5] "/video/guy-ride-bike-falls-into-water"                                                            
-## [6] "https://www.popsci.com/story/technology/singapore-airlines-worlds-longest-flight/?utm_source=digg"
+## [1] "https://thepointsguy.co.uk/news/secret-crew-rest/?utm_source=digg"                                                         
+## [2] "/2020/most-expensive-zip-codes-united-states-visualized"                                                                   
+## [3] "/2020/what-canada-winter-is-like"                                                                                          
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                               
+## [5] "/video/puppy-scared-of-toy-dog-not-afraid-newfoundland"                                                                    
+## [6] "https://www.theguardian.com/commentisfree/2020/nov/23/video-games-boost-mental-health-stop-guilty-pleasure?utm_source=digg"
 ```
 
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-11-20" />
+<meta name="date" content="2020-11-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="statistical-models.html"><a href="statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
 <li class="chapter" data-level="5.2.2" data-path="statistical-models.html"><a href="statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-function"><i class="fa fa-check"></i><b>5.3</b> Accessor function</a></li>
+<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor functions</a></li>
 <li class="chapter" data-level="5.4" data-path="statistical-models.html"><a href="statistical-models.html#Exercises_ModelBuilding"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="flow-control.html"><a href="flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a>
@@ -240,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="factors.html"><a href="factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
 <li class="chapter" data-level="7.2" data-path="factors.html"><a href="factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
 <li class="chapter" data-level="7.3" data-path="factors.html"><a href="factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
-<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-subtract-levels-1"><i class="fa fa-check"></i><b>7.4</b> Add or subtract Levels</a></li>
 <li class="chapter" data-level="7.5" data-path="factors.html"><a href="factors.html#Exercises_Factors"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
 </ul></li>
 <li class="part"><span><b>Miscellaneous</b></span></li>
@@ -534,9 +534,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="dates-and-times.html#cb661-1" aria-hidden="true"></a><span class="co"># base::Sys.Date()     # Today&#39;s date</span></span>
 <span id="cb661-2"><a href="dates-and-times.html#cb661-2" aria-hidden="true"></a><span class="co"># base::Sys.time()     # Current Time and Date </span></span>
 <span id="cb661-3"><a href="dates-and-times.html#cb661-3" aria-hidden="true"></a>lubridate<span class="op">::</span><span class="kw">today</span>()   <span class="co"># Today&#39;s date</span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-11-20&quot;</code></pre>
+<pre><code>## [1] &quot;2020-11-23&quot;</code></pre>
 <div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="dates-and-times.html#cb663-1" aria-hidden="true"></a>lubridate<span class="op">::</span><span class="kw">now</span>()     <span class="co"># Today&#39;s Date and Time</span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-11-20 17:19:32 MST&quot;</code></pre>
+<pre><code>## [1] &quot;2020-11-23 15:24:35 MST&quot;</code></pre>
 <p>If we have all of our date information as several numerical columns and we can specify <code>year</code>, <code>month</code>, and <code>day</code>, the easiest way to create a date is to use the function <code>make_date()</code> or <code>make_datetime()</code></p>
 <div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="dates-and-times.html#cb665-1" aria-hidden="true"></a><span class="kw">make_date</span>(<span class="dt">year=</span><span class="dv">2020</span>, <span class="dt">month=</span><span class="dv">10</span>, <span class="dt">day=</span><span class="dv">31</span>)  <span class="co"># Halloween!</span></span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-31&quot;</code></pre>
@@ -864,12 +864,12 @@ is a good reference.</p>
 <pre><code>## # A tibble: 6 x 5
 ##   Name    dob        Life                           Age                  Age2
 ##   &lt;chr&gt;   &lt;date&gt;     &lt;Interval&gt;                     &lt;Period&gt;            &lt;int&gt;
-## 1 Steve   1955-02-24 1955-02-24 UTC--2020-11-20 UTC 65y 8m 27d 0H 0M 0S    65
-## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-11-20 UTC 47y 2m 30d 0H 0M 0S    47
-## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-11-20 UTC 56y 3m 5d 0H 0M 0S     56
-## 4 Bill    1955-10-28 1955-10-28 UTC--2020-11-20 UTC 65y 0m 23d 0H 0M 0S    65
-## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-11-20 UTC 6y 0m 14d 0H 0M 0S      6
-## 6 Siri    2011-10-12 2011-10-12 UTC--2020-11-20 UTC 9y 1m 8d 0H 0M 0S       9</code></pre>
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-11-23 UTC 65y 8m 30d 0H 0M 0S    65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-11-23 UTC 47y 3m 2d 0H 0M 0S     47
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-11-23 UTC 56y 3m 8d 0H 0M 0S     56
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-11-23 UTC 65y 0m 26d 0H 0M 0S    65
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-11-23 UTC 6y 0m 17d 0H 0M 0S      6
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-11-23 UTC 9y 1m 11d 0H 0M 0S      9</code></pre>
 <p>As a final example, suppose that an hourly employee clocked in at 11:30 PM March 7, 2020 and then clocked out at 7:30 AM March 8 2020. How long did he or she work?</p>
 <div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="dates-and-times.html#cb725-1" aria-hidden="true"></a>In  &lt;-<span class="st"> </span><span class="kw">ymd_hm</span>(<span class="st">&#39;2020-3-7 11:30 PM&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>)</span>
 <span id="cb725-2"><a href="dates-and-times.html#cb725-2" aria-hidden="true"></a>Out &lt;-<span class="st"> </span><span class="kw">ymd_hm</span>(<span class="st">&#39;2020-3-8 7:45 AM&#39;</span>, <span class="dt">tz=</span><span class="st">&#39;US/Mountain&#39;</span>)</span>

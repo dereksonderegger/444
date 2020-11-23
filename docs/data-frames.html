@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-11-20" />
+<meta name="date" content="2020-11-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="statistical-models.html"><a href="statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
 <li class="chapter" data-level="5.2.2" data-path="statistical-models.html"><a href="statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-function"><i class="fa fa-check"></i><b>5.3</b> Accessor function</a></li>
+<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor functions</a></li>
 <li class="chapter" data-level="5.4" data-path="statistical-models.html"><a href="statistical-models.html#Exercises_ModelBuilding"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="flow-control.html"><a href="flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a>
@@ -240,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="factors.html"><a href="factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
 <li class="chapter" data-level="7.2" data-path="factors.html"><a href="factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
 <li class="chapter" data-level="7.3" data-path="factors.html"><a href="factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
-<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-subtract-levels-1"><i class="fa fa-check"></i><b>7.4</b> Add or subtract Levels</a></li>
 <li class="chapter" data-level="7.5" data-path="factors.html"><a href="factors.html#Exercises_Factors"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
 </ul></li>
 <li class="part"><span><b>Miscellaneous</b></span></li>
@@ -523,7 +523,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As always, there is a <a href="https://youtu.be/4IzqPTuHycc">Video Lecture</a> that accompanies this chapter.</p>
 <p>Data frames are the fundamental unit of data storage that casual users of R need to work with. Conceptually they are just like a single tab in a spreadsheet (e.g. Excel) file. There are multiple rows and columns and each column is of the same type of information (e.g. numerical values, dates, or character strings) and each row represents a single observation.</p>
 <p>Because the columns have meaning and we generally give them column names, it is desirable to want to access an element by the name of the column as opposed to the column number. While writing formulas in large Excel spreadsheets I often get annoyed trying to remember which column something was in and muttering “Was total biomass in column P or Q?” A system where I could just name the column <code>Total_Biomass</code> and then always refer to it that way, is much nicer to work with and I make fewer dumb mistakes.</p>
-<p>In this chapter we will briefly cover the minimal set of tools for working with data frames. First we discuss how to import data sets, both packages from packages and from appropriately formated Excel and .csv files. Finally we’ll see how to create a data frame “by hand” and to access columns and do simple manipulations.</p>
+<p>In this chapter we will briefly cover the minimal set of tools for working with data frames. First we discuss how to import data sets, both from packages and from appropriately formated Excel and .csv files. Finally we’ll see how to create a data frame “by hand” and to access columns and do simple manipulations.</p>
 <p>In this chapter, we will focus on standard R data frame manipulations so that readers gain basic familiarity with non-tidyverse accessor methods.</p>
 <div id="introduction-to-importing-data" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Introduction to Importing Data</h2>
@@ -541,8 +541,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.1.2</span> Import from <code>.csv</code> or <code>.xls</code> files</h3>
 <p>Often times data is stored in a “Comma Separated Values” file (with the file suffix of .csv) where the rows in the file represent the data frame rows, and the columns are just separated by commas. The first row of the file is usually the column titles.</p>
 <p>Alternatively, the data might be stored in an Excel file and we just need to tell R where the file is and which worksheet tab to import.</p>
-<p>The hardest part for people that are new to programming is giving the path to the data file. In this case, I recommend students use the data import wizard that RStudio includes which is accessed via ‘File -&gt; Import Dataset’. This will then give you a choice of file types to read from (.csv files are in the “Text” options). Once you have selected the file type to import, the user is presented with a file browser window where the desired file should be located. Once the file is chosen, we can import of the file.</p>
-<p>Critically, we should notice that the import wizard generates R code that does the actual import. We MUST copy that code into our Rmarkdown file or else the import won’t happen when we try to knit the Rmarkdown into an output document because knitting always occurs in a completely fresh R session. So only use the import wizard to generate the import code! The code generated by the import wizard ends with a <code>View()</code> command and I typically remove that as it can interfer with the knitting process. The code that I’ll paste into my RMarkdown file typically looks like this:</p>
+<p>The hardest part for people that are new to programming is giving the path to the data file. In this case, I recommend students use the data import wizard that RStudio includes which is accessed via ‘File -&gt; Import Dataset’. This will then give you a choice of file types to read from (.csv files are in the “Text” options). Once you have selected the file type to import, the user is presented with a file browser window where the desired file should be located. Once the file is chosen, we can import the file.</p>
+<p>Critically, we should notice that the import wizard generates R code that does the actual import. We MUST copy that code into our Rmarkdown file or else the import won’t happen when we try to knit the Rmarkdown into an output document because knitting always occurs in a completely fresh R session. So only use the import wizard to generate the import code! The code generated by the import wizard ends with a <code>View()</code> command and I typically remove that as it can interfere with the knitting process. The code that I’ll paste into my RMarkdown file typically looks like this:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="data-frames.html#cb54-1" aria-hidden="true"></a><span class="kw">library</span>(readxl)</span>
 <span id="cb54-2"><a href="data-frames.html#cb54-2" aria-hidden="true"></a>Melioid_IgG &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;~/Dropbox/NAU/MAGPIX serology/Data/Melioid_IgG.xlsx&quot;</span>)</span>
 <span id="cb54-3"><a href="data-frames.html#cb54-3" aria-hidden="true"></a><span class="co"># View(Melioid_IgG)</span></span></code></pre></div>
@@ -550,7 +550,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="data-types" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Data Types</h2>
-<p>Data frames are required that each column have the same type. That is to say, if a column is numeric, you can just change one value to a character string. Below are the most common data types that are commonly used within R.</p>
+<p>Data frames are required that each column have the same type. That is to say, if a column is numeric, you can’t just change one value to a character string. Below are the most common data types that are used within R.</p>
 <ol style="list-style-type: decimal">
 <li><p>Integers - These are the integer numbers <span class="math inline">\(\left(\dots,-2,-1,0,1,2,\dots\right)\)</span>. To convert a numeric value to an integer you may use the function <code>as.integer()</code>.</p></li>
 <li><p>Numeric - These could be any number (whole number or decimal). To convert another type to numeric you may use the function <code>as.numeric()</code>.</p></li>
@@ -559,7 +559,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Logicals - This is a special case of a factor that can only take on the values <code>TRUE</code> and <code>FALSE</code>. (Be careful to always capitalize <code>TRUE</code> and <code>FALSE</code>. Because R is case-sensitive, TRUE is not the same as true.) Using the function <code>as.logical()</code> you can convert numeric values to <code>TRUE</code> and <code>FALSE</code> where <code>0</code> is <code>FALSE</code> and anything else is <code>TRUE</code>.</p></li>
 </ol>
 <p>Depending on the command, R will coerce your data from one type to another if necessary, but it is a good habit to do the coercion yourself. If a variable is a number, R will automatically assume that it is continuous numerical variable. If it is a character string, then R will assume it is a factor when doing any statistical analysis.</p>
-<p>Most of these types are familiar to beginning R users except for factors. Factors are how R keeps track of categorical variables. R does this in a two step pattern. First it figures out how many categories there are and remembers which category an observation belongs two and second, it keeps a vector character strings that correspond to the names of each of the categories.</p>
+<p>Most of these types are familiar to beginning R users except for factors. Factors are how R keeps track of categorical variables. R does this in a two step pattern. First it figures out how many categories there are and remembers which category an observation belongs to and second, it keeps a vector of character strings that correspond to the names of each of the categories.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="data-frames.html#cb55-1" aria-hidden="true"></a><span class="co"># A character vector</span></span>
 <span id="cb55-2"><a href="data-frames.html#cb55-2" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;C&#39;</span>)</span>
 <span id="cb55-3"><a href="data-frames.html#cb55-3" aria-hidden="true"></a>y</span></code></pre></div>
@@ -580,8 +580,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="basic-manipulation" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Basic Manipulation</h2>
-<p>Occasionally I’ll need to create a small data frame “by hand” to facilitate creating graphs in ggplot2. In this final section, we’ll cover creating a data frame and doing simple manipulations using the base R commands and syntax.</p>
-<p>To create a data frame, we have to squish together a bunch of columns vectors. The command <code>data.frame()</code> does exactly that. In the example below, I list the names, ages and heights (in inches) of my family.</p>
+<p>Occasionally I’ll need to create a small data frame “by hand” to facilitate creating graphs in <code>ggplot2</code>. In this final section, we’ll cover creating a data frame and doing simple manipulations using the base R commands and syntax.</p>
+<p>To create a data frame, we have to squish together a bunch of column vectors. The command <code>data.frame()</code> does exactly that. In the example below, I list the names, ages and heights (in inches) of my family.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="data-frames.html#cb65-1" aria-hidden="true"></a>family &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
 <span id="cb65-2"><a href="data-frames.html#cb65-2" aria-hidden="true"></a>  <span class="dt">Names =</span> <span class="kw">c</span>(<span class="st">&#39;Derek&#39;</span>, <span class="st">&#39;Aubrey&#39;</span>, <span class="st">&#39;Elise&#39;</span>, <span class="st">&#39;Casey&#39;</span>),</span>
 <span id="cb65-3"><a href="data-frames.html#cb65-3" aria-hidden="true"></a>  <span class="dt">Age   =</span> <span class="kw">c</span>(<span class="dv">42</span>, <span class="dv">39</span>, <span class="dv">6</span>, <span class="dv">3</span>),</span>
@@ -605,7 +605,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 42 39  6  3</code></pre>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="data-frames.html#cb75-1" aria-hidden="true"></a>family[ <span class="dv">2</span>, <span class="st">&#39;Age&#39;</span>]  <span class="co"># age of person in row 2</span></span></code></pre></div>
 <pre><code>## [1] 39</code></pre>
-<p>Next we could calculate everybodies height in centimeters by multiplying the heights by 2.54 and saving the result in column appropriately named.</p>
+<p>Next we could calculate everyone’s height in centimeters by multiplying the heights by 2.54 and saving the result in column appropriately named.</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="data-frames.html#cb77-1" aria-hidden="true"></a>family<span class="op">$</span>Height.cm &lt;-<span class="st"> </span>family<span class="op">$</span>Height.in <span class="op">*</span><span class="st"> </span><span class="fl">2.54</span>  <span class="co"># calculate the heights and save them!</span></span>
 <span id="cb77-2"><a href="data-frames.html#cb77-2" aria-hidden="true"></a>family                                       <span class="co"># view our result!</span></span></code></pre></div>
 <pre><code>##    Names Age Height.in Height.cm

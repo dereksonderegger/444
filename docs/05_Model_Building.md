@@ -33,10 +33,10 @@ In R, the LHS is usually just a single variable in the data. However the RHS can
 +-------------------------------+-------------------------------------------------------+
 | ` x1:x2`                      | This is the interaction term between `x1` and `x2`    | 
 +-------------------------------+-------------------------------------------------------+
-| `x1 * x2`                     | Because whenever we add an interaction term to a      |
-|                               | model, we want to also have the main effects. So this |
-|                               | is a short cut for adding the main effect of `x1` and |
-|                               | `x2` and also the interaction term `x1:x2`.           |
+| `x1 * x2`                     | Whenever we add an interaction term to a model,       |
+|                               | we want to also have the main effects. So this is a   |
+|                               | short cut for adding the main effect of `x1` and `x2` |
+|                               | and also the interaction term `x1:x2`.                |
 +-------------------------------+-------------------------------------------------------+
 | `(x1 + x2 + x3)^2`            | This is the main effects of `x1`, `x2`, and `x3` and  |
 |                               | also all of the second order interactions.            |
@@ -63,10 +63,10 @@ In R, the LHS is usually just a single variable in the data. However the RHS can
 The most common statistical models are generally referred to as *linear models* and the R function for creating a linear model is `lm()`. This section will introduce how to fit the model to data in a data frame as well as how to fit very specific t-test models.
 
 ###  t-tests
-There are several varients on T-tests depending on the question of interest, but they all require a continuous response and a categorical explanatory variable with two levels. If there is an obvious pairing between an observation in the first level of the explanatory variable with an observation in the second level, then it is a *paired* t-test, otherwise it is a *two-sample* t-test.
+There are several variants on t-tests depending on the question of interest, but they all require a continuous response and a categorical explanatory variable with two levels. If there is an obvious pairing between an observation in the first level of the explanatory variable with an observation in the second level, then it is a *paired* t-test, otherwise it is a *two-sample* t-test.
 
 #### Two Sample t-tests
-First we'll import data from the `Lock5Data` package that gives SAT scores and gender from 343 students in an introductory statistics class. We'll also recode the `GenderCode` column to be more descriptive than 0 or 1. We'll do a t-test to examine if there is evidence that males and females have a different SAT score at the college these data were take.
+First we'll import data from the `Lock5Data` package that gives SAT scores and gender from 343 students in an introductory statistics class. We'll also recode the `GenderCode` column to be more descriptive than 0 or 1. We'll do a t-test to examine if there is evidence that males and females have a different SAT score at the college where these data were collected.
 
 ```r
 data('GPAGender', package='Lock5Data')
@@ -114,7 +114,7 @@ broom::tidy(model) # all that information as a data frame
 ## 1 Welch Two Sample t-test two.sided
 ```
 
-In the `t.test` function, the default behavior is to perform a test with a two-sided alternative and to calculate a 95% confidence interval. Those can be adjusted using the `alternative` and `conf.level` arguments. See the help documentation for `t.test()` function to see how to adust those.
+In the `t.test` function, the default behavior is to perform a test with a two-sided alternative and to calculate a 95% confidence interval. Those can be adjusted using the `alternative` and `conf.level` arguments. See the help documentation for `t.test()` function to see how to adjust those.
 
 The `t.test` function can also be used without using a formula by inputing a vector of response variables for the first group and a vector of response variables for the second. The following results in the same model as the formula based interface.
 
@@ -214,7 +214,7 @@ The general workflow will be to:
 1. Visualize the data
 2. Call `lm()` using a formula to specify the model to fit.
 3. Save the results of the `lm()` call to some object (usually I name it `model`)
-4. Use accessor functions to ask for pertainent quantities that have already been calculated.
+4. Use accessor functions to ask for pertinent quantities that have already been calculated.
 5. Store prediction values and model confidence intervals for each data point in the original data frame.
 6. Graph the original data along with prediction values and model confidence intervals.
 
@@ -236,7 +236,7 @@ Now suppose we want to fit a regression model to these data and allow each speci
 model <- lm( Petal.Length ~ Sepal.Length * Species, data = iris ) 
 ```
 
-## Accessor function 
+## Accessor functions 
 Once a model has been fit, we want to obtain a variety of information from the model object. The way that we get most all of this information using base R commands is to call the `summary()` function which returns a list and then grab whatever we want out of that. Typically for a report, we could just print out all of the summary information and let the reader pick out the information.
 
 
@@ -327,7 +327,7 @@ head(iris, n=3)
 ## 3 1.518798
 ```
 
-Now that the fitted values that define the regression lines and the associated confidence interval band information has been added to my `iris` data set, we can now plot the raw data and the regression model predictions.
+Now that the fitted values that define the regression lines and the associated confidence interval band information have been added to my `iris` data set, we can now plot the raw data and the regression model predictions.
 
 
 ```r
@@ -353,7 +353,7 @@ Rsq_string <-
 ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
   geom_point(  ) +
   geom_line( aes(y=fit)  ) +
-  geom_ribbon( aes( ymin=lwr, ymax=upr), alpha=.3 ) +   # alpha is the ribbon transparency
+  geom_ribbon( aes( ymin=lwr, ymax=upr, fill=Species), alpha=.3 ) +   # alpha is the ribbon transparency
   annotate('label', label=Rsq_string, x=7, y=2, size=7)
 ```
 
@@ -364,13 +364,13 @@ ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
 1. Using the `trees` data frame that comes pre-installed in R, fit the regression model that uses the tree `Height` to explain the `Volume` of wood harvested from the tree.
     a) Graph the data
     b) Fit a `lm` model using the command `model <- lm(Volume ~ Height, data=trees)`.
-    c) Print out the table of coefficients estimate names, estimated value, standard error, and upper and lower 95% confidence intervals.
+    c) Print out the table of coefficients with estimate names, estimated value, standard error, and upper and lower 95% confidence intervals.
     d) Add the model fitted values to the `trees` data frame along with the regression model confidence intervals.
     e) Graph the data and fitted regression line and uncertainty ribbon.
     f) Add the R-squared value as an annotation to the graph.
   
-2. The data set `phbirths` from the `faraway` package contains information birth weight, gestational length, and smoking status of mother. We'll fit a quadratic model to predict infant birth weight using the gestational time.
-    a) Create two scatter plots of gestational length and birthweight, one for each smoking status.
+2. The data set `phbirths` from the `faraway` package contains information on birth weight, gestational length, and smoking status of mother. We'll fit a quadratic model to predict infant birth weight using the gestational time.
+    a) Create two scatter plots of gestational length and birth weight, one for each smoking status.
     b) Remove all the observations that are premature (less than 36 weeks). For the remainder of the problem, only use these full-term babies.
     c) Fit the quadratic model 
         

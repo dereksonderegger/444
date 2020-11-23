@@ -6,16 +6,16 @@
 
 ```r
 library(tidyverse, quietly = TRUE)    # loading ggplot2 and dplyr
-options(dplyr.summarise.inform=FALSE) # Don't annoy me with summaris messages
+options(dplyr.summarise.inform=FALSE) # Don't annoy me with summary messages
 ```
 
 As always, there is a [Video Lecture](https://youtu.be/99Q7AunWuk0) that accompanies this chapter.
   
-Many of the tools to manipulate data frames in R were written without a consistent syntax and are difficult use together. To remedy this, Hadley Wickham (the writer of `ggplot2`) introduced a package called plyr which was quite useful. As with many projects, his first version was good but not great and he introduced an improved version that works exclusively with data.frames called `dplyr` which we will investigate. The package `dplyr` strives to provide a convenient and consistent set of functions to handle the most common data frame manipulations and a mechanism for chaining these operations together to perform complex tasks. 
+Many of the tools to manipulate data frames in R were written without a consistent syntax and are difficult use together. To remedy this, Hadley Wickham (the writer of `ggplot2`) introduced a package called `plyr` which was quite useful. As with many projects, his first version was good, but not great, and he introduced an improved version that works exclusively with data frames called `dplyr` which we will investigate. The package `dplyr` strives to provide a convenient and consistent set of functions to handle the most common data frame manipulations, and a mechanism for chaining these operations together to perform complex tasks. 
 
-The Dr Wickham has put together a very nice introduction to the package that explains in more detail how the various pieces work and I encourage you to read it at some point. [http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html].
+Dr. Wickham has put together a very nice introduction to the package that explains in more detail how the various pieces work and I encourage you to read it at some point. [https://cran.rstudio.com/web/packages/dplyr/vignettes/dplyr.html].
 
-One of the aspects about the `data.frame` object is that R does some simplification for you, but it does not do it in a consistent manner. Somewhat obnoxiously character strings are always converted to factors and subsetting might return a `data.frame` or a `vector` or a `scalar`.  This is fine at the command line, but can be problematic when programming. Furthermore, many operations are pretty slow using `data.frame`. To get around this, Dr Wickham introduced a modified version of the `data.frame` called a `tibble`. A `tibble` is a `data.frame` but with a few extra bits. For now we can ignore the differences.
+One of the aspects about the `data.frame` object is that R does some simplification for you, but it does not do it in a consistent manner. Somewhat obnoxiously, character strings are always converted to factors and subsetting might return a `data.frame` or a `vector` or a `scalar`.  This is fine at the command line, but can be problematic when programming. Furthermore, many operations are pretty slow using `data.frame`. To get around this, Dr. Wickham introduced a modified version of the `data.frame` called a `tibble`. A `tibble` is a `data.frame` but with a few extra bits. For now we can ignore the differences.
 
 The pipe command `%>%` allows for very readable code. The idea is that the `%>%` operator works by translating the command `a %>% f(b)` to the expression `f(a,b)`. This operator works on any function and was introduced in the `magrittr` package. The beauty of this comes when you have a suite of functions that takes input arguments of the same type as their output. 
 
@@ -170,7 +170,7 @@ These function allows you select certain columns and rows of a data frame.
 
 Often you only want to work with a small number of columns of a data frame and want to be able to *select* a subset of columns or perhaps remove a subset. The function to do that is `dplyr::select()`. 
 
-I could select the columns Exam columns by hand, or by using an extension of the `:` operator
+I could select the Exam columns by hand, or by using an extension of the `:` operator.
 
 ```r
 # select( grades,  Exam1, Exam2 )   # from `grades`, select columns Exam1, Exam2
@@ -285,12 +285,12 @@ grades %>% filter(Final > 90)
 ## 3 Reid   F         95    92   100
 ```
 
-You can have multiple logical expressions to select rows and they will be logically combined so that only rows that satisfy all of the conditions are selected. The logicals are joined together using `&` (and) operator or the `|` (or) operator and you may explicitly use other logicals. For example a factor column type might be used to select rows where type is either one or two via the following: `type==1 | type==2`.
+You can have multiple logical expressions to select rows and they will be logically combined so that only rows that satisfy all of the conditions are selected. The logicals are joined together using `&` (and) operator or the `|` (or) operator and you may explicitly use other logicals. For example, a factor column type might be used to select rows where type is either one or two via the following: `type==1 | type==2`.
 
 ```r
 # select students with Final grades above 90 and
 # average score also above 90
-grades %>% filter(Exam2 > 90, Final > 90)
+grades %>% filter(Final > 90, ((Exam1 + Exam2 + Final)/3) > 90)
 ```
 
 ```
@@ -303,7 +303,7 @@ grades %>% filter(Exam2 > 90, Final > 90)
 
 ```r
 # we could also use an "and" condition
-grades %>% filter(Exam2 > 90 & Final > 90)
+grades %>% filter(Final > 90 &((Exam1 + Exam2 + Final)/3) > 90)
 ```
 
 ```
@@ -418,7 +418,7 @@ The `if_else` syntax is `if_else( logical.expression, TrueValue, FalseValue )`. 
 
 
 ```r
-# Update Doctor Reids Final Exam score to be a 98, leave everybody else's the same.
+# Update Doctor Reid's Final Exam score to be a 98, leave everybody else's the same.
 grades <- grades %>%
   mutate( Final = if_else(l.name == 'Reid', 98, Final ) )
 grades
@@ -544,7 +544,7 @@ grades %>% summarise( mean.E1=mean(Exam1), stddev.E1=sd(Exam1) )
 
 ## Split, apply, combine
 
-Aside from unifying the syntax behind the common operations, the major strength of the `dplyr` package is the ability to split a data frame into a bunch of sub-data frames, apply a sequence of one or more of the operations we just described, and then combine results back together. We'll consider data from an experiment from spinning wool into yarn. This experiment considered two different types of wool (A or B) and three different levels of tension on the thread. The response variable is the number of breaks in the resulting yarn. For each of the 6 `wool:tension` combinations, there are 9 replicated observations per `wool:tension` level.
+Aside from unifying the syntax behind the common operations, the major strength of the `dplyr` package is the ability to split a data frame into a bunch of sub data frames, apply a sequence of one or more of the operations we just described, and then combine results back together. We'll consider data from an experiment from spinning wool into yarn. This experiment considered two different types of wool (A or B) and three different levels of tension on the thread. The response variable is the number of breaks in the resulting yarn. For each of the 6 `wool:tension` combinations, there are 9 replicated observations.
 
 ```r
 data(warpbreaks)
@@ -562,12 +562,12 @@ str(warpbreaks)
 
 
 
-The first we must do is to create a data frame with additional information about how to break the data into sub-data frames. In this case, I want to break the data up into the 6 wool-by-tension combinations. Initially we will just figure out how many rows are in each wool-by-tension combination.
+The first we must do is to create a data frame with additional information about how to break the data into sub data frames. In this case, I want to break the data up into the 6 wool-by-tension combinations. Initially we will just figure out how many rows are in each wool-by-tension combination.
 
 ```r
 # group_by:  what variable(s) shall we group on.
 # n() is a function that returns how many rows are in the 
-#   currently selected sub-dataframe
+#   currently selected sub dataframe
 warpbreaks %>% 
   group_by( wool, tension) %>%    # grouping
   summarise(n = n() )             # how many in each group
@@ -636,17 +636,17 @@ warpbreaks %>%
     c) Remove all the observations except for observations from day 10 or day 20. The tough part in this instruction is distinguishing between "and" and "or".  Obviously there are no observations that occur from both day 10 AND day 20.  Google 'R logical operators' to get an introduction to those.
     d) Calculate the mean and standard deviation of the chick weights for each diet group on days 10 and 20. 
 
-2. The OpenIntro textbook on statistics includes a data set on body dimensions. Instead of creating an R chunk for each step of this problem, create a single R pipeline that performs each of the following tasks.  Y 
+2. The OpenIntro textbook on statistics includes a data set on body dimensions. Instead of creating an R chunk for each step of this problem, create a single R pipeline that performs each of the following tasks.
     a) Load the file using 
         
         ```r
         Body <- read.csv('http://www.openintro.org/stat/data/bdims.csv')
         ```
-    b) The column sex is coded as a 1 if the individual is male and 0 if female. This is a non-intuitive labeling system. Create a new column `sex.MF` that uses labels Male and Female. _Hint: the ifelse() command will be very convenient here. The ifelse() command in R functions similarly to the same command in Excel. Feel free to complete all parts of the exercise in a single R pipeline at the end of the problem.*_
+    b) The column `sex` is coded as a 1 if the individual is male and 0 if female. This is a non-intuitive labeling system. Create a new column `sex.MF` that uses labels Male and Female. _Hint: The ifelse() command will be very convenient here. It functions similarly to the same command in Excel._
     c) The columns `wgt` and `hgt` measure weight and height in kilograms and centimeters (respectively). Use these to calculate the Body Mass Index (BMI) for each individual where 
     $$BMI=\frac{Weight\,(kg)}{\left[Height\,(m)\right]^{2}}$$ 
     d) Double check that your calculated BMI column is correct by examining the summary statistics of the column (e.g. `summary(Body)`). BMI values should be between 18 to 40 or so.  Did you make an error in your calculation?  
-    e) The function `cut` takes a vector of continuous numerical data and creates a factor based on your give cut-points. 
+    e) The function `cut` takes a vector of continuous numerical data and creates a factor based on your given cut-points. 
         
         ```r
         # Define a continuous vector to convert to a factor

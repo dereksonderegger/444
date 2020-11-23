@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-11-20" />
+<meta name="date" content="2020-11-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="statistical-models.html"><a href="statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
 <li class="chapter" data-level="5.2.2" data-path="statistical-models.html"><a href="statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-function"><i class="fa fa-check"></i><b>5.3</b> Accessor function</a></li>
+<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor functions</a></li>
 <li class="chapter" data-level="5.4" data-path="statistical-models.html"><a href="statistical-models.html#Exercises_ModelBuilding"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="flow-control.html"><a href="flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a>
@@ -240,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="factors.html"><a href="factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
 <li class="chapter" data-level="7.2" data-path="factors.html"><a href="factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
 <li class="chapter" data-level="7.3" data-path="factors.html"><a href="factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
-<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-subtract-levels-1"><i class="fa fa-check"></i><b>7.4</b> Add or subtract Levels</a></li>
 <li class="chapter" data-level="7.5" data-path="factors.html"><a href="factors.html#Exercises_Factors"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
 </ul></li>
 <li class="part"><span><b>Miscellaneous</b></span></li>
@@ -519,11 +519,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-wrangling" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Data Wrangling</h1>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="data-wrangling.html#cb102-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)    <span class="co"># loading ggplot2 and dplyr</span></span>
-<span id="cb102-2"><a href="data-wrangling.html#cb102-2" aria-hidden="true"></a><span class="kw">options</span>(<span class="dt">dplyr.summarise.inform=</span><span class="ot">FALSE</span>) <span class="co"># Don&#39;t annoy me with summaris messages</span></span></code></pre></div>
+<span id="cb102-2"><a href="data-wrangling.html#cb102-2" aria-hidden="true"></a><span class="kw">options</span>(<span class="dt">dplyr.summarise.inform=</span><span class="ot">FALSE</span>) <span class="co"># Don&#39;t annoy me with summary messages</span></span></code></pre></div>
 <p>As always, there is a <a href="https://youtu.be/99Q7AunWuk0">Video Lecture</a> that accompanies this chapter.</p>
-<p>Many of the tools to manipulate data frames in R were written without a consistent syntax and are difficult use together. To remedy this, Hadley Wickham (the writer of <code>ggplot2</code>) introduced a package called plyr which was quite useful. As with many projects, his first version was good but not great and he introduced an improved version that works exclusively with data.frames called <code>dplyr</code> which we will investigate. The package <code>dplyr</code> strives to provide a convenient and consistent set of functions to handle the most common data frame manipulations and a mechanism for chaining these operations together to perform complex tasks.</p>
-<p>The Dr Wickham has put together a very nice introduction to the package that explains in more detail how the various pieces work and I encourage you to read it at some point. [<a href="http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html" class="uri">http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html</a>].</p>
-<p>One of the aspects about the <code>data.frame</code> object is that R does some simplification for you, but it does not do it in a consistent manner. Somewhat obnoxiously character strings are always converted to factors and subsetting might return a <code>data.frame</code> or a <code>vector</code> or a <code>scalar</code>. This is fine at the command line, but can be problematic when programming. Furthermore, many operations are pretty slow using <code>data.frame</code>. To get around this, Dr Wickham introduced a modified version of the <code>data.frame</code> called a <code>tibble</code>. A <code>tibble</code> is a <code>data.frame</code> but with a few extra bits. For now we can ignore the differences.</p>
+<p>Many of the tools to manipulate data frames in R were written without a consistent syntax and are difficult use together. To remedy this, Hadley Wickham (the writer of <code>ggplot2</code>) introduced a package called <code>plyr</code> which was quite useful. As with many projects, his first version was good, but not great, and he introduced an improved version that works exclusively with data frames called <code>dplyr</code> which we will investigate. The package <code>dplyr</code> strives to provide a convenient and consistent set of functions to handle the most common data frame manipulations, and a mechanism for chaining these operations together to perform complex tasks.</p>
+<p>Dr. Wickham has put together a very nice introduction to the package that explains in more detail how the various pieces work and I encourage you to read it at some point. [<a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/dplyr.html" class="uri">https://cran.rstudio.com/web/packages/dplyr/vignettes/dplyr.html</a>].</p>
+<p>One of the aspects about the <code>data.frame</code> object is that R does some simplification for you, but it does not do it in a consistent manner. Somewhat obnoxiously, character strings are always converted to factors and subsetting might return a <code>data.frame</code> or a <code>vector</code> or a <code>scalar</code>. This is fine at the command line, but can be problematic when programming. Furthermore, many operations are pretty slow using <code>data.frame</code>. To get around this, Dr. Wickham introduced a modified version of the <code>data.frame</code> called a <code>tibble</code>. A <code>tibble</code> is a <code>data.frame</code> but with a few extra bits. For now we can ignore the differences.</p>
 <p>The pipe command <code>%&gt;%</code> allows for very readable code. The idea is that the <code>%&gt;%</code> operator works by translating the command <code>a %&gt;% f(b)</code> to the expression <code>f(a,b)</code>. This operator works on any function and was introduced in the <code>magrittr</code> package. The beauty of this comes when you have a suite of functions that takes input arguments of the same type as their output.</p>
 <p>For example, if we wanted to start with <code>x</code>, and first apply function <code>f()</code>, then <code>g()</code>, and then <code>h()</code>, the usual R command would be <code>h(g(f(x)))</code> which is hard to read because you have to start reading at the <em>innermost</em> set of parentheses. Using the pipe command <code>%&gt;%</code>, this sequence of operations becomes <code>x %&gt;% f() %&gt;% g() %&gt;% h()</code>.</p>
 <table>
@@ -725,7 +725,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="select" class="section level4" number="4.1.3.1">
 <h4><span class="header-section-number">4.1.3.1</span> <code>select()</code></h4>
 <p>Often you only want to work with a small number of columns of a data frame and want to be able to <em>select</em> a subset of columns or perhaps remove a subset. The function to do that is <code>dplyr::select()</code>.</p>
-<p>I could select the columns Exam columns by hand, or by using an extension of the <code>:</code> operator</p>
+<p>I could select the Exam columns by hand, or by using an extension of the <code>:</code> operator.</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="data-wrangling.html#cb114-1" aria-hidden="true"></a><span class="co"># select( grades,  Exam1, Exam2 )   # from `grades`, select columns Exam1, Exam2</span></span>
 <span id="cb114-2"><a href="data-wrangling.html#cb114-2" aria-hidden="true"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( Exam1, Exam2 )   <span class="co"># Exam1 and Exam2</span></span></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
@@ -795,17 +795,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 Cox    M         93    98    96
 ## 2 Turk   M         70    85    92
 ## 3 Reid   F         95    92   100</code></pre>
-<p>You can have multiple logical expressions to select rows and they will be logically combined so that only rows that satisfy all of the conditions are selected. The logicals are joined together using <code>&amp;</code> (and) operator or the <code>|</code> (or) operator and you may explicitly use other logicals. For example a factor column type might be used to select rows where type is either one or two via the following: <code>type==1 | type==2</code>.</p>
+<p>You can have multiple logical expressions to select rows and they will be logically combined so that only rows that satisfy all of the conditions are selected. The logicals are joined together using <code>&amp;</code> (and) operator or the <code>|</code> (or) operator and you may explicitly use other logicals. For example, a factor column type might be used to select rows where type is either one or two via the following: <code>type==1 | type==2</code>.</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="data-wrangling.html#cb128-1" aria-hidden="true"></a><span class="co"># select students with Final grades above 90 and</span></span>
 <span id="cb128-2"><a href="data-wrangling.html#cb128-2" aria-hidden="true"></a><span class="co"># average score also above 90</span></span>
-<span id="cb128-3"><a href="data-wrangling.html#cb128-3" aria-hidden="true"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Exam2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>, Final <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</span></code></pre></div>
+<span id="cb128-3"><a href="data-wrangling.html#cb128-3" aria-hidden="true"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Final <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>, ((Exam1 <span class="op">+</span><span class="st"> </span>Exam2 <span class="op">+</span><span class="st"> </span>Final)<span class="op">/</span><span class="dv">3</span>) <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 Cox    M         93    98    96
 ## 2 Reid   F         95    92   100</code></pre>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="data-wrangling.html#cb130-1" aria-hidden="true"></a><span class="co"># we could also use an &quot;and&quot; condition</span></span>
-<span id="cb130-2"><a href="data-wrangling.html#cb130-2" aria-hidden="true"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Exam2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span> <span class="op">&amp;</span><span class="st"> </span>Final <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</span></code></pre></div>
+<span id="cb130-2"><a href="data-wrangling.html#cb130-2" aria-hidden="true"></a>grades <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Final <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span> <span class="op">&amp;</span>((Exam1 <span class="op">+</span><span class="st"> </span>Exam2 <span class="op">+</span><span class="st"> </span>Final)<span class="op">/</span><span class="dv">3</span>) <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
 ##   l.name Gender Exam1 Exam2 Final
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -877,7 +877,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 Reid   F         95    92   100    95.7 A</code></pre>
 <p>If we want to update some column information we will also use the <code>mutate</code> command, but we need some mechanism to select the rows to change, while keeping all the other row values the same. The functions <code>if_else()</code> and <code>case_when()</code> are ideal for this task.</p>
 <p>The <code>if_else</code> syntax is <code>if_else( logical.expression, TrueValue, FalseValue )</code>. We can use this to update a score in our gradebook.</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="data-wrangling.html#cb142-1" aria-hidden="true"></a><span class="co"># Update Doctor Reids Final Exam score to be a 98, leave everybody else&#39;s the same.</span></span>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="data-wrangling.html#cb142-1" aria-hidden="true"></a><span class="co"># Update Doctor Reid&#39;s Final Exam score to be a 98, leave everybody else&#39;s the same.</span></span>
 <span id="cb142-2"><a href="data-wrangling.html#cb142-2" aria-hidden="true"></a>grades &lt;-<span class="st"> </span>grades <span class="op">%&gt;%</span></span>
 <span id="cb142-3"><a href="data-wrangling.html#cb142-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Final =</span> <span class="kw">if_else</span>(l.name <span class="op">==</span><span class="st"> &#39;Reid&#39;</span>, <span class="dv">98</span>, Final ) )</span>
 <span id="cb142-4"><a href="data-wrangling.html#cb142-4" aria-hidden="true"></a>grades</span></code></pre></div>
@@ -955,7 +955,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="split-apply-combine" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Split, apply, combine</h2>
-<p>Aside from unifying the syntax behind the common operations, the major strength of the <code>dplyr</code> package is the ability to split a data frame into a bunch of sub-data frames, apply a sequence of one or more of the operations we just described, and then combine results back together. We’ll consider data from an experiment from spinning wool into yarn. This experiment considered two different types of wool (A or B) and three different levels of tension on the thread. The response variable is the number of breaks in the resulting yarn. For each of the 6 <code>wool:tension</code> combinations, there are 9 replicated observations per <code>wool:tension</code> level.</p>
+<p>Aside from unifying the syntax behind the common operations, the major strength of the <code>dplyr</code> package is the ability to split a data frame into a bunch of sub data frames, apply a sequence of one or more of the operations we just described, and then combine results back together. We’ll consider data from an experiment from spinning wool into yarn. This experiment considered two different types of wool (A or B) and three different levels of tension on the thread. The response variable is the number of breaks in the resulting yarn. For each of the 6 <code>wool:tension</code> combinations, there are 9 replicated observations.</p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="data-wrangling.html#cb154-1" aria-hidden="true"></a><span class="kw">data</span>(warpbreaks)</span>
 <span id="cb154-2"><a href="data-wrangling.html#cb154-2" aria-hidden="true"></a><span class="kw">str</span>(warpbreaks)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    54 obs. of  3 variables:
@@ -963,10 +963,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ wool   : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ tension: Factor w/ 3 levels &quot;L&quot;,&quot;M&quot;,&quot;H&quot;: 1 1 1 1 1 1 1 1 1 2 ...</code></pre>
 <p><img src="04_Intro_to_Data_Wrangling_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-<p>The first we must do is to create a data frame with additional information about how to break the data into sub-data frames. In this case, I want to break the data up into the 6 wool-by-tension combinations. Initially we will just figure out how many rows are in each wool-by-tension combination.</p>
+<p>The first we must do is to create a data frame with additional information about how to break the data into sub data frames. In this case, I want to break the data up into the 6 wool-by-tension combinations. Initially we will just figure out how many rows are in each wool-by-tension combination.</p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="data-wrangling.html#cb156-1" aria-hidden="true"></a><span class="co"># group_by:  what variable(s) shall we group on.</span></span>
 <span id="cb156-2"><a href="data-wrangling.html#cb156-2" aria-hidden="true"></a><span class="co"># n() is a function that returns how many rows are in the </span></span>
-<span id="cb156-3"><a href="data-wrangling.html#cb156-3" aria-hidden="true"></a><span class="co">#   currently selected sub-dataframe</span></span>
+<span id="cb156-3"><a href="data-wrangling.html#cb156-3" aria-hidden="true"></a><span class="co">#   currently selected sub dataframe</span></span>
 <span id="cb156-4"><a href="data-wrangling.html#cb156-4" aria-hidden="true"></a>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb156-5"><a href="data-wrangling.html#cb156-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>( wool, tension) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># grouping</span></span>
 <span id="cb156-6"><a href="data-wrangling.html#cb156-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>() )             <span class="co"># how many in each group</span></span></code></pre></div>
@@ -1017,16 +1017,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Remove all the observations except for observations from day 10 or day 20. The tough part in this instruction is distinguishing between “and” and “or”. Obviously there are no observations that occur from both day 10 AND day 20. Google ‘R logical operators’ to get an introduction to those.</li>
 <li>Calculate the mean and standard deviation of the chick weights for each diet group on days 10 and 20.</li>
 </ol></li>
-<li>The OpenIntro textbook on statistics includes a data set on body dimensions. Instead of creating an R chunk for each step of this problem, create a single R pipeline that performs each of the following tasks. Y
+<li>The OpenIntro textbook on statistics includes a data set on body dimensions. Instead of creating an R chunk for each step of this problem, create a single R pipeline that performs each of the following tasks.
 <ol style="list-style-type: lower-alpha">
 <li><p>Load the file using</p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="data-wrangling.html#cb162-1" aria-hidden="true"></a>Body &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;http://www.openintro.org/stat/data/bdims.csv&#39;</span>)</span></code></pre></div></li>
-<li><p>The column sex is coded as a 1 if the individual is male and 0 if female. This is a non-intuitive labeling system. Create a new column <code>sex.MF</code> that uses labels Male and Female. _Hint: the ifelse() command will be very convenient here. The ifelse() command in R functions similarly to the same command in Excel. Feel free to complete all parts of the exercise in a single R pipeline at the end of the problem.*_</p></li>
+<li><p>The column <code>sex</code> is coded as a 1 if the individual is male and 0 if female. This is a non-intuitive labeling system. Create a new column <code>sex.MF</code> that uses labels Male and Female. <em>Hint: The ifelse() command will be very convenient here. It functions similarly to the same command in Excel.</em></p></li>
 <li><p>The columns <code>wgt</code> and <code>hgt</code> measure weight and height in kilograms and centimeters (respectively). Use these to calculate the Body Mass Index (BMI) for each individual where
 <span class="math display">\[BMI=\frac{Weight\,(kg)}{\left[Height\,(m)\right]^{2}}\]</span></p></li>
 <li><p>Double check that your calculated BMI column is correct by examining the summary statistics of the column (e.g. <code>summary(Body)</code>). BMI values should be between 18 to 40 or so. Did you make an error in your calculation?<br />
 </p></li>
-<li><p>The function <code>cut</code> takes a vector of continuous numerical data and creates a factor based on your give cut-points.</p>
+<li><p>The function <code>cut</code> takes a vector of continuous numerical data and creates a factor based on your given cut-points.</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="data-wrangling.html#cb163-1" aria-hidden="true"></a><span class="co"># Define a continuous vector to convert to a factor</span></span>
 <span id="cb163-2"><a href="data-wrangling.html#cb163-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
 <span id="cb163-3"><a href="data-wrangling.html#cb163-3" aria-hidden="true"></a></span>

@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-11-20" />
+<meta name="date" content="2020-11-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="statistical-models.html"><a href="statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
 <li class="chapter" data-level="5.2.2" data-path="statistical-models.html"><a href="statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-function"><i class="fa fa-check"></i><b>5.3</b> Accessor function</a></li>
+<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor functions</a></li>
 <li class="chapter" data-level="5.4" data-path="statistical-models.html"><a href="statistical-models.html#Exercises_ModelBuilding"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="flow-control.html"><a href="flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a>
@@ -240,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="factors.html"><a href="factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
 <li class="chapter" data-level="7.2" data-path="factors.html"><a href="factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
 <li class="chapter" data-level="7.3" data-path="factors.html"><a href="factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
-<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-subtract-levels-1"><i class="fa fa-check"></i><b>7.4</b> Add or subtract Levels</a></li>
 <li class="chapter" data-level="7.5" data-path="factors.html"><a href="factors.html#Exercises_Factors"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
 </ul></li>
 <li class="part"><span><b>Miscellaneous</b></span></li>
@@ -553,10 +553,10 @@ of the <code>x1</code> and <code>x2</code> variables.</td>
 </tr>
 <tr class="even">
 <td><code>x1 * x2</code></td>
-<td>Because whenever we add an interaction term to a
-model, we want to also have the main effects. So this
-is a short cut for adding the main effect of <code>x1</code> and
-<code>x2</code> and also the interaction term <code>x1:x2</code>.</td>
+<td>Whenever we add an interaction term to a model,
+we want to also have the main effects. So this is a
+short cut for adding the main effect of <code>x1</code> and <code>x2</code>
+and also the interaction term <code>x1:x2</code>.</td>
 </tr>
 <tr class="odd">
 <td><code>(x1 + x2 + x3)^2</code></td>
@@ -594,10 +594,10 @@ and the formula interpretation.</td>
 <p>The most common statistical models are generally referred to as <em>linear models</em> and the R function for creating a linear model is <code>lm()</code>. This section will introduce how to fit the model to data in a data frame as well as how to fit very specific t-test models.</p>
 <div id="t-tests" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> t-tests</h3>
-<p>There are several varients on T-tests depending on the question of interest, but they all require a continuous response and a categorical explanatory variable with two levels. If there is an obvious pairing between an observation in the first level of the explanatory variable with an observation in the second level, then it is a <em>paired</em> t-test, otherwise it is a <em>two-sample</em> t-test.</p>
+<p>There are several variants on t-tests depending on the question of interest, but they all require a continuous response and a categorical explanatory variable with two levels. If there is an obvious pairing between an observation in the first level of the explanatory variable with an observation in the second level, then it is a <em>paired</em> t-test, otherwise it is a <em>two-sample</em> t-test.</p>
 <div id="two-sample-t-tests" class="section level4" number="5.2.1.1">
 <h4><span class="header-section-number">5.2.1.1</span> Two Sample t-tests</h4>
-<p>First we’ll import data from the <code>Lock5Data</code> package that gives SAT scores and gender from 343 students in an introductory statistics class. We’ll also recode the <code>GenderCode</code> column to be more descriptive than 0 or 1. We’ll do a t-test to examine if there is evidence that males and females have a different SAT score at the college these data were take.</p>
+<p>First we’ll import data from the <code>Lock5Data</code> package that gives SAT scores and gender from 343 students in an introductory statistics class. We’ll also recode the <code>GenderCode</code> column to be more descriptive than 0 or 1. We’ll do a t-test to examine if there is evidence that males and females have a different SAT score at the college where these data were collected.</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="statistical-models.html#cb171-1" aria-hidden="true"></a><span class="kw">data</span>(<span class="st">&#39;GPAGender&#39;</span>, <span class="dt">package=</span><span class="st">&#39;Lock5Data&#39;</span>)</span>
 <span id="cb171-2"><a href="statistical-models.html#cb171-2" aria-hidden="true"></a>GPAGender &lt;-<span class="st"> </span>GPAGender <span class="op">%&gt;%</span></span>
 <span id="cb171-3"><a href="statistical-models.html#cb171-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Gender =</span> <span class="kw">ifelse</span>(GenderCode <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&#39;Male&#39;</span>, <span class="st">&#39;Female&#39;</span>))</span>
@@ -627,7 +627,7 @@ and the formula interpretation.</td>
 ##   method                  alternative
 ##   &lt;chr&gt;                   &lt;chr&gt;      
 ## 1 Welch Two Sample t-test two.sided</code></pre>
-<p>In the <code>t.test</code> function, the default behavior is to perform a test with a two-sided alternative and to calculate a 95% confidence interval. Those can be adjusted using the <code>alternative</code> and <code>conf.level</code> arguments. See the help documentation for <code>t.test()</code> function to see how to adust those.</p>
+<p>In the <code>t.test</code> function, the default behavior is to perform a test with a two-sided alternative and to calculate a 95% confidence interval. Those can be adjusted using the <code>alternative</code> and <code>conf.level</code> arguments. See the help documentation for <code>t.test()</code> function to see how to adjust those.</p>
 <p>The <code>t.test</code> function can also be used without using a formula by inputing a vector of response variables for the first group and a vector of response variables for the second. The following results in the same model as the formula based interface.</p>
 <div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="statistical-models.html#cb176-1" aria-hidden="true"></a>male_SATs   &lt;-<span class="st"> </span>GPAGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Gender <span class="op">==</span><span class="st">   &#39;Male&#39;</span> ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(SAT)</span>
 <span id="cb176-2"><a href="statistical-models.html#cb176-2" aria-hidden="true"></a>female_SATs &lt;-<span class="st"> </span>GPAGender <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Gender <span class="op">==</span><span class="st"> &#39;Female&#39;</span> ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(SAT)</span>
@@ -693,7 +693,7 @@ and the formula interpretation.</td>
 <li>Visualize the data</li>
 <li>Call <code>lm()</code> using a formula to specify the model to fit.</li>
 <li>Save the results of the <code>lm()</code> call to some object (usually I name it <code>model</code>)</li>
-<li>Use accessor functions to ask for pertainent quantities that have already been calculated.</li>
+<li>Use accessor functions to ask for pertinent quantities that have already been calculated.</li>
 <li>Store prediction values and model confidence intervals for each data point in the original data frame.</li>
 <li>Graph the original data along with prediction values and model confidence intervals.</li>
 </ol>
@@ -705,8 +705,8 @@ and the formula interpretation.</td>
 <div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="statistical-models.html#cb186-1" aria-hidden="true"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>( Petal.Length <span class="op">~</span><span class="st"> </span>Sepal.Length <span class="op">*</span><span class="st"> </span>Species, <span class="dt">data =</span> iris ) </span></code></pre></div>
 </div>
 </div>
-<div id="accessor-function" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Accessor function</h2>
+<div id="accessor-functions" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Accessor functions</h2>
 <p>Once a model has been fit, we want to obtain a variety of information from the model object. The way that we get most all of this information using base R commands is to call the <code>summary()</code> function which returns a list and then grab whatever we want out of that. Typically for a report, we could just print out all of the summary information and let the reader pick out the information.</p>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="statistical-models.html#cb187-1" aria-hidden="true"></a><span class="kw">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
@@ -818,7 +818,7 @@ and the formula interpretation.</td>
 ## 1 1.549964
 ## 2 1.524329
 ## 3 1.518798</code></pre>
-<p>Now that the fitted values that define the regression lines and the associated confidence interval band information has been added to my <code>iris</code> data set, we can now plot the raw data and the regression model predictions.</p>
+<p>Now that the fitted values that define the regression lines and the associated confidence interval band information have been added to my <code>iris</code> data set, we can now plot the raw data and the regression model predictions.</p>
 <div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="statistical-models.html#cb193-1" aria-hidden="true"></a><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
 <span id="cb193-2"><a href="statistical-models.html#cb193-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb193-3"><a href="statistical-models.html#cb193-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>fit) ) <span class="op">+</span></span>
@@ -835,7 +835,7 @@ and the formula interpretation.</td>
 <span id="cb194-8"><a href="statistical-models.html#cb194-8" aria-hidden="true"></a><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y=</span>Petal.Length, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
 <span id="cb194-9"><a href="statistical-models.html#cb194-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>(  ) <span class="op">+</span></span>
 <span id="cb194-10"><a href="statistical-models.html#cb194-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>( <span class="kw">aes</span>(<span class="dt">y=</span>fit)  ) <span class="op">+</span></span>
-<span id="cb194-11"><a href="statistical-models.html#cb194-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>( <span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr), <span class="dt">alpha=</span>.<span class="dv">3</span> ) <span class="op">+</span><span class="st">   </span><span class="co"># alpha is the ribbon transparency</span></span>
+<span id="cb194-11"><a href="statistical-models.html#cb194-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>( <span class="kw">aes</span>( <span class="dt">ymin=</span>lwr, <span class="dt">ymax=</span>upr, <span class="dt">fill=</span>Species), <span class="dt">alpha=</span>.<span class="dv">3</span> ) <span class="op">+</span><span class="st">   </span><span class="co"># alpha is the ribbon transparency</span></span>
 <span id="cb194-12"><a href="statistical-models.html#cb194-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&#39;label&#39;</span>, <span class="dt">label=</span>Rsq_string, <span class="dt">x=</span><span class="dv">7</span>, <span class="dt">y=</span><span class="dv">2</span>, <span class="dt">size=</span><span class="dv">7</span>)</span></code></pre></div>
 <p><img src="05_Model_Building_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
@@ -846,14 +846,14 @@ and the formula interpretation.</td>
 <ol style="list-style-type: lower-alpha">
 <li>Graph the data</li>
 <li>Fit a <code>lm</code> model using the command <code>model &lt;- lm(Volume ~ Height, data=trees)</code>.</li>
-<li>Print out the table of coefficients estimate names, estimated value, standard error, and upper and lower 95% confidence intervals.</li>
+<li>Print out the table of coefficients with estimate names, estimated value, standard error, and upper and lower 95% confidence intervals.</li>
 <li>Add the model fitted values to the <code>trees</code> data frame along with the regression model confidence intervals.</li>
 <li>Graph the data and fitted regression line and uncertainty ribbon.</li>
 <li>Add the R-squared value as an annotation to the graph.</li>
 </ol></li>
-<li>The data set <code>phbirths</code> from the <code>faraway</code> package contains information birth weight, gestational length, and smoking status of mother. We’ll fit a quadratic model to predict infant birth weight using the gestational time.
+<li>The data set <code>phbirths</code> from the <code>faraway</code> package contains information on birth weight, gestational length, and smoking status of mother. We’ll fit a quadratic model to predict infant birth weight using the gestational time.
 <ol style="list-style-type: lower-alpha">
-<li><p>Create two scatter plots of gestational length and birthweight, one for each smoking status.</p></li>
+<li><p>Create two scatter plots of gestational length and birth weight, one for each smoking status.</p></li>
 <li><p>Remove all the observations that are premature (less than 36 weeks). For the remainder of the problem, only use these full-term babies.</p></li>
 <li><p>Fit the quadratic model</p>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="statistical-models.html#cb195-1" aria-hidden="true"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(grams <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(gestate,<span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>smoke, <span class="dt">data=</span>phbirths)</span></code></pre></div></li>

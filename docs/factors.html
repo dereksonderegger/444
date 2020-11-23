@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-11-20" />
+<meta name="date" content="2020-11-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="statistical-models.html"><a href="statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
 <li class="chapter" data-level="5.2.2" data-path="statistical-models.html"><a href="statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-function"><i class="fa fa-check"></i><b>5.3</b> Accessor function</a></li>
+<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor functions</a></li>
 <li class="chapter" data-level="5.4" data-path="statistical-models.html"><a href="statistical-models.html#Exercises_ModelBuilding"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="flow-control.html"><a href="flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a>
@@ -240,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="factors.html"><a href="factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
 <li class="chapter" data-level="7.2" data-path="factors.html"><a href="factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
 <li class="chapter" data-level="7.3" data-path="factors.html"><a href="factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
-<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-subtract-levels-1"><i class="fa fa-check"></i><b>7.4</b> Add or subtract Levels</a></li>
 <li class="chapter" data-level="7.5" data-path="factors.html"><a href="factors.html#Exercises_Factors"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
 </ul></li>
 <li class="part"><span><b>Miscellaneous</b></span></li>
@@ -521,7 +521,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="factors.html#cb279-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)   <span class="co"># loading ggplot2 and dplyr</span></span>
 <span id="cb279-2"><a href="factors.html#cb279-2" aria-hidden="true"></a><span class="kw">options</span>(<span class="dt">dplyr.summarise.inform=</span><span class="ot">FALSE</span>) <span class="co"># Don&#39;t annoy me with summarise messages</span></span></code></pre></div>
 <p>As always, there is a <a href="https://youtu.be/ID2hx2ySAEE">Video Lecture</a> that accompanies this chapter.</p>
-<p>In R we can store categorical information as either strings or as factors. To a casual user, it often doesn’t matter how the information is stored because the modeling and graphing programs happily convert strings into factors whenever necessary. However a deeper understanding of how factors are stored and manipulated allows a user much finer control in the modeling and graphing.</p>
+<p>In R we can store categorical information as either strings or as factors. To a casual user, it often doesn’t matter how the information is stored because the modeling and graphing programs happily convert strings into factors whenever necessary. However, a deeper understanding of how factors are stored and manipulated allows a user much finer control in modeling and graphing.</p>
 <p>We will be interested in the following broad classes of manipulations:</p>
 <div id="edit-factor-labels" class="section level4 unnumbered">
 <h4>Edit Factor Labels</h4>
@@ -629,12 +629,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4      4   Sprite</code></pre>
 <div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="factors.html#cb284-1" aria-hidden="true"></a><span class="kw">as.integer</span>(drinks) <span class="co"># Print the category assignments</span></span></code></pre></div>
 <pre><code>## [1] 2 1 1 4 3</code></pre>
-<p>Notice that the factor has levels “Coke”, “DietCoke”, “Pepsi”, and “Sprite” and that the order of these levels is very important because each observation is saved as an <em>integer</em> which denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of potentially very long character string, factors are much more space efficient than storing the same data as strings.</p>
+<p>Notice that the factor has levels “Coke”, “DietCoke”, “Pepsi”, and “Sprite” and that the order of these levels is very important because each observation is saved as an <em>integer</em> that denotes which category the observation belongs to. Because it takes less memory to store a single integer instead of a potentially very long character string, factors are much more space efficient than storing the same data as strings.</p>
 <p>Whenever we do anything that sorts on this factor, the order of the labels in this mapping table determine the sort orders. In order to modify factor labels and levels, we basically need to modify this mapping table. We don’t do this directly, but rather using functions in the <code>forcats</code> package.</p>
 </div>
 <div id="change-labels" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Change Labels</h2>
-<p>To demonstrate the <code>forcats</code> functions, we will consider two datasets. The first consists of a dataset of a small US highschool with observations for each student and we record their year and gender.</p>
+<p>To demonstrate the <code>forcats</code> functions, we will consider two datasets. The first consists of a dataset of a small US highschool with observations for each student that record their year and gender.</p>
 <div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="factors.html#cb286-1" aria-hidden="true"></a>Students &lt;-<span class="st"> </span></span>
 <span id="cb286-2"><a href="factors.html#cb286-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">expand.grid</span>(<span class="dt">Year=</span><span class="st">&#39;freshman&#39;</span>, <span class="dt">Gender=</span><span class="dv">1</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">23</span>) <span class="op">%&gt;%</span></span>
 <span id="cb286-3"><a href="factors.html#cb286-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">Year=</span><span class="st">&#39;freshman&#39;</span>, <span class="dt">Gender=</span><span class="dv">0</span>, <span class="dt">rep=</span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span>) <span class="op">%&gt;%</span></span>
@@ -738,8 +738,8 @@ from Monmouth University of New Hampshire Democrats and Independents.</p>
 <span id="cb296-5"><a href="factors.html#cb296-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Candidate, <span class="dt">y=</span>Percent)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
 <p><img src="07_Factors_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
-<div id="add-or-substract-levels" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> Add or substract Levels</h2>
+<div id="add-or-subtract-levels-1" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Add or subtract Levels</h2>
 <p>Often we find that it is necessary to collapse several categories into one. In the Democratic candidate example, we might want to collapse <code>No one</code>, <code>Other</code> and <code>Undecided</code> into a single <code>Other</code> category.</p>
 <div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="factors.html#cb297-1" aria-hidden="true"></a><span class="co"># This collapses the factor levels but I still have 3 rows of &quot;other&quot;</span></span>
 <span id="cb297-2"><a href="factors.html#cb297-2" aria-hidden="true"></a>Dems <span class="op">%&gt;%</span></span>
@@ -768,7 +768,7 @@ from Monmouth University of New Hampshire Democrats and Independents.</p>
 <span id="cb299-6"><a href="factors.html#cb299-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Candidate =</span> <span class="kw">fct_relevel</span>(Candidate, <span class="st">&#39;other&#39;</span>, <span class="dt">after=</span><span class="dv">0</span>) ) <span class="op">%&gt;%</span></span>
 <span id="cb299-7"><a href="factors.html#cb299-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Candidate, <span class="dt">y=</span>Percent)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</span></code></pre></div>
 <p><img src="07_Factors_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p><em>I need to add the case where we are updating a column of factors and I want to replace a single observations level with another. To do this we do something like this:</em></p>
+<p><em>I need to add the case where we are updating a column of factors and we want to replace a single observation’s level with another. To do this we do something like this:</em></p>
 <div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="factors.html#cb300-1" aria-hidden="true"></a>data &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Name=</span><span class="kw">c</span>(<span class="st">&#39;Alice&#39;</span>,<span class="st">&#39;Bruce&#39;</span>,<span class="st">&#39;Charlie&#39;</span>), <span class="dt">Grade =</span> <span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>) ) <span class="op">%&gt;%</span></span>
 <span id="cb300-2"><a href="factors.html#cb300-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Grade =</span> <span class="kw">factor</span>(Grade) ) <span class="op">%&gt;%</span></span>
 <span id="cb300-3"><a href="factors.html#cb300-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">Grade =</span> <span class="kw">fct_expand</span>(Grade, <span class="st">&#39;C&#39;</span>)) <span class="op">%&gt;%</span></span>
@@ -783,9 +783,9 @@ from Monmouth University of New Hampshire Democrats and Independents.</p>
 <div id="Exercises_Factors" class="section level2" number="7.5">
 <h2><span class="header-section-number">7.5</span> Exercises</h2>
 <ol style="list-style-type: decimal">
-<li><p>In the package <code>Lock5Data</code> there is a dataset <code>FloridaLakes</code> which contains water sample measurements from 53 lakes in Florida, produce a bar graph shows the <code>Lake</code> and <code>AvgMercury</code> variables and make sure that the lakes are ordered by Average Mercury content. <em>To fix the issue of lake labels being squished together, you could rotate the labels using a <code>+ theme(axis.text.x = element_text(angle = 90, hjust = 1))</code> or flipping the coordinate axes. However, you’ll likely want to resize the figure so the labels aren’t so squished. the chunk options <code>fig.height</code> and <code>fig.width</code> control the size of the resulting figure.</em></p></li>
+<li><p>In the package <code>Lock5Data</code> there is a dataset <code>FloridaLakes</code> that contains water sample measurements from 53 lakes in Florida. Produce a bar graph that shows the <code>Lake</code> and <code>AvgMercury</code> variables, and make sure that the lakes are ordered by Average Mercury content. <em>To fix the issue of lake labels being squished together, you could rotate the labels using a <code>+ theme(axis.text.x = element_text(angle = 90, hjust = 1))</code> or flipping the coordinate axes. However, you’ll likely want to resize the figure so the labels aren’t so squished. the chunk options <code>fig.height</code> and <code>fig.width</code> control the size of the resulting figure.</em></p></li>
 <li><p>In the package <code>Lock5Data</code>, there is a dataset <code>FootballBrain</code> that has brain measurements for 75 individuals. The <code>Group</code> variable has three levels: <code>Control</code> is somebody that did not play football, <code>FBNoConcuss</code> is a football player with no history of concussions, or <code>FBConcuss</code> which is a football player with concussion history. The variable <code>Cogniton</code> measures their testing composite reaction time score. Change the <code>Group</code> labels to something that would make sense to a reader and create a box-plot graph of the groups vs cognition. <em>Because there is no data for the <code>Control</code> group, don’t show it on your graph. Also notice that the original data set column name misspells “cognition”.</em></p></li>
-<li><p>In the package <code>Lock5Data</code>, there is a dataset <code>RestaurantTips</code> which gives tip data from the restaurant First Crush Bistro in Potsdam, NY. Make all necessary modifications to the <code>Day</code> variable so that subsequent graphs and tables are labeled in a professional manner. Do a similar modification to the <code>Credit</code> variable. Graph the <code>Bill</code> versus the <code>PctTip</code> for each <code>Day</code> of the week where we use <code>Day</code> as the variable to facet_grid or facet_wrap on. Also include information about if the bill was paid via credit card or cash.</p></li>
+<li><p>In the package <code>Lock5Data</code>, there is a dataset <code>RestaurantTips</code> that gives tip data from the restaurant First Crush Bistro in Potsdam, NY. Make all necessary modifications to the <code>Day</code> variable so that subsequent graphs and tables are labeled in a professional manner. Do a similar modification to the <code>Credit</code> variable. Graph the <code>Bill</code> versus the <code>PctTip</code> for each <code>Day</code> of the week where we use <code>Day</code> as the variable to facet_grid or facet_wrap on. Also include information about if the bill was paid via credit card or cash.</p></li>
 </ol>
 
 </div>

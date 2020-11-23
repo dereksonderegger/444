@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-11-20" />
+<meta name="date" content="2020-11-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="statistical-models.html"><a href="statistical-models.html#t-tests"><i class="fa fa-check"></i><b>5.2.1</b> t-tests</a></li>
 <li class="chapter" data-level="5.2.2" data-path="statistical-models.html"><a href="statistical-models.html#lm-objects"><i class="fa fa-check"></i><b>5.2.2</b> lm objects</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-function"><i class="fa fa-check"></i><b>5.3</b> Accessor function</a></li>
+<li class="chapter" data-level="5.3" data-path="statistical-models.html"><a href="statistical-models.html#accessor-functions"><i class="fa fa-check"></i><b>5.3</b> Accessor functions</a></li>
 <li class="chapter" data-level="5.4" data-path="statistical-models.html"><a href="statistical-models.html#Exercises_ModelBuilding"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="flow-control.html"><a href="flow-control.html"><i class="fa fa-check"></i><b>6</b> Flow Control</a>
@@ -240,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="factors.html"><a href="factors.html#creation-and-structure"><i class="fa fa-check"></i><b>7.1</b> Creation and Structure</a></li>
 <li class="chapter" data-level="7.2" data-path="factors.html"><a href="factors.html#change-labels"><i class="fa fa-check"></i><b>7.2</b> Change Labels</a></li>
 <li class="chapter" data-level="7.3" data-path="factors.html"><a href="factors.html#reorder-levels-1"><i class="fa fa-check"></i><b>7.3</b> Reorder Levels</a></li>
-<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-substract-levels"><i class="fa fa-check"></i><b>7.4</b> Add or substract Levels</a></li>
+<li class="chapter" data-level="7.4" data-path="factors.html"><a href="factors.html#add-or-subtract-levels-1"><i class="fa fa-check"></i><b>7.4</b> Add or subtract Levels</a></li>
 <li class="chapter" data-level="7.5" data-path="factors.html"><a href="factors.html#Exercises_Factors"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
 </ul></li>
 <li class="part"><span><b>Miscellaneous</b></span></li>
@@ -553,7 +553,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 4  8  TRUE
 ## 5 5  9  TRUE
 ## 6 6 10  TRUE</code></pre>
-<p>If we have two (or more) vectors of of logical values, we can do two <em>pairwise</em> operations. The “and” operator <code>&amp;</code> will result in a TRUE value if all elements are TRUE. The “or” operator will result in a TRUE value if either the left hand side or right hand side is TRUE.</p>
+<p>If we have two (or more) vectors of logical values, we can do two <em>pairwise</em> operations. The “and” operator <code>&amp;</code> will result in a TRUE value if all elements are TRUE. The “or” operator will result in a TRUE value if either the left hand side or right hand side is TRUE.</p>
 <div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="flow-control.html#cb204-1" aria-hidden="true"></a>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">C =</span> A<span class="op">&gt;=</span><span class="dv">0</span>,  <span class="dt">D =</span> A<span class="op">&lt;=</span><span class="dv">5</span>) <span class="op">%&gt;%</span></span>
 <span id="cb204-2"><a href="flow-control.html#cb204-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>( <span class="dt">result1_and =</span> C <span class="op">&amp;</span><span class="st"> </span>D,          <span class="co">#    C and D both true</span></span>
 <span id="cb204-3"><a href="flow-control.html#cb204-3" aria-hidden="true"></a>          <span class="dt">result2_and =</span>  A<span class="op">&gt;=</span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>A<span class="op">&lt;=</span><span class="dv">5</span>,   <span class="co">#    directly calculated</span></span>
@@ -577,21 +577,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="flow-control.html#cb212-1" aria-hidden="true"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Type =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">Value=</span><span class="kw">rnorm</span>(<span class="dv">8</span>) )</span>
 <span id="cb212-2"><a href="flow-control.html#cb212-2" aria-hidden="true"></a>df</span></code></pre></div>
 <pre><code>##   Type       Value
-## 1    A  0.02678167
-## 2    A  0.86379895
-## 3    B  0.15127180
-## 4    B  0.03192138
-## 5    C -2.20367766
-## 6    C  1.58647272
-## 7    D  1.02222008
-## 8    D -0.80116083</code></pre>
+## 1    A -0.66535235
+## 2    A  0.95891418
+## 3    B  0.41474801
+## 4    B  0.67792817
+## 5    C  0.05300688
+## 6    C -0.56763099
+## 7    D  0.19746090
+## 8    D  1.29611387</code></pre>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="flow-control.html#cb214-1" aria-hidden="true"></a><span class="co"># df %&gt;% filter( Type == &#39;A&#39; | Type == &#39;B&#39; )</span></span>
 <span id="cb214-2"><a href="flow-control.html#cb214-2" aria-hidden="true"></a>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( Type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) )   <span class="co"># Only rows with Type == &#39;A&#39; or Type ==&#39;B&#39;</span></span></code></pre></div>
 <pre><code>##   Type      Value
-## 1    A 0.02678167
-## 2    A 0.86379895
-## 3    B 0.15127180
-## 4    B 0.03192138</code></pre>
+## 1    A -0.6653523
+## 2    A  0.9589142
+## 3    B  0.4147480
+## 4    B  0.6779282</code></pre>
 </div>
 <div id="decision-statements" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Decision statements</h2>
@@ -641,7 +641,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="general-if-else" class="section level3" number="6.2.2">
 <h3><span class="header-section-number">6.2.2</span> General <code>if else</code></h3>
-<p>While programming, I often need to perform expressions that are more complicated than what the <code>ifelse()</code> command can do. The general format of an <code>if</code> or and <code>if else</code> is presented here.</p>
+<p>While programming, I often need to perform expressions that are more complicated than what the <code>ifelse()</code> command can do. The general format of an <code>if</code> or an <code>if else</code> is presented here.</p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="flow-control.html#cb222-1" aria-hidden="true"></a><span class="co"># Simplest version</span></span>
 <span id="cb222-2"><a href="flow-control.html#cb222-2" aria-hidden="true"></a><span class="cf">if</span>( logical.test ){</span>
 <span id="cb222-3"><a href="flow-control.html#cb222-3" aria-hidden="true"></a>  expression        <span class="co"># can be many lines of code</span></span>
@@ -655,7 +655,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb222-11"><a href="flow-control.html#cb222-11" aria-hidden="true"></a>}</span></code></pre></div>
 <p>where the else part is optional.</p>
 <p>Suppose that I have a piece of code that generates a random variable from the Binomial distribution with one sample (essentially just flipping a coin) but I’d like to label it head or tails instead of one or zero.</p>
-<p>What is happening is that the test expression inside the <code>if()</code> is evaluated and if it is true, then the subsequent statement is executed. If the test expression is false, the next statement is skipped. The way the R language is defined, only the first statement after the if statement is executed (or skipped) depending on the test expression. If we want multiple statements to be executed (or skipped), we will wrap those expressions in curly brackets <code>{ }</code>. I find it easier to follow the <code>if else</code> logic when I see the curly brackets so I use them even when there is only one expression to be executed. Also notice that the RStudio editor indents the code that might be skipped to try help give you a hint that it will be conditionally evaluated.</p>
+<p>The test expression inside the <code>if()</code> is evaluated and if it is true, then the subsequent statement is executed. If the test expression is false, the next statement is skipped. The way the R language is defined, only the first statement after the if statement is executed (or skipped) depending on the test expression. If we want multiple statements to be executed (or skipped), we will wrap those expressions in curly brackets <code>{ }</code>. I find it easier to follow the <code>if else</code> logic when I see the curly brackets so I use them even when there is only one expression to be executed. Also notice that the RStudio editor indents the code that might be skipped to try help give you a hint that it will be conditionally evaluated.</p>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="flow-control.html#cb223-1" aria-hidden="true"></a><span class="co"># Flip the coin, and we get a 0 or 1</span></span>
 <span id="cb223-2"><a href="flow-control.html#cb223-2" aria-hidden="true"></a>result &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</span>
 <span id="cb223-3"><a href="flow-control.html#cb223-3" aria-hidden="true"></a>result</span></code></pre></div>
@@ -672,7 +672,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="flow-control.html#cb227-1" aria-hidden="true"></a>result</span></code></pre></div>
 <pre><code>## [1] &quot;Tail&quot;</code></pre>
 <p>Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable <code>result</code> changes as you execute the code repeatedly.</p>
-<p>To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:</p>
+<p>To provide a more statistically interesting example of when we might use an <code>if else</code> statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall that the calculation was:</p>
 <ul>
 <li><p>If the test statistic t is negative, then p-value = <span class="math inline">\(2*P\left(T_{df} \le t \right)\)</span></p></li>
 <li><p>If the test statistic t is positive, then p-value = <span class="math inline">\(2*P\left(T_{df} \ge t \right)\)</span>.</p></li>
@@ -692,9 +692,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb229-13"><a href="flow-control.html#cb229-13" aria-hidden="true"></a></span>
 <span id="cb229-14"><a href="flow-control.html#cb229-14" aria-hidden="true"></a><span class="co"># print the resulting p-value</span></span>
 <span id="cb229-15"><a href="flow-control.html#cb229-15" aria-hidden="true"></a>p.value</span></code></pre></div>
-<pre><code>## [1] 2.02915e-06</code></pre>
+<pre><code>## [1] 9.460611e-08</code></pre>
 <p>This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the <code>t.test()</code> function.</p>
-<p>Finally we can nest if else statements together to allow you to write code that has many different execution routes.</p>
+<p>Finally we can nest <code>if else</code> statements together to allow you to write code that has many different execution routes.</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="flow-control.html#cb231-1" aria-hidden="true"></a><span class="co"># randomly grab a number between 0,5 and round it up to 1,2, ..., 5</span></span>
 <span id="cb231-2"><a href="flow-control.html#cb231-2" aria-hidden="true"></a>birth.order &lt;-<span class="st"> </span><span class="kw">ceiling</span>( <span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">5</span>) )  </span>
 <span id="cb231-3"><a href="flow-control.html#cb231-3" aria-hidden="true"></a><span class="cf">if</span>( birth.order <span class="op">==</span><span class="st"> </span><span class="dv">1</span> ){</span>
@@ -707,7 +707,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb231-10"><a href="flow-control.html#cb231-10" aria-hidden="true"></a>  <span class="co"># if birth.order is anything other than 1, 2 or 3</span></span>
 <span id="cb231-11"><a href="flow-control.html#cb231-11" aria-hidden="true"></a>  <span class="kw">print</span>(<span class="st">&#39;No more unfounded generalizations!&#39;</span>)</span>
 <span id="cb231-12"><a href="flow-control.html#cb231-12" aria-hidden="true"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;The third child was spoiled&quot;</code></pre>
+<pre><code>## [1] &quot;No more unfounded generalizations!&quot;</code></pre>
 </div>
 </div>
 <div id="loops" class="section level2" number="6.3">
@@ -728,136 +728,136 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb234-4"><a href="flow-control.html#cb234-4" aria-hidden="true"></a>}</span></code></pre></div>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 3.08772701250094&quot;  
-##  [2] &quot;In loop and x is now: 0.607400662398517&quot; 
-##  [3] &quot;In loop and x is now: 1.67168810929919&quot;  
-##  [4] &quot;In loop and x is now: -0.181658196817589&quot;
-##  [5] &quot;In loop and x is now: 2.63496470383908&quot;  
-##  [6] &quot;In loop and x is now: 1.68423369039506&quot;  
-##  [7] &quot;In loop and x is now: 1.32275866403438&quot;  
-##  [8] &quot;In loop and x is now: 0.0167173749209779&quot;
-##  [9] &quot;In loop and x is now: 2.63449681117242&quot;  
-## [10] &quot;In loop and x is now: 1.87849032276124&quot;  
-## [11] &quot;In loop and x is now: 1.18565900820655&quot;  
-## [12] &quot;In loop and x is now: 2.69996190706719&quot;  
-## [13] &quot;In loop and x is now: 1.02313861436494&quot;  
-## [14] &quot;In loop and x is now: 2.33381992280662&quot;  
-## [15] &quot;In loop and x is now: 4.77305191563482&quot;  
-## [16] &quot;In loop and x is now: 1.37764526096758&quot;  
-## [17] &quot;In loop and x is now: 0.0746948701501711&quot;
-## [18] &quot;In loop and x is now: 2.14477802398479&quot;  
-## [19] &quot;In loop and x is now: 2.77190758148805&quot;  
-## [20] &quot;In loop and x is now: 3.04796214925287&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 2.44939668188322&quot; 
+##  [2] &quot;In loop and x is now: 1.19375051358514&quot; 
+##  [3] &quot;In loop and x is now: 0.207161894572169&quot;
+##  [4] &quot;In loop and x is now: 1.9724674242907&quot;  
+##  [5] &quot;In loop and x is now: 3.54533115369769&quot; 
+##  [6] &quot;In loop and x is now: 2.87756392631077&quot; 
+##  [7] &quot;In loop and x is now: 2.95025853683058&quot; 
+##  [8] &quot;In loop and x is now: 1.10646558559173&quot; 
+##  [9] &quot;In loop and x is now: 4.15291848504807&quot; 
+## [10] &quot;In loop and x is now: 1.4709450839868&quot;  
+## [11] &quot;In loop and x is now: 1.75121601966522&quot; 
+## [12] &quot;In loop and x is now: 1.30451937260309&quot; 
+## [13] &quot;In loop and x is now: 2.0330357760728&quot;  
+## [14] &quot;In loop and x is now: 2.45766355848101&quot; 
+## [15] &quot;In loop and x is now: 2.94921039025045&quot; 
+## [16] &quot;In loop and x is now: 4.08662230125485&quot; 
+## [17] &quot;In loop and x is now: 1.92304070868546&quot; 
+## [18] &quot;In loop and x is now: 0.105540368234844&quot;
+## [19] &quot;In loop and x is now: 1.24335754660289&quot; 
+## [20] &quot;In loop and x is now: 1.89847712533664&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 6.17545402500187&quot;  
-##  [2] &quot;In loop and x is now: 1.21480132479703&quot;  
-##  [3] &quot;In loop and x is now: 3.34337621859838&quot;  
-##  [4] &quot;In loop and x is now: -0.363316393635179&quot;
-##  [5] &quot;In loop and x is now: 5.26992940767817&quot;  
-##  [6] &quot;In loop and x is now: 3.36846738079013&quot;  
-##  [7] &quot;In loop and x is now: 2.64551732806877&quot;  
-##  [8] &quot;In loop and x is now: 0.0334347498419558&quot;
-##  [9] &quot;In loop and x is now: 5.26899362234485&quot;  
-## [10] &quot;In loop and x is now: 3.75698064552249&quot;  
-## [11] &quot;In loop and x is now: 2.3713180164131&quot;   
-## [12] &quot;In loop and x is now: 5.39992381413438&quot;  
-## [13] &quot;In loop and x is now: 2.04627722872988&quot;  
-## [14] &quot;In loop and x is now: 4.66763984561325&quot;  
-## [15] &quot;In loop and x is now: 9.54610383126964&quot;  
-## [16] &quot;In loop and x is now: 2.75529052193515&quot;  
-## [17] &quot;In loop and x is now: 0.149389740300342&quot; 
-## [18] &quot;In loop and x is now: 4.28955604796958&quot;  
-## [19] &quot;In loop and x is now: 5.54381516297611&quot;  
-## [20] &quot;In loop and x is now: 6.09592429850574&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 4.89879336376643&quot; 
+##  [2] &quot;In loop and x is now: 2.38750102717028&quot; 
+##  [3] &quot;In loop and x is now: 0.414323789144339&quot;
+##  [4] &quot;In loop and x is now: 3.94493484858139&quot; 
+##  [5] &quot;In loop and x is now: 7.09066230739537&quot; 
+##  [6] &quot;In loop and x is now: 5.75512785262155&quot; 
+##  [7] &quot;In loop and x is now: 5.90051707366116&quot; 
+##  [8] &quot;In loop and x is now: 2.21293117118346&quot; 
+##  [9] &quot;In loop and x is now: 8.30583697009615&quot; 
+## [10] &quot;In loop and x is now: 2.9418901679736&quot;  
+## [11] &quot;In loop and x is now: 3.50243203933044&quot; 
+## [12] &quot;In loop and x is now: 2.60903874520618&quot; 
+## [13] &quot;In loop and x is now: 4.0660715521456&quot;  
+## [14] &quot;In loop and x is now: 4.91532711696202&quot; 
+## [15] &quot;In loop and x is now: 5.89842078050089&quot; 
+## [16] &quot;In loop and x is now: 8.1732446025097&quot;  
+## [17] &quot;In loop and x is now: 3.84608141737092&quot; 
+## [18] &quot;In loop and x is now: 0.211080736469688&quot;
+## [19] &quot;In loop and x is now: 2.48671509320579&quot; 
+## [20] &quot;In loop and x is now: 3.79695425067329&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 12.3509080500037&quot;  
-##  [2] &quot;In loop and x is now: 2.42960264959407&quot;  
-##  [3] &quot;In loop and x is now: 6.68675243719676&quot;  
-##  [4] &quot;In loop and x is now: -0.726632787270358&quot;
-##  [5] &quot;In loop and x is now: 10.5398588153563&quot;  
-##  [6] &quot;In loop and x is now: 6.73693476158025&quot;  
-##  [7] &quot;In loop and x is now: 5.29103465613754&quot;  
-##  [8] &quot;In loop and x is now: 0.0668694996839116&quot;
-##  [9] &quot;In loop and x is now: 10.5379872446897&quot;  
-## [10] &quot;In loop and x is now: 7.51396129104497&quot;  
-## [11] &quot;In loop and x is now: 4.7426360328262&quot;   
-## [12] &quot;In loop and x is now: 10.7998476282688&quot;  
-## [13] &quot;In loop and x is now: 4.09255445745976&quot;  
-## [14] &quot;In loop and x is now: 9.3352796912265&quot;   
-## [15] &quot;In loop and x is now: 19.0922076625393&quot;  
-## [16] &quot;In loop and x is now: 5.51058104387031&quot;  
-## [17] &quot;In loop and x is now: 0.298779480600684&quot; 
-## [18] &quot;In loop and x is now: 8.57911209593916&quot;  
-## [19] &quot;In loop and x is now: 11.0876303259522&quot;  
-## [20] &quot;In loop and x is now: 12.1918485970115&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 9.79758672753286&quot; 
+##  [2] &quot;In loop and x is now: 4.77500205434056&quot; 
+##  [3] &quot;In loop and x is now: 0.828647578288678&quot;
+##  [4] &quot;In loop and x is now: 7.88986969716278&quot; 
+##  [5] &quot;In loop and x is now: 14.1813246147907&quot; 
+##  [6] &quot;In loop and x is now: 11.5102557052431&quot; 
+##  [7] &quot;In loop and x is now: 11.8010341473223&quot; 
+##  [8] &quot;In loop and x is now: 4.42586234236691&quot; 
+##  [9] &quot;In loop and x is now: 16.6116739401923&quot; 
+## [10] &quot;In loop and x is now: 5.88378033594721&quot; 
+## [11] &quot;In loop and x is now: 7.00486407866089&quot; 
+## [12] &quot;In loop and x is now: 5.21807749041237&quot; 
+## [13] &quot;In loop and x is now: 8.13214310429119&quot; 
+## [14] &quot;In loop and x is now: 9.83065423392404&quot; 
+## [15] &quot;In loop and x is now: 11.7968415610018&quot; 
+## [16] &quot;In loop and x is now: 16.3464892050194&quot; 
+## [17] &quot;In loop and x is now: 7.69216283474184&quot; 
+## [18] &quot;In loop and x is now: 0.422161472939377&quot;
+## [19] &quot;In loop and x is now: 4.97343018641158&quot; 
+## [20] &quot;In loop and x is now: 7.59390850134657&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 24.7018161000075&quot; 
-##  [2] &quot;In loop and x is now: 4.85920529918814&quot; 
-##  [3] &quot;In loop and x is now: 13.3735048743935&quot; 
-##  [4] &quot;In loop and x is now: -1.45326557454072&quot;
-##  [5] &quot;In loop and x is now: 21.0797176307127&quot; 
-##  [6] &quot;In loop and x is now: 13.4738695231605&quot; 
-##  [7] &quot;In loop and x is now: 10.5820693122751&quot; 
-##  [8] &quot;In loop and x is now: 0.133738999367823&quot;
-##  [9] &quot;In loop and x is now: 21.0759744893794&quot; 
-## [10] &quot;In loop and x is now: 15.0279225820899&quot; 
-## [11] &quot;In loop and x is now: 9.4852720656524&quot;  
-## [12] &quot;In loop and x is now: 21.5996952565375&quot; 
-## [13] &quot;In loop and x is now: 8.18510891491952&quot; 
-## [14] &quot;In loop and x is now: 18.670559382453&quot;  
-## [15] &quot;In loop and x is now: 38.1844153250786&quot; 
-## [16] &quot;In loop and x is now: 11.0211620877406&quot; 
-## [17] &quot;In loop and x is now: 0.597558961201369&quot;
-## [18] &quot;In loop and x is now: 17.1582241918783&quot; 
-## [19] &quot;In loop and x is now: 22.1752606519044&quot; 
-## [20] &quot;In loop and x is now: 24.383697194023&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 19.5951734550657&quot; 
+##  [2] &quot;In loop and x is now: 9.55000410868113&quot; 
+##  [3] &quot;In loop and x is now: 1.65729515657736&quot; 
+##  [4] &quot;In loop and x is now: 15.7797393943256&quot; 
+##  [5] &quot;In loop and x is now: 28.3626492295815&quot; 
+##  [6] &quot;In loop and x is now: 23.0205114104862&quot; 
+##  [7] &quot;In loop and x is now: 23.6020682946446&quot; 
+##  [8] &quot;In loop and x is now: 8.85172468473382&quot; 
+##  [9] &quot;In loop and x is now: 33.2233478803846&quot; 
+## [10] &quot;In loop and x is now: 11.7675606718944&quot; 
+## [11] &quot;In loop and x is now: 14.0097281573218&quot; 
+## [12] &quot;In loop and x is now: 10.4361549808247&quot; 
+## [13] &quot;In loop and x is now: 16.2642862085824&quot; 
+## [14] &quot;In loop and x is now: 19.6613084678481&quot; 
+## [15] &quot;In loop and x is now: 23.5936831220036&quot; 
+## [16] &quot;In loop and x is now: 32.6929784100388&quot; 
+## [17] &quot;In loop and x is now: 15.3843256694837&quot; 
+## [18] &quot;In loop and x is now: 0.844322945878753&quot;
+## [19] &quot;In loop and x is now: 9.94686037282316&quot; 
+## [20] &quot;In loop and x is now: 15.1878170026931&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 49.403632200015&quot;  
-##  [2] &quot;In loop and x is now: 9.71841059837628&quot; 
-##  [3] &quot;In loop and x is now: 26.747009748787&quot;  
-##  [4] &quot;In loop and x is now: -2.90653114908143&quot;
-##  [5] &quot;In loop and x is now: 42.1594352614254&quot; 
-##  [6] &quot;In loop and x is now: 26.947739046321&quot;  
-##  [7] &quot;In loop and x is now: 21.1641386245501&quot; 
-##  [8] &quot;In loop and x is now: 0.267477998735647&quot;
-##  [9] &quot;In loop and x is now: 42.1519489787588&quot; 
-## [10] &quot;In loop and x is now: 30.0558451641799&quot; 
-## [11] &quot;In loop and x is now: 18.9705441313048&quot; 
-## [12] &quot;In loop and x is now: 43.1993905130751&quot; 
-## [13] &quot;In loop and x is now: 16.370217829839&quot;  
-## [14] &quot;In loop and x is now: 37.341118764906&quot;  
-## [15] &quot;In loop and x is now: 76.3688306501572&quot; 
-## [16] &quot;In loop and x is now: 22.0423241754812&quot; 
-## [17] &quot;In loop and x is now: 1.19511792240274&quot; 
-## [18] &quot;In loop and x is now: 34.3164483837566&quot; 
-## [19] &quot;In loop and x is now: 44.3505213038089&quot; 
-## [20] &quot;In loop and x is now: 48.7673943880459&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 39.1903469101315&quot;
+##  [2] &quot;In loop and x is now: 19.1000082173623&quot;
+##  [3] &quot;In loop and x is now: 3.31459031315471&quot;
+##  [4] &quot;In loop and x is now: 31.5594787886511&quot;
+##  [5] &quot;In loop and x is now: 56.725298459163&quot; 
+##  [6] &quot;In loop and x is now: 46.0410228209724&quot;
+##  [7] &quot;In loop and x is now: 47.2041365892893&quot;
+##  [8] &quot;In loop and x is now: 17.7034493694676&quot;
+##  [9] &quot;In loop and x is now: 66.4466957607692&quot;
+## [10] &quot;In loop and x is now: 23.5351213437888&quot;
+## [11] &quot;In loop and x is now: 28.0194563146435&quot;
+## [12] &quot;In loop and x is now: 20.8723099616495&quot;
+## [13] &quot;In loop and x is now: 32.5285724171648&quot;
+## [14] &quot;In loop and x is now: 39.3226169356961&quot;
+## [15] &quot;In loop and x is now: 47.1873662440071&quot;
+## [16] &quot;In loop and x is now: 65.3859568200776&quot;
+## [17] &quot;In loop and x is now: 30.7686513389674&quot;
+## [18] &quot;In loop and x is now: 1.68864589175751&quot;
+## [19] &quot;In loop and x is now: 19.8937207456463&quot;
+## [20] &quot;In loop and x is now: 30.3756340053863&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
-<pre><code>##  [1] &quot;In loop and x is now: 98.80726440003&quot;   
-##  [2] &quot;In loop and x is now: 19.4368211967526&quot; 
-##  [3] &quot;In loop and x is now: 53.4940194975741&quot; 
-##  [4] &quot;In loop and x is now: -5.81306229816286&quot;
-##  [5] &quot;In loop and x is now: 84.3188705228507&quot; 
-##  [6] &quot;In loop and x is now: 53.895478092642&quot;  
-##  [7] &quot;In loop and x is now: 42.3282772491003&quot; 
-##  [8] &quot;In loop and x is now: 0.534955997471293&quot;
-##  [9] &quot;In loop and x is now: 84.3038979575176&quot; 
-## [10] &quot;In loop and x is now: 60.1116903283598&quot; 
-## [11] &quot;In loop and x is now: 37.9410882626096&quot; 
-## [12] &quot;In loop and x is now: 86.3987810261501&quot; 
-## [13] &quot;In loop and x is now: 32.7404356596781&quot; 
-## [14] &quot;In loop and x is now: 74.682237529812&quot;  
-## [15] &quot;In loop and x is now: 152.737661300314&quot; 
-## [16] &quot;In loop and x is now: 44.0846483509625&quot; 
-## [17] &quot;In loop and x is now: 2.39023584480547&quot; 
-## [18] &quot;In loop and x is now: 68.6328967675133&quot; 
-## [19] &quot;In loop and x is now: 88.7010426076177&quot; 
-## [20] &quot;In loop and x is now: 97.5347887760918&quot;</code></pre>
+<pre><code>##  [1] &quot;In loop and x is now: 78.3806938202629&quot;
+##  [2] &quot;In loop and x is now: 38.2000164347245&quot;
+##  [3] &quot;In loop and x is now: 6.62918062630942&quot;
+##  [4] &quot;In loop and x is now: 63.1189575773023&quot;
+##  [5] &quot;In loop and x is now: 113.450596918326&quot;
+##  [6] &quot;In loop and x is now: 92.0820456419448&quot;
+##  [7] &quot;In loop and x is now: 94.4082731785786&quot;
+##  [8] &quot;In loop and x is now: 35.4068987389353&quot;
+##  [9] &quot;In loop and x is now: 132.893391521538&quot;
+## [10] &quot;In loop and x is now: 47.0702426875777&quot;
+## [11] &quot;In loop and x is now: 56.0389126292871&quot;
+## [12] &quot;In loop and x is now: 41.7446199232989&quot;
+## [13] &quot;In loop and x is now: 65.0571448343295&quot;
+## [14] &quot;In loop and x is now: 78.6452338713923&quot;
+## [15] &quot;In loop and x is now: 94.3747324880142&quot;
+## [16] &quot;In loop and x is now: 130.771913640155&quot;
+## [17] &quot;In loop and x is now: 61.5373026779347&quot;
+## [18] &quot;In loop and x is now: 3.37729178351501&quot;
+## [19] &quot;In loop and x is now: 39.7874414912926&quot;
+## [20] &quot;In loop and x is now: 60.7512680107726&quot;</code></pre>
 <pre><code>## Warning in while (x &lt; 100) {: the condition has length &gt; 1 and only the first
 ## element will be used</code></pre>
 <p>It is very common to forget to update the variable used in the test expression. In that case the test expression will never be false and the computer will never stop. This unfortunate situation is called an <em>infinite loop</em>.</p>
@@ -875,7 +875,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb249-2"><a href="flow-control.html#cb249-2" aria-hidden="true"></a>  expression1</span>
 <span id="cb249-3"><a href="flow-control.html#cb249-3" aria-hidden="true"></a>  expression2</span>
 <span id="cb249-4"><a href="flow-control.html#cb249-4" aria-hidden="true"></a>}</span></code></pre></div>
-<p>where the <code>index</code> variable will take on each value in <code>vector</code> in succession and then statement will be evaluated. As always, statement can be multiple statements wrapped in curly brackets {}.</p>
+<p>where the <code>index</code> variable will take on each value in <code>vector</code> in succession and the next statement will be evaluated. As always, the statement can be multiple statements wrapped in curly brackets {}.</p>
 <div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="flow-control.html#cb250-1" aria-hidden="true"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span> ){</span>
 <span id="cb250-2"><a href="flow-control.html#cb250-2" aria-hidden="true"></a>  <span class="kw">print</span>( <span class="kw">paste</span>(<span class="st">&quot;In the loop and current value is i =&quot;</span>, i) )</span>
 <span id="cb250-3"><a href="flow-control.html#cb250-3" aria-hidden="true"></a>}</span></code></pre></div>
@@ -988,7 +988,7 @@ Another statistical example where functions are important is a bootstrap data an
 <span id="cb265-6"><a href="flow-control.html#cb265-6" aria-hidden="true"></a>calculated.var</span></code></pre></div>
 <pre><code>## [1] 2.7</code></pre>
 <p>Notice that even though I defined my function using <code>x</code> as my vector of data, and passed my function something named <code>test.vector</code>, R does the appropriate renaming. If my function doesn’t modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable <code>x</code> as a placeholder, with it being replaced by whatever gets passed into the function.</p>
-<p>When I call a function, the function might cause something to happen (e.g. draw a plot) or it might do some calculates the result is returned by the function and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the <code>return</code> statement. (Actually R doesn’t completely require this. But the alternative method is less intuitive and I strongly recommend using the <code>return()</code> statement for readability.)</p>
+<p>When I call a function, it might cause something to happen (e.g. draw a plot); or, it might do some calculations, the result of which is returned by the function, and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the <code>return</code> statement. (Actually R doesn’t completely require this. But the alternative method is less intuitive and I strongly recommend using the <code>return()</code> statement for readability.)</p>
 <p>By writing a function, I can use the same chunk of code repeatedly. This means that I can do all my tedious calculations inside the function and just call the function whenever I want and happily ignore the details. Consider the function <code>t.test()</code> which we have used to do all the calculations in a t-test. We could write a similar function using the following code:</p>
 <div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="flow-control.html#cb267-1" aria-hidden="true"></a><span class="co"># define my function</span></span>
 <span id="cb267-2"><a href="flow-control.html#cb267-2" aria-hidden="true"></a>one.sample.t.test &lt;-<span class="st"> </span><span class="cf">function</span>(input.data, mu0){</span>
@@ -1011,7 +1011,7 @@ Another statistical example where functions are important is a bootstrap data an
 <span id="cb268-2"><a href="flow-control.html#cb268-2" aria-hidden="true"></a>test.data &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
 <span id="cb268-3"><a href="flow-control.html#cb268-3" aria-hidden="true"></a><span class="kw">one.sample.t.test</span>( test.data, <span class="dt">mu0=</span><span class="dv">2</span> )</span></code></pre></div>
 <pre><code>## [1] &quot;t = 3.157  and p.value = 0.008&quot;</code></pre>
-<p>Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something similar to the above function, but is a bit grander in scope. Even if you don’t end up writing any of your own functions, knowing how to will help you understand why certain functions you use are designed the way they are.</p>
+<p>Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something that is similar to the above function, but is a bit grander in scope. Even if you don’t end up writing any of your own functions, knowing how will help you understand why certain functions you use are designed the way they are.</p>
 </div>
 <div id="Exercises_FlowControl" class="section level2" number="6.5">
 <h2><span class="header-section-number">6.5</span> Exercises</h2>
@@ -1051,9 +1051,9 @@ Another statistical example where functions are important is a bootstrap data an
 <span id="cb272-6"><a href="flow-control.html#cb272-6" aria-hidden="true"></a><span class="co"># what is value of f(x) at the randomly selected x value?  </span></span>
 <span id="cb272-7"><a href="flow-control.html#cb272-7" aria-hidden="true"></a><span class="kw">dunif</span>(x, a, b)</span></code></pre></div>
 <pre><code>## [1] 0.1666667</code></pre>
-<p>We will write a sequence of statements that utilizes an if statements to appropriately calculate the density of x assuming that <code>a</code>, <code>b</code> , and <code>x</code> are given to you, but your code won’t know if <code>x</code> is between <code>a</code> and <code>b</code>. That is, your code needs to figure out if it is and give either <code>1/(b-a)</code> or <code>0</code>.</p>
+<p>We will write a sequence of statements that utilizes if statements to appropriately calculate the density of <code>x</code>, assuming that <code>a</code>, <code>b</code> , and <code>x</code> are given to you, but your code won’t know if <code>x</code> is between <code>a</code> and <code>b</code>. That is, your code needs to figure out if it is and give either <code>1/(b-a)</code> or <code>0</code>.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>We could write a set of if/else statements</p>
+<li><p>We could write a set of <code>if else</code> statements.</p>
 <div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="flow-control.html#cb274-1" aria-hidden="true"></a>a &lt;-<span class="st"> </span><span class="dv">4</span></span>
 <span id="cb274-2"><a href="flow-control.html#cb274-2" aria-hidden="true"></a>b &lt;-<span class="st"> </span><span class="dv">10</span></span>
 <span id="cb274-3"><a href="flow-control.html#cb274-3" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
@@ -1084,7 +1084,7 @@ Another statistical example where functions are important is a bootstrap data an
 <span id="cb276-6"><a href="flow-control.html#cb276-6" aria-hidden="true"></a>}</span>
 <span id="cb276-7"><a href="flow-control.html#cb276-7" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;x=&#39;</span>,<span class="kw">round</span>(x,<span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39;  result=&#39;</span>, <span class="kw">round</span>(result,<span class="dt">digits=</span><span class="dv">3</span>)))</span></code></pre></div></li>
 <li><div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="flow-control.html#cb277-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">10</span>)  <span class="co"># one random value between 0 and 10 </span></span>
-<span id="cb277-2"><a href="flow-control.html#cb277-2" aria-hidden="true"></a>result &lt;-<span class="st"> </span><span class="kw">ifelse</span>( a<span class="op">&lt;</span>x <span class="op">&amp;</span><span class="st"> </span>x<span class="op">&lt;</span>b, ???, ??? )</span>
+<span id="cb277-2"><a href="flow-control.html#cb277-2" aria-hidden="true"></a>result &lt;-<span class="st"> </span><span class="kw">ifelse</span>( a<span class="op">&lt;=</span>x <span class="op">&amp;</span><span class="st"> </span>x<span class="op">&lt;=</span>b, ???, ??? )</span>
 <span id="cb277-3"><a href="flow-control.html#cb277-3" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;x=&#39;</span>,<span class="kw">round</span>(x,<span class="dt">digits=</span><span class="dv">3</span>), <span class="st">&#39;  result=&#39;</span>, <span class="kw">round</span>(result,<span class="dt">digits=</span><span class="dv">3</span>)))</span></code></pre></div></li>
 </ol></li>
 </ol></li>
