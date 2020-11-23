@@ -41,7 +41,7 @@ df %>% mutate( `A < B`  =  A < B)
 ```
 
 
-If we have two (or more) vectors of of logical values, we can do two *pairwise* operations. The "and" operator `&` will result in a TRUE value if all elements are TRUE.  The "or" operator will result in a TRUE value if either the left hand side or right hand side is TRUE. 
+If we have two (or more) vectors of logical values, we can do two *pairwise* operations. The "and" operator `&` will result in a TRUE value if all elements are TRUE.  The "or" operator will result in a TRUE value if either the left hand side or right hand side is TRUE. 
 ```{r}
 df %>% mutate(C = A>=0,  D = A<=5) %>%
   mutate( result1_and = C & D,          #    C and D both true
@@ -109,7 +109,7 @@ Often the last case is a catch all case where the logical expression will ALWAYS
 As another alternative to the problem of recoding factor levels, we could use the command `forcats::fct_recode()` function.  See the Factors chapter in this book for more information about factors.
 
 ### General `if else`
-While programming, I often need to perform expressions that are more complicated than what the `ifelse()` command can do. The general format of an `if` or and `if else` is presented here.
+While programming, I often need to perform expressions that are more complicated than what the `ifelse()` command can do. The general format of an `if` or an `if else` is presented here.
 
 ```{r, eval=FALSE}
 # Simplest version
@@ -129,7 +129,7 @@ where the else part is optional.
 
 Suppose that I have a piece of code that generates a random variable from the Binomial distribution with one sample (essentially just flipping a coin) but I'd like to label it head or tails instead of one or zero.
 
-What is happening is that the test expression inside the `if()` is evaluated and if it is true, then the subsequent statement is executed. If the test expression is false, the next statement is skipped. The way the R language is defined, only the first statement after the if statement is executed (or skipped) depending on the test expression. If we want multiple statements to be executed (or skipped), we will wrap those expressions in curly brackets `{ }`. I find it easier to follow the `if else` logic when I see the curly brackets so I use them even when there is only one expression to be executed. Also notice that the RStudio editor indents the code that might be skipped to try help give you a hint that it will be conditionally evaluated.
+The test expression inside the `if()` is evaluated and if it is true, then the subsequent statement is executed. If the test expression is false, the next statement is skipped. The way the R language is defined, only the first statement after the if statement is executed (or skipped) depending on the test expression. If we want multiple statements to be executed (or skipped), we will wrap those expressions in curly brackets `{ }`. I find it easier to follow the `if else` logic when I see the curly brackets so I use them even when there is only one expression to be executed. Also notice that the RStudio editor indents the code that might be skipped to try help give you a hint that it will be conditionally evaluated.
 
 ```{r}
 # Flip the coin, and we get a 0 or 1
@@ -150,7 +150,7 @@ result
 Run this code several times until you get both cases several times. Notice that in the Environment tab in RStudio, the value of the variable `result` changes as you execute the code repeatedly.
 
 
-To provide a more statistically interesting example of when we might use an if else statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall the calculate was:
+To provide a more statistically interesting example of when we might use an `if else` statement, consider the calculation of a p-value in a 1-sample t-test with a two-sided alternative. Recall that the calculation was:
 
 * If the test statistic t is negative, then p-value = $2*P\left(T_{df} \le t \right)$
  
@@ -177,7 +177,7 @@ p.value
 This sort of logic is necessary for the calculation of p-values and so something similar is found somewhere inside the `t.test()` function.
 
 
-Finally we can nest if else statements together to allow you to write code that has many different execution routes.
+Finally we can nest `if else` statements together to allow you to write code that has many different execution routes.
 
 ```{r}
 # randomly grab a number between 0,5 and round it up to 1,2, ..., 5
@@ -245,7 +245,7 @@ for( index in vector ){
 }
 ```
 
-where the `index` variable will take on each value in `vector` in succession and then statement will be evaluated. As always, statement can be multiple statements wrapped in curly brackets {}.
+where the `index` variable will take on each value in `vector` in succession and the next statement will be evaluated. As always, the statement can be multiple statements wrapped in curly brackets {}.
 ```{r}
 for( i in 1:5 ){
   print( paste("In the loop and current value is i =", i) )
@@ -369,7 +369,7 @@ calculated.var
 
 Notice that even though I defined my function using `x` as my vector of data, and passed my function something named `test.vector`, R does the appropriate renaming. If my function doesn't modify its input arguments, then R just passes a pointer to the inputs to avoid copying large amounts of data when you call a function. If your function modifies its input, then R will take the input data, copy it, and then pass that new copy to the function. This means that a function cannot modify its arguments. In Computer Science parlance, R does not allow for procedural side effects. Think of the variable `x` as a placeholder, with it being replaced by whatever gets passed into the function.
 
-When I call a function, the function might cause something to happen (e.g. draw a plot) or it might do some calculates the result is returned by the function and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the `return` statement. (Actually R doesn't completely require this. But the alternative method is less intuitive and I strongly recommend using the `return()` statement for readability.)
+When I call a function, it might cause something to happen (e.g. draw a plot); or, it might do some calculations, the result of which is returned by the function, and we might want to save that. Inside a function, if I want the result of some calculation saved, I return the result as the output of the function. The way I specify to do this is via the `return` statement. (Actually R doesn't completely require this. But the alternative method is less intuitive and I strongly recommend using the `return()` statement for readability.)
 
 By writing a function, I can use the same chunk of code repeatedly. This means that I can do all my tedious calculations inside the function and just call the function whenever I want and happily ignore the details. Consider the function `t.test()` which we have used to do all the calculations in a t-test. We could write a similar function using the following code:
 
@@ -399,7 +399,7 @@ test.data <- c(1,2,2,4,5,4,3,2,3,2,4,5,6)
 one.sample.t.test( test.data, mu0=2 )
 ```
 
-Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something similar to the above function, but is a bit grander in scope. Even if you don't end up writing any of your own functions, knowing how to will help you understand why certain functions you use are designed the way they are. 
+Nearly every function we use to do data analysis is written in a similar fashion. Somebody decided it would be convenient to have a function that did an ANOVA analysis and they wrote something that is similar to the above function, but is a bit grander in scope. Even if you don't end up writing any of your own functions, knowing how  will help you understand why certain functions you use are designed the way they are. 
 
 ## Exercises  {#Exercises_FlowControl}
 
@@ -431,9 +431,9 @@ Nearly every function we use to do data analysis is written in a similar fashion
     ```
 
     
-    We will write a sequence of statements that utilizes an if statements to appropriately calculate the density of x assuming that `a`, `b` , and `x` are given to you, but your code won't know if `x` is between `a` and `b`. That is, your code needs to figure out if it is and give either `1/(b-a)` or `0`.
+    We will write a sequence of statements that utilizes if statements to appropriately calculate the density of `x`, assuming that `a`, `b` , and `x` are given to you, but your code won't know if `x` is between `a` and `b`. That is, your code needs to figure out if it is and give either `1/(b-a)` or `0`.
 
-    a. We could write a set of if/else statements 
+    a. We could write a set of `if else` statements.
         ```{r, eval=FALSE}
         a <- 4
         b <- 10
@@ -476,7 +476,7 @@ Nearly every function we use to do data analysis is written in a similar fashion
         iii.
             ```{r, eval=FALSE}
             x <- runif(n=1, 0,10)  # one random value between 0 and 10 
-            result <- ifelse( a<x & x<b, ???, ??? )
+            result <- ifelse( a<=x & x<=b, ???, ??? )
             print(paste('x=',round(x,digits=3), '  result=', round(result,digits=3)))
             ```
 
