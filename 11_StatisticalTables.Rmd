@@ -62,7 +62,7 @@ mosaic::plotDist('binom', size=10, prob=.3)
 
 ## Base R functions{-}
 
-All the probability distributions available in R are accessed in exactly the same way, using a `d`-function, `p`-function, `q`-function, and `r`-function. For the rest of this section suppose that $X$ is a random variable from the distribution of interest and $x$ is some possible value that $X$ could take on. Notice that the `p`-function is the inverse of the `q`-function. 
+All the probability distributions available in R are accessed in exactly the same way, using a `d`-function, `p`-function, `q`-function, and `r`-function. For the rest of this section   that $X$ is a random variable from the distribution of interest and $x$ is some possible value that $X$ could take on. Notice that the `p`-function is the inverse of the `q`-function. 
 
 
 +--------------------+-------------------------------------------------------------------+
@@ -83,7 +83,7 @@ For each distribution in R, there will be this set of functions but we replace t
 
 The purpose of the d-function is to calculate the distance from the x-axis to the density curve or height of a probability mass function. The “d” actually stands for density.  Notice that for discrete distributions, this is the probability of observing that particular value, while for continuous distributions, the height doesn't have a nice physical interpretation.
 
-We start with an example of the Binomial distribution. For $X\sim Binomial\left(n=10,\pi=.2\right)$ suppose we wanted to know $P(X=0)$? We know the probability mass function is 
+We start with an example of the Binomial distribution. For $X\sim Binomial\left(n=10,\pi=.2\right)$, suppose we wanted to know $P(X=0)$. We know the probability mass function is 
 $$P\left(X=x\right)={n \choose x}\pi^{x}\left(1-\pi\right)^{n-x}$$ 
 thus 
 $$P\left(X=0\right)	=	{10 \choose 0}\,0.2^{0}\left(0.8\right)^{10} =	1\cdot1\cdot0.8^{10} \approx	0.107$$
@@ -106,7 +106,7 @@ dbinom(0, size=10, prob=.2)
 
 Often we are interested in the probability of observing some value or anything less (In probability theory, we call this the cumulative density function or CDF). P-values will be calculated this way, so we want a nice easy way to do this.
 
-To start our example with the binomial distribution, again let $X\sim Binomial\left(n=10,\pi=0.2\right)$. Suppose I want to know what the probability of observing a 0, 1, or 2? That is, what is $P\left(X\le2\right)$? I could just find the probability of each and add them up.
+To start our example with the binomial distribution, again let $X\sim Binomial\left(n=10,\pi=0.2\right)$. Suppose I want to know the probability of observing a 0, 1, or 2. That is, what is $P\left(X\le2\right)$? I could just find the probability of each and add them up.
 ```{r}
 dbinom(0, size=10, prob=.2)   +       #   P(X==0) +
   dbinom(1, size=10, prob=.2) +       #     P(X==1) +
@@ -142,7 +142,7 @@ Notice for continuous random variables, the probability $P\left(Z=-1\right)=0$ s
 
 Often times we will want to know the probability of greater than some value. That is, we might want to find $P\left(Z \ge -1\right)$. For the normal distribution, there are a number of tricks we could use. Notably 
 $$P\left(Z\ge-1\right)	=	P\left(Z\le1\right)=1-P\left(Z<-1\right)$$
-but sometimes I'm lazy and would like to tell R to give me the area to the right instead of area to the left (which is the default). This can be done by setting the argument $lower.tail=FALSE$.
+but sometimes I'm lazy and would like to tell R to give me the area to the right instead of area to the left (which is the default). This can be done by setting the argument `lower.tail=FALSE`.
 
 The `mosaic` package includes an augmented version of the `pnorm()` function called `xpnorm()` that calculates the same number but includes some extra information and produces a pretty graph to help us understand what we just calculated and do the tedious “1 minus” calculation to find the upper area. Fortunately this x-variant exists for the Normal, Chi-squared, F, Gamma continuous distributions and the discrete Poisson, Geometric, and Binomial distributions.
 
@@ -153,7 +153,7 @@ mosaic::xpnorm(-1)
 
 ### `q`-function{-}
 
-In class, we will also find ourselves asking for the quantiles of a distribution. Percentiles are by definition 1/100, 2/100, etc but if I am interested in something that isn't and even division of 100, we get fancy can call them quantiles. This is a small semantic quibble, but we ought to be precise. That being said, I won't correct somebody if they call these percentiles. For example, I might want to find the 0.30 quantile, which is the value such that 30\% of the distribution is less than it, and 70\% is greater. Mathematically, I wish to find the value $z$ such that $P(Z<z)=0.30$.
+We will also sometimes find ourselves asking for the quantiles of a distribution. Percentiles are by definition 1/100, 2/100, etc but if I am interested in something that isn't an even division of 100, we get fancy and call them quantiles. This is a small semantic quibble, but we ought to be precise. That being said, I won't correct somebody if they call these percentiles. For example, I might want to find the 0.30 quantile, which is the value such that 30\% of the distribution is less than it, and 70\% is greater. Mathematically, I wish to find the value $z$ such that $P(Z<z)=0.30$.
 
 To find this value in the tables in a book, we use the table in reverse. R gives us a handy way to do this with the `qnorm()` function and the mosaic package provides a nice visualization using the augmented `xqnorm()`. 
 
@@ -176,7 +176,7 @@ rbinom(4, size=10, prob=.8)
 
 ## Exercises  {-#Exercises_Statistical_Tables}
 
-1. We will examine how to use the probability mass functions (a.k.a. d-functions) and cumulative probability function (a.k.a. p-function) for the Poisson distribution.
+1. We will examine how to use the probability mass function (a.k.a. d-function) and cumulative probability function (a.k.a. p-function) for the Poisson distribution.
     a) Create a graph of the distribution of a Poisson random variable with rate parameter $\lambda=2$ using the mosaic function `plotDist()`.
     b) Calculate the probability that a Poisson random variable (with rate parameter $\lambda=2$
  ) is exactly equal to 3 using the `dpois()` function. Be sure that this value matches the graphed distribution in part (a).
