@@ -18,7 +18,9 @@ library(tidyverse)
 ```
 
 ## Introduction
-The process of data wrangling often seems very situation dependent and there isn't a unifying process. However this isn't completely true. The process can be thought of as having four distinct steps.
+The process of data wrangling often seems very situation dependent and there 
+isn't a unifying process. However this isn't completely true. The process can be 
+thought of as having four distinct steps.
 
 | **Step**  |  **Result Name** | Description                    |
 |:---------:|:-----------:|:------------------------------------------------------------------------|
@@ -28,7 +30,8 @@ The process of data wrangling often seems very situation dependent and there isn
 | Use       | `data_small` | Sub-setting the full data into a smaller set that addresses a particular question. |
 
 
-I tend to break my data cleaning scripts into three chunks and the cleaning script looks something like this:
+I tend to break my data cleaning scripts into three chunks and the cleaning script 
+looks something like this:
 ```{r, eval=FALSE}
 # Script for reading in Flagstaff Weather Data
 Weather_raw <- read_csv('~/GitHub/444/data-raw/Flagstaff_Temp.csv')
@@ -38,16 +41,35 @@ Weather_tidy <- Weather_raw %>% ...
 Weather <- Weather_tidy %>% ...
 ```
 
-In the above script the `...` represent a bunch commands that I pipe together. The clean data set doesn't include any `_modifier` tag because that clean data set is the one that I want to save and then subsequently use in any analysis. 
+In the above script the `...` represent a bunch commands that I pipe together. 
+The clean data set doesn't include any `_modifier` tag because that clean data 
+set is the one that I want to save and then subsequently use in any analysis. 
 
-In many real world examples, the data wrangling work is concentrated in only one or two of the first three steps. Typically you might be able to skip one or more steps, but I would encourage using the naming convention above so that it is clear where the skipped steps are and what step you are on.
+In many real world examples, the data wrangling work is concentrated in only one 
+or two of the first three steps. Typically you might be able to skip one or more 
+steps, but I would encourage using the naming convention above so that it is clear 
+where the skipped steps are and what step you are on.
+
+When working in large research groups, it is inevitably only a few people understand
+the data import and cleaning and all of the other researchers are interested in building
+models. If the data owner handles the cleaning process and saves it in a format that
+make is easy to work with, plenty of frustration will be saved.
 
 ## Import
-Obviously getting the data into R is an obvious first step. Often this is a simple step of reading a `.csv` file, but more complicated scenarios such as messy excel files, importing data tables from a database, or pulling data out of web pages or pdf documents are common.  Another case is when the data is spread across a bunch of files (e.g. one excel file per month of data) and we need to read multiple files and squish them together before proceeding to the next step.
+Obviously getting the data into R is an obvious first step. Often this is a simple 
+step of reading a `.csv` file, but more complicated scenarios such as messy excel 
+files, importing data tables from a database, or pulling data out of web pages or 
+pdf documents are common.  Another case is when the data is spread across a bunch 
+of files (e.g. one excel file per month of data) and we need to read multiple files 
+and squish them together before proceeding to the next step.
 
 ## Tidying 
 
-The terminology of "tidy data" popularized by Hadley Wickham and his introduction to the concept lives in a [vignette](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) in the `tidyr` package. I highly recommend reading Hadley's introduction as well as what I present here. 
+The terminology of "tidy data" popularized by Hadley Wickham and his introduction 
+to the concept lives in a 
+[vignette](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) 
+in the `tidyr` package. I highly recommend reading Hadley's introduction as well 
+as what I present here. 
 
 Data is usually described as "tidy" if it satisfies the following:
 
@@ -55,9 +77,19 @@ Data is usually described as "tidy" if it satisfies the following:
 2. Each column represents a variable.
 3. Each table of data represents a different type of observational unit.
 
-The difficult part is recognizing what constitutes an observation and what constitutes a variable. Often I like to think that the observations represent a noun and each now has multiple variables that adjectives that describe the noun. In particular I think that the attributes should be applicable to every single observation. If your data has a large number of `NA` values, that is a symptom of storing the data in a messy (non-tidy) format. 
+The difficult part is recognizing what constitutes an observation and what constitutes 
+a variable. Often I like to think that the observations represent a noun and each 
+now has multiple variables that adjectives that describe the noun. In particular I 
+think that the attributes should be applicable to every single observation. If your 
+data has a large number of `NA` values, that is a symptom of storing the data in a 
+messy (non-tidy) format. 
 
-Suppose I have an address book where I keep email addresses, phone numbers, and other contact information.  However, because different people have several different types of contact information, it would be a bad idea to have one row per person because then we'd need a column for work email, personal email, home phone, work phone, cell phone, twitter handle, reddit user name, etc. Instead, store the information with a single row representing a particular contact.
+Suppose I have an address book where I keep email addresses, phone numbers, and 
+other contact information.  However, because different people have several different 
+types of contact information, it would be a bad idea to have one row per person 
+because then we'd need a column for work email, personal email, home phone, work 
+phone, cell phone, twitter handle, reddit user name, etc. Instead, store the 
+information with a single row representing a particular contact.
 
 ```{r, echo=FALSE}
 Contacts <- tribble(
@@ -70,7 +102,8 @@ Contacts <- tribble(
 Contacts
 ```
 
-For a more challenging example, suppose we have grade book where we've stored students scores for four different homework assignments.
+For a more challenging example, suppose we have grade book where we've stored 
+students scores for four different homework assignments.
 
 ```{r, echo=FALSE}
 grade.book <- rbind(
@@ -80,7 +113,9 @@ grade.book <- rbind(
 grade.book
 ```
 
-In this case we are considering each row to represent a student and each variable represents homework score. An alternative representation would be for each row to represent a single score.
+In this case we are considering each row to represent a student and each variable 
+represents homework score. An alternative representation would be for each row to 
+represent a single score.
 
 ```{r, echo=FALSE}
 # first we gather the score columns into columns we'll name Homework and Score
@@ -91,26 +126,64 @@ tidy.scores <- grade.book %>%
 tidy.scores
 ```
 
-Either representation is fine in this case, because each student should have the same number of assignments. However, if I was combining grade books from multiple times I've taught the course, the first option won't work because sometimes I assign projects and sometimes not. So the tidy version of the data would be to have a table `scores` where each row represents a single assignment from a particular student.
+Either representation is fine in this case, because each student should have the 
+same number of assignments. However, if I was combining grade books from multiple 
+times I've taught the course, the first option won't work because sometimes I 
+assign projects and sometimes not. So the tidy version of the data would be to 
+have a table `scores` where each row represents a single assignment from a particular 
+student.
 
 ## Cleaning
 
-The cleaning step is usually highly dependent on the data set content. This step involves 
+The cleaning step is usually highly dependent on the data set content. This step 
+involves 
 
-1. Making sure every variable has the right type. For example, make sure that dates are dates, not character strings. 
-2. Fix factor labels and sort order.
-3. Verify numeric values are reasonable. I often do this by examining summary statistics and/or histograms for each column.
-4. Create any calculated variables we need.
+1.  Making sure every variable has the right type. For example, make sure that 
+    dates are dates, not character strings. 
+2.  Fix factor labels and sort order.
+3.  Verify numeric values are reasonable. I often do this by examining summary 
+    statistics and/or histograms for each column.
+4.  Create any calculated variables we need.
 
-Most of our data frame manipulation tools are designed to work with tidy data. As a result, cleaning is most easily done after the data set structure has been tidied. Therefore,I recommend first performing the reshaping tidying step and *then* perform the cleaning. 
+<!-- Example: Factor labels that are screwed up and we have too many groups.  -->
+
+Most of our data frame manipulation tools are designed to work with tidy data. 
+As a result, cleaning is most easily done after the data set structure has been 
+tidied. Therefore,I recommend first performing the reshaping tidying step and 
+*then* perform the cleaning. 
 
 
 ## Use
-In the previous three steps, we tried to keep all of the data present and not filter anything out. In this step we transition to using data to build a much deeper understanding. 
+In the previous three steps, we tried to keep all of the data present and not filter 
+anything out. In this step we transition to using data to build a much deeper understanding. 
 
-In the simplest case, we just take the full dataset and pass it into a graph or statistical model. But in a more complicated situation, we might want to filter out a bunch of data and focus on a particular subset. For example, we might make a graph for a particular subgroup comparing two covariates. 
+In the simplest case, we just take the full dataset and pass it into a graph or 
+statistical model. But in a more complicated situation, we might want to filter 
+out a bunch of data and focus on a particular subset. For example, we might make 
+a graph for a particular subgroup comparing two covariates. 
 
-In this step, the data manipulation is often to just filter the final cleaned up data. Because I often want to consider many different small filtered sets, it can be convenient to not actually save these sets, but rather just pipe them into the graphing or modeling function.
+In this step, the data manipulation is often to just filter the final cleaned up 
+data. Because I often want to consider many different small filtered sets, it can 
+be convenient to not actually save these sets, but rather just pipe them into the 
+graphing or modeling function.
 
 
+## Thinking
+
+Why is it good to separate the steps in our thinking?
+
+1.  It forces me to keep my data wrangling code organized and encourages documenting 
+    any functions I create.
+
+2.  By separating the data wrangling step code from the analysis, I think more deeply 
+    about verification and initial exploration to understand how best to store the data.
+   
+3.  Because all my subsequent analysis will depend on the same tidy dataset, I make 
+    fewer mistakes where I clean the data correctly in one analysis, but forgot 
+    a step in another analysis. Because I am so absent minded, having a break between
+    cleaning and analysis is helpful.
+   
+4.  Packages make it very easy to share my data analysis projects with anyone around 
+    the world because I can just post it on GitHub and anyone can view, download, 
+    and understand everything because of the standardized R package structure.
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Derek L. Sonderegger" />
 
 
-<meta name="date" content="2020-11-23" />
+<meta name="date" content="2020-11-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1132,7 +1132,7 @@ into tables as well.</p>
 <div id="Exercises_DataBases" class="section level2" number="18.6">
 <h2><span class="header-section-number">18.6</span> Exercises</h2>
 <ol style="list-style-type: decimal">
-<li>In this exercise, you’ll create a database containing the <code>nycflights13</code> data. Make sure that you’ve already downloaded the <code>nycflights13</code> package.
+<li><p>In this exercise, you’ll create a database containing the <code>nycflights13</code> data. Make sure that you’ve already downloaded the <code>nycflights13</code> package.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Create a SQLite database and connect to it using the following code:</li>
 </ol>
@@ -1144,18 +1144,45 @@ into tables as well.</p>
 <li>From the <code>flights</code> table, summarize the percent of flights with a departure delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.</li>
 <li>Using the <code>dbDisconnect()</code> command to close the connection <code>con</code>. <em>If this throws an error, you might need to update your <code>dbplyr</code> package. The error for disconnecting the SQLite <code>nycflights13</code> database was fixed recently.</em></li>
 </ol></li>
-<li>For this exercise, we’ll start a SQLite database and see that the SQLite application stores the data in a very specialized file structure, which usually has a file extension of <code>.db</code> or <code>.sqlite</code>.
+<li><p>I have created a package that contains information for a hypothetical ski pass database
+that could used by AZ Snowbowl. This example is inspired by consulting
+work that I did with Bridger Bowl just outside of Bozeman, MT. We have 5 tables, <code>Customers</code>,
+<code>PassTypes</code>, <code>Passes</code>, <code>BlackOutDates</code> and <code>PatrolIssues</code>. After downloading the package
+from GitHub, you should read the documentation for each of these tables. Furthermore,
+there is a function <code>SkiPasses_sqlite()</code> that loads the information into a SQLite
+database.</p>
+<div class="sourceCode" id="cb973"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb973-1"><a href="databases.html#cb973-1" aria-hidden="true"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;dereksonderegger/SkiPasses&#39;</span>)</span>
+<span id="cb973-2"><a href="databases.html#cb973-2" aria-hidden="true"></a><span class="kw">library</span>(SkiPasses)</span>
+<span id="cb973-3"><a href="databases.html#cb973-3" aria-hidden="true"></a>con &lt;-<span class="st"> </span><span class="kw">SkiPasses_sqlite</span>()  <span class="co"># You might want to use refresh=TRUE here...</span></span></code></pre></div>
+<ol style="list-style-type: lower-alpha">
+<li><p>Go to the GitHub repository for this package at <a href="https://github.com/dereksonderegger/SkiPasses">https://github.com/dereksonderegger/SkiPasses</a>. Where would you expect the code that creates the data tables to live? Where would the documentation for the data tables be? Where is the documentation and code for the function <code>SkiPasses_sqlite()</code>? Notice that there is a <code>SkiPasses.db</code> file in the <code>inst/extdata/</code> directory. Poke around the package and check out the code for the <code>SkiPasses_sqlite()</code> function. What does the <code>refresh=TRUE</code> option do?</p></li>
+<li><p>Run the following code to see where the SQLite database file exists on your computer.</p>
+<div class="sourceCode" id="cb974"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb974-1"><a href="databases.html#cb974-1" aria-hidden="true"></a><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;SkiPasses.db&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;SkiPasses&quot;</span>)</span></code></pre></div></li>
+<li><p>Insert a new row into the <code>Customer</code> data table for yourself. Also insert a row in the
+<code>Passes</code> table for yourself getting a ski pass for the 2020-2021 ski season.</p></li>
+<li><p>Close your database connection and then reopen it. Write a SQL command to verify that
+you are still in the customer data table.</p></li>
+<li><p>Create a function that takes a <code>PassID</code> and date and returns either a TRUE or FALSE
+value indicating if the pass authorizes the customer to ski for the day. Your function
+should take the database connection, <code>PassID</code>, and <code>Date</code> as input parameters. Demonstrate
+your function working with both an authorized and unauthorized cases. <em>Hint: read
+the documentation of the <code>Passes</code> table to understand when a pass is valid. Your code
+will need to identify if there is a valid pass (ie Date is between Start and Finish) and
+assuming there is a valid pass, that <code>Date</code> is not one of the blackout dates for that pass.</em></p></li>
+<li><p>Create a graph visualizing the ages of the male and female customers.</p></li>
+</ol></li>
+<li><p>For this exercise, we’ll start a SQLite database and see that the SQLite application stores the data in a very specialized file structure, which usually has a file extension of <code>.db</code> or <code>.sqlite</code>.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Create the SQLite database file in your current working directory using the following:</li>
 </ol>
-<div class="sourceCode" id="cb973"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb973-1"><a href="databases.html#cb973-1" aria-hidden="true"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;TestSQLiteFile.db&quot;</span>)</span>
-<span id="cb973-2"><a href="databases.html#cb973-2" aria-hidden="true"></a></span>
-<span id="cb973-3"><a href="databases.html#cb973-3" aria-hidden="true"></a><span class="co"># Create a table using the iris data</span></span>
-<span id="cb973-4"><a href="databases.html#cb973-4" aria-hidden="true"></a><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;IRIS&#39;</span>, iris)</span>
-<span id="cb973-5"><a href="databases.html#cb973-5" aria-hidden="true"></a></span>
-<span id="cb973-6"><a href="databases.html#cb973-6" aria-hidden="true"></a><span class="kw">dbListTables</span>(con)         <span class="co"># What tables are available...</span></span>
-<span id="cb973-7"><a href="databases.html#cb973-7" aria-hidden="true"></a><span class="kw">dbReadTable</span>(con, <span class="st">&quot;IRIS&quot;</span>)  <span class="co"># Spit out the IRIS table</span></span>
-<span id="cb973-8"><a href="databases.html#cb973-8" aria-hidden="true"></a><span class="kw">dbDisconnect</span>(con)         <span class="co"># Close connection</span></span></code></pre></div>
+<div class="sourceCode" id="cb975"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb975-1"><a href="databases.html#cb975-1" aria-hidden="true"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;TestSQLiteFile.db&quot;</span>)</span>
+<span id="cb975-2"><a href="databases.html#cb975-2" aria-hidden="true"></a></span>
+<span id="cb975-3"><a href="databases.html#cb975-3" aria-hidden="true"></a><span class="co"># Create a table using the iris data</span></span>
+<span id="cb975-4"><a href="databases.html#cb975-4" aria-hidden="true"></a><span class="kw">dbWriteTable</span>(con, <span class="st">&#39;IRIS&#39;</span>, iris)</span>
+<span id="cb975-5"><a href="databases.html#cb975-5" aria-hidden="true"></a></span>
+<span id="cb975-6"><a href="databases.html#cb975-6" aria-hidden="true"></a><span class="kw">dbListTables</span>(con)         <span class="co"># What tables are available...</span></span>
+<span id="cb975-7"><a href="databases.html#cb975-7" aria-hidden="true"></a><span class="kw">dbReadTable</span>(con, <span class="st">&quot;IRIS&quot;</span>)  <span class="co"># Spit out the IRIS table</span></span>
+<span id="cb975-8"><a href="databases.html#cb975-8" aria-hidden="true"></a><span class="kw">dbDisconnect</span>(con)         <span class="co"># Close connection</span></span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Now check the files in your current working directory as there should now be a <code>TestSQLiteFile.db</code>. The SQLite file structure for data is extremely stable and works across platform types (Unix/Windows, 32/64 bit, big/little endian, etc). As such, it is a good file type choice for storing lots of data in a compact format across different systems (e.g. applications that work on a mobile device vs a computer). While you can open this file using a text editor, you will only see the table declaration of column names and types. The data rows that follow will not be readable.</li>
 </ol></li>

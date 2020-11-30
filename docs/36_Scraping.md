@@ -164,10 +164,11 @@ State_Pop %>%
 ggplot( aes(x=State, y=Percent_Change) ) +
   geom_col( ) +
   labs(x=NULL, y='% Change', title='State Population growth 2010-2020') +
-  coord_flip() 
+  coord_flip() +
+  theme(text = element_text(size = 9))  
 ```
 
-<img src="36_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="36_Scraping_files/figure-html/unnamed-chunk-9-1.png" width="480" style="display: block; margin: auto;" />
 
 
 ### Lists
@@ -196,12 +197,12 @@ HeadLines %>%
 ```
 
 ```
-## [1] "\nWhat It's Like Inside Your Plane's Hidden 'Crew Rest,' Where Pilots And Flight Attendants Sleep\n"
-## [2] "\nThe Most Expensive ZIP Codes In The US, Visualized\n"                                             
-## [3] "\nThis Is Exactly What Winter In Canada Is Like\n"                                                  
-## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                                        
-## [5] "\nPuppy Is Not Afraid Of Newfoundland Brother At All, But Is Scared Of Toy Dog\n"                   
-## [6] "\nVideo Games Can Improve Mental Health. Let's Stop Seeing Them As A Guilty Pleasure\n"
+## [1] "\nDonald Trump Sat At A Tiny Desk And The Internet Had A Field Day Roasting Him\n"
+## [2] "\nThe Best Black Friday Deals\n"                                                  
+## [3] "\nHere's Why Nobody In The Animal Kingdom Messes With A Velvet Ant\n"             
+## [4] "\nQuickly Collect Signatures. Anywhere And On Any Device.\n"                      
+## [5] "\nHere Are All The Movies That Have Plots That Eerily Resemble Each Other\n"      
+## [6] "\nCan You Find All Of Kevin McCallister's Booby Traps From 'Home Alone'?\n"
 ```
 
 
@@ -216,27 +217,41 @@ Links %>%
 ```
 
 ```
-## [1] "https://thepointsguy.co.uk/news/secret-crew-rest/?utm_source=digg"                                                         
-## [2] "/2020/most-expensive-zip-codes-united-states-visualized"                                                                   
-## [3] "/2020/what-canada-winter-is-like"                                                                                          
-## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                                                               
-## [5] "/video/puppy-scared-of-toy-dog-not-afraid-newfoundland"                                                                    
-## [6] "https://www.theguardian.com/commentisfree/2020/nov/23/video-games-boost-mental-health-stop-guilty-pleasure?utm_source=digg"
+## [1] "/2020/donald-trump-tiny-desk-memes"                                                  
+## [2] "/2020/picks-black-friday-deals"                                                      
+## [3] "/video/heres-why-nobody-in-the-animal-kingdom-messes-with-a-velvet-ant"              
+## [4] "https://digg.com/2019/picks-best-card-games?utm_source=digg"                         
+## [5] "/video/movies-similar-plots"                                                         
+## [6] "https://www.mentalfloss.com/article/637493/home-alone-booby-trap-map?utm_source=digg"
 ```
 
 
-## Scraping .pdf files
-PDF documents can either be created with software that produce text that is readable, or it can be scanned and everything is effectively an image. The work flow presented in this section assumes that the text is readable as text and is not an image.
-
-
+<!-- ## Scraping .pdf files -->
+<!-- PDF documents can either be created with software that produce text that is -->
+<!-- readable, or it can be scanned and everything is effectively an image. The work  -->
+<!-- flow presented in this section assumes that the text is readable as text and is not an image. -->
 
 
 ## Exercises  {#Exercises_WebScraping}
 1. At the Insurance Institute for Highway Safety, they have
 [data](https://www.iihs.org/topics/fatality-statistics/detail/state-by-state) 
-about human fatalities in vehicle crashes. From this web page, import the data from the Fatal Crash Totals data table and produce a bar graph gives the number of deaths per 100,000 individuals.  
+about human fatalities in vehicle crashes. From this web page, import the data from 
+the Fatal Crash Totals data table and produce a bar graph gives the number of deaths 
+per 100,000 individuals. Be sure to sort the states by highest to lowest mortality. 
+_Hint: If you have a problem with the graph being too squished vertically, you can set
+the chunk options `fig.height` or `fig.width` to make the graph larger, but keeping 
+the font sizes the same. The result is that the text is more spread apart. The chunk
+options `out.height` and `out.width` shrink or expand everything in the plot. By
+making the `fix.XXX` options large and `out.XXX` options small, you are effectively
+decreasing the font size of all the elements in the graph. The other trick is to 
+reset the font size using a theme `element_text` option: 
+`theme(text = element_text(size = 9))`.
+_
 
-2. From the same IIHS website, import the data about seat belt use. Join the Fatality data with the seat belt use and make a scatter plot of seat belt use vs number of fatalities per 100,000 people.
+2. From the same IIHS website, import the data about seat belt use. Join the Fatality 
+data with the seat belt use and make a scatter plot of percent seat belt use vs number of 
+fatalities per 100,000 people.
 
-3. From the [NAU sub-reddit](https://www.reddit.com/r/NAU), extract the most recent threads.
+3. From the [NAU sub-reddit](https://www.reddit.com/r/NAU), extract the most 
+recent threads.
 

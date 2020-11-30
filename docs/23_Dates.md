@@ -39,7 +39,7 @@ lubridate::today()   # Today's date
 ```
 
 ```
-## [1] "2020-11-23"
+## [1] "2020-11-27"
 ```
 
 ```r
@@ -47,7 +47,7 @@ lubridate::now()     # Today's Date and Time
 ```
 
 ```
-## [1] "2020-11-23 15:24:35 MST"
+## [1] "2020-11-27 10:01:04 MST"
 ```
 
 If we have all of our date information as several numerical columns and we can specify `year`, `month`, and `day`, the easiest way to create a date is to use the function `make_date()` or `make_datetime()`
@@ -494,12 +494,12 @@ data %>%
 ## # A tibble: 6 x 5
 ##   Name    dob        Life                           Age                  Age2
 ##   <chr>   <date>     <Interval>                     <Period>            <int>
-## 1 Steve   1955-02-24 1955-02-24 UTC--2020-11-23 UTC 65y 8m 30d 0H 0M 0S    65
-## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-11-23 UTC 47y 3m 2d 0H 0M 0S     47
-## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-11-23 UTC 56y 3m 8d 0H 0M 0S     56
-## 4 Bill    1955-10-28 1955-10-28 UTC--2020-11-23 UTC 65y 0m 26d 0H 0M 0S    65
-## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-11-23 UTC 6y 0m 17d 0H 0M 0S      6
-## 6 Siri    2011-10-12 2011-10-12 UTC--2020-11-23 UTC 9y 1m 11d 0H 0M 0S      9
+## 1 Steve   1955-02-24 1955-02-24 UTC--2020-11-27 UTC 65y 9m 3d 0H 0M 0S     65
+## 2 Sergey  1973-08-21 1973-08-21 UTC--2020-11-27 UTC 47y 3m 6d 0H 0M 0S     47
+## 3 Melinda 1964-08-15 1964-08-15 UTC--2020-11-27 UTC 56y 3m 12d 0H 0M 0S    56
+## 4 Bill    1955-10-28 1955-10-28 UTC--2020-11-27 UTC 65y 0m 30d 0H 0M 0S    65
+## 5 Alexa   2014-11-06 2014-11-06 UTC--2020-11-27 UTC 6y 0m 21d 0H 0M 0S      6
+## 6 Siri    2011-10-12 2011-10-12 UTC--2020-11-27 UTC 9y 1m 15d 0H 0M 0S      9
 ```
 
 

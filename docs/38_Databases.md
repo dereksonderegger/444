@@ -646,8 +646,41 @@ dbDisconnect(con)
     b. Through the `con` connection object, create links to the `flights` and `airlines` tables.
     c. From the `flights` table, summarize the percent of flights with a departure delayed by more than 10 minutes for each airline. Produce a table that gives the airline name (not the abbreviation) and the percent of flights that are late.
     d. Using the `dbDisconnect()` command to close the connection `con`. *If this throws an error, you might need to update your `dbplyr` package. The error for disconnecting the SQLite `nycflights13` database was fixed recently.*
+
+2.  I have created a package that contains information for a hypothetical ski pass database
+    that could used by AZ Snowbowl. This example is inspired by consulting 
+    work that I did with Bridger Bowl just outside of Bozeman, MT. We have 5 tables, `Customers`,
+    `PassTypes`, `Passes`, `BlackOutDates` and `PatrolIssues`. After downloading the package
+    from GitHub, you should read the documentation for each of these tables. Furthermore,
+    there is a function `SkiPasses_sqlite()` that loads the information into a SQLite 
+    database.
     
-2. For this exercise, we'll start a SQLite database and see that the SQLite application stores the data in a very specialized file structure, which usually has a file extension of `.db` or `.sqlite`.
+    ```r
+    devtools::install_github('dereksonderegger/SkiPasses')
+    library(SkiPasses)
+    con <- SkiPasses_sqlite()  # You might want to use refresh=TRUE here...
+    ```
+    a)  Go to the GitHub repository for this package at [https://github.com/dereksonderegger/SkiPasses](https://github.com/dereksonderegger/SkiPasses). Where would you expect the code that creates the data tables to live? Where would the documentation for the data tables be? Where is the documentation and code for the function `SkiPasses_sqlite()`? Notice that there is a `SkiPasses.db` file in the `inst/extdata/` directory. Poke around the package and check out the code for the `SkiPasses_sqlite()` function. What does the `refresh=TRUE` option do?
+    b)  Run the following code to see where the SQLite database file exists on your computer.
+        
+        ```r
+        system.file("extdata", "SkiPasses.db", package = "SkiPasses")
+        ```
+    b)  Insert a new row into the `Customer` data table for yourself. Also insert a row in the 
+        `Passes` table for yourself getting a ski pass for the 2020-2021 ski season.
+    c)  Close your database connection and then reopen it. Write a SQL command to verify that
+        you are still in the customer data table.
+    c)  Create a function that takes a `PassID` and date and returns either a TRUE or FALSE
+        value indicating if the pass authorizes the customer to ski for the day. Your function
+        should take the database connection, `PassID`, and `Date` as input parameters. Demonstrate
+        your function working with both an authorized and unauthorized cases. *Hint: read 
+        the documentation of the `Passes` table to understand when a pass is valid. Your code
+        will need to identify if there is a valid pass (ie Date is between Start and Finish) and
+        assuming there is a valid pass, that `Date` is not one of the blackout dates for that pass.*
+    d) Create a graph visualizing the ages of the male and female customers.
+
+    
+3. For this exercise, we'll start a SQLite database and see that the SQLite application stores the data in a very specialized file structure, which usually has a file extension of `.db` or `.sqlite`.
     a. Create the SQLite database file in your current working directory using the following:
     
     ```r
@@ -661,4 +694,5 @@ dbDisconnect(con)
     dbDisconnect(con)         # Close connection
     ```
     b) Now check the files in your current working directory as there should now be a `TestSQLiteFile.db`. The SQLite file structure for data is extremely stable and works across platform types (Unix/Windows, 32/64 bit, big/little endian, etc).  As such, it is a good file type choice for storing lots of data in a compact format across different systems (e.g. applications that work on a mobile device vs a computer). While you can open this file using a text editor, you will only see the table declaration of column names and types. The data rows that follow will not be readable. 
+
 

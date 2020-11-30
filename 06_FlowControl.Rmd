@@ -506,3 +506,22 @@ Nearly every function we use to do data analysis is written in a similar fashion
 
     b) In retrospect, perhaps we didn't need to produce all of those. Rewrite your loop so that we only produce graphs for $\left\{ 2,3,4,5,10,15,20,25,30\right\}$ degrees of freedom. *Hint: you can just modify the vector in the `for` statement to include the desired degrees of freedom.*
 
+4. We often use `for` loops to simulate events instead of figuring out the exact probabilities. 
+A classic problem is the *"Airline Booking"* problem. 
+It is known that some proportion $q=0.05$ of airline passengers will miss their flight. 
+To avoid a bunch of missing seats, airlines routinely oversell the flight and assume 
+that, on average, the cost of bumping some customers will be less than the money earned 
+by selling the extra number of tickets. In this question you will estimate the probability
+of a flight being required to solicit passengers to be bumped to a later flight.
+    
+    For a plane with $n=100$ seats, the airline might sell $n+4 = 104$ seats. To simulate
+    if a flight oversold like this will require passengers to be bumped, we would use the code:
+    ```{r, eval=FALSE}
+    n = 100  # number of seats on the plane
+    p = .95  # the probability a person shows up for the flight
+    rbinom(1, size=n+4, prob=p) > n   # TRUE/FALSE where TRUE = too many passengers
+    ```
+    
+    Using a `for` loop, estimate the percent of flights that will be oversold. *Hint: The 
+    `mean()` of a vector of logical values is the percent to TRUE values.*
+

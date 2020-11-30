@@ -131,7 +131,7 @@ State_Pop <- State_Pop %>%
 
 And just to show off the data we've just imported from Wikipedia, we'll make a nice graph.
 
-```{r}
+```{r, fig.height=6, fig.width=5, fig.align='center'}
 State_Pop %>%
   filter( !(State %in% c('Contiguous United States', 
                         'The fifty states','Fifty states + D.C.',
@@ -141,7 +141,8 @@ State_Pop %>%
 ggplot( aes(x=State, y=Percent_Change) ) +
   geom_col( ) +
   labs(x=NULL, y='% Change', title='State Population growth 2010-2020') +
-  coord_flip() 
+  coord_flip() +
+  theme(text = element_text(size = 9))  
 ```
 
 
@@ -179,18 +180,32 @@ Links %>%
 ```
 
 
-## Scraping .pdf files
-PDF documents can either be created with software that produce text that is readable, or it can be scanned and everything is effectively an image. The work flow presented in this section assumes that the text is readable as text and is not an image.
-
-
+<!-- ## Scraping .pdf files -->
+<!-- PDF documents can either be created with software that produce text that is -->
+<!-- readable, or it can be scanned and everything is effectively an image. The work  -->
+<!-- flow presented in this section assumes that the text is readable as text and is not an image. -->
 
 
 ## Exercises  {#Exercises_WebScraping}
 1. At the Insurance Institute for Highway Safety, they have
 [data](https://www.iihs.org/topics/fatality-statistics/detail/state-by-state) 
-about human fatalities in vehicle crashes. From this web page, import the data from the Fatal Crash Totals data table and produce a bar graph gives the number of deaths per 100,000 individuals.  
+about human fatalities in vehicle crashes. From this web page, import the data from 
+the Fatal Crash Totals data table and produce a bar graph gives the number of deaths 
+per 100,000 individuals. Be sure to sort the states by highest to lowest mortality. 
+_Hint: If you have a problem with the graph being too squished vertically, you can set
+the chunk options `fig.height` or `fig.width` to make the graph larger, but keeping 
+the font sizes the same. The result is that the text is more spread apart. The chunk
+options `out.height` and `out.width` shrink or expand everything in the plot. By
+making the `fix.XXX` options large and `out.XXX` options small, you are effectively
+decreasing the font size of all the elements in the graph. The other trick is to 
+reset the font size using a theme `element_text` option: 
+`theme(text = element_text(size = 9))`.
+_
 
-2. From the same IIHS website, import the data about seat belt use. Join the Fatality data with the seat belt use and make a scatter plot of seat belt use vs number of fatalities per 100,000 people.
+2. From the same IIHS website, import the data about seat belt use. Join the Fatality 
+data with the seat belt use and make a scatter plot of percent seat belt use vs number of 
+fatalities per 100,000 people.
 
-3. From the [NAU sub-reddit](https://www.reddit.com/r/NAU), extract the most recent threads.
+3. From the [NAU sub-reddit](https://www.reddit.com/r/NAU), extract the most 
+recent threads.
 
