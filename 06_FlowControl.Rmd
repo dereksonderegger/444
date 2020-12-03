@@ -409,16 +409,30 @@ Nearly every function we use to do data analysis is written in a similar fashion
     prez <- readr::read_csv('https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/Prez_Candidate_Birthdays')
     prez
     ```
-    a) Re-code the Gender column to have Male and Female levels. Similarly convert the party variable to be Democratic or Republican.
-    b) Bernie Sanders was registered as an Independent up until his 2016 presidential run. Change his political party value into 'Independent'.
+    a)  Re-code the Gender column to have Male and Female levels. Similarly convert 
+        the party variable to be Democratic or Republican. *You may write this using*
+        *a `for()` loop with an `if(){ ... }else{...}` structure nested inside, or simply*
+        *using a `mutate()` statement with the `ifelse()` command inside. I believe*
+        *the second option is MUCH easier.*
+    b)  Bernie Sanders was registered as an Independent up until his 2016 presidential 
+        run. Change his political party value into 'Independent'.
 
-2. The $Uniform\left(a,b\right)$ distribution is defined on x $\in [a,b]$ and represents a random variable that takes on any value of between `a` and `b` with equal probability. Technically since there are an infinite number of values between `a` and `b`, each value has a probability of 0 of being selected and I should say each interval of width $d$ has equal probability. It has the density function 
+2.  The $Uniform\left(a,b\right)$ distribution is defined on x $\in [a,b]$ and 
+    represents a random variable that takes on any value of between `a` and `b` 
+    with equal probability. Technically since there are an infinite number of 
+    values between `a` and `b`, each value has a probability of 0 of being selected 
+    and I should say each interval of width $d$ has equal probability. It has the 
+    density function 
     $$f\left(x\right)=\begin{cases}
     \frac{1}{b-a} & \;\;\;\;a\le x\le b\\
     0 & \;\;\;\;\textrm{otherwise}
     \end{cases}$$
 
-    The R function `dunif()` evaluates this density function for the above defined values of x, a, and b. Somewhere in that function, there is a chunk of code that evaluates the density for arbitrary values of $x$. Run this code a few times and notice sometimes the result is $0$ and sometimes it is $1/(10-4)=0.16666667$.
+    The R function `dunif()` evaluates this density function for the above 
+    defined values of x, a, and b. Somewhere in that function, there is a chunk 
+    of code that evaluates the density for arbitrary values of $x$. Run this code 
+    a few times and notice sometimes the result is $0$ and sometimes it is 
+    $1/(10-4)=0.16666667$.
     
     ```{r}
     a <- 4      # The min and max values we will use for this example
@@ -429,10 +443,13 @@ Nearly every function we use to do data analysis is written in a similar fashion
     # what is value of f(x) at the randomly selected x value?  
     dunif(x, a, b)
     ```
-
     
-    We will write a sequence of statements that utilizes if statements to appropriately calculate the density of `x`, assuming that `a`, `b` , and `x` are given to you, but your code won't know if `x` is between `a` and `b`. That is, your code needs to figure out if it is and give either `1/(b-a)` or `0`.
-
+    We will write a sequence of statements that utilizes if statements to 
+    appropriately calculate the density of `x`, assuming that `a`, `b` , and `x` 
+    are given to you, but your code won't know if `x` is between `a` and `b`. 
+    That is, your code needs to figure out if it is and give either `1/(b-a)` 
+    or `0`.
+    
     a. We could write a set of `if else` statements.
         ```{r, eval=FALSE}
         a <- 4
@@ -440,19 +457,23 @@ Nearly every function we use to do data analysis is written in a similar fashion
         x <- runif(n=1, 0,10)  # one random value between 0 and 10 
         
         if( x < a ){
-          result <- ???
+          result <- ????      # Replace ???? with something appropriate!
         }else if( x <= b ){
-          result <- ???
+          result <- ????
         }else{
-          result <- ???
+          result <- ????
         }
         print(paste('x=',round(x,digits=3), '  result=', round(result,digits=3)))
         ```
-        Replace the `???` with the appropriate value, either 0 or $1/\left(b-a\right)$. Run the code repeatedly until you are certain that it is calculating the correct density value.
+        Replace the `????` with the appropriate value, either 0 or 
+        $1/\left(b-a\right)$. Run the code repeatedly until you are certain that 
+        it is calculating the correct density value.
         
-
-    b. We could perform the logical comparison all in one comparison. Recall that we can use `&` to mean “and” and `|` to mean “or”. In the following two code chunks, replace the `???` with either `&` or `|` to make the appropriate result.
-
+    b.  We could perform the logical comparison all in one comparison. Recall 
+        that we can use `&` to mean “and” and `|` to mean “or”. In the following 
+        two code chunks, replace the `???` with either `&` or `|` to make the 
+        appropriate result.
+        
         i. 
             ```{r, eval=FALSE}
             x <- runif(n=1, 0,10)  # one random value between 0 and 10 
@@ -481,8 +502,10 @@ Nearly every function we use to do data analysis is written in a similar fashion
             ```
 
 
-3. I often want to repeat some section of code some number of times. For example, I might want to create a bunch plots that compare the density of a t-distribution with specified degrees of freedom to a standard normal distribution. 
-
+3.  I often want to repeat some section of code some number of times. For example, 
+    I might want to create a bunch plots that compare the density of a t-distribution 
+    with specified degrees of freedom to a standard normal distribution. 
+    
     ```{r, fig.height=3, message=FALSE, warning=FALSE}
     library(ggplot2)
     df <- 4
@@ -501,8 +524,43 @@ Nearly every function we use to do data analysis is written in a similar fashion
     # actually print the nice graph we made
     print(myplot) 
     ```
+    
+    a)  Use a `for` loop to create similar graphs for degrees of freedom 
+        $2,3,4,\dots,29,30$. 
+    
+    b)  In retrospect, perhaps we didn't need to produce all of those. Rewrite 
+        your loop so that we only produce graphs for 
+        $\left\{ 2,3,4,5,10,15,20,25,30\right\}$ degrees of freedom. 
+        *Hint: you can just modify the vector in the `for` statement to include*
+        *the desired degrees of freedom.*
 
-    a) Use a `for` loop to create similar graphs for degrees of freedom $2,3,4,\dots,29,30$. 
-
-    b) In retrospect, perhaps we didn't need to produce all of those. Rewrite your loop so that we only produce graphs for $\left\{ 2,3,4,5,10,15,20,25,30\right\}$ degrees of freedom. *Hint: you can just modify the vector in the `for` statement to include the desired degrees of freedom.*
-
+4.  It is very common to run simulation studies to estimate probabilities that
+    are difficult to work out. In this exercise we will investigate a gambling
+    question that sparked much of the fundamental mathematics behind the study
+    of [probability](http://homepages.wmich.edu/~mackey/Teaching/145/probHist.html).
+    
+    The game is to roll a pair of 6-sided dice 24 times. If a "double-sixes" comes
+    up on any of the 24 rolls, the player wins. What is the probability of winning?
+    
+    a)  We can simulate rolling two 6-sided dice using the `sample()` function
+        with the `replace=TRUE` option. Read the help file on `sample()` to see
+        how to sample from the numbers $1,2,\dots,6$. Sum those two die rolls 
+        and save it as `throw`.
+    b)  Write a `for{}` loop that wraps your code from part (a) and then tests
+        if any of the throws of dice summed to 12. Read the help files for the
+        functions `any()` and `all()`. Your code should look something
+        like the following:
+        ```{r, eval=FALSE}
+        throws <- NULL
+        for( i in 1:24 ){
+          throws[i] <- ??????  # Your part (a) answer goes here
+        }
+        game <- any( throws == 12 ) # Gives a TRUE/FALSE value
+        ```
+    c) Wrap all of your code from part (b) in *another* `for(){}` loop that you run
+        10,000 times. Save the result of each game in a `games` vector that will
+        have 10,000 elements that are either TRUE/FALSE depending on the outcome
+        of that game. You'll need initiallize the `games` vector to NULL and 
+        modify your part (b) code to save the result into some location in the 
+        vector `games`.
+    d)  Finally, calculate win percentage by taking the average of the `games` vector.

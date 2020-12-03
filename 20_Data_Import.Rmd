@@ -137,8 +137,8 @@ library(readxl)
 #    to separate directories via forward slashes.
 
 # read the first worksheet of the Example_1 file
+# data.1 <- read_excel('~/GitHub/444/data-raw/Example_1.xls')  # absolute path
 data.1 <- read_excel( 'data-raw/Example_1.xls'  )   # relative to this Rmarkdown file
-data.1 <- read_excel('~/GitHub/444/data-raw/Example_1.xls')  # absolute path
 
 # read the second worksheet where the second worksheet is named 'data'
 data.2 <- read_excel('data-raw/Example_2.xls', sheet=2     )   
