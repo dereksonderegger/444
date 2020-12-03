@@ -2,7 +2,7 @@
 
 This is the Git Repository for the source code and materials for a book that
 is used to teach R and data science. I host the "pretty" version of the book
-at [https://bookdown.org/dereksonderegger/Introduction_to_DataScience_with_R/](https://bookdown.org/dereksonderegger/Introduction_to_DataScience_with_R/).
+at [https://bookdown.org/dereksonderegger/444/](https://bookdown.org/dereksonderegger/444/).
 
 These notes began before Hadley Wickham had created his R for data science book 
 but there is quite a lot of similarity. The largest distinction is that these notes 
