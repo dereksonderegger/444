@@ -11,11 +11,14 @@ if( length(pkgs > 0)){
     detach(pkgs[i], character.only = TRUE, force=TRUE)
   }
 }
+knitr::opts_chunk$set(cache=FALSE)
 ```
 
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-library(tidyverse)   # loading ggplot2 and dplyr
+suppressPackageStartupMessages({
+  library(tidyverse)   # loading ggplot2 and dplyr
+})
 ```
 
 As always, there is a [Video Lecture](https://youtu.be/eJT9EdiWlEg) that accompanies this chapter.

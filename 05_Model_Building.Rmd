@@ -11,10 +11,12 @@ if( length(pkgs > 0)){
     detach(pkgs[i], character.only = TRUE, force=TRUE)
   }
 }
+knitr::opts_chunk$set(cache=FALSE)
 ```
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
-
+suppressPackageStartupMessages({
+  library(tidyverse, quietly = TRUE)   # loading ggplot2 and dplyr
+})
 options(tibble.width = Inf)   # Print all the columns of a tibble (data.frame)
 ```
 

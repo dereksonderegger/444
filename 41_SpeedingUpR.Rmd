@@ -12,7 +12,7 @@ if( length(pkgs > 0)){
   }
 }
 
-knitr::opts_chunk$set(cache=TRUE)
+knitr::opts_chunk$set(cache.path = "_bookdown_files/UserCache/41_SpeedingUpR/")
 ```
 
 ```{r, message=FALSE, warning=FALSE}
@@ -38,7 +38,7 @@ Hadley Wickham has a book aimed at advanced R user that describes many of the fi
 
 First we need some way of measuring how long our code took to run. For this we will use the package `microbenchmark`. The idea is that we want to evaluate two or three expressions that solve a problem.
 
-```{r}
+```{r, 'C_1', cache=TRUE}
 # The expressions can be as many lines as you'd like, enclosed by { }. 
 # For a single line, you can skip the enclosing { }.
 # 
@@ -113,7 +113,7 @@ f2.noReturn <- function( input ){
 }
 ```
 
-```{r}
+```{r, 'C_2', cache=TRUE}
 data <- make.data(1000)
 microbenchmark(
   f1(data),
@@ -136,7 +136,7 @@ f3.AllocOutput <- function( input ){
 }
 ```
 
-```{r}
+```{r, 'C_3', cache=TRUE}
 data <- make.data(10000)   # Moderately large sample size
 microbenchmark(
   f1(data),
@@ -156,7 +156,7 @@ f4.apply <- function( input ){
 }
 ```
 
-```{r, cache=TRUE}
+```{r, 'C_4', cache=TRUE}
 microbenchmark(
   f1(data),
   f4.apply(data)
@@ -168,7 +168,7 @@ This is the type of speed up that matters.  We have a 10-fold speed up in execut
 Unfortunately, I have always found the `apply` functions a little cumbersome and I prefer to use `dplyr` functions for readability. For this example, we'll compare summarizing each column by calculating the mean.
 
 First for a small sample sized data:
-```{r}
+```{r, 'C_5', cache=TRUE}
 data <- make.data(1000)
 microbenchmark(
   data %>% apply(2, mean),
@@ -178,23 +178,12 @@ microbenchmark(
 
 Unfortunately `dplyr` is a lot slower than `apply` in this case. I wonder if the dynamics would change with a larger `n`?
 
-```{r}
+```{r, 'C_6', cache=TRUE}
 data <- make.data(1000000)
 microbenchmark(
   data %>% apply(2, mean),
   data %>% summarize_all(mean) 
 ) %>% print(digits=3)
-
-data %>% apply(2, mean)
-data %>% summarize_all(mean) 
-
-f5.dplyr <- function( input ){
-  input %>% 
-    rowwise() %>%  # equivalent to group_by( each row )
-    mutate( max.col=which.max(c(Norm, Pois, Gamma, Exp) ) ) %>%
-    pull(max.col) %>%
-    return()
-}
 ```
 
 
@@ -229,7 +218,7 @@ doMC::registerDoMC(cores = 2)  # my laptop only has two cores.
 ### `boot::boot`
 Bootstrapping relies on re-sampling the dataset and calculating test statistics from each re-sample.  In R, the most common way to do this is using the package `boot` and we just need to tell the `boot` function, to use the multiple cores available. (Note, we have to have registered the cores first!) 
 
-```{r, cache=TRUE}
+```{r, 'C_7', cache=TRUE}
 # make the trees dataset a bit larger,
 # just so the overhead cost isn't as large
 # compared to the computation of the regression
@@ -262,7 +251,7 @@ In this case, we had a bit of a speed up, but not a factor of 2.  This is due to
 ### `caret::train`
 The statistical learning package `caret` also handles all the work to do cross validation in a parallel computing environment.  The functions in `caret` have an option `allowParallel` which by default is TRUE, which controls if we should use all the cores. Assuming we have already registered the number of cores, then by default `caret` will use them all. 
 
-```{r, cache=TRUE, warning=FALSE}
+```{r, 'C_8', cache=TRUE, warning=FALSE}
 library(caret)
 
 # Remember to register how many cores to use!
@@ -353,7 +342,7 @@ boot.foreach <- function(f, df, M=999){
 ```
 Not much has changed in our code. Lets see which is faster.
 
-```{r}
+```{r, 'C_9', cache=TRUE}
 microbenchmark(
   boot.for( Volume~Girth, trees ),
   boot.foreach( Volume~Girth, trees )
@@ -361,7 +350,7 @@ microbenchmark(
 ```
 In this case, the overhead associated with splitting the job across two cores, copying the data over, and then combining the results back together was more than we saved by using both cores. If the nugget of computation within each pass of the `for` loop was larger, then it would pay to use both cores.
 
-```{r}
+```{r, 'C_10', cache=TRUE}
 # massiveTrees has 31000 observations
 massiveTrees <- NULL
 for( i in 1:1000 ){
@@ -374,7 +363,7 @@ microbenchmark(
 ```
 
 Because we often generate a bunch of results that we want to see as a data.frame, the `foreach` function includes a `.combine` option which allows us to specify a function to do the combining.
-```{r, cache=TRUE}
+```{r, 'C_11', cache=TRUE}
 output <- foreach( i=1:1000, .combine=rbind ) %dopar% {
   # Do stuff
   model.star <- lm( Volume ~ Girth, data= trees %>% sample_frac(1, replace=TRUE) )
@@ -384,7 +373,7 @@ output <- foreach( i=1:1000, .combine=rbind ) %dopar% {
 
 It is important to recognize that the data.frame `trees` was utilized inside the `foreach` loop. So when we called the `foreach` loop and distributed the workload across the cores, it was smart enough to distribute the data to each core.  However, if there were functions that we utilized inside the for loop that came from a package, we need to tell each core to load the function.
 
-```{r, cache=TRUE}
+```{r, 'C_12', cache=TRUE}
 output <- foreach( i=1:1000, .combine=rbind, .packages='dplyr' ) %dopar% {
   # Do stuff
   model.star <- lm( Volume ~ Girth, data= trees %>% sample_frac(1, replace=TRUE) )

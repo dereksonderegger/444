@@ -11,10 +11,12 @@ if( length(pkgs > 0)){
     detach(pkgs[i], character.only = TRUE, force=TRUE)
   }
 }
+knitr::opts_chunk$set(cache=FALSE)
 ```
 
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
+library(RSQLite)
 library(DBI)         # DataBase Interface Package
 library(dbplyr)      # dplyr with databases!
 ```
@@ -91,19 +93,17 @@ However for this tutorial, we need to start up a data base before we can start
 working with.
 
 ```{r}
-# For our little toy example, we'll use a database I'll create right now.
-# Establish a connection
-con <- DBI::dbConnect(RSQLite::SQLite(), dbname = ":memory:")
+# For our little toy example, we'll use a SQLite database file of the 
+# Credit Card Transactions example we explored previously.
+con <- DBI::dbConnect(RSQLite::SQLite(), dbname = 'data-raw/Transactions.db')
 ```
 
-Our final step involves populating our new database with some data so that we 
-can play with it. For this example, we'll go back to the credit card data example 
-from the data reshaping chapter. I have it available on the book's GitHub data-raw 
-directory.
-```{r, message=FALSE}
-# Read in some data for the Credit Card example
+
+```{r, echo=FALSE, message=FALSE}
+# For the book, I want to always return the database to an initial state
+# So the code here will reset it.
 stem <- 'https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/CreditCard'
-stem <- '~/GitHub/444/data-raw/CreditCard'
+stem <- 'data-raw/CreditCard'
 
 Cards        <- read_csv(paste(stem, 'Cards.csv',        sep='_'), 
                          col_types = cols(CardID=col_character(),
@@ -126,35 +126,51 @@ Cards <- Cards %>%
          Exp_DateTime   = as.character(Exp_DateTime))
 Transactions <- Transactions %>%
   mutate(DateTime = as.character(DateTime))
-```
 
-So that we remember what the data we are working with looks like:
-```{r}
-head(Customers)    # Key  is  PersonID
-head(Cards)        # Keys are PersonID and CardID  
-head(Transactions) # Keys are CardID and RetailID
-head(Retailers)    # Key  is  RetailID
-```
+# head(Customers)    # Key  is  PersonID
+# head(Cards)        # Keys are PersonID and CardID  
+# head(Transactions) # Keys are CardID and RetailID
+# head(Retailers)    # Key  is  RetailID
 
-Critically, using the ID columns, we can take an individual transaction figure 
-out what customer executed it. Finally I'll take these tables and load them into 
-my RSQLite database.
+# Critically, using the ID columns, we can take an individual transaction figure 
+# out what customer executed it. Finally I'll take these tables and load them into 
+# my RSQLite database.
 
-```{r}
 # Copy the tables to our newly set up database. The dbWriteTable() function is intended
 # for database examples and is NOT how you would in practice create a database.
-DBI::dbWriteTable(con, 'Cards', Cards,
+DBI::dbWriteTable(con, 'Cards', Cards, overwrite=TRUE,
                   field.types=c(CardID='character',PersonID='character',
                                 Issue_DateTime='time',Exp_DateTime='time') )
-DBI::dbWriteTable(con, 'Customers', Customers,
+DBI::dbWriteTable(con, 'Customers', Customers, overwrite=TRUE,
                   field.types=c(PersonID='character'))
-DBI::dbWriteTable(con, 'Retailers', Retailers,
+DBI::dbWriteTable(con, 'Retailers', Retailers, overwrite=TRUE,
                   field.types=c(RetailID='character'))
-DBI::dbWriteTable(con, 'Transactions', Transactions,
+DBI::dbWriteTable(con, 'Transactions', Transactions, overwrite=TRUE,
                   field.types=c(CardID='character', RetailID='character',
                                 DateTime='time'))
 
 rm(Cards, Customers, Retailers, Transactions)     # Remove all the setup except `con`
+```
+
+The `DBI` package has several functions that allow us to figure out what
+tables exist and what the columns are in a particular table.
+
+
+|  DBI Command   |  Description                    |
+|:--------------:|:--------------------------------|
+| `dbListTables()` | Returns the tables available in a database. |
+| `dbListFields()` | What columns are in a given table. |
+| `dbColumnInfo()` | Returns meta information about columns returned by a `dbGetQuery()` command. Only some databases support this function. SQLite does not.|
+
+
+```{r}
+DBI::dbListTables(con)               # What tables are present
+```
+There are four tables. The Customers table contains personal information about
+our customers. To see what columns are present, we can use the following:
+
+```{r}
+DBI::dbListFields(con, 'Customers')  # What columns are in Customers table
 ```
 
 
@@ -174,10 +190,7 @@ connection and a SQL command that is stored as a character string.
 
 |  DBI Command   |  Description                    |
 |:--------------:|:--------------------------------|
-| `dbListTables()` | Returns the tables available in a database. |
-| `dbListFields()` | What columns are in a given table. |
 | `dbGetQuery()` | Run a SELECT command and return the result. |
-| `dbColumnInfo()` | Returns meta information about columns returned by a `dbGetQuery()` command. |
 | `dbExecute()`       | Run a SQL command that does not return a table (e.g. INSERT or UPDATE). The return value of this is the number of rows that were affected. |
 
 
@@ -213,16 +226,16 @@ variable name (`output.var`) to store the return value from the SQL call.
 SELECT * from Customers
 ```
 ```
+
 ```{sql, connection=con, output.var='sql_output'}
 /* This is a SQL code chunk! */
 SELECT * from Customers;
 ```
-
-
 ```{r}
 # In further R chunks, I can refer to the output.var variable
 sql_output
 ```
+
 
 *From here on out, I'll just note when I'm in an SQL chunk with a comment.*
 
@@ -234,7 +247,7 @@ you should avoid using a dot in your R column names.
 
 In the following SQL command, the information about how to do the table joins
 is mixed up with the information about filtering for a particular customer. I find
-this more difficult to read.
+this more difficult to read than our usual dplyr joins.
 
 ```{sql, connection=con}
 /* SQL Chunk */
@@ -245,6 +258,7 @@ SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amoun
         Transactions.RetailID = Retailers.RetailID   AND
         Customers.Name = 'Derek Sonderegger'
 ```
+
 
 
 
@@ -265,18 +279,21 @@ update. This is done by including a "WHERE" clause, which feels similar to the
 `dplyr::filter()` function. The only major difference is that SQL uses the single `=`
 sign for both assignment and testing equality.
 
-```{sql, connection=con}
+```{sql, connection=con, output.var='sqlout_bar'}
 /* SQL Chunk */
 UPDATE Customers
 SET Street = '5638 Daisy Ln', City='Mountainaire', State='AZ'
-WHERE PersonID = 3 AND Name='Robert Buscaglia';
+WHERE PersonID = 3 AND Name='Robert Buscaglia'
 ```
 
 In the WHERE statement, multiple test conditions must be separated by AND or OR conjunctions.
 
-```{sql, connection=con}
+```{sql, connection=con, output.var='sqloutput3'}
 /* SQL Chunk */
 SELECT * from Customers
+```
+```{r, echo=FALSE}
+sqloutput3
 ```
 
 
@@ -290,18 +307,18 @@ SQL command.
 
 ```{r}
 # In an R chunk, I've defined some object that I'd like to use in a SQL statement.
-WhichRetailer <- 2
+CustomerName <- 'Derek Sonderegger'
 ```
 
 ```{sql connection=con}
 /* Anything with a ? prepended will be                              *
  * replaced with the R object of the same name.                     */
-SELECT * FROM Transactions WHERE RetailID = ?WhichRetailer
+SELECT * FROM Customers WHERE Name = ?CustomerName
 ```
 
-
 There are some additional situations where a simple character string substitution
-doesn't quite work because of how R interprets character strings.
+doesn't quite work because of how R interprets character strings. In particular,
+passing multiple strings won't work and even 
 
 <!-- A quick example of how the `glue` package is intended to work would be helpful here. -->
 <!-- The package `glue` is intended make it easy to combine R variables with character -->
@@ -312,41 +329,28 @@ some SQL databases have custom quotation syntax. So we'll use the `glue` package
 decide what the appropriate quotation syntax is. The curly brackets tell
 `glue` that we want to work with R variable `customers` not the literal string.
 
-
 ```{r}
 # R chunk
-customer <- 'Derek Sonderegger'                      # For some databases, this works
-customer <- glue::glue_sql('{customer}', .con=con)   # This should always work
-customer
+customers <- c('Derek Sonderegger', 'Aubrey Sonderegger')  # This won't work
+customers <- '"Derek Sonderegger","Aubrey Sonderegger"'    # The single string will work
 ```
+
 
 ```{sql connection=con}
 /* SQL Chunk */
-SELECT * FROM Customers WHERE name IN (?customer)
+SELECT * FROM Customers WHERE Name IN (?customers)
 ```
-
-If you want to have multiple variables in a SQL statement, we need to tell `glue_sql()`
-to make a single SQL command using a `{r_vector*}` notation. The curly brackets tell
-`glue` that we want to work with R variable `customers` not the literal string.
+But unbelievably this doesn't return any rows, when it should return two. The 
+solution is to use the `glue` package which is facilitates squishing together
+character strings. We won't utilize this much for the rest of the chapter, but 
+users should know where to look for the 
+[solution](https://glue.tidyverse.org/reference/glue_sql.html).
 
 ```{r}
-# R chunk
+# R Chunk
 customers <- c('Derek Sonderegger', 'Aubrey Sonderegger')
-glue::glue_sql("{customers}", .con=con)
-```
-and if I append a `*`, that tells `glue` to make a single SQL statement, not two separate statements.
-```{r}
-# R Chunk
-glue::glue_sql("{customers*}", .con=con)
-
-```
-
-Now we can happily select multiple people from our Customers table.
-```{r}
-# R Chunk
 customer = glue::glue_sql("{customers*}", .con=con)
 ```
-
 ```{sql connection=con}
 /* SQL Chunk */ 
 SELECT * FROM Customers WHERE name IN (?customer)
@@ -355,13 +359,13 @@ SELECT * FROM Customers WHERE name IN (?customer)
 
 These SQL statements can be whatever you'd like, and we can happily insert rows
 into tables as well.
+
 ```{r}
 # R Chunk
 newCustomer <- c(4, 'Mike Wazowski', '1102 Main St, Apt A113', 'Phoenix', 'AZ')
 newCustomer <- glue::glue_sql('{newCustomer*}', .con = con)
 ```
-
-```{sql connection=con}
+```{sql connection=con, output.var='sql_chunk'}
 /* SQL Chunk */
 INSERT INTO Customers (PersonID, Name, Street, City, State)
 VALUES(?newCustomer)
@@ -376,17 +380,6 @@ SELECT * FROM Customers
 
 
 
-<!-- ## Best Practices -->
-
-<!-- 1.  Functions should always have a connection object. Production vs Development -->
-<!--     as well as different customers database. -->
-<!-- 2.  Try to keep as much work done on the database side as possible.  -->
-<!--     a)  Typically the computer the database is being run on is WAY faster than your  -->
-<!--         client machine. -->
-<!--     b) Also, the biggest bottleneck is is usually the network lag associated with  -->
-<!--        transferring data from the database, across the internet, and to the client. -->
-<!--        Therefore reducing the amount of data passed will be helpful.  -->
-
 
 ## Reading tables using `dbplyr`
 
@@ -400,6 +393,10 @@ The way this will work is that we will use the previously established database
 connection `con` to create a virtual link between the database table and some 
 appropriately named R object.
 
+```{r, echo=FALSE}
+# I shouldn't have to do this, but I seem to need to.
+con <- DBI::dbConnect(RSQLite::SQLite(), dbname = 'data-raw/Transactions.db')
+```
 ```{r}
 # connect the database tables to similarly named objects in R
 Cards <-        tbl(con, 'Cards')
@@ -459,6 +456,66 @@ CC_statement %>% show_query()
 The algorithm used to convert my `dplyr` statement into a SQL statement doesn't 
 mind nesting SQL statements and isn't the same as what I generated by hand, but 
 it works.
+
+
+
+## Programming Best Practices
+It is not uncommon for a package to work with one or more databases. There are
+a number of possible reasons to not hardcode a particular connection. For example,
+when developing an application, testing of the code should be done on a testing
+database and NOT the production database. Similarly, we might be developing
+an application we'll sell to different customers and you'd want to easily point
+your code to a different customer database.
+
+1.  As a result, even if you only expect to connect to a single database, you should
+    always write functions that access a database have a `connection` parameter. You
+    could provide a default, though.
+
+Because the database does not always live on the same computer the application
+is running on, the slowest component will be the transmission time between the
+application and database and minimizing the amount of data being transferred is
+hugely import. 
+
+2.  When doing queries, always leave as much work as possible on the database.
+    For using `dbplyr` that means delaying the `collect()` command as long as 
+    possible. Generally that means doing all the `join`, `filter`, and `summarise`
+    commands first, and then `collect()` the results. Because `mutate` commands
+    actually modify the data, which `dbplyr` won't do, those have to occur *after*
+    the `collect`.
+
+```{r}
+#' Get all the transactions for a given customer
+#' 
+#' @param {Name}{A string with customers First and Last name}
+#' @param {conn}{The database connection to be used}
+GetTransactions <- function(name, conn){
+  Cards <-        tbl(conn, 'Cards')         # Data still lives on the 
+  Customers <-    tbl(conn, 'Customers')     # database and we haven't
+  Retailers <-    tbl(conn, 'Retailers')     # yet transferred any info
+  Transactions <- tbl(conn, 'Transactions')
+  
+  Customers %>%                              # Everything is on the database
+    filter(Name == name) %>%                 #
+    left_join(Cards, by='PersonID') %>%      #
+    select(CardID) %>%                       #
+    left_join(Transactions, by='CardID') %>% #
+    left_join(Retailers, by='RetailID')  %>% #
+    select(DateTime, Amount, Name) %>%       #
+    collect() %>%                         # NOW it is on my application
+    mutate(DateTime = lubridate::ymd_hms(DateTime)) %>%  # add we can modify
+    return()
+}    
+```
+
+Now you can happily get all the transactions for a give person.
+```{r}
+GetTransactions('Derek Sonderegger', con)
+```
+
+
+
+
+
 
 The last step of a script should be to close the database connection.
 ```{r}
