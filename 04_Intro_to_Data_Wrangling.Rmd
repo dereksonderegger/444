@@ -436,7 +436,8 @@ grades %>% summarise( mean.E1=mean(Exam1) )
 We could calculate multiple summary statistics if we like.
 ```{r}
 # calculate the mean and standard deviation 
-grades %>% summarise( mean.E1=mean(Exam1), stddev.E1=sd(Exam1) )
+grades %>% summarise( mean.E1=mean(Exam1), 
+                      stddev.E1=sd(Exam1))
 ```
 
 
@@ -503,7 +504,7 @@ standard deviation for each wool-by-tension group.
 summary_table <- 
   warpbreaks %>% 
   group_by(wool, tension) %>%
-  summarise( n           = n() ,             # I added some formatting to show the
+  summarize( n           = n() ,             # I added some formatting to show the
              mean.breaks = mean(breaks),     # reader I am calculating several
              sd.breaks   = sd(breaks),       # statistics.
              .groups = 'drop')               # drop all grouping structure
@@ -541,6 +542,7 @@ warpbreaks %>%
         short answer is that and is `&` and or is `|`.
     d)  Calculate the mean and standard deviation of the chick weights for each 
         diet group on days 10 and 20. 
+        
 
 2.  The OpenIntro textbook on statistics includes a data set on body dimensions. 
     *Instead of creating an R chunk for each step of this problem, create a*
@@ -591,18 +593,18 @@ warpbreaks %>%
     f)  Find the average BMI for each `Sex.MF` by `Age.Grp` combination.
     
 3.  Suppose we have a data frame with the following two variables:
-```{r}
-df <- tribble(
-  ~SubjectID, ~Outcome,
-  1, 'good',
-  1, 'good',
-  2, 'good',
-  2, 'bad', 
-  2, 'good',
-  3, 'bad',
-  4, 'good',
-  4, 'good')
-```
+    ```{r}
+    df <- tribble(
+      ~SubjectID, ~Outcome,
+      1, 'good',
+      1, 'good',
+      2, 'good',
+      2, 'bad', 
+      2, 'good',
+      3, 'bad',
+      4, 'good',
+      4, 'good')
+    ```
     The `SubjectID` represents a particular individual that has had multiple 
     measurements. What we want to know is what proportion of individuals were
     consistently `good` for all outcomes they had observed. So in our toy example
