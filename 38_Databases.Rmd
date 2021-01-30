@@ -11,11 +11,12 @@ if( length(pkgs > 0)){
     detach(pkgs[i], character.only = TRUE, force=TRUE)
   }
 }
-knitr::opts_chunk$set(cache=FALSE)
+knitr::opts_chunk$set(cache=FALSE) # we cannot cache database connection stuff.
 ```
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, cache=FALSE}
 library(tidyverse)
+library(readr)
 library(RSQLite)
 library(DBI)         # DataBase Interface Package
 library(dbplyr)      # dplyr with databases!
@@ -92,14 +93,14 @@ con <- DBI::dbConnect(dbDriver("PostgresSQL"), dbname = "postgres",
 However for this tutorial, we need to start up a data base before we can start 
 working with.
 
-```{r}
+```{r, cache=FALSE}
 # For our little toy example, we'll use a SQLite database file of the 
 # Credit Card Transactions example we explored previously.
 con <- DBI::dbConnect(RSQLite::SQLite(), dbname = 'data-raw/Transactions.db')
 ```
 
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, cache=FALSE}
 # For the book, I want to always return the database to an initial state
 # So the code here will reset it.
 stem <- 'https://raw.githubusercontent.com/dereksonderegger/444/master/data-raw/CreditCard'
@@ -163,13 +164,13 @@ tables exist and what the columns are in a particular table.
 | `dbColumnInfo()` | Returns meta information about columns returned by a `dbGetQuery()` command. Only some databases support this function. SQLite does not.|
 
 
-```{r}
+```{r, cache=FALSE}
 DBI::dbListTables(con)               # What tables are present
 ```
 There are four tables. The Customers table contains personal information about
 our customers. To see what columns are present, we can use the following:
 
-```{r}
+```{r, cache=FALSE}
 DBI::dbListFields(con, 'Customers')  # What columns are in Customers table
 ```
 
@@ -196,7 +197,7 @@ connection and a SQL command that is stored as a character string.
 
 For example, we might want to select all the rows and columns from the `Transactions` table. 
 To do this, we would run the following SQL command.
-```{r}
+```{r, cache=FALSE}
 sql_cmd <- 'SELECT * FROM Transactions'        # Define a character string with SQL command
 transactions <- DBI::dbGetQuery(con, sql_cmd)  # Run the command
 transactions
@@ -227,11 +228,11 @@ SELECT * from Customers
 ```
 ```
 
-```{sql, connection=con, output.var='sql_output'}
+```{sql, connection=con, output.var='sql_output', cache=FALSE}
 /* This is a SQL code chunk! */
 SELECT * from Customers;
 ```
-```{r}
+```{r, cache=FALSE}
 # In further R chunks, I can refer to the output.var variable
 sql_output
 ```
@@ -249,7 +250,7 @@ In the following SQL command, the information about how to do the table joins
 is mixed up with the information about filtering for a particular customer. I find
 this more difficult to read than our usual dplyr joins.
 
-```{sql, connection=con}
+```{sql, connection=con, output.var='sqloutput', cache=FALSE}
 /* SQL Chunk */
 SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amount
   FROM Customers, Cards, Transactions, Retailers
@@ -257,6 +258,9 @@ SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amoun
         Cards.CardID          = Transactions.CardID  AND
         Transactions.RetailID = Retailers.RetailID   AND
         Customers.Name = 'Derek Sonderegger'
+```
+```{r, echo=FALSE}
+sqloutput
 ```
 
 
@@ -266,7 +270,7 @@ SELECT Customers.Name, Transactions.DateTime, Retailers.Name, Transactions.Amoun
 To insert a row into a table, we need to specify the table to insert into as well as
 the values to be inserted. It is good practice to specify the column/value pair (as opposed
 to assuming the column order) using the following syntax.
-```{sql, connection=con}
+```{sql, connection=con, cache=FALSE}
 /* SQL Chunk */
 INSERT INTO Customers (PersonID, Name, Street, City, State)
 VALUES (5, 'John Smith', '2378 N Main St', 'Flagstaff', 'AZ');
@@ -279,7 +283,7 @@ update. This is done by including a "WHERE" clause, which feels similar to the
 `dplyr::filter()` function. The only major difference is that SQL uses the single `=`
 sign for both assignment and testing equality.
 
-```{sql, connection=con, output.var='sqlout_bar'}
+```{sql, connection=con, output.var='sqlout_bar', cache=FALSE}
 /* SQL Chunk */
 UPDATE Customers
 SET Street = '5638 Daisy Ln', City='Mountainaire', State='AZ'
@@ -288,7 +292,7 @@ WHERE PersonID = 3 AND Name='Robert Buscaglia'
 
 In the WHERE statement, multiple test conditions must be separated by AND or OR conjunctions.
 
-```{sql, connection=con, output.var='sqloutput3'}
+```{sql, connection=con, output.var='sqloutput3', cache=FALSE}
 /* SQL Chunk */
 SELECT * from Customers
 ```
@@ -305,16 +309,20 @@ the user for a person's name and then prints out all the transactions associated
 with the person. To do this, we need a mechanism to pass an R variable into the
 SQL command. 
 
-```{r}
+```{r, cache=FALSE}
 # In an R chunk, I've defined some object that I'd like to use in a SQL statement.
 CustomerName <- 'Derek Sonderegger'
 ```
 
-```{sql connection=con}
+```{sql connection=con, output.var='sqloutput4', cache=FALSE}
 /* Anything with a ? prepended will be                              *
  * replaced with the R object of the same name.                     */
 SELECT * FROM Customers WHERE Name = ?CustomerName
 ```
+```{r, echo=FALSE}
+sqloutput4
+```
+
 
 There are some additional situations where a simple character string substitution
 doesn't quite work because of how R interprets character strings. In particular,
@@ -336,10 +344,14 @@ customers <- '"Derek Sonderegger","Aubrey Sonderegger"'    # The single string w
 ```
 
 
-```{sql connection=con}
+```{sql connection=con, output.var='sqloutput5', cache=FALSE}
 /* SQL Chunk */
 SELECT * FROM Customers WHERE Name IN (?customers)
 ```
+```{r, echo=FALSE}
+sqloutput5
+```
+
 But unbelievably this doesn't return any rows, when it should return two. The 
 solution is to use the `glue` package which is facilitates squishing together
 character strings. We won't utilize this much for the rest of the chapter, but 
@@ -351,9 +363,12 @@ users should know where to look for the
 customers <- c('Derek Sonderegger', 'Aubrey Sonderegger')
 customer = glue::glue_sql("{customers*}", .con=con)
 ```
-```{sql connection=con}
+```{sql connection=con, output.var='sqloutput6', cache=FALSE}
 /* SQL Chunk */ 
 SELECT * FROM Customers WHERE name IN (?customer)
+```
+```{r, echo=FALSE}
+sqloutput6
 ```
 
 
@@ -365,16 +380,19 @@ into tables as well.
 newCustomer <- c(4, 'Mike Wazowski', '1102 Main St, Apt A113', 'Phoenix', 'AZ')
 newCustomer <- glue::glue_sql('{newCustomer*}', .con = con)
 ```
-```{sql connection=con, output.var='sql_chunk'}
+```{sql connection=con, output.var='sql_chunk', cache=FALSE}
 /* SQL Chunk */
 INSERT INTO Customers (PersonID, Name, Street, City, State)
 VALUES(?newCustomer)
 ```
 
 And this has happily inserted Mike into our `Customers` table.
-```{sql, connection=con}
+```{sql, connection=con, output.var='sqloutput7', cache=FALSE}
 /* SQL Chunk */
 SELECT * FROM Customers
+```
+```{r, echo=FALSE}
+sqloutput7
 ```
 
 
@@ -395,7 +413,7 @@ appropriately named R object.
 
 ```{r, echo=FALSE}
 # I shouldn't have to do this, but I seem to need to.
-con <- DBI::dbConnect(RSQLite::SQLite(), dbname = 'data-raw/Transactions.db')
+# con <- DBI::dbConnect(RSQLite::SQLite(), dbname = 'data-raw/Transactions.db')
 ```
 ```{r}
 # connect the database tables to similarly named objects in R

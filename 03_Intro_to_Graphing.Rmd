@@ -343,7 +343,7 @@ My recommendation is to just set the `x`, `y`, and `label` attributes manually i
     h)  To really make this look nice, lets change the fill color of the histograms 
         to be something less dark, lets use `fill='cornsilk'` and `color='grey60'`. 
         To play with different colors that have names, check out the following:
-        [http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf).
+        [https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/](https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/).
     i)  Change the order in which the histogram and the density line are added to 
         the plot. Does it matter and which do you prefer?
     j)  Finally consider if you should have the histograms side-by-side or one 
@@ -355,7 +355,10 @@ My recommendation is to just set the `x`, `y`, and `label` attributes manually i
     *Because these questions ask you to produce several graphs and evaluate which*
     *is better and why, please include each graph and response with each sub-question.*
     a)  Produce a separate scatter plot of weight vs age for each chick. Use 
-        color to distinguish the four different `Diet` treatments.
+        color to distinguish the four different `Diet` treatments. *Note, this*
+        *question should produce 50 separate graphs! If the graphs are too squished*
+        *you should consider how to arrange them so that the graphs wrap to a new*
+        *row of graphs in the resulting output figure.*
     b)  We could examine these data by producing a scatter plot for each diet. Most 
         of the code below is readable, but if we don't add the `group` aesthetic 
         the lines would not connect the dots for each Chick but would instead 
@@ -366,5 +369,8 @@ My recommendation is to just set the `x`, `y`, and `label` attributes manually i
           geom_point() + geom_line() +
           facet_grid( ~ Diet) 
         ```
+        *Notice in the code chunk above, if you don't remove the `eval=FALSE` in*
+        *the chunk header, that the code will be displayed, but it won't be run*
+        *and no plot will be produced in your final output document.*
   
 

@@ -13,14 +13,14 @@ if( length(pkgs > 0)){
     detach(pkgs[i], character.only = TRUE, force=TRUE)
   }
 }
-knitr::opts_chunk$set(cache=FALSE)
+knitr::opts_chunk$set(cache=FALSE, echo=TRUE)
 ```
 
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
 ```
 
-In the introduction section of these notes, we concentrated on `data.frame`s created and manipulated using `dplyr`. There are other data structures that are used in R and it is useful to learn how to manipulate those other data structures. Furthermore, it is also useful to be able to use base R functionality to do certain manipulations on `data.frame`s.
+In the introduction section of these notes, we concentrated on `data.frame`s created and manipulated using `dplyr`. There are other data structures that are used in R and it is useful to learn how to manipulate those other data structures. Furthermore, it is also useful to be able to use base R functionality to do certain manipulations on `data.frames`.
 
 
 ## Vectors {#DataStructures_Vectors}
