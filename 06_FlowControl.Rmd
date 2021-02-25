@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Flow Control
 
 ```{r, echo=FALSE}
@@ -219,6 +224,7 @@ while( logical.test ){
 The computer will first evaluate the test expression. If it is true, it will execute the code once. It will then evaluate the test expression again to see if it is still true, and if so it will execute the code section a third time. The computer will continue with this process until the test expression finally evaluates as false. 
 
 ```{r}
+x <- 1
 while( x < 100 ){
   print( paste("In loop and x is now:", x) )  # print out current value of x
   x <- 2*x
@@ -274,7 +280,7 @@ We can use this loop to calculate the first $10$ elements of the Fibonacci seque
 
 ```{r}
 N <- 10                # How many Fibonacci numbers to create
-F <- rep(0, N)         # initialize a vector of zeros
+F <- rep(0,2)         # initialize a vector of zeros
 F[1] <- 0              # F[1]  should be zero
 F[2] <- 1              # F[2]  should be 1
 print(F)               # Show the value of F before the loop 
@@ -511,9 +517,9 @@ Nearly every function we use to do data analysis is written in a similar fashion
     
     ```{r, fig.height=3, message=FALSE, warning=FALSE}
     library(ggplot2)
-    df <- 4
+    df <- 5
     N <- 1000
-    x.grid <- seq(-4, 4, length=N)
+    x.grid <- seq(-3, 3, length=N)
     data <- data.frame( 
       x = c(x.grid, x.grid),
       y = c(dnorm(x.grid), dt(x.grid, df)),
@@ -556,7 +562,7 @@ Nearly every function we use to do data analysis is written in a similar fashion
         ```{r, eval=FALSE}
         throws <- NULL
         for( i in 1:24 ){
-          throws[i] <- ??????  # Your part (a) answer goes here
+          throws[i] <- ??????  # Your part (a) code goes here
         }
         game <- any( throws == 12 ) # Gives a TRUE/FALSE value
         ```

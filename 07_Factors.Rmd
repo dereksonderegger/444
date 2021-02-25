@@ -103,8 +103,8 @@ The first thing we ought to consider is how to change the factor labels for `Gen
 ```{r, fig.height=3}
 # Change Gender from 0/1  to Female/Male
 Students <- Students %>%
-  mutate( Gender = fct_recode(Gender, Male='1'),
-          Gender = fct_recode(Gender, Female='0') )
+  mutate( Gender = fct_recode(Gender, Male   = '1'),
+          Gender = fct_recode(Gender, Female = '0') )
 
 # Change "Freshman" to the gender neutral "First Year" 
 Students <- Students %>%
@@ -209,7 +209,7 @@ Often we find that it is necessary to collapse several categories into one. In t
 Dems %>%
   mutate( Candidate = fct_collapse(Candidate, other = c('No one', 'Other', 'Undecided')) )
 
-# Collopse the factor, then summarize by adding up the percentages  
+# Collapse the factor, then summarize by adding up the percentages  
 Dems %>%
   mutate( Candidate = fct_collapse(Candidate, other = c('No one', 'Other', 'Undecided')) ) %>%
   group_by(Candidate) %>% summarize(Percent = sum(Percent)) %>%

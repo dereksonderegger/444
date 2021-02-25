@@ -250,10 +250,12 @@ quantities.
 ```{r}
 head(iris)
 
+predict(model, interval='confidence')
+
 # Remove any previous model prediction values that I've added,
 # and then add the model predictions 
 iris <- iris %>%
-  select( -matches('fit'), -matches('lwr'), -matches('upr') ) %>%
+  dplyr::select( -matches('fit'), -matches('lwr'), -matches('upr') ) %>%
   cbind( predict(model, newdata=., interval='confidence') )       
 
 head(iris, n=3)
@@ -264,8 +266,8 @@ confidence interval band information have been added to my `iris` data set, we
 can now plot the raw data and the regression model predictions.
 
 ```{r}
-ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
-  geom_point() +
+ggplot(iris, aes(x=Sepal.Length, color=Species)) +
+  geom_point( aes(y=Petal.Length) ) +
   geom_line( aes(y=fit) ) +
   geom_ribbon( aes( ymin=lwr, ymax=upr, fill=Species), alpha=.3 )   # alpha is the ribbon transparency
 ```

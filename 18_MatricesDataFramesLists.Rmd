@@ -160,7 +160,7 @@ var(x)                  # Same thing using the built-in variance function
 We often want to store numerical data in a square or rectangular format and mathematicians will call these “matrices”. These will have two dimensions, rows and columns. To create a matrix in R we can create it directly using the `matrix()` command which requires the data to fill the matrix with, and optionally, some information about the number of rows and columns:
 
 ```{r}
-W <- matrix( c(1,2,3,4,5,6), nrow=2, ncol=3 )
+W <- matrix( c(1,2,3,4,5,6), nrow=2, ncol=3)
 W
 ```
 Notice that because we only gave it six values, the information the number of columns is redundant and could be left off and R would figure out how many columns are needed.  Next notice that the order that R chose to fill in the matrix was to fill in the first column then the second, and then the third. If we wanted to fill the matrix in order of the rows first, then we'd use the optional `byrow=TRUE` argument.
@@ -217,6 +217,10 @@ Matrices are great for mathematical operations, but I also want to be able to st
 Perhaps the easiest way to create a data frame is to just type the columns of data
 
 ```{r}
+data <- tibble(
+  Name  = c('Bob','Jeff','Mary'), 	
+  Score = c(90, 75, 92)
+)
 data <- data.frame(
   Name  = c('Bob','Jeff','Mary'), 	
   Score = c(90, 75, 92)
@@ -294,6 +298,12 @@ example %>% select( `1984`, `Is Awesome` )
 
 ### Access via `[ ]` vs `[[ ]]` 
 To grab elements of a data frame, we have been using `[ ]`, which returns the desired rows and columns as a data frame.  If we wanted to force R to return the result as a vector, we could force another layer of de-referencing using the double square bracket notation.
+
+The way to think of this is that `[]` is the sub-setting function 
+returns the same object structure as you send in (just smaller).
+
+The `[[ ]]` is the extractor function and it will return
+the data structure of whatever you are aiming to extract.
 
 ```{r}
 data['Name']   # Returns a data frame with just the Name column.

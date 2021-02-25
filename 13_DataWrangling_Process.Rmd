@@ -18,7 +18,7 @@ knitr::opts_chunk$set(cache=FALSE)
 library(tidyverse)
 ```
 
-## Introduction
+## Introduction {-}
 The process of data wrangling often seems very situation dependent and there 
 isn't a unifying process. However this isn't completely true. The process can be 
 thought of as having four distinct steps.
@@ -56,7 +56,7 @@ the data import and cleaning and all of the other researchers are interested in 
 models. If the data owner handles the cleaning process and saves it in a format that
 make is easy to work with, plenty of frustration will be saved.
 
-## Import
+## Import {-}
 Obviously getting the data into R is an obvious first step. Often this is a simple 
 step of reading a `.csv` file, but more complicated scenarios such as messy excel 
 files, importing data tables from a database, or pulling data out of web pages or 
@@ -64,7 +64,7 @@ pdf documents are common.  Another case is when the data is spread across a bunc
 of files (e.g. one excel file per month of data) and we need to read multiple files 
 and squish them together before proceeding to the next step.
 
-## Tidying 
+## Tidying {-}
 
 The terminology of "tidy data" popularized by Hadley Wickham and his introduction 
 to the concept lives in a 
@@ -134,7 +134,7 @@ assign projects and sometimes not. So the tidy version of the data would be to
 have a table `scores` where each row represents a single assignment from a particular 
 student.
 
-## Cleaning
+## Cleaning {-}
 
 The cleaning step is usually highly dependent on the data set content. This step 
 involves 
@@ -150,11 +150,11 @@ involves
 
 Most of our data frame manipulation tools are designed to work with tidy data. 
 As a result, cleaning is most easily done after the data set structure has been 
-tidied. Therefore,I recommend first performing the reshaping tidying step and 
+tidied. Therefore, I recommend first performing the reshaping tidying step and 
 *then* perform the cleaning. 
 
 
-## Use
+## Use {-}
 In the previous three steps, we tried to keep all of the data present and not filter 
 anything out. In this step we transition to using data to build a much deeper understanding. 
 
@@ -169,22 +169,29 @@ be convenient to not actually save these sets, but rather just pipe them into th
 graphing or modeling function.
 
 
-## Thinking
+## Thinking {-}
 
 Why is it good to separate the steps in our thinking?
 
-1.  It forces me to keep my data wrangling code organized and encourages documenting 
-    any functions I create.
+1.  It forces me to keep my data wrangling code organized and encourages 
+    documenting any decisions I have to make.
 
-2.  By separating the data wrangling step code from the analysis, I think more deeply 
-    about verification and initial exploration to understand how best to store the data.
+2.  By separating the data wrangling step code from the analysis, I think more 
+    deeply about verification issues and initial exploration. I find that by
+    thinking about how best to store the data I better understand exactly what
+    the data represents.
    
-3.  Because all my subsequent analysis will depend on the same tidy dataset, I make 
-    fewer mistakes where I clean the data correctly in one analysis, but forgot 
-    a step in another analysis. Because I am so absent minded, having a break between
-    cleaning and analysis is helpful.
+3.  Because all my subsequent analysis will depend on the same tidy data set, I make 
+    fewer mistakes when I clean the data correctly in once. If every analysis had
+    some cleaning steps, inevitably I will mess up and forget one or more steps
+    that I did in other analyses. So do the cleaning all in one place and when you
+    discover an additional problem that you need to address, there is only one
+    script you need to modify to include the fix. 
    
 4.  Packages make it very easy to share my data analysis projects with anyone around 
     the world because I can just post it on GitHub and anyone can view, download, 
-    and understand everything because of the standardized R package structure.
+    and understand everything because of the standardized R package structure. It
+    is useful in the package to separate the import/tidying/cleaning into one
+    location and then the analysis (which is what my collaborators are interested in)
+    into another location.
 
