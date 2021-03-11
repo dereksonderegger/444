@@ -66,14 +66,16 @@ The Census Bureau wants to identify which developers are accessing their data an
 
 ```{r, echo=FALSE}
 # I got a Census API key from https://api.census.gov/data/key_signup.html 
-#Census_API_Key = '2b7acec9009601032e6605909c4901d632f541d6'
+# Census_API_Key = '2b7acec9009601032e6605909c4901d632f541d6'
 ```
 
-```{r, cache=TRUE}
+```{r}
 # I got a Census API key from https://api.census.gov/data/key_signup.html 
 # and saved it as Census_API_Key in my .Rprofile file in my home directory. 
-CENSUS_API_KEY = Sys.getenv('CENSUS_API_KEY')
- 
+source('~/.Rprofile')  
+CENSUS_API_KEY = Sys.getenv('census_api_key')
+```
+```{r, cache=TRUE}
 # This query is the example query first given in the censusapi vignette.
 censusapi::getCensus(name = "timeseries/healthins/sahie",
 	vars = c("NAME", "IPRCAT", "IPR_DESC", "PCTUI_PT"),      # Define the gets=
@@ -107,7 +109,8 @@ County_Populations %>% head(6)
 I was looking for population divided up by Age and Sex and it took awhile to figure out that I want to use PEP's Demographic Characteristics Estimates by Age Groups tables `pep/charagegroups`. From there I looked at some of the examples and variables.
 
 ```{r, cache=TRUE}
-County_Populations_by_AgeGender <- getCensus(name = "pep/charagegroups",
+County_Populations_by_AgeGender <- getCensus(
+  name = "pep/charagegroups",
   vars = c('GEONAME','DATE_CODE','AGEGROUP','SEX','DATE_DESC','POP'),
   vintage = '2018',
   region = 'state:04', 
@@ -154,12 +157,22 @@ County_Populations_by_AgeGender %>%
 
 
 ## Package `tidycensus`
-The `tidycensus` package is a little easier to work with. By default, `tidycensus` functions will look for the API Key in the System Environment.
+The `tidycensus` package is a little easier to work with.
+By default, `tidycensus` functions will look for the API Key
+in the System Environment.
 
 ```{r, eval=FALSE}
 # The tidycensus package has a nice way of installing the 
 # API key in your .Rprofile file. 
 tidycensus::census_api_key('adoiYOURadsKEYmcvGOESsdljHERE', install=TRUE)
+```
+```{r, echo=FALSE}
+# Actually read in my API key that is stored in my .Rprofile file.
+source('.Rprofile')
+tidycensus::census_api_key(
+  Sys.getenv('census_api_key'), 
+  install=TRUE, overwrite=TRUE
+)
 ```
 
 There are three major functions that will get used. The 
@@ -171,7 +184,8 @@ There are three major functions that will get used. The
 |`load_variables()`| Gives the mapping between the variable code and the description |
 
 
-For our first example, we'll grab the county population totals in Arizona broken down by sex and ethnicity. 
+For our first example, we'll grab the county population totals in Arizona broken
+down by sex and ethnicity. 
 
 ```{r}
 AZ_County_Populations <- tidycensus::get_estimates(
@@ -186,7 +200,8 @@ head(AZ_County_Populations)
 
 
 
-For our next example, we'll grab the number of people with or without Insurance in each state.
+For our next example, we'll grab the number of people with or without Insurance
+in each state.
 ```{r}
 # We want to get the Number of people with or without Insurance in each state
 US_State_Health_Insurance <- 

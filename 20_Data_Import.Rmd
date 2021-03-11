@@ -15,9 +15,9 @@ knitr::opts_chunk$set(cache=FALSE)
 ```
 
 ```{r, warning=FALSE, message=FALSE}
-library(tidyverse)
-library(readxl)
-library(googlesheets4)
+library(tidyverse)      # Our usual data manipulation tools
+library(readxl)         # For reading MS Excel files
+library(googlesheets4)  # For reading Google Sheets
 ```
 
 
@@ -95,7 +95,7 @@ should be located.
 | Folder   |  Description                               |
 |--------------:|:-----------------------------------------------|
 | `'data-raw'` | This directory has the raw data such as excel and csv files. It also contains scripts that import and wrangle the data in order to produce a clean data file. |
-| `'data'` | This directory contains the cleaned up data in the form of `.RData` files. |
+| `'data'` | This directory contains the cleaned up data in the form of `.rda` files. |
 | `'docs'` | This directory contains all the Rmarkdown files that will generate reports and analysis summaries using the clean data. |
 
 ## R Binary Files
@@ -345,7 +345,8 @@ cell ranges:
 
 The first time you run a `googledrive` function, it will ask you to authenticate
 to the Google services and to store the authentication key in your R profile. It
-will warn you that you are allowing R to access your data. 
+will warn you that you are allowing R to access your data. You'll need to agree
+to this and R will store this authentication token. 
 
 
 ### Reading
@@ -359,18 +360,51 @@ The main function to read from a Google Sheet is `read_sheet()` The most pertine
 | `range`      | The cell range to read from. |
 | 
 
+```{r, echo=FALSE}
+# Force google drive to use a prior cached authentication token...
+# Otherwise I'll just get an error because I can't do the web authentication.
+options(gargle_oauth_email = "derek.sonderegger@gmail.com")
+```
+
 ```{r, eval=FALSE}
 # The following link is to a data set on my Google Drive STA 444 directory
+# I have it set so that anyone with the link can read the speadsheet so the
+# code here will work for anybody.
 link <- 'https://docs.google.com/spreadsheets/d/1pPbeJOqlT3N9fEXfO2sJbYddVWgeB8VSt61V0WNK6Vc'
 
 # Just using the direct link
 df <- read_sheet(link, sheet='Data')
+head(df)
+```
 
-# Using the Path within my Google Drive
+This works well for individual Sheets that you have either an ID or URL for. 
+However, it would be nice to not have to look that information and instead
+give the path within your Google Drive. To do that, we need to authenticate and
+give R the rights to access the drive.
+
+If your code is running in a non-interactive environment (for example when 
+knitting your Rmarkdown document) you'll need to make the authentication happen 
+by finding a prior authorization token.
+
+```{r}
+# Force google drive to use a prior cached authentication token...
+# Notice I still had to agree to letting R have access to my Google Drive
+# at some point in time!
+options(gargle_oauth_email = "derek.sonderegger@gmail.com")
+```
+
+You can read about the details of how/why this works at the `gargle` package
+vinnette about 
+[non-interactive authentication](https://gargle.r-lib.org/articles/non-interactive-auth.html)
+```{r, cache=TRUE, eval=FALSE} 
+# Now read using the path within my Google Drive
 df <- googledrive::drive_get('STA_444/CherryTrees') %>%
         read_sheet( sheet='Data' ) 
 ```
 
+Another consideration is that Google limits the number of read requests in a short
+period of time and if you are tweaking your Rmarkdown, you might run into this
+issue. You might try caching the R chunk.
 
   
 ### Writing
@@ -379,7 +413,11 @@ The `googlesheets4` package also supports writing to the spreadsheet.
 
 The function `write_sheet` writes a data frame to a sheet, whereas `range_write`
 will write data to a specific location within a sheet.
-```{r, eval=FALSE}
+```{r, cache=TRUE, eval=FALSE}
+# Here I'm only allowed to write to the Sheet because I've authenticated
+# with Google. I have this particular sheet set up so that anybody with the
+# link can read the file, but cannot write to the file. So this code should
+# not work for you!
 write_sheet(data=trees, ss=link, sheet='Data')
 ```
 
@@ -407,6 +445,12 @@ Generally when I have to read in multiple files, I need to inspect a directory
 and read all the files. Fortunately the function `list.files()` will return a
 of character strings containing all the files in a directory.
 
+```{r}
+files <- list.files('~/GitHub/141/data-raw/') 
+files %>% head()
+```
+
+
 ## Exercises  {#Exercises_DataImport}
 
 1.  Download from GitHub the data file 
@@ -427,4 +471,13 @@ of character strings containing all the files in a directory.
     `-9999` and `NA` are imported as NA values. If you make any modifications to 
     the data file, comment on those modifications.
 
-
+3.  Download all of the files from GitHub `data-raw/InsectSurveys` directory which
+    I've linked 
+    [here.](https://github.com/dereksonderegger/444/raw/master/data-raw/InsectSurveys)
+    Each month's file contains a sheet contains site level information about each
+    of the sites that was surveyed. The second sheet contains information about
+    the number of each species that was observed at each site. Import the data
+    for each month and create a single `site` data frame with information from
+    each month. Do the same for the `observations`. Document any modifications
+    you make to the data files. Comment on the importance of consistency of your
+    data input sheets.

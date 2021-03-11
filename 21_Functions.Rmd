@@ -39,6 +39,7 @@ To illustrate how to define your own function, we will define a variance calcula
 ```{r}
 # define my function
 my.var <- function(x) {
+  browser()
   n <- length(x)                # calculate sample size
   xbar <- mean(x)               # calculate sample mean
   SSE <- sum( (x-xbar)^2 )      # calculate sum of squared error
@@ -286,7 +287,7 @@ this environment, we need to set a *breakpoint*. This can be done in R-scripts
 by clicking on the line number, but in Rmarkdown files, it is done by including 
 the command `browser()` into your code.
 
-In our factorial function, we can set a breakpoint via the following
+In our factorial function, we can set a break point via the following
 ```
 #' Compute a Factorial. e.g. 5! = 5*4*3*2*1 
 #' @param n A positive integer
@@ -310,7 +311,8 @@ all the variables we are interested in.
 
 ## Scope
 
-Consider the case where we make a function that calculates the trimmed mean. A good implementation of the function is given here.
+Consider the case where we make a function that calculates the trimmed mean.
+A good implementation of the function is given here.
 
 ```{r}
 #' Define a function for the trimmed mean
@@ -333,7 +335,12 @@ output
 x                                # notice x is unchanged
 ```
 
-Notice that even though I passed `x` into the function and then sorted it, `x` remained unsorted outside the function. When I modified `x`, R made a copy of `x` and sorted the *copy* that belonged to the function so that I didn't modify a variable that was defined outside of the scope of my function. But what if I didn't bother with passing x and k. If I don't pass in the values of x and k, then R will try to find them in my current work space.
+Notice that even though I passed `x` into the function and then sorted it, `x`
+remained unsorted outside the function. When I modified `x`, R made a copy of
+`x` and sorted the *copy* that belonged to the function so that I didn't modify
+a variable that was defined outside of the scope of my function. But what if I
+didn't bother with passing x and k. If I don't pass in the values of x and k,
+then R will try to find them in my current work space.
 
 ```{r, error=TRUE}
 # a horribly defined function that has no parameters
@@ -359,10 +366,53 @@ trimmed.mean()  # now the function can't find anything named k and throws and er
 ```
 
 
-So if I forget to pass some variable into a function, but it happens to be defined outside the function, R will find it. It is not good practice to rely on that because how do I take the trimmed mean of a vector named `z`? Worse yet, what if the variable `x` changes between runs of your function? What should be consistently giving the same result keeps changing. This is especially insidious when you have defined most of the arguments the function uses, but missed one. Your function happily goes to the next higher scope and sometimes finds it. 
+So if I forget to pass some variable into a function, but it happens to be defined
+outside the function, R will find it. It is not good practice to rely on that 
+because how do I take the trimmed mean of a vector named `z`? Worse yet, what 
+if the variable `x` changes between runs of your function? What should be 
+consistently giving the same result keeps changing. This is especially insidious
+when you have defined most of the arguments the function uses, but missed one. 
+Your function happily goes to the next higher scope and sometimes finds it. 
 
-When executing a function, R will have access to all the variables defined in the function, all the variables defined in the function that called your function and so on until the base work space. However, you should never let your function refer to something that is not either created in your function or passed in via a parameter.
+When executing a function, R will have access to all the variables defined in
+the function, all the variables defined in the function that called your function
+and so on until the base work space. However, you should never let your function
+refer to something that is not either created in your function or passed in via
+a parameter.
 
+
+## When Should I...
+
+When a person is first learning how to program, it is a bit confusing when to 
+write loops or functions or just divide up your code into separate blocks or
+scripts. 
+
+*   Code blocks: I separate my code using white space whenever there is a distinct
+    change in purpose. Perhaps to demark the set-up steps from the core logic
+    of whatever I'm doing. If I'm writing a statistical analysis in an Rmarkdown
+    document, I have program chunks for each step. In this case the code in each
+    block is highly specialized to the task and likely won't be re-used.
+    
+*   Loops: Whenever I find myself needing to repeat the same code many times,
+    instead of copy and pasting the code, I should instead write a loop. Critically
+    this code needs to have only slight modifications for each run and those 
+    modifications need to be controllable by just a single index variable. Generally
+    I won't reuse a loop in another project and the task being performed is 
+    highly specialized.
+    
+*   Functions: There are a couple of reasons I might want to write functions.
+    *   When I need to repeatedly run the same code, but there are aspects
+        of how the code changes that are moderately complex. With many different
+        function parameters, we can have the code perform in many different ways.
+    *   I need to write code that will be used in many different locations in
+        my project and I want to give that code a name and be able to refer to it
+        by name. This allows me to also pass this code along to other functions
+        by name.
+    *   My code is so complex that I need to develop tests to verify that it works
+        in all the situations I expect it should work.
+    *   My code is supposed to work with other chunks of code and I want to 
+        clarify *exactly* what information is required and *exactly* how the 
+        result should be structured.
 
 ## Exercises  {#Exercises_Functions}
 
@@ -442,11 +492,15 @@ When executing a function, R will have access to all the variables defined in th
 
 
 3.  A common data processing step is to *standardize* numeric variables by subtracting 
-    the mean and dividing by the standard deviation.  Create a function that takes 
-    a vector of numerical values and produces an output vector of the standardized 
+    the mean and dividing by the standard deviation. Mathematically, the standardized
+    value is defined as
+    $$z = \frac{x-\bar{x}}{s}$$
+    where $\bar{x}$ is the mean and $s$ is the standard deviation.
+    Create a function that takes an input vector of numerical values and produces
+    an output vector of the standardized 
     values. We will then apply this function to each numeric column in a data frame 
-    using the `dplyr::accross()` function. 
-    `dplyr::mutate_if()` command. *This is often done in model algorithms*
+    using the `dplyr::across()` or the `dplyr::mutate_if()` commands. 
+    *This is often done in model algorithms*
     *that rely on numerical optimization methods to find a solution. By keeping the*
     *scales of different predictor covariates the same, the numerical optimization*
     *routines generally work better.*
@@ -530,7 +584,6 @@ When executing a function, R will have access to all the variables defined in th
       # Start the output data frame with the full sample statistic
       output <- broom::tidy(model) %>% 
         select(term, estimate) %>% 
-        pivot_wider(term, estimate)
         pivot_wider(names_from=term, values_from=estimate)
     
       for( i in 1:N ){

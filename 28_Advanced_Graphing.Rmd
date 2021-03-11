@@ -562,66 +562,63 @@ leaflet() %>%
 
 ## Exercises  {#Exercises_Advanced_Graphing}
 
-1. [Gapminder](https://www.gapminder.org) is a organization devoted to educating people about world facts and dispelling misconceptions between countries
-    a) From their [data](https://www.gapminder.org/data/) page, download information about country per capita CO2 emissions. Import the data and filter out all but the latest year.
-    b) Create a `Country_Dictionary` that will map countries in the CO2 data to the regions in the `ggplot2::map_data('world')` table. In this problem we have two data sets we need to join, by country and region, but unfortunately those don’t always match.
-        
-        For example, in the CO2 data, there is one line for "Antigua and Barbuda”, but in the geo.data there is one region for Antigua and one for Barbuda. A clever solution is to make two rows in your country dictionary that matches both the regions “Antiqua" and "Barbuda" to the CO2 value for "Antigua and Barbuda”. This way when you join the CO2 data to your country_dictionary, the result is to copy the CO2 result from the combined “Antigua and Barbuda” to 1 row for Antigua and 1 row for Barbuda.
-        ```{r, eval=FALSE}
-            # You'll need to fill in the rest of the countries and regions that don't match!
-            Country_Dictionary <- tribble(
-              ~raw,                             ~standardized,
-              "Antigua and Barbuda",            "Antigua",
-              "Antigua and Barbuda",            "Barbuda",
-              "Congo, Dem. Rep.",               "Democratic Republic of the Congo",
-              "Congo, Rep.",                    "Democratic Republic of the Congo")
-        ```
-        For the rest you should be able to figure out the matching country except for perhaps that Cote d’Ivoire is the Ivory Coast and Swaziland is now Eswatini. For the Democratic Republic of the Congo and Republic of the Congo, we have to combine their CO2 values because the map data just has the DRC, so for any of the standardized counties with multiple rows, take the max CO2 value after we've joined the `CO2` data with the `Country_Dictionary`. *Hint: `unique(x)` will return the unique items in a vector, `intersect(x,y)`returns the elements common to `x` and `y`, and `setdiff(x,y)`  returns the elements of `x` that are not in `y`. Similarly the function `semi_join(A,B)` and `anti_join(A,B)` return the rows of A the will be matched with B or the rows of A the DON'T match with B.
-    
-    c) Create a map of CO2 emissions per person. Select a color scale that emphasizes the countries with high per capita CO2 levels.
 
-<!-- 2. The `infmort` data set from the package `faraway` gives the infant mortality rate for a variety of countries. The information is relatively out of date, but will be fun to graph. T -->
-<!--     a) The `rownames()` of the dataset give the country names and you should create a new column that contains the country names. -->
-<!--     b) Save the `ggplot2::map_data('world')` result as `geo.data`. Compare the `infmort` country names to the `region` names in the `geo.data` data set and do whatever is necessary to get the country names to concur. *Hint: `unique(x)` will return the unique items in a vector, `intersect(x,y)`returns the elements common to `x` and `y`, and `setdiff(x,y)`  returns the elements of `x` that are not in `y`. I recommend creating a `Country_Dictionary` that contains the standardized country name and all the weird versions you've run into. Every time you see some new abbreviation, just add it to the dictionary. To start with, you might consider all the ways people commonly refer to the United States of America.* -->
-<!--         ```{r} -->
-<!--         Country_Dictionary <- tribble( -->
-<!--           ~raw, ~standardized, -->
-<!--           'U.S.A',         'United States of America', -->
-<!--           'United States', 'United States of America', -->
-<!--           'US',            'United States of America') -->
-<!--         ``` -->
-<!--         *After doing some simple data cleaning on the country names (e.g. swapping `_` for a space or vice versa), figure out which country names in the two data sets don't match up and decide on a standardized name and insert the translation into your dictionary table. Then join the dictionary to the `geo.data` and create a standardized country name column. Do the same for the `infmort` data and then the standardized country name levels should match up.* -->
-<!--     c) Join the `geo.data` with the `infmort` data. -->
-<!--     d) Make a map of the world where we shade in countries based on the country income. Set the color fill scale to be anything other than the default. -->
-<!--     e) Make a map of the world where we shade in the countries based on if they are oil exports. Color the map black if the country is an oil exporter, and a light gray if it is not. -->
-
-2. The `infmort` data set from the package `faraway` gives the infant mortality rate for a variety of countries. The information is relatively out of date (from 1970s?), but will be fun to graph. Visualize the data using by creating scatter plots of mortality vs income while faceting using `region` and setting color by `oil` export status. Utilize a $\log_{10}$ transformation for both `mortality` and `income` axes. This can be done either by doing the transformation inside the `aes()` command or by utilizing the `scale_x_log10()` or `scale_y_log10()` layers. The critical difference is if the scales are on the original vs log transformed scale. Experiment with both and see which you prefer.
-    a) The `rownames()` of the table gives the country names and you should create a new column that contains the country names. *`rownames`
-    b) Create scatter plots with the `log10()` transformation inside the `aes()` command.
-    c) Create the scatter plots using the `scale_x_log10()` and `scale_y_log10()`. Set the major and minor breaks to be useful and aesthetically pleasing. Comment on which version you find easier to read.
-    d) The package `ggrepel` contains functions `geom_text_repel()` and `geom_label_repel()` that mimic the basic `geom_text()` and `geom_label()` functions in `ggplot2`, but work to make sure the labels don't overlap. Select 10-15 countries to label and do so using the `geom_text_repel()` function.
+1.  The `infmort` data set from the package `faraway` gives the infant mortality
+    rate for a variety of countries. The information is relatively out of date
+    (from 1970s?), but will be fun to graph. Visualize the data using by creating
+    scatter plots of mortality vs income while faceting using `region` and setting
+    color by `oil` export status. Utilize a $\log_{10}$ transformation for both
+    `mortality` and `income` axes. This can be done either by doing the
+    transformation inside the `aes()` command or by utilizing the `scale_x_log10()`
+    or `scale_y_log10()` layers. The critical difference is if the scales are on
+    the original vs log transformed scale. Experiment with both and see which you
+    prefer.
+    a)  The `rownames()` of the table gives the country names and you should
+        create a new column that contains the country names. *`rownames`
+    b)  Create scatter plots with the `log10()` transformation inside the `aes()`
+        command.
+    c)  Create the scatter plots using the `scale_x_log10()` and `scale_y_log10()`.
+        Set the major and minor breaks to be useful and aesthetically pleasing.
+        Comment on which version you find easier to read.
+    d)  The package `ggrepel` contains functions `geom_text_repel()` and
+        `geom_label_repel()` that mimic the basic `geom_text()` and `geom_label()`
+        functions in `ggplot2`, but work to make sure the labels don't overlap.
+        Select 10-15 countries to label and do so using the `geom_text_repel()`
+        function.
 
 3. Using the `datasets::trees` data, complete the following:
-    a) Create a regression model for $y=$ `Volume` as a function of $x=$ `Height`.
-    b) Using the `summary` command, get the y-intercept and slope of the regression line.
-    c) Using `ggplot2`, create a scatter plot of Volume vs Height. 
-    d) Create a nice white filled rectangle to add text information to using by adding the following annotation layer.
+    a)  Create a regression model for $y=$ `Volume` as a function of $x=$ `Height`.
+    b)  Using the `summary` command, get the y-intercept and slope of the
+        regression line.
+    c)  Using `ggplot2`, create a scatter plot of Volume vs Height. 
+    d)  Create a nice white filled rectangle to add text information to using by
+        adding the following annotation layer.
         ```{r, eval=FALSE}
         annotate('rect', xmin=65, xmax=75, ymin=60, ymax=74,
                  fill='white', color='black') +
         ```
-    e) Add some annotation text to write the equation of the line $\hat{y}_i = -87.12 + 1.54 * x_i$ in the text area.
-    f) Add annotation to add $R^2 = 0.358$
-    g) Add the regression line in red. The most convenient layer function to uses is `geom_abline()`. It appears that 
-       the `annotate` doesn't work with `geom_abline()` so you'll have to call it directly.
+    e)  Add some annotation text to write the equation of the line
+        $\hat{y}_i = -87.12 + 1.54 * x_i$ in the text area.
+    f)  Add annotation to add $R^2 = 0.358$
+    g)  Add the regression line in red. The most convenient layer function to uses
+        is `geom_abline()`. It appears that the `annotate` doesn't work with
+        `geom_abline()` so you'll have to call it directly.
        
-4. In `datasets::Titanic` table summarizes the survival of passengers aboard the ocean liner *Titanic*. It includes information about passenger class, sex, and age (adult or child). Create a bar graph showing the number of individuals that survived based on the passenger `Class`, `Sex`, and `Age` variable information. You'll need to use faceting and/or color to get all four variables on the same graph. Make sure that differences in survival among different classes of children are perceivable.  *Unfortunately, the data is stored as a `table` and to expand it to a data frame, the following code can be used.*
-
+4.  In `datasets::Titanic` table summarizes the survival of passengers aboard the
+    ocean liner *Titanic*. It includes information about passenger class, sex, and
+    age (adult or child). Create a bar graph showing the number of individuals that
+    survived based on the passenger `Class`, `Sex`, and `Age` variable information.
+    You'll need to use faceting and/or color to get all four variables on the same
+    graph. Make sure that differences in survival among different classes of
+    children are perceivable.  *Unfortunately, the data is stored as a `table`*
+    *and to expand it to a data frame, the following code can be used.*
+    
     ```{r}
     Titanic <- Titanic %>% as.data.frame()
     ```
-    a) Make this graph using the default theme. *If you use color to denote survivorship, modify the color scheme so that a cold color denotes death.*
-    b) Make this graph using the `theme_bw()` theme.
-    c) Make this graph using the `cowplot::theme_minimal_hgrid()` theme.
-    d) Why would it be beneficial to drop the vertical grid lines?
+    a)  Make this graph using the default theme. *If you use color to denote*
+        *survivorship, modify the color scheme so that a cold color denotes death.*
+    b)  Make this graph using the `theme_bw()` theme.
+    c)  Make this graph using the `cowplot::theme_minimal_hgrid()` theme.
+    d)  Why would it be beneficial to drop the vertical grid lines?
     
