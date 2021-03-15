@@ -34,7 +34,8 @@ consistent set of functions to handle the most common data frame manipulations,
 and a mechanism for chaining these operations together to perform complex tasks. 
 
 Dr. Wickham has put together a very nice introduction to the package that explains 
-in more detail how the various pieces work and I encourage you to read it at some point. [https://cran.rstudio.com/web/packages/dplyr/vignettes/dplyr.html].
+in more detail how the various pieces work and I encourage you to read it at some point.
+[https://cran.rstudio.com/web/packages/dplyr/vignettes/dplyr.html].
 
 One of the aspects about the `data.frame` object is that R does some simplification 
 for you, but it does not do it in a consistent manner. Somewhat obnoxiously, 
@@ -47,9 +48,11 @@ with a few extra bits. For now we can ignore the differences.
 
 The pipe command `%>%` allows for very readable code. The idea is that the `%>%` 
 operator works by translating the command `a %>% f(b)` to the expression `f(a,b)`. 
-This operator works on any function and was introduced in the `magrittr` package. 
-The beauty of this comes when you have a suite of functions that takes input 
-arguments of the same type as their output. 
+This operator works on any function and was introduced in the `magrittr` package.
+This operator is so powerful and useful that it will soon be included as part of
+the base functionality of R!
+The beauty of the pipe operator comes when you have a suite of functions that
+takes input arguments of the same type as their output. 
 
 For example, if we wanted to start with `x`, and first apply function `f()`, 
 then `g()`, and then `h()`, the usual R command would be `h(g(f(x)))` which is 
@@ -80,9 +83,157 @@ c( -1, 0, 1) %>%  # take a vector of values
 
 In `dplyr`, all the functions below take a _data set as its first argument_ 
 and _outputs an appropriately modified data set_. This will allow me to chain 
-together commands in a readable fashion. The pipe command works with any function, 
-not just the `dplyr` functions and I often find myself using it all over the place.
+together commands in a readable fashion. 
 
+For a more precise reasoning why using pipes in your code is superior, consider
+the following set of function calls that describes my morning routine. In this
+case, each function takes a person as an input and an appropriately modified
+person as an output object:
+
+```{r, eval=FALSE}
+drive(drive(eat_breakfast(shave(clean(get_out_of_bed(wake_up(me), side='right'), 
+method='shower'), location='face'), what=c('cereal','coffee')), 
+location="Kid's School"), location='NAU')
+```
+
+The problem with code like this is that the function call parameters are far
+away from the function name. So that the function `drive()` which has a parameter
+`location='NAU'` has the two pieces ridiculously far from each other.
+
+The same set of function calls using a pipe command, keeps the function name
+and function parameters *together* in a much more readable format:
+
+```{r, eval=FALSE}
+me %>%
+  wake_up() %>%
+  get_out_of_bed(side='right') %>%
+  clean( method='shower') %>%
+  shave( location='face') %>%
+  eat_breakfast( what=c('cereal','coffee')) %>%
+  drive( location="Kid's School") %>%
+  drive( location='NAU')
+```
+
+By piping the commands together, it is both easier to read, but also easier
+to *modify*. Imagine if I am running late and decide to skip the shower and
+shave. Then all I have to do is comment out those two steps like so:
+
+```{r, eval=FALSE}
+me %>%
+  wake_up() %>%
+  get_out_of_bed(side='right') %>%
+  # clean( method='shower') %>%
+  # shave( location='face') %>%
+  eat_breakfast( what=c('cereal','coffee')) %>%
+  drive( location="Kid's School") %>%
+  drive( location='NAU')
+```
+
+This works so elegantly because the function call and its parameters are
+together instead of being spread apart and containing all the prior steps. If
+you wanted to comment out these steps in the first nested statement it is a 
+mess. You end up re-writing the code so that one command is on a single line,
+but the function call and its parameters are still obnoxiously spread apart 
+and I have to comment out *four* lines of code and I have to make sure the 
+parameters I comment out are the right ones. Indenting the functions makes that
+easier, but this is still unpleasant and prone to error.
+
+```{r, eval=FALSE}
+drive(
+  drive(
+    eat_breakfast(
+      # shave(
+      #   clean(
+          get_out_of_bed(
+            wake_up(me), 
+          side='right'), 
+      #   method='shower'), 
+      # location='face'), 
+    what=c('cereal','coffee')), 
+  location="Kid's School"), 
+location='NAU')
+```
+
+The final way that you might have traditionally written this code without 
+the pipe operator is by saving the output objects of each step:
+
+```{r, eval=FALSE}
+me2 <- wake_up(me)
+me3 <- get_out_of_bed(me2, side='right') 
+me4 <- clean(me3, method='shower') 
+me5 <- shave(me4, location='face') 
+me6 <- eat_breakfast(me5, what=c('cereal','coffee'))
+me7 <- drive(me6, location="Kid's School") 
+me8 <- drive(me7, location='NAU')
+```
+
+But now to remove the clean/shave steps, we have to ALSO remember to
+update the `eat_breakfast()` to use the appropriate `me` variable. 
+
+```{r, eval=FALSE}
+me2 <- wake_up(me)
+me3 <- get_out_of_bed(me2, side='right') 
+# me4 <- clean(me3, method='shower') 
+# me5 <- shave(me4, location='face') 
+me6 <- eat_breakfast(me3, what=c('cereal','coffee'))  # This was also updated!
+me7 <- drive(me6, location="Kid's School") 
+me8 <- drive(me7, location='NAU')
+```
+
+When it comes time to add the clean/shave steps back in, it is far too
+easy to forget to update `eat_breakfast()` command as well
+
+```{r, eval=FALSE}
+me2 <- wake_up(me)
+me3 <- get_out_of_bed(me2, side='right') 
+me4 <- clean(me3, method='shower')
+me5 <- shave(me4, location='face')
+me6 <- eat_breakfast(me3, what=c('cereal','coffee'))  # forgot to update this!
+me7 <- drive(me6, location="Kid's School") 
+me8 <- drive(me7, location='NAU')
+```
+
+So to prevent having that problem, programmers will often just overwrite the same object.
+
+```{r, eval=FALSE}
+me <- wake_up(me)
+me <- get_out_of_bed(me, side='right') 
+me <- clean(me, method='shower')
+me <- shave(me, location='face')
+me <- eat_breakfast(me, what=c('cereal','coffee'))  # forgot to update this!
+me <- drive(me, location="Kid's School") 
+me <- drive(me, location='NAU')
+```
+
+Aside from still having to write `me` so often, the original object `me` has been
+overwritten immediately. To write and test the next step in the code chunk,
+I have to remember to run whatever code originally produced the `me` object. That is 
+really easy to forget to do and this can induce a *lot* of frustration. So this
+results in creating a `me_X` variable for each code chunk. So we'll still have
+obnoxious numbers of temporary variables. When I add/remove new chunks, I have
+to be careful to use the right temporary variables.
+
+With the pipe operator, I typically have a work flow where I keep adding steps and 
+debugging without overwriting my initial input object. Only once the code-chunk is
+completely debugged and I'm perfectly happy with it, will I finally save the
+output and overwrite the `me` object. This simplifies my writing/debugging 
+process and removes any redundancy in object names.
+
+```{r, eval=FALSE}
+me <- 
+  me %>%
+  wake_up() %>%
+  get_out_of_bed(side='right') %>%
+  # clean( method='shower') %>%
+  # shave( location='face') %>%
+  eat_breakfast( what=c('cereal','coffee')) %>%
+  drive( location="Kid's School") %>%
+  drive( location='NAU')
+```
+
+So the pipe operator allows us to keep the function call and parameters together
+and prevents us from having to name/store all the intermediate results. As a result
+I make fewer programming mistakes and that saves me time and frustration.
 
 ## Verbs
 
@@ -99,7 +250,7 @@ The foundational operations to perform on a data set are:
 |  `select`     | Selecting a subset of columns by name or column number. Helper functions such as `starts_with()`, `ends_with()`, and `contains()` allows you pick columns that have certain attributes in their column names. |
 | `filter()`      | Selecting a subset of rows from a data frame based on logical expressions. |
 | `slice()`       | Selecting a subset of rows by row number. There are a few variants that allow for common tasks to such as `slice_head()` `slice_tail()` and `slice_sample()` |
-| `drop_na`    |  Remove rows that contain any missing values. |
+| `drop_na()`    |  Remove rows that contain any missing values. |
 
 
 | Sorting | Returns a data table with the rows sorted according to a particular column(s). |
@@ -137,7 +288,9 @@ Residents <- tribble(
 ```
 
 
-### `add_row`
+### Adding new rows
+
+#### `add_row`
 Suppose that we want to add a row to our dataset. We can give it as much or as 
 little information as we want and any missing information will be denoted as 
 missing using a `NA` which stands for *N*ot *A*vailable.
@@ -155,7 +308,7 @@ Residents <- Residents %>%
 Residents
 ```
 
-### `bind_rows`
+#### `bind_rows`
 To combine two data frames together, we'll bind them together using `bind_rows()`. 
 We just need to specify the order to stack them. 
 ```{r}
@@ -256,6 +409,12 @@ There are a few other slice variants that are useful. `slice_head()` and
 `slice_tail` grab the first and last few rows. The `slice_sample()` allows us
 to randomly grab table rows.
 
+```{r, echo=FALSE}
+# Make sure that the following slice_sample isn't crazy unlucky and doesn't include
+# any repeats. That would be annoying. :(
+set.seed(58626675)  
+```
+
 ```{r}
 # sample with replacement, number of rows is 100% of the original number of rows
 # This is super helpful for bootstrapping code
@@ -264,7 +423,7 @@ grades %>%
 ```
 
 
-### `arrange()`
+### Sorting via `arrange()`
 
 We often need to re-order the rows of a data frame. For example, we might wish 
 to take our grade book and sort the rows by the average score, or perhaps 
@@ -291,7 +450,7 @@ grades %>% arrange(Gender, desc(Exam2))
 
 
 
-### mutate()
+### Update and Create new columns with `mutate()`
 
 The mutate command either creates a *new* column in the data frame or *updates* 
 an already existing column.
@@ -302,10 +461,13 @@ In the `dplyr` package, this is a `mutate` command. To do this, we give a
 calculations within the same `mutate()` command, and you can even refer to columns 
 that were created in the same `mutate()` command.
 ```{r}
-grades <- grades %>% mutate( 
-  average = (Exam1 + Exam2 + Final)/3,
-  grade = cut(average, c(0, 60, 70, 80, 90, 100),  # cut takes numeric variable
-                       c( 'F','D','C','B','A')) )  # and makes a factor
+grades <- grades %>% 
+  mutate( 
+    average = (Exam1 + Exam2 + Final)/3,
+    grade = cut(average, c(0, 60, 70, 80, 90, 100),  # cut takes numeric variable
+                         c( 'F','D','C','B','A'))    # and makes a factor
+  )
+
 grades
 ```
 
@@ -374,8 +536,9 @@ people
 Often the last case is a catch all case where the logical expression will ALWAYS 
 evaluate to TRUE and this is the value for all other input.
 
-As another alternative to the problem of recoding factor levels, we could use the 
-command `forcats::fct_recode()` function. See the Factors chapter in this book 
+In the above case, we are transforming the variable into a character string.
+If we had already transformed `party` into a factor, we could have used the 
+command `forcats::fct_recode()` function instead. See the Factors chapter in this book 
 for more information about factors.
 
 #### Modify Multiple Columns using `across()`
@@ -388,8 +551,11 @@ work within a `mutate` or `summarise()` function.
 
 ```{r}
 grades %>%
-  mutate( across(
-    starts_with(c('Exam', 'Final')),  # anything that select can use...
+  mutate( across(         # Pick any of the following column selection tricks...
+    #c('Exam1','Exam2','Final'),        # Specify columns explicitly
+    starts_with(c('Exam', 'Final')),    # anything that select can use...
+    # where(is.numeric),                # If a column has a specific type..
+    # Exam1:Final,                      # Or via a range notation
     round,                # The function I want to use
     digits = 0            # additional arguments sent into round()
   ))
@@ -418,7 +584,32 @@ assumptions about what a user was likely to want to do and, as a result, lacked 
 flexibility to handle more complicated scenarios. Those scoped variant functions
 have been superseded and users are encouraged to use the `across` function.
 
+#### Create a new column using many columns
 
+Often we have many many columns in the data frame and we want to utilize all of
+them to create a summary statistic. There are several ways to do this, but it
+is easiest to utilize the `rowwise()` and `c_across()` commands.
+
+The command `dplyr::rowwise()` causes subsequent actions to be performed 
+_rowwise_ instead of the default of _columnwise_. `rowwise()` is actually a 
+special form of `group_by()` which creates a unique group for each row. The 
+function `dplyr::c_across()` allows you to use all the `select` style tricks for
+picking columns.
+
+```{r}
+grades %>%
+  select(l.name:Final) %>%   # remove the previously calculated average & grade
+  rowwise() %>%
+  mutate( average = mean( c_across( # Pick any of the following column selection tricks...
+    # c('Exam1','Exam2','Final')        # Specify columns explicitly
+    starts_with(c('Exam', 'Final'))     # anything that select can use...
+    # where(is.numeric)                 # If a column has a specific type..
+    # Exam1:Final                       # Or via a range notation
+  )) )
+```
+
+Because `rowwise()` is a special form of grouping, to exit the row-wise
+calculations, call `ungroup()`.
 
 ### summarise()
 
@@ -439,7 +630,6 @@ We could calculate multiple summary statistics if we like.
 grades %>% summarise( mean.E1=mean(Exam1), 
                       stddev.E1=sd(Exam1))
 ```
-
 
 
 ## Split, apply, combine

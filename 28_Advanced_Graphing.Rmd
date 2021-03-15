@@ -1,4 +1,4 @@
-# Graphing Part II
+# Customizing/Polishing Graphics
 
 ```{r, echo=FALSE}
 # Un-attach any packages that happen to already be loaded. In general this is unnecessary
@@ -23,16 +23,7 @@ knitr::opts_chunk$set(cache=TRUE, fig.height=4, fig.width=6)
 library(tidyverse)   # loading ggplot2 and dplyr
 library(viridis)     # The viridis color schemes
 library(latex2exp)   # For plotting math notation
-
 library(plotly)     # for interactive hover-text
-
-library(maps)              # package with data about country borders
-library(sf)                # Simple Features for GIS
-library(rnaturalearth)     # package with detailed information about country &
-library(rnaturalearthdata) # state/province borders, and geographical features
-# devtools::install_github('ropensci/rnaturalearthhires')
-library(rnaturalearthhires)
-library(leaflet)
 ```
 
 I have a YouTube [Video Lecture](https://youtu.be/ua-EOe7z3fI) for this chapter.
@@ -70,30 +61,34 @@ In his book, [R Graphics Cookbook](https://r-graphics.org) Winston Chang produce
 
 ```{r}
 # Define where the first plot goes, etc.
-my.layout <- matrix(c(1, 2, 2,
-                      1, 2, 2,
-                      3, 3, 3), byrow = TRUE, nrow=3)
-
-matrix(c(1, 2, 2,
-                      1, 2, 2,
-                      3, 3, 3), nrow=3, byrow=TRUE)
+my.layout <- matrix(
+  c(1, 2, 2,
+    1, 2, 2,
+    3, 3, 3), 
+  byrow = TRUE, nrow=3)
+my.layout # show the matrix...
 
 Rmisc::multiplot(P2, P3, P4, layout = my.layout )
 ```
 
-Unfortunately, `Rmisc::multiplot` doesn't have a label option, so if you want to refer to "Panel A", you need to insert the label into each plot separately.
+Unfortunately, `Rmisc::multiplot` doesn't have a label option, so if you want 
+to refer to "Panel A", you need to insert the label into each plot separately.
 
 
 ## Customized Scales
 
-While `ggplot` typically produces very reasonable choices for values for the axis scales and color choices for the `color` and `fill` options, we often want to tweak them.
+While `ggplot` typically produces very reasonable choices for values for the
+axis scales and color choices for the `color` and `fill` options, we often want
+to tweak them.
 
 ### Color Scales
 
 
 #### Manually Select Colors
 
-For an individual graph, we might want to set the color manually.  Within `ggplot` there are a number of `scale_XXX_` functions where the `XXX` is either `color` or `fill`.
+For an individual graph, we might want to set the color manually.  Within
+`ggplot` there are a number of `scale_XXX_` functions where the `XXX` is
+either `color` or `fill`.
 
 ```{r}
 cowplot::plot_grid(
@@ -102,7 +97,11 @@ cowplot::plot_grid(
 )
 ```
 
-For continuous scales for fill and color, there is also a `scale_XXX_gradient2()` function which results in a *divergent* scale where you set the `low` and `high` values as well as the midpoint color and value. There is also a `scale_XXX_grandientn()` function that allows you to set as many colors as you like to move between.
+For continuous scales for fill and color, there is also a `scale_XXX_gradient2()`
+function which results in a *divergent* scale where you set the `low` and `high`
+values as well as the midpoint color and value. There is also a
+`scale_XXX_grandientn()` function that allows you to set as many colors as you
+like to move between.
 
 ```{r}
 cowplot::plot_grid(
@@ -111,35 +110,47 @@ cowplot::plot_grid(
 )
 ```
 
-Generally I find that I make poor choices when picking colors manually, but there are times that it is appropriate.
-
+Generally I find that I make poor choices when picking colors manually, but there
+are times that it is appropriate.
 
 #### Palettes
-In choosing color schemes, a good approach is to use a color palette that has already been created by folks that know about how colors are displayed and what sort of color blindness is possible. There are two palette options that we'll discuss, but there are a variety of other palettes available by downloading a package.
+In choosing color schemes, a good approach is to use a color palette that has
+already been created by folks that know about how colors are displayed and what
+sort of color blindness is possible. There are two palette options that we'll
+discuss, but there are a variety of other palettes available by downloading a
+package.
 
 ##### `RColorBrewer` palettes
-Using the `ggplot::scale_XXX_brewer()` functions, we can easily work with the package `RColorBrewer` which provides a nice set of color palettes. These palettes are separated by purpose. 
+Using the `ggplot::scale_XXX_brewer()` functions, we can easily work with the
+package `RColorBrewer` which provides a nice set of color palettes. These 
+palettes are separated by purpose. 
 
-**Qualitative** palettes employ different hues to create visual differences between classes. These palettes are suggested for nominal or categorical data sets.
+**Qualitative** palettes employ different hues to create visual differences
+between classes. These palettes are suggested for nominal or categorical data
+sets.
 ```{r, echo=FALSE}
 # Palettes for Qualitative Categories
 RColorBrewer::display.brewer.all(type='qual')
 ```
 
-**Sequential** palettes progress from light to dark. When used with interval data, light colors represent low data values and dark colors represent high data values.
+**Sequential** palettes progress from light to dark. When used with interval
+data, light colors represent low data values and dark colors represent high
+data values.
 ```{r, echo=FALSE}
 # Palettes for Ordered Categories
 RColorBrewer::display.brewer.all(type='seq')
 ```
 
-**Diverging** palettes are composed of darker colors of contrasting hues on the high and low extremes and lighter colors in the middle.
+**Diverging** palettes are composed of darker colors of contrasting hues on the
+high and low extremes and lighter colors in the middle.
 ```{r, echo=FALSE}
 # Ordered Categories with a neutral value in the middle
 RColorBrewer::display.brewer.all(type='div')
 ```
 
 
-To use one of these palettes, we just need to pass the palette name to `scale_color_brewer` or `scale_fill_brewer`
+To use one of these palettes, we just need to pass the palette name to
+`scale_color_brewer` or `scale_fill_brewer`
 ```{r}
 cowplot::plot_grid(
   P1 + scale_color_brewer(palette='Dark2'),
@@ -150,7 +161,9 @@ cowplot::plot_grid(
 
 ##### `viridis` palettes
 
-The package `viridis` sets up a few different color palettes that have been well thought out and maintain contrast for people with a variety of color-blindess types as well as being converted to grey-scale.
+The package `viridis` sets up a few different color palettes that have been well
+thought out and maintain contrast for people with a variety of color-blindess
+types as well as being converted to grey-scale.
 
 ```{r, echo=FALSE}
 palettes <- c('viridis','magma','inferno','plasma','cividis')
@@ -177,11 +190,15 @@ cowplot::plot_grid(
 ```
 
 
-There are a bunch of other packages that manage color palettes such as `paletteer`, `ggsci` and `wesanderson`. 
+There are a bunch of other packages that manage color palettes such as
+`paletteer`, `ggsci` and `wesanderson`. 
 
 
 ### Setting major & minor ticks
-For continuous variables, we need to be able to control what tick and grid lines are displayed.  In `ggplot`, there are *major* and *minor* breaks and the major breaks are labeled and minor breaks are in-between the major breaks. The break point labels can also be set.
+For continuous variables, we need to be able to control what tick and grid lines
+are displayed.  In `ggplot`, there are *major* and *minor* breaks and the major
+breaks are labeled and minor breaks are in-between the major breaks. The break
+point labels can also be set.
 
 ```{r}
 ggplot(trees, aes(x=Height, y=Volume)) + geom_point() +
@@ -190,7 +207,9 @@ ggplot(trees, aes(x=Height, y=Volume)) + geom_point() +
 ```
 
 ### Log Scales
-For this example, we'll use the `ACS` data from the `Lock5Data` package that has information about `Income` (in thousands of dollars) and `Age`. Lets make a scatter plot of the data.
+For this example, we'll use the `ACS` data from the `Lock5Data` package that has
+information about `Income` (in thousands of dollars) and `Age`. Lets make a scatter
+plot of the data.
 ```{r, fig.height=3}
 # Import the data and drop any zeros
 data('ACS', package='Lock5Data') 
@@ -205,9 +224,17 @@ cowplot::plot_grid(
 )
 ```
 
-Plotting the raw data results in an ugly graph because six observations dominate the graph and the bulk of the data (income < $100,000) is squished together. One solution is to plot income on the $\log_{10}$ scale. The second graph does that, but the labeling is all done on the log-scale and most people have a hard time thinking in terms of logs.
+Plotting the raw data results in an ugly graph because six observations dominate
+the graph and the bulk of the data (income < $100,000) is squished together.
+One solution is to plot income on the $\log_{10}$ scale. The second graph does
+that, but the labeling is all done on the log-scale and most people have a hard
+time thinking in terms of logs.
 
-This works quite well to see the trend of peak earning happening in a persons 40s and 50s, but the scale is difficult for me to understand (what does $\log_{10}\left(X\right)=1$ mean here? Oh right, that is $10^{1}=X$ so that is the $10,000 line). It would be really nice if we could do the transformation but have the labels on the original scale.
+This works quite well to see the trend of peak earning happening in a persons
+40s and 50s, but the scale is difficult for me to understand (what does
+$\log_{10}\left(X\right)=1$ mean here? Oh right, that is $10^{1}=X$ so that is
+the $10,000 line). It would be really nice if we could do the transformation but
+have the labels on the original scale.
 
 ```{r, fig.height=3}
 cowplot::plot_grid(
@@ -250,12 +277,20 @@ cowplot::plot_grid(
 ```
 
 
-Now the y-axis is in the original units (thousands of dollars) but we'd like to customize the minor tick marks. Lets define the major break points (the white lines that have numerical labels) to be at 1,10,100 thousand dollars in salary. Likewise we will tell `ggplot2` to set minor break points at 1 to 10 thousand dollars (with steps of 1 thousand dollars) and then 10 thousand to 100 thousand but with step sizes of 10 thousand, and finally minor breaks above 100 thousand being in steps of 100 thousand.
+Now the y-axis is in the original units (thousands of dollars) but we'd like to
+customize the minor tick marks. Lets define the major break points (the white
+lines that have numerical labels) to be at 1,10,100 thousand dollars in salary.
+Likewise we will tell `ggplot2` to set minor break points at 1 to 10 thousand
+dollars (with steps of 1 thousand dollars) and then 10 thousand to 100 thousand
+but with step sizes of 10 thousand, and finally minor breaks above 100 thousand
+being in steps of 100 thousand.
 
 
 ## Themes
 
-Many fine-tuning settings in `ggplot2` can be manipulated using the `theme()` function. I've used it previously to move the legend position, but there are many other options. 
+Many fine-tuning settings in `ggplot2` can be manipulated using the `theme()`
+function. I've used it previously to move the legend position, but there are
+many other options. 
 ```{r}
 p1 <- ggplot(ChickWeight, aes(x=Time, y=weight, colour=Diet, group=Chick)) +
     geom_line() + labs(title='Chick Weight: Birth to 21 days')
@@ -267,10 +302,20 @@ cowplot::plot_grid(nrow=2,
 )
 ```
 
-There are many things to tweak using the `theme()` command and to get a better idea of what is possible, I recommend visiting the ggplot2 web page documentation and [examples](https://ggplot2.tidyverse.org/reference/theme.html#examples). Notably, one thing that is NOT changed using the `theme` command is the color scales.  
+There are many things to tweak using the `theme()` command and to get a better
+idea of what is possible, I recommend visiting the ggplot2 web page documentation
+and [examples](https://ggplot2.tidyverse.org/reference/theme.html#examples). 
+Notably, one thing that is NOT changed using the `theme` command is the color
+scales.  
 
 
-A great deal of thought went into the default settings of ggplot2 to maximize the visual clarity of the graphs. However some people believe the defaults for many of the tiny graphical settings are poor. You can modify each of these but it is often easier to modify them all at once by selecting a different theme. The ggplot2 package includes several, `theme_bw()`, and `theme_minimal()` being the two that I use most often. Other packages, such as `cowplot` and `ggthemes`, have a bunch of other themes that you can select from. Below are a few  examples:
+A great deal of thought went into the default settings of ggplot2 to maximize
+the visual clarity of the graphs. However some people believe the defaults for
+many of the tiny graphical settings are poor. You can modify each of these but
+it is often easier to modify them all at once by selecting a different theme.
+The ggplot2 package includes several, `theme_bw()`, and `theme_minimal()` being
+the two that I use most often. Other packages, such as `cowplot` and `ggthemes`,
+have a bunch of other themes that you can select from. Below are a few  examples:
 ```{r, fig.height=6}
 Rmisc::multiplot( cols = 2,
   p1 + theme_bw()      + labs(title='theme_bw'), # Black and white
@@ -296,23 +341,39 @@ Rmisc::multiplot( cols = 2,
 
 
 
-Finally, we might want to select a theme for all subsequent plots or modify a specific aspect of the theme.
+Finally, we might want to select a theme for all subsequent plots or modify a
+specific aspect of the theme.
 
 |   Command                  |     Result            |
 |:--------------------------:|:----------------------|
 | `theme_set( theme_bw() )`  | Set the default theme to be the `theme_bw()` theme. |
 | `theme_update( ... )`      | Update the current default them.  |
 
-This will allow you to set the graphing options at the start of your Rmarkdown/R-script document. However the one thing it does not do is allow you to change the default color themes (we still have to do for each graph).
+This will allow you to set the graphing options at the start of your 
+Rmarkdown/R-script document. However the one thing it does not do is allow you
+to change the default color themes (we still have to do for each graph).
 
 
 ## Mathematical Notation
 
-It would be nice to be able to include mathematical formula and notation on plot axes, titles, and text annotation. R plotting has a notation scheme which it calls `expressions`. You can learn more about how R `expressions` are defined by looking at the [plotmath help](https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/plotmath.html) help page. They are similar to LaTeX but different enough that it can be frustrating to use. It is particularly difficult to mix character strings and math symbols. I recommend not bothering to learn R expressions, but instead learn LaTeX and use the R package `latex2exp` that converts character strings written in LaTeX to be converted into R's expressions.  
+It would be nice to be able to include mathematical formula and notation on plot
+axes, titles, and text annotation. R plotting has a notation scheme which it calls
+`expressions`. You can learn more about how R `expressions` are defined by 
+looking at the 
+[plotmath help](https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/plotmath.html) 
+help page. They are similar to LaTeX but different enough that it can be 
+frustrating to use. It is particularly difficult to mix character strings and 
+math symbols. I recommend not bothering to learn R expressions, but instead 
+learn LaTeX and use the R package `latex2exp` that converts character strings
+written in LaTeX to be converted into R's expressions.  
 
 LaTeX is an extremely common typesetting program for mathematics and is widely used. The key idea is that `$` will open/close the LaTeX mode and within LaTeX mode, using the backslash represents that something special should be done.  For example, just typing `$alpha$` produces $alpha$, but putting a backslash in front means that we should interpret it as the greek letter alpha. So in LaTeX, `$\alpha$` is rendered as $\alpha$. We've already seen an [introduction](https://dereksonderegger.github.io/444/rmarkdown-tricks.html#mathematical-expressions) to LaTeX in the Rmarkdown Tricks chapter.
 
-However, because I need to write character strings with LaTeX syntax, and R also uses the backslash to represent special characters, then to get the backslash into the character string, we actually need to do the same double backslash trick we did in the string manipulations using regular expressions section.
+However, because I need to write character strings with LaTeX syntax, and R 
+also uses the backslash to represent special characters, then to get the 
+backslash into the character string, we actually need to do the same double
+backslash trick we did in the string manipulations using regular expressions
+section.
 
 ```{r}
 seed <- 7867
@@ -334,9 +395,16 @@ ggplot(data, aes(x=x)) +
         title=latex2exp::TeX('Linear Models use: $\\hat{\\beta} = (X^TX)^{-1}X^Ty$'))
 ```
 
-The warning message that is produced is coming from `ggplot` and I haven't figured out how to avoid it. Because it is giving us the graph we want, I'm just going to ignore the error for now.
+The warning message that is produced is coming from `ggplot` and I haven't
+figured out how to avoid it. Because it is giving us the graph we want, I'm just
+going to ignore the error for now.
 
-One issue is how to add expression to a data frame. Unfortunately, neither `data.frame` nor `tibble` will allow a column of expressions, so instead we have store it as a character string. Below, we create three character strings using standard LaTeX syntax, and then convert it to a character string that represents the R expression. Finally, in `ggplot`, we tell the `geom_text` layer to parse the label and interpret it as an R expression.
+One issue is how to add expression to a data frame. Unfortunately, neither
+`data.frame` nor `tibble` will allow a column of expressions, so instead we have
+store it as a character string. Below, we create three character strings using
+standard LaTeX syntax, and then convert it to a character string that represents
+the R expression. Finally, in `ggplot`, we tell the `geom_text` layer to parse
+the label and interpret it as an R expression.
 
 ```{r}
 foo <- data.frame( x=c(1,2,3), y=c(2,2,2) ) %>%
@@ -349,11 +417,17 @@ ggplot(foo, aes(x=x, y=y) ) +
 
 ## Interactive plots with `plotly`
 
-Plotly is technical computing company that specializes in data visualization. They have created an open source JavaScript library to produce graphs, which is confusingly referred to as plotly. Because plotly is JavaScript, and RStudio's Viewer pane is actually a web browser, it easily provides interactive abilities in RStudios Viewer pane. 
+Plotly is technical computing company that specializes in data visualization. 
+They have created an open source JavaScript library to produce graphs, which is
+confusingly referred to as plotly. Because plotly is JavaScript, and RStudio's
+Viewer pane is actually a web browser, it easily provides interactive abilities
+in RStudios Viewer pane. 
 
-A good tutorial book about using plotly was written by [Carson Sievert](https://plotly-r.com).
+A good tutorial book about using plotly was written by 
+[Carson Sievert](https://plotly-r.com).
 
-The simple version is that you can take a ggplot graph and pipe it into the `ggplotly` and it will be rendered into an interactive version of the graph.
+The simple version is that you can take a ggplot graph and pipe it into the
+`ggplotly` and it will be rendered into an interactive version of the graph.
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 P1 <- trees %>%
@@ -387,7 +461,9 @@ P1 %>%
 
 <iframe width="900" height="400" frameborder="0" scrolling="no" src="//plot.ly/~zdereksonderegger/3.embed"></iframe>
 
-We can use the widgets to zoom in and out of the graph. Notice that as we hover over the point, it tells us the x/y coordinates. To add information to the hover-text, we just need to add a `text` aesthetic mapping to the plot. 
+We can use the widgets to zoom in and out of the graph. Notice that as we hover
+over the point, it tells us the x/y coordinates. To add information to the 
+hover-text, we just need to add a `text` aesthetic mapping to the plot. 
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 P1 <- trees %>%
@@ -419,144 +495,6 @@ P1 %>% ggplotly() %>%
 
 <iframe width="900" height="400" frameborder="0" scrolling="no" src="//plot.ly/~zdereksonderegger/5.embed"></iframe>
 
-
-## Geographic Maps
-
-We often need to graph countries or U.S. States. We might then fill the color of the state or countries by some variable. To do this, we need information about the shape and location of each country within some geographic coordinate system. The easiest system to work from is Latitude (how far north or south of the equator) and Longitude (how far east or west the prime meridian). 
-
-### Package `maps`
-The R package `maps` is one of the easiest way to draw a country or state map because it is built into the `ggplot` package. Unfortunately it is fairly US specific.
-
-Because we might be interested in continents, countries, states/provinces, or counties, in the following discussion we'll refer to the geographic area of interest as a *region*. For `ggplot2` to interact with GIS type objects, we need a way to convert a GIS database of regions into a `data.frame` of a bunch of data points about the region's borders, where each data point is a Lat/Long coordinate and the region and sub-region identifiers. Then, to produce a map, we just draw a path through the data points. For regions like Hawaii's, which are composed of several non-contiguous areas, we include sub-regions so that the boundary lines don't jump from island to island.
-
-Once we have the `data.frame` of regions that we are interested in selected, all we need to do is draw polygons in `ggplot2`.
-```{r, fig.height=4, fig.width=6}
-# ggplot2 function to create a data.frame with world level information
-geo.data <- ggplot2::map_data('world') # Using maps::world database. 
-
-# group: which set of points are contiguous and should be connected
-# order: what order should the dots be connected
-# region: The name of the region of interest
-# subregion: If there are sub-regions with greater region
-head(geo.data)
-
-# Now draw a nice world map, 
-ggplot(geo.data, aes(x = long, y = lat, group = group)) +
-  geom_polygon( colour = "white", fill='grey50') 
-```
-
-The `maps` package has several data bases of geographical regions.  
-
-|  Database    |  Description                               |
-|:------------:|:-------------------------------------------|
-| `world`      |  Country borders across the globe          |
-| `usa`        |  The country boundary of the United States |
-| `state`      |  The state boundaries of the United States |
-| `county`     |  The county boundaries within states of the United States |
-| `lakes`      |  Large fresh water lakes across the world  |
-| `italy`      |  Provinces in Italy                        |
-| `france`     |  Provinces in France                       |
-| `nz`         |  North and South Islands of New Zealand    |
-
-From within each of these databases, we can select to just return a particular region. So for example, we can get all the information we have about Ghana using the following:
-```{r, fig.height=3, fig.width=3}
-ggplot2::map_data('world', regions='ghana') %>%
-  ggplot( aes(x=long, y=lat, group=group)) +
-  geom_polygon( color = 'white', fill='grey40')
-```
-
-The `maps` package also has a `data.frame` of major US cities.  
-
-```{r, fig.height=5, fig.width=5}
-az.cities <- maps::us.cities %>%              # Lat/Long of major US cities
-  filter(country.etc == 'AZ') %>%             # Only the Arizona Cities
-  mutate(name = str_remove(name, '\\sAZ') )   # remove ' AZ' from the city name
-  
-small.az.cities <- az.cities %>%
-  filter(name %in% c('Flagstaff','Prescott','Lake Havasu City','Yuma','Tucson',
-                     'Sierra Vista','Phoenix','Tempe','Scottsdale'))
-
-ggplot2::map_data('state', regions='arizona') %>%
-  ggplot( aes(x=long, y=lat)) +
-  geom_polygon( aes(group=group), color = 'white', fill='grey40') +
-  geom_point(data=az.cities) +
-  ggrepel::geom_label_repel(data=small.az.cities, aes(label=name))
-```
-
-
-### Packages `sf` and `rnaturalearth`
-
-The `maps` package is fairly primitive in the data it has as well as the manner in which it stores the data. Another alternative is to use the *spatial features* package `sf` along with an on-line data base of GIS information from [Natural Earth](https://www.naturalearthdata.com).
-
-There is a nice set of tutorials for the `sf` package.
-[Part 1](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html),
-[Part 2](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf-2.html), and
-[Part 3](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf-3.html).
-
-From the Natural Earth package, we can more easily obtain information about world countries and state/provinces. There is also information about urban areas and roads as well as geographical details such as rivers and lakes.
-
-```{r}
-ne_countries(continent='Africa', returnclass = 'sf') %>%  # grab country borders in Africa
-  ggplot() + geom_sf() +
-  labs(title='Africa')
-```
-
-```{r}
-ne_states(country='Ghana', returnclass = 'sf') %>% # grab provinces within Ghana
-  ggplot() +
-  geom_sf( ) + 
-  labs(title='Ghana')
-```
-
-```{r}
-# The st_centroid function takes the sf object and returns the center of 
-# the polygon, again as a sf object.
-Ghana <- ne_states(country='Ghana', returnclass = 'sf')  # grab provinces within Ghana
-Ghana %>% ggplot() +
-  geom_sf( ) + 
-  geom_text( data=st_centroid(Ghana), size=2,
-             aes(x=longitude, y=latitude, label=woe_name)) +
-  labs(title='Ghana Administrative Regions')
-```
-
-
-### Package `leaflet`
-
-Leaflet is a popular open-source JavaScript library for interactive maps. The package `leaflet` provides a nice interface to this package. The [tutorial](https://rstudio.github.io/leaflet/) for this package is quite good.
-
-The basic work flow is:
-
-1. Create a map widget by calling leaflet().
-2. Create and add layers (i.e., features) to the map by using layer functions 
-    a) `addTiles`
-    b) `addMarkers` 
-    c) `addPolygons`
-3. Repeat step 2 as desired.
-4. Print the map widget to display it.
-
-```{r}
-map <- leaflet() %>%  # Build a base map
-  addTiles()  %>%     # Add the default tiles 
-  addMarkers(lng=-1*(111+37/60+52/3600), lat=35+11/60+57/3600, popup="Flagstaff, AZ")
-map %>% print()
-```
-
-Because we have added only one marker, then leaflet has decided to zoom in as much as possible. If we had multiple markers, it would have scaled the map to include all of them.
-
-As an example of an alternative, I've downloaded a GIS shape file of forest service administrative area boundaries.
-
-```{r}
-# The shape file that I downloaded had the CRS format messed up. I need to 
-# indicate the projection so that leaflet doesn't complain.
-Forest_Service <- 
-  sf::st_read('data-raw/Forest_Service_Boundaries/S_USA.AdministrativeRegion.shp') %>%
-  sf::st_transform('+proj=longlat +datum=WGS84')
-
-leaflet() %>%
-  addTiles() %>%
-  addPolygons(data = Forest_Service) %>%
-  setView(-93, 42, zoom=3)
-```
 
 
 
